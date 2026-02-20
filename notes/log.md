@@ -120,9 +120,26 @@ The next milestone is to design a structured result schema that allows:
 
 ---
 
-### Next step
+## 20 Feb 2026 — Structural Audit MVP Stabilized
 
-- Implement structured results storage (partition-centric).
-- Flatten results into comparable tabular form.
-- Analyze remaining CIC-IDS2017 partitions.
-- Evaluate whether deterministic contextual dependency appears systematically or remains scenario-specific.
+### Achievements
+- Implemented multi-partition structural analysis pipeline.
+- Added:
+  - Intra-class statistical metrics.
+  - Variance ratio computation.
+  - Distribution metrics (dominant_ratio, entropy, JSD).
+- Structured results into `analysis_summary.json`.
+- Cleaned main execution logic and removed duplicate loops.
+- Standardized output summary.
+
+### Observations
+- DDoS partition shows deterministic Destination Port (dominant_ratio = 1.0).
+- PortScan shows strong structural compression in packet features.
+- Bot partition appears structurally more realistic.
+
+### Status
+Pipeline stable.
+Signals coherent.
+Ready for smell formalization phase.
+
+Paused before formal smell definition.

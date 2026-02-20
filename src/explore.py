@@ -1,11 +1,44 @@
+"""
+Exploratory structural audit of NIDS benchmark partitions.
+
+Purpose:
+--------
+This script collects structural statistics per dataset partition
+to identify potential risks such as:
+
+- Deterministic feature-label dependencies
+- Low intra-class diversity
+- Extreme variance imbalance
+- Shortcut learning risks
+
+Important:
+----------
+This is NOT a smell detection module yet.
+It only gathers quantitative signals.
+
+Results are stored in analysis_summary.json
+for later cross-partition comparison.
+"""
+
 from scipy.stats import entropy
 from scipy.spatial.distance import jensenshannon
 import os
 import pandas as pd
 import numpy as np
+import json
 
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+
+
+# ============================================================
+# Intra-class structural analysis
+# ============================================================
 
 def analyze_feature_by_class(df, feature, label_col="Label"):
+    """
+    Computes intra-class descriptive statistics for a given feature.
+    """
+
     results = {}
 
     for label in df[label_col].unique():
@@ -20,8 +53,8 @@ def analyze_feature_by_class(df, feature, label_col="Label"):
             "coef_variation": float(subset.std() / subset.mean()) if subset.mean() != 0 else None
         }
 
-    # Variance ratio (largest / smallest)
     variances = [v["variance"] for v in results.values() if v["variance"] > 0]
+
     if len(variances) >= 2:
         results["variance_ratio"] = float(max(variances) / min(variances))
     else:
@@ -30,9 +63,16 @@ def analyze_feature_by_class(df, feature, label_col="Label"):
     return results
 
 
-def distribution_metrics(df, feature, label_col="Label"):
-    results = {}
+# ============================================================
+# Distribution-based analysis (discrete features)
+# ============================================================
 
+def distribution_metrics(df, feature, label_col="Label"):
+    """
+    Computes discrete distribution metrics per class.
+    """
+
+    results = {}
     distributions = {}
 
     for label in df[label_col].unique():
@@ -46,7 +86,7 @@ def distribution_metrics(df, feature, label_col="Label"):
             "entropy": float(entropy(value_counts))
         }
 
-    # Align distributions for JSD
+    # Align distributions to same support
     all_values = set().union(*[dist.index for dist in distributions.values()])
 
     aligned = []
@@ -64,28 +104,26 @@ def distribution_metrics(df, feature, label_col="Label"):
     return results
 
 
-BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+# ============================================================
+# Partition-level analysis
+# ============================================================
 
 def analyze_partition(file_path):
-    print(f"\n==============================")
-    print(f"Analyzing partition: {os.path.basename(file_path)}")
-    print(f"==============================")
+
+    partition_name = os.path.basename(file_path)
+    partition_results = {}
 
     df = pd.read_csv(file_path, nrows=100000)
     df.columns = df.columns.str.strip()
 
-    # -------------------------
-    # PHASE 1 — Sanity check
-    # -------------------------
-    print("\n--- BASIC INFO ---")
-    print("Shape:", df.shape)
-    print("Class distribution:")
-    print(df['Label'].value_counts())
-    print("Duplicate rows:", df.duplicated().sum())
+    # ---- Basic metadata ----
+    partition_results["basic_info"] = {
+        "shape": df.shape,
+        "class_distribution": df["Label"].value_counts().to_dict(),
+        "duplicates": int(df.duplicated().sum())
+    }
 
-    # -------------------------
-    # PHASE 2 — Correlation screening
-    # -------------------------
+    # ---- Correlation screening ----
     df["Label_bin"] = (df["Label"] != "BENIGN").astype(int)
 
     corr = (
@@ -96,39 +134,69 @@ def analyze_partition(file_path):
 
     top_features = corr.drop("Label_bin").head(5).index.tolist()
 
-    print("\nTop 5 features by correlation:", top_features)
+    partition_results["top_features"] = top_features
+    partition_results["feature_analysis"] = {}
 
-    # -------------------------
-    # PHASE 3 — Intra-class analysis
-    # -------------------------
+    # ---- Intra-class structural metrics ----
     for feature in top_features:
-        print(f"\n--- Feature: {feature} ---")
         analysis = analyze_feature_by_class(df, feature)
-        for key, value in analysis.items():
-            print(key, ":", value)
+        partition_results["feature_analysis"][feature] = analysis
 
-    # -------------------------
-    # PHASE 4 — Distribution analysis (example)
-    # -------------------------
+    # ---- Distribution metrics (example: Destination Port) ----
     if "Destination Port" in df.columns:
-        print("\n--- Distribution metrics: Destination Port ---")
         dist_metrics = distribution_metrics(df, "Destination Port")
-        for key, value in dist_metrics.items():
-            print(key, ":", value)
+        partition_results["distribution_metrics"] = {
+            "Destination Port": dist_metrics
+        }
+
+    return partition_name, partition_results
+
+
+# ============================================================
+# Main execution
+# ============================================================
 
 def main():
 
     DATA_DIR = os.path.join(BASE_DIR, "..", "data")
 
     partitions = [
-        "Friday-WorkingHours-Afternoon-DDos.pcap_ISCX.csv",
-        "Friday-WorkingHours-Afternoon-PortScan.pcap_ISCX.csv",
-        "Friday-WorkingHours-Morning.pcap_ISCX.csv",
+        f for f in os.listdir(DATA_DIR)
+        if f.endswith(".csv")
     ]
+
+    all_results = {}
 
     for file_name in partitions:
         file_path = os.path.join(DATA_DIR, file_name)
-        analyze_partition(file_path)
+        partition_name, results = analyze_partition(file_path)
+        all_results[partition_name] = results
+
+    # Save JSON summary
+    with open("analysis_summary.json", "w") as f:
+        json.dump(all_results, f, indent=4)
+
+    print("\nAnalysis saved to analysis_summary.json")
+    print("\n=== PARTITION SUMMARY TABLE ===")
+
+    # Clean and correct summary printing
+    for partition, results in all_results.items():
+
+        print(f"\nPartition: {partition}")
+        print("  Classes:", results["basic_info"]["class_distribution"])
+        print("  Duplicates:", results["basic_info"]["duplicates"])
+        print("  Top features:", results["top_features"])
+
+        dist = results.get("distribution_metrics", {}).get("Destination Port")
+
+        if dist:
+            print("  Destination Port metrics:")
+            for label, metrics in dist.items():
+                if label == "js_divergence":
+                    print("    JSD:", metrics)
+                else:
+                    print(f"    {label} dominant_ratio:", metrics["dominant_ratio"])
+                    print(f"    {label} entropy:", metrics["entropy"])
 
 
 if __name__ == "__main__":
