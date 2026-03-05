@@ -103,6 +103,59 @@ def distribution_metrics(df, feature, label_col="Label"):
 
     return results
 
+# ============================================================
+# Feature redundancy detection
+# ============================================================
+
+
+def detect_feature_redundancy(df, threshold=0.95):
+    """
+    Detect highly correlated feature pairs.
+
+    High correlation between features may indicate redundancy or derived variables in the dataset, which can lead to shortcut learning.
+    """
+    corr_matrix = df.corr(numeric_only=True)
+
+    redundant_pairs = []
+
+    for i, col1 in enumerate(corr_matrix.columns):
+        for col2 in corr_matrix.columns[i+1:]:
+
+            corr_value = corr_matrix.loc[col1, col2]
+            if abs(corr_value) >= threshold:
+                redundant_pairs.append({
+                    "feature_1": col1,
+                    "feature_2": col2,
+                    "correlation": float(corr_value)
+                })
+    return redundant_pairs
+
+# ============================================================
+# Feature cardinality statistics
+# ============================================================
+
+
+def feature_cardinality(df):
+    """
+    Computes cardinality statistics for numeric features.
+
+    Cardinality ratio = unique_values / number_of_samples
+
+    Useful for detecting deterministic or low - diversity features.
+    """
+
+    results = {}
+
+    n_samples = len(df)
+
+    for col in df.select_dtypes(include=[np.number]).columns:
+        unique_values = df[col].nunique()
+        results[col] = {
+            "unique_values": int(unique_values),
+            "cardinality_ratio": float(unique_values / n_samples) if n_samples > 0 else None
+        }
+    return results
+
 
 # ============================================================
 # Partition-level analysis
@@ -123,6 +176,16 @@ def analyze_partition(file_path):
         "duplicates": int(df.duplicated().sum())
     }
 
+    # ---- Class imbalance ----
+    class_counts = df["Label"].value_counts()
+
+    if len(class_counts) > 1:
+        imbalance_ratio = float(class_counts.max() / class_counts.min())
+    else:
+        imbalance_ratio = None
+
+    partition_results["class_imbalance_ratio"] = imbalance_ratio
+
     # ---- Correlation screening ----
     df["Label_bin"] = (df["Label"] != "BENIGN").astype(int)
 
@@ -141,6 +204,13 @@ def analyze_partition(file_path):
     for feature in top_features:
         analysis = analyze_feature_by_class(df, feature)
         partition_results["feature_analysis"][feature] = analysis
+
+    # ---- Feature redundancy detection ----
+
+    partition_results["feature_redundancy"] = detect_feature_redundancy(df)
+
+    # ---- Feature cardinality ----
+    partition_results["feature_cardinality"] = feature_cardinality(df)
 
     # ---- Distribution metrics (example: Destination Port) ----
     if "Destination Port" in df.columns:
@@ -195,7 +265,8 @@ def main():
                 if label == "js_divergence":
                     print("    JSD:", metrics)
                 else:
-                    print(f"    {label} dominant_ratio:", metrics["dominant_ratio"])
+                    print(f"    {label} dominant_ratio:",
+                          metrics["dominant_ratio"])
                     print(f"    {label} entropy:", metrics["entropy"])
 
 
