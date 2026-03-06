@@ -335,9 +335,7 @@ The structural analysis pipeline is stable and capable of extracting meaningful 
 
 The next milestone is to formalize the first smell detection rule using the existing statistical signals.
 
-## 5 March 2026
-
-### Exploratory pipeline extension — structural signals
+## 5 March 2026 - Exploratory pipeline extension — structural signals
 
 Extended the exploratory structural audit pipeline to collect additional dataset diagnostics before smell formalization.
 
@@ -459,3 +457,138 @@ The next step is to:
 1. Define the smell formally.
 2. Design detection heuristics using the collected metrics.
 3. Integrate smell detection into the analysis pipeline.
+
+## 6 March 2026
+
+### Architectural extension — Layered structural audit
+
+After stabilizing the exploratory structural pipeline, the project methodology was extended to support a **multi-layer structural audit of NIDS datasets**.
+
+The objective is to move beyond isolated partition inspection and provide a **hierarchical analysis of structural signals** across different levels of the dataset.
+
+Instead of producing a single global risk score, the system surfaces **risk signals at different analysis layers**, allowing researchers to inspect potential issues depending on how they intend to use the dataset.
+
+This avoids arbitrary aggregation while maintaining interpretability.
+
+---
+
+### Generalization of dataset units
+
+Although CIC-IDS2017 is organized into partitions corresponding to capture scenarios, not all NIDS datasets follow this structure.
+
+To ensure methodological generalization, the system refers to these units as **dataset segments**.
+
+A segment may represent:
+
+- a capture scenario or file (e.g., CIC datasets)
+- an attack class
+- a temporal subset
+- any user-defined dataset split
+
+This abstraction allows the auditing methodology to remain applicable across multiple NIDS benchmarks.
+
+---
+
+### Layered structural analysis
+
+The auditing framework now operates across three structural layers.
+
+#### Layer 1 — Segment-level analysis
+
+Each dataset segment is analyzed independently.
+
+This layer identifies structural signals including:
+
+- feature–label correlations
+- intra-class variability
+- deterministic distributions
+- feature redundancy
+- class imbalance
+- feature cardinality anomalies
+
+Additional statistical indicators computed at this level include:
+
+- mean, standard deviation and variance per class
+- coefficient of variation
+- variance ratio across classes
+- entropy and dominant value ratios for discrete features
+- Jensen–Shannon divergence between class distributions
+
+Output: **segment-level structural signals**
+
+---
+
+#### Layer 2 — Cross-segment structural relations
+
+Signals are compared across segments to identify **recurring structural patterns** across the dataset.
+
+The system tracks:
+
+- recurrence of features appearing among the most label-correlated features across segments
+- recurrence of highly correlated feature pairs (feature redundancy patterns)
+
+These signals help identify dataset artefacts that appear systematically rather than being isolated to a single scenario.
+
+Output: **cross-segment observations**
+
+---
+
+#### Layer 3 — Dataset-level structure
+
+A global dataset summary is maintained during execution.
+
+This layer aggregates structural observations to describe the dataset as a whole.
+
+Examples include:
+
+- total number of analyzed samples
+- aggregated class distribution across segments
+- number of segments analyzed
+
+This provides a **global structural overview of the dataset** while preserving interpretability of lower-level signals.
+
+Output: **dataset-level structural signals**
+
+---
+
+### Risk communication philosophy
+
+The system does **not attempt to compute a single numeric risk score**.
+
+Instead, it exposes **interpretable structural signals** that help researchers locate potential dataset design issues.
+
+Signals can be characterized using two dimensions:
+
+- **Coverage** — how many dataset segments exhibit the signal
+- **Intensity** — how strong the statistical indicator is
+
+This allows prioritization of structural concerns without relying on arbitrary weighting schemes.
+
+---
+
+### Implementation details
+
+The exploratory analysis script has been extended to maintain **incrementally updated statistics during segment iteration**.
+
+During execution, three internal structures are maintained:
+
+- `segment_results`
+- `cross_segment_stats`
+- `global_dataset_stats`
+
+The workflow is therefore:
+
+dataset → segment analysis → update cross-segment statistics → update global statistics → generate dataset summary
+
+The final results are exported into a hierarchical JSON structure:
+
+- `analysis_summary.json`
+
+This structure enables flexible downstream analysis and will later support **automated detection of candidate datset design smells**
+
+---
+
+### Next step
+
+With the hierarchical structural audit infrastructure implemented, the next milestone is the **formal definition of the first dataset design smell heuristic**
+

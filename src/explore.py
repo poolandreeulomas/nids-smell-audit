@@ -221,6 +221,40 @@ def analyze_partition(file_path):
 
     return partition_name, partition_results
 
+def update_cross_segment_stats(cross_stats, partition_results):
+
+    # --- top features recurrence ---
+    for feature in partition_results["top_features"]:
+        cross_stats["top_feature_counts"][feature] = (
+            cross_stats["top_feature_counts"].get(feature, 0) + 1
+        )
+
+    # --- redundant feature pairs recurrence ---
+    for pair in partition_results["feature_redundancy"]:
+
+        f1 = pair["feature_1"]
+        f2 = pair["feature_2"]
+
+        key = " | ".join(sorted([f1, f2]))
+
+        cross_stats["redundant_feature_pairs"][key] = (
+            cross_stats["redundant_feature_pairs"].get(key, 0) + 1
+        )
+
+def update_global_stats(global_stats, partition_results):
+
+    n_samples = partition_results["basic_info"]["shape"][0]
+    class_dist = partition_results["basic_info"]["class_distribution"]
+
+    global_stats["total_samples"] += n_samples
+    global_stats["segments_analyzed"] += 1
+
+    for label, count in class_dist.items():
+        global_stats["class_distribution"][label] = (
+            global_stats["class_distribution"].get(label, 0) + count
+        )
+    
+
 
 # ============================================================
 # Main execution
@@ -229,28 +263,52 @@ def analyze_partition(file_path):
 def main():
 
     DATA_DIR = os.path.join(BASE_DIR, "..", "data")
+    
+    segment_results = {}
+
+    cross_segment_stats = {
+        "top_feature_counts": {},
+        "redundant_feature_pairs": {},
+    }
+
+    global_dataset_stats = {
+        "total_samples": 0,
+        "class_distribution": {},
+        "segments_analyzed": 0
+    }
 
     partitions = [
         f for f in os.listdir(DATA_DIR)
         if f.endswith(".csv")
     ]
 
-    all_results = {}
-
     for file_name in partitions:
+
         file_path = os.path.join(DATA_DIR, file_name)
+
         partition_name, results = analyze_partition(file_path)
-        all_results[partition_name] = results
+
+        segment_results[partition_name] = results
+
+        update_cross_segment_stats(cross_segment_stats, results)
+
+        update_global_stats(global_dataset_stats, results)
 
     # Save JSON summary
     with open("analysis_summary.json", "w") as f:
-        json.dump(all_results, f, indent=4)
+        final_results = {
+            "segments": segment_results,
+            "cross_segment_analysis": cross_segment_stats,
+            "dataset_summary": global_dataset_stats
+        }
+
+        json.dump(final_results, f, indent=4)
 
     print("\nAnalysis saved to analysis_summary.json")
     print("\n=== PARTITION SUMMARY TABLE ===")
 
     # Clean and correct summary printing
-    for partition, results in all_results.items():
+    for partition, results in segment_results.items():
 
         print(f"\nPartition: {partition}")
         print("  Classes:", results["basic_info"]["class_distribution"])
@@ -268,6 +326,9 @@ def main():
                     print(f"    {label} dominant_ratio:",
                           metrics["dominant_ratio"])
                     print(f"    {label} entropy:", metrics["entropy"])
+                    
+    print("\nSegments analyzed:", len(segment_results))
+    print("Total samples:", global_dataset_stats["total_samples"])
 
 
 if __name__ == "__main__":
