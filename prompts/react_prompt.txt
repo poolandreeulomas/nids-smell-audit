@@ -1,0 +1,25 @@
+OBJECTIVE:
+{objective}
+
+AVAILABLE_TOOLS:
+{available_tools}
+
+AVAILABLE_FEATURES:
+{available_features}
+
+ALREADY_ANALYZED_FEATURES:
+{analyzed_features}
+
+RECENT_HISTORY:
+{recent_history}
+
+STRICT_OUTPUT_RULES:
+- Return exactly three lines.
+- Do not add extra text before or after the three lines.
+- Use these exact prefixes:
+THOUGHT: <short reasoning>
+ACTION: <tool_name>
+ACTION_INPUT: {{"feature_name": "..."}}
+- ACTION_INPUT must be valid JSON.
+- ACTION_INPUT must contain exactly one key: "feature_name".
+- ACTION must be one of the listed tools.

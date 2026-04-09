@@ -592,3 +592,162 @@ This structure enables flexible downstream analysis and will later support **aut
 
 With the hierarchical structural audit infrastructure implemented, the next milestone is the **formal definition of the first dataset design smell heuristic**
 
+## 24 March 2026
+
+### Architectural pivot — From static pipeline to agent-based auditing system
+
+After reviewing the project direction and receiving supervisor feedback, the methodology has been fundamentally revised.
+
+The previous approach treated the system as a static pipeline, where statistical signals were computed first and later interpreted through heuristics and an LLM used mainly for summarization.
+
+However, this architecture does not fully exploit the capabilities of LLMs and does not align with the intended research contribution.
+
+The project is therefore redefined as an agent-based system, where the LLM is no longer a passive component but an active decision-maker.
+
+---
+
+### Key conceptual change
+
+The statistical analysis pipeline is no longer a fixed sequence of steps.
+
+Instead, it is reinterpreted as a set of analytical tools that the agent can invoke dynamically.
+
+This shifts the system from:
+
+- pipeline-driven analysis  
+→ to  
+- agent-driven exploration  
+
+The agent is now responsible for:
+
+- deciding what to analyze  
+- selecting which tools to use  
+- forming and refining hypotheses  
+- interpreting intermediate results  
+
+---
+
+### Role of the existing implementation
+
+The previously developed exploratory pipeline is not discarded.
+
+Instead, it becomes the core toolset of the agent.
+
+All implemented components are reused as tools:
+
+- segment-level statistical analysis  
+- distribution metrics  
+- feature redundancy detection  
+- hierarchical aggregation (segment / cross-segment / global)  
+
+This ensures that prior work directly contributes to the new architecture.
+
+---
+
+### Agent-based auditing process
+
+The system is now structured around an iterative reasoning loop:
+
+1. Observe global dataset context and current memory  
+2. Form a hypothesis about a potential structural issue  
+3. Select and invoke an analytical tool  
+4. Interpret the result  
+5. Store the observation  
+6. Repeat for a limited number of steps  
+
+This process allows the agent to progressively refine its understanding of the dataset.
+
+---
+
+### Memory and context design
+
+A lightweight memory structure is introduced to store:
+
+- previously used tools  
+- obtained results  
+- partial interpretations  
+
+The global dataset overview is always included in the agent context to prevent loss of orientation.
+
+This avoids the need for complex memory architectures while enabling multi-step reasoning.
+
+---
+
+### Design constraints
+
+To ensure stability and interpretability:
+
+- the number of iterations is limited (3–5 steps)  
+- the agent must justify tool usage  
+- the system prioritizes simplicity over completeness in early stages  
+
+The goal is to build a controlled and analyzable agent, not a fully autonomous system.
+
+---
+
+### Updated system objective
+
+The objective is no longer to statically compute risk signals, but to:
+
+→ study how an LLM agent can autonomously investigate dataset structure  
+→ using statistical tools  
+→ and identify potential structural artifacts  
+
+This reframes the contribution of the project towards:
+
+- agent reasoning over structured data  
+- tool-based exploration strategies  
+- semi-automated dataset auditing  
+
+---
+
+### Implementation plan (next phase)
+
+1. Refactor exploratory code into callable tools  
+2. Implement a minimal agent loop (no external frameworks)  
+3. Integrate an LLM via API (for initial stability)  
+4. Execute the agent on a single dataset segment  
+5. Analyze behaviour and identify failure modes  
+
+---
+
+### Expected challenges
+
+- agent selecting irrelevant tools  
+- shallow or incorrect interpretations  
+- lack of exploration diversity  
+- over-reliance on obvious signals  
+
+These challenges are expected and will guide iterative improvements.
+
+---
+
+### Strategic insight
+
+The value of the system does not lie in the statistical metrics themselves, but in:
+
+→ how the agent uses them  
+→ how it prioritizes analysis  
+→ and how it constructs explanations  
+
+---
+
+### Next milestone
+
+Develop a working agent-based MVP capable of:
+
+- invoking tools  
+- performing basic reasoning  
+- identifying at least one known structural artifact  
+
+This will serve as the foundation for further refinement and evaluation.
+
+---
+
+### Note
+
+This pivot aligns the project more closely with the original research vision and significantly increases its potential contribution compared to the previous pipeline-based approach.
+
+---
+
+## 9 April 2026
