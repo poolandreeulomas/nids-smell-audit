@@ -10,6 +10,11 @@ from state.store import state_to_dict
 
 VALID_ACTION_STATUSES = {"OK"}
 ATTEMPTED_ACTION_STATUSES = {"OK", "TOOL_ERROR", "REPEATED_FEATURE_BLOCKED"}
+JUSTIFICATION_ACTION_STATUSES = {"OK", "TOOL_ERROR"}
+
+
+def _clamp_rate(value: float) -> float:
+    return max(0.0, min(1.0, value))
 
 
 def _extract_feature_name(step: dict[str, Any]) -> str | None:
@@ -41,8 +46,10 @@ def compute_run_metrics(state_or_dict: AgentState | dict[str, Any]) -> dict[str,
             "parse_error_rate": 0.0,
             "tool_error_rate": 0.0,
             "unique_features_explored": 0,
+            "features_attempted": 0,
             "repeated_feature_rate": 0.0,
             "action_justification_rate": 0.0,
+            "attempted_action_rate": 0.0,
             "status_counts": {},
         }
 
@@ -65,11 +72,13 @@ def compute_run_metrics(state_or_dict: AgentState | dict[str, Any]) -> dict[str,
 
     seen_features: set[str] = set()
     repeated_feature_count = 0
-    unique_features: set[str] = set()
+    attempted_features: set[str] = set()
+    explored_features: set[str] = set()
 
     feature_tools: dict[str, set[str]] = {}
     previous_thoughts: list[str] = []
     justified_count = 0
+    justification_candidate_count = 0
 
     for step in history:
         status = step.get("execution_status")
@@ -82,7 +91,7 @@ def compute_run_metrics(state_or_dict: AgentState | dict[str, Any]) -> dict[str,
                 previous_thoughts.append(thought)
             continue
 
-        unique_features.add(feature_name)
+        attempted_features.add(feature_name)
         if status == "REPEATED_FEATURE_BLOCKED" or feature_name in seen_features:
             repeated_feature_count += 1
         seen_features.add(feature_name)
@@ -91,28 +100,43 @@ def compute_run_metrics(state_or_dict: AgentState | dict[str, Any]) -> dict[str,
         fully_explored_before = len(tools_used_before) >= 2
         thought_is_new = bool(
             thought) and thought not in previous_thoughts[-3:]
-        if (not fully_explored_before) and thought_is_new:
+        if status in ATTEMPTED_ACTION_STATUSES:
+            justification_candidate_count += 1
+        if (
+            status in ATTEMPTED_ACTION_STATUSES
+            and (not fully_explored_before)
+            and thought_is_new
+        ):
             justified_count += 1
 
-        if action:
+        if status in VALID_ACTION_STATUSES:
+            explored_features.add(feature_name)
+
+        if action and status in VALID_ACTION_STATUSES:
             feature_tools.setdefault(feature_name, set()).add(action)
         if thought:
             previous_thoughts.append(thought)
 
     valid_action_count = len(valid_action_steps)
     attempted_action_count = len(attempted_action_steps)
+    justification_rate = (
+        justified_count / attempted_action_count if attempted_action_count else 0.0
+    )
+    justification_rate = _clamp_rate(justification_rate)
+    if not 0.0 <= justification_rate <= 1.0:
+        raise ValueError("action_justification_rate must stay within [0, 1].")
+
     return {
         "total_steps": total_steps,
         "valid_action_rate": valid_action_count / total_steps,
         "parse_error_rate": len(parse_error_steps) / total_steps,
         "tool_error_rate": len(tool_error_steps) / total_steps,
-        "unique_features_explored": len(unique_features),
+        "unique_features_explored": len(explored_features),
+        "features_attempted": len(attempted_features),
         "repeated_feature_rate": (
             repeated_feature_count / attempted_action_count if attempted_action_count else 0.0
         ),
-        "action_justification_rate": (
-            justified_count / valid_action_count if valid_action_count else 0.0
-        ),
+        "action_justification_rate": justification_rate,
         "attempted_action_rate": attempted_action_count / total_steps,
         "status_counts": dict(status_counts),
     }

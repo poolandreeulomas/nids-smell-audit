@@ -1,17 +1,13 @@
 """Validate a persisted MVP run log against baseline thresholds."""
 
 from __future__ import annotations
-from utils.metrics import compute_run_metrics
-from utils.run_logging import load_json
 
 import argparse
 import json
 from pathlib import Path
-import sys
 
-REPO_ROOT = Path(__file__).resolve().parents[1]
-if str(REPO_ROOT) not in sys.path:
-    sys.path.insert(0, str(REPO_ROOT))
+from utils.metrics import compute_run_metrics
+from utils.run_logging import load_json
 
 
 DEFAULT_THRESHOLDS = {

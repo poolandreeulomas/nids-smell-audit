@@ -1,0 +1,448 @@
+{
+  "runs": [
+    {
+      "path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\logs\\runs\\run_20260409_165934_482563.json",
+      "run_id": "run_local",
+      "top_features": [
+        "Total Length of Fwd Packets",
+        "Fwd Packet Length Mean",
+        "Flow Duration"
+      ],
+      "score": {
+        "score": 90.3,
+        "verdict": "strong",
+        "breakdown": {
+          "execution": 22.0,
+          "reasoning": 25.0,
+          "exploration": 15.0,
+          "signal": 21.3,
+          "stability_bonus": 7.0
+        },
+        "evidence": {
+          "max_abs_correlation": 0.3569,
+          "max_wasserstein": 0.6486,
+          "num_confirmed_features": 1,
+          "num_errors": 1,
+          "unique_features_attempted": 4,
+          "unique_features_successful": 3
+        },
+        "strengths": [
+          "confirmed features with both tools: Total Length of Fwd Packets",
+          "used both tools during the run",
+          "adapted after a tool error",
+          "found at least one strong signal"
+        ],
+        "risks": [
+          "encountered 1 tool error(s)"
+        ]
+      },
+      "insights": {
+        "top_features": [
+          "Total Length of Fwd Packets",
+          "Fwd Packet Length Mean",
+          "Flow Duration"
+        ],
+        "strong_features": [
+          "Total Length of Fwd Packets"
+        ],
+        "feature_evidence": {
+          "Flow Duration": {
+            "correlation": 0.025922786070734723,
+            "wasserstein": null
+          },
+          "Total Length of Fwd Packets": {
+            "correlation": -0.31969338728048663,
+            "wasserstein": 0.6485632217938185
+          },
+          "Fwd Packet Length Mean": {
+            "correlation": -0.3568946974640747,
+            "wasserstein": null
+          }
+        },
+        "errors": [
+          {
+            "feature_name": "Flow Bytes/s",
+            "error_code": "INSUFFICIENT_VARIANCE"
+          }
+        ],
+        "behavior": {
+          "used_both_tools": true,
+          "num_steps": 5,
+          "num_errors": 1,
+          "unique_features_attempted": 4,
+          "unique_features_successful": 3
+        },
+        "patterns": {
+          "confirmed_features": [
+            "Total Length of Fwd Packets"
+          ],
+          "failed_features": [
+            "Flow Bytes/s"
+          ],
+          "repeated_failures": [],
+          "reacted_to_errors": true
+        }
+      }
+    },
+    {
+      "path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\logs\\runs\\run_20260409_165959_235343.json",
+      "run_id": "run_local",
+      "top_features": [
+        "Total Length of Fwd Packets",
+        "Fwd Packet Length Mean",
+        "Flow Duration"
+      ],
+      "score": {
+        "score": 90.3,
+        "verdict": "strong",
+        "breakdown": {
+          "execution": 22.0,
+          "reasoning": 25.0,
+          "exploration": 15.0,
+          "signal": 21.3,
+          "stability_bonus": 7.0
+        },
+        "evidence": {
+          "max_abs_correlation": 0.3569,
+          "max_wasserstein": 0.6486,
+          "num_confirmed_features": 1,
+          "num_errors": 1,
+          "unique_features_attempted": 4,
+          "unique_features_successful": 3
+        },
+        "strengths": [
+          "confirmed features with both tools: Total Length of Fwd Packets",
+          "used both tools during the run",
+          "adapted after a tool error",
+          "found at least one strong signal"
+        ],
+        "risks": [
+          "encountered 1 tool error(s)"
+        ]
+      },
+      "insights": {
+        "top_features": [
+          "Total Length of Fwd Packets",
+          "Fwd Packet Length Mean",
+          "Flow Duration"
+        ],
+        "strong_features": [
+          "Total Length of Fwd Packets"
+        ],
+        "feature_evidence": {
+          "Flow Duration": {
+            "correlation": 0.025922786070734723,
+            "wasserstein": null
+          },
+          "Total Length of Fwd Packets": {
+            "correlation": -0.31969338728048663,
+            "wasserstein": 0.6485632217938185
+          },
+          "Fwd Packet Length Mean": {
+            "correlation": -0.3568946974640747,
+            "wasserstein": null
+          }
+        },
+        "errors": [
+          {
+            "feature_name": "Flow Bytes/s",
+            "error_code": "INSUFFICIENT_VARIANCE"
+          }
+        ],
+        "behavior": {
+          "used_both_tools": true,
+          "num_steps": 5,
+          "num_errors": 1,
+          "unique_features_attempted": 4,
+          "unique_features_successful": 3
+        },
+        "patterns": {
+          "confirmed_features": [
+            "Total Length of Fwd Packets"
+          ],
+          "failed_features": [
+            "Flow Bytes/s"
+          ],
+          "repeated_failures": [],
+          "reacted_to_errors": true
+        }
+      }
+    },
+    {
+      "path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\logs\\runs\\run_20260409_165755_510838.json",
+      "run_id": "run_local",
+      "top_features": [
+        "Fwd Packet Length Mean",
+        "Flow Packets/s",
+        "Flow Bytes/s"
+      ],
+      "score": {
+        "score": 89.4,
+        "verdict": "strong",
+        "breakdown": {
+          "execution": 22.0,
+          "reasoning": 25.0,
+          "exploration": 13.0,
+          "signal": 22.4,
+          "stability_bonus": 7.0
+        },
+        "evidence": {
+          "max_abs_correlation": 0.3569,
+          "max_wasserstein": 0.7217,
+          "num_confirmed_features": 1,
+          "num_errors": 1,
+          "unique_features_attempted": 3,
+          "unique_features_successful": 3
+        },
+        "strengths": [
+          "confirmed features with both tools: Fwd Packet Length Mean",
+          "used both tools during the run",
+          "adapted after a tool error",
+          "found at least one strong signal"
+        ],
+        "risks": [
+          "encountered 1 tool error(s)"
+        ]
+      },
+      "insights": {
+        "top_features": [
+          "Fwd Packet Length Mean",
+          "Flow Packets/s",
+          "Flow Bytes/s"
+        ],
+        "strong_features": [
+          "Fwd Packet Length Mean"
+        ],
+        "feature_evidence": {
+          "Flow Bytes/s": {
+            "correlation": null,
+            "wasserstein": 0.07178877175690111
+          },
+          "Flow Packets/s": {
+            "correlation": null,
+            "wasserstein": 0.2831182863063904
+          },
+          "Fwd Packet Length Mean": {
+            "correlation": -0.3568946974640747,
+            "wasserstein": 0.7217248491911145
+          }
+        },
+        "errors": [
+          {
+            "feature_name": "Flow Packets/s",
+            "error_code": "INSUFFICIENT_VARIANCE"
+          }
+        ],
+        "behavior": {
+          "used_both_tools": true,
+          "num_steps": 5,
+          "num_errors": 1,
+          "unique_features_attempted": 3,
+          "unique_features_successful": 3
+        },
+        "patterns": {
+          "confirmed_features": [
+            "Fwd Packet Length Mean"
+          ],
+          "failed_features": [
+            "Flow Packets/s"
+          ],
+          "repeated_failures": [],
+          "reacted_to_errors": true
+        }
+      }
+    },
+    {
+      "path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\logs\\runs\\run_20260409_165915_905930.json",
+      "run_id": "run_local",
+      "top_features": [
+        "Total Length of Fwd Packets",
+        "Flow Duration",
+        "Flow Bytes/s"
+      ],
+      "score": {
+        "score": 79.1,
+        "verdict": "promising",
+        "breakdown": {
+          "execution": 22.0,
+          "reasoning": 17.0,
+          "exploration": 13.0,
+          "signal": 20.1,
+          "stability_bonus": 7.0
+        },
+        "evidence": {
+          "max_abs_correlation": 0.3197,
+          "max_wasserstein": 0.6486,
+          "num_confirmed_features": 1,
+          "num_errors": 1,
+          "unique_features_attempted": 3,
+          "unique_features_successful": 3
+        },
+        "strengths": [
+          "confirmed features with both tools: Total Length of Fwd Packets",
+          "used both tools during the run",
+          "found at least one strong signal"
+        ],
+        "risks": [
+          "encountered 1 tool error(s)"
+        ]
+      },
+      "insights": {
+        "top_features": [
+          "Total Length of Fwd Packets",
+          "Flow Duration",
+          "Flow Bytes/s"
+        ],
+        "strong_features": [
+          "Total Length of Fwd Packets"
+        ],
+        "feature_evidence": {
+          "Flow Duration": {
+            "correlation": 0.025922786070734723,
+            "wasserstein": null
+          },
+          "Total Length of Fwd Packets": {
+            "correlation": -0.31969338728048663,
+            "wasserstein": 0.6485632217938185
+          },
+          "Flow Bytes/s": {
+            "correlation": null,
+            "wasserstein": 0.07178877175690111
+          }
+        },
+        "errors": [
+          {
+            "feature_name": "Flow Bytes/s",
+            "error_code": "INSUFFICIENT_VARIANCE"
+          }
+        ],
+        "behavior": {
+          "used_both_tools": true,
+          "num_steps": 5,
+          "num_errors": 1,
+          "unique_features_attempted": 3,
+          "unique_features_successful": 3
+        },
+        "patterns": {
+          "confirmed_features": [
+            "Total Length of Fwd Packets"
+          ],
+          "failed_features": [
+            "Flow Bytes/s"
+          ],
+          "repeated_failures": [],
+          "reacted_to_errors": false
+        }
+      }
+    },
+    {
+      "path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\logs\\runs\\run_20260409_171810_620631.json",
+      "run_id": "run_local",
+      "top_features": [
+        "Flow Duration",
+        "Total Fwd Packets"
+      ],
+      "score": {
+        "score": 63.3,
+        "verdict": "mixed",
+        "breakdown": {
+          "execution": 19.0,
+          "reasoning": 25.0,
+          "exploration": 12.7,
+          "signal": 2.6,
+          "stability_bonus": 4.0
+        },
+        "evidence": {
+          "max_abs_correlation": 0.0299,
+          "max_wasserstein": 0.107,
+          "num_confirmed_features": 1,
+          "num_errors": 2,
+          "unique_features_attempted": 4,
+          "unique_features_successful": 2
+        },
+        "strengths": [
+          "confirmed features with both tools: Flow Duration",
+          "used both tools during the run",
+          "adapted after a tool error"
+        ],
+        "risks": [
+          "encountered 2 tool error(s)",
+          "signal strength remained weak"
+        ]
+      },
+      "insights": {
+        "top_features": [
+          "Flow Duration",
+          "Total Fwd Packets"
+        ],
+        "strong_features": [
+          "Flow Duration"
+        ],
+        "feature_evidence": {
+          "Flow Duration": {
+            "correlation": 0.025922786070734723,
+            "wasserstein": 0.10701977746340013
+          },
+          "Total Fwd Packets": {
+            "correlation": -0.029870343021490452,
+            "wasserstein": null
+          }
+        },
+        "errors": [
+          {
+            "feature_name": "Flow Bytes/s",
+            "error_code": "INSUFFICIENT_VARIANCE"
+          },
+          {
+            "feature_name": "Flow Packets/s",
+            "error_code": "INSUFFICIENT_VARIANCE"
+          }
+        ],
+        "behavior": {
+          "used_both_tools": true,
+          "num_steps": 5,
+          "num_errors": 2,
+          "unique_features_attempted": 4,
+          "unique_features_successful": 2
+        },
+        "patterns": {
+          "confirmed_features": [
+            "Flow Duration"
+          ],
+          "failed_features": [
+            "Flow Bytes/s",
+            "Flow Packets/s"
+          ],
+          "repeated_failures": [],
+          "reacted_to_errors": true
+        }
+      }
+    }
+  ],
+  "aggregate": {
+    "run_count": 5,
+    "score_summary": {
+      "average": 82.5,
+      "min": 63.3,
+      "max": 90.3,
+      "std": 10.5
+    },
+    "consistency": {
+      "most_common_top1": "Total Length of Fwd Packets",
+      "top1_stability": 0.6,
+      "average_top3_overlap": 0.34
+    },
+    "both_tools_rate": 1.0,
+    "error_reaction_rate": 0.8,
+    "verdict_counts": {
+      "strong": 3,
+      "promising": 1,
+      "mixed": 1
+    },
+    "top1_frequency": {
+      "Total Length of Fwd Packets": 3,
+      "Fwd Packet Length Mean": 1,
+      "Flow Duration": 1
+    }
+  }
+}

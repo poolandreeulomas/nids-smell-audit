@@ -13,6 +13,9 @@ ALREADY_ANALYZED_FEATURES:
 RECENT_HISTORY:
 {recent_history}
 
+DECISION_POLICY:
+- When a feature appears promising, consider confirming it using a different tool before moving to a new feature.
+
 STRICT_OUTPUT_RULES:
 - Return exactly three lines.
 - Do not add extra text before or after the three lines.

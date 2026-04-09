@@ -61,6 +61,7 @@ def main() -> AgentState:
     model_name = os.environ.get("OPENAI_MODEL", "gpt-4.1-mini")
     model_version = os.environ.get("OPENAI_MODEL_VERSION")
     temperature = float(os.environ.get("OPENAI_TEMPERATURE", "0.0"))
+    trace = os.environ.get("REACT_TRACE", "1") != "0"
     seed_value = os.environ.get("OPENAI_SEED")
     seed = int(seed_value) if seed_value else None
 
@@ -86,6 +87,7 @@ def main() -> AgentState:
         repo_path=Path(__file__).resolve().parent,
         dataset_frame=dataset_frame,
         valid_numeric_features=available_features,
+        trace=trace,
     )
 
 

@@ -87,14 +87,32 @@ def correlation(
                 feature_name,
                 "INSUFFICIENT_DATA",
                 "No valid rows remain after dropping missing values.",
+                meta={
+                    "n_rows": int(len(df)),
+                    "n_valid_rows": 0,
+                },
             )
 
+        feature_series = pair[feature_name]
+        label_series = pair["_binary_label"]
         value = pair[feature_name].corr(pair["_binary_label"])
         if pd.isna(value):
             return _error_result(
                 feature_name,
                 "INSUFFICIENT_VARIANCE",
                 "Correlation is undefined due to zero variance in feature or label.",
+                meta={
+                    "n_rows": int(len(df)),
+                    "n_valid_rows": int(len(pair)),
+                    "feature_variance": float(feature_series.var()),
+                    "label_variance": float(label_series.var()),
+                    "n_unique_feature_values": int(feature_series.nunique(dropna=True)),
+                    "feature_nunique": int(feature_series.nunique(dropna=True)),
+                    "label_nunique": int(label_series.nunique(dropna=True)),
+                    "feature_std": float(feature_series.std(ddof=0)),
+                    "label_std": float(label_series.std(ddof=0)),
+                    "attack_rate": float(label_series.mean()),
+                },
             )
 
         return {

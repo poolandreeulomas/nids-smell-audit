@@ -1,0 +1,61 @@
+RUN EVALUATION REPORT
+- Runs analyzed: 5
+- Average score: 82.5/100
+- Score range: 63.3 to 90.3
+- Score std: 10.5
+- Most common Top-1: Total Length of Fwd Packets
+- Top-1 stability: 0.6
+- Average Top-3 overlap: 0.34
+- Both tools rate: 1.0
+- Error reaction rate: 0.8
+
+RANKING
+1. run_20260409_165934_482563.json -> 90.3/100 (strong)
+2. run_20260409_165959_235343.json -> 90.3/100 (strong)
+3. run_20260409_165755_510838.json -> 89.4/100 (strong)
+4. run_20260409_165915_905930.json -> 79.1/100 (promising)
+5. run_20260409_171810_620631.json -> 63.3/100 (mixed)
+
+AGGREGATE FINDINGS
+- Verdict counts: {"strong": 3, "promising": 1, "mixed": 1}
+- Top-1 frequency: {"Total Length of Fwd Packets": 3, "Fwd Packet Length Mean": 1, "Flow Duration": 1}
+
+RUN: run_20260409_165934_482563.json
+- Score: 90.3/100 (strong)
+- Top features: Total Length of Fwd Packets, Fwd Packet Length Mean, Flow Duration
+- Steps: 5 | Errors: 1 | Both tools: True
+- Breakdown: execution=22.0, reasoning=25.0, exploration=15.0, signal=21.3, stability_bonus=7.0
+- Strengths: confirmed features with both tools: Total Length of Fwd Packets; used both tools during the run; adapted after a tool error; found at least one strong signal
+- Risks: encountered 1 tool error(s)
+
+RUN: run_20260409_165959_235343.json
+- Score: 90.3/100 (strong)
+- Top features: Total Length of Fwd Packets, Fwd Packet Length Mean, Flow Duration
+- Steps: 5 | Errors: 1 | Both tools: True
+- Breakdown: execution=22.0, reasoning=25.0, exploration=15.0, signal=21.3, stability_bonus=7.0
+- Strengths: confirmed features with both tools: Total Length of Fwd Packets; used both tools during the run; adapted after a tool error; found at least one strong signal
+- Risks: encountered 1 tool error(s)
+
+RUN: run_20260409_165755_510838.json
+- Score: 89.4/100 (strong)
+- Top features: Fwd Packet Length Mean, Flow Packets/s, Flow Bytes/s
+- Steps: 5 | Errors: 1 | Both tools: True
+- Breakdown: execution=22.0, reasoning=25.0, exploration=13.0, signal=22.4, stability_bonus=7.0
+- Strengths: confirmed features with both tools: Fwd Packet Length Mean; used both tools during the run; adapted after a tool error; found at least one strong signal
+- Risks: encountered 1 tool error(s)
+
+RUN: run_20260409_165915_905930.json
+- Score: 79.1/100 (promising)
+- Top features: Total Length of Fwd Packets, Flow Duration, Flow Bytes/s
+- Steps: 5 | Errors: 1 | Both tools: True
+- Breakdown: execution=22.0, reasoning=17.0, exploration=13.0, signal=20.1, stability_bonus=7.0
+- Strengths: confirmed features with both tools: Total Length of Fwd Packets; used both tools during the run; found at least one strong signal
+- Risks: encountered 1 tool error(s)
+
+RUN: run_20260409_171810_620631.json
+- Score: 63.3/100 (mixed)
+- Top features: Flow Duration, Total Fwd Packets
+- Steps: 5 | Errors: 2 | Both tools: True
+- Breakdown: execution=19.0, reasoning=25.0, exploration=12.7, signal=2.6, stability_bonus=4.0
+- Strengths: confirmed features with both tools: Flow Duration; used both tools during the run; adapted after a tool error
+- Risks: encountered 2 tool error(s); signal strength remained weak

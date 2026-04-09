@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 from dataclasses import asdict
+import json
 from pathlib import Path
 from typing import Any, Callable
 
@@ -24,6 +25,20 @@ from state.store import (
 from utils.reproducibility import build_reproducibility_metadata, hash_text_sha256
 
 LlmCallable = Callable[[str], str]
+
+
+def _format_trace_payload(value: Any) -> str:
+    if isinstance(value, dict):
+        return json.dumps(value, ensure_ascii=True, sort_keys=True)
+    if value is None:
+        return "None"
+    return str(value)
+
+
+def _print_trace_block(step_id: int, title: str, payload: dict[str, Any]) -> None:
+    print(f"\n=== ReAct Step {step_id} | {title} ===")
+    for key, value in payload.items():
+        print(f"{key}: {_format_trace_payload(value)}")
 
 
 def _record_step(
@@ -102,6 +117,7 @@ def run_agent(
     repo_path: str | Path | None = None,
     dataset_frame: pd.DataFrame | None = None,
     valid_numeric_features: list[str] | None = None,
+    trace: bool = False,
 ) -> AgentState:
     """Execute a single bounded ReAct run and return updated state."""
     prompt_preview = build_prompt(state, tool_names)
@@ -133,6 +149,14 @@ def run_agent(
                 "error_code": "LLM_ERROR",
                 "error_message": str(exc),
             }
+            if trace:
+                _print_trace_block(
+                    step_id,
+                    "LLM_ERROR",
+                    {
+                        "OBSERVATION": observation,
+                    },
+                )
             append_error(state, {"step_id": step_id, **observation})
             _record_step(
                 state=state,
@@ -155,6 +179,15 @@ def run_agent(
                 "error_code": parsed.get("error_code", "PARSE_ERROR"),
                 "error_message": parsed.get("error_message", "Parser failure."),
             }
+            if trace:
+                _print_trace_block(
+                    step_id,
+                    "PARSE_ERROR",
+                    {
+                        "RAW_MODEL_OUTPUT": raw_model_output,
+                        "OBSERVATION": observation,
+                    },
+                )
             append_error(state, {"step_id": step_id, **observation})
             _record_step(
                 state=state,
@@ -173,6 +206,16 @@ def run_agent(
         action = parsed["action"]
         action_input = parsed["action_input"]
         thought = parsed["thought"]
+        if trace:
+            _print_trace_block(
+                step_id,
+                "MODEL_DECISION",
+                {
+                    "THOUGHT": thought,
+                    "ACTION": action,
+                    "ACTION_INPUT": action_input,
+                },
+            )
         result = execute_action(
             action=action,
             action_input=action_input,
@@ -197,6 +240,16 @@ def run_agent(
         else:
             _update_state_after_tool(
                 state, action, action_input["feature_name"], result)
+
+        if trace:
+            _print_trace_block(
+                step_id,
+                "TOOL_RESULT",
+                {
+                    "STATUS": status,
+                    "OBSERVATION": result,
+                },
+            )
 
         _record_step(
             state=state,

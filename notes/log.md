@@ -750,4 +750,259 @@ This pivot aligns the project more closely with the original research vision and
 
 ---
 
+## 8 April 2026
+
+### MVP agent audit and stabilization
+
+Performed a full technical audit of the first ReAct-style MVP agent for tabular NIDS inspection.
+
+The purpose of this phase was to verify that the agent was not only executable, but also methodologically defensible for later experimentation.
+
+The audit focused on:
+
+- prompt completeness
+- parser and action reliability
+- tool dispatch safety
+- reproducibility metadata
+- metric correctness
+- packaging and execution hygiene
+
+---
+
+### Main issues identified and corrected
+
+#### Prompt visibility and state exposure
+
+The prompt was not exposing the search space and state clearly enough.
+
+This was corrected so the agent now receives explicit access to:
+
+- available tools
+- available features
+- analyzed features
+- recent history
+
+This made the reasoning loop more grounded and easier to debug.
+
+#### Metric semantics review
+
+The first behavioral metrics were audited because some definitions did not match real run behavior cleanly.
+
+In particular:
+
+- `valid_action_rate` was aligned with successful executions
+- `attempted_action_rate` was separated conceptually from valid actions
+- later groundwork was established for correcting `action_justification_rate`
+
+#### Experiment execution cleanup
+
+The experiment entrypoints and package structure were normalized so module-style execution became stable.
+
+This reduced fragile import-order behavior and made the repository easier to run consistently.
+
+---
+
+### Environment and dependency stabilization
+
+The local execution environment was normalized around a single repository-local virtual environment:
+
+- `venv/`
+
+Actions performed:
+
+- installed and normalized dependencies in the repo-local environment
+- added `openai==1.75.0` to `requirements.txt`
+- resolved confusion between `.venv` and `venv`
+- verified the correct interpreter path inside the project
+
+API-key handling was also stabilized for local development so real runs against the model could be executed safely without changing repository behavior.
+
+---
+
+### Dataset organization cleanup
+
+The CIC-IDS2017 partition files used by the MVP were reorganized into a clearer data layout:
+
+- `data/cic_ids_2017/`
+
+This separated dataset files from Python data-layer code and simplified configuration.
+
+---
+
+### Logging and transparency improvements
+
+Runtime transparency was improved so failed runs became easier to inspect.
+
+Changes included:
+
+- clearer artifact output from `run_mvp.py`
+- recent error summaries in console output
+- cleaner persisted run logs for later analysis
+
+---
+
+### Status at end of day
+
+The MVP agent was no longer just a scaffold.
+
+By the end of the day, it was:
+
+- executable end-to-end
+- reproducible enough for controlled experiments
+- instrumented for debugging
+- ready for first real API-backed runs
+
+The next step was to execute real runs and validate actual behavior from logs rather than architecture alone.
+
 ## 9 April 2026
+
+### Real-run analysis and evidence-based behavior review
+
+Executed multiple real runs of the MVP agent and shifted evaluation from architecture review to log-based behavioral analysis.
+
+The objective of this phase was to answer:
+
+- what the agent actually does during execution
+- whether it truly reasons across steps
+- whether tools influence decisions
+- whether resulting metrics match reality
+
+---
+
+### Confirmed behavior from runs
+
+The agent was observed to:
+
+- complete bounded 5-step runs end-to-end
+- produce valid `THOUGHT / ACTION / ACTION_INPUT` outputs reliably
+- adapt after tool errors
+- reuse prior observations in subsequent steps
+- use both `correlation` and `wasserstein`
+- confirm promising features with a second tool in several runs
+
+This was an important milestone because it showed the agent was no longer behaving like a shallow single-tool loop.
+
+---
+
+### Critical metric fix
+
+The run audit revealed a real bug:
+
+- `action_justification_rate` could exceed 1.0 due to inconsistent numerator / denominator definitions
+
+This was corrected by making the rate consistent with attempted actions and clamping it to the valid range.
+
+Additional clarification was also introduced for feature-count metrics:
+
+- successful exploration was separated from attempted exploration
+
+This made the behavioral metrics much more trustworthy for later comparison across runs.
+
+---
+
+### Prompt and tool-awareness improvements
+
+To improve decision quality without changing the core architecture, the prompt/state layer was made more informative.
+
+The agent now sees analyzed features in a more interpretable form, including:
+
+- which tools were already used per feature
+- key numerical evidence already observed
+
+The prompt was also minimally adjusted to encourage:
+
+- confirming promising features with a different tool before moving on
+
+This directly improved multi-tool behavior in later runs.
+
+---
+
+### Tool error diagnostics improved
+
+The `correlation` tool was extended so `INSUFFICIENT_VARIANCE` errors now expose more interpretable metadata, including:
+
+- feature variance
+- label variance
+- number of unique feature values
+
+This made failure cases much more useful for audit and thesis reporting.
+
+---
+
+### ReAct trace visibility in terminal
+
+Added live terminal tracing for the ReAct loop so each run now prints:
+
+- model decision
+- thought
+- action
+- action input
+- tool result
+- execution status
+
+This gave direct visibility into the reasoning process during execution instead of only after reading JSON logs.
+
+---
+
+### Deterministic interpretation layer added
+
+Built a deterministic post-run analysis layer on top of existing logs.
+
+New analysis modules were added to:
+
+- interpret run logs into structured insights
+- summarize them into readable sections for humans
+- do so without any LLM calls
+
+This produced a reproducible explanation layer suitable for debugging, evaluation, and thesis writing.
+
+---
+
+### Multi-run evaluation and scoring
+
+Added a deterministic evaluation workflow for comparing multiple runs.
+
+This layer now supports:
+
+- scoring runs over 100 using a transparent heuristic
+- ranking recent runs
+- aggregate consistency analysis
+- strengths and risks per run
+- executive summaries for end users
+- optional saving of evaluation artifacts under `reports/evaluations/`
+
+This made it possible to compare runs operationally without relying on subjective manual reading every time.
+
+---
+
+### Main empirical observations from the day
+
+Across repeated runs, the agent began to show a partially stable exploration pattern.
+
+Recurring findings included:
+
+- `Total Length of Fwd Packets` frequently appearing as the strongest confirmed feature
+- `Fwd Packet Length Mean` repeatedly emerging as a strong candidate
+- `Flow Duration` often used as a weak baseline feature
+- recurrent failure of `correlation` on `Flow Bytes/s` due to `INSUFFICIENT_VARIANCE`
+
+This suggests the agent is already extracting some real structural signal, but still has a narrow exploration bias.
+
+---
+
+### Status at end of day
+
+By the end of the day, the MVP had progressed from a runnable prototype to a controlled experimental agent with:
+
+- real execution traces
+- reproducible run artifacts
+- interpretable summaries
+- deterministic multi-run evaluation
+- a first operational scoring framework
+
+The system is still an MVP, but it is now substantially more useful for:
+
+- debugging agent behavior
+- comparing runs
+- identifying recurring strong features
+- documenting progress rigorously for the thesis
