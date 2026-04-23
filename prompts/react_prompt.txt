@@ -25,6 +25,9 @@ INSTRUCTIONS (concise):
 - Keep each feature block compact (≈40–80 words). Do not dump raw tables or large lists of numbers.
 - The overview should read as a working hypothesis, not a final verdict.
 
+ADDITIONAL_CANDIDATES:
+{additional_candidates}
+
 RECENT_HISTORY:
 {recent_history}
 
