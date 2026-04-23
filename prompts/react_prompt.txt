@@ -25,8 +25,16 @@ INSTRUCTIONS (concise):
 - Keep each feature block compact (≈40–80 words). Do not dump raw tables or large lists of numbers.
 - The overview should read as a working hypothesis, not a final verdict.
 
+THOUGHT FORMAT GUIDANCE:
+- Embed a concise structured thought inside the single-line `THOUGHT:` output using these exact labels in this order: `Hypothesis:`, `Scope:`, `Next action:`. Separate fields with ` | ` (space-pipe-space). Example:
+	THOUGHT: Hypothesis: Destination Port shows low cardinality and may shortcut labels. | Scope: Destination Port | Next action: Run `correlation` on `Destination Port` vs `Label`.
+ - Keep the entire THOUGHT line compact. `Scope` must list 1–3 features. `Next action` must be a single atomic action. Do NOT include multi-step instructions or numbered steps.
+
 ADDITIONAL_CANDIDATES:
 {additional_candidates}
+
+PREVIOUS_HYPOTHESIS:
+{previous_hypothesis}
 
 RECENT_HISTORY:
 {recent_history}
@@ -34,7 +42,7 @@ RECENT_HISTORY:
 DECISION_POLICY:
 - When a feature appears promising, consider confirming it using a different tool before moving to a new feature.
 
-STRICT_OUTPUT_RULES:
+-STRICT_OUTPUT_RULES:
 - Return exactly three lines.
 - Do not add extra text before or after the three lines.
 - Use these exact prefixes:

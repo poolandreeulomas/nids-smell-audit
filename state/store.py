@@ -66,6 +66,45 @@ def merge_metadata(state: AgentState, metadata: dict[str, Any]) -> None:
     state.metadata.update(metadata)
 
 
+def get_last_hypothesis(state: AgentState) -> str | None:
+    """Return the last stored hypothesis string or None if missing."""
+    return state.metadata.get("last_hypothesis")
+
+
+def record_hypothesis_if_changed(state: AgentState, hypothesis: str) -> None:
+    """Record hypothesis into metadata if it differs from last.
+
+    - Appends to `hypothesis_history` list and increments
+      `hypothesis_revision_count` when the hypothesis text changes.
+    - Stores the current hypothesis into `last_hypothesis`.
+    """
+    if hypothesis is None:
+        return
+
+    last = state.metadata.get("last_hypothesis")
+    if last == hypothesis:
+        # No change; nothing to do
+        return
+
+    # Append to history (keep it short)
+    history = state.metadata.get("hypothesis_history")
+    if not isinstance(history, list):
+        history = []
+    history.append({"step": state.current_step, "hypothesis": hypothesis})
+    state.metadata["hypothesis_history"] = history
+
+    # Increment revision counter
+    count = state.metadata.get("hypothesis_revision_count", 0)
+    try:
+        count = int(count) + 1
+    except Exception:
+        count = 1
+    state.metadata["hypothesis_revision_count"] = count
+
+    # update last_hypothesis
+    state.metadata["last_hypothesis"] = hypothesis
+
+
 def advance_step(state: AgentState, step_increment: int = 1) -> None:
     """Advance current_step by a positive increment."""
     if step_increment < 0:

@@ -94,8 +94,7 @@ def _update_state_after_tool(
         state.analyzed_features.items(),
         key=lambda item: (
             len(item[1].get("tools_used", [])),
-            abs(float(item[1].get("correlation", 0.0) or 0.0)),
-            float(item[1].get("wasserstein", 0.0) or 0.0),
+            item[0],
         ),
         reverse=True,
     )
@@ -239,8 +238,12 @@ def run_agent(
             status = "TOOL_ERROR"
             append_error(state, {"step_id": step_id, **result})
         else:
+            result_feature_name = result.get("feature_name")
+            if not isinstance(result_feature_name, str) or not result_feature_name:
+                result_feature_name = action_input.get(
+                    "feature_name", "__dataset__")
             _update_state_after_tool(
-                state, action, action_input["feature_name"], result)
+                state, action, result_feature_name, result)
 
         if trace:
             _print_trace_block(

@@ -32,8 +32,6 @@ def _format_analyzed_features(analyzed_features: dict, tool_names: list[str]) ->
         analyzed_features.items(),
         key=lambda item: (
             len(item[1].get("tools_used", [])),
-            abs(float(item[1].get("correlation", 0.0) or 0.0)),
-            float(item[1].get("wasserstein", 0.0) or 0.0),
             item[0],
         ),
         reverse=True,
@@ -239,6 +237,26 @@ def _format_additional_candidates(
     return "\n".join(lines)
 
 
+def _format_previous_hypothesis(state: AgentState | None) -> str:
+    """Return a short previous-hypothesis summary for the prompt.
+
+    Uses `state.metadata['last_hypothesis']` and `hypothesis_revision_count`.
+    """
+    if state is None:
+        return "NONE"
+    last = state.metadata.get("last_hypothesis")
+    if not last:
+        return "NONE"
+    count = state.metadata.get("hypothesis_revision_count", 0)
+    try:
+        count = int(count)
+    except Exception:
+        count = 0
+    # Keep the displayed hypothesis compact (single-line)
+    single = " ".join(str(last).splitlines())
+    return f"Previous Hypothesis: {single} (revisions={count})"
+
+
 def build_prompt(
     state: AgentState,
     tool_names: list[str],
@@ -259,4 +277,5 @@ def build_prompt(
         recent_history=_format_recent_history(state.history, history_window),
         additional_candidates=_format_additional_candidates(
             candidate_summaries, candidate_criteria, state),
+        previous_hypothesis=_format_previous_hypothesis(state),
     )

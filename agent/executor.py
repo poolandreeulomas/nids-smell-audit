@@ -64,13 +64,34 @@ def execute_action(
     available_tools = set(registry.keys())
 
     feature_name = action_input.get("feature_name")
-    if not isinstance(feature_name, str) or not feature_name.strip():
-        return _execution_error(
-            action,
-            None,
-            "INVALID_ACTION_INPUT",
-            "ACTION_INPUT.feature_name must be a non-empty string.",
-        )
+    feature_name_2 = action_input.get("feature_name_2")
+
+    if action == "duplication_analysis":
+        if not isinstance(feature_name, str) or not feature_name.strip():
+            feature_name = "__dataset__"
+        feature_key = "__dataset__"
+    else:
+        if not isinstance(feature_name, str) or not feature_name.strip():
+            return _execution_error(
+                action,
+                None,
+                "INVALID_ACTION_INPUT",
+                "ACTION_INPUT.feature_name must be a non-empty string.",
+            )
+        feature_name = feature_name.strip()
+        if action == "feature_relation" and feature_name_2 is not None:
+            if not isinstance(feature_name_2, str) or not feature_name_2.strip():
+                return _execution_error(
+                    action,
+                    feature_name,
+                    "INVALID_ACTION_INPUT",
+                    "ACTION_INPUT.feature_name_2 must be a non-empty string when provided.",
+                )
+            feature_key = "|".join(
+                sorted([feature_name, feature_name_2.strip()]))
+            feature_name_2 = feature_name_2.strip()
+        else:
+            feature_key = feature_name
 
     if action not in registry:
         return _execution_error(
@@ -84,7 +105,7 @@ def execute_action(
     blocked, reason = _is_repeated_feature_blocked(
         state=state,
         action=action,
-        feature_name=feature_name,
+        feature_name=feature_key,
         available_tools=available_tools,
     )
     if blocked:
@@ -107,24 +128,22 @@ def execute_action(
         )
 
     try:
+        tool_kwargs = {
+            "feature_name": feature_name,
+            "dataset_path": dataset_path,
+            "config": dataset_config,
+            "dataset_frame": dataset_frame,
+            "valid_numeric_features": valid_numeric_features,
+            "step": step,
+        }
+        if action == "feature_relation" and feature_name_2 is not None:
+            tool_kwargs["related_feature_name"] = feature_name_2
         # Prefer calling with `step` argument; fallback for tools without it.
         try:
-            result = tool(
-                feature_name=feature_name,
-                dataset_path=dataset_path,
-                config=dataset_config,
-                dataset_frame=dataset_frame,
-                valid_numeric_features=valid_numeric_features,
-                step=step,
-            )
+            result = tool(**tool_kwargs)
         except TypeError:
-            result = tool(
-                feature_name=feature_name,
-                dataset_path=dataset_path,
-                config=dataset_config,
-                dataset_frame=dataset_frame,
-                valid_numeric_features=valid_numeric_features,
-            )
+            tool_kwargs.pop("step", None)
+            result = tool(**tool_kwargs)
     except Exception as exc:  # noqa: BLE001
         return _execution_error(
             action,
