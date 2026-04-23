@@ -8,7 +8,7 @@ import json
 from collections import Counter
 from itertools import combinations
 from pathlib import Path
-from statistics import mean, pstdev
+from statistics import mean, median, pstdev
 from typing import Any
 
 from analysis.interpreter import extract_run_insights
@@ -35,12 +35,66 @@ def _resolve_run_paths(run_paths: list[str] | None, latest: int) -> list[Path]:
 
 def _summarize_scores(scores: list[float]) -> dict[str, float]:
     if not scores:
-        return {"average": 0.0, "min": 0.0, "max": 0.0, "std": 0.0}
+        return {"average": 0.0, "median": 0.0, "min": 0.0, "max": 0.0, "std": 0.0}
     return {
         "average": round(mean(scores), 1),
+        "median": round(median(scores), 1),
         "min": round(min(scores), 1),
         "max": round(max(scores), 1),
         "std": round(pstdev(scores), 1),
+    }
+
+
+def _summarize_numeric_values(values: list[float]) -> dict[str, float]:
+    if not values:
+        return {"average": 0.0, "median": 0.0, "min": 0.0, "max": 0.0}
+    return {
+        "average": round(mean(values), 2),
+        "median": round(median(values), 2),
+        "min": round(min(values), 2),
+        "max": round(max(values), 2),
+    }
+
+
+def _build_run_metrics_summary(run_summaries: list[dict[str, Any]]) -> dict[str, Any]:
+    steps = [
+        float(dict(summary.get("insights", {})).get(
+            "behavior", {}).get("num_steps", 0) or 0)
+        for summary in run_summaries
+    ]
+    errors = [
+        float(dict(summary.get("insights", {})).get(
+            "behavior", {}).get("num_errors", 0) or 0)
+        for summary in run_summaries
+    ]
+    features_attempted = [
+        float(dict(summary.get("insights", {})).get(
+            "behavior", {}).get("unique_features_attempted", 0) or 0)
+        for summary in run_summaries
+    ]
+    features_successful = [
+        float(dict(summary.get("insights", {})).get(
+            "behavior", {}).get("unique_features_successful", 0) or 0)
+        for summary in run_summaries
+    ]
+    valid_action_rates = [
+        float(dict(summary.get("metrics", {})).get(
+            "valid_action_rate", 0.0) or 0.0)
+        for summary in run_summaries
+    ]
+    tool_error_rates = [
+        float(dict(summary.get("metrics", {})).get(
+            "tool_error_rate", 0.0) or 0.0)
+        for summary in run_summaries
+    ]
+
+    return {
+        "steps": _summarize_numeric_values(steps),
+        "errors": _summarize_numeric_values(errors),
+        "features_attempted": _summarize_numeric_values(features_attempted),
+        "features_successful": _summarize_numeric_values(features_successful),
+        "valid_action_rate": _summarize_numeric_values(valid_action_rates),
+        "tool_error_rate": _summarize_numeric_values(tool_error_rates),
     }
 
 
@@ -168,12 +222,14 @@ def evaluate_runs(run_paths: list[str] | None = None, latest: int = 5) -> dict[s
         payload = load_json(path)
         insights = extract_run_insights(payload)
         scoring = score_run(insights)
+        metrics = dict(payload.get("metrics", {}))
         run_summaries.append(
             {
                 "path": str(path),
                 "run_id": payload.get("run_id"),
                 "top_features": insights.get("top_features", []),
                 "score": scoring,
+                "metrics": metrics,
                 "insights": insights,
             }
         )
@@ -208,6 +264,7 @@ def evaluate_runs(run_paths: list[str] | None = None, latest: int = 5) -> dict[s
     aggregate = {
         "run_count": len(run_summaries),
         "score_summary": _summarize_scores(scores),
+        "run_metrics_summary": _build_run_metrics_summary(run_summaries),
         "consistency": _compute_consistency(run_summaries),
         "both_tools_rate": round(both_tools_rate, 2),
         "error_reaction_rate": round(error_reaction_rate, 2),

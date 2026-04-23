@@ -8,6 +8,14 @@ __pycache__/
 # Data files
 data/
 
+# Generated run artifacts
+logs/runs/*.json
+!logs/runs/.gitkeep
+
+# Generated evaluation reports
+reports/evaluations/*.json
+reports/evaluations/*.txt
+
 # OS files
 .DS_Store
 Thumbs.db

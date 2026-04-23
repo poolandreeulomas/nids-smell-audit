@@ -20,6 +20,21 @@ DEFAULT_OBJECTIVE = (
 
 
 def _select_dataset_path(data_dir: str | Path) -> Path:
+    selected_dataset = os.environ.get("NIDS_DATASET_PATH")
+    if selected_dataset:
+        dataset_path = Path(selected_dataset)
+        if not dataset_path.is_absolute():
+            dataset_path = Path(data_dir) / selected_dataset
+        if not dataset_path.is_file():
+            raise FileNotFoundError(
+                f"Configured dataset '{dataset_path}' does not exist."
+            )
+        if dataset_path.suffix.lower() not in {".csv", ".tsv", ".tab"}:
+            raise FileNotFoundError(
+                f"Configured dataset '{dataset_path}' is not a CSV/TSV file."
+            )
+        return dataset_path
+
     candidates = sorted(
         path
         for path in Path(data_dir).iterdir()

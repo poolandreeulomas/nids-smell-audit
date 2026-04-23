@@ -1,27 +1,207 @@
-"""State schema scaffold for MVP run state."""
+"""State schema scaffold for MVP run state with Phase 2 extensions.
+
+This module adds a lightweight `EvidenceBlock` dataclass and extends
+`AgentState` additively to store evidence and contradiction memory.
+Only the schema is changed here; runtime behavior remains unchanged.
+"""
 
 from __future__ import annotations
 
 from dataclasses import asdict
 from dataclasses import dataclass, field
-from typing import Any
+from typing import Any, Dict, List
+
+
+def _ensure_json_primitive(obj: Any) -> Any:
+    """Recursively coerce common non-JSON primitives to JSON-friendly types.
+
+    - Convert numpy scalar types to native Python scalars when numpy is available.
+    - Convert bytes to UTF-8 strings.
+    - Recurse into lists/tuples/dicts.
+    - Fallback to str() for unknown objects.
+    """
+    # Local import to avoid hard dependency at module import time.
+    try:
+        import numpy as _np
+    except Exception:
+        _np = None
+
+    # Primitives
+    if obj is None:
+        return None
+    if isinstance(obj, (str, bool)):
+        return obj
+
+    if _np is not None:
+        # numpy scalar types
+        if isinstance(obj, _np.generic):
+            try:
+                return obj.item()
+            except Exception:
+                # Fallback to Python conversion
+                if isinstance(obj, _np.integer):
+                    return int(obj)
+                if isinstance(obj, _np.floating):
+                    return float(obj)
+                if isinstance(obj, _np.bool_):
+                    return bool(obj)
+
+    if isinstance(obj, (int, float)):
+        return obj
+
+    if isinstance(obj, (list, tuple)):
+        return [_ensure_json_primitive(v) for v in obj]
+
+    if isinstance(obj, dict):
+        return {str(k): _ensure_json_primitive(v) for k, v in obj.items()}
+
+    if isinstance(obj, (bytes, bytearray)):
+        try:
+            return obj.decode("utf-8")
+        except Exception:
+            return str(obj)
+
+    # Last resort: try to coerce via __iter__ or str()
+    try:
+        return str(obj)
+    except Exception:
+        return obj
+
+
+@dataclass
+class EvidenceBlock:
+    """Structured evidence unit for Phase 2.
+
+    Fields are intentionally permissive and defaulted so that older run
+    payloads can be loaded without breaking.
+    """
+
+    feature: str = ""
+    signals: List[str] = field(default_factory=list)
+    metrics: Dict[str, Any] = field(default_factory=dict)
+    support: Dict[str, Any] = field(default_factory=dict)
+    provenance: Dict[str, Any] = field(default_factory=dict)
+    status: str = "active"
+
+    def to_dict(self) -> Dict[str, Any]:
+        """Return a plain JSON-serializable dict representation.
+
+        Use `dataclasses.asdict` to preserve simple nesting. Defensive
+        numeric coercion is applied to ensure JSON serializability.
+        """
+        return _ensure_json_primitive(asdict(self))
+
+    @classmethod
+    def from_dict(cls, payload: Dict[str, Any] | None) -> "EvidenceBlock":
+        """Reconstruct an EvidenceBlock from a dict, tolerating missing keys.
+
+        This is intentionally lenient to preserve backward compatibility
+        with older run JSON that will not contain these fields.
+        """
+        if not payload:
+            return cls()
+
+        return cls(
+            feature=payload.get("feature", ""),
+            signals=list(payload.get("signals", []) or []),
+            metrics=dict(payload.get("metrics", {}) or {}),
+            support=dict(payload.get("support", {}) or {}),
+            provenance=dict(payload.get("provenance", {}) or {}),
+            status=payload.get("status", "active") or "active",
+        )
 
 
 @dataclass
 class AgentState:
-    """Minimal state container for the MVP loop."""
+    """Minimal state container for the MVP loop, extended for Phase 2.
+
+    New fields are additive and defaulted to preserve compatibility with
+    existing persisted run payloads. Other modules should not require
+    any changes to continue functioning.
+    """
 
     run_id: str
     objective: str
     current_step: int = 0
     max_steps: int = 5
-    available_features: list[str] = field(default_factory=list)
-    analyzed_features: dict[str, Any] = field(default_factory=dict)
-    history: list[dict[str, Any]] = field(default_factory=list)
-    promising_features: list[str] = field(default_factory=list)
-    errors: list[dict[str, Any]] = field(default_factory=list)
-    metadata: dict[str, Any] = field(default_factory=dict)
+    available_features: List[str] = field(default_factory=list)
+    analyzed_features: Dict[str, Any] = field(default_factory=dict)
+    history: List[Dict[str, Any]] = field(default_factory=list)
+    promising_features: List[str] = field(default_factory=list)
+    errors: List[Dict[str, Any]] = field(default_factory=list)
+    metadata: Dict[str, Any] = field(default_factory=dict)
 
-    def to_dict(self) -> dict[str, Any]:
+    # Phase 2 additions (additive; do not remove existing fields)
+    evidence_by_feature: Dict[str, List[EvidenceBlock]] = field(
+        default_factory=dict)
+    contradiction_memory: List[Dict[str, Any]] = field(default_factory=list)
+
+    def to_dict(self) -> Dict[str, Any]:
         """Return a JSON-serializable dictionary representation."""
-        return asdict(self)
+
+        # `dataclasses.asdict` will recursively convert dataclass instances
+        # (including `EvidenceBlock`) into plain dicts. This keeps the
+        # serialized structure compatible with existing saved runs while
+        # adding the new fields as plain JSON objects.
+        return _ensure_json_primitive(asdict(self))
+
+    @classmethod
+    def from_dict(cls, payload: Dict[str, Any] | None) -> "AgentState":
+        """Reconstruct an AgentState from a persisted run payload.
+
+        This factory is tolerant of older payloads that do not include the
+        Phase 2 fields and will default them sensibly.
+        """
+        if not payload:
+            raise ValueError(
+                "payload must be a non-empty dict to build AgentState")
+
+        run_id = payload.get("run_id", "run_from_payload")
+        objective = payload.get("objective", "")
+        current_step = int(payload.get("current_step", 0) or 0)
+        max_steps = int(payload.get("max_steps", 5) or 5)
+        available_features = list(payload.get("available_features", []) or [])
+        analyzed_features = dict(payload.get("analyzed_features", {}) or {})
+        history = list(payload.get("history", []) or [])
+        promising_features = list(payload.get("promising_features", []) or [])
+        errors = list(payload.get("errors", []) or [])
+        metadata = dict(payload.get("metadata", {}) or {})
+
+        # Reconstruct evidence_by_feature if present; tolerate older payloads
+        evidence_map = payload.get("evidence_by_feature", {}) or {}
+        reconstructed: Dict[str, List[EvidenceBlock]] = {}
+        for feat, blocks in evidence_map.items():
+            if not blocks:
+                reconstructed[str(feat)] = []
+                continue
+            lst: List[EvidenceBlock] = []
+            for b in blocks:
+                if isinstance(b, EvidenceBlock):
+                    lst.append(b)
+                elif isinstance(b, dict):
+                    lst.append(EvidenceBlock.from_dict(b))
+                else:
+                    # Unknown block representation; attempt to coerce to dict
+                    try:
+                        lst.append(EvidenceBlock.from_dict(dict(b)))
+                    except Exception:
+                        continue
+            reconstructed[str(feat)] = lst
+
+        contradiction_memory = list(
+            payload.get("contradiction_memory", []) or [])
+
+        return cls(
+            run_id=run_id,
+            objective=objective,
+            current_step=current_step,
+            max_steps=max_steps,
+            available_features=available_features,
+            analyzed_features=analyzed_features,
+            history=history,
+            promising_features=promising_features,
+            errors=errors,
+            metadata=metadata,
+            evidence_by_feature=reconstructed,
+            contradiction_memory=contradiction_memory,
+        )

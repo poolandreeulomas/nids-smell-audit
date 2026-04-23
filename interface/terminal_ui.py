@@ -296,46 +296,70 @@ def render_evaluation_overview(result: dict[str, Any], latest: int, options: lis
     aggregate = dict(result.get("aggregate", {}))
     executive_summary = dict(aggregate.get("executive_summary", {}))
     score_summary = dict(aggregate.get("score_summary", {}))
-    runs = list(result.get("runs", []))
+    run_metrics_summary = dict(aggregate.get("run_metrics_summary", {}))
     top1_frequency = dict(aggregate.get("top1_frequency", {}))
+    feature_frequency = dict(executive_summary.get("feature_frequency", {}))
+    confirmed_frequency = dict(feature_frequency.get("confirmed_features", {}))
     error_frequency = dict(executive_summary.get("error_frequency", {}))
+
+    def _summary_value(summary: dict[str, Any], key: str) -> str:
+        metric_summary = dict(summary.get(key, {}))
+        return str(metric_summary.get("median", 0.0))
+
+    metric_pairs = [
+        ("runs_analyzed", str(aggregate.get("run_count", 0))),
+        ("average_score", f"{score_summary.get('average', 0.0)}/100"),
+        ("median_score", f"{score_summary.get('median', 0.0)}/100"),
+        ("median_steps", _summary_value(run_metrics_summary, "steps")),
+        ("median_errors", _summary_value(run_metrics_summary, "errors")),
+        ("median_attempted", _summary_value(
+            run_metrics_summary, "features_attempted")),
+        ("median_successful", _summary_value(
+            run_metrics_summary, "features_successful")),
+        ("median_valid_action",
+         f"{dict(run_metrics_summary.get('valid_action_rate', {})).get('median', 0.0):.2f}"),
+        ("median_tool_error",
+         f"{dict(run_metrics_summary.get('tool_error_rate', {})).get('median', 0.0):.2f}"),
+        ("both_tools_rate", f"{aggregate.get('both_tools_rate', 0.0):.2f}"),
+        ("error_reaction_rate",
+         f"{aggregate.get('error_reaction_rate', 0.0):.2f}"),
+    ]
+
+    top_feature_lines = [
+        f"{feature_name}: {count} run(s)"
+        for feature_name, count in list(top1_frequency.items())[:3]
+    ]
+    if confirmed_frequency:
+        top_feature_lines.extend(
+            f"confirmed {feature_name}: {count} run(s)"
+            for feature_name, count in list(confirmed_frequency.items())[:3]
+        )
+
+    error_lines = [
+        f"{error_key}: {count} run(s)"
+        for error_key, count in list(error_frequency.items())[:5]
+    ]
+
+    conclusion_parts = [executive_summary.get(
+        "headline", "No evaluation summary available.")]
+    discoveries = list(executive_summary.get("discoveries", []))
+    limitations = list(executive_summary.get("limitations", []))
+    if discoveries:
+        conclusion_parts.append("Key pattern: " + discoveries[0])
+    if limitations:
+        conclusion_parts.append("Main limitation: " + limitations[0])
 
     lines = [
         *_meta_lines("Home / Evaluate Runs",
                      "Deterministic multi-run analysis over the current session window."),
         f"Latest window: {latest} run(s)",
-        executive_summary.get("headline", "No evaluation summary available."),
         "",
-        *(_section(
-            "Overview",
-            _kv_lines(
-                [
-                    ("average_score",
-                     f"{score_summary.get('average', 0.0)}/100"),
-                    ("runs_analyzed", str(aggregate.get('run_count', 0))),
-                ]
-            ),
-        )),
+        *(_section("Metrics", _kv_lines(metric_pairs))),
     ]
 
-    if runs:
-        lines.extend(_section(
-            "Top Runs",
-            [
-                f"{index}. {Path(run_summary.get('path', '')).name or 'unknown'} ({dict(run_summary.get('score', {})).get('score', 0.0)}/100)"
-                for index, run_summary in enumerate(runs[:3], start=1)
-            ],
-        ))
-
-    most_recurrent_top = next(iter(top1_frequency), None)
-    if most_recurrent_top:
-        lines.extend(_section("Most Recurrent Top Feature",
-                     [f"- {most_recurrent_top}"]))
-
-    most_common_error = next(iter(error_frequency), None)
-    if most_common_error:
-        lines.extend(_section("Most Common Failure",
-                     [f"- {most_common_error}"]))
+    lines.extend(_section("Top Features", top_feature_lines or ["none"]))
+    lines.extend(_section("Errors", error_lines or ["none"]))
+    lines.extend(_section("Conclusion", conclusion_parts))
 
     if options:
         lines.extend(_section("Actions", _menu_lines(options)))
