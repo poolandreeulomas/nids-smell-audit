@@ -57,6 +57,7 @@ def execute_action(
     state: AgentState,
     dataset_frame: pd.DataFrame | None = None,
     valid_numeric_features: list[str] | None = None,
+    step: int | None = None,
 ) -> dict[str, Any]:
     """Validate action request and dispatch to tools layer."""
     registry = get_tool_registry()
@@ -94,14 +95,43 @@ def execute_action(
             reason or "Repeated feature blocked.",
         )
 
-    result = run_tool(
-        tool_name=action,
-        feature_name=feature_name,
-        dataset_path=dataset_path,
-        config=dataset_config,
-        dataset_frame=dataset_frame,
-        valid_numeric_features=valid_numeric_features,
-    )
+    # Dispatch to tool callable directly so we can forward `step` provenance.
+    tool = registry.get(action)
+    if tool is None:
+        return _execution_error(
+            action,
+            feature_name,
+            "INVALID_ACTION",
+            f"Unknown tool '{action}'.",
+            meta={"available_tools": sorted(available_tools)},
+        )
+
+    try:
+        # Prefer calling with `step` argument; fallback for tools without it.
+        try:
+            result = tool(
+                feature_name=feature_name,
+                dataset_path=dataset_path,
+                config=dataset_config,
+                dataset_frame=dataset_frame,
+                valid_numeric_features=valid_numeric_features,
+                step=step,
+            )
+        except TypeError:
+            result = tool(
+                feature_name=feature_name,
+                dataset_path=dataset_path,
+                config=dataset_config,
+                dataset_frame=dataset_frame,
+                valid_numeric_features=valid_numeric_features,
+            )
+    except Exception as exc:  # noqa: BLE001
+        return _execution_error(
+            action,
+            feature_name,
+            "RUNTIME_ERROR",
+            str(exc),
+        )
 
     if not result.get("ok", False) and result.get("error_code") == "INVALID_ACTION":
         return _execution_error(

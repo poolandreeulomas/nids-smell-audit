@@ -9,6 +9,7 @@ from __future__ import annotations
 from pathlib import Path
 from typing import Any
 
+import math
 import numpy as np
 import pandas as pd
 from pandas.api.types import is_numeric_dtype
@@ -24,6 +25,7 @@ from data.validation import (
     MissingLabelColumnError,
     validate_feature_name,
 )
+from state.schema import EvidenceBlock
 
 
 def _error_result(
@@ -31,7 +33,16 @@ def _error_result(
     error_code: str,
     error_message: str,
     meta: dict[str, Any] | None = None,
+    step: Any | None = None,
 ) -> dict[str, Any]:
+    evidence = EvidenceBlock(
+        feature=feature_name,
+        signals=[],
+        metrics={},
+        support=meta or {},
+        provenance={"source": "tool", "tool": "wasserstein", "step": step},
+        status="active",
+    ).to_dict()
     return {
         "ok": False,
         "tool": "wasserstein",
@@ -40,6 +51,7 @@ def _error_result(
         "error_code": error_code,
         "error_message": error_message,
         "meta": meta or {},
+        "evidence": evidence,
     }
 
 
@@ -49,6 +61,7 @@ def wasserstein(
     config: DatasetConfig | None = None,
     dataset_frame: pd.DataFrame | None = None,
     valid_numeric_features: list[str] | None = None,
+    step: Any | None = None,
 ) -> dict[str, Any]:
     """Compute normalized Wasserstein distance for one feature.
 
@@ -73,6 +86,7 @@ def wasserstein(
                 "UNSUPPORTED_FEATURE_TYPE",
                 f"Feature '{feature_name}' is not numeric.",
                 meta={"dtype": str(df[feature_name].dtype)},
+                step=step,
             )
 
         feature_values = df[feature_name].to_numpy(dtype=float)
@@ -102,6 +116,7 @@ def wasserstein(
                     "n_attack": int(attack_values.size),
                     "n_normal": int(normal_values.size),
                 },
+                step=step,
             )
 
         raw_distance = float(wasserstein_distance(
@@ -112,6 +127,43 @@ def wasserstein(
             normalized = 0.0
         else:
             normalized = float(raw_distance / combined_std)
+
+        # Build EvidenceBlock
+        n_rows_total = int(len(df))
+        n_valid_rows = int(feature_values.size)
+        n_attack = int(attack_values.size)
+        n_normal = int(normal_values.size)
+
+        metrics = {
+            "raw_distance": raw_distance,
+            "normalization_std": combined_std,
+            "normalized": normalized,
+        }
+
+        # Sanitize NaN floats to None for JSON portability
+        for k, v in list(metrics.items()):
+            try:
+                if isinstance(v, float) and math.isnan(v):
+                    metrics[k] = None
+            except Exception:
+                continue
+
+        support = {
+            "total_samples": n_rows_total,
+            "n_valid_rows": n_valid_rows,
+            "per_class": {"normal": n_normal, "attack": n_attack},
+        }
+
+        provenance = {"source": "tool", "tool": "wasserstein", "step": step}
+
+        evidence = EvidenceBlock(
+            feature=feature_name,
+            signals=["wasserstein_distance"],
+            metrics=metrics,
+            support=support,
+            provenance=provenance,
+            status="active",
+        ).to_dict()
 
         return {
             "ok": True,
@@ -125,14 +177,15 @@ def wasserstein(
                 "label_column": cfg.label_column,
                 "raw_distance": raw_distance,
                 "normalization_std": combined_std,
-                "n_rows": int(len(df)),
-                "n_valid_rows": int(feature_values.size),
-                "n_normal": int(normal_values.size),
-                "n_attack": int(attack_values.size),
+                "n_rows": n_rows_total,
+                "n_valid_rows": n_valid_rows,
+                "n_normal": n_normal,
+                "n_attack": n_attack,
                 "normal_labels": list(cfg.normal_labels),
                 "attack_labels": list(cfg.attack_labels),
                 "attack_label_mode": cfg.attack_label_mode,
             },
+            "evidence": evidence,
         }
     except InvalidFeatureNameError as exc:
         return _error_result(feature_name, "INVALID_FEATURE", str(exc))

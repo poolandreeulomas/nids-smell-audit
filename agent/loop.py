@@ -224,6 +224,7 @@ def run_agent(
             state=state,
             dataset_frame=dataset_frame,
             valid_numeric_features=valid_numeric_features,
+            step=step_id,
         )
 
         status = "OK"

@@ -5,7 +5,7 @@ from __future__ import annotations
 import json
 from pathlib import Path
 
-from state.schema import AgentState
+from state.schema import AgentState, EvidenceBlock
 
 PROMPT_TEMPLATE_PATH = Path(__file__).with_name("react_prompt.txt")
 
@@ -36,6 +36,112 @@ def _format_analyzed_features(analyzed_features: dict, tool_names: list[str]) ->
         ),
         reverse=True,
     )
+
+
+def render_evidence_summary(
+    feature: str,
+    evidence_list: list[EvidenceBlock | dict],
+    *,
+    max_signals: int = 3,
+    max_metrics: int = 4,
+) -> dict:
+    """Return a compact summary dict for a feature suitable for prompt rendering.
+
+    - `signals`: up to `max_signals` unique signal names (preserve order).
+    - `metrics`: compact map of up to `max_metrics` keys with representative numeric values (rounded).
+    - `support`: minimal support info: `total_samples` and optional `per_class` summary.
+    - `status`: optional status from the latest evidence block.
+
+    This helper preserves both `signals` and `metrics` (fingerprint_preserve=True)
+    so downstream prompt templates will receive them verbatim (no compression).
+    """
+    # Normalize blocks to dicts
+    norm_blocks: list[dict] = []
+    for b in evidence_list or []:
+        if isinstance(b, EvidenceBlock):
+            norm_blocks.append(b.to_dict())
+        elif isinstance(b, dict):
+            norm_blocks.append(b)
+        else:
+            try:
+                norm_blocks.append(dict(b))
+            except Exception:
+                continue
+
+    # Signals: collect unique signals in order
+    seen = set()
+    signals: list[str] = []
+    for b in norm_blocks:
+        for s in (b.get("signals") or []):
+            try:
+                if s in seen:
+                    continue
+                seen.add(s)
+                signals.append(s)
+                if len(signals) >= max_signals:
+                    break
+            except Exception:
+                continue
+        if len(signals) >= max_signals:
+            break
+
+    # Metrics: pick keys by recency and availability
+    metric_keys = []
+    key_counts: dict = {}
+    for b in norm_blocks:
+        for k, v in (b.get("metrics") or {}).items():
+            key_counts[k] = key_counts.get(k, 0) + 1
+    # sort keys by count desc
+    sorted_keys = sorted(key_counts.items(), key=lambda kv: (-kv[1], kv[0]))
+    for k, _ in sorted_keys[: max_metrics]:
+        # pick most recent value for key
+        val = None
+        for b in reversed(norm_blocks):
+            if k in (b.get("metrics") or {}):
+                val = (b.get("metrics") or {}).get(k)
+                break
+        # Compact numeric values
+        if isinstance(val, (int, float)):
+            try:
+                val = float(val)
+                # round to 3 significant decimals for compactness
+                val = round(val, 3)
+            except Exception:
+                pass
+        metric_keys.append((k, val))
+    metrics = {k: v for k, v in metric_keys}
+
+    # Support
+    total_samples = 0
+    per_class = None
+    for b in norm_blocks:
+        s = b.get("support") or {}
+        if isinstance(s, dict) and isinstance(s.get("total_samples"), (int, float)):
+            try:
+                total_samples += int(s.get("total_samples", 0))
+            except Exception:
+                pass
+        if isinstance(s, dict) and s.get("per_class") and per_class is None:
+            per_class = s.get("per_class")
+
+    support = {"total_samples": total_samples}
+    if per_class is not None:
+        support["per_class"] = per_class
+
+    # Status: from last block if present
+    status = None
+    if norm_blocks:
+        status = norm_blocks[-1].get("status")
+
+    summary = {
+        "feature": feature,
+        "signals": signals,
+        "metrics": metrics,
+        "support": support,
+        "status": status,
+        "fingerprint_preserve": True,
+    }
+    return summary
     lines = []
     for feature_name, evidence in ranked_features:
         tools_used = [

@@ -10,6 +10,21 @@ AVAILABLE_FEATURES:
 ALREADY_ANALYZED_FEATURES:
 {analyzed_features}
 
+FEATURE_SUMMARIES (compact per-feature guidance):
+- For each feature, produce a short hypothesis line (1 sentence) then up to 3 supporting bullets.
+- Template per feature (example):
+	Hypothesis: <feature> may indicate <brief signal> — metric: <metric_name> ≈ <value>
+	- signals: <signal1; signal2>
+	- metrics: <metric_name>=<value>, <metric2>=<value>
+	- support: total_samples=<n>, per_class=<small-summary>
+
+INSTRUCTIONS (concise):
+- Use BOTH `signals` and `metrics` when forming the hypothesis. Always include at least one numeric justification (rounded).
+- Seek one piece of counterevidence or a quick check that could invalidate this hypothesis and state what to run.
+- If counterevidence exists, propose a concise revised hypothesis (one sentence).
+- Keep each feature block compact (≈40–80 words). Do not dump raw tables or large lists of numbers.
+- The overview should read as a working hypothesis, not a final verdict.
+
 RECENT_HISTORY:
 {recent_history}
 

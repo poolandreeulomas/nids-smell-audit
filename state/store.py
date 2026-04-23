@@ -3,9 +3,9 @@
 from __future__ import annotations
 
 from datetime import UTC, datetime
-from typing import Any
+from typing import Any, Dict, List
 
-from state.schema import AgentState
+from state.schema import AgentState, EvidenceBlock
 
 
 def init_state(
@@ -76,3 +76,148 @@ def advance_step(state: AgentState, step_increment: int = 1) -> None:
 def state_to_dict(state: AgentState) -> dict[str, Any]:
     """Return state as a JSON-serializable dictionary."""
     return state.to_dict()
+
+
+def add_evidence(
+    state: AgentState,
+    feature: str,
+    block: EvidenceBlock | dict,
+    *,
+    deduplicate: bool = False,
+) -> int:
+    """Append an evidence block for `feature` and return its index.
+
+    - `block` may be an `EvidenceBlock` instance or a plain `dict`.
+    - If `deduplicate=True`, perform a deterministic content fingerprint
+      check and return an existing index instead of appending.
+
+    This function intentionally performs lightweight coercion only; more
+    advanced validation and policies belong in later steps.
+    """
+    # Normalize incoming block to a plain dict for storage.
+    if isinstance(block, EvidenceBlock):
+        eb_dict = block.to_dict()
+    elif isinstance(block, dict):
+        eb_dict = EvidenceBlock.from_dict(block).to_dict()
+    else:
+        try:
+            eb_dict = EvidenceBlock.from_dict(dict(block)).to_dict()
+        except Exception as exc:  # pragma: no cover - defensive
+            raise TypeError(
+                "block must be EvidenceBlock or dict-like") from exc
+
+    lst: List[Dict[str, Any]] = state.evidence_by_feature.setdefault(feature, [
+    ])
+
+    import hashlib
+    import json
+
+    canonical = json.dumps(eb_dict, sort_keys=True, separators=(",", ":"))
+    target = hashlib.sha1(canonical.encode("utf-8")).hexdigest()
+
+    if deduplicate:
+        for i, existing in enumerate(lst):
+            candidate = existing if isinstance(
+                existing, dict) else existing.to_dict()
+            h = hashlib.sha1(json.dumps(candidate, sort_keys=True, separators=(
+                ",", ":")).encode("utf-8")).hexdigest()
+            if h == target:
+                return i
+
+    lst.append(eb_dict)
+
+    # Update a minimal analyzed_features summary for backward compatibility.
+    try:
+        existing = state.analyzed_features.get(feature, {}) or {}
+        tools_used = set(existing.get("tools_used", []) or [])
+        prov = eb_dict.get("provenance", {}) or {}
+        tool_name = prov.get("tool") or prov.get("source")
+        if tool_name:
+            tools_used.add(tool_name)
+        merged = dict(existing)
+        merged["tools_used"] = sorted(tools_used)
+        merged["last_result"] = eb_dict
+        state.analyzed_features[feature] = merged
+    except Exception:
+        # Never fail state updates due to analysis summary problems.
+        pass
+
+    return len(lst) - 1
+
+
+def update_feature_status(
+    state: AgentState, feature: str, status: str, *, reason: str | None = None
+) -> None:
+    """Update the `status` of the latest evidence block for `feature`.
+
+    Appends a deterministic status-history record into the block's
+    provenance under `status_history` and keeps `state.analyzed_features`
+    `last_result.status` in sync when present.
+    """
+    lst = state.evidence_by_feature.get(feature, []) or []
+    if not lst:
+        raise ValueError(f"no evidence present for feature: {feature}")
+
+    last = lst[-1]
+    # Work both with EvidenceBlock instances and plain dicts.
+    if isinstance(last, EvidenceBlock):
+        previous = last.status
+        last.status = status
+        history = last.provenance.setdefault("status_history", [])
+    else:
+        previous = last.get("status")
+        last["status"] = status
+        history = last.setdefault("status_history", [])
+
+    history.append({
+        "step": state.current_step,
+        "previous_status": previous,
+        "new_status": status,
+        "reason": reason,
+    })
+
+    # Mirror to analyzed_features summary if present.
+    try:
+        summary = state.analyzed_features.get(feature)
+        if isinstance(summary, dict) and "last_result" in summary and isinstance(summary["last_result"], dict):
+            summary["last_result"]["status"] = status
+            state.analyzed_features[feature] = summary
+    except Exception:
+        pass
+
+
+def record_contradiction(
+    state: AgentState, feature: str, reason: str, evidence_refs: List[int] | None = None
+) -> None:
+    """Append a structured contradiction record to `state.contradiction_memory`.
+
+    - `evidence_refs` are validated against the current feature evidence list
+      and only valid integer indices are kept. A shallow snapshot of the
+      latest evidence block is included for traceability.
+    """
+    lst = state.evidence_by_feature.get(feature, []) or []
+    validated: List[int] = []
+    if evidence_refs:
+        for r in evidence_refs:
+            if isinstance(r, int) and 0 <= r < len(lst):
+                validated.append(r)
+
+    snapshot = None
+    if lst:
+        last = lst[-1]
+        if isinstance(last, EvidenceBlock):
+            snapshot = last.to_dict()
+        else:
+            snapshot = dict(last)
+        # Limit snapshot keys to keep records compact.
+        snapshot = {k: snapshot[k] for k in (
+            "feature", "status", "metrics") if k in snapshot}
+
+    record = {
+        "feature": feature,
+        "reason": reason,
+        "evidence_refs": validated,
+        "step": state.current_step,
+        "evidence_snapshot": snapshot,
+    }
+    state.contradiction_memory.append(record)
