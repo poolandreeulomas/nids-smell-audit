@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+import math
+from collections import Counter
 from typing import Any
 
 
@@ -13,12 +15,15 @@ def _format_value(value: float | None) -> str:
 
 def _describe_feature(feature_name: str, feature_evidence: dict[str, dict[str, float | None]]) -> str:
     evidence = feature_evidence.get(feature_name, {})
-    correlation = _format_value(evidence.get("correlation"))
-    wasserstein = _format_value(evidence.get("wasserstein"))
-    return (
-        f"- {feature_name}: correlation={correlation}, "
-        f"wasserstein={wasserstein}"
+    tools = ", ".join(evidence.get("tools_used", []) or []) or "none"
+    signals = "; ".join(evidence.get("signals", []) or []) or "none"
+    metrics = dict(evidence.get("metrics", {}) or {})
+    top_metric = next(
+        (f"{k}={_format_value(v)}" for k,
+         v in metrics.items() if isinstance(v, (int, float))),
+        "none",
     )
+    return f"- {feature_name}: tools=[{tools}], signals=[{signals}], top_metric={top_metric}"
 
 
 def _build_key_findings(insights: dict[str, Any]) -> list[str]:
@@ -37,14 +42,15 @@ def _build_key_findings(insights: dict[str, Any]) -> list[str]:
     if strong_features:
         strongest_feature = max(
             strong_features,
-            key=lambda name: abs(feature_evidence.get(
-                name, {}).get("wasserstein") or 0.0),
+            key=lambda name: int(feature_evidence.get(
+                name, {}).get("anchor_count") or 0),
         )
         strongest_evidence = feature_evidence.get(strongest_feature, {})
+        tools = ", ".join(strongest_evidence.get(
+            "tools_used", []) or []) or "none"
         lines.append(
-            "Strongest confirmed feature: "
-            f"{strongest_feature} with correlation={_format_value(strongest_evidence.get('correlation'))}, "
-            f"wasserstein={_format_value(strongest_evidence.get('wasserstein'))}"
+            f"Strongest confirmed feature: {strongest_feature} "
+            f"(tools=[{tools}], anchors={strongest_evidence.get('anchor_count', 0)})"
         )
     else:
         lines.append("No feature was confirmed with both tools.")
@@ -105,6 +111,36 @@ def _build_conclusion(insights: dict[str, Any]) -> str:
     )
 
 
+def _build_reasoning_metrics(insights: dict[str, Any]) -> list[str]:
+    events = list(insights.get("events", []))
+    hyp_revisions = sum(1 for e in events if e.get("type") == "hypothesis")
+    ce = dict(insights.get("counterevidence", {}))
+    ce_seen = int(ce.get("seen", 0) or 0)
+    ce_acted = int(ce.get("acted", 0) or 0)
+    overview = int(insights.get("overview_usage", 0) or 0)
+    accesses = list(insights.get("feature_accesses", []))
+    distinct = len(set(accesses))
+    # Compute Shannon entropy directly from feature_accesses (same logic as scoring)
+    if accesses:
+        counts = Counter(accesses)
+        total = sum(counts.values())
+        entropy = -sum((c / total) * math.log2(c / total)
+                       for c in counts.values())
+    else:
+        entropy = 0.0
+    evidence_eff = float(insights.get("evidence_signals", 0.0) or 0.0)
+
+    return [
+        "REASONING METRICS:",
+        f"- Hypothesis revisions: {hyp_revisions}",
+        f"- Counterevidence seen/acted: {ce_seen}/{ce_acted}",
+        f"- Overview calls: {overview}",
+        f"- Distinct features accessed: {distinct}",
+        f"- Exploration entropy: {entropy:.3f}",
+        f"- Evidence efficiency: {evidence_eff:.3f}",
+    ]
+
+
 def generate_summary(insights: dict[str, Any]) -> str:
     """Render interpreted run insights as a human-readable summary."""
     behavior = dict(insights.get("behavior", {}))
@@ -125,6 +161,7 @@ def generate_summary(insights: dict[str, Any]) -> str:
         "ERRORS",
         *(_build_error_lines(insights)),
         "",
+        *(_build_reasoning_metrics(insights)),
         "CONCLUSION",
         _build_conclusion(insights),
     ]

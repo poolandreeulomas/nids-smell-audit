@@ -64,7 +64,6 @@ def execute_action(
     available_tools = set(registry.keys())
 
     feature_name = action_input.get("feature_name")
-    feature_name_2 = action_input.get("feature_name_2")
 
     if action == "duplication_analysis":
         if not isinstance(feature_name, str) or not feature_name.strip():
@@ -79,19 +78,7 @@ def execute_action(
                 "ACTION_INPUT.feature_name must be a non-empty string.",
             )
         feature_name = feature_name.strip()
-        if action == "feature_relation" and feature_name_2 is not None:
-            if not isinstance(feature_name_2, str) or not feature_name_2.strip():
-                return _execution_error(
-                    action,
-                    feature_name,
-                    "INVALID_ACTION_INPUT",
-                    "ACTION_INPUT.feature_name_2 must be a non-empty string when provided.",
-                )
-            feature_key = "|".join(
-                sorted([feature_name, feature_name_2.strip()]))
-            feature_name_2 = feature_name_2.strip()
-        else:
-            feature_key = feature_name
+        feature_key = feature_name
 
     if action not in registry:
         return _execution_error(
@@ -136,8 +123,6 @@ def execute_action(
             "valid_numeric_features": valid_numeric_features,
             "step": step,
         }
-        if action == "feature_relation" and feature_name_2 is not None:
-            tool_kwargs["related_feature_name"] = feature_name_2
         # Prefer calling with `step` argument; fallback for tools without it.
         try:
             result = tool(**tool_kwargs)

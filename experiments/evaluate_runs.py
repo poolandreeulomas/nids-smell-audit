@@ -13,6 +13,7 @@ from typing import Any
 
 from analysis.interpreter import extract_run_insights
 from analysis.scoring import score_run
+from analysis.scoring import baseline_deterministic, baseline_random
 from utils.metrics import compute_overlap_score
 from utils.run_logging import DEFAULT_RUNS_DIR, load_json
 
@@ -222,6 +223,12 @@ def evaluate_runs(run_paths: list[str] | None = None, latest: int = 5) -> dict[s
         payload = load_json(path)
         insights = extract_run_insights(payload)
         scoring = score_run(insights)
+        # attach reasoning components and baselines
+        reasoning_components = dict(scoring.get("reasoning_components", {}))
+        baselines = {
+            "deterministic": baseline_deterministic(insights),
+            "random_seeded": baseline_random(insights, seed=1, budget=int(insights.get("behavior", {}).get("num_steps", 1) or 1)),
+        }
         metrics = dict(payload.get("metrics", {}))
         run_summaries.append(
             {
@@ -229,6 +236,8 @@ def evaluate_runs(run_paths: list[str] | None = None, latest: int = 5) -> dict[s
                 "run_id": payload.get("run_id"),
                 "top_features": insights.get("top_features", []),
                 "score": scoring,
+                "reasoning_components": reasoning_components,
+                "baselines": baselines,
                 "metrics": metrics,
                 "insights": insights,
             }
@@ -266,6 +275,24 @@ def evaluate_runs(run_paths: list[str] | None = None, latest: int = 5) -> dict[s
         "score_summary": _summarize_scores(scores),
         "run_metrics_summary": _build_run_metrics_summary(run_summaries),
         "consistency": _compute_consistency(run_summaries),
+        # PROMPT 7 aggregate reasoning summaries
+        "reasoning_components_summary": {
+            "avg_beneficial_revision_ratio": round(_safe_rate(
+                _rc_sum(run_summaries, "hypothesis_revision",
+                        "beneficial_revisions"),
+                max(1, _rc_sum(run_summaries, "hypothesis_revision", "total_revisions")),
+            ), 3),
+            "avg_counterevidence_acted_ratio": round(_safe_rate(
+                _rc_sum(run_summaries, "counterevidence_usage", "acted"),
+                max(1, _rc_sum(run_summaries, "counterevidence_usage", "seen")),
+            ), 3),
+            "avg_overview_dependence": round(
+                _rc_sum(run_summaries, "overview_dependence", "overview_dependence") / max(1, len(run_summaries)), 3),
+            "avg_shannon_entropy": round(
+                _rc_sum(run_summaries, "exploration_diversity", "shannon_entropy") / max(1, len(run_summaries)), 3),
+            "avg_evidence_efficiency": round(
+                _rc_sum(run_summaries, "evidence_efficiency", "evidence_efficiency") / max(1, len(run_summaries)), 4),
+        },
         "both_tools_rate": round(both_tools_rate, 2),
         "error_reaction_rate": round(error_reaction_rate, 2),
         "verdict_counts": dict(verdict_counts),
@@ -280,6 +307,15 @@ def _safe_rate(numerator: int, denominator: int) -> float:
     if denominator <= 0:
         return 0.0
     return numerator / denominator
+
+
+def _rc_sum(run_summaries: list[dict[str, Any]], component: str, field: str) -> float:
+    """Sum a nested reasoning_component field across all run summaries."""
+    return sum(
+        float(r.get("reasoning_components", {}).get(
+            component, {}).get(field, 0.0) or 0.0)
+        for r in run_summaries
+    )
 
 
 def _format_run_block(run_summary: dict[str, Any]) -> list[str]:

@@ -3,7 +3,6 @@
 from __future__ import annotations
 
 from dataclasses import asdict
-import json
 from pathlib import Path
 from typing import Any, Callable
 
@@ -15,30 +14,94 @@ from data.dataset_config import DatasetConfig
 from prompts.builder import build_prompt
 from state.schema import AgentState
 from state.store import (
+    add_evidence,
     advance_step,
     append_error,
     append_history,
+    get_last_hypothesis,
     merge_metadata,
+    record_contradiction,
+    record_hypothesis_if_changed,
     set_promising_features,
+    update_feature_status,
     update_analyzed_feature,
 )
+from utils.human_readable import parse_thought_fields, summarize_action, summarize_observation
 from utils.reproducibility import build_reproducibility_metadata, hash_text_sha256
 
 LlmCallable = Callable[[str], str]
 
 
-def _format_trace_payload(value: Any) -> str:
-    if isinstance(value, dict):
-        return json.dumps(value, ensure_ascii=True, sort_keys=True)
-    if value is None:
-        return "None"
-    return str(value)
+def _print_trace_step(
+    step_id: int,
+    thought: str | None,
+    action: str | None,
+    action_input: dict[str, Any] | None,
+    observation: dict[str, Any],
+    status: str,
+) -> None:
+    thought_fields = parse_thought_fields(thought)
+
+    print()
+    print("-" * 72)
+    print(f"STEP {step_id:02d} | STATUS: {status}")
+    print("-" * 72)
+    print(
+        f"HYPOTHESIS : {thought_fields.get('hypothesis') or thought or 'No useful thought was recorded for this step.'}"
+    )
+    if thought_fields.get("scope"):
+        print(f"SCOPE      : {thought_fields['scope']}")
+    if thought_fields.get("next_action"):
+        print(f"PLAN       : {thought_fields['next_action']}")
+    print(f"ACTION     : {summarize_action(action, action_input)}")
+    print(f"OBSERVATION: {summarize_observation(observation)}")
 
 
-def _print_trace_block(step_id: int, title: str, payload: dict[str, Any]) -> None:
-    print(f"\n=== ReAct Step {step_id} | {title} ===")
-    for key, value in payload.items():
-        print(f"{key}: {_format_trace_payload(value)}")
+def _extract_hypothesis(thought: str | None) -> str | None:
+    if not isinstance(thought, str):
+        return None
+    marker = "Hypothesis:"
+    start = thought.find(marker)
+    if start < 0:
+        return None
+    remainder = thought[start + len(marker):].strip()
+    hypothesis = remainder.split(" | ", 1)[0].strip()
+    return hypothesis or None
+
+
+def _prompt_has_overview(prompt_text: str) -> bool:
+    marker = "ADDITIONAL_CANDIDATES:\n"
+    start = prompt_text.find(marker)
+    if start < 0:
+        return False
+    remainder = prompt_text[start + len(marker):].lstrip()
+    return not remainder.startswith("NONE")
+
+
+def _increment_overview_usage(state: AgentState, prompt_text: str) -> None:
+    if not _prompt_has_overview(prompt_text):
+        return
+    count = state.metadata.get("overview_usage", 0)
+    try:
+        count = int(count) + 1
+    except Exception:
+        count = 1
+    state.metadata["overview_usage"] = count
+
+
+def _resolve_hypothesis_feature(state: AgentState, hypothesis: str | None) -> str | None:
+    if not isinstance(hypothesis, str) or not hypothesis:
+        return None
+    lowered = hypothesis.casefold()
+    candidates = list(dict.fromkeys(
+        [str(feature) for feature in state.evidence_by_feature.keys()] +
+        [str(feature) for feature in state.available_features]
+    ))
+    matches = [
+        feature for feature in candidates if feature and feature.casefold() in lowered]
+    if not matches:
+        return None
+    return sorted(matches, key=lambda feature: (-len(feature), feature))[0]
 
 
 def _record_step(
@@ -74,7 +137,12 @@ def _update_state_after_tool(
     action: str,
     feature_name: str,
     tool_result: dict[str, Any],
-) -> None:
+) -> int | None:
+    evidence_index: int | None = None
+    evidence_block = tool_result.get("evidence")
+    if isinstance(evidence_block, dict):
+        evidence_index = add_evidence(state, feature_name, evidence_block)
+
     feature_state = state.analyzed_features.get(feature_name, {})
     tools_used = list(feature_state.get("tools_used", []))
     tool_results = dict(feature_state.get("tool_results", {}))
@@ -86,7 +154,6 @@ def _update_state_after_tool(
         "tools_used": tools_used,
         action: tool_result.get("value"),
         "tool_results": tool_results,
-        "last_result": tool_result,
     }
     update_analyzed_feature(state, feature_name, evidence)
 
@@ -99,6 +166,7 @@ def _update_state_after_tool(
         reverse=True,
     )
     set_promising_features(state, [name for name, _ in ranked_features])
+    return evidence_index
 
 
 def run_agent(
@@ -139,6 +207,7 @@ def run_agent(
     while state.current_step < state.max_steps:
         step_id = state.current_step + 1
         prompt_text = build_prompt(state, tool_names)
+        _increment_overview_usage(state, prompt_text)
 
         try:
             raw_model_output = llm_callable(prompt_text)
@@ -149,13 +218,8 @@ def run_agent(
                 "error_message": str(exc),
             }
             if trace:
-                _print_trace_block(
-                    step_id,
-                    "LLM_ERROR",
-                    {
-                        "OBSERVATION": observation,
-                    },
-                )
+                _print_trace_step(step_id, None, None, None,
+                                  observation, "LLM_ERROR")
             append_error(state, {"step_id": step_id, **observation})
             _record_step(
                 state=state,
@@ -179,13 +243,13 @@ def run_agent(
                 "error_message": parsed.get("error_message", "Parser failure."),
             }
             if trace:
-                _print_trace_block(
+                _print_trace_step(
                     step_id,
+                    "The model output did not follow the expected format.",
+                    None,
+                    None,
+                    observation,
                     "PARSE_ERROR",
-                    {
-                        "RAW_MODEL_OUTPUT": raw_model_output,
-                        "OBSERVATION": observation,
-                    },
                 )
             append_error(state, {"step_id": step_id, **observation})
             _record_step(
@@ -205,16 +269,6 @@ def run_agent(
         action = parsed["action"]
         action_input = parsed["action_input"]
         thought = parsed["thought"]
-        if trace:
-            _print_trace_block(
-                step_id,
-                "MODEL_DECISION",
-                {
-                    "THOUGHT": thought,
-                    "ACTION": action,
-                    "ACTION_INPUT": action_input,
-                },
-            )
         result = execute_action(
             action=action,
             action_input=action_input,
@@ -227,6 +281,8 @@ def run_agent(
         )
 
         status = "OK"
+        result_feature_name: str | None = None
+        evidence_index: int | None = None
         error_code = result.get("error_code")
         if error_code == "INVALID_ACTION":
             status = "INVALID_ACTION"
@@ -242,18 +298,42 @@ def run_agent(
             if not isinstance(result_feature_name, str) or not result_feature_name:
                 result_feature_name = action_input.get(
                     "feature_name", "__dataset__")
-            _update_state_after_tool(
+            evidence_index = _update_state_after_tool(
                 state, action, result_feature_name, result)
 
+        hypothesis = _extract_hypothesis(thought)
+        if hypothesis:
+            previous_hypothesis = get_last_hypothesis(state)
+            if previous_hypothesis and previous_hypothesis != hypothesis:
+                contradiction_feature = _resolve_hypothesis_feature(
+                    state, previous_hypothesis) or result_feature_name or action_input.get(
+                    "feature_name", "__dataset__")
+                contradiction_refs = None
+                contradiction_evidence = state.evidence_by_feature.get(
+                    contradiction_feature, [])
+                if contradiction_evidence:
+                    contradiction_refs = [len(contradiction_evidence) - 1]
+                    update_feature_status(
+                        state,
+                        contradiction_feature,
+                        "weakened",
+                        reason=(
+                            f"Hypothesis revised from '{previous_hypothesis}' to '{hypothesis}'."
+                        ),
+                    )
+                record_contradiction(
+                    state,
+                    contradiction_feature,
+                    reason=(
+                        f"Hypothesis revised from '{previous_hypothesis}' to '{hypothesis}'."
+                    ),
+                    evidence_refs=contradiction_refs,
+                )
+            record_hypothesis_if_changed(state, hypothesis)
+
         if trace:
-            _print_trace_block(
-                step_id,
-                "TOOL_RESULT",
-                {
-                    "STATUS": status,
-                    "OBSERVATION": result,
-                },
-            )
+            _print_trace_step(step_id, thought, action,
+                              action_input, result, status)
 
         _record_step(
             state=state,

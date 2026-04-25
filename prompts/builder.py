@@ -7,7 +7,7 @@ from pathlib import Path
 from typing import Any
 
 from state.schema import AgentState, EvidenceBlock
-from src.explore import get_candidate_features
+from src.feature_index import get_candidate_features
 
 PROMPT_TEMPLATE_PATH = Path(__file__).with_name("react_prompt.txt")
 
@@ -54,6 +54,39 @@ def _format_analyzed_features(analyzed_features: dict, tool_names: list[str]) ->
             evidence_parts.append(f"{tool_name}={_format_metric_value(value)}")
         lines.append(f"- {feature_name} -> " + ", ".join(evidence_parts))
     return "\n".join(lines)
+
+
+def _format_evidence_memory(state: AgentState, tool_names: list[str]) -> str:
+    evidence_map = dict(state.evidence_by_feature or {})
+    if evidence_map:
+        ordered_features: list[str] = []
+        seen: set[str] = set()
+        for feature_name in state.promising_features:
+            if feature_name in evidence_map and feature_name not in seen:
+                ordered_features.append(feature_name)
+                seen.add(feature_name)
+        for feature_name in sorted(evidence_map):
+            if feature_name not in seen:
+                ordered_features.append(feature_name)
+
+        lines = []
+        for feature_name in ordered_features:
+            summary = render_evidence_summary(
+                feature_name, evidence_map.get(feature_name, []))
+            signals = "; ".join(summary.get("signals", [])) or "none"
+            metrics = ", ".join(
+                f"{key}={_format_metric_value(value)}"
+                for key, value in summary.get("metrics", {}).items()
+            ) or "none"
+            support = summary.get("support", {}) or {}
+            total_samples = support.get("total_samples", 0)
+            status = summary.get("status") or "unknown"
+            lines.append(
+                f"- {feature_name} -> signals=[{signals}], metrics: {metrics}, support: total_samples={total_samples}, status={status}"
+            )
+        return "\n".join(lines)
+
+    return _format_analyzed_features(state.analyzed_features, tool_names)
 
 
 def _format_available_features(available_features: list[str]) -> str:
@@ -178,22 +211,20 @@ def render_evidence_summary(
         metric_keys.append((k, val))
     metrics = {k: v for k, v in metric_keys}
 
-    # Support
-    total_samples = 0
-    per_class = None
-    for b in norm_blocks:
+    # Support: use the most recent non-empty support block; do not accumulate.
+    support: dict[str, Any] = {}
+    for b in reversed(norm_blocks):
         s = b.get("support") or {}
-        if isinstance(s, dict) and isinstance(s.get("total_samples"), (int, float)):
-            try:
-                total_samples += int(s.get("total_samples", 0))
-            except Exception:
-                pass
-        if isinstance(s, dict) and s.get("per_class") and per_class is None:
-            per_class = s.get("per_class")
-
-    support = {"total_samples": total_samples}
-    if per_class is not None:
-        support["per_class"] = per_class
+        if not isinstance(s, dict) or not s:
+            continue
+        total_samples = s.get("total_samples", s.get("n_total"))
+        if isinstance(total_samples, (int, float)):
+            support["total_samples"] = int(total_samples)
+        per_class = s.get("per_class", s.get("n_per_class"))
+        if isinstance(per_class, dict) and per_class:
+            support["per_class"] = per_class
+        if support:
+            break
 
     status = None
     if norm_blocks:
@@ -224,16 +255,94 @@ def _format_additional_candidates(
     if not summaries:
         return "NONE"
 
-    try:
-        candidates = get_candidate_features(
-            criteria, summaries=summaries, top_k=5)
-    except Exception:
+    covered_features: set[str] = set()
+    if state is not None:
+        covered_features.update(str(feature)
+                                for feature in state.evidence_by_feature.keys())
+        covered_features.update(str(feature)
+                                for feature in state.promising_features)
+
+    modes: list[str] = []
+    seen_modes: set[str] = set()
+    for mode in (criteria, "low cardinality", "high skew", "redundancy"):
+        normalized = (mode or "").strip().lower()
+        if not normalized or normalized in seen_modes:
+            continue
+        seen_modes.add(normalized)
+        modes.append(mode)
+
+    ranked_candidates: dict[str, dict[str, Any]] = {}
+    for mode in modes:
+        try:
+            mode_candidates = get_candidate_features(
+                mode, summaries=summaries, top_k=5)
+        except Exception:
+            continue
+        for rank, candidate in enumerate(mode_candidates, start=1):
+            feature_name = str(candidate.get("feature_name", ""))
+            if not feature_name or feature_name in covered_features:
+                continue
+            record = ranked_candidates.setdefault(
+                feature_name,
+                {
+                    "feature_name": feature_name,
+                    "signals": [],
+                    "score": 0,
+                    "sources": set(),
+                },
+            )
+            for signal in candidate.get("signals") or []:
+                if signal not in record["signals"]:
+                    record["signals"].append(signal)
+            record["score"] += max(1, 6 - rank)
+            record["sources"].add(mode)
+
+    selected: list[dict[str, Any]] = []
+    selected_names: set[str] = set()
+
+    def add_candidate(candidate: dict[str, Any]) -> None:
+        feature_name = candidate.get("feature_name")
+        if not isinstance(feature_name, str) or not feature_name:
+            return
+        if feature_name in selected_names or feature_name in covered_features:
+            return
+        selected.append(candidate)
+        selected_names.add(feature_name)
+
+    strongest = sorted(
+        ranked_candidates.values(),
+        key=lambda item: (-int(item["score"]), -
+                          len(item["sources"]), item["feature_name"]),
+    )[:3]
+    for candidate in strongest:
+        add_candidate(candidate)
+
+    bucket_limits = (("low cardinality", 2),
+                     ("high skew", 2), ("redundancy", 2))
+    for mode, limit in bucket_limits:
+        try:
+            bucket = get_candidate_features(mode, summaries=summaries, top_k=5)
+        except Exception:
+            continue
+        added = 0
+        for candidate in bucket:
+            before = len(selected)
+            add_candidate(candidate)
+            if len(selected) > before:
+                added += 1
+            if added >= limit or len(selected) >= 10:
+                break
+        if len(selected) >= 10:
+            break
+
+    if not selected:
         return "NONE"
 
-    lines = [f"Candidates for '{criteria}':"]
-    for c in candidates:
-        sig = "; ".join(str(s) for s in (c.get("signals") or []))
-        lines.append(f"- {c['feature_name']}: {sig}")
+    lines = ["Candidates for mixed structural signals:"]
+    for candidate in selected[:10]:
+        sig = "; ".join(str(s)
+                        for s in (candidate.get("signals") or [])) or "none"
+        lines.append(f"- {candidate['feature_name']}: {sig}")
     return "\n".join(lines)
 
 
@@ -272,8 +381,7 @@ def build_prompt(
         available_tools=_format_available_tools(tool_names),
         available_features=_format_available_features(
             state.available_features),
-        analyzed_features=_format_analyzed_features(
-            state.analyzed_features, tool_names),
+        analyzed_features=_format_evidence_memory(state, tool_names),
         recent_history=_format_recent_history(state.history, history_window),
         additional_candidates=_format_additional_candidates(
             candidate_summaries, candidate_criteria, state),

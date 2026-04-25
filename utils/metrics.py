@@ -13,6 +13,20 @@ ATTEMPTED_ACTION_STATUSES = {"OK", "TOOL_ERROR", "REPEATED_FEATURE_BLOCKED"}
 JUSTIFICATION_ACTION_STATUSES = {"OK", "TOOL_ERROR"}
 
 
+def collect_numeric_values(value: Any) -> list[float]:
+    """Recursively collect all numeric (non-bool) leaf values from a nested structure."""
+    results: list[float] = []
+    if isinstance(value, dict):
+        for item in value.values():
+            results.extend(collect_numeric_values(item))
+    elif isinstance(value, (list, tuple)):
+        for item in value:
+            results.extend(collect_numeric_values(item))
+    elif isinstance(value, (int, float)) and not isinstance(value, bool):
+        results.append(float(value))
+    return results
+
+
 def _clamp_rate(value: float) -> float:
     return max(0.0, min(1.0, value))
 

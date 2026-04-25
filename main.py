@@ -9,13 +9,16 @@ from agent.loop import run_agent
 from config import DATA_DIR, MAX_STEPS
 from data.dataset_config import get_default_dataset_config
 from data.loader import load_dataset
+from src.feature_index import build_compact_feature_index
 from state.schema import AgentState
 from state.store import init_state
 from tools.registry import get_tool_registry
 
 DEFAULT_OBJECTIVE = (
-    "Find which features best discriminate between normal and attack traffic "
-    "using the available tools."
+    "Audit the dataset partition for potential design artefacts (determinism, "
+    "redundancy, duplication, and suspicious distributional patterns) and "
+    "produce a compact structured JSON of suspect features with supporting "
+    "evidence."
 )
 
 
@@ -79,12 +82,20 @@ def main() -> AgentState:
     trace = os.environ.get("REACT_TRACE", "1") != "0"
     seed_value = os.environ.get("OPENAI_SEED")
     seed = int(seed_value) if seed_value else None
+    max_steps_value = os.environ.get("NIDS_MAX_STEPS")
+    max_steps = int(max_steps_value) if max_steps_value else MAX_STEPS
 
     state = init_state(
         run_id="run_local",
-        objective=DEFAULT_OBJECTIVE,
-        max_steps=MAX_STEPS,
+        objective=os.environ.get("NIDS_OBJECTIVE", DEFAULT_OBJECTIVE),
+        max_steps=max_steps,
         available_features=available_features,
+        metadata={
+            "compact_feature_index": build_compact_feature_index(
+                dataset_frame,
+                label_col=dataset_config.label_column,
+            )
+        },
     )
 
     llm_callable = _build_openai_llm_callable(model_name, temperature)

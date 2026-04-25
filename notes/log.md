@@ -318,6 +318,25 @@ Since this project operates primarily on CSV data, direct flow reconstruction is
 Future approximations may include:
 
 - flow signature clustering
+
+## 24 April 2026 - Repository simplification pass
+
+### Structural cleanup
+
+- Unified pytest discovery so the same full suite is collected from both the workspace root and the repository root.
+- Removed cwd-dependent `sys.path` hacks from the outer test files that still needed them.
+- Added a dedicated `src/feature_index.py` module for the compact feature-index helpers used by the live runtime.
+- Reduced `src/explore.py` to a legacy exploratory script instead of mixing active runtime helpers with old batch analysis code.
+
+### Documentation cleanup
+
+- Rewrote the main context and architecture documents to match the current Phase 2 artifact-audit runtime.
+- Marked `docs/changes/` as historical implementation context instead of a current source of truth.
+- Fixed the broken migration-notes reference inside the archived PR draft.
+
+### Current status
+
+The repo is still intentionally compact at the runtime core, but the historical layers are now better separated from the active system description and test surface.
 - pattern similarity detection
 - approximate flow fingerprinting
 

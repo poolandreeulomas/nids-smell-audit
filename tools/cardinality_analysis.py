@@ -15,7 +15,7 @@ from data.validation import (
     MissingLabelColumnError,
     validate_feature_name,
 )
-from src.explore import feature_cardinality
+from src.feature_index import feature_cardinality
 from tools.common import (
     build_error_result,
     build_success_result,

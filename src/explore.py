@@ -1,31 +1,24 @@
-"""
-Exploratory structural audit of NIDS benchmark partitions.
+"""Legacy partition-level exploratory analysis script.
 
-Purpose:
---------
-This script collects structural statistics per dataset partition
-to identify potential risks such as:
-
-- Deterministic feature-label dependencies
-- Low intra-class diversity
-- Extreme variance imbalance
-- Shortcut learning risks
-
-Important:
-----------
-This is NOT a smell detection module yet.
-It only gathers quantitative signals.
-
-Results are stored in analysis_summary.json
-for later cross-partition comparison.
+The live Phase 2 runtime uses helpers from `src.feature_index`.
+This file is kept only for the older batch-style exploratory workflow.
 """
 
-from scipy.stats import entropy
-from scipy.spatial.distance import jensenshannon
-import os
-import pandas as pd
-import numpy as np
+from __future__ import annotations
+
 import json
+import os
+
+import pandas as pd
+from scipy.spatial.distance import jensenshannon
+from scipy.stats import entropy
+
+from src.feature_index import (
+    build_compact_feature_index,
+    detect_feature_redundancy,
+    feature_cardinality,
+    get_candidate_features,
+)
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
@@ -104,192 +97,9 @@ def distribution_metrics(df, feature, label_col="Label"):
     return results
 
 # ============================================================
-# Feature redundancy detection
-# ============================================================
-
-
-def detect_feature_redundancy(df, threshold=0.95):
-    """
-    Detect highly correlated feature pairs.
-
-    High correlation between features may indicate redundancy or derived variables in the dataset, which can lead to shortcut learning.
-    """
-    corr_matrix = df.corr(numeric_only=True)
-
-    redundant_pairs = []
-
-    for i, col1 in enumerate(corr_matrix.columns):
-        for col2 in corr_matrix.columns[i+1:]:
-
-            corr_value = corr_matrix.loc[col1, col2]
-            if abs(corr_value) >= threshold:
-                redundant_pairs.append({
-                    "feature_1": col1,
-                    "feature_2": col2,
-                    "correlation": float(corr_value)
-                })
-    return redundant_pairs
-
-# ============================================================
-# Feature cardinality statistics
-# ============================================================
-
-
-def feature_cardinality(df):
-    """
-    Computes cardinality statistics for numeric features.
-
-    Cardinality ratio = unique_values / number_of_samples
-
-    Useful for detecting deterministic or low - diversity features.
-    """
-
-    results = {}
-
-    n_samples = len(df)
-
-    for col in df.select_dtypes(include=[np.number]).columns:
-        unique_values = df[col].nunique()
-        results[col] = {
-            "unique_values": int(unique_values),
-            "cardinality_ratio": float(unique_values / n_samples) if n_samples > 0 else None
-        }
-    return results
-
-
-def build_compact_feature_index(df, label_col="Label", redundancy_threshold: float = 0.95):
-    """Produce a compact, deterministic per-feature summary suitable for candidate selection.
-
-    Returned map (dict) keys are feature names and values are small dicts with:
-      - unique_values: int
-      - cardinality_ratio: float
-      - skewness: float (pandas skew)
-      - redundancy: list of partner dicts {feature: str, correlation: float} (may be empty)
-
-    This function intentionally keeps outputs small and avoids per-class raw dumps.
-    """
-    import numpy as _np
-
-    summaries = {}
-
-    # Numeric columns only
-    numeric_cols = list(df.select_dtypes(include=[_np.number]).columns)
-    n_samples = len(df)
-
-    # Precompute cardinality and skew
-    for col in numeric_cols:
-        unique_vals = int(df[col].nunique())
-        cardinality_ratio = float(
-            unique_vals / n_samples) if n_samples > 0 else None
-        try:
-            skewness = float(df[col].skew())
-        except Exception:
-            skewness = None
-
-        summaries[col] = {
-            "unique_values": unique_vals,
-            "cardinality_ratio": cardinality_ratio,
-            "skewness": skewness,
-            "redundancy": [],
-        }
-
-    # Redundancy: detect highly correlated pairs and attach partners
-    try:
-        corr_matrix = df.corr(numeric_only=True)
-        for i, col1 in enumerate(corr_matrix.columns):
-            for col2 in corr_matrix.columns[i+1:]:
-                corr_value = corr_matrix.loc[col1, col2]
-                if abs(corr_value) >= redundancy_threshold:
-                    # attach to both features
-                    if col1 in summaries:
-                        summaries[col1]["redundancy"].append(
-                            {"feature": col2, "correlation": float(corr_value)})
-                    if col2 in summaries:
-                        summaries[col2]["redundancy"].append(
-                            {"feature": col1, "correlation": float(corr_value)})
-    except Exception:
-        # Be forgiving: if correlation computation fails, leave redundancy empty
-        pass
-
-    return summaries
-
-
-def get_candidate_features(criteria: str, df=None, summaries: dict | None = None, top_k: int = 10):
-    """Deterministically return compact candidate features for a given criteria.
-
-    - `criteria`: one of 'low cardinality', 'high skew', or 'redundancy' (case-insensitive).
-    - `df`: optional DataFrame; required if `summaries` not provided.
-    - `summaries`: optional precomputed output of `build_compact_feature_index`.
-
-    Returns a list of compact records: {"feature_name": str, "signals": [...], "score": float}
-    Signals are short tokens describing why the candidate was selected.
-    """
-    if summaries is None:
-        if df is None:
-            raise ValueError("df or summaries must be provided")
-        summaries = build_compact_feature_index(df)
-
-    key = (criteria or "").strip().lower()
-    # normalize synonyms
-    if key in ("low cardinality", "low_cardinality", "low_card"):
-        mode = "low_cardinality"
-    elif key in ("high skew", "skew", "high_skew"):
-        mode = "high_skew"
-    elif key in ("redundancy", "redundant", "high redundancy", "redundant_pairs"):
-        mode = "redundancy"
-    else:
-        raise ValueError(f"unsupported criteria: {criteria}")
-
-    records = []
-    if mode == "low_cardinality":
-        for feat, v in summaries.items():
-            cr = v.get("cardinality_ratio")
-            score = float(cr) if cr is not None else float("inf")
-            signals = [f"unique_values={v.get('unique_values')}",
-                       f"cardinality_ratio={round(cr, 3) if cr is not None else None}"]
-            records.append(
-                {"feature_name": feat, "signals": signals, "score": score})
-        # lower cardinality_ratio is more interesting
-        records.sort(key=lambda r: (
-            r["score"] if r["score"] is not None else float("inf"), r["feature_name"]))
-
-    elif mode == "high_skew":
-        for feat, v in summaries.items():
-            sk = v.get("skewness")
-            score = -abs(float(sk)) if sk is not None else float("inf")
-            signals = [f"skewness={round(sk, 3) if sk is not None else None}"]
-            records.append(
-                {"feature_name": feat, "signals": signals, "score": score})
-        # more extreme skew (abs) first
-        records.sort(key=lambda r: (r["score"], r["feature_name"]))
-
-    elif mode == "redundancy":
-        for feat, v in summaries.items():
-            partners = v.get("redundancy") or []
-            # score by number of partners then max correlation
-            n_partners = len(partners)
-            max_corr = max([abs(p.get("correlation", 0.0))
-                           for p in partners]) if partners else 0.0
-            score = (-n_partners, -max_corr)
-            signals = [
-                f"redundant_with={p['feature']}@{round(p['correlation'], 3)}" for p in partners[:3]]
-            records.append(
-                {"feature_name": feat, "signals": signals, "score": score})
-        # sort by number of partners desc, then by max_corr desc, then name
-        records.sort(key=lambda r: (r["score"], r["feature_name"]))
-
-    # return top_k compact records, omit heavy fields
-    compact = []
-    for rec in records[:top_k]:
-        compact.append(
-            {"feature_name": rec["feature_name"], "signals": rec["signals"]})
-
-    return compact
-
-
-# ============================================================
 # Partition-level analysis
 # ============================================================
+
 
 def analyze_partition(file_path):
 

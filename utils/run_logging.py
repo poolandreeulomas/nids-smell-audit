@@ -31,6 +31,12 @@ def build_run_basename(timestamp: datetime | None = None) -> str:
     return ts.strftime("run_%Y%m%d_%H%M%S_%f")
 
 
+def build_session_run_basename(run_index: int, timestamp: datetime | None = None) -> str:
+    """Build a session-scoped run basename with a visible sequential identifier."""
+    ts = timestamp or datetime.now(UTC)
+    return ts.strftime(f"run_{run_index:03d}_%Y%m%d_%H%M%S_%f")
+
+
 def build_run_log_payload(
     state: AgentState,
     metrics: dict[str, Any] | None = None,
@@ -52,7 +58,8 @@ def write_json(file_path: str | Path, payload: dict[str, Any]) -> Path:
     """Write JSON with indentation for easy inspection."""
     path = Path(file_path)
     path.parent.mkdir(parents=True, exist_ok=True)
-    path.write_text(json.dumps(payload, indent=2, ensure_ascii=True), encoding="utf-8")
+    path.write_text(json.dumps(payload, indent=2,
+                    ensure_ascii=True), encoding="utf-8")
     return path
 
 

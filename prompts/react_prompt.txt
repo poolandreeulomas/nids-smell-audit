@@ -27,7 +27,7 @@ INSTRUCTIONS (concise):
 
 THOUGHT FORMAT GUIDANCE:
 - Embed a concise structured thought inside the single-line `THOUGHT:` output using these exact labels in this order: `Hypothesis:`, `Scope:`, `Next action:`. Separate fields with ` | ` (space-pipe-space). Example:
-	THOUGHT: Hypothesis: Destination Port shows low cardinality and may shortcut labels. | Scope: Destination Port | Next action: Run `correlation` on `Destination Port` vs `Label`.
+	THOUGHT: Hypothesis: Destination Port shows low cardinality and may shortcut labels. | Scope: Destination Port | Next action: Run `cardinality_analysis` on `Destination Port`.
  - Keep the entire THOUGHT line compact. `Scope` must list 1–3 features. `Next action` must be a single atomic action. Do NOT include multi-step instructions or numbered steps.
 
 ADDITIONAL_CANDIDATES:
