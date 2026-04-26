@@ -1,0 +1,5 @@
+This partition models application-layer attacks such as XSS, SQLi, or brute force on forms.
+
+Overly clean separability, simplified request-level representations, or features that act as shortcuts for identifying attacks without capturing meaningful structure may indicate issues.
+
+The agent should inspect request-level structure and avoid relying only on volume or aggregate metrics. Shallow web-attack confirmation is weak reasoning.

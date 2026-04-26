@@ -1,0 +1,5 @@
+This partition models network traffic without a reliable phenomenon label. Interpret observed structure cautiously and do not assume that any regularity, skew, or diversity pattern is meaningful on its own.
+
+Potential concerns include redundancy, artificial determinism, low diversity, suspicious separability, label leakage, and overly perfect patterns when they are supported by evidence.
+
+Assess whether the agent prioritizes informative evidence, avoids trivial confirmations, revises hypotheses when needed, and identifies meaningful artifacts without relying on phenomenon-specific assumptions.

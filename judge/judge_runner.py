@@ -9,6 +9,7 @@ from pathlib import Path
 from typing import Any, Callable
 
 from experiments.export_jif import export_jif
+from judge.context_loader import get_judge_context_sections
 from judge.judge_parser import VALID_EVIDENCE_REFERENCES, parse_judge_response
 from utils.run_logging import load_json, write_json
 
@@ -17,6 +18,8 @@ DEFAULT_JUDGE_DIR = Path(__file__).resolve(
 ).parent.parent / "reports" / "judge"
 PROMPT_TEMPLATE_PATH = Path(__file__).with_name("judge_prompt.txt")
 JudgeCallable = Callable[[str], str]
+_OUTPUT_RULES_MARKER = "Output rules:"
+_JIF_PAYLOAD_MARKER = "JIF payload:\n{{JIF_JSON}}"
 
 
 def _empty_jif_payload() -> dict[str, Any]:
@@ -184,13 +187,99 @@ def _build_openai_judge_callable(model_name: str, temperature: float = 0.0) -> J
     return _call_llm
 
 
+def _collect_payload_dataset_basenames(payload: dict[str, Any]) -> list[str]:
+    basenames: list[str] = []
+
+    for run_card in list(payload.get("run_cards", []) or []):
+        if not isinstance(run_card, dict):
+            continue
+        dataset = dict(run_card.get("dataset", {}) or {})
+        basename = dataset.get("path_basename")
+        if isinstance(basename, str) and basename.strip():
+            basenames.append(basename.strip())
+
+    cohort_context = dict(payload.get("cohort_context", {}) or {})
+    dataset_frequency = dict(cohort_context.get("dataset_frequency", {}) or {})
+    for basename in dataset_frequency.keys():
+        if isinstance(basename, str) and basename.strip():
+            basenames.append(basename.strip())
+
+    return sorted(dict.fromkeys(basenames))
+
+
+def _resolve_context_partition_name(payload: dict[str, Any]) -> str:
+    basenames = _collect_payload_dataset_basenames(payload)
+    if len(basenames) == 1:
+        return basenames[0]
+    return ""
+
+
+def _split_prompt_template(template: str) -> tuple[str, str]:
+    before_jif, marker, _ = template.partition(_JIF_PAYLOAD_MARKER)
+    if not marker:
+        raise ValueError(
+            "judge prompt template is missing the JIF payload marker")
+
+    instructions_block, output_marker, output_block = before_jif.partition(
+        _OUTPUT_RULES_MARKER
+    )
+    if not output_marker:
+        raise ValueError(
+            "judge prompt template is missing the output rules marker")
+
+    return instructions_block.strip(), f"{output_marker}{output_block}".strip()
+
+
+def _build_context_block(payload: dict[str, Any]) -> str:
+    dataset_phenomenon, expected_structure, evaluation_lens = (
+        get_judge_context_sections(_resolve_context_partition_name(payload))
+    )
+    return "\n".join(
+        [
+            "=== CONTEXT: DATASET PHENOMENON ===",
+            dataset_phenomenon,
+            "",
+            "=== CONTEXT: EXPECTED STRUCTURE ===",
+            expected_structure,
+            "",
+            "=== CONTEXT: EVALUATION LENS ===",
+            evaluation_lens,
+        ]
+    ).strip()
+
+
+def _render_instruction_block(template: str) -> str:
+    return (
+        template.replace(
+            "The JIF is the ONLY source of truth.",
+            "The JIF is the only source of evidence about the run. The injected context is an interpretation lens for the modeled phenomenon.",
+        )
+        .replace(
+            "- Use ONLY information present in the JIF.",
+            "- Use the JIF as the only source of evidence about the run.\n- Use the injected context only to interpret behavior, not to validate conclusions.",
+        )
+        .strip()
+    )
+
+
 def build_judge_prompt(payload: dict[str, Any], mode: str) -> str:
     template = PROMPT_TEMPLATE_PATH.read_text(encoding="utf-8")
-    return (
-        template.replace("{{VALID_EVIDENCE_REFERENCES}}", json.dumps(
-            sorted(VALID_EVIDENCE_REFERENCES), ensure_ascii=True))
+    instructions_block, output_block = _split_prompt_template(template)
+    rendered_output_block = (
+        output_block.replace(
+            "{{VALID_EVIDENCE_REFERENCES}}",
+            json.dumps(sorted(VALID_EVIDENCE_REFERENCES), ensure_ascii=True),
+        )
         .replace("{{JUDGE_MODE}}", mode)
-        .replace("{{JIF_JSON}}", json.dumps(payload, indent=2, ensure_ascii=True))
+        .strip()
+    )
+    return "\n\n".join(
+        [
+            _render_instruction_block(instructions_block),
+            _build_context_block(payload),
+            f"JIF payload:\n{json.dumps(payload, indent=2, ensure_ascii=True)}",
+            rendered_output_block,
+        ]
     )
 
 

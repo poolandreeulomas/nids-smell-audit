@@ -1,0 +1,5 @@
+This partition models saturation, spikes, and load.
+
+Extreme dominance, near-perfect relationships between features, or overly stable counters may require deeper inspection. Skew is expected, but not perfect structure.
+
+The agent should distinguish burst behavior from structural collapse and analyze redundancy across counters and rate-based features.

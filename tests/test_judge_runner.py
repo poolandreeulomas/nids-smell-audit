@@ -1,6 +1,6 @@
 import json
 
-from judge.judge_runner import merge_jif_payloads, run_judge
+from judge.judge_runner import build_judge_prompt, merge_jif_payloads, run_judge
 
 
 def test_merge_jif_payloads_sums_existing_aggregate_fields_only():
@@ -130,3 +130,57 @@ def test_run_judge_saves_structured_and_text_artifacts(tmp_path):
         "aggregate.redundant_step_frequency"]
     assert len(list(tmp_path.glob("judge_unit_*.json"))) == 1
     assert len(list(tmp_path.glob("judge_unit_*.txt"))) == 1
+
+
+def test_build_judge_prompt_injects_exactly_one_context_block():
+    payload = {
+        "header": {"schema_version": "jif.v2", "run_count": 1, "source_run_ids": ["r1"], "source_artifacts": ["r1.json"], "export_scope": {"selection_mode": "explicit_paths", "selection_value": 1}},
+        "cohort_context": {
+            "objective_frequency": {"audit": 1},
+            "dataset_frequency": {"Friday-WorkingHours-Afternoon-PortScan.csv": 1},
+            "model_name_frequency": {"m1": 1},
+            "model_version_frequency": {"unknown": 1},
+            "max_steps_frequency": {"10": 1},
+            "tool_set": ["feature_summary"],
+        },
+        "aggregate": {
+            "run_count": 1,
+            "total_steps": 2,
+            "tool_frequency": {"feature_summary": 1},
+            "step_type_frequency": {"exploration": 1, "confirmation": 1},
+            "redundant_step_frequency": {"false": 2},
+            "signal_frequency": {"low_variance": 1},
+        },
+        "run_cards": [
+            {
+                "run_id": "r1",
+                "artifact_name": "r1.json",
+                "objective": "audit",
+                "dataset": {"path_basename": "Friday-WorkingHours-Afternoon-PortScan.csv", "path_hash": "h1"},
+                "model": {"name": "m1", "version": "unknown"},
+                "limits": {"max_steps": 10},
+                "run_counts": {"total_steps": 2, "error_steps": 0, "contradiction_count": 0, "target_card_count": 1},
+                "tool_frequency": {"feature_summary": 1},
+                "step_type_frequency": {"exploration": 1, "confirmation": 1},
+                "signal_frequency": {"low_variance": 1},
+                "step_trace": [],
+                "feature_cards": [],
+                "contradictions": [],
+                "errors": [],
+            }
+        ],
+    }
+
+    prompt = build_judge_prompt(payload, "single_run")
+
+    assert prompt.count("=== CONTEXT: DATASET PHENOMENON ===") == 1
+    assert prompt.count("=== CONTEXT: EXPECTED STRUCTURE ===") == 1
+    assert prompt.count("=== CONTEXT: EVALUATION LENS ===") == 1
+    assert "scanning behavior with high repetition" in prompt
+    assert "repeated login attempts and structured repetition" not in prompt
+    assert "Use the injected context only to interpret behavior" in prompt
+    assert prompt.index("You are an evaluator of agent reasoning behavior.") < prompt.index(
+        "=== CONTEXT: DATASET PHENOMENON ===")
+    assert prompt.index(
+        "=== CONTEXT: DATASET PHENOMENON ===") < prompt.index("JIF payload:")
+    assert prompt.index("JIF payload:") < prompt.index("Output rules:")

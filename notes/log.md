@@ -1025,3 +1025,110 @@ The system is still an MVP, but it is now substantially more useful for:
 - comparing runs
 - identifying recurring strong features
 - documenting progress rigorously for the thesis
+
+## 25 April 2026 - JIF and Judge layer integration
+
+### Judge Input Format (JIF)
+
+Implemented a neutral Judge Input Format export layer for persisted run logs.
+
+The JIF now provides a compact, structured representation of agent behavior for downstream judging without embedding evaluation, scores, or conclusions.
+
+Main additions:
+
+- Introduced a dedicated JIF exporter under `experiments/export_jif.py`
+- Exported per-run `run_cards` with:
+  - compact step traces
+  - step type classification
+  - redundancy flags
+  - information gain labels
+  - novelty source counts
+  - compact feature cards with flattened metric anchors
+- Exported raw aggregate behavior signals only:
+  - `run_count`
+  - `total_steps`
+  - `tool_frequency`
+  - `step_type_frequency`
+  - `redundant_step_frequency`
+  - `signal_frequency`
+
+Methodological constraints enforced:
+
+- No summaries in the JIF
+- No verdicts or scores in the JIF
+- No interpretation leakage into the JIF
+- No index-based behavioral references in the judge-facing layer
+
+---
+
+### Judge layer
+
+Implemented a post-run Judge layer that evaluates **reasoning behavior** using JIF as the only input.
+
+The Judge focuses on:
+
+- exploration vs confirmation balance
+- information gain
+- redundancy
+- tool usage patterns
+- hypothesis dynamics
+
+Main additions:
+
+- Added `judge/judge_runner.py`
+- Added `judge/judge_parser.py`
+- Added `judge/judge_prompt.txt`
+- Added strict JSON validation for judge responses
+- Enforced field-level evidence references only
+- Rejected extra top-level fields and score-like outputs
+
+The Judge output now produces:
+
+- terminal-readable behavior analysis
+- saved structured JSON artifact
+- saved text report under `reports/judge/`
+
+---
+
+### CLI integration
+
+Integrated the Judge into the interactive CLI as a fully post-run workflow.
+
+New capabilities:
+
+- Added `Run Judge` to the main menu
+- Added support for three input modes:
+  - latest N runs
+  - explicit run paths
+  - existing JIF file(s)
+- Added optional single-run mode for debugging
+- Added dedicated judge-model configuration separate from the agent model
+
+Important architectural decision:
+
+- the CLI may build JIF from runs first, but the Judge itself only consumes JIF
+- no changes were made to the agent loop
+- no changes were made to evaluation logic
+- no changes were made to the runtime ReAct flow
+
+---
+
+### Validation status
+
+The new JIF and Judge components were validated at multiple levels:
+
+- focused unit tests for JIF export behavior
+- focused tests for judge parsing and runner behavior
+- CLI logic tests for judge routing and input handling
+- smoke test using real persisted run logs converted to JIF
+- full repository test suite passing after integration
+
+### Current status
+
+The system now supports a clean separation between:
+
+- run execution
+- neutral behavioral export (JIF)
+- post-run reasoning evaluation (Judge)
+
+This establishes the full evaluation stack needed for studying how the auditing agent reasons across runs without coupling judgment to the runtime itself.
