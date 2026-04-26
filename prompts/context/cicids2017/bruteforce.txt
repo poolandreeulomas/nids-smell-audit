@@ -1,0 +1,2 @@
+This partition includes repeated authentication attempts against network services.
+Traffic may contain structured repetition and similar flows over time.

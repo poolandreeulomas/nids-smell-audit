@@ -1,3 +1,5 @@
+import os
+
 from prompts.builder import build_prompt
 from state.schema import EvidenceBlock
 from state.store import add_evidence, init_state
@@ -127,3 +129,42 @@ def test_mixed_additional_candidates_are_balanced_and_change_with_coverage():
     assert candidates_initial != candidates_after
     assert "f_low1" not in candidates_after
     assert "f_skew1" not in candidates_after
+
+
+def test_partition_context_is_injected_before_overview_and_instructions(monkeypatch):
+    state = init_state(
+        run_id="partition_context",
+        objective="test",
+        max_steps=1,
+        available_features=["f1"],
+    )
+    monkeypatch.setenv("NIDS_DATASET_PATH", "Thursday-Morning-WebAttacks.csv")
+
+    prompt_text = build_prompt(state, ["feature_summary"])
+    context_section = _extract_section(prompt_text, "PARTITION_CONTEXT")
+
+    assert "application-layer interactions" in context_section
+    assert "detect anomalies" not in context_section.lower()
+    assert prompt_text.index("GLOBAL_RULES:\n") < prompt_text.index(
+        "PARTITION_CONTEXT:\n")
+    assert prompt_text.index(
+        "PARTITION_CONTEXT:\n") < prompt_text.index("OVERVIEW:\n")
+    assert prompt_text.index("OVERVIEW:\n") < prompt_text.index(
+        "INSTRUCTIONS (concise):\n")
+
+
+def test_partition_context_block_remains_present_when_context_is_unavailable(monkeypatch):
+    state = init_state(
+        run_id="partition_context_empty",
+        objective="test",
+        max_steps=1,
+        available_features=["f1"],
+    )
+    monkeypatch.delenv("NIDS_DATASET_PATH", raising=False)
+
+    prompt_text = build_prompt(state, ["feature_summary"])
+
+    assert prompt_text.count("PARTITION_CONTEXT:\n") == 1
+    assert _extract_section(prompt_text, "PARTITION_CONTEXT") == ""
+    assert prompt_text.index(
+        "PARTITION_CONTEXT:\n") < prompt_text.index("OVERVIEW:\n")

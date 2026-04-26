@@ -6,6 +6,10 @@ import json
 from pathlib import Path
 from typing import Any
 
+from prompts.context_loader import (
+    get_agent_partition_context,
+    get_current_agent_partition_name,
+)
 from state.schema import AgentState, EvidenceBlock
 from src.feature_index import get_candidate_features
 
@@ -366,6 +370,11 @@ def _format_previous_hypothesis(state: AgentState | None) -> str:
     return f"Previous Hypothesis: {single} (revisions={count})"
 
 
+def _format_partition_context() -> str:
+    partition_name = get_current_agent_partition_name()
+    return get_agent_partition_context(partition_name)
+
+
 def build_prompt(
     state: AgentState,
     tool_names: list[str],
@@ -378,6 +387,7 @@ def build_prompt(
     template = PROMPT_TEMPLATE_PATH.read_text(encoding="utf-8")
     return template.format(
         objective=state.objective,
+        partition_context=_format_partition_context(),
         available_tools=_format_available_tools(tool_names),
         available_features=_format_available_features(
             state.available_features),
