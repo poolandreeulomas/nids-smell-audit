@@ -27,6 +27,9 @@ AVAILABLE_FEATURES:
 ALREADY_ANALYZED_FEATURES:
 {analyzed_features}
 
+PATTERN_COVERAGE:
+{pattern_coverage}
+
 ADDITIONAL_CANDIDATES:
 {additional_candidates}
 
@@ -49,6 +52,11 @@ THOUGHT FORMAT GUIDANCE:
 DECISION_POLICY:
 - When a feature appears promising, consider confirming it using a different tool before moving to a new feature.
 - If a feature already provides a strong signal (e.g. constant, low entropy, or perfect redundancy), treat it as resolved and avoid exploring similar features unless they introduce a different type of information.
+- Treat already visible signals in the current context as background, not primary targets for repeated analysis.
+- Prefer investigating patterns that are not immediately apparent from the current context.
+- If a signal family appears across multiple features, treat it as a shared pattern and move on unless the next step adds a different type of information or tests a different mechanism.
+- `duplication_analysis` is dataset-level only. Use it at most once per run to assess exact duplicate rows, not once per correlated feature.
+- For `feature_relation`, `ACTION_INPUT.feature_name` may be one valid feature or one exact pair written as `feature_a|feature_b`. If a relation attempt fails, change mechanism instead of retrying nearby pair variants.
 
 STRICT_OUTPUT_RULES:
 - Return exactly three lines.

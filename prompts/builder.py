@@ -15,6 +15,19 @@ from src.feature_index import get_candidate_features
 
 PROMPT_TEMPLATE_PATH = Path(__file__).with_name("react_prompt.txt")
 
+_SIGNAL_FAMILY_ORDER = (
+    "constant / low variance",
+    "low entropy / dominant value",
+    "redundancy / dependency",
+    "distribution skew / collapse",
+)
+
+_MODE_TO_SIGNAL_FAMILY = {
+    "low cardinality": "constant / low variance",
+    "high skew": "distribution skew / collapse",
+    "redundancy": "redundancy / dependency",
+}
+
 
 def _format_available_tools(tool_names: list[str]) -> str:
     if not tool_names:
@@ -26,6 +39,146 @@ def _format_metric_value(value: object) -> str:
     if isinstance(value, (int, float)):
         return f"{value:.6g}"
     return str(value)
+
+
+def _normalize_signal_family(signal: object) -> str | None:
+    if not isinstance(signal, str):
+        return None
+
+    normalized = signal.strip().lower().replace("-", "_")
+    if not normalized:
+        return None
+    if normalized in {
+        "low_variance",
+        "low_diversity",
+        "low_cardinality",
+        "near_constant",
+    }:
+        return "constant / low variance"
+    if normalized in {"low_entropy", "dominant_value"}:
+        return "low entropy / dominant value"
+    if normalized in {"high_redundancy", "high_duplication"}:
+        return "redundancy / dependency"
+    if normalized in {"high_skew", "extreme_skew"}:
+        return "distribution skew / collapse"
+    if any(token in normalized for token in ("redund", "correl", "depend", "duplicat")):
+        return "redundancy / dependency"
+    if any(token in normalized for token in ("entropy", "dominant")):
+        return "low entropy / dominant value"
+    if any(token in normalized for token in ("cardinality", "constant", "variance", "diversity")):
+        return "constant / low variance"
+    if any(token in normalized for token in ("skew", "tail", "spike", "collapse")):
+        return "distribution skew / collapse"
+    return None
+
+
+def _get_signal_family_counts(state: AgentState | None) -> dict[str, int]:
+    counts = {family: 0 for family in _SIGNAL_FAMILY_ORDER}
+    if state is None:
+        return counts
+
+    for feature_name, evidence_list in (state.evidence_by_feature or {}).items():
+        summary = render_evidence_summary(feature_name, evidence_list)
+        families = {
+            family
+            for signal in summary.get("signals", [])
+            if (family := _normalize_signal_family(signal)) is not None
+        }
+        for family in families:
+            counts[family] += 1
+    return counts
+
+
+def _format_pattern_coverage(state: AgentState | None) -> str:
+    counts = _get_signal_family_counts(state)
+    if not any(counts.values()):
+        return "NONE"
+
+    lines = []
+    for family in _SIGNAL_FAMILY_ORDER:
+        count = counts[family]
+        if count >= 2:
+            status = "established"
+        elif count == 1:
+            status = "weak"
+        else:
+            status = "none"
+        suffix = ""
+        if count > 0:
+            suffix = f" ({count} feature{'s' if count != 1 else ''})"
+        lines.append(f"- {family}: {status}{suffix}")
+    return "\n".join(lines)
+
+
+def _get_candidate_signal_families(candidate: dict[str, Any], source_mode: str) -> set[str]:
+    families: set[str] = set()
+    mode_family = _MODE_TO_SIGNAL_FAMILY.get(
+        (source_mode or "").strip().lower())
+    if mode_family is not None:
+        families.add(mode_family)
+
+    for signal in candidate.get("signals") or []:
+        family = _normalize_signal_family(signal)
+        if family is not None:
+            families.add(family)
+            continue
+        if not isinstance(signal, str):
+            continue
+        normalized = signal.strip().lower()
+        if normalized.startswith("redundant_with="):
+            families.add("redundancy / dependency")
+    return families
+
+
+def _score_candidate_families(
+    families: set[str], family_counts: dict[str, int]
+) -> int:
+    if not families:
+        return 0
+
+    score = 0
+    for family in families:
+        count = family_counts.get(family, 0)
+        if count <= 0:
+            score += 3
+        elif count == 1:
+            score += 1
+        else:
+            score -= 2
+    return score
+
+
+def _extract_signal_number(signals: list[object], prefix: str) -> float | None:
+    for signal in signals:
+        if not isinstance(signal, str):
+            continue
+        normalized = signal.strip().lower()
+        if not normalized.startswith(prefix):
+            continue
+        try:
+            return float(normalized.split("=", 1)[1])
+        except (TypeError, ValueError):
+            return None
+    return None
+
+
+def _candidate_matches_mode(candidate: dict[str, Any], source_mode: str) -> bool:
+    signals = list(candidate.get("signals") or [])
+    normalized_mode = (source_mode or "").strip().lower()
+
+    if normalized_mode == "low cardinality":
+        ratio = _extract_signal_number(signals, "cardinality_ratio=")
+        return ratio is not None and ratio <= 0.1
+    if normalized_mode == "high skew":
+        skewness = _extract_signal_number(signals, "skewness=")
+        return skewness is not None and abs(skewness) >= 3.0
+    if normalized_mode == "redundancy":
+        return any(
+            isinstance(signal, str) and signal.strip(
+            ).lower().startswith("redundant_with=")
+            for signal in signals
+        )
+    return True
 
 
 def _format_analyzed_features(analyzed_features: dict, tool_names: list[str]) -> str:
@@ -267,6 +420,7 @@ def _format_additional_candidates(
         return "NONE"
 
     covered_features: set[str] = set()
+    family_counts = _get_signal_family_counts(state)
     if state is not None:
         covered_features.update(str(feature)
                                 for feature in state.evidence_by_feature.keys())
@@ -290,6 +444,8 @@ def _format_additional_candidates(
         except Exception:
             continue
         for rank, candidate in enumerate(mode_candidates, start=1):
+            if not _candidate_matches_mode(candidate, mode):
+                continue
             feature_name = str(candidate.get("feature_name", ""))
             if not feature_name or feature_name in covered_features:
                 continue
@@ -299,13 +455,20 @@ def _format_additional_candidates(
                     "feature_name": feature_name,
                     "signals": [],
                     "score": 0,
+                    "family_score": 0,
+                    "families": set(),
                     "sources": set(),
                 },
             )
             for signal in candidate.get("signals") or []:
                 if signal not in record["signals"]:
                     record["signals"].append(signal)
+            record["families"].update(
+                _get_candidate_signal_families(candidate, mode))
             record["score"] += max(1, 6 - rank)
+            record["family_score"] = _score_candidate_families(
+                record["families"], family_counts
+            )
             record["sources"].add(mode)
 
     selected: list[dict[str, Any]] = []
@@ -322,21 +485,44 @@ def _format_additional_candidates(
 
     strongest = sorted(
         ranked_candidates.values(),
-        key=lambda item: (-int(item["score"]), -
-                          len(item["sources"]), item["feature_name"]),
+        key=lambda item: (
+            -int(item["family_score"]),
+            -int(item["score"]),
+            -len(item["sources"]),
+            item["feature_name"],
+        ),
     )[:3]
     for candidate in strongest:
         add_candidate(candidate)
 
-    bucket_limits = (("low cardinality", 2),
-                     ("high skew", 2), ("redundancy", 2))
+    bucket_limits = sorted(
+        (("low cardinality", 2), ("high skew", 2), ("redundancy", 2)),
+        key=lambda item: (
+            family_counts.get(_MODE_TO_SIGNAL_FAMILY[item[0]], 0),
+            item[0],
+        ),
+    )
     for mode, limit in bucket_limits:
         try:
             bucket = get_candidate_features(mode, summaries=summaries, top_k=5)
         except Exception:
             continue
+        ranked_bucket = sorted(
+            [
+                (index, candidate)
+                for index, candidate in enumerate(bucket)
+                if _candidate_matches_mode(candidate, mode)
+            ],
+            key=lambda entry: (
+                -_score_candidate_families(
+                    _get_candidate_signal_families(
+                        entry[1], mode), family_counts
+                ),
+                entry[0],
+            ),
+        )
         added = 0
-        for candidate in bucket:
+        for _, candidate in ranked_bucket:
             before = len(selected)
             add_candidate(candidate)
             if len(selected) > before:
@@ -399,6 +585,7 @@ def build_prompt(
         available_features=_format_available_features(
             state.available_features),
         analyzed_features=_format_evidence_memory(state, tool_names),
+        pattern_coverage=_format_pattern_coverage(state),
         recent_history=_format_recent_history(state.history, history_window),
         additional_candidates=_format_additional_candidates(
             candidate_summaries, candidate_criteria, state),

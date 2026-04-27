@@ -192,6 +192,113 @@ def test_prompt_includes_reasoning_rules():
     )
 
 
+def test_prompt_prioritizes_non_obvious_and_shared_pattern_rules():
+    state = init_state(
+        run_id="non_obvious_focus",
+        objective="test",
+        max_steps=1,
+        available_features=["f1"],
+    )
+
+    prompt_text = build_prompt(state, ["feature_summary"])
+
+    assert "Treat already visible signals in the current context as background, not primary targets for repeated analysis." in prompt_text
+    assert "Prefer investigating patterns that are not immediately apparent from the current context." in prompt_text
+    assert "If a signal family appears across multiple features, treat it as a shared pattern and move on unless the next step adds a different type of information or tests a different mechanism." in prompt_text
+    assert "`duplication_analysis` is dataset-level only." in prompt_text
+    assert "For `feature_relation`, `ACTION_INPUT.feature_name` may be one valid feature or one exact pair written as `feature_a|feature_b`." in prompt_text
+    assert prompt_text.index("DECISION_POLICY:\n") < prompt_text.index(
+        "STRICT_OUTPUT_RULES:\n"
+    )
+
+
+def test_pattern_coverage_marks_saturated_families_and_biases_candidates():
+    summaries = {
+        "f_red1": {
+            "unique_values": 12,
+            "cardinality_ratio": 0.2,
+            "skewness": 0.2,
+            "redundancy": [{"feature": "f_red2", "correlation": 0.98}],
+        },
+        "f_red2": {
+            "unique_values": 12,
+            "cardinality_ratio": 0.2,
+            "skewness": 0.3,
+            "redundancy": [{"feature": "f_red1", "correlation": 0.98}],
+        },
+        "f_low1": {
+            "unique_values": 2,
+            "cardinality_ratio": 0.01,
+            "skewness": 0.1,
+            "redundancy": [],
+        },
+        "f_skew1": {
+            "unique_values": 20,
+            "cardinality_ratio": 0.4,
+            "skewness": 5.2,
+            "redundancy": [],
+        },
+    }
+    state = init_state(
+        run_id="pattern_coverage",
+        objective="test",
+        max_steps=1,
+        available_features=list(summaries),
+        metadata={"compact_feature_index": summaries},
+    )
+    add_evidence(
+        state,
+        "f_rel_a|f_rel_b",
+        EvidenceBlock(
+            feature="f_rel_a|f_rel_b",
+            signals=["high_redundancy"],
+            metrics={"correlation": 0.99},
+            support={"total_samples": 10},
+            provenance={"tool": "feature_relation", "step": 1},
+            status="active",
+        ),
+    )
+    add_evidence(
+        state,
+        "__dataset__",
+        EvidenceBlock(
+            feature="__dataset__",
+            signals=["high_duplication"],
+            metrics={"duplicate_ratio": 0.2},
+            support={"total_samples": 10},
+            provenance={"tool": "duplication_analysis", "step": 2},
+            status="active",
+        ),
+    )
+    add_evidence(
+        state,
+        "f_low_seen",
+        EvidenceBlock(
+            feature="f_low_seen",
+            signals=["low_diversity"],
+            metrics={"unique_values": 1},
+            support={"total_samples": 10},
+            provenance={"tool": "feature_summary", "step": 3},
+            status="active",
+        ),
+    )
+
+    prompt_text = build_prompt(
+        state, ["feature_summary", "feature_relation", "duplication_analysis"])
+    pattern_coverage = _extract_section(prompt_text, "PATTERN_COVERAGE")
+    candidate_lines = [
+        line
+        for line in _extract_section(prompt_text, "ADDITIONAL_CANDIDATES").splitlines()
+        if line.startswith("-")
+    ]
+
+    assert "- constant / low variance: weak (1 feature)" in pattern_coverage
+    assert "- redundancy / dependency: established (2 features)" in pattern_coverage
+    assert "- distribution skew / collapse: none" in pattern_coverage
+    assert candidate_lines[0].startswith("- f_skew1:")
+    assert any("f_red1" in line for line in candidate_lines)
+
+
 def test_prompt_is_single_purpose_and_removes_summary_generation_guidance():
     state = init_state(
         run_id="single_purpose_prompt",

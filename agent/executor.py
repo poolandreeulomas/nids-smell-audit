@@ -48,6 +48,16 @@ def _is_repeated_feature_blocked(
     return False, None
 
 
+def _parse_feature_relation_input(feature_name: str) -> tuple[str, str | None, str]:
+    parts = [part.strip() for part in feature_name.split("|")]
+    if len(parts) != 2 or any(not part for part in parts):
+        return feature_name, None, feature_name
+
+    primary_feature, related_feature = parts
+    feature_key = "|".join(sorted(parts))
+    return primary_feature, related_feature, feature_key
+
+
 def execute_action(
     *,
     action: str,
@@ -64,6 +74,7 @@ def execute_action(
     available_tools = set(registry.keys())
 
     feature_name = action_input.get("feature_name")
+    related_feature_name: str | None = None
 
     if action == "duplication_analysis":
         if not isinstance(feature_name, str) or not feature_name.strip():
@@ -79,6 +90,10 @@ def execute_action(
             )
         feature_name = feature_name.strip()
         feature_key = feature_name
+        if action == "feature_relation" and "|" in feature_name:
+            feature_name, related_feature_name, feature_key = _parse_feature_relation_input(
+                feature_name
+            )
 
     if action not in registry:
         return _execution_error(
@@ -123,6 +138,8 @@ def execute_action(
             "valid_numeric_features": valid_numeric_features,
             "step": step,
         }
+        if action == "feature_relation" and related_feature_name is not None:
+            tool_kwargs["related_feature_name"] = related_feature_name
         # Prefer calling with `step` argument; fallback for tools without it.
         try:
             result = tool(**tool_kwargs)
