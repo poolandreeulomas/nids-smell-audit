@@ -1,6 +1,7 @@
 from pathlib import Path
 
 import pandas as pd
+import pytest
 
 from agent.loop import run_agent
 from analysis.interpreter import extract_run_insights
@@ -182,3 +183,63 @@ def test_runtime_trace_is_human_readable(capsys):
     assert "ACTION     :" in output
     assert "OBSERVATION:" in output
     assert "THOUGHT:" not in output
+
+
+@pytest.mark.parametrize(
+    ("model_output", "expected_status"),
+    [
+        (
+            "THOUGHT: Hypothesis: formatting drifted. | Scope: f1 | Next action: Repair JSON.\n"
+            "ACTION: feature_summary\n"
+            "ACTION_INPUT: {\"feature_name\": \"f1\"",
+            "INVALID_JSON",
+        ),
+        (
+            "THINK: Hypothesis: formatting drifted. | Scope: f1 | Next action: Repair output.\n"
+            "ACTION: feature_summary\n"
+            "ACTION_INPUT: {\"feature_name\": \"f1\"}",
+            "PARSE_ERROR",
+        ),
+    ],
+)
+def test_high_end_models_stop_early_after_two_parse_failures(
+    model_output: str, expected_status: str
+):
+    dataset_config = get_default_dataset_config()
+    state = init_state(
+        run_id=f"parse_guard_{expected_status.lower()}",
+        objective=DEFAULT_OBJECTIVE,
+        max_steps=5,
+        available_features=["f1"],
+    )
+    tool_names = list(get_tool_registry().keys())
+
+    final_state = run_agent(
+        state=state,
+        llm_callable=lambda _prompt_text: model_output,
+        dataset_path=Path("synthetic.csv"),
+        dataset_config=dataset_config,
+        tool_names=tool_names,
+        model_name="gpt-5.4",
+        temperature=0.0,
+        seed=1,
+        repo_path=Path(__file__).resolve().parents[1],
+        dataset_frame=None,
+        valid_numeric_features=["f1"],
+        trace=False,
+    )
+
+    assert final_state.current_step == 2
+    assert final_state.metadata["status"] == "terminated_due_to_parse_errors"
+    assert final_state.metadata["termination_log"] == (
+        "Run stopped early due to parse errors (model: gpt-5.4)"
+    )
+    assert [step["execution_status"] for step in final_state.history] == [
+        expected_status,
+        expected_status,
+    ]
+    assert [error["error_code"] for error in final_state.errors] == [
+        expected_status,
+        expected_status,
+        "RUN_TERMINATED",
+    ]

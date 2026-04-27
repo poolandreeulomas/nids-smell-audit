@@ -30,6 +30,41 @@ from utils.human_readable import parse_thought_fields, summarize_action, summari
 from utils.reproducibility import build_reproducibility_metadata, hash_text_sha256
 
 LlmCallable = Callable[[str], str]
+MAX_TOTAL_PARSE_ERRORS = 2
+MAX_CONSECUTIVE_PARSE_ERRORS = 2
+
+
+def _is_high_end_model(model_name: str) -> bool:
+    return "5." in model_name
+
+
+def _is_parse_failure_status(status: str) -> bool:
+    return status in {"PARSE_ERROR", "INVALID_JSON"}
+
+
+def _mark_parse_error_termination(
+    state: AgentState,
+    *,
+    model_name: str,
+    step_id: int,
+) -> None:
+    message = f"Run stopped early due to parse errors (model: {model_name})"
+    merge_metadata(
+        state,
+        {
+            "status": "terminated_due_to_parse_errors",
+            "termination_log": message,
+        },
+    )
+    append_error(
+        state,
+        {
+            "step_id": step_id,
+            "ok": False,
+            "error_code": "RUN_TERMINATED",
+            "error_message": message,
+        },
+    )
 
 
 def _print_trace_step(
@@ -203,6 +238,9 @@ def run_agent(
         include_dataset_hash=True,
     )
     merge_metadata(state, {"reproducibility": reproducibility})
+    total_parse_failures = 0
+    consecutive_parse_failures = 0
+    high_end_model = _is_high_end_model(model_name)
 
     while state.current_step < state.max_steps:
         step_id = state.current_step + 1
@@ -237,9 +275,12 @@ def run_agent(
 
         parsed = parse_react_output(raw_model_output)
         if not parsed.get("ok", False):
+            status = parsed.get("error_code", "PARSE_ERROR")
+            if not _is_parse_failure_status(status):
+                status = "PARSE_ERROR"
             observation = {
                 "ok": False,
-                "error_code": parsed.get("error_code", "PARSE_ERROR"),
+                "error_code": status,
                 "error_message": parsed.get("error_message", "Parser failure."),
             }
             if trace:
@@ -249,7 +290,7 @@ def run_agent(
                     None,
                     None,
                     observation,
-                    "PARSE_ERROR",
+                    status,
                 )
             append_error(state, {"step_id": step_id, **observation})
             _record_step(
@@ -261,10 +302,24 @@ def run_agent(
                 observation=observation,
                 raw_model_output=raw_model_output,
                 prompt_text=prompt_text,
-                status="PARSE_ERROR",
+                status=status,
             )
+            total_parse_failures += 1
+            consecutive_parse_failures += 1
             advance_step(state)
+            if high_end_model and (
+                total_parse_failures >= MAX_TOTAL_PARSE_ERRORS
+                or consecutive_parse_failures >= MAX_CONSECUTIVE_PARSE_ERRORS
+            ):
+                _mark_parse_error_termination(
+                    state,
+                    model_name=model_name,
+                    step_id=step_id,
+                )
+                break
             continue
+
+        consecutive_parse_failures = 0
 
         action = parsed["action"]
         action_input = parsed["action_input"]

@@ -168,3 +168,76 @@ def test_partition_context_block_remains_present_when_context_is_unavailable(mon
     assert _extract_section(prompt_text, "PARTITION_CONTEXT") == ""
     assert prompt_text.index(
         "PARTITION_CONTEXT:\n") < prompt_text.index("OVERVIEW:\n")
+
+
+def test_prompt_includes_reasoning_rules():
+    state = init_state(
+        run_id="reasoning_rules",
+        objective="test",
+        max_steps=1,
+        available_features=["f1"],
+    )
+
+    prompt_text = build_prompt(state, ["feature_summary"])
+
+    assert "REASONING_RULES:\n" in prompt_text
+    assert "Avoid confirming what is already established." in prompt_text
+    assert "Do not repeat failed actions." in prompt_text
+    assert "Seek new information." in prompt_text
+    assert prompt_text.index("GLOBAL_RULES:\n") < prompt_text.index(
+        "REASONING_RULES:\n"
+    )
+    assert prompt_text.index("REASONING_RULES:\n") < prompt_text.index(
+        "PARTITION_CONTEXT:\n"
+    )
+
+
+def test_prompt_is_single_purpose_and_removes_summary_generation_guidance():
+    state = init_state(
+        run_id="single_purpose_prompt",
+        objective="test",
+        max_steps=1,
+        available_features=["f1"],
+    )
+
+    prompt_text = build_prompt(state, ["feature_summary"])
+
+    assert (
+        "Your task is ONLY to decide the next action. Do NOT generate summaries, reports, or multiple feature analyses."
+        in prompt_text
+    )
+    assert "FEATURE_SUMMARIES" not in prompt_text
+    assert "Keep each feature block compact" not in prompt_text
+    assert "The overview should read as a working hypothesis" not in prompt_text
+    assert "Output one block only. No extra text, no repeated block, and no additional JSON object." in prompt_text
+
+
+def test_recent_history_renders_action_input_as_json():
+    state = init_state(
+        run_id="history_json",
+        objective="test",
+        max_steps=1,
+        available_features=["f1"],
+    )
+    state.history.append(
+        {
+            "step_id": 1,
+            "thought": "Hypothesis: f1 may be low-cardinality. | Scope: f1 | Next action: Run `feature_summary` on `f1`.",
+            "action": "feature_summary",
+            "action_input": {"feature_name": "f1"},
+            "observation": {
+                "ok": True,
+                "tool": "feature_summary",
+                "feature_name": "f1",
+                "value": 1,
+                "error_code": None,
+            },
+            "execution_status": "OK",
+        }
+    )
+
+    prompt_text = build_prompt(state, ["feature_summary"])
+    recent_history = _extract_section(prompt_text, "RECENT_HISTORY")
+
+    assert 'ACTION_INPUT: {"feature_name": "f1"}' in recent_history
+    assert "ACTION_INPUT: {'feature_name': 'f1'}" not in recent_history

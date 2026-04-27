@@ -135,7 +135,7 @@ def _format_recent_history(history: list[dict], history_window: int) -> str:
         step_id = step.get("step_id", "NA")
         thought = step.get("thought", "")
         action = step.get("action", "")
-        action_input = step.get("action_input", {})
+        action_input = _format_action_input(step.get("action_input", {}))
         observation = _format_observation(step.get("observation", ""))
         status = step.get("execution_status", "UNKNOWN")
         lines.append(
@@ -150,6 +150,13 @@ def _format_recent_history(history: list[dict], history_window: int) -> str:
             )
         )
     return "\n".join(lines)
+
+
+def _format_action_input(action_input: object) -> str:
+    try:
+        return json.dumps(action_input, ensure_ascii=True, sort_keys=True)
+    except TypeError:
+        return json.dumps(str(action_input), ensure_ascii=True)
 
 
 def render_evidence_summary(

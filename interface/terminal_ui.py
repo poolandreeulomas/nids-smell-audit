@@ -210,7 +210,7 @@ def render_dataset_selection(paths: list[Path], current_name: str | None) -> str
 def render_model_selection(models: list[tuple[str, str]], current_name: str) -> str:
     lines = [
         *_meta_lines("Home / Session Config / Model",
-                     "Choose the OpenAI model used by the next run."),
+                     "Choose the OpenAI model used by the next run or enter a custom model ID."),
         *(_section(
             "Available Models",
             [
@@ -221,6 +221,7 @@ def render_model_selection(models: list[tuple[str, str]], current_name: str) -> 
         *(_section(
             "Actions",
             _menu_lines([
+                ("C", "Custom model ID"),
                 ("B", "Back"),
                 ("Q", "Quit"),
             ])

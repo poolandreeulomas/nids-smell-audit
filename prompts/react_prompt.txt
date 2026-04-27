@@ -2,15 +2,21 @@ OBJECTIVE:
 {objective}
 
 GLOBAL_RULES:
+- Your task is ONLY to decide the next action. Do NOT generate summaries, reports, or multiple feature analyses.
 - Treat any partition context as descriptive background, not as a target list.
 - Ground each hypothesis in observed evidence from available features and tool outputs.
 - Keep exploration open-ended and revise the working hypothesis when evidence changes.
+
+REASONING_RULES:
+- Avoid confirming what is already established. If a feature already shows a clear pattern (for example, constant, low entropy, or high redundancy), do not spend additional steps confirming it unless new evidence contradicts it.
+- Do not repeat failed actions. If a tool call fails, do not retry the same action with the same input. Instead, adjust the approach or move to a different hypothesis.
+- Seek new information. Prioritize actions that provide new signals or test new hypotheses. Avoid steps that only reinforce already known observations.
 
 PARTITION_CONTEXT:
 {partition_context}
 
 OVERVIEW:
-- The sections below summarize the current run state before you choose the next action.
+- Use the sections below as context for choosing the next action.
 
 AVAILABLE_TOOLS:
 {available_tools}
@@ -32,18 +38,8 @@ RECENT_HISTORY:
 
 INSTRUCTIONS (concise):
 - Use BOTH `signals` and `metrics` when forming the hypothesis. Always include at least one numeric justification (rounded).
-- Seek one piece of counterevidence or a quick check that could invalidate this hypothesis and state what to run.
-- If counterevidence exists, propose a concise revised hypothesis (one sentence).
-- Keep each feature block compact (≈40–80 words). Do not dump raw tables or large lists of numbers.
-- The overview should read as a working hypothesis, not a final verdict.
-
-FEATURE_SUMMARIES (compact per-feature guidance):
-- For each feature, produce a short hypothesis line (1 sentence) then up to 3 supporting bullets.
-- Template per feature (example):
-	Hypothesis: <feature> may indicate <brief signal> — metric: <metric_name> ≈ <value>
-	- signals: <signal1; signal2>
-	- metrics: <metric_name>=<value>, <metric2>=<value>
-	- support: total_samples=<n>, per_class=<small-summary>
+- Seek one piece of counterevidence or a quick check that could invalidate this hypothesis before choosing the next action.
+- If counterevidence exists, revise the hypothesis in one sentence before choosing the next action.
 
 THOUGHT FORMAT GUIDANCE:
 - Embed a concise structured thought inside the single-line `THOUGHT:` output using these exact labels in this order: `Hypothesis:`, `Scope:`, `Next action:`. Separate fields with ` | ` (space-pipe-space). Example:
@@ -52,10 +48,11 @@ THOUGHT FORMAT GUIDANCE:
 
 DECISION_POLICY:
 - When a feature appears promising, consider confirming it using a different tool before moving to a new feature.
+- If a feature already provides a strong signal (e.g. constant, low entropy, or perfect redundancy), treat it as resolved and avoid exploring similar features unless they introduce a different type of information.
 
--STRICT_OUTPUT_RULES:
+STRICT_OUTPUT_RULES:
 - Return exactly three lines.
-- Do not add extra text before or after the three lines.
+- Output one block only. No extra text, no repeated block, and no additional JSON object.
 - Use these exact prefixes:
 THOUGHT: <short reasoning>
 ACTION: <tool_name>

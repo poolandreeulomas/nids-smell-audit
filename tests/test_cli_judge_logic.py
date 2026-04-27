@@ -37,3 +37,39 @@ def test_build_jif_payload_for_judge_uses_existing_jif_paths(monkeypatch):
 
     assert payload["aggregate"]["run_count"] == 2
     assert source_summary == "existing JIF file(s) (2)"
+
+
+def test_change_model_name_supports_flagship_presets(monkeypatch):
+    cli = object.__new__(NidsAgentCli)
+    cli.session_config = SessionConfig(dataset_name="dataset.csv")
+    cli._render = lambda content: None
+    cli._show_info = lambda message: None
+
+    gpt54_index = next(
+        index
+        for index, (_, model_name) in enumerate(
+            cli_module.OPENAI_MODEL_OPTIONS, start=1
+        )
+        if model_name == "gpt-5.4"
+    )
+    responses = iter([str(gpt54_index)])
+    monkeypatch.setattr("builtins.input", lambda prompt="": next(responses))
+
+    cli._change_model_name()
+
+    assert cli.session_config.model_name == "gpt-5.4"
+
+
+def test_change_judge_model_name_accepts_custom_model_id(monkeypatch):
+    cli = object.__new__(NidsAgentCli)
+    cli.session_config = SessionConfig(dataset_name="dataset.csv")
+    cli._render = lambda content: None
+    cli._show_info = lambda message: None
+    cli._clear_screen = lambda: None
+
+    responses = iter(["C", "gpt-5.3"])
+    monkeypatch.setattr("builtins.input", lambda prompt="": next(responses))
+
+    cli._change_judge_model_name()
+
+    assert cli.session_config.judge_model_name == "gpt-5.3"

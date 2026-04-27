@@ -51,6 +51,7 @@ from judge.judge_runner import load_jif_payloads, merge_jif_payloads, run_judge
 from main import main as run_main
 from utils.human_readable import first_metric_text, split_bullet_lines
 from utils.metrics import state_metrics_payload
+from utils.openai_response import extract_response_text
 from utils.run_logging import DEFAULT_RUNS_DIR, build_session_run_basename, load_json, save_run_artifacts
 
 REVIEW_MENU_OPTIONS = [
@@ -107,6 +108,8 @@ OPENAI_MODEL_OPTIONS = [
     ("Low cost  | gpt-4.1-nano", "gpt-4.1-nano"),
     ("Balanced  | gpt-4.1-mini", "gpt-4.1-mini"),
     ("Powerful  | gpt-4.1", "gpt-4.1"),
+    ("Advanced  | gpt-5.3", "gpt-5.3"),
+    ("Flagship  | gpt-5.4", "gpt-5.4"),
 ]
 
 
@@ -921,9 +924,16 @@ class NidsAgentCli:
                                    self.session_config.model_name)
         )
         valid_choices = {str(index) for index in range(
-            1, len(OPENAI_MODEL_OPTIONS) + 1)} | {"B", "Q"}
+            1, len(OPENAI_MODEL_OPTIONS) + 1)} | {"B", "C", "Q"}
         choice = self._read_menu_choice(valid_choices)
         if choice == "B":
+            return
+        if choice == "C":
+            self.session_config.model_name = self._read_custom_model_name(
+                "session model"
+            )
+            self._show_info(
+                f"Session model updated to: {self.session_config.model_name}")
             return
         if choice == "Q":
             self._quit()
@@ -940,9 +950,16 @@ class NidsAgentCli:
                                    self.session_config.judge_model_name)
         )
         valid_choices = {str(index) for index in range(
-            1, len(OPENAI_MODEL_OPTIONS) + 1)} | {"B", "Q"}
+            1, len(OPENAI_MODEL_OPTIONS) + 1)} | {"B", "C", "Q"}
         choice = self._read_menu_choice(valid_choices)
         if choice == "B":
+            return
+        if choice == "C":
+            self.session_config.judge_model_name = self._read_custom_model_name(
+                "judge model"
+            )
+            self._show_info(
+                f"Judge model updated to: {self.session_config.judge_model_name}")
             return
         if choice == "Q":
             self._quit()
@@ -952,6 +969,16 @@ class NidsAgentCli:
         self.session_config.judge_model_name = selected_model
         self._show_info(
             f"Judge model updated to: {self.session_config.judge_model_name}")
+
+    def _read_custom_model_name(self, label: str) -> str:
+        self._clear_screen()
+        print(f"Enter the OpenAI model ID for the {label}:")
+        while True:
+            raw_value = input("> ").strip()
+            if not raw_value:
+                print("Enter a non-empty model ID.")
+                continue
+            return raw_value
 
     def _change_dataset_partition(self) -> None:
         dataset_paths = self._get_available_dataset_paths()
@@ -1211,7 +1238,8 @@ class NidsAgentCli:
                     },
                 ],
             )
-            overview_lines = split_bullet_lines(response.output_text)
+            overview_lines = split_bullet_lines(
+                extract_response_text(response))
             run_context.llm_overview = overview_lines or fallback_lines
         except Exception:
             run_context.llm_overview = fallback_lines
