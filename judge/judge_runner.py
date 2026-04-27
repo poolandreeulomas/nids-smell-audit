@@ -9,7 +9,10 @@ from pathlib import Path
 from typing import Any, Callable
 
 from experiments.export_jif import export_jif
-from judge.context_loader import get_judge_context_sections
+from judge.context_loader import (
+    get_judge_context_sections,
+    resolve_judge_partition_phenomenon,
+)
 from judge.judge_parser import VALID_EVIDENCE_REFERENCES, parse_judge_response
 from utils.run_logging import load_json, write_json
 
@@ -20,6 +23,33 @@ PROMPT_TEMPLATE_PATH = Path(__file__).with_name("judge_prompt.txt")
 JudgeCallable = Callable[[str], str]
 _OUTPUT_RULES_MARKER = "Output rules:"
 _JIF_PAYLOAD_MARKER = "JIF payload:\n{{JIF_JSON}}"
+_CROSS_PARTITION_INSTRUCTION_BLOCK = "\n".join(
+    [
+        "=== CROSS-PARTITION ANALYSIS INSTRUCTIONS ===",
+        "You are analyzing multiple runs generated under different data phenomena.",
+        "",
+        "Each run represents an independent reasoning trace and must be treated separately.",
+        "Do not evaluate runs independently. Instead, compare them as a set and identify behavioral patterns.",
+        "Maintain clear separation between runs when reasoning about evidence.",
+        "",
+        "When providing evidence:",
+        "- Anchor claims to specific runs in the JIF payload and compare runs explicitly.",
+        "- Use concrete run-level evidence from the run_cards entries; do not rely on vague generalizations.",
+        "- Final evidence references must still use only the allowed field-level references listed below.",
+        "",
+        "Focus on:",
+        "- consistency vs adaptability",
+        "- repeated reasoning structures",
+        "- context sensitivity",
+        "- evidence usage differences",
+        "",
+        "Adaptation means adjusting strategy, feature selection, and tool usage depending on the phenomenon.",
+        "Rigidity means reusing the same reasoning patterns regardless of context.",
+        "",
+        "Key question:",
+        "Is the agent adapting its reasoning to each phenomenon, or reusing the same strategy across all runs?",
+    ]
+)
 
 
 def _empty_jif_payload() -> dict[str, Any]:
@@ -187,8 +217,8 @@ def _build_openai_judge_callable(model_name: str, temperature: float = 0.0) -> J
     return _call_llm
 
 
-def _collect_payload_dataset_basenames(payload: dict[str, Any]) -> list[str]:
-    basenames: list[str] = []
+def _collect_run_partition_basenames(payload: dict[str, Any]) -> list[str | None]:
+    basenames: list[str | None] = []
 
     for run_card in list(payload.get("run_cards", []) or []):
         if not isinstance(run_card, dict):
@@ -197,20 +227,55 @@ def _collect_payload_dataset_basenames(payload: dict[str, Any]) -> list[str]:
         basename = dataset.get("path_basename")
         if isinstance(basename, str) and basename.strip():
             basenames.append(basename.strip())
+        else:
+            basenames.append(None)
 
-    cohort_context = dict(payload.get("cohort_context", {}) or {})
-    dataset_frequency = dict(cohort_context.get("dataset_frequency", {}) or {})
-    for basename in dataset_frequency.keys():
-        if isinstance(basename, str) and basename.strip():
-            basenames.append(basename.strip())
+    return basenames
 
-    return sorted(dict.fromkeys(basenames))
+
+def _extract_valid_run_phenomena(payload: dict[str, Any]) -> list[str]:
+    phenomena: list[str] = []
+
+    for basename in _collect_run_partition_basenames(payload):
+        if not basename:
+            continue
+        phenomenon_name = resolve_judge_partition_phenomenon(basename)
+        if phenomenon_name:
+            phenomena.append(phenomenon_name)
+
+    return phenomena
+
+
+def _resolve_partition_analysis_mode(payload: dict[str, Any]) -> str:
+    valid_phenomena = _extract_valid_run_phenomena(payload)
+    if len(valid_phenomena) < 2:
+        return "single_partition"
+    if len(set(valid_phenomena)) == 1:
+        return "single_partition"
+    return "cross_partition"
+
+
+def _resolve_prompt_analysis_mode(payload: dict[str, Any], mode: str) -> str:
+    if mode in {"single_partition", "cross_partition"}:
+        return mode
+    return _resolve_partition_analysis_mode(payload)
 
 
 def _resolve_context_partition_name(payload: dict[str, Any]) -> str:
-    basenames = _collect_payload_dataset_basenames(payload)
-    if len(basenames) == 1:
-        return basenames[0]
+    valid_runs: list[tuple[str, str]] = []
+
+    for basename in _collect_run_partition_basenames(payload):
+        if not basename:
+            continue
+        phenomenon_name = resolve_judge_partition_phenomenon(basename)
+        if not phenomenon_name:
+            continue
+        valid_runs.append((basename, phenomenon_name))
+
+    if not valid_runs:
+        return ""
+    if len({phenomenon_name for _, phenomenon_name in valid_runs}) == 1:
+        return valid_runs[0][0]
     return ""
 
 
@@ -262,21 +327,31 @@ def _render_instruction_block(template: str) -> str:
     )
 
 
+def _build_cross_partition_instruction_block() -> str:
+    return _CROSS_PARTITION_INSTRUCTION_BLOCK
+
+
 def build_judge_prompt(payload: dict[str, Any], mode: str) -> str:
     template = PROMPT_TEMPLATE_PATH.read_text(encoding="utf-8")
+    analysis_mode = _resolve_prompt_analysis_mode(payload, mode)
     instructions_block, output_block = _split_prompt_template(template)
     rendered_output_block = (
         output_block.replace(
             "{{VALID_EVIDENCE_REFERENCES}}",
             json.dumps(sorted(VALID_EVIDENCE_REFERENCES), ensure_ascii=True),
         )
-        .replace("{{JUDGE_MODE}}", mode)
+        .replace("{{JUDGE_MODE}}", analysis_mode)
         .strip()
     )
+    prompt_sections = [_render_instruction_block(instructions_block)]
+    if analysis_mode == "cross_partition":
+        prompt_sections.append(_build_cross_partition_instruction_block())
+    else:
+        prompt_sections.append(_build_context_block(payload))
+
     return "\n\n".join(
-        [
-            _render_instruction_block(instructions_block),
-            _build_context_block(payload),
+        prompt_sections
+        + [
             f"JIF payload:\n{json.dumps(payload, indent=2, ensure_ascii=True)}",
             rendered_output_block,
         ]

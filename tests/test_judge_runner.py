@@ -1,6 +1,79 @@
 import json
 
-from judge.judge_runner import build_judge_prompt, merge_jif_payloads, run_judge
+from judge.judge_runner import (
+    build_judge_prompt,
+    merge_jif_payloads,
+    run_judge,
+    _resolve_partition_analysis_mode,
+)
+
+
+def _build_judge_payload(*dataset_basenames: str | None) -> dict[str, object]:
+    run_cards = []
+    dataset_frequency = {}
+
+    for index, dataset_basename in enumerate(dataset_basenames, start=1):
+        run_id = f"r{index}"
+        artifact_name = f"{run_id}.json"
+        dataset = {"path_hash": f"h{index}"}
+        if dataset_basename is not None:
+            dataset["path_basename"] = dataset_basename
+            dataset_frequency[dataset_basename] = dataset_frequency.get(
+                dataset_basename, 0
+            ) + 1
+        run_cards.append(
+            {
+                "run_id": run_id,
+                "artifact_name": artifact_name,
+                "objective": "audit",
+                "dataset": dataset,
+                "model": {"name": "m1", "version": "unknown"},
+                "limits": {"max_steps": 10},
+                "run_counts": {
+                    "total_steps": 2,
+                    "error_steps": 0,
+                    "contradiction_count": 0,
+                    "target_card_count": 1,
+                },
+                "tool_frequency": {"feature_summary": 1},
+                "step_type_frequency": {"exploration": 1, "confirmation": 1},
+                "signal_frequency": {"low_variance": 1},
+                "step_trace": [],
+                "feature_cards": [],
+                "contradictions": [],
+                "errors": [],
+            }
+        )
+
+    return {
+        "header": {
+            "schema_version": "jif.v2",
+            "run_count": len(run_cards),
+            "source_run_ids": [card["run_id"] for card in run_cards],
+            "source_artifacts": [card["artifact_name"] for card in run_cards],
+            "export_scope": {"selection_mode": "explicit_paths", "selection_value": len(run_cards)},
+        },
+        "cohort_context": {
+            "objective_frequency": {"audit": len(run_cards)},
+            "dataset_frequency": dataset_frequency,
+            "model_name_frequency": {"m1": len(run_cards)},
+            "model_version_frequency": {"unknown": len(run_cards)},
+            "max_steps_frequency": {"10": len(run_cards)},
+            "tool_set": ["feature_summary"],
+        },
+        "aggregate": {
+            "run_count": len(run_cards),
+            "total_steps": len(run_cards) * 2,
+            "tool_frequency": {"feature_summary": len(run_cards)},
+            "step_type_frequency": {
+                "exploration": len(run_cards),
+                "confirmation": len(run_cards),
+            },
+            "redundant_step_frequency": {"false": len(run_cards) * 2},
+            "signal_frequency": {"low_variance": len(run_cards)},
+        },
+        "run_cards": run_cards,
+    }
 
 
 def test_merge_jif_payloads_sums_existing_aggregate_fields_only():
@@ -133,43 +206,8 @@ def test_run_judge_saves_structured_and_text_artifacts(tmp_path):
 
 
 def test_build_judge_prompt_injects_exactly_one_context_block():
-    payload = {
-        "header": {"schema_version": "jif.v2", "run_count": 1, "source_run_ids": ["r1"], "source_artifacts": ["r1.json"], "export_scope": {"selection_mode": "explicit_paths", "selection_value": 1}},
-        "cohort_context": {
-            "objective_frequency": {"audit": 1},
-            "dataset_frequency": {"Friday-WorkingHours-Afternoon-PortScan.csv": 1},
-            "model_name_frequency": {"m1": 1},
-            "model_version_frequency": {"unknown": 1},
-            "max_steps_frequency": {"10": 1},
-            "tool_set": ["feature_summary"],
-        },
-        "aggregate": {
-            "run_count": 1,
-            "total_steps": 2,
-            "tool_frequency": {"feature_summary": 1},
-            "step_type_frequency": {"exploration": 1, "confirmation": 1},
-            "redundant_step_frequency": {"false": 2},
-            "signal_frequency": {"low_variance": 1},
-        },
-        "run_cards": [
-            {
-                "run_id": "r1",
-                "artifact_name": "r1.json",
-                "objective": "audit",
-                "dataset": {"path_basename": "Friday-WorkingHours-Afternoon-PortScan.csv", "path_hash": "h1"},
-                "model": {"name": "m1", "version": "unknown"},
-                "limits": {"max_steps": 10},
-                "run_counts": {"total_steps": 2, "error_steps": 0, "contradiction_count": 0, "target_card_count": 1},
-                "tool_frequency": {"feature_summary": 1},
-                "step_type_frequency": {"exploration": 1, "confirmation": 1},
-                "signal_frequency": {"low_variance": 1},
-                "step_trace": [],
-                "feature_cards": [],
-                "contradictions": [],
-                "errors": [],
-            }
-        ],
-    }
+    payload = _build_judge_payload(
+        "Friday-WorkingHours-Afternoon-PortScan.csv")
 
     prompt = build_judge_prompt(payload, "single_run")
 
@@ -183,4 +221,58 @@ def test_build_judge_prompt_injects_exactly_one_context_block():
         "=== CONTEXT: DATASET PHENOMENON ===")
     assert prompt.index(
         "=== CONTEXT: DATASET PHENOMENON ===") < prompt.index("JIF payload:")
+    assert prompt.index("JIF payload:") < prompt.index("Output rules:")
+
+
+def test_resolve_partition_analysis_mode_ignores_unknown_runs():
+    payload = _build_judge_payload(
+        "Wednesday-WorkingHours-DDos.csv",
+        "mystery_partition.csv",
+    )
+
+    assert _resolve_partition_analysis_mode(payload) == "single_partition"
+
+
+def test_resolve_partition_analysis_mode_detects_cross_partition_from_valid_runs_only():
+    payload = _build_judge_payload(
+        "Wednesday-WorkingHours-DDos.csv",
+        "Friday-WorkingHours-Afternoon-PortScan.csv",
+        "mystery_partition.csv",
+    )
+
+    assert _resolve_partition_analysis_mode(payload) == "cross_partition"
+
+
+def test_build_judge_prompt_uses_single_partition_context_for_same_phenomenon_multi_run():
+    payload = _build_judge_payload(
+        "Wednesday-WorkingHours-DDos.csv",
+        "Friday-WorkingHours-Afternoon-DDos.csv",
+    )
+
+    prompt = build_judge_prompt(payload, "multi_run")
+
+    assert "=== CONTEXT: DATASET PHENOMENON ===" in prompt
+    assert "=== CROSS-PARTITION ANALYSIS INSTRUCTIONS ===" not in prompt
+    assert "saturation, spikes, and load" in prompt
+    assert "Analysis mode:\nsingle_partition" in prompt
+
+
+def test_build_judge_prompt_uses_cross_partition_block_without_context_sections():
+    payload = _build_judge_payload(
+        "Wednesday-WorkingHours-DDos.csv",
+        "Friday-WorkingHours-Afternoon-PortScan.csv",
+    )
+
+    prompt = build_judge_prompt(payload, "multi_run")
+
+    assert "=== CROSS-PARTITION ANALYSIS INSTRUCTIONS ===" in prompt
+    assert "Anchor claims to specific runs in the JIF payload" in prompt
+    assert "Final evidence references must still use only the allowed field-level references" in prompt
+    assert "=== CONTEXT: DATASET PHENOMENON ===" not in prompt
+    assert "=== CONTEXT: EXPECTED STRUCTURE ===" not in prompt
+    assert "=== CONTEXT: EVALUATION LENS ===" not in prompt
+    assert "Analysis mode:\ncross_partition" in prompt
+    assert prompt.index("=== CROSS-PARTITION ANALYSIS INSTRUCTIONS ===") < prompt.index(
+        "JIF payload:"
+    )
     assert prompt.index("JIF payload:") < prompt.index("Output rules:")
