@@ -28,6 +28,24 @@ _MODE_TO_SIGNAL_FAMILY = {
     "redundancy": "redundancy / dependency",
 }
 
+_KNOWN_FACT_SIGNAL_TO_MECHANISM = {
+    "constant": "value_distribution",
+    "low_entropy": "value_distribution",
+    "redundancy_hint": "dependency",
+}
+
+_ACTION_TO_MECHANISM = {
+    "feature_summary": "value_distribution",
+    "cardinality_analysis": "value_distribution",
+    "distribution_analysis": "value_distribution",
+    "feature_relation": "dependency",
+}
+
+_MODE_TO_ACTION = {
+    "low cardinality": "cardinality_analysis",
+    "redundancy": "feature_relation",
+}
+
 
 def _format_available_tools(tool_names: list[str]) -> str:
     if not tool_names:
@@ -70,6 +88,156 @@ def _normalize_signal_family(signal: object) -> str | None:
     if any(token in normalized for token in ("skew", "tail", "spike", "collapse")):
         return "distribution skew / collapse"
     return None
+
+
+def _normalize_known_fact_signal(signal: object) -> str | None:
+    if not isinstance(signal, str):
+        return None
+
+    normalized = signal.strip().lower().replace("-", "_")
+    if not normalized:
+        return None
+    if normalized in {
+        "constant",
+        "near_constant",
+        "low_cardinality",
+        "low_variance",
+        "low_diversity",
+    }:
+        return "constant"
+    if normalized in {"low_entropy", "dominant_value"}:
+        return "low_entropy"
+    if normalized in {"high_redundancy", "redundancy_hint"}:
+        return "redundancy_hint"
+    if normalized.startswith("redundant_with="):
+        return "redundancy_hint"
+    return None
+
+
+def _get_action_mechanism(action: str | None) -> str | None:
+    if not isinstance(action, str):
+        return None
+    return _ACTION_TO_MECHANISM.get(action.strip().lower())
+
+
+def _get_mode_action(mode: str | None) -> str | None:
+    if not isinstance(mode, str):
+        return None
+    return _MODE_TO_ACTION.get(mode.strip().lower())
+
+
+def _feature_has_contradiction(state: AgentState | None, feature: str) -> bool:
+    if state is None or not feature:
+        return False
+
+    for record in state.contradiction_memory or []:
+        if not isinstance(record, dict):
+            continue
+        if record.get("feature") == feature:
+            return True
+        if record.get("feature_a") == feature or record.get("feature_b") == feature:
+            return True
+        features = record.get("features") or record.get("feature_names") or []
+        if isinstance(features, list) and feature in {str(item) for item in features}:
+            return True
+    return False
+
+
+def extract_overview_facts(
+    candidate_summaries: dict[str, Any] | None,
+) -> dict[str, set[str]]:
+    facts: dict[str, set[str]] = {}
+    if not candidate_summaries:
+        return facts
+
+    for feature_name, summary in candidate_summaries.items():
+        if not isinstance(summary, dict):
+            continue
+        normalized_feature = str(feature_name)
+        fact_types: set[str] = set()
+
+        if summary.get("unique_values") == 1:
+            fact_types.add("constant")
+
+        for signal in summary.get("signals") or []:
+            fact_type = _normalize_known_fact_signal(signal)
+            if fact_type is not None:
+                fact_types.add(fact_type)
+
+        redundancy = summary.get("redundancy") or []
+        if isinstance(redundancy, list) and any(
+            isinstance(partner, dict) and partner.get("feature")
+            for partner in redundancy
+        ):
+            fact_types.add("redundancy_hint")
+
+        if fact_types:
+            facts[normalized_feature] = fact_types
+
+    return facts
+
+
+def is_reconfirming_known_fact(
+    action: str,
+    feature: str,
+    facts: dict[str, set[str]] | None,
+    state: AgentState | None = None,
+) -> bool:
+    if not isinstance(feature, str) or not feature:
+        return False
+    if not facts or feature not in facts:
+        return False
+    if _feature_has_contradiction(state, feature):
+        return False
+
+    if action.strip().lower() == "feature_relation":
+        return False
+
+    action_mechanism = _get_action_mechanism(action)
+    if action_mechanism is None:
+        return False
+
+    for fact_type in facts.get(feature, set()):
+        if _KNOWN_FACT_SIGNAL_TO_MECHANISM.get(fact_type) == action_mechanism:
+            return True
+    return False
+
+
+def filter_candidates_by_reconfirmation(
+    candidates: list[dict[str, Any]],
+    mode: str,
+    facts: dict[str, set[str]] | None,
+    state: AgentState | None = None,
+) -> list[dict[str, Any]]:
+    action = _get_mode_action(mode)
+    if action is None:
+        return list(candidates)
+
+    filtered: list[dict[str, Any]] = []
+    for candidate in candidates:
+        feature_name = candidate.get("feature_name")
+        if not isinstance(feature_name, str):
+            continue
+        if is_reconfirming_known_fact(action, feature_name, facts, state):
+            continue
+        filtered.append(candidate)
+    return filtered
+
+
+def _format_known_facts(facts: dict[str, set[str]] | None) -> str:
+    if not facts:
+        return "NONE"
+
+    lines: list[str] = []
+    for feature_name in sorted(facts):
+        for fact_type in sorted(facts[feature_name]):
+            mechanism = _KNOWN_FACT_SIGNAL_TO_MECHANISM.get(fact_type)
+            if mechanism is None:
+                continue
+            lines.append(
+                f"- {feature_name}: {fact_type} from overview (mechanism={mechanism})"
+            )
+    return "\n".join(lines) if lines else "NONE"
 
 
 def _get_signal_family_counts(state: AgentState | None) -> dict[str, int]:
@@ -406,7 +574,10 @@ def render_evidence_summary(
 
 
 def _format_additional_candidates(
-    candidate_summaries: dict | None, criteria: str, state: AgentState | None = None
+    candidate_summaries: dict | None,
+    criteria: str,
+    state: AgentState | None = None,
+    known_facts: dict[str, set[str]] | None = None,
 ) -> str:
     """Render a compact additional-candidates block using `get_candidate_features`.
 
@@ -443,6 +614,12 @@ def _format_additional_candidates(
                 mode, summaries=summaries, top_k=5)
         except Exception:
             continue
+        mode_candidates = filter_candidates_by_reconfirmation(
+            mode_candidates,
+            mode,
+            known_facts,
+            state,
+        )
         for rank, candidate in enumerate(mode_candidates, start=1):
             if not _candidate_matches_mode(candidate, mode):
                 continue
@@ -507,6 +684,12 @@ def _format_additional_candidates(
             bucket = get_candidate_features(mode, summaries=summaries, top_k=5)
         except Exception:
             continue
+        bucket = filter_candidates_by_reconfirmation(
+            bucket,
+            mode,
+            known_facts,
+            state,
+        )
         ranked_bucket = sorted(
             [
                 (index, candidate)
@@ -578,6 +761,9 @@ def build_prompt(
 ) -> str:
     """Build prompt from state, tools, recent history, and optional candidate summaries."""
     template = PROMPT_TEMPLATE_PATH.read_text(encoding="utf-8")
+    known_facts = extract_overview_facts(
+        candidate_summaries or state.metadata.get("compact_feature_index")
+    )
     return template.format(
         objective=state.objective,
         partition_context=_format_partition_context(),
@@ -588,6 +774,7 @@ def build_prompt(
         pattern_coverage=_format_pattern_coverage(state),
         recent_history=_format_recent_history(state.history, history_window),
         additional_candidates=_format_additional_candidates(
-            candidate_summaries, candidate_criteria, state),
+            candidate_summaries, candidate_criteria, state, known_facts),
+        known_facts=_format_known_facts(known_facts),
         previous_hypothesis=_format_previous_hypothesis(state),
     )

@@ -8,7 +8,7 @@ GLOBAL_RULES:
 - Keep exploration open-ended and revise the working hypothesis when evidence changes.
 
 REASONING_RULES:
-- Avoid confirming what is already established. If a feature already shows a clear pattern (for example, constant, low entropy, or high redundancy), do not spend additional steps confirming it unless new evidence contradicts it.
+- Do not re-confirm a fact in KNOWN_FACTS when the next action probes the same mechanism. Revisit only for a different mechanism, relational extension, or contradiction resolution.
 - Do not repeat failed actions. If a tool call fails, do not retry the same action with the same input. Instead, adjust the approach or move to a different hypothesis.
 - Seek new information. Prioritize actions that provide new signals or test new hypotheses. Avoid steps that only reinforce already known observations.
 
@@ -16,7 +16,10 @@ PARTITION_CONTEXT:
 {partition_context}
 
 OVERVIEW:
-- Use the sections below as context for choosing the next action.
+- Use the sections below as trusted prior knowledge for choosing the next action.
+
+KNOWN_FACTS:
+{known_facts}
 
 AVAILABLE_TOOLS:
 {available_tools}

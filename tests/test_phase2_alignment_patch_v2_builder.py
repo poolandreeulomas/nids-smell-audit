@@ -1,6 +1,11 @@
 import os
 
-from prompts.builder import build_prompt
+from prompts.builder import (
+    build_prompt,
+    extract_overview_facts,
+    filter_candidates_by_reconfirmation,
+    is_reconfirming_known_fact,
+)
 from state.schema import EvidenceBlock
 from state.store import add_evidence, init_state
 
@@ -181,7 +186,7 @@ def test_prompt_includes_reasoning_rules():
     prompt_text = build_prompt(state, ["feature_summary"])
 
     assert "REASONING_RULES:\n" in prompt_text
-    assert "Avoid confirming what is already established." in prompt_text
+    assert "Do not re-confirm a fact in KNOWN_FACTS when the next action probes the same mechanism." in prompt_text
     assert "Do not repeat failed actions." in prompt_text
     assert "Seek new information." in prompt_text
     assert prompt_text.index("GLOBAL_RULES:\n") < prompt_text.index(
@@ -348,3 +353,145 @@ def test_recent_history_renders_action_input_as_json():
 
     assert 'ACTION_INPUT: {"feature_name": "f1"}' in recent_history
     assert "ACTION_INPUT: {'feature_name': 'f1'}" not in recent_history
+
+
+def test_is_reconfirming_known_fact_blocks_value_distribution_for_known_constant():
+    facts = extract_overview_facts(
+        {
+            "f_constant": {
+                "unique_values": 1,
+                "cardinality_ratio": 0.01,
+                "skewness": 0.0,
+                "redundancy": [],
+            }
+        }
+    )
+
+    assert is_reconfirming_known_fact("feature_summary", "f_constant", facts)
+    assert is_reconfirming_known_fact(
+        "cardinality_analysis", "f_constant", facts)
+
+
+def test_is_reconfirming_known_fact_blocks_distribution_analysis_for_low_entropy():
+    facts = extract_overview_facts(
+        {
+            "f_entropy": {
+                "signals": ["low_entropy"],
+                "unique_values": 5,
+                "cardinality_ratio": 0.05,
+                "skewness": 0.0,
+                "redundancy": [],
+            }
+        }
+    )
+
+    assert is_reconfirming_known_fact(
+        "distribution_analysis", "f_entropy", facts)
+
+
+def test_feature_relation_remains_allowed_for_known_constant():
+    facts = extract_overview_facts(
+        {
+            "f_constant": {
+                "unique_values": 1,
+                "cardinality_ratio": 0.01,
+                "skewness": 0.0,
+                "redundancy": [],
+            }
+        }
+    )
+
+    assert not is_reconfirming_known_fact(
+        "feature_relation", "f_constant", facts)
+
+
+def test_redundancy_hint_does_not_block_relational_extension():
+    summaries = {
+        "f_red": {
+            "unique_values": 12,
+            "cardinality_ratio": 0.2,
+            "skewness": 0.1,
+            "redundancy": [{"feature": "f_other", "correlation": 0.99}],
+        }
+    }
+    facts = extract_overview_facts(summaries)
+    filtered = filter_candidates_by_reconfirmation(
+        [{"feature_name": "f_red", "signals": ["redundant_with=f_other@0.99"]}],
+        "redundancy",
+        facts,
+    )
+
+    assert [candidate["feature_name"] for candidate in filtered] == ["f_red"]
+
+
+def test_known_facts_render_and_filter_same_mechanism_candidates():
+    summaries = {
+        "f_constant": {
+            "unique_values": 1,
+            "cardinality_ratio": 0.01,
+            "skewness": 0.0,
+            "redundancy": [],
+        },
+        "f_entropy": {
+            "signals": ["low_entropy"],
+            "unique_values": 5,
+            "cardinality_ratio": 0.05,
+            "skewness": 0.1,
+            "redundancy": [],
+        },
+        "f_other": {
+            "unique_values": 2,
+            "cardinality_ratio": 0.02,
+            "skewness": 0.2,
+            "redundancy": [],
+        },
+    }
+    state = init_state(
+        run_id="known_facts_prompt",
+        objective="test",
+        max_steps=1,
+        available_features=list(summaries),
+        metadata={"compact_feature_index": summaries},
+    )
+
+    prompt_text = build_prompt(
+        state,
+        ["feature_summary", "cardinality_analysis",
+            "distribution_analysis", "feature_relation"],
+        candidate_criteria="low cardinality",
+    )
+    known_facts_section = _extract_section(prompt_text, "KNOWN_FACTS")
+    candidates_section = _extract_section(prompt_text, "ADDITIONAL_CANDIDATES")
+
+    assert "- f_constant: constant from overview (mechanism=value_distribution)" in known_facts_section
+    assert "- f_entropy: low_entropy from overview (mechanism=value_distribution)" in known_facts_section
+    assert "feature_relation" not in known_facts_section
+    assert "f_constant" not in candidates_section
+    assert "f_other" in candidates_section
+
+
+def test_known_facts_block_is_present_in_prompt_section_order():
+    state = init_state(
+        run_id="known_facts_order",
+        objective="test",
+        max_steps=1,
+        available_features=["f1"],
+        metadata={
+            "compact_feature_index": {
+                "f1": {
+                    "unique_values": 1,
+                    "cardinality_ratio": 0.01,
+                    "skewness": 0.0,
+                    "redundancy": [],
+                }
+            }
+        },
+    )
+
+    prompt_text = build_prompt(state, ["feature_summary"])
+
+    assert "KNOWN_FACTS:\n" in prompt_text
+    assert prompt_text.index(
+        "OVERVIEW:\n") < prompt_text.index("KNOWN_FACTS:\n")
+    assert prompt_text.index(
+        "KNOWN_FACTS:\n") < prompt_text.index("AVAILABLE_TOOLS:\n")
