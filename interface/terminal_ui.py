@@ -207,12 +207,25 @@ def render_dataset_selection(paths: list[Path], current_name: str | None) -> str
     return _block("Dataset Partition", lines)
 
 
-def render_model_selection(models: list[tuple[str, str]], current_name: str) -> str:
+def render_model_selection(
+    models: list[tuple[str, str]],
+    current_name: str,
+    *,
+    description: str = "Choose one of the available models or enter a custom model ID.",
+    section_title: str = "Available Models",
+    extra_actions: list[tuple[str, str]] | None = None,
+) -> str:
+    actions = list(extra_actions or [])
+    actions.extend([
+        ("C", "Custom model ID"),
+        ("B", "Back"),
+        ("Q", "Quit"),
+    ])
     lines = [
         *_meta_lines("Home / Session Config / Model",
-                     "Choose the OpenAI model used by the next run or enter a custom model ID."),
+                     description),
         *(_section(
-            "Available Models",
+            section_title,
             [
                 f"[{index}] {label}{'  <current>' if model == current_name else ''}"
                 for index, (label, model) in enumerate(models, start=1)
@@ -220,11 +233,7 @@ def render_model_selection(models: list[tuple[str, str]], current_name: str) -> 
         )),
         *(_section(
             "Actions",
-            _menu_lines([
-                ("C", "Custom model ID"),
-                ("B", "Back"),
-                ("Q", "Quit"),
-            ])
+            _menu_lines(actions)
         )),
     ]
     return _block("Model Selection", lines)

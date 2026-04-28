@@ -1132,3 +1132,153 @@ The system now supports a clean separation between:
 - post-run reasoning evaluation (Judge)
 
 This establishes the full evaluation stack needed for studying how the auditing agent reasons across runs without coupling judgment to the runtime itself.
+
+## 28 April 2026 - Phase 2 hardening, model audit, and CLI cleanup
+
+### Main problems identified and addressed
+
+Several concrete problems were found during Phase 2 implementation, runtime testing, and model-comparison work.
+
+- Agent and Judge context were still too partition-agnostic in practice. Context content existed, but it was not yet injected in a consistently partition-aware way for all relevant paths.
+- Judge analysis needed a clean distinction between single-partition review and cross-partition comparison.
+- GPT-5.4 output transport through the Responses API could still break the strict ReAct parser due to flattened or duplicated text extraction behavior.
+- Expensive 5.x models could waste run budget after repeated parse failures.
+- The `OVERVIEW` block was being treated too often as descriptive context instead of trusted prior knowledge.
+- GPT-4.1-class models, and later GPT-5.4-mini, still tended to re-confirm already-known structural facts instead of switching to a different mechanism sooner.
+- The CLI model menu became too loaded after expanding the set of available GPT-5 variants.
+
+---
+
+### Fixes implemented
+
+- Implemented partition-aware context loading for both the Agent and the Judge.
+- Added Judge-side partition resolution and a clean cross-partition prompt mode.
+- Hardened OpenAI Responses text extraction so GPT-5.4 outputs are parsed more reliably.
+- Added cost-control safeguards in the agent loop so repeated parse failures stop high-end model runs early instead of silently consuming budget.
+- Reworked prompt construction so `OVERVIEW` is operationalized as trusted prior knowledge through an explicit `KNOWN_FACTS` block.
+- Added a same-mechanism reconfirmation filter in the prompt builder to reduce repeated confirmation of facts already visible in the compact overview.
+- Tightened prompt reasoning rules so the agent is explicitly told not to reconfirm known facts when the next action probes the same mechanism.
+- Simplified the CLI model-selection flow so the default view shows five clearly differentiated model options, with a separate action to open the full list.
+
+---
+
+### Failure modes observed and how they were resolved
+
+The following failure modes became especially important during the 28/04 correction pass because they directly affected methodological reliability and are likely to matter in later thesis reporting.
+
+#### 1. Parse errors caused by an ambiguous contract
+
+Observed problem:
+
+- some GPT-5.x outputs drifted away from the strict three-line ReAct contract
+- output extraction from the Responses API could flatten or duplicate text blocks
+- malformed or duplicated blocks produced parser failures even when the underlying intent was reasonable
+
+Resolution:
+
+- strengthened the strict output contract in the prompt
+- kept the agent task single-purpose so the model only decides the next action
+- hardened response-text extraction in the OpenAI adapter layer
+- added early-stop safeguards for repeated parse failures on high-end models so expensive runs do not keep burning budget after contract collapse
+
+#### 2. Task mixing: action selection plus summary generation in the same turn
+
+Observed problem:
+
+- the model sometimes behaved as if it had to both choose the next action and summarize findings
+- this created extra text, output drift, and pressure toward invalid multi-block answers
+
+Resolution:
+
+- rewrote the prompt so the task is explicitly only to decide the next action
+- reinforced single-block output rules and removal of summary-generation behavior from the runtime decision prompt
+- kept summary/report generation outside the runtime action-selection step
+
+#### 3. Repetition of patterns
+
+Observed problem:
+
+- the agent could keep exploring several variants of the same already-visible structural pattern
+- this was particularly visible in redundancy clusters where nearby features kept getting re-probed with limited information gain
+
+Resolution:
+
+- added repeated-feature blocking at execution level for exact retries
+- added builder-side filtering and candidate reshaping so already covered patterns are less likely to dominate the next suggestions
+- added prompt rules that treat visible shared patterns as background rather than primary targets for repeated analysis
+
+#### 4. Unnecessary confirmation
+
+Observed problem:
+
+- models, especially GPT-4.1-class and later GPT-5.4-mini, often spent steps re-confirming facts already obvious from the overview
+- this produced locally coherent reasoning but poor global exploration efficiency
+
+Resolution:
+
+- redefined `OVERVIEW` as trusted prior knowledge instead of soft context
+- extracted explicit `KNOWN_FACTS` from the compact overview
+- added a same-mechanism reconfirmation filter in the builder
+- added explicit reasoning rules forbidding re-confirmation of a known fact unless the next action changes mechanism or resolves a contradiction
+
+#### 5. Lack of closure
+
+Observed problem:
+
+- some runs accumulated evidence without converging cleanly toward a resolved interpretation or a sufficiently diverse audit trajectory
+- in weaker runs the agent could end the budget having explored locally but without enough strategic coverage
+
+Resolution:
+
+- improved prompt guidance so each step must include a hypothesis, scope, and one atomic next action
+- required explicit counterevidence seeking before the next move
+- improved pattern-coverage visibility in the prompt so the model has a clearer sense of what has already been explored
+- added deterministic post-run interpretation and evaluation layers so lack of closure becomes visible in artifacts instead of being hidden behind raw traces
+
+#### 6. Poor prioritization across models (especially 4.1 vs 5.4)
+
+Observed problem:
+
+- coarse metrics made several runs look superficially similar even when reasoning quality was not similar at all
+- GPT-4.1 and GPT-4.1-mini tended to prioritize lower-value confirmations earlier
+- GPT-5.4 showed better mechanism switching and higher-value early discoveries
+- GPT-5.4-mini sits between them: stable and useful, but still too likely to overexploit one productive redundancy family
+
+Resolution:
+
+- moved evaluation toward step-level reasoning-trace inspection rather than trusting aggregate metrics alone
+- strengthened candidate shaping and reasoning rules so prioritization is less dependent on implicit model quality alone
+- kept GPT-5.4 as the strongest current reference model for audit quality
+- identified GPT-5.4-mini as the main remaining open problem: no longer unstable, but still insufficiently disciplined in broadening search after one mechanism starts paying off
+
+---
+
+### Empirical findings from the current model audit
+
+- GPT-5.4 currently provides the strongest audit quality and the best mechanism-switching behavior.
+- GPT-5.4-mini is now stable enough to run cleanly and gives a good cost-quality tradeoff, but it still overcommits to a single redundancy cluster more than full GPT-5.4.
+- GPT-4.1 and GPT-4.1-mini remain more vulnerable to shallow confirmation and lower-value rediscovery.
+- Coarse run metrics alone were not sufficient to distinguish model quality reliably; step-level reasoning traces were necessary to see the real difference in exploration behavior.
+
+---
+
+### Validation status
+
+Focused validation was performed across the touched areas during this work, including:
+
+- prompt-builder reasoning-control tests
+- runtime alignment slices
+- Judge-related tests
+- CLI model-selection tests
+
+The implemented fixes were validated incrementally rather than being left as untested prompt changes.
+
+---
+
+### Current status at end of day
+
+- Partition-aware context injection is working for both Agent and Judge.
+- Cross-partition Judge analysis is integrated.
+- GPT-5.x parse handling is materially more robust than before.
+- Trusted-overview reasoning control is in place and functioning.
+- The main remaining open issue is not parser stability but search-discipline quality for GPT-5.4-mini: it still needs stronger pressure to leave an already-productive redundancy family earlier without introducing a new runtime planner.

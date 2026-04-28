@@ -105,11 +105,27 @@ class EvaluationContext:
 ScreenHandler = Callable[[], str | None]
 
 OPENAI_MODEL_OPTIONS = [
-    ("Low cost  | gpt-4.1-nano", "gpt-4.1-nano"),
-    ("Balanced  | gpt-4.1-mini", "gpt-4.1-mini"),
-    ("Powerful  | gpt-4.1", "gpt-4.1"),
-    ("Advanced  | gpt-5.3", "gpt-5.3"),
-    ("Flagship  | gpt-5.4", "gpt-5.4"),
+    ("Lowest cost    | gpt-4.1-nano", "gpt-4.1-nano"),
+    ("Best value     | gpt-4.1-mini", "gpt-4.1-mini"),
+    ("Stable full    | gpt-4.1", "gpt-4.1"),
+    ("New reasoning  | gpt-5-mini", "gpt-5-mini"),
+    ("Max reasoning  | gpt-5.4", "gpt-5.4"),
+]
+
+OPENAI_FULL_MODEL_IDS = [
+    "gpt-4.1-nano",
+    "gpt-4.1-mini",
+    "gpt-4.1",
+    "gpt-5-mini",
+    "gpt-5.3",
+    "gpt-5.4-nano",
+    "gpt-5.4-mini",
+    "gpt-5.4",
+]
+
+OPENAI_FULL_MODEL_OPTIONS = [
+    (model_name, model_name)
+    for model_name in OPENAI_FULL_MODEL_IDS
 ]
 
 
@@ -919,56 +935,63 @@ class NidsAgentCli:
         )
 
     def _change_model_name(self) -> None:
-        self._render(
-            render_model_selection(OPENAI_MODEL_OPTIONS,
-                                   self.session_config.model_name)
+        selected_model = self._select_model_name(
+            current_name=self.session_config.model_name,
+            custom_label="session model",
         )
-        valid_choices = {str(index) for index in range(
-            1, len(OPENAI_MODEL_OPTIONS) + 1)} | {"B", "C", "Q"}
-        choice = self._read_menu_choice(valid_choices)
-        if choice == "B":
+        if selected_model is None:
             return
-        if choice == "C":
-            self.session_config.model_name = self._read_custom_model_name(
-                "session model"
-            )
-            self._show_info(
-                f"Session model updated to: {self.session_config.model_name}")
-            return
-        if choice == "Q":
-            self._quit()
-            return
-
-        selected_model = OPENAI_MODEL_OPTIONS[int(choice) - 1][1]
         self.session_config.model_name = selected_model
         self._show_info(
             f"Session model updated to: {self.session_config.model_name}")
 
     def _change_judge_model_name(self) -> None:
-        self._render(
-            render_model_selection(OPENAI_MODEL_OPTIONS,
-                                   self.session_config.judge_model_name)
+        selected_model = self._select_model_name(
+            current_name=self.session_config.judge_model_name,
+            custom_label="judge model",
         )
-        valid_choices = {str(index) for index in range(
-            1, len(OPENAI_MODEL_OPTIONS) + 1)} | {"B", "C", "Q"}
-        choice = self._read_menu_choice(valid_choices)
-        if choice == "B":
+        if selected_model is None:
             return
-        if choice == "C":
-            self.session_config.judge_model_name = self._read_custom_model_name(
-                "judge model"
-            )
-            self._show_info(
-                f"Judge model updated to: {self.session_config.judge_model_name}")
-            return
-        if choice == "Q":
-            self._quit()
-            return
-
-        selected_model = OPENAI_MODEL_OPTIONS[int(choice) - 1][1]
         self.session_config.judge_model_name = selected_model
         self._show_info(
             f"Judge model updated to: {self.session_config.judge_model_name}")
+
+    def _select_model_name(self, *, current_name: str, custom_label: str) -> str | None:
+        showing_full_list = False
+        while True:
+            options = OPENAI_FULL_MODEL_OPTIONS if showing_full_list else OPENAI_MODEL_OPTIONS
+            toggle_key = "F" if showing_full_list else "L"
+            toggle_label = "Featured models" if showing_full_list else "Full model list"
+
+            self._render(
+                render_model_selection(
+                    options,
+                    current_name,
+                    description=(
+                        "Choose one of five featured models or open the full list."
+                        if not showing_full_list
+                        else "Choose any available model or go back to the five featured options."
+                    ),
+                    section_title=(
+                        "Full Model List" if showing_full_list else "Featured Models"),
+                    extra_actions=[(toggle_key, toggle_label)],
+                )
+            )
+
+            valid_choices = {str(index) for index in range(
+                1, len(options) + 1)} | {"B", "C", "Q", toggle_key}
+            choice = self._read_menu_choice(valid_choices)
+            if choice == "B":
+                return None
+            if choice == "C":
+                return self._read_custom_model_name(custom_label)
+            if choice == "Q":
+                self._quit()
+                return None
+            if choice == toggle_key:
+                showing_full_list = not showing_full_list
+                continue
+            return options[int(choice) - 1][1]
 
     def _read_custom_model_name(self, label: str) -> str:
         self._clear_screen()
