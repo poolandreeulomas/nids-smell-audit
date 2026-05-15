@@ -13,7 +13,7 @@ from src.feature_index import build_compact_feature_index
 from state.schema import AgentState
 from state.store import init_state
 from tools.registry import get_tool_registry
-from utils.openai_response import extract_response_text
+from utils.openai_response import build_responses_create_kwargs, extract_response_text
 
 DEFAULT_OBJECTIVE = (
     "Audit the dataset partition for potential design artefacts (determinism, "
@@ -60,9 +60,11 @@ def _build_openai_llm_callable(model_name: str, temperature: float):
 
         client = OpenAI()
         response = client.responses.create(
-            model=model_name,
-            input=prompt_text,
-            temperature=temperature,
+            **build_responses_create_kwargs(
+                model_name=model_name,
+                prompt_text=prompt_text,
+                temperature=temperature,
+            )
         )
         return extract_response_text(response)
 

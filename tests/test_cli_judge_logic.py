@@ -81,6 +81,27 @@ def test_change_model_name_supports_new_featured_model(monkeypatch):
     assert cli.session_config.model_name == "gpt-5-mini"
 
 
+def test_change_model_name_supports_gpt55_featured_model(monkeypatch):
+    cli = object.__new__(NidsAgentCli)
+    cli.session_config = SessionConfig(dataset_name="dataset.csv")
+    cli._render = lambda content: None
+    cli._show_info = lambda message: None
+
+    gpt55_index = next(
+        index
+        for index, (_, model_name) in enumerate(
+            cli_module.OPENAI_MODEL_OPTIONS, start=1
+        )
+        if model_name == "gpt-5.5"
+    )
+    responses = iter([str(gpt55_index)])
+    monkeypatch.setattr("builtins.input", lambda prompt="": next(responses))
+
+    cli._change_model_name()
+
+    assert cli.session_config.model_name == "gpt-5.5"
+
+
 def test_change_model_name_supports_full_list_toggle(monkeypatch):
     cli = object.__new__(NidsAgentCli)
     cli.session_config = SessionConfig(dataset_name="dataset.csv")

@@ -14,7 +14,7 @@ from judge.context_loader import (
     resolve_judge_partition_phenomenon,
 )
 from judge.judge_parser import VALID_EVIDENCE_REFERENCES, parse_judge_response
-from utils.openai_response import extract_response_text
+from utils.openai_response import build_responses_create_kwargs, extract_response_text
 from utils.run_logging import load_json, write_json
 
 
@@ -209,9 +209,11 @@ def _build_openai_judge_callable(model_name: str, temperature: float = 0.0) -> J
 
         client = OpenAI()
         response = client.responses.create(
-            model=model_name,
-            input=prompt_text,
-            temperature=temperature,
+            **build_responses_create_kwargs(
+                model_name=model_name,
+                prompt_text=prompt_text,
+                temperature=temperature,
+            )
         )
         return extract_response_text(response)
 

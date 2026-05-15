@@ -1,12 +1,27 @@
+from datetime import UTC, datetime
+
 from interface import cli as cli_module
 from interface.cli import NidsAgentCli, RunContext
-from utils.run_logging import build_session_run_basename
+from utils.run_logging import build_session_run_basename, get_next_run_index
 
 
 def test_build_session_run_basename_has_visible_sequence():
-    basename = build_session_run_basename(7)
+    basename = build_session_run_basename(
+        7,
+        datetime(2026, 4, 30, tzinfo=UTC),
+        partition_name="Friday-WorkingHours-Afternoon-DDos.pcap_ISCX.csv",
+        model_name="gpt-5.4-mini",
+    )
 
-    assert basename.startswith("run_007_")
+    assert basename == "run_007_30-04_DS_5.4_mini"
+
+
+def test_get_next_run_index_uses_highest_persisted_visible_sequence(tmp_path):
+    (tmp_path / "run_001_30-04_DS_5.4.json").write_text("{}", encoding="utf-8")
+    (tmp_path / "run_007_30-04_PS_5.4_mini.json").write_text("{}", encoding="utf-8")
+    (tmp_path / "run_007_30-04_PS_5.4_mini_metrics.json").write_text("{}", encoding="utf-8")
+
+    assert get_next_run_index(tmp_path) == 8
 
 
 def test_build_multi_run_summary_payload_reuses_aggregated_results(monkeypatch):

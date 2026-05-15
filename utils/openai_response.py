@@ -5,6 +5,39 @@ from __future__ import annotations
 from typing import Any
 
 
+_RESPONSES_MODELS_WITHOUT_TEMPERATURE_PREFIXES = (
+    "gpt-5.5",
+)
+
+
+def build_responses_create_kwargs(
+    *,
+    model_name: str,
+    prompt_text: str,
+    temperature: float | None = None,
+) -> dict[str, Any]:
+    """Build OpenAI Responses API kwargs with model-specific compatibility.
+
+    Some models reject parameters that older models accept. Keep the request
+    shape minimal for those cases so runs fail less often on transport-level
+    incompatibilities.
+    """
+
+    kwargs: dict[str, Any] = {
+        "model": model_name,
+        "input": prompt_text,
+    }
+    if temperature is None:
+        return kwargs
+
+    normalized_model = model_name.strip().lower()
+    if normalized_model.startswith(_RESPONSES_MODELS_WITHOUT_TEMPERATURE_PREFIXES):
+        return kwargs
+
+    kwargs["temperature"] = temperature
+    return kwargs
+
+
 def _iter_output_text_blocks(response: Any) -> list[str]:
     blocks: list[str] = []
 

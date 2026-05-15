@@ -52,7 +52,7 @@ from main import main as run_main
 from utils.human_readable import first_metric_text, split_bullet_lines
 from utils.metrics import state_metrics_payload
 from utils.openai_response import extract_response_text
-from utils.run_logging import DEFAULT_RUNS_DIR, build_session_run_basename, load_json, save_run_artifacts
+from utils.run_logging import DEFAULT_RUNS_DIR, build_session_run_basename, get_next_run_index, load_json, save_run_artifacts
 
 REVIEW_MENU_OPTIONS = [
     ("1", "Reasoning Trace"),
@@ -110,6 +110,7 @@ OPENAI_MODEL_OPTIONS = [
     ("Stable full    | gpt-4.1", "gpt-4.1"),
     ("New reasoning  | gpt-5-mini", "gpt-5-mini"),
     ("Max reasoning  | gpt-5.4", "gpt-5.4"),
+    ("Top tier       | gpt-5.5", "gpt-5.5"),
 ]
 
 OPENAI_FULL_MODEL_IDS = [
@@ -121,6 +122,7 @@ OPENAI_FULL_MODEL_IDS = [
     "gpt-5.4-nano",
     "gpt-5.4-mini",
     "gpt-5.4",
+    "gpt-5.5",
 ]
 
 OPENAI_FULL_MODEL_OPTIONS = [
@@ -141,7 +143,7 @@ class NidsAgentCli:
         self._last_run: RunContext | None = None
         self._view_runs_limit = 5
         self._selected_view_run: RunContext | None = None
-        self._session_run_counter = 0
+        self._session_run_counter = get_next_run_index(LOG_DIR) - 1
         self._running = True
         self._current_screen = "main"
         self._screen_handlers: dict[str, ScreenHandler] = {
@@ -789,7 +791,16 @@ class NidsAgentCli:
 
     def _next_session_run_basename(self) -> str:
         self._session_run_counter += 1
-        return build_session_run_basename(self._session_run_counter)
+        partition_name: str | None = None
+        try:
+            partition_name = self._get_selected_dataset_path().name
+        except FileNotFoundError:
+            partition_name = None
+        return build_session_run_basename(
+            self._session_run_counter,
+            partition_name=partition_name,
+            model_name=self.session_config.model_name,
+        )
 
     def _execute_multi_run_flow(self, run_count: int) -> list[RunContext]:
         run_contexts: list[RunContext] = []
@@ -968,9 +979,9 @@ class NidsAgentCli:
                     options,
                     current_name,
                     description=(
-                        "Choose one of five featured models or open the full list."
+                        "Choose one of the featured models or open the full list."
                         if not showing_full_list
-                        else "Choose any available model or go back to the five featured options."
+                        else "Choose any available model or go back to the featured options."
                     ),
                     section_title=(
                         "Full Model List" if showing_full_list else "Featured Models"),

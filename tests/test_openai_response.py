@@ -1,4 +1,4 @@
-from utils.openai_response import extract_response_text
+from utils.openai_response import build_responses_create_kwargs, extract_response_text
 
 
 class _DummyText:
@@ -65,3 +65,30 @@ def test_extract_response_text_falls_back_to_sdk_output_text():
     response = _DummyResponse([_DummyReasoning()], output_text="fallback")
 
     assert extract_response_text(response) == "fallback"
+
+
+def test_build_responses_create_kwargs_keeps_temperature_for_supported_models():
+    kwargs = build_responses_create_kwargs(
+        model_name="gpt-5.4",
+        prompt_text="hello",
+        temperature=0.0,
+    )
+
+    assert kwargs == {
+        "model": "gpt-5.4",
+        "input": "hello",
+        "temperature": 0.0,
+    }
+
+
+def test_build_responses_create_kwargs_omits_temperature_for_gpt55():
+    kwargs = build_responses_create_kwargs(
+        model_name="gpt-5.5",
+        prompt_text="hello",
+        temperature=0.0,
+    )
+
+    assert kwargs == {
+        "model": "gpt-5.5",
+        "input": "hello",
+    }

@@ -93,13 +93,6 @@ CURRENT_PROGRESS:
 {active_patterns_block}STEP_SUMMARY:
 {step_summary}
 
-DECISION_REMINDER:
-- HARD CONSTRAINT: Never select an action whose exact (ACTION, ACTION_INPUT) already appears in STEP_SUMMARY.
-- HARD CONSTRAINT: duplication_analysis can be executed at most once per run. If it appears in STEP_SUMMARY, it is no longer a valid action.
-- If a candidate violates a HARD CONSTRAINT, it must be ignored even if it appears highly informative or strongly supported by signals.
-- BEFORE selecting the next action, explicitly verify that the proposed action is not already represented in STEP_SUMMARY unless it changes mechanism or tests a clearly different structure.
-- Do not perform more than two actions from the same mechanism unless resolving a contradiction or testing a clearly different structure.
-
 ADDITIONAL_CANDIDATES:
 {additional_candidates}
 

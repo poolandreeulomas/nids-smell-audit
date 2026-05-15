@@ -1,3 +1,12 @@
+## 30 April 2026 - Tuesday working hours (`TUE`) with `gpt-5.4-mini` vs `gpt-5.4`
+
+ - Immediate recommendation: for the paper, Tuesday working hours should be reported as another case where `gpt-5.4-mini` is practically usable but still requires multi-run consensus for final findings, while `gpt-5.4` remains the stronger qualitative baseline because it closes on a more coherent and better-calibrated structural set.
+
+ - **Evaluated cohort (Tuesday working hours, new runs):**
+   - `run_036_30-04_TUE_5.4_mini.json`
+   - `run_037_30-04_TUE_5.4_mini.json`
+   - `run_038_30-04_TUE_5.4_mini.json`
+   - `run_039_30-04_TUE_5.4.json`
 ## 16/02/2026
 
 ### Environment setup
@@ -136,235 +145,302 @@ The next milestone is to design a structured result schema that allows:
 - DDoS partition shows deterministic Destination Port (dominant_ratio = 1.0).
 - PortScan shows strong structural compression in packet features.
 - Bot partition appears structurally more realistic.
-
-### Status
-Pipeline stable.
-Signals coherent.
-Ready for smell formalization phase.
-
-### Posible future change
-- Evaluate threshold-based feature selection instead of fixed Top-K (for correlation feature-label)
-
-## 5 March 2026 - Formalization of direction and expected functionality
-
-### Project direction clarification — Dataset Structural Auditor
-
-Re-evaluated the conceptual goal of the project after reviewing Flood et al. methodology and the current exploratory pipeline.
-
-Initial assumption:
-The tool should automatically detect design smells in NIDS datasets.
-
-Revised understanding:
-A fully automatic smell detector is not reliable because many dataset issues are contextual and depend on the attack scenario.
-
-### Methodological adjustment
-
-The system will function as a **Dataset Structural Auditor** rather than a strict smell classifier.
-
-The goal is to:
-
-- Detect statistical signals that may indicate potential dataset design issues.
-- Highlight suspicious features, partitions, or flow patterns.
-- Provide explanations and suggested verification procedures for researchers.
-
-The tool therefore behaves similarly to a **static analysis tool for datasets**, producing risk indicators rather than definitive judgments.
-
----
-
-### Role of the reasoning agent (LLM)
-
-The LLM is **not responsible for detecting smells directly**.
-
-Instead, the workflow becomes:
-
-dataset → statistical signals → contextual reasoning → audit report
-
-The reasoning layer is used for:
-
-- interpreting statistical signals
-- explaining why a signal might indicate a design smell
-- suggesting how the researcher can verify the issue
-
-Example output concept:
-
-Potential shortcut feature detected.
-
-Signals:
-- high feature–label correlation
-- extremely low entropy within attack class
-- dominant value ratio close to 1
-
-Suggested verification:
-1. Train a model excluding the feature.
-2. Measure performance degradation.
-3. Evaluate generalization under modified conditions.
-
-This design ensures robustness even if the reasoning layer is imperfect.
-
----
-
-### Smell detection philosophy
-
-Instead of binary smell classification, the system should estimate **risk levels**.
-
-Example categories:
-
-HIGH RISK  
-Strong structural evidence of shortcut learning.
-
-MEDIUM RISK  
-Statistical signals suggest potential dependency but require contextual validation.
-
-LOW RISK  
-Feature appears informative but not structurally problematic.
-
-This prevents overclaiming and makes the methodology easier to defend scientifically.
-
----
-
-### Analysis granularity decision
-
-Dataset analysis will operate at **three structural levels**.
-
-#### Partition level (primary)
-
-Most structural artifacts appear at this level.
-
-Examples:
-- deterministic attack features
-- low intra-class diversity
-- simulation artifacts
-
-Partition analysis should occur incrementally as each dataset file is loaded.
-
-#### Feature level
-
-Feature-specific signals include:
-
-- feature–label correlation
-- entropy
-- dominant value ratio
-- intra-class variance
-
-These signals form the basis for smell risk estimation.
-
-#### Dataset level
-
-Global statistics will be estimated incrementally while processing partitions.
-
-This avoids loading the full dataset into memory.
-
----
-
-### Incremental processing strategy
-
-To reduce memory usage and improve scalability, dataset analysis should be performed incrementally.
-
-Pipeline concept:
-
-partition → structural analysis → update global statistics
-
-This is conceptually similar to online statistics or SGD-style updates.
-
-Advantages:
-
-- low memory usage
-- scalable to large datasets
-- early detection of suspicious patterns
-
----
-
-### First target smell — Highly dependent features
-
-The first smell to formalize will be **highly dependent features**.
-
-Definition concept:
-
-A feature is highly dependent if it allows models to predict the attack class without learning the underlying attack behavior.
-
-Example scenario observed in CIC-IDS2017:
-
-Destination Port = single value for all DDoS flows.
-
-This allows trivial classification rules such as:
-
-if port == X → attack
-
-instead of learning network attack dynamics.
-
----
-
-### Feature redundancy detection (future extension)
-
-Many NIDS datasets include features that encode the same information.
-
-Example observed in CIC-IDS2017:
-
-Avg Bwd Segment Size  
-Bwd Packet Length Mean
-
-Such redundancy may inflate model importance scores and distort evaluation.
-
-Future analysis should therefore detect high feature–feature correlation.
-
----
-
-### Flow-level analysis considerations
-
-Flood et al. rely on PCAP inspection to analyze flows.
-
-Since this project operates primarily on CSV data, direct flow reconstruction is difficult.
-
-Future approximations may include:
-
-- flow signature clustering
-
-## 24 April 2026 - Repository simplification pass
-
-### Structural cleanup
-
-- Unified pytest discovery so the same full suite is collected from both the workspace root and the repository root.
-- Removed cwd-dependent `sys.path` hacks from the outer test files that still needed them.
-- Added a dedicated `src/feature_index.py` module for the compact feature-index helpers used by the live runtime.
-- Reduced `src/explore.py` to a legacy exploratory script instead of mixing active runtime helpers with old batch analysis code.
-
-### Documentation cleanup
-
-- Rewrote the main context and architecture documents to match the current Phase 2 artifact-audit runtime.
-- Marked `docs/changes/` as historical implementation context instead of a current source of truth.
-- Fixed the broken migration-notes reference inside the archived PR draft.
-
-### Current status
-
-The repo is still intentionally compact at the runtime core, but the historical layers are now better separated from the active system description and test surface.
-- pattern similarity detection
-- approximate flow fingerprinting
-
-This may enable detection of smells such as:
-
-- repetitive flows
-- traffic collapse
-- artificial diversity
-
----
-
-### Current project status
-
-The structural analysis pipeline is stable and capable of extracting meaningful statistical signals across dataset partitions.
-
-The next milestone is to formalize the first smell detection rule using the existing statistical signals.
-
-## 5 March 2026 - Exploratory pipeline extension — structural signals
-
-Extended the exploratory structural audit pipeline to collect additional dataset diagnostics before smell formalization.
-
-The goal of this step is to ensure that the exploratory stage captures enough structural signals to support later smell definitions.
-
-The following statistical signals were added.
-
----
-
-### Class imbalance metric
+## 28 April 2026 - Added `gpt-5.4` run
+
+- **Added run:** `run_004_20260428_155525_207202.json` (model: `gpt-5.4`).
+- **Operational metrics (from `compare_runs`):**
+  - `total_steps`: 10, `valid_action_rate`: 1.0, `unique_features_explored`: 9, `repeated_feature_rate`: 0.1
+- **Compact list of final features identified by the `gpt-5.4` run:**
+  - Destination Port
+  - act_data_pkt_fwd
+  - __dataset__
+  - Subflow Fwd Packets|Total Fwd Packets
+  - Subflow Bwd Packets|Total Backward Packets
+  - Subflow Bwd Bytes|Total Length of Bwd Packets
+  - RST Flag Count
+  - ECE Flag Count
+  - Active Std
+
+- **Comparison with earlier runs (overlap):**
+  - `gpt-5.4` vs `gpt-5.4-mini` (run_003): overlap_score = 0.6364, with the strongest overlap in `Subflow`/`__dataset__` and flag/activity metrics.
+  - Pairwise overlaps with `gpt-4.1` and `gpt-4.1-mini` are around 0.46-0.54.
+  - **Average overlap (4 runs):** 0.5238.
+
+- **Short interpretation for the paper:**
+  - `gpt-5.4` continues the observed pattern: better audit quality and better mechanism switching. It produces a final feature set consistent with `gpt-5.4-mini` while also adding `Destination Port` with strong concentration/skew evidence in this partition.
+  - The high overlap between `gpt-5.4` and `gpt-5.4-mini` reinforces the hypothesis that the 5.4 family (large + mini) converges toward the same useful signals, although `gpt-5.4` may prioritize or confirm slightly different artefacts such as `Destination Port`.
+
+- **Immediate recommendation:** update the paper results table to include `run_004` and the new overlap mean, and run the expanded A/B study mentioned in the next-steps section to confirm the pattern with larger $N$.
+
+## 30 April 2026 - Re-evaluation of `gpt-5.4-mini` on runs dated `20260430`
+
+- **Selection criterion (important):** to avoid confusion caused by the initial IDs (`run_001`, `run_002`, etc.), the comparison was done by artifact date/time. The same-day `gpt-5.4` reference run was `run_001_20260430_141956_521296.json`.
+- **Main trio evaluated (`gpt-5.4-mini`, most recent complete runs):**
+  - `run_002_20260430_144555_567614.json`
+  - `run_003_20260430_144738_857645.json`
+  - `run_004_20260430_144906_042657.json`
+- **Same-day artifacts excluded from the core comparison:**
+  - `run_001_20260430_144222_736381.json`: aborted after 3 steps with 2 `PARSE_ERROR`s.
+  - `run_001_20260430_144357_003103.json`: useful as secondary evidence, but with 1 `PARSE_ERROR` and 1 `REPEATED_FEATURE_BLOCKED`.
+
+- **Main finding:** the earlier parrot-like reasoning problem observed in `gpt-5.4-mini` no longer appears as the dominant failure mode in the three most recent complete runs from 30 April. The model still reuses some meta-language in a few steps, but it no longer gets trapped in the repetitive "dependency/redundancy cluster established" loop that motivated the earlier investigation.
+
+- **Comparative result against `gpt-5.4` (SOTA reference):**
+  - `gpt-5.4` remains the best qualitative reference in the 30 April set: it opens with an orthogonal falsifier (`Destination Port`), moves through `duplication_analysis`, confirms exact dependency, and then switches cleanly into skew/collapse checks.
+  - The three recent `gpt-5.4-mini` runs are now clearly healthier in switching behavior and mechanism coverage than the earlier problematic runs.
+  - The difference relative to `gpt-5.4` is no longer severe rhetorical collapse, but weaker early prioritization discipline and somewhat more templated language in some trajectories.
+
+- **Aggregate metrics for the `gpt-5.4-mini` trio:**
+  - average score: `86.8`
+  - average mechanism switches: `5.0`
+  - average overlap with the same-day `gpt-5.4`: `0.5019`
+  - the three runs share a consistent artefact core (`ECE Flag Count`, `RST Flag Count`, `__dataset__`, `act_data_pkt_fwd`), while differing more on the exact relational pairs.
+
+- **Qualitative reading by run (`gpt-5.4-mini`):**
+  - `run_002_20260430_144555_567614.json`: best mini in the set. `6` switches, `0` mentions of `redundancy cluster`, and a varied trajectory across dependency, distribution, duplication, and back to dependency. This is the mini closest to SOTA behavior.
+  - `run_003_20260430_144738_857645.json`: second best. It maintains a coherent `dependency -> duplication -> distribution/skew -> relation -> distribution` thread, with only `2` mentions of `redundancy cluster` and no rhetorical loop.
+  - `run_004_20260430_144906_042657.json`: acceptable but the weakest of the trio. It still changes mechanism (`5` switches), but keeps more meta-language (`5` mentions of `established`) and `2` occurrences of duplicated `THOUGHT:` prefix inside the thought itself.
+
+- **Interpretation for the paper:**
+  - The `5.4-mini` family appears to have moved from a main failure mode of rhetorical/mechanistic lock-in to a more stable state where it converges toward useful signals similar to `gpt-5.4`, albeit with higher run-to-run variance.
+  - SOTA remains `gpt-5.4`, not because of the aggregate score alone, but because of better early exploration discipline, better use of orthogonal falsifiers, and a cleaner mechanism-switching narrative.
+  - As of `30/04/2026`, the correct claim is no longer "`gpt-5.4-mini` just repeats itself like a parrot", but something more precise: "`gpt-5.4-mini` is still more variable and somewhat more templated than `gpt-5.4`, but parrot-like failure no longer dominates the recent clean runs".
+
+- **Immediate recommendation:** if these runs are used in the paper, explicitly report that the 30 April evaluation was done by artifact date/time rather than `run_00x` prefix, and keep clean runs separate from runs with `PARSE_ERROR` so that reasoning stability is not mixed with parser/transport failures.
+
+## 30 April 2026 - PortScan (`PS`) with `gpt-5.4-mini` vs `gpt-5.4`
+
+- **Evaluated cohort (PortScan, new runs):**
+  - `run_016_30-04_PS_5.4_mini.json`
+  - `run_017_30-04_PS_5.4_mini.json`
+  - `run_018_30-04_PS_5.4_mini.json`
+  - `run_019_30-04_PS_5.4.json`
+
+- **Important interpretive context:** in PortScan, strong regularity is expected because of the phenomenon itself. The audit therefore should not stop at detecting repetition, but should distinguish expected regularity from artificial regularity and go deeper than obvious signals.
+
+- **Main reasoning finding:**
+  - The three new `gpt-5.4-mini` runs no longer show the dominant parrot-like reasoning failure seen in earlier phases.
+  - In all three minis there is real hypothesis revision, counterchecking, and mechanism switching. The remaining gap versus `gpt-5.4` is no longer rhetorical collapse, but lower inter-run stability and a somewhat stronger tendency to chase local feature families.
+  - Within the mini trio, `run_018_30-04_PS_5.4_mini.json` was the strongest qualitatively; `run_017_30-04_PS_5.4_mini.json` got a very high heuristic score but was narrower and more dependent on a single family of findings; `run_016_30-04_PS_5.4_mini.json` fell in between.
+
+- **Main auditing/results finding:**
+  - All four runs converge on a robust artefact core in PortScan:
+    - exact dataset-level duplication: `duplicate_count = 72353`, `duplicate_ratio = 0.25257`
+    - exact or near-exact structural redundancy, especially `Subflow Bwd Packets|Total Backward Packets` with `correlation = 1.0`
+  - `gpt-5.4` is again the best reference because, beyond recovering that core, it adds more audit depth: it confirms `Fwd Header Length|Fwd Header Length.1` with `correlation = 1.0`, keeps `Flow IAT Min` as a useful active finding, and checks `Destination Port` without overplaying it.
+  - The minis recover the core well, but are more variable on secondary findings: they sometimes elevate `Active Min`, `Flow IAT Std`, `Flow IAT Mean`, `Bwd Header Length|Total Backward Packets`, or flag/timing features that may be informative, but not always with the same solidity or priority.
+
+- **Methodological reading for the paper:**
+  - In PortScan, `gpt-5.4-mini` already appears good enough in reasoning quality to continue evaluating generalization on other partitions, as long as a single isolated run is not treated as definitive evidence.
+  - The audit quality of `gpt-5.4-mini` is promising but still below `gpt-5.4` because of higher inter-run variance and lower stability in the final set of findings.
+  - The defensible reading is no longer "mini fails", but something more precise: `gpt-5.4-mini` recovers the core relevant artefacts and reasons usefully, but `gpt-5.4` remains the better baseline because of its depth, cleaner falsification, and stronger result consistency.
+
+- **Immediate recommendation:** for the paper, report PortScan as evidence of real `gpt-5.4-mini` improvement in reasoning, but use consensus across multiple mini runs, not a single run, when talking about finding stability, while keeping `gpt-5.4` as the qualitative SOTA reference.
+
+## 30 April 2026 - Friday morning / Bot (`FRI`) with `gpt-5.4-mini` vs `gpt-5.4`
+
+- **Evaluated cohort (Friday morning / Bot, new runs):**
+  - `run_020_30-04_FRI_5.4_mini.json`
+  - `run_021_30-04_FRI_5.4_mini.json`
+  - `run_022_30-04_FRI_5.4_mini.json`
+  - `run_023_30-04_FRI_5.4.json`
+
+- **Important interpretive context:** this partition had already appeared more balanced and less trivial in earlier analyses than DDoS or PortScan. In other words, the agent should not try to "find something strong" at all costs here, but instead determine whether the signals are truly structural or whether the partition is simply more realistic and less extreme.
+
+- **Main reasoning finding:**
+  - The three `gpt-5.4-mini` runs still show useful and healthy reasoning: they complete the budget, revise hypotheses, and do not display the parrot failure that had previously been a concern.
+  - The difference from `gpt-5.4` is that, in a subtler partition, `gpt-5.4-mini` becomes more conservative and less stable in the closing phase: it touches plausible redundancy/discretization families, but then weakens more findings and leaves fewer active findings at the end.
+  - `gpt-5.4` again shows the best qualitative discipline: it verifies that global duplication is modest, falsifies `Destination Port` as a strong shortcut, and then lands on more defensible exact redundancies.
+
+- **Main auditing/results finding:**
+  - All four runs converge on a reasonable structural-suspicion core around:
+    - `act_data_pkt_fwd`
+    - `Subflow Bwd Packets`
+    - redundant pairs of the form `Subflow ... | Total ...`
+    - modest dataset duplication (`duplicate_count = 6888`, `duplicate_ratio = 0.03606`), almost entirely concentrated in `BENIGN`
+  - The `gpt-5.4` run is the best reference because it turns that general intuition into more defensible final findings:
+    - it weakens `Destination Port` instead of overstating it
+    - it keeps `Subflow Bwd Packets|Total Backward Packets` as exact redundancy (`correlation = 1.0`)
+    - it confirms an exact duplicate-column alias in `Fwd Header Length|Fwd Header Length.1` (`correlation = 1.0`)
+    - it keeps `Subflow Bwd Packets` as a useful feature with structural separation/closure
+  - The minis find plausible signals, but are less firm in the closing phase: `run_020` and `run_021` end up leaving basically only the dataset artefact, while `run_022` ends with no active findings at all. That suggests the model reasons well, but still struggles more to decide what deserves to remain as a final finding in less extreme partitions.
+
+- **Methodological reading for the paper:**
+  - This partition reinforces that `gpt-5.4-mini` generalizes usefully: it does not break when the partition is less obvious and it does not hallucinate a DDoS/PortScan where there is none.
+  - At the same time, Morning/Bot reveals the current ceiling of `gpt-5.4-mini` more clearly: reasoning is still sufficient to continue exploring other partitions, but closure stability and audit depth remain clearly below `gpt-5.4`.
+  - The defensible reading is not that `gpt-5.4-mini` fails, but that in subtler partitions it becomes more conservative and more variable, while `gpt-5.4` maintains a better combination of falsification, finding selection, and final consistency.
+
+- **Immediate recommendation:** for the paper, Friday morning / Bot should serve as complementary evidence of practical `gpt-5.4-mini` generalization, but also as proof that subtle partitions require multi-run consensus and comparison against `gpt-5.4` before making high-confidence claims about final findings.
+
+## 30 April 2026 - Monday working hours / benign (`BN`) with `gpt-5.4-mini` vs `gpt-5.4`
+
+- **Evaluated cohort (Monday / benign, new runs):**
+  - `run_024_30-04_BN_5.4_mini.json`
+  - `run_025_30-04_BN_5.4_mini.json`
+  - `run_026_30-04_BN_5.4_mini.json`
+  - `run_027_30-04_BN_5.4.json`
+
+- **Important interpretive context:** Monday is the benign partition, so the right methodological expectation is not to find extreme artefacts at all costs, but to check whether unusually constant structure, unexpected redundancy, or artificial duplication appear in a way that contradicts the diversity expected from normal traffic.
+
+- **Main reasoning finding:**
+  - The three `gpt-5.4-mini` runs still show useful reasoning without the parrot failure: they revise hypotheses, use counterchecks, and complete the exploration reasonably well.
+  - However, this is the partition where mini variance is most visible, not because reasoning collapses, but because the final closure becomes much less stable when the phenomenon is benign and there are fewer strong artefacts.
+  - `gpt-5.4` again behaves better as the qualitative baseline because it applies the right amount of caution for a benign partition: it checks duplication, tests a plausible shortcut (`Destination Port`), and weakens it correctly before landing on more defensible redundancies.
+
+- **Main auditing/results finding:**
+  - The most robust core in Monday is not a DDoS-like extreme collapse, but a family of redundancies/aliases among count and header features:
+    - `Fwd Header Length|Fwd Header Length.1` with `correlation = 1.0`
+    - `Subflow Bwd Packets|Total Backward Packets` with `correlation = 1.0`
+    - `Subflow Fwd Packets|Total Fwd Packets` with `correlation = 1.0` in the `gpt-5.4` run
+    - near-duplicate pairs such as `Total Backward Packets|Total Fwd Packets` with `correlation = 0.9993`
+  - Dataset duplication exists but is moderate (`duplicate_count = 26935`, `duplicate_ratio = 0.05083`) and does not point to a dramatic artefact by itself.
+  - `gpt-5.4` stands out because it does not overreact: `Destination Port` does not emerge as a strong benign shortcut, and the final conclusion stays focused on plausible structural redundancies instead of forcing an extreme-collapse narrative.
+  - The minis recover part of that same core, but with much lower inter-run stability: one mini ends with reasonable redundancies and moderate duplication, another leaves a narrower closure, and another changes the final set of findings substantially. Of the partitions reviewed today, this is the weakest one for `gpt-5.4-mini` in terms of stability.
+
+- **Methodological reading for the paper:**
+  - Monday/BN does not contradict the generalization of `gpt-5.4-mini`; on the contrary, it shows that the model does not break when the partition is subtle and benign.
+  - What it does reveal is an important limit: in partitions without obvious shortcuts or extreme artefacts, `gpt-5.4-mini` becomes much more variable in the final closure and in the selection of findings that remain active.
+  - `gpt-5.4` remains the best baseline because, in this benign scenario, it combines falsification, caution, and convergence toward a more defensible final finding set.
+
+- **Immediate recommendation:** for the paper, Monday/BN should be presented as the most demanding test among the 30 April runs: `gpt-5.4-mini` is still useful for continuing to other partitions, but conclusions in benign or subtle partitions should be based on multi-run consensus, not on a single mini run.
+
+## 30 April 2026 - Infiltration (`INF`) with `gpt-5.4-mini` vs `gpt-5.4`
+
+- **Evaluated cohort (Infiltration, new runs):**
+  - `run_028_30-04_INF_5.4_mini.json`
+  - `run_029_30-04_INF_5.4_mini.json`
+  - `run_030_30-04_INF_5.4_mini.json`
+  - `run_031_30-04_INF_5.4.json`
+
+- **Important interpretive context:** Infiltration is a multi-stage/post-compromise behavior partition, so the methodological demand here is not just to detect local separation or redundancy, but to reason about relational dependencies and possible artefacts linked to stages or behavior chains.
+
+- **Main reasoning finding:**
+  - The three `gpt-5.4-mini` runs keep healthy reasoning: they revise hypotheses, use counterchecks, and complete the exploration without the parrot-like reasoning problem that motivated the earlier investigation.
+  - Overall, `gpt-5.4-mini` appears to perform better here than in Monday/BN: inter-run stability is reasonable and overlaps are moderate rather than chaotic.
+  - The remaining limit is qualitative: even when they reason well, the minis still tend to land mainly on local separation/redundancy findings, whereas this partition would ideally reward deeper relational or stage-dependent reasoning.
+  - `gpt-5.4` is again the best baseline because it leaves a cleaner and better-calibrated closure on which findings are truly robust and which may be local shortcuts amplified by the tiny size of the `Infiltration` class.
+
+- **Main auditing/results finding:**
+  - All four runs converge on a useful artefact core around:
+    - moderate dataset duplication (`duplicate_count = 35630`, `duplicate_ratio = 0.12346`)
+    - strong redundant structure in header/packet features
+    - strong separation in features such as `Bwd Header Length`, `Subflow Fwd Packets`, or `Total Length of Bwd Packets`
+  - `gpt-5.4` is the best reference because it finishes with a more structurally defensible set of findings:
+    - `Fwd Header Length|Fwd Header Length.1` with `correlation = 1.0`
+    - `Fwd Header Length|Total Fwd Packets` with `correlation = 0.9769`
+    - moderate dataset-level duplication
+  - The strongest mini (`run_030`) elevates `Destination Port` as a potential shortcut with very strong separation (`js_divergence = 0.8316`, `dominant_ratio = 1.0` in the `Infiltration` class), but that result needs more caution because the attack class has only `36` samples and is therefore especially sensitive to shortcuts or accidental regularities.
+  - In other words, the minis find plausible and useful signals, but `gpt-5.4` remains better at distinguishing robust structural artefacts from possible shortcuts over-amplified by a very small class.
+
+- **Methodological reading for the paper:**
+  - Infiltration provides additional evidence that `gpt-5.4-mini` generalizes usefully to more complex partitions: reasoning does not break, and the model still finds a reasonable artefact core.
+  - However, the partition also shows that `gpt-5.4-mini` remains below `gpt-5.4` in its ability to produce truly relational or stage-aware final findings; the mini reasons well, but its closure is still more feature-local.
+  - The defensible conclusion is that `gpt-5.4-mini` remains valid for continuing the generalization study, but in partitions with tiny classes or multi-stage semantics, one should be especially cautious before turning a very separative feature into a strong conclusion.
+
+- **Immediate recommendation:** for the paper, Infiltration can be presented as evidence of practical `gpt-5.4-mini` generalization, but also as a methodological reminder that very small classes require checking mini findings against several runs and against the `gpt-5.4` baseline before treating them as robust artefacts.
+
+## 30 April 2026 - Web Attacks (`WEB`) with `gpt-5.4-mini` vs `gpt-5.4`
+
+- **Evaluated cohort (Web Attacks, new runs):**
+  - `run_032_30-04_WEB_5.4_mini.json`
+  - `run_033_30-04_WEB_5.4_mini.json`
+  - `run_034_30-04_WEB_5.4_mini.json`
+  - `run_035_30-04_WEB_5.4.json`
+
+- **Important interpretive context:** in Web Attacks, the methodological demand is to avoid trivial reasoning of the form "there is HTTP, therefore there is a web attack". The expected behavior is to reason about plausible shortcuts, overly clean separations, or simplified representations, without confusing the presence of web traffic with evidence of structural artefact.
+
+- **Main reasoning finding:**
+  - The three `gpt-5.4-mini` runs keep healthy reasoning: they complete the budget, revise hypotheses, and do not show the parrot-like reasoning failure seen in earlier phases.
+  - The weakness here is not raw reasoning quality, but dispersion: the minis explore plausible mechanisms, but do not converge very strongly toward the same final set of findings.
+  - `gpt-5.4` again behaves as the best qualitative baseline: it starts from more falsifiable hypotheses, maintains better coverage, and closes with a more coherent final set than the minis.
+
+- **Main auditing/results finding:**
+  - All four runs recover a useful core of signals around:
+    - `__dataset__`
+    - `Total Length of Bwd Packets`
+    - `Destination Port`
+    - several near-exact redundancies in backward/header/subflow features
+  - Inter-run stability in the minis is only moderate: there are reasonable overlaps in some pairs, but also substantial dispersion across trajectories and final closures.
+  - `gpt-5.4` leaves the best structurally defensible closure:
+    - `Subflow Bwd Packets|Total Backward Packets` with `correlation = 1.0`
+    - `Subflow Bwd Bytes|Total Length of Bwd Packets` with almost perfect correlation (`0.9999998`)
+    - moderate dataset duplication (`duplicate_count = 6066`, `duplicate_ratio = 0.03561`)
+  - The strongest mini (`run_033`) pushes `Destination Port` as a strong shortcut, and that is plausible in this partition, but it is still the kind of finding that should be treated cautiously when it does not appear with the same firmness across all mini runs.
+  - Overall, the minis produce useful signals, but `gpt-5.4` again distinguishes better between plausible local shortcuts and a more robust structural closure.
+
+- **Methodological reading for the paper:**
+  - Web Attacks reinforces that `gpt-5.4-mini` generalizes usefully: it does not break, it does not fall into rhetorical loops, and it still produces usable audits.
+  - However, finding stability remains below `gpt-5.4`: the mini is more sensitive to which local mechanism it elevates in each run, whereas `gpt-5.4` converges better toward a cleaner final closure.
+  - The defensible conclusion is that `gpt-5.4-mini` remains valid for continuing the generalization study, but in Web Attacks one should require multi-run consensus before treating a specific shortcut feature as a strong conclusion.
+
+- **Immediate recommendation:** for the paper, Web Attacks can be reported as additional evidence of practical `gpt-5.4-mini` generalization, with the caveat that reasoning quality is now sufficient but closure quality and stability still remain clearly better in `gpt-5.4`.
+
+## 30 April 2026 - Tuesday working hours (`TUE`) with `gpt-5.4-mini` vs `gpt-5.4`
+
+- **Evaluated cohort (Tuesday working hours, new runs):**
+  - `run_036_30-04_TUE_5.4_mini.json`
+  - `run_037_30-04_TUE_5.4_mini.json`
+  - `run_038_30-04_TUE_5.4_mini.json`
+  - `run_039_30-04_TUE_5.4.json`
+
+- **Important interpretive context:** in this repo, Tuesday working hours maps to the brute-force phenomenon (`FTP-Patator` / `SSH-Patator`). Repeated login attempts and structured repetition are expected here, so repetition alone is not enough to call out a smell. The relevant question is whether the audit distinguishes expected repeated authentication behavior from stronger structural artefacts such as exact redundancy, encoded aliases, or suspiciously collapsed value patterns.
+
+- **Main reasoning finding:**
+  - The three `gpt-5.4-mini` runs still show broadly healthy reasoning. They complete the budget, explore multiple mechanisms, and do not exhibit the earlier dominant parrot-style failure.
+  - Trajectory quality is therefore not the main issue in Tuesday. The minis score cleanly in the deterministic heuristic (`86.8`, `82.7`, `82.7`), with broad exploration (`8-9` unique successful features) and `4-5` tool-family switches, which is in the same general range as `gpt-5.4`.
+  - The main weakness is not reasoning collapse but closure instability. One mini (`run_037`) still shows some residual rhetorical drift around the redundancy-cluster framing and also contains one `PARSE_ERROR`, but even that run does not collapse into the older repetitive failure mode.
+  - Among the minis, `run_038_30-04_TUE_5.4_mini.json` is the strongest qualitatively because it keeps the cleaner forward-byte redundancy block active; `run_036_30-04_TUE_5.4_mini.json` is narrower but acceptable; `run_037_30-04_TUE_5.4_mini.json` is the weakest because it is noisier and closes on a thinner set of findings.
+
+- **Main auditing/results finding:**
+  - All four runs recover one shared structural core:
+    - moderate dataset duplication: `duplicate_count = 24065`, `duplicate_ratio = 0.05397`
+    - a strong packet-count relation around `Subflow Fwd Packets|Total Backward Packets` with `correlation = 0.9994768354848231`, which appears in all three minis
+  - Beyond that, the mini runs diverge substantially in their final closures. Mini-mini overlap is only moderate (`0.3444` on average), and mini vs `gpt-5.4` overlap is very low (`0.075` on average), which makes Tuesday one of the weakest partitions so far for final-finding convergence.
+  - `gpt-5.4` again provides the cleanest structural closure. It keeps the moderate duplication signal, confirms exact redundancy in `Fwd Header Length|Fwd Header Length.1` (`correlation = 1.0`), `Subflow Fwd Packets|Total Fwd Packets` (`correlation = 1.0`), and `Subflow Bwd Packets|Total Backward Packets` (`correlation = 1.0`), while also retaining low-entropy header/flag features such as `Fwd Header Length`, `ACK Flag Count`, and `SYN Flag Count`.
+  - The minis find plausible pieces of that picture, but not the same pieces. `run_036` closes mainly on duplication plus one packet-count relation; `run_037` closes on that same relation plus `Bwd Header Length`; `run_038` is stronger because it additionally keeps `Subflow Fwd Bytes|Total Length of Fwd Packets` (`correlation = 1.0`) and `Subflow Fwd Bytes` active.
+  - `gpt-5.4` also weakens `Destination Port`, which is important in this partition because repeated authentication traffic can make repetition look suspicious even when it is phenomenon-consistent. That is a better-calibrated move than overpromoting port-based shortcuts.
+
+- **Methodological reading for the paper:**
+  - Tuesday working hours adds another useful data point in favor of `gpt-5.4-mini` generalization at the reasoning level: the model does not break in a partition where structured repetition is expected and where the audit must avoid confusing brute-force regularity with artefact by default.
+  - At the same time, Tuesday reinforces a now-familiar limit: even when `gpt-5.4-mini` reasons competently, its final closure remains much more variable than `gpt-5.4` in partitions where multiple structurally plausible stories coexist.
+  - The defensible conclusion is that `gpt-5.4-mini` remains usable for continuing the study, but Tuesday should not be presented as evidence of stable single-run closure. It is better evidence of healthy exploration than of strong final convergence.
+
+- **Immediate recommendation:** for the paper, Tuesday working hours should be reported as another case where `gpt-5.4-mini` is practically usable but still requires multi-run consensus for final findings, while `gpt-5.4` remains the stronger qualitative baseline because it closes on a more coherent and better-calibrated structural set.
+
+## 30 April 2026 - Wednesday working hours+ (`WED`) with `gpt-5.4-mini` vs `gpt-5.4`
+
+- **Evaluated cohort (Wednesday working hours+, new runs):**
+  - `run_040_30-04_WED_5.4_mini.json`
+  - `run_041_30-04_WED_5.4_mini.json`
+  - `run_042_30-04_WED_5.4_mini.json`
+  - `run_043_30-04_WED_5.4.json`
+
+- **Important interpretive context:** Wednesday working hours+ corresponds to the DoS/DDoS + Heartbleed partition. In this setting, spikes, load concentration, and strong skew are expected. The methodological question is therefore not whether the agent finds burstiness, but whether it distinguishes expected saturation behavior from overly perfect structure: exact duplicates, near-deterministic counter relations, and suspiciously stable rate/header features.
+
+- **Main reasoning finding:**
+  - The three `gpt-5.4-mini` runs remain usable at the reasoning level. They complete the step budget, switch mechanisms repeatedly, and do not collapse into the earlier severe parrot-style failure mode.
+  - However, Wednesday shows a partial regression in rhetorical discipline relative to the best recent partitions. Two minis (`run_040` and `run_041`) repeatedly return to the same "redundancy cluster" framing, which does not amount to total reasoning collapse but does indicate weaker closure discipline than in the cleaner PortScan or Infiltration runs.
+  - The deterministic scores remain high (`95.8`, `86.8`, `100.0`, `86.8`), so the weakness here is not execution failure. It is the gap between healthy exploration and coherent final selection.
+  - Among the minis, `run_042_30-04_WED_5.4_mini.json` is the strongest qualitatively because it combines duplication, dependency, and header-length distribution checks without getting trapped in a single narrow closure. `run_041_30-04_WED_5.4_mini.json` is noisier but still plausibly aligned with the `gpt-5.4` read. `run_040_30-04_WED_5.4_mini.json` is the weakest because it closes on a very local relation that is hard to defend as the best final summary of the partition.
+
+- **Main auditing/results finding:**
+  - `gpt-5.4` again produces the cleanest and most defensible structural closure. Its active findings combine:
+    - moderate dataset duplication: `duplicate_count = 81909`, `duplicate_ratio = 0.11824548182987514`
+    - exact redundancy in `Fwd Header Length|Fwd Header Length.1` (`correlation = 1.0`)
+    - exact redundancy in `Subflow Fwd Packets|Total Fwd Packets` (`correlation = 1.0`)
+    - exact redundancy in `Subflow Bwd Packets|Total Backward Packets` (`correlation = 1.0`)
+    - moderate distributional concentration in `Total Backward Packets` and `Fwd Header Length`
+  - That closure is well calibrated for Wednesday: it acknowledges genuine load-driven skew while still calling out structure that looks too perfect to treat as ordinary traffic spikes.
+  - The minis, by contrast, are extremely unstable in their final closures. Mini-mini overlap is `0.0` on average: none of the three mini runs shares an active final finding with either of the other two. Mini vs `gpt-5.4` overlap is still low (`0.2262` on average), even though two minis partially intersect the full-model closure.
+  - `run_041` is the mini closest to the `gpt-5.4` baseline, retaining `Fwd Header Length|Fwd Header Length.1`, `Subflow Bwd Packets|Total Backward Packets`, and `Total Backward Packets`, while also keeping `Subflow Fwd Packets|Total Backward Packets` as a near-exact relation. `run_042` closes on a different but still plausible slice of the same phenomenon: `__dataset__`, `Bwd Header Length|Total Backward Packets`, `Bwd Header Length|Total Length of Bwd Packets`, and `Fwd Header Length`. `run_040`, in contrast, ends with only `Fwd Header Length.1|Subflow Fwd Packets` (`correlation = 0.999768303388831`), which is too local and insufficiently representative as a final closure.
+  - `gpt-5.4` also weakens `Destination Port` despite its low cardinality (`cardinality_ratio = 0.0434`), which is the right move in a partition where port concentration can arise naturally from attack setup and should not automatically be treated as the strongest shortcut.
+
+- **Methodological reading for the paper:**
+  - Wednesday working hours+ strengthens the current claim that `gpt-5.4-mini` is no longer broken at the reasoning layer. Even in a high-load partition with heavy skew and multiple plausible redundancy stories, the mini still explores actively and reaches usable evidence.
+  - At the same time, Wednesday makes the remaining weakness very explicit: `gpt-5.4-mini` still struggles to converge on a stable final artefact set when the partition offers many overlapping, partially redundant structural explanations.
+  - The defensible conclusion is therefore asymmetric: `gpt-5.4-mini` is good enough to continue the generalization study, but Wednesday should be treated as evidence of closure instability rather than evidence of reliable single-run agreement.
+
+- **Immediate recommendation:** for the paper, Wednesday working hours+ should be reported as another partition where `gpt-5.4-mini` remains practically useful, but where the final findings should only be trusted through multi-run consensus and comparison against `gpt-5.4`, which continues to provide the cleaner qualitative baseline.
 
 Added computation of a class imbalance ratio per partition:
 
@@ -398,6 +474,50 @@ Example findings:
 
 - `Bwd Packet Length Mean` ↔ `Avg Bwd Segment Size` (correlation = 1.0)
 - `Total Fwd Packets` ↔ `Subflow Fwd Packets` (correlation = 1.0)
+
+## 28/04/2026 — Findings relevantes para el paper
+
+- **Resumen corto:** Se aplicaron parches de alcance limitado (builder, prompt, CLI, extractor OpenAI) y se ejecutó un análisis comparativo de tres corridas recientes; los resultados, problemas observados y recomendaciones se listan a continuación.
+
+- **Cambios principales implementados antes del experimento:**
+  - Mecanismo de presupuesto suave por mecanismo/componente en `prompts/builder.py` para reducir la sobreexplotación de un único mecanismo.
+  - Bloque `KNOWN_FACTS` y filtro de reconfirmación en el builder/prompt para evitar razonamientos de bajo valor y re-confirmaciones redundantes.
+  - Endurecimiento del extractor de respuestas OpenAI para manejar peculiaridades de GPT-5.4 y limitador de parse-fail early-stop para modelos high-end.
+  - Mejora en la selección de modelo por CLI (lista destacada + lista completa; se añadieron variantes 5-mini/5.4-mini/5.4-nano).
+
+- **Tests y validación automática:**
+  - Tests del builder: 19 pasados (slice de `test_phase2_alignment_patch_v2_builder.py`).
+  - Tests de runtime/alineamiento: 5 pasados (`test_phase2_alignment_patch_runtime.py`).
+
+- **Resumen cuantitativo (corridas del 28/04/2026):**
+  - `run_001_20260428_154535_571308.json` (gpt-4.1-mini): score 86.8 — verdict strong.
+  - `run_002_20260428_154740_608800.json` (gpt-4.1): score 86.8 — verdict strong.
+  - `run_003_20260428_154911_628787.json` (gpt-5.4-mini): score 95.8 — verdict strong (mejor resultado en el set).
+  - Media agregada: 89.8.
+
+- **Hallazgos cualitativos importantes:**
+  - `gpt-5.4-mini` fue la única corrida que produjo una *feature* confirmada: **Subflow Bwd Bytes**.
+  - El mecanismo de presupuesto suave reduce la tendencia a sobreexplotar un único mecanismo, pero `gpt-5.4-mini` todavía mostró rachas largas del mismo mecanismo antes de producir falsificadores dirigidos y cambiar a comprobaciones de distribución.
+  - Los modelos 4.1-family mostraron comportamiento más conservador (menos confirmaciones), con scores consistentes pero sin confirmaciones que respaldaran hipótesis fuertes.
+
+- **Problemas detectados y cómo se resolvieron (útiles para la sección de metodología / limitaciones):**
+  - Fragilidad del parser con salidas de GPT-5.4: mitigado endureciendo `utils/openai_response.py` y añadiendo manejo robusto de errores de parseo y contadores de fallos con early-stop en modelos high-end.
+  - Sesgo de ranking en el builder por inicialización incorrecta de penalizaciones (penalty zeroed): detectado por tests, corregido ajustando la inicialización y la clave de ordenación en `prompts/builder.py`.
+  - Riesgo de reconfirmación y mezcla de tareas: mitigado introduciendo `KNOWN_FACTS` y el filtro de reconfirmación en el prompt, y reforzando la política en `prompts/react_prompt.txt`.
+
+- **Recomendaciones para el paper (se pueden citar como resultados y lecciones experimentales):**
+  - Reportar scores y la confirmación única de `Subflow Bwd Bytes` por `gpt-5.4-mini` como evidencia de que modelos mid/high-capacity pueden producir confirmaciones más precisas cuando se les controla el presupuesto de mecanismo.
+  - Incluir la descripción del mecanismo de presupuesto suave (parámetros clave como `_MECHANISM_SOFT_BUDGET` y `_SATURATED_COMPONENT_PENALTY`) y justificar los thresholds elegidos.
+  - Documentar la intervención de robustecimiento del extractor OpenAI y el comportamiento observado en GPT-5.4 (parse fragility), como limitación/requisito operativo para reproducibilidad.
+  - Advertir que, aunque las pruebas unitarias pasan, la validación empírica a mayor escala (A/B con `gpt-5.4` grande vs `5.4-mini` y familia 4.1) es necesaria antes de afirmar generalización estadística.
+
+- **Siguientes pasos propuestos (prioridad alta):**
+  - Ejecutar un estudio A/B más amplio con un mayor número de corridas y particiones para validar si la política de presupuesto acelera el switching y aumenta la tasa de confirmaciones válidas.
+  - Recopilar métricas temporales sobre el punto de switching por mecanismo (pasos hasta primer cambio de mecanismo) y comparar entre modelos.
+  - Si persisten rachas largas en `5.4-mini`, ajustar `_MECHANISM_SOFT_BUDGET` y `*_PENALTY` y re-ejecutar las corridas focalizadas.
+
+---
+
 - `Fwd Header Length` ↔ `Fwd Header Length.1` (correlation = 1.0)
 
 These patterns suggest that several features in CIC-IDS2017 are deterministic transformations of others.
@@ -675,6 +795,33 @@ The system is now structured around an iterative reasoning loop:
 6. Repeat for a limited number of steps  
 
 This process allows the agent to progressively refine its understanding of the dataset.
+
+## 05/05/2026 — Cross-cohort comparison and next-step recommendation
+
+- **Cohorts compared:**
+  - pre-change full: runs `run_019, run_023, run_027, run_031, run_035, run_039, run_043`
+  - recent full (post-change): runs `run_064`–`run_070`
+  - recent mini: runs `run_058`–`run_063`
+
+- **Key metrics (cohort means):**
+  - Relation-anchor reuses: pre_full ≈ 0.14, recent_full ≈ 0.57, recent_mini ≈ 2.83
+  - Exact repeats / blocked actions: pre_full ≈ 0, recent_full ≈ 0, recent_mini ≈ 1.17
+  - Sequence similarity: recent_full vs pre_full ≈ 0.75; recent_full vs recent_mini ≈ 0.73
+  - Final-feature overlap: recent_full vs pre_full ≈ 0.44; recent_full vs recent_mini ≈ 0.53
+
+- **Shared partitions across cohorts:** FRI, INF, PS, TUE, WEB
+
+- **Interpretation:**
+  - The recent full-model cohort shows increased reuse of relation anchors compared with pre-change full runs; the mini cohort exhibits substantially higher anchor reuse, exact repeats, and blocked actions, indicating neighborhood-level fixation in late steps.
+
+- **Actionable recommendation (priority):**
+  1. Implement minimal executor-level neighborhood-aware blocking (store `saturated_relation_anchors` in `state.metadata`, return `RELATION_NEIGHBORHOOD_BLOCKED` when a requested relation reuses a saturated anchor).
+  2. Map `RELATION_NEIGHBORHOOD_BLOCKED` to the blocked-actions classification in `agent/loop.py` (so accounting/metrics remain consistent).
+  3. Add a small filter in `prompts/builder.py` to prevent `__dataset__` from appearing as a feature-like candidate in feature-facing prompt sections.
+  4. Add unit/integration tests exercising neighborhood blocking and the builder filter before re-running cohort comparisons.
+
+- **Notes:** analysis used `experiments/export_jif._collect_step_trace` and `utils/metrics` utilities to compute per-run metrics; no code changes applied yet — this is a logging/reflection entry and a prioritized plan.
+
 
 ---
 
@@ -1282,3 +1429,234 @@ The implemented fixes were validated incrementally rather than being left as unt
 - GPT-5.x parse handling is materially more robust than before.
 - Trusted-overview reasoning control is in place and functioning.
 - The main remaining open issue is not parser stability but search-discipline quality for GPT-5.4-mini: it still needs stronger pressure to leave an already-productive redundancy family earlier without introducing a new runtime planner.
+
+## 28 April 2026 - Added `gpt-5.4` run
+
+- **Added run:** `run_004_20260428_155525_207202.json` (model: `gpt-5.4`).
+- **Operational metrics (from `compare_runs`):**
+  - `total_steps`: 10, `valid_action_rate`: 1.0, `unique_features_explored`: 9, `repeated_feature_rate`: 0.1
+- **Compact list of final features identified by the `gpt-5.4` run:**
+  - Destination Port
+  - act_data_pkt_fwd
+  - __dataset__
+  - Subflow Fwd Packets|Total Fwd Packets
+  - Subflow Bwd Packets|Total Backward Packets
+  - Subflow Bwd Bytes|Total Length of Bwd Packets
+  - RST Flag Count
+  - ECE Flag Count
+  - Active Std
+
+- **Comparison with earlier runs (overlap):**
+  - `gpt-5.4` vs `gpt-5.4-mini` (run_003): overlap_score = 0.6364, with the strongest overlap in `Subflow`/`__dataset__` and flag/activity metrics.
+  - Pairwise overlaps with `gpt-4.1` and `gpt-4.1-mini` are around 0.46-0.54.
+  - **Average overlap (4 runs):** 0.5238.
+
+- **Short interpretation for the paper:**
+  - `gpt-5.4` continues the observed pattern: better audit quality and better mechanism switching. It produces a final feature set consistent with `gpt-5.4-mini` while also adding `Destination Port` with strong concentration/skew evidence in this partition.
+  - The high overlap between `gpt-5.4` and `gpt-5.4-mini` reinforces the hypothesis that the 5.4 family (large + mini) converges toward the same useful signals, although `gpt-5.4` may prioritize or confirm slightly different artefacts such as `Destination Port`.
+
+- **Immediate recommendation:** update the paper results table to include `run_004` and the new overlap mean, and run the expanded A/B study mentioned in the next-steps section to confirm the pattern with larger $N$.
+
+## 30 April 2026 - Re-evaluation of `gpt-5.4-mini` on runs dated `20260430`
+
+- **Selection criterion (important):** to avoid confusion caused by the initial IDs (`run_001`, `run_002`, etc.), the comparison was done by artifact date/time. The same-day `gpt-5.4` reference run was `run_001_20260430_141956_521296.json`.
+- **Main trio evaluated (`gpt-5.4-mini`, most recent complete runs):**
+  - `run_002_20260430_144555_567614.json`
+  - `run_003_20260430_144738_857645.json`
+  - `run_004_20260430_144906_042657.json`
+- **Same-day artifacts excluded from the core comparison:**
+  - `run_001_20260430_144222_736381.json`: aborted after 3 steps with 2 `PARSE_ERROR`s.
+  - `run_001_20260430_144357_003103.json`: useful as secondary evidence, but with 1 `PARSE_ERROR` and 1 `REPEATED_FEATURE_BLOCKED`.
+
+- **Main finding:** the earlier parrot-like reasoning problem observed in `gpt-5.4-mini` no longer appears as the dominant failure mode in the three most recent complete runs from 30 April. The model still reuses some meta-language in a few steps, but it no longer gets trapped in the repetitive "dependency/redundancy cluster established" loop that motivated the earlier investigation.
+
+- **Comparative result against `gpt-5.4` (SOTA reference):**
+  - `gpt-5.4` remains the best qualitative reference in the 30 April set: it opens with an orthogonal falsifier (`Destination Port`), moves through `duplication_analysis`, confirms exact dependency, and then switches cleanly into skew/collapse checks.
+  - The three recent `gpt-5.4-mini` runs are now clearly healthier in switching behavior and mechanism coverage than the earlier problematic runs.
+  - The difference relative to `gpt-5.4` is no longer severe rhetorical collapse, but weaker early prioritization discipline and somewhat more templated language in some trajectories.
+
+- **Aggregate metrics for the `gpt-5.4-mini` trio:**
+  - average score: `86.8`
+  - average mechanism switches: `5.0`
+  - average overlap with the same-day `gpt-5.4`: `0.5019`
+  - the three runs share a consistent artefact core (`ECE Flag Count`, `RST Flag Count`, `__dataset__`, `act_data_pkt_fwd`), while differing more on the exact relational pairs.
+
+- **Qualitative reading by run (`gpt-5.4-mini`):**
+  - `run_002_20260430_144555_567614.json`: best mini in the set. `6` switches, `0` mentions of `redundancy cluster`, and a varied trajectory across dependency, distribution, duplication, and back to dependency. This is the mini closest to SOTA behavior.
+  - `run_003_20260430_144738_857645.json`: second best. It maintains a coherent `dependency -> duplication -> distribution/skew -> relation -> distribution` thread, with only `2` mentions of `redundancy cluster` and no rhetorical loop.
+  - `run_004_20260430_144906_042657.json`: acceptable but the weakest of the trio. It still changes mechanism (`5` switches), but keeps more meta-language (`5` mentions of `established`) and `2` occurrences of duplicated `THOUGHT:` prefix inside the thought itself.
+
+- **Interpretation for the paper:**
+  - The `5.4-mini` family appears to have moved from a main failure mode of rhetorical/mechanistic lock-in to a more stable state where it converges toward useful signals similar to `gpt-5.4`, albeit with higher run-to-run variance.
+  - SOTA remains `gpt-5.4`, not because of the aggregate score alone, but because of better early exploration discipline, better use of orthogonal falsifiers, and a cleaner mechanism-switching narrative.
+  - As of `30/04/2026`, the correct claim is no longer "`gpt-5.4-mini` just repeats itself like a parrot", but something more precise: "`gpt-5.4-mini` is still more variable and somewhat more templated than `gpt-5.4`, but parrot-like failure no longer dominates the recent clean runs".
+
+- **Immediate recommendation:** if these runs are used in the paper, explicitly report that the 30 April evaluation was done by artifact date/time rather than `run_00x` prefix, and keep clean runs separate from runs with `PARSE_ERROR` so that reasoning stability is not mixed with parser/transport failures.
+
+## 30 April 2026 - PortScan (`PS`) with `gpt-5.4-mini` vs `gpt-5.4`
+
+- **Evaluated cohort (PortScan, new runs):**
+  - `run_016_30-04_PS_5.4_mini.json`
+  - `run_017_30-04_PS_5.4_mini.json`
+  - `run_018_30-04_PS_5.4_mini.json`
+  - `run_019_30-04_PS_5.4.json`
+
+- **Important interpretive context:** in PortScan, strong regularity is expected because of the phenomenon itself. The audit therefore should not stop at detecting repetition, but should distinguish expected regularity from artificial regularity and go deeper than obvious signals.
+
+- **Main reasoning finding:**
+  - The three new `gpt-5.4-mini` runs no longer show the dominant parrot-like reasoning failure seen in earlier phases.
+  - In all three minis there is real hypothesis revision, counterchecking, and mechanism switching. The remaining gap versus `gpt-5.4` is no longer rhetorical collapse, but lower inter-run stability and a somewhat stronger tendency to chase local feature families.
+  - Within the mini trio, `run_018_30-04_PS_5.4_mini.json` was the strongest qualitatively; `run_017_30-04_PS_5.4_mini.json` got a very high heuristic score but was narrower and more dependent on a single family of findings; `run_016_30-04_PS_5.4_mini.json` fell in between.
+
+- **Main auditing/results finding:**
+  - All four runs converge on a robust artefact core in PortScan:
+    - exact dataset-level duplication: `duplicate_count = 72353`, `duplicate_ratio = 0.25257`
+    - exact or near-exact structural redundancy, especially `Subflow Bwd Packets|Total Backward Packets` with `correlation = 1.0`
+  - `gpt-5.4` is again the best reference because, beyond recovering that core, it adds more audit depth: it confirms `Fwd Header Length|Fwd Header Length.1` with `correlation = 1.0`, keeps `Flow IAT Min` as a useful active finding, and checks `Destination Port` without overplaying it.
+  - The minis recover the core well, but are more variable on secondary findings: they sometimes elevate `Active Min`, `Flow IAT Std`, `Flow IAT Mean`, `Bwd Header Length|Total Backward Packets`, or flag/timing features that may be informative, but not always with the same solidity or priority.
+
+- **Methodological reading for the paper:**
+  - In PortScan, `gpt-5.4-mini` already appears good enough in reasoning quality to continue evaluating generalization on other partitions, as long as a single isolated run is not treated as definitive evidence.
+  - The audit quality of `gpt-5.4-mini` is promising but still below `gpt-5.4` because of higher inter-run variance and lower stability in the final set of findings.
+  - The defensible reading is no longer "mini fails", but something more precise: `gpt-5.4-mini` recovers the core relevant artefacts and reasons usefully, but `gpt-5.4` remains the better baseline because of its depth, cleaner falsification, and stronger result consistency.
+
+- **Immediate recommendation:** for the paper, report PortScan as evidence of real `gpt-5.4-mini` improvement in reasoning, but use consensus across multiple mini runs, not a single run, when talking about finding stability, while keeping `gpt-5.4` as the qualitative SOTA reference.
+
+## 30 April 2026 - Friday morning / Bot (`FRI`) with `gpt-5.4-mini` vs `gpt-5.4`
+
+- **Evaluated cohort (Friday morning / Bot, new runs):**
+  - `run_020_30-04_FRI_5.4_mini.json`
+  - `run_021_30-04_FRI_5.4_mini.json`
+  - `run_022_30-04_FRI_5.4_mini.json`
+  - `run_023_30-04_FRI_5.4.json`
+
+- **Important interpretive context:** this partition had already appeared more balanced and less trivial in earlier analyses than DDoS or PortScan. In other words, the agent should not try to "find something strong" at all costs here, but instead determine whether the signals are truly structural or whether the partition is simply more realistic and less extreme.
+
+- **Main reasoning finding:**
+  - The three `gpt-5.4-mini` runs still show useful and healthy reasoning: they complete the budget, revise hypotheses, and do not display the parrot failure that had previously been a concern.
+  - The difference from `gpt-5.4` is that, in a subtler partition, `gpt-5.4-mini` becomes more conservative and less stable in the closing phase: it touches plausible redundancy/discretization families, but then weakens more findings and leaves fewer active findings at the end.
+  - `gpt-5.4` again shows the best qualitative discipline: it verifies that global duplication is modest, falsifies `Destination Port` as a strong shortcut, and then lands on more defensible exact redundancies.
+
+- **Main auditing/results finding:**
+  - All four runs converge on a reasonable structural-suspicion core around:
+    - `act_data_pkt_fwd`
+    - `Subflow Bwd Packets`
+    - redundant pairs of the form `Subflow ... | Total ...`
+    - modest dataset duplication (`duplicate_count = 6888`, `duplicate_ratio = 0.03606`), almost entirely concentrated in `BENIGN`
+  - The `gpt-5.4` run is the best reference because it turns that general intuition into more defensible final findings:
+    - it weakens `Destination Port` instead of overstating it
+    - it keeps `Subflow Bwd Packets|Total Backward Packets` as exact redundancy (`correlation = 1.0`)
+    - it confirms an exact duplicate-column alias in `Fwd Header Length|Fwd Header Length.1` (`correlation = 1.0`)
+    - it keeps `Subflow Bwd Packets` as a useful feature with structural separation/closure
+  - The minis find plausible signals, but are less firm in the closing phase: `run_020` and `run_021` end up leaving basically only the dataset artefact, while `run_022` ends with no active findings at all. That suggests the model reasons well, but still struggles more to decide what deserves to remain as a final finding in less extreme partitions.
+
+- **Methodological reading for the paper:**
+  - This partition reinforces that `gpt-5.4-mini` generalizes usefully: it does not break when the partition is less obvious and it does not hallucinate a DDoS/PortScan where there is none.
+  - At the same time, Morning/Bot reveals the current ceiling of `gpt-5.4-mini` more clearly: reasoning is still sufficient to continue exploring other partitions, but closure stability and audit depth remain clearly below `gpt-5.4`.
+  - The defensible reading is not that `gpt-5.4-mini` fails, but that in subtler partitions it becomes more conservative and more variable, while `gpt-5.4` maintains a better combination of falsification, finding selection, and final consistency.
+
+- **Immediate recommendation:** for the paper, Friday morning / Bot should serve as complementary evidence of practical `gpt-5.4-mini` generalization, but also as proof that subtle partitions require multi-run consensus and comparison against `gpt-5.4` before making high-confidence claims about final findings.
+
+## 30 April 2026 - Monday working hours / benign (`BN`) with `gpt-5.4-mini` vs `gpt-5.4`
+
+- **Evaluated cohort (Monday / benign, new runs):**
+  - `run_024_30-04_BN_5.4_mini.json`
+  - `run_025_30-04_BN_5.4_mini.json`
+  - `run_026_30-04_BN_5.4_mini.json`
+  - `run_027_30-04_BN_5.4.json`
+
+- **Important interpretive context:** Monday is the benign partition, so the right methodological expectation is not to find extreme artefacts at all costs, but to check whether unusually constant structure, unexpected redundancy, or artificial duplication appear in a way that contradicts the diversity expected from normal traffic.
+
+- **Main reasoning finding:**
+  - The three `gpt-5.4-mini` runs still show useful reasoning without the parrot failure: they revise hypotheses, use counterchecks, and complete the exploration reasonably well.
+  - However, this is the partition where mini variance is most visible, not because reasoning collapses, but because the final closure becomes much less stable when the phenomenon is benign and there are fewer strong artefacts.
+  - `gpt-5.4` again behaves better as the qualitative baseline because it applies the right amount of caution for a benign partition: it checks duplication, tests a plausible shortcut (`Destination Port`), and weakens it correctly before landing on more defensible redundancies.
+
+- **Main auditing/results finding:**
+  - The most robust core in Monday is not a DDoS-like extreme collapse, but a family of redundancies/aliases among count and header features:
+    - `Fwd Header Length|Fwd Header Length.1` with `correlation = 1.0`
+    - `Subflow Bwd Packets|Total Backward Packets` with `correlation = 1.0`
+    - `Subflow Fwd Packets|Total Fwd Packets` with `correlation = 1.0` in the `gpt-5.4` run
+    - near-duplicate pairs such as `Total Backward Packets|Total Fwd Packets` with `correlation = 0.9993`
+  - Dataset duplication exists but is moderate (`duplicate_count = 26935`, `duplicate_ratio = 0.05083`) and does not point to a dramatic artefact by itself.
+  - `gpt-5.4` stands out because it does not overreact: `Destination Port` does not emerge as a strong benign shortcut, and the final conclusion stays focused on plausible structural redundancies instead of forcing an extreme-collapse narrative.
+  - The minis recover part of that same core, but with much lower inter-run stability: one mini ends with reasonable redundancies and moderate duplication, another leaves a narrower closure, and another changes the final set of findings substantially. Of the partitions reviewed today, this is the weakest one for `gpt-5.4-mini` in terms of stability.
+
+- **Methodological reading for the paper:**
+  - Monday/BN does not contradict the generalization of `gpt-5.4-mini`; on the contrary, it shows that the model does not break when the partition is subtle and benign.
+  - What it does reveal is an important limit: in partitions without obvious shortcuts or extreme artefacts, `gpt-5.4-mini` becomes much more variable in the final closure and in the selection of findings that remain active.
+  - `gpt-5.4` remains the best baseline because, in this benign scenario, it combines falsification, caution, and convergence toward a more defensible final finding set.
+
+- **Immediate recommendation:** for the paper, Monday/BN should be presented as the most demanding test among the 30 April runs: `gpt-5.4-mini` is still useful for continuing to other partitions, but conclusions in benign or subtle partitions should be based on multi-run consensus, not on a single mini run.
+
+## 30 April 2026 - Infiltration (`INF`) with `gpt-5.4-mini` vs `gpt-5.4`
+
+- **Evaluated cohort (Infiltration, new runs):**
+  - `run_028_30-04_INF_5.4_mini.json`
+  - `run_029_30-04_INF_5.4_mini.json`
+  - `run_030_30-04_INF_5.4_mini.json`
+  - `run_031_30-04_INF_5.4.json`
+
+- **Important interpretive context:** Infiltration is a multi-stage/post-compromise behavior partition, so the methodological demand here is not just to detect local separation or redundancy, but to reason about relational dependencies and possible artefacts linked to stages or behavior chains.
+
+- **Main reasoning finding:**
+  - The three `gpt-5.4-mini` runs keep healthy reasoning: they revise hypotheses, use counterchecks, and complete the exploration without the parrot-like reasoning problem that motivated the earlier investigation.
+  - Overall, `gpt-5.4-mini` appears to perform better here than in Monday/BN: inter-run stability is reasonable and overlaps are moderate rather than chaotic.
+  - The remaining limit is qualitative: even when they reason well, the minis still tend to land mainly on local separation/redundancy findings, whereas this partition would ideally reward deeper relational or stage-dependent reasoning.
+  - `gpt-5.4` is again the best baseline because it leaves a cleaner and better-calibrated closure on which findings are truly robust and which may be local shortcuts amplified by the tiny size of the `Infiltration` class.
+
+- **Main auditing/results finding:**
+  - All four runs converge on a useful artefact core around:
+    - moderate dataset duplication (`duplicate_count = 35630`, `duplicate_ratio = 0.12346`)
+    - strong redundant structure in header/packet features
+    - strong separation in features such as `Bwd Header Length`, `Subflow Fwd Packets`, or `Total Length of Bwd Packets`
+  - `gpt-5.4` is the best reference because it finishes with a more structurally defensible set of findings:
+    - `Fwd Header Length|Fwd Header Length.1` with `correlation = 1.0`
+    - `Fwd Header Length|Total Fwd Packets` with `correlation = 0.9769`
+    - moderate dataset-level duplication
+  - The strongest mini (`run_030`) elevates `Destination Port` as a potential shortcut with very strong separation (`js_divergence = 0.8316`, `dominant_ratio = 1.0` in the `Infiltration` class), but that result needs more caution because the attack class has only `36` samples and is therefore especially sensitive to shortcuts or accidental regularities.
+  - In other words, the minis find plausible and useful signals, but `gpt-5.4` remains better at distinguishing robust structural artefacts from possible shortcuts over-amplified by a very small class.
+
+- **Methodological reading for the paper:**
+  - Infiltration provides additional evidence that `gpt-5.4-mini` generalizes usefully to more complex partitions: reasoning does not break, and the model still finds a reasonable artefact core.
+  - However, the partition also shows that `gpt-5.4-mini` remains below `gpt-5.4` in its ability to produce truly relational or stage-aware final findings; the mini reasons well, but its closure is still more feature-local.
+  - The defensible conclusion is that `gpt-5.4-mini` remains valid for continuing the generalization study, but in partitions with tiny classes or multi-stage semantics, one should be especially cautious before turning a very separative feature into a strong conclusion.
+
+- **Immediate recommendation:** for the paper, Infiltration can be presented as evidence of practical `gpt-5.4-mini` generalization, but also as a methodological reminder that very small classes require checking mini findings against several runs and against the `gpt-5.4` baseline before treating them as robust artefacts.
+
+## 30 April 2026 - Web Attacks (`WEB`) with `gpt-5.4-mini` vs `gpt-5.4`
+
+- **Evaluated cohort (Web Attacks, new runs):**
+  - `run_032_30-04_WEB_5.4_mini.json`
+  - `run_033_30-04_WEB_5.4_mini.json`
+  - `run_034_30-04_WEB_5.4_mini.json`
+  - `run_035_30-04_WEB_5.4.json`
+
+- **Important interpretive context:** in Web Attacks, the methodological demand is to avoid trivial reasoning of the form "there is HTTP, therefore there is a web attack". The expected behavior is to reason about plausible shortcuts, overly clean separations, or simplified representations, without confusing the presence of web traffic with evidence of structural artefact.
+
+- **Main reasoning finding:**
+  - The three `gpt-5.4-mini` runs keep healthy reasoning: they complete the budget, revise hypotheses, and do not show the parrot-like reasoning failure seen in earlier phases.
+  - The weakness here is not raw reasoning quality, but dispersion: the minis explore plausible mechanisms, but do not converge very strongly toward the same final set of findings.
+  - `gpt-5.4` again behaves as the best qualitative baseline: it starts from more falsifiable hypotheses, maintains better coverage, and closes with a more coherent final set than the minis.
+
+- **Main auditing/results finding:**
+  - All four runs recover a useful core of signals around:
+    - `__dataset__`
+    - `Total Length of Bwd Packets`
+    - `Destination Port`
+    - several near-exact redundancies in backward/header/subflow features
+  - Inter-run stability in the minis is only moderate: there are reasonable overlaps in some pairs, but also substantial dispersion across trajectories and final closures.
+  - `gpt-5.4` leaves the best structurally defensible closure:
+    - `Subflow Bwd Packets|Total Backward Packets` with `correlation = 1.0`
+    - `Subflow Bwd Bytes|Total Length of Bwd Packets` with almost perfect correlation (`0.9999998`)
+    - moderate dataset duplication (`duplicate_count = 6066`, `duplicate_ratio = 0.03561`)
+  - The strongest mini (`run_033`) pushes `Destination Port` as a strong shortcut, and that is plausible in this partition, but it is still the kind of finding that should be treated cautiously when it does not appear with the same firmness across all mini runs.
+  - Overall, the minis produce useful signals, but `gpt-5.4` again distinguishes better between plausible local shortcuts and a more robust structural closure.
+
+- **Methodological reading for the paper:**
+  - Web Attacks reinforces that `gpt-5.4-mini` generalizes usefully: it does not break, it does not fall into rhetorical loops, and it still produces usable audits.
+  - However, finding stability remains below `gpt-5.4`: the mini is more sensitive to which local mechanism it elevates in each run, whereas `gpt-5.4` converges better toward a cleaner final closure.
+  - The defensible conclusion is that `gpt-5.4-mini` remains valid for continuing the generalization study, but in Web Attacks one should require multi-run consensus before treating a specific shortcut feature as a strong conclusion.
+
+- **Immediate recommendation:** for the paper, Web Attacks can be reported as additional evidence of practical `gpt-5.4-mini` generalization, with the caveat that reasoning quality is now sufficient but closure quality and stability still remain clearly better in `gpt-5.4`.
+
