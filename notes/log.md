@@ -375,6 +375,20 @@ The next milestone is to design a structured result schema that allows:
 
 - **Immediate recommendation:** for the paper, Web Attacks can be reported as additional evidence of practical `gpt-5.4-mini` generalization, with the caveat that reasoning quality is now sufficient but closure quality and stability still remain clearly better in `gpt-5.4`.
 
+## 15 May 2026 — Phase3 work since last Phase3 entrance
+
+- **Scope:** prepared Phase3a (single-batch sequential) documentation, tooling plan, and runtime sanity checks; maintained Phase2 as the stable comparison branch.
+- **Docs & ontology:** tightened `docs/plans/phase3/artefact_catalog_v1.md` to add explicit epistemic layers (observations → signatures → mechanisms), an evidence-link taxonomy (support/weaken/contradict/verify/contextualize), and clarified family boundaries to avoid Representation Artifact catch-all.
+- **Tooling plan:** rewrote `docs/plans/phase3/step1_tool_enhancement.md` into a Phase3a Tooling Plan prioritizing an MVP toolset: `shortcut_analysis`, `neighborhood_consistency_analysis`, and `dependency_concentration_analysis`; deferred heavier tooling.
+- **Scope map:** validated `docs/plans/phase3/Phase3A_Scope_Map.md` as the working spec for canonical artifact-family state and refiner ownership semantics.
+- **Repo orchestration decision:** confirmed duplicating only the orchestration/runtime layer (Phase2 vs Phase3) while sharing tools, data, and tests to enable isolated, fair comparisons.
+- **Runtime checks:** performed import and CLI smoke tests in both Phase2 and Phase3 venvs; both trees import and launch the CLI successfully.
+- **Testing:** ran `pytest` in both Phase2 and Phase3; identical results: `87 passed, 2 failed`. Failures localized to prompt-builder literal-string assertions (prompt wording changed), not to core analysis logic.
+- **Immediate remediation options:** (A) update the tests to match current prompt wording, or (B) restore exact expected phrasing in `prompts/react_prompt.txt` / builder templates. I can prepare the exact patch for either choice.
+- **Next development priorities:** implement Phase3a MVP tools, finalize planner/refiner runtime contracts, add neighborhood-blocking tests, then run end-to-end Phase2 vs Phase3 comparisons.
+- **Admin note:** preserved all Phase3 semantic/doc changes; heavy tool implementations deferred until refiner/planner contracts are agreed.
+
+
 ## 30 April 2026 - Tuesday working hours (`TUE`) with `gpt-5.4-mini` vs `gpt-5.4`
 
 - **Evaluated cohort (Tuesday working hours, new runs):**
@@ -504,6 +518,44 @@ Example findings:
   - Fragilidad del parser con salidas de GPT-5.4: mitigado endureciendo `utils/openai_response.py` y añadiendo manejo robusto de errores de parseo y contadores de fallos con early-stop en modelos high-end.
   - Sesgo de ranking en el builder por inicialización incorrecta de penalizaciones (penalty zeroed): detectado por tests, corregido ajustando la inicialización y la clave de ordenación en `prompts/builder.py`.
   - Riesgo de reconfirmación y mezcla de tareas: mitigado introduciendo `KNOWN_FACTS` y el filtro de reconfirmación en el prompt, y reforzando la política en `prompts/react_prompt.txt`.
+
+  ## 17 May 2026 — Phase3a specification tightening: initialization semantics and ownership boundaries
+
+  - **Semantic Compression clarified as one-shot initialization:** updated the Phase3a specs so `Semantic Compression` is explicitly a single-pass initialization-stage module, not a persistent reasoning loop.
+  - **Persistent output, not persistent module:** the docs now state that what persists is the initial broad Structural Batch Map, intentionally broad / weak / incomplete / non-validated, so the system preserves global structural awareness before active investigation budget touches most regions.
+  - **Canonical-state continuity:** clarified in the general Phase3a scope map that later rounds do not rerun `Semantic Compression`; instead they refine the initialized structural map through Investigation Analysis, Planning, Execution, Aggregation, Refinement, contradiction handling, saturation updates, and uncertainty updates.
+  - **Selection-bias prevention made explicit:** documented that the purpose of the initial structural map is to avoid investigation-selection collapse, where only actively investigated structures remain visible to the planner or to coverage/saturation reasoning.
+
+  - **`semantic_extraction.md` rewritten into a contract-ready specification:**
+    - formalized the module role, architectural position, and non-persistent lifecycle,
+    - added an explicit output schema for the initial Structural Batch Map,
+    - added region / weak-signal / contradiction / tension / evidence-reference structures,
+    - added epistemic invariants,
+    - and added an evaluation philosophy centered on preservation quality, epistemic discipline, structural organization quality, compression usefulness, and downstream planner usability.
+
+  - **`investigation_analysis.md` rewritten to match the substrate-centric architecture:**
+    - introduced the two-layer model: persistent structural substrate + revision-capable interpretive investigation layer,
+    - clarified that hypotheses are ongoing bounded investigation beliefs, not truth objects,
+    - made overlap / coexistence / weakening / merging / reopening explicit,
+    - added a semi-structured hypothesis output direction,
+    - and added an evaluation section focused on interpretive usefulness, ambiguity preservation, overlap handling, factual-vs-inferred separation, planner handoff quality, and resistance to premature collapse.
+
+  - **Verification ownership boundary corrected in `investigation_analysis.md`:**
+    - Investigation Analysis now describes `verification_needs`, `possible_strengthening_signals`, and `possible_weakening_signals`,
+    - but no longer defines operational verification minimums,
+    - Planner is now the documented owner of verification minimums and round-level evidential sufficiency decisions,
+    - Router is explicitly limited to decomposition and operational lowering.
+
+  - **`hypothesis_ranking.md` ownership boundaries tightened:**
+    - clarified that Ranking remains primarily epistemic-ROI-oriented,
+    - stated that anti-fixation pressure is handled mainly through architecture-level mechanisms and Critic reflection rather than strong diversity penalties inside ranking,
+    - made Planner ownership over verification structure and verification minimums explicit,
+    - corrected Router wording so it no longer leaks allocation policy,
+    - and cleaned the Router example to remove allocation-level constraints such as saturation avoidance or prioritization of unexplored subsets.
+
+  - **General Phase3a scope map updated:** `Phase3A_Scope_Map.md` now explicitly includes `Initial Structural Batch Map` after `Semantic Extraction` and records that `State Manager / Refiner` refines an already initialized broad map rather than creating canonical awareness only from newly investigated findings.
+
+  - **Validation status:** all edited specification files were checked after patching and returned `No errors found` in editor validation.
 
 - **Recomendaciones para el paper (se pueden citar como resultados y lecciones experimentales):**
   - Reportar scores y la confirmación única de `Subflow Bwd Bytes` por `gpt-5.4-mini` como evidencia de que modelos mid/high-capacity pueden producir confirmaciones más precisas cuando se les controla el presupuesto de mecanismo.

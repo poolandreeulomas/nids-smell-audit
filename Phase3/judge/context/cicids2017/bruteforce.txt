@@ -1,0 +1,5 @@
+This partition models repeated login attempts and structured repetition.
+
+Strong repetition patterns, low diversity caused by repeated attempts, or features that overly simplify authentication behavior may require deeper inspection. Repetition alone is not a smell.
+
+The agent should distinguish expected repetition from unnecessary confirmation and test whether the structure reflects the phenomenon or an artifact.

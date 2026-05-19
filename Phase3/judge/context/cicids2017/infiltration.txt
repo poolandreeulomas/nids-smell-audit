@@ -1,0 +1,5 @@
+This partition models a multi-stage attack and post-compromise behavior.
+
+Patterns that depend strongly on specific stages, strong dependencies across features, or simplified representations that miss multi-step dynamics may require closer attention.
+
+The agent should use relational reasoning, consider interactions across multiple features, and capture stage-dependent behavior. Single-feature analysis is insufficient.

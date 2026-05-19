@@ -1,0 +1,41 @@
+JUDGE REPORT
+- mode: single_run
+- model: gpt-5.4-mini
+- runs: 1
+- total_steps: 10
+
+Behavior Summary
+The agent mostly used an exploratory, hypothesis-testing pattern with frequent pivots across different artefact mechanisms, and it generally sought information gain rather than repeating the same check. The trace shows a mix of relation and cardinality/distribution probes, with only one explicit confirmation step and no redundant steps, suggesting a fairly efficient search process. However, the reasoning also shows some confirmation pressure: after finding strong signals, the agent often immediately sought counterchecks on related features rather than broadening the search, which kept the exploration structured but somewhat narrow. Evidence for this comes from the step-type mix and the contradiction chain that repeatedly revises the working hypothesis after each probe.
+
+Key Patterns
+- The run is dominated by exploration and relation checks, with only a single confirmation step, indicating a mostly exploratory reasoning style rather than early closure.
+  confidence: high
+  evidence: aggregate.step_type_frequency, run_cards.step_trace.step_type
+- The agent repeatedly revised its hypothesis after each observation, using counterchecks to distinguish redundancy, collapse, and skew-driven structure instead of locking onto one explanation.
+  confidence: high
+  evidence: run_cards.contradictions, run_cards.contradictions.from_hypothesis, run_cards.contradictions.to_hypothesis
+- The search alternated between structural dependency tests and feature-level distribution/cardinality checks, which is a reasonable information-gain strategy for artifact auditing.
+  confidence: high
+  evidence: aggregate.tool_frequency, run_cards.step_trace.tool, run_cards.step_trace.information_gain
+
+Weaknesses
+- The reasoning shows some narrowness in that several steps are chained as immediate counterchecks on closely related features, which can reduce breadth even when each step is individually informative.
+  confidence: medium
+  evidence: run_cards.contradictions, run_cards.step_trace.target_key
+- The run includes a confirmation step near the end after a strong signal, which suggests a mild tendency to validate an emerging pattern rather than continue broad exploration.
+  confidence: medium
+  evidence: run_cards.step_trace.step_type, run_cards.step_trace.key_result_short
+
+Strengths
+- The agent avoided redundant probing: every step was marked non-redundant, and the trace shows distinct targets and metrics across the run.
+  confidence: high
+  evidence: aggregate.redundant_step_frequency, run_cards.step_trace.redundant_step, run_cards.step_trace.novelty_sources
+- The agent used tools in a way that produced high-information observations, especially when switching between relation, cardinality, and distribution analyses.
+  confidence: high
+  evidence: aggregate.tool_frequency, run_cards.step_trace.information_gain, run_cards.step_trace.tool
+- The hypothesis revision dynamics are strong: the contradiction chain shows repeated updates in response to evidence, including explicit counterevidence from low correlations and low cardinality checks.
+  confidence: high
+  evidence: run_cards.run_counts.contradiction_count, run_cards.contradictions.has_evidence_refs, run_cards.contradictions.step_index
+
+Recommendations
+- none
