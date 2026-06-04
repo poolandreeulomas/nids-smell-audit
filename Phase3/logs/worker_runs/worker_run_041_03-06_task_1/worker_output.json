@@ -1,0 +1,22 @@
+{
+  "batch_id": "phase3a_batch_0306173106_friday-workinghours-afternoon-ddos.pcap_iscx_98251a",
+  "round_id": "round-001",
+  "worker_result": {
+    "task_id": "task_1",
+    "hypothesis_id": "hyp_003",
+    "status": "completed",
+    "findings": [
+      "Multiple feature pairs including Packet Length Mean and Average Packet Size, Avg Bwd Segment Size and Avg Fwd Segment Size, and SYN Flag Count and RST Flag Count exhibit perfect or near-perfect linear correlations (>=0.9993), indicating strong linear dependencies and potential redundancy.",
+      "These strong correlations are consistent across all examined classes and time windows in the provided evidence refs e13 to e22."
+    ],
+    "evidence_refs": [
+      "task_1_step_03",
+      "task_1_step_05",
+      "task_1_step_07"
+    ],
+    "contradictions": [],
+    "limitations": [
+      "Analysis limited to provided evidence refs and bounded local context; global dataset variations not assessed."
+    ]
+  }
+}

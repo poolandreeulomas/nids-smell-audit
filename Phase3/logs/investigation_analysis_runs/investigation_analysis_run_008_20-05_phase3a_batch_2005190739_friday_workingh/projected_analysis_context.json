@@ -1,0 +1,35 @@
+{
+  "partition_context_ref": {
+    "semantics": [
+      "CICIDS2017 is a network-flow IDS benchmark with benign and attack traffic across days. Evaluate agent reasoning behavior relative to the phenomenon modeled in the partition.",
+      "This partition models saturation, spikes, and load."
+    ],
+    "expected_properties": [
+      "Extreme dominance, near-perfect relationships between features, or overly stable counters may require deeper inspection. Skew is expected, but not perfect structure."
+    ],
+    "epistemic_warnings": [
+      "Use this context only to interpret behavior, not to validate it. Do not assume patterns are valid because they match the attack type, and do not reward obvious confirmations."
+    ],
+    "investigation_guidance": [
+      "Focus on feature prioritization, avoidance of trivial confirmations, detection of meaningful artifacts, hypothesis revision quality, and step efficiency. Evaluate reasoning, not just signals, using only the JIF and this context.",
+      "The agent should distinguish burst behavior from structural collapse and analyze redundancy across counters and rate-based features."
+    ]
+  },
+  "artifact_framing_refs": [
+    {
+      "framing_id": "dependency_backed_regularity",
+      "label": "dependency-backed regularity",
+      "description": "Broad paired or dependency-backed structure may reflect a stable regularity rather than a single narrow handle."
+    },
+    {
+      "framing_id": "localized_representation_sensitive_handle",
+      "label": "localized representation-sensitive handle",
+      "description": "A narrow or representation-sensitive signal may remain locally meaningful even when it does not explain the full substrate."
+    },
+    {
+      "framing_id": "overlap_preserving_competing_framings",
+      "label": "overlap-preserving competing framing",
+      "description": "Contradictions and tensions may justify multiple partially compatible hypotheses that should remain alive together."
+    }
+  ]
+}

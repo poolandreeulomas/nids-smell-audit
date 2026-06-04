@@ -1,0 +1,15 @@
+{
+  "task_id": "task_3",
+  "hypothesis_id": "hyp_005_class_distribution_skew_in_destination_port",
+  "task_scope": "Test shortcut-like predictive leverage of Destination Port feature alone on DDoS class samples in evidence e33",
+  "allowed_actions": [
+    "shortcut_verification"
+  ],
+  "local_context_refs": [
+    "e33"
+  ],
+  "stop_conditions": [
+    "predictive leverage quantified",
+    "no further improvement in shortcut signal"
+  ]
+}

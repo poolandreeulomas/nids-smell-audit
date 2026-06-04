@@ -1,0 +1,19 @@
+{
+  "task_id": "task_1",
+  "hypothesis_id": "hyp_1_low_diversity_constant_features",
+  "task_scope": "Compare cardinality and value stability of bulk and flag features across classes within evidence refs e23 to e26",
+  "allowed_actions": [
+    "cardinality_verification",
+    "distribution_verification"
+  ],
+  "local_context_refs": [
+    "e23",
+    "e24",
+    "e25",
+    "e26"
+  ],
+  "stop_conditions": [
+    "cardinality counts stable across classes",
+    "value distributions show no unexpected shifts"
+  ]
+}

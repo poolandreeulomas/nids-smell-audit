@@ -1,0 +1,10 @@
+{
+  "status": "tracked",
+  "events": [
+    {
+      "cache_key": "duplication_analysis::mask",
+      "status": "hit"
+    }
+  ],
+  "event_count": 1
+}

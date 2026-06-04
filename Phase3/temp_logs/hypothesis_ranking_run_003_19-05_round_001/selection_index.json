@@ -1,0 +1,12 @@
+{
+  "candidate_count": 3,
+  "selected_count": 0,
+  "deferred_count": 0,
+  "unaccounted_hypothesis_ids": [
+    "hyp-1",
+    "hyp-2",
+    "hyp-3"
+  ],
+  "selected_hypotheses": [],
+  "deferred_hypotheses": []
+}

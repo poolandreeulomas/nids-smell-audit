@@ -1,0 +1,28 @@
+{
+  "batch_id": "phase3a_batch_0406130425_friday-workinghours-afternoon-ddos.pcap_iscx_d272aa",
+  "dataset_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\data\\cic_ids_2017\\Friday-WorkingHours-Afternoon-DDos.pcap_ISCX.csv",
+  "model_name": "gpt-4.1-mini",
+  "temperature": 0.0,
+  "max_rounds": 1,
+  "selection_budget": 3,
+  "max_worker_steps": 8,
+  "max_worker_retries": 1,
+  "max_tasks_per_hypothesis": 4,
+  "max_concurrent_workers": null,
+  "max_concurrent_hypotheses": null,
+  "execution_mode": "full_round",
+  "critic_enabled": true,
+  "component_model_names": {
+    "semantic_extraction": "gpt-4.1-mini",
+    "investigation_analysis": "gpt-4.1-mini",
+    "hypothesis_ranking": "gpt-4.1-mini",
+    "planner": "gpt-4.1-mini",
+    "router": "gpt-4.1-mini",
+    "worker": "gpt-4.1-mini",
+    "aggregation": "gpt-4.1-mini",
+    "state_manager": "gpt-4.1-mini",
+    "critic": "gpt-4.1-mini",
+    "final_batch_auditor": "gpt-4.1-mini"
+  },
+  "schema_version": "phase3a.runtime.v1"
+}

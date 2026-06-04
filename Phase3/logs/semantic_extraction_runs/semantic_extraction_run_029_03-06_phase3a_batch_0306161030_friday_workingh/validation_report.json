@@ -1,0 +1,49 @@
+{
+  "ok": true,
+  "schema_version": "phase3a.semantic_extraction.v1",
+  "overview_validation": {
+    "ok": true,
+    "errors": [],
+    "warnings": []
+  },
+  "partition_context_validation": {
+    "ok": true,
+    "errors": [],
+    "warnings": []
+  },
+  "parse_validation": {
+    "ok": true,
+    "errors": [],
+    "warnings": []
+  },
+  "output_validation": {
+    "ok": true,
+    "errors": [],
+    "warnings": [
+      {
+        "field": "unresolved_tensions[2].reason_unresolved",
+        "message": "Semantic language flag detected (artifact_family_language)."
+      }
+    ],
+    "stats": {
+      "region_count": 6,
+      "weak_signal_count": 5,
+      "contradiction_count": 0,
+      "tension_count": 3,
+      "grounded_reference_count": 33
+    },
+    "invariants": {
+      "grounded_only": true,
+      "contradictions_preserved": false,
+      "minority_signals_preserved": true,
+      "causal_inference_introduced": false,
+      "context_used_only_for_interpretation": true
+    },
+    "forbidden_language_hits": [
+      {
+        "field": "unresolved_tensions[2].reason_unresolved",
+        "code": "artifact_family_language"
+      }
+    ]
+  }
+}

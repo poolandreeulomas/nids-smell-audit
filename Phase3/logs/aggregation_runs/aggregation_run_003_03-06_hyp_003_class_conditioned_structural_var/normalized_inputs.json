@@ -1,0 +1,128 @@
+{
+  "batch_id": "phase3a_batch_0306143851_friday-workinghours-afternoon-ddos.pcap_iscx_ba9279",
+  "round_id": "round-001",
+  "hypothesis_id": "hyp_003_class_conditioned_structural_variation",
+  "worker_result_count": 4,
+  "expected_task_ids": [
+    "task_1",
+    "task_2",
+    "task_3",
+    "task_4"
+  ],
+  "selected_task_ids": [
+    "task_1",
+    "task_2",
+    "task_3",
+    "task_4"
+  ],
+  "missing_task_ids": [],
+  "extra_task_ids": [],
+  "source_run_dirs": [
+    "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\worker_runs\\worker_run_008_03-06_task_4",
+    "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\worker_runs\\worker_run_011_03-06_task_1",
+    "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\worker_runs\\worker_run_013_03-06_task_3",
+    "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\worker_runs\\worker_run_015_03-06_task_2"
+  ],
+  "status_counts": {
+    "completed": 3,
+    "partial": 1
+  },
+  "source_evidence_refs": [
+    "task_1_step_03",
+    "task_1_step_05",
+    "task_1_step_07",
+    "task_2_step_03",
+    "task_2_step_05",
+    "task_2_step_07",
+    "task_3_step_03",
+    "task_3_step_07",
+    "task_4_step_03",
+    "task_4_step_05",
+    "task_4_step_07"
+  ],
+  "source_contradictions": [
+    "local contradiction preserved"
+  ],
+  "source_limitations": [
+    "Analysis limited to bounded feature pairs and dataset-level duplication without deeper metadata linkage.",
+    "local label-topology conflicts limit conclusive stability assessment"
+  ],
+  "source_finding_count": 12,
+  "non_success_count": 0,
+  "worker_results": [
+    {
+      "task_id": "task_1",
+      "hypothesis_id": "hyp_003_class_conditioned_structural_variation",
+      "status": "completed",
+      "findings": [
+        "Average Packet Size exhibits high class-conditioned distribution separation with low cardinality.",
+        "Bwd Packet Length Max shows low cardinality and near-constant behavior, indicating stable structural variation.",
+        "No significant variance ratio changes detected across time windows for these features."
+      ],
+      "evidence_refs": [
+        "task_1_step_03",
+        "task_1_step_05",
+        "task_1_step_07"
+      ],
+      "contradictions": [],
+      "limitations": []
+    },
+    {
+      "task_id": "task_2",
+      "hypothesis_id": "hyp_003_class_conditioned_structural_variation",
+      "status": "partial",
+      "findings": [
+        "High class separation in 'Average Packet Size' distribution confirms class-conditioned structural variation.",
+        "Moderate local label neighborhood conflicts and duplicate label conflicts detected in 'Average Packet Size' and 'Bwd Packet Length Max' features.",
+        "Local label-topology consistency is not fully stable, preserving some epistemic tension."
+      ],
+      "evidence_refs": [
+        "task_2_step_03",
+        "task_2_step_05",
+        "task_2_step_07"
+      ],
+      "contradictions": [
+        "local contradiction preserved"
+      ],
+      "limitations": [
+        "local label-topology conflicts limit conclusive stability assessment"
+      ]
+    },
+    {
+      "task_id": "task_3",
+      "hypothesis_id": "hyp_003_class_conditioned_structural_variation",
+      "status": "completed",
+      "findings": [
+        "No dataset-level duplication detected, excluding duplication-driven sampling bias.",
+        "High redundancy observed between 'Bwd Packet Length Mean' and 'Avg Bwd Segment Size' suggests overlapping feature information.",
+        "Class-conditioned structural variation in packet length and size features confirmed without confounding duplication or metadata correlation."
+      ],
+      "evidence_refs": [
+        "task_3_step_03",
+        "task_3_step_07"
+      ],
+      "contradictions": [],
+      "limitations": [
+        "Analysis limited to bounded feature pairs and dataset-level duplication without deeper metadata linkage."
+      ]
+    },
+    {
+      "task_id": "task_4",
+      "hypothesis_id": "hyp_003_class_conditioned_structural_variation",
+      "status": "completed",
+      "findings": [
+        "Bwd Packet Length Max and Mean features exhibit significant class-conditioned structural variation with high variance imbalance consistent with DDoS signatures.",
+        "Average Packet Size shows moderate shortcut-like predictive signal but does not alone confirm shortcut exploitation.",
+        "No local contradictions or unresolved tensions remain in the bounded evidence."
+      ],
+      "evidence_refs": [
+        "task_4_step_03",
+        "task_4_step_05",
+        "task_4_step_07"
+      ],
+      "contradictions": [],
+      "limitations": []
+    }
+  ],
+  "overlap_diagnostics": []
+}

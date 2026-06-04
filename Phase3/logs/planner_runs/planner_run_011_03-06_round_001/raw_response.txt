@@ -1,0 +1,66 @@
+{
+  "batch_id": "phase3a_batch_0306173106_friday-workinghours-afternoon-ddos.pcap_iscx_98251a",
+  "round_id": "round-001",
+  "planner_strategies": [
+    {
+      "strategy_id": "strategy_01_hyp_006",
+      "hypothesis_id": "hyp_006",
+      "strategic_objective": "Clarify whether the zero entropy and dominant ratio of 1.0 in Destination Port for the DDoS class represent a fixed attack vector or a dataset artifact, and assess how this distributional difference influences model reliance.",
+      "key_checks": [
+        "Compare Destination Port distribution entropy and dominant ratio across classes",
+        "Assess stability of Destination Port distribution over time segments",
+        "Evaluate shortcut-like predictive leverage of Destination Port in isolation",
+        "Examine correlation of Destination Port with other features in DDoS class"
+      ],
+      "success_criteria": [
+        "Evidence supports either a fixed attack vector or dataset artifact explanation",
+        "Clear indication of whether model reliance on Destination Port is shortcut-like or robust",
+        "Identification of distributional stability or variability across time"
+      ],
+      "router_constraints": [
+        "preserve feature_scope for Destination Port",
+        "preserve evidence refs e33"
+      ]
+    },
+    {
+      "strategy_id": "strategy_02_hyp_003",
+      "hypothesis_id": "hyp_003",
+      "strategic_objective": "Determine the stability and class/time consistency of near-perfect linear dependencies among packet length, segment size, flag counts, and packet count features, and evaluate their potential as shortcut signals affecting model generalization.",
+      "key_checks": [
+        "Measure linear correlation coefficients across classes and time windows",
+        "Analyze dependency concentration profiles for involved feature pairs",
+        "Test shortcut-like predictive power of individual features in correlated pairs",
+        "Check for redundancy impact on feature prioritization"
+      ],
+      "success_criteria": [
+        "Dependencies are confirmed stable or fluctuating across classes/time",
+        "Shortcut-like signals are identified or ruled out for correlated features",
+        "Implications for feature redundancy and model robustness are clarified"
+      ],
+      "router_constraints": [
+        "preserve feature_pair scope for correlated features",
+        "preserve evidence refs e13,e14,e15,e16,e17,e18,e19,e20,e21,e22"
+      ]
+    },
+    {
+      "strategy_id": "strategy_03_hyp_010",
+      "hypothesis_id": "hyp_010",
+      "strategic_objective": "Investigate how class imbalance and data duplication influence the observed dependency-backed regularities and assess the stability of these regularities across other datasets or partitions.",
+      "key_checks": [
+        "Quantify class imbalance and duplication impact on feature distribution and dependencies",
+        "Compare dependency-backed regularities across dataset partitions or external datasets",
+        "Evaluate variability of low-variability feature clusters under different sampling conditions",
+        "Assess whether regularities persist beyond duplicated or imbalanced data"
+      ],
+      "success_criteria": [
+        "Clear understanding of amplification or distortion effects from imbalance and duplication",
+        "Evidence of stability or dataset-specific nature of dependency-backed regularities",
+        "Bounded epistemic uncertainty regarding these regularities"
+      ],
+      "router_constraints": [
+        "preserve dataset scope for duplication and imbalance context",
+        "preserve evidence refs e23,e24,e25,e26,e27,e29,e30,e31,e32,e1,e2"
+      ]
+    }
+  ]
+}

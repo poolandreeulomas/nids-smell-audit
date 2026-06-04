@@ -1,0 +1,28 @@
+{
+  "component": "aggregation",
+  "created_at": "2026-06-04T08:16:04.053268+00:00",
+  "schema_version": "phase3a.aggregation.v1",
+  "batch_id": "phase3a_batch_0406080944_friday-workinghours-afternoon-ddos.pcap_iscx_618cac",
+  "round_id": "round-001",
+  "hypothesis_id": "hyp_002_strong_dependency_pairs_redundancy",
+  "status": "ok",
+  "validation_ok": true,
+  "handoff_committed": true,
+  "model_name": "gpt-4.1-mini",
+  "caller_mode": "cli",
+  "replay_of": null,
+  "artifact_paths": {
+    "component_run_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\aggregation_runs\\aggregation_run_025_04-06_hyp_002_strong_dependency_pairs_redundan\\component_run.json",
+    "worker_result_set_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\aggregation_runs\\aggregation_run_025_04-06_hyp_002_strong_dependency_pairs_redundan\\worker_result_set.json",
+    "normalized_inputs_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\aggregation_runs\\aggregation_run_025_04-06_hyp_002_strong_dependency_pairs_redundan\\normalized_inputs.json",
+    "overlap_diagnostics_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\aggregation_runs\\aggregation_run_025_04-06_hyp_002_strong_dependency_pairs_redundan\\overlap_diagnostics.json",
+    "rendered_prompt_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\aggregation_runs\\aggregation_run_025_04-06_hyp_002_strong_dependency_pairs_redundan\\rendered_prompt.txt",
+    "raw_response_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\aggregation_runs\\aggregation_run_025_04-06_hyp_002_strong_dependency_pairs_redundan\\raw_response.txt",
+    "parsed_output_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\aggregation_runs\\aggregation_run_025_04-06_hyp_002_strong_dependency_pairs_redundan\\parsed_output.json",
+    "aggregation_handoff_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\aggregation_runs\\aggregation_run_025_04-06_hyp_002_strong_dependency_pairs_redundan\\aggregation_handoff.json",
+    "repair_attempts_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\aggregation_runs\\aggregation_run_025_04-06_hyp_002_strong_dependency_pairs_redundan\\repair_attempts.json",
+    "validation_report_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\aggregation_runs\\aggregation_run_025_04-06_hyp_002_strong_dependency_pairs_redundan\\validation_report.json",
+    "runtime_metrics_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\aggregation_runs\\aggregation_run_025_04-06_hyp_002_strong_dependency_pairs_redundan\\runtime_metrics.json",
+    "replay_metadata_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\aggregation_runs\\aggregation_run_025_04-06_hyp_002_strong_dependency_pairs_redundan\\replay_metadata.json"
+  }
+}

@@ -1,0 +1,380 @@
+=== ROLE ===
+You are the Phase 3A Investigation Analysis module.
+You operate after Semantic Extraction and before Hypothesis Ranking.
+You are part of a forensic dataset auditing system focused on identifying structural irregularities, representation-sensitive patterns, shortcut-like signals, unstable dependencies, and epistemically suspicious regularities inside telemetry datasets.
+You are generating investigable interpretations of structural irregularities while preserving competing framings and unresolved tensions.
+Your role is not to declare canonical truth or collapse ambiguity prematurely.
+
+=== OBJECTIVE ===
+Generate up to 10 bounded investigation hypotheses for batch_id=phase3a_batch_0406095248_friday-workinghours-afternoon-ddos.pcap_iscx_f8c2c2.
+Interpret the structural substrate without collapsing ambiguity or converting interpretation into fact.
+
+=== BOUNDARIES ===
+Use artifact framings as guidance only, never as rigid classification labels.
+Hypotheses may overlap and share evidence when the substrate warrants it.
+Keep summaries inferential and grounded in the provided substrate evidence IDs.
+Do not prioritize, budget, plan, route, execute, or define task packages.
+Do not declare canonical truth, artifact existence, closure, or certainty.
+Prefer neutral structural wording in summaries and open_questions when substrate or context text includes terms like close/closed/closure or saturate/saturated/saturation.
+Those terms may trigger semantic governance flags in logs, but they do not invalidate the output; paraphrase them when practical.
+Open questions should remain unresolved verification-oriented questions, not ordered instructions.
+
+=== OUTPUT RULES ===
+Return valid JSON only.
+Do not use markdown or code fences.
+Return exactly these top-level fields:
+analysis_id, batch_id, hypotheses.
+Each hypothesis must include:
+hypothesis_id, summary, evidence_refs, open_questions.
+Every hypothesis must cite one or more evidence_refs already present in the substrate input.
+Every hypothesis must preserve one or more open_questions.
+At most 10 hypotheses may be returned.
+
+=== ANALYSIS CONTEXT ===
+{
+  "artifact_framing_refs": [
+    {
+      "description": "Broad paired or dependency-backed structure may reflect a stable regularity rather than a single narrow handle.",
+      "framing_id": "dependency_backed_regularity",
+      "label": "dependency-backed regularity"
+    },
+    {
+      "description": "A narrow or representation-sensitive signal may remain locally meaningful even when it does not explain the full substrate.",
+      "framing_id": "localized_representation_sensitive_handle",
+      "label": "localized representation-sensitive handle"
+    },
+    {
+      "description": "Contradictions and tensions may justify multiple partially compatible hypotheses that should remain alive together.",
+      "framing_id": "overlap_preserving_competing_framings",
+      "label": "overlap-preserving competing framing"
+    }
+  ],
+  "partition_context_ref": {
+    "epistemic_warnings": [
+      "Use this context only to interpret behavior, not to validate it. Do not assume patterns are valid because they match the attack type, and do not reward obvious confirmations."
+    ],
+    "expected_properties": [
+      "Extreme dominance, near-perfect relationships between features, or overly stable counters may require deeper inspection. Skew is expected, but not perfect structure."
+    ],
+    "investigation_guidance": [
+      "Focus on feature prioritization, avoidance of trivial confirmations, detection of meaningful artifacts, hypothesis revision quality, and step efficiency. Evaluate reasoning, not just signals, using only the JIF and this context.",
+      "The agent should distinguish burst behavior from structural collapse and analyze redundancy across counters and rate-based features."
+    ],
+    "semantics": [
+      "CICIDS2017 is a network-flow IDS benchmark with benign and attack traffic across days. Evaluate agent reasoning behavior relative to the phenomenon modeled in the partition.",
+      "This partition models load concentration, spikes, and load."
+    ]
+  }
+}
+
+=== ITERATION CONTEXT ===
+No prior hypothesis set or committed state refs were provided. Treat this as the first Investigation Analysis pass.
+
+=== STRUCTURAL SUBSTRATE ===
+{
+  "batch_id": "phase3a_batch_0406095248_friday-workinghours-afternoon-ddos.pcap_iscx_f8c2c2",
+  "compressed_regions": [
+    {
+      "contradiction_refs": [],
+      "evidence_refs": [
+        "e23",
+        "e24",
+        "e25"
+      ],
+      "feature_scope": {
+        "feature_groups": [],
+        "features": [
+          "Bwd Avg Bulk Rate",
+          "Bwd Avg Bytes/Bulk",
+          "Bwd Avg Packets/Bulk"
+        ],
+        "locality": {
+          "localized": true,
+          "notes": [
+            "cluster of backward bulk features with minimal variability"
+          ],
+          "scope_type": "dependency_cluster",
+          "scope_value": "Bwd Avg Bulk Rate|Bwd Avg Bytes/Bulk|Bwd Avg Packets/Bulk"
+        }
+      },
+      "region_id": "region_1_low_diversity_backward_bulk_features",
+      "region_kind": "low_diversity_region",
+      "status": "active",
+      "summary": "Multiple backward bulk-related features exhibit extremely low cardinality with unique values equal to 1 and very low cardinality ratios, indicating near-constant values across the partition.",
+      "tension_refs": []
+    },
+    {
+      "contradiction_refs": [],
+      "evidence_refs": [
+        "e26",
+        "e27",
+        "e28"
+      ],
+      "feature_scope": {
+        "feature_groups": [],
+        "features": [
+          "Bwd PSH Flags",
+          "Bwd URG Flags",
+          "CWE Flag Count"
+        ],
+        "locality": {
+          "localized": true,
+          "notes": [
+            "cluster of backward flag features with minimal variability"
+          ],
+          "scope_type": "dependency_cluster",
+          "scope_value": "Bwd PSH Flags|Bwd URG Flags|CWE Flag Count"
+        }
+      },
+      "region_id": "region_2_low_diversity_backward_flag_features",
+      "region_kind": "low_diversity_region",
+      "status": "active",
+      "summary": "Backward TCP flag features (PSH, URG) and CWE Flag Count show near-constant values with unique values of 1 and very low cardinality ratios, indicating minimal variation.",
+      "tension_refs": []
+    },
+    {
+      "contradiction_refs": [],
+      "evidence_refs": [
+        "e29",
+        "e30",
+        "e31",
+        "e32"
+      ],
+      "feature_scope": {
+        "feature_groups": [],
+        "features": [
+          "Fwd Avg Bulk Rate",
+          "Fwd Avg Bytes/Bulk",
+          "Fwd Avg Packets/Bulk",
+          "Fwd URG Flags"
+        ],
+        "locality": {
+          "localized": true,
+          "notes": [
+            "cluster of forward bulk and flag features with minimal variability"
+          ],
+          "scope_type": "dependency_cluster",
+          "scope_value": "Fwd Avg Bulk Rate|Fwd Avg Bytes/Bulk|Fwd Avg Packets/Bulk|Fwd URG Flags"
+        }
+      },
+      "region_id": "region_3_low_diversity_forward_bulk_and_flag_features",
+      "region_kind": "low_diversity_region",
+      "status": "active",
+      "summary": "Forward bulk rate and packet/bulk features, along with forward URG Flags, show near-constant values with unique values of 1 and very low cardinality ratios.",
+      "tension_refs": []
+    },
+    {
+      "contradiction_refs": [],
+      "evidence_refs": [
+        "e13",
+        "e14",
+        "e15",
+        "e16",
+        "e17",
+        "e18",
+        "e19",
+        "e20",
+        "e21",
+        "e22"
+      ],
+      "feature_scope": {
+        "feature_groups": [],
+        "features": [
+          "Bwd Packet Length Mean",
+          "Avg Bwd Segment Size",
+          "Fwd Header Length",
+          "Fwd Header Length.1",
+          "Fwd PSH Flags",
+          "SYN Flag Count",
+          "Fwd Packet Length Mean",
+          "Avg Fwd Segment Size",
+          "RST Flag Count",
+          "ECE Flag Count",
+          "Total Backward Packets",
+          "Subflow Bwd Packets",
+          "Total Fwd Packets",
+          "Subflow Fwd Packets",
+          "Total Length of Bwd Packets",
+          "Subflow Bwd Bytes",
+          "Total Length of Fwd Packets",
+          "Subflow Fwd Bytes",
+          "Packet Length Mean",
+          "Average Packet Size"
+        ],
+        "locality": {
+          "localized": true,
+          "notes": [
+            "multiple pairs with correlation=1 or near 1 indicating redundancy"
+          ],
+          "scope_type": "dependency_cluster",
+          "scope_value": "Bwd Packet Length Mean|Avg Bwd Segment Size|Fwd Header Length|Fwd Header Length.1|Fwd PSH Flags|SYN Flag Count|Fwd Packet Length Mean|Avg Fwd Segment Size|RST Flag Count|ECE Flag Count|Total Backward Packets|Subflow Bwd Packets|Total Fwd Packets|Subflow Fwd Packets|Total Length of Bwd Packets|Subflow Bwd Bytes|Total Length of Fwd Packets|Subflow Fwd Bytes|Packet Length Mean|Average Packet Size"
+        }
+      },
+      "region_id": "region_4_strong_feature_dependency_pairs",
+      "region_kind": "dependency_region",
+      "status": "active",
+      "summary": "Multiple feature pairs exhibit perfect or near-perfect correlation (correlation=1 or ~0.9993), indicating strong redundancy and deterministic relationships.",
+      "tension_refs": []
+    },
+    {
+      "contradiction_refs": [],
+      "evidence_refs": [
+        "e9",
+        "e10",
+        "e11",
+        "e12"
+      ],
+      "feature_scope": {
+        "feature_groups": [],
+        "features": [
+          "Bwd Packet Length Max",
+          "Bwd Packet Length Mean",
+          "Bwd Packet Length Std",
+          "Avg Bwd Segment Size"
+        ],
+        "locality": {
+          "localized": true,
+          "notes": [
+            "backward packet length related features with class-conditioned variation"
+          ],
+          "scope_type": "feature_group",
+          "scope_value": "Bwd Packet Length Max|Bwd Packet Length Mean|Bwd Packet Length Std|Avg Bwd Segment Size"
+        }
+      },
+      "region_id": "region_5_class_conditioned_structural_variation_backward_packet_lengths",
+      "region_kind": "mixed_structural_region",
+      "status": "active",
+      "summary": "Backward packet length features (Max, Mean, Std) and Avg Bwd Segment Size show significant class-conditioned structural variation with high variance ratios and large differences in unique values between BENIGN and DDoS classes.",
+      "tension_refs": []
+    },
+    {
+      "contradiction_refs": [],
+      "evidence_refs": [
+        "e8"
+      ],
+      "feature_scope": {
+        "feature_groups": [],
+        "features": [
+          "Average Packet Size"
+        ],
+        "locality": {
+          "localized": true,
+          "notes": [
+            "average packet size feature with class-conditioned variation"
+          ],
+          "scope_type": "feature_group",
+          "scope_value": "Average Packet Size"
+        }
+      },
+      "region_id": "region_6_class_conditioned_structural_variation_average_packet_size",
+      "region_kind": "mixed_structural_region",
+      "status": "active",
+      "summary": "Average Packet Size shows class-conditioned structural variation with moderate variance ratio and skewed unique values between BENIGN and DDoS classes.",
+      "tension_refs": []
+    },
+    {
+      "contradiction_refs": [],
+      "evidence_refs": [
+        "e33"
+      ],
+      "feature_scope": {
+        "feature_groups": [],
+        "features": [
+          "Destination Port"
+        ],
+        "locality": {
+          "localized": true,
+          "notes": [
+            "feature sensitive to class-conditioned distributional shifts"
+          ],
+          "scope_type": "feature_group",
+          "scope_value": "Destination Port"
+        }
+      },
+      "region_id": "region_7_class_conditioned_distribution_destination_port",
+      "region_kind": "representation_sensitive_region",
+      "status": "active",
+      "summary": "Destination Port feature shows strong distributional differences between BENIGN and DDoS classes, with DDoS having a dominant ratio of 1.0 and zero entropy, while BENIGN has lower dominant ratio and higher entropy, resulting in high JS divergence.",
+      "tension_refs": []
+    },
+    {
+      "contradiction_refs": [],
+      "evidence_refs": [
+        "e1",
+        "e2"
+      ],
+      "feature_scope": {
+        "feature_groups": [],
+        "features": [
+          "__dataset__"
+        ],
+        "locality": {
+          "localized": false,
+          "notes": [
+            "partition-level observation"
+          ],
+          "scope_type": "partition_global",
+          "scope_value": "phase3a_batch_0406095248_friday-workinghours-afternoon-ddos.pcap_iscx_f8c2c2"
+        }
+      },
+      "region_id": "region_8_partition_level_data_quality_and_class_imbalance",
+      "region_kind": "mixed_structural_region",
+      "status": "broad_unvalidated",
+      "summary": "Partition overview reports 729 duplicated rows and a class imbalance ratio of 1.577, indicating moderate class skew and presence of duplicate data points.",
+      "tension_refs": []
+    }
+  ],
+  "contradiction_count": 0,
+  "contradictions": [],
+  "preserved_weak_signals": [
+    {
+      "descriptor": "Backward PSH and URG Flags show near-constant values with minimal variability",
+      "evidence_refs": [
+        "e26",
+        "e27"
+      ],
+      "feature_scope": {
+        "feature_groups": [],
+        "features": [
+          "Bwd PSH Flags",
+          "Bwd URG Flags"
+        ],
+        "locality": {
+          "localized": true,
+          "notes": [
+            "flag features with low cardinality"
+          ],
+          "scope_type": "dependency_cluster",
+          "scope_value": "Bwd PSH Flags|Bwd URG Flags"
+        }
+      },
+      "preservation_reason": "Potentially weak but coherent signal of structural uniformity in backward flags",
+      "weak_signal_id": "weak_1_backward_flag_constantness"
+    },
+    {
+      "descriptor": "Forward URG Flags show near-constant values with minimal variability",
+      "evidence_refs": [
+        "e32"
+      ],
+      "feature_scope": {
+        "feature_groups": [],
+        "features": [
+          "Fwd URG Flags"
+        ],
+        "locality": {
+          "localized": true,
+          "notes": [],
+          "scope_type": "feature_group",
+          "scope_value": "Fwd URG Flags"
+        }
+      },
+      "preservation_reason": "Weak but consistent signal of low variability in forward URG Flags",
+      "weak_signal_id": "weak_2_forward_flag_constantness"
+    }
+  ],
+  "region_count": 8,
+  "substrate_id": "substrate_phase3a_batch_0406095248_friday-workinghours-afternoon-ddos.pcap_iscx_f8c2c2",
+  "tension_count": 0,
+  "unresolved_tensions": [],
+  "weak_signal_count": 2
+}

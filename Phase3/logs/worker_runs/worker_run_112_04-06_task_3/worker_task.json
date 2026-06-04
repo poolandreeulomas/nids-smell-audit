@@ -1,0 +1,26 @@
+{
+  "task_id": "task_3",
+  "hypothesis_id": "hyp_004_strong_feature_dependency_pairs",
+  "task_scope": "Evaluate stability and consistency of strong feature dependencies over time and varying network conditions within evidence refs e13 to e22.",
+  "allowed_actions": [
+    "dependency_contextualization",
+    "distribution_verification",
+    "local_consistency_verification"
+  ],
+  "local_context_refs": [
+    "e13",
+    "e14",
+    "e15",
+    "e16",
+    "e17",
+    "e18",
+    "e19",
+    "e20",
+    "e21",
+    "e22"
+  ],
+  "stop_conditions": [
+    "dependency stability metrics over time and conditions computed",
+    "inconsistent or unstable dependencies flagged"
+  ]
+}

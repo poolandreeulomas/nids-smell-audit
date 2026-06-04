@@ -1,0 +1,26 @@
+{
+  "aggregation_handoff": {
+    "batch_id": "phase3a_batch_0406132627_friday-workinghours-afternoon-ddos.pcap_iscx_f0e355",
+    "round_id": "round-001",
+    "hypothesis_id": "hyp_8_class_conditioned_distribution_destination_port",
+    "merged_findings": [
+      "The Destination Port feature exhibits strong class-conditioned distribution differences characterized by dominant values and low entropy, particularly a dominant port value ratio of 1.0 for DDoS and 0.346 for BENIGN classes.",
+      "High Jensen-Shannon divergence (0.7315) consistently confirms significant distributional separation between BENIGN and DDoS classes across multiple independent analyses.",
+      "These distribution differences align with targeted attack patterns rather than dataset sampling bias, indicating a meaningful signal rather than artifact.",
+      "Within the local evidence context e33, the Destination Port feature shows moderate shortcut-like predictive leverage, though this assessment is limited to single-feature deterministic decision stumps without multifeature interaction analysis.",
+      "Dependency contextualization did not reveal mitigating structural diversity, suggesting a potential over-reliance risk on this feature's dominant port values in classification models."
+    ],
+    "evidence_refs": [
+      "task_1_step_03",
+      "task_2_step_03",
+      "task_3_step_03",
+      "task_3_step_05",
+      "task_4_step_03"
+    ],
+    "preserved_contradictions": [],
+    "open_gaps": [
+      "Limitations include the lack of multifeature interaction assessment and the narrow local evidence context (e33) restricting broader generalization or model internal validation."
+    ],
+    "update_focus": "Focus on the class-conditioned distributional characteristics of the Destination Port feature, its predictive leverage within local contexts, and the associated risks of over-reliance due to dominant port values, while acknowledging limitations in multifeature and broader contextual analysis."
+  }
+}

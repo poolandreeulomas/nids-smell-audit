@@ -1,0 +1,122 @@
+{
+  "round_id": "round-001",
+  "selection_budget": 3,
+  "hypothesis_state_refs": [
+    {
+      "hypothesis_id": "hyp_1_low_diversity_backward_bulk",
+      "state_notes": [
+        "status=unresolved",
+        "summary=Backward bulk-related features (Bwd Avg Bulk Rate, Bwd Avg Bytes/Bulk, Bwd Avg Packets/Bulk) exhibit near-constant values with unique value counts of 1 and very low cardinality ratios, suggesting a structural uniformity or saturation effect in backward traffic bulk characteristics.",
+        "revision_count=0",
+        "last_updated_round=initialization",
+        "open_gap=Does the near-constant nature of backward bulk features reflect a genuine network behavior under DDoS conditions or an artifact of feature extraction or aggregation?",
+        "open_gap=Could this low variability limit the discriminative power of these features for attack detection?"
+      ]
+    },
+    {
+      "hypothesis_id": "hyp_2_low_diversity_backward_tcp_flags",
+      "state_notes": [
+        "status=unresolved",
+        "summary=Backward TCP flag features (Bwd PSH Flags, Bwd URG Flags) show extremely low variability with unique values of 1, indicating a near-constant signaling pattern in backward TCP flags during the partition timeframe.",
+        "revision_count=0",
+        "last_updated_round=initialization",
+        "open_gap=Is the minimal variability in backward TCP flags a stable characteristic of the traffic or a representation-sensitive artifact?",
+        "open_gap=Could this uniformity mask subtle but meaningful variations relevant to attack detection?"
+      ]
+    },
+    {
+      "hypothesis_id": "hyp_3_low_diversity_forward_bulk",
+      "state_notes": [
+        "status=unresolved",
+        "summary=Forward bulk-related features (Fwd Avg Bulk Rate, Fwd Avg Bytes/Bulk, Fwd Avg Packets/Bulk) mirror the backward bulk features by also exhibiting near-constant values with unique value counts of 1, suggesting a symmetric structural pattern in bulk traffic features across directions.",
+        "revision_count=0",
+        "last_updated_round=initialization",
+        "open_gap=Does the symmetry in low diversity bulk features between forward and backward directions indicate a stable network state or a saturation artifact?",
+        "open_gap=How might this affect the interpretability of bulk features in distinguishing benign from attack traffic?"
+      ]
+    },
+    {
+      "hypothesis_id": "hyp_4_low_diversity_forward_flags_and_cwe",
+      "state_notes": [
+        "status=unresolved",
+        "summary=Forward TCP flag features (Fwd URG Flags) and CWE Flag Count show near-constant values with unique values of 1, indicating minimal variability in these signaling features and counts within the forward direction.",
+        "revision_count=0",
+        "last_updated_round=initialization",
+        "open_gap=Is the near-constant behavior of forward flags and CWE count a reflection of network protocol constraints or a dataset artifact?",
+        "open_gap=Could this low variability reduce the sensitivity of these features to nuanced attack signatures?"
+      ]
+    },
+    {
+      "hypothesis_id": "hyp_5_strong_linear_dependencies",
+      "state_notes": [
+        "status=unresolved",
+        "summary=Multiple feature pairs exhibit near-perfect or perfect linear correlations (correlation >= 0.9993), indicating strong dependencies and potential redundancy among packet length, segment size, flag counts, and packet/byte counts.",
+        "revision_count=0",
+        "last_updated_round=initialization",
+        "open_gap=Do these strong linear dependencies reflect inherent protocol or measurement relationships, or do they indicate feature engineering redundancies?",
+        "open_gap=How might these dependencies impact model robustness and feature selection strategies?"
+      ]
+    },
+    {
+      "hypothesis_id": "hyp_6_class_conditioned_variation_backward_packet_lengths",
+      "state_notes": [
+        "status=unresolved",
+        "summary=Backward packet length features (Max, Mean, Std) show significant structural variation conditioned on class labels, with high variance ratios and differing unique value counts between BENIGN and DDoS classes, suggesting class-sensitive distributional shifts.",
+        "revision_count=0",
+        "last_updated_round=initialization",
+        "open_gap=Are the observed class-conditioned variations stable across different time windows or network conditions?",
+        "open_gap=Could these variations be exploited for reliable class discrimination or do they risk overfitting to specific dataset artifacts?"
+      ]
+    },
+    {
+      "hypothesis_id": "hyp_7_class_conditioned_variation_packet_size_features",
+      "state_notes": [
+        "status=unresolved",
+        "summary=Packet size related features (Average Packet Size, Avg Bwd Segment Size) also demonstrate class-conditioned structural variation with moderate to high variance ratios and differing unique value counts, indicating potential sensitivity to traffic class.",
+        "revision_count=0",
+        "last_updated_round=initialization",
+        "open_gap=Is the class-conditioned variation in packet size features consistent with known DDoS traffic characteristics or influenced by dataset sampling biases?",
+        "open_gap=How stable are these variations under different attack intensities or benign traffic fluctuations?"
+      ]
+    },
+    {
+      "hypothesis_id": "hyp_8_class_conditioned_distribution_destination_port",
+      "state_notes": [
+        "status=unresolved",
+        "summary=The Destination Port feature shows strong class-conditioned distribution differences, with dominant ratio 0.346 for BENIGN and 1.0 for DDoS, and a high Jensen-Shannon divergence of 0.7315, indicating a representation-sensitive pattern linked to class.",
+        "revision_count=0",
+        "last_updated_round=initialization",
+        "open_gap=Does the strong class-conditioned distribution in Destination Port reflect a targeted attack vector or a dataset sampling artifact?",
+        "open_gap=Could this feature's distributional skew lead to shortcut learning or over-reliance in classification models?"
+      ]
+    },
+    {
+      "hypothesis_id": "hyp_9_partition_level_class_imbalance_and_duplicates",
+      "state_notes": [
+        "status=unresolved",
+        "summary=At the partition level, a moderate class imbalance ratio of 1.577 and presence of 729 duplicated rows suggest structural skew and redundancy that may influence model training and evaluation.",
+        "revision_count=0",
+        "last_updated_round=initialization",
+        "open_gap=How do duplicated rows affect feature distribution stability and model generalization?",
+        "open_gap=Is the class imbalance representative of real-world conditions or a dataset artifact requiring mitigation?"
+      ]
+    },
+    {
+      "hypothesis_id": "hyp_10_low_cardinality_forward_flags_dependency",
+      "state_notes": [
+        "status=unresolved",
+        "summary=Forward PSH Flags and SYN Flag Count form a perfect correlation pair with correlation=1, yet both features individually show extremely low cardinality with unique values=1, indicating a potentially unstable or trivial signal despite strong dependency.",
+        "revision_count=0",
+        "last_updated_round=initialization",
+        "open_gap=Does the combination of perfect dependency and low cardinality indicate a feature saturation or measurement artifact?",
+        "open_gap=Could this dependency mask meaningful variations or introduce instability in downstream analysis?"
+      ]
+    }
+  ],
+  "round_constraints": [
+    "selection_budget=3",
+    "allocation_only",
+    "preserve_deferred_hypotheses",
+    "round_start_state_version=1"
+  ]
+}

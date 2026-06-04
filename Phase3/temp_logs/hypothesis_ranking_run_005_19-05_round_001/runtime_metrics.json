@@ -1,0 +1,18 @@
+{
+  "batch_id": "batch-001",
+  "analysis_id": "analysis-batch-001",
+  "round_id": "round-001",
+  "model_name": "gpt-4.1-mini",
+  "duration_ms": 0.217,
+  "status": "ok",
+  "prompt_chars": 3418,
+  "raw_response_chars": 404,
+  "candidate_count": 3,
+  "selected_count": 2,
+  "deferred_count": 1,
+  "selection_budget": 3,
+  "fresh_execution": true,
+  "replay_of": null,
+  "caller_mode": "cli",
+  "schema_version": "phase3a.hypothesis_ranking.v1"
+}

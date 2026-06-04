@@ -1,0 +1,12 @@
+{
+  "tool_name": "feature_summary",
+  "epistemic_role": "structural_summary",
+  "supported_scopes": [
+    "feature"
+  ],
+  "required_inputs": [
+    "feature_name"
+  ],
+  "result_shape": "feature_observation",
+  "boundedness_notes": "Summarizes one numeric feature under class-conditioned evidence."
+}

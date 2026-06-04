@@ -1,0 +1,40 @@
+{
+  "batch_id": "semantic_batch_cli_seed_001",
+  "dataset_name": "Friday-WorkingHours-Afternoon-PortScan.csv",
+  "evidence_records": [
+    {
+      "evidence_id": "e1",
+      "source_type": "dependency_observation",
+      "source_name": "feature_redundancy",
+      "feature_names": [
+        "src_bytes",
+        "dst_bytes"
+      ],
+      "metric_names": [
+        "correlation"
+      ],
+      "observation_text": "src_bytes and dst_bytes move together across the partition."
+    },
+    {
+      "evidence_id": "e2",
+      "source_type": "cardinality_metric",
+      "source_name": "feature_cardinality",
+      "feature_names": [
+        "dst_port"
+      ],
+      "metric_names": [
+        "unique_values",
+        "cardinality_ratio"
+      ],
+      "observation_text": "dst_port has low cardinality relative to the partition size."
+    }
+  ],
+  "feature_scope_refs": [
+    "src_bytes",
+    "dst_bytes",
+    "dst_port"
+  ],
+  "global_observation_refs": [
+    "e1"
+  ]
+}

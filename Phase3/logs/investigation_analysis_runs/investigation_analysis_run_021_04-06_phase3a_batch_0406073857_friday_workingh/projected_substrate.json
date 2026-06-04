@@ -1,0 +1,276 @@
+{
+  "substrate_id": "substrate_phase3a_batch_0406073857_friday-workinghours-afternoon-ddos.pcap_iscx_ee0ef0",
+  "batch_id": "phase3a_batch_0406073857_friday-workinghours-afternoon-ddos.pcap_iscx_ee0ef0",
+  "region_count": 5,
+  "weak_signal_count": 2,
+  "contradiction_count": 0,
+  "tension_count": 2,
+  "compressed_regions": [
+    {
+      "region_id": "region_1_low_diversity_cardinality",
+      "region_kind": "low_diversity_region",
+      "status": "active",
+      "summary": "Multiple backward and forward bulk and flag features exhibit extremely low cardinality with unique values=1 and cardinality ratios near 1e-05, indicating near-constant values across the partition.",
+      "feature_scope": {
+        "features": [
+          "Bwd Avg Bulk Rate",
+          "Bwd Avg Bytes/Bulk",
+          "Bwd Avg Packets/Bulk",
+          "Bwd PSH Flags",
+          "Bwd URG Flags",
+          "CWE Flag Count",
+          "Fwd Avg Bulk Rate",
+          "Fwd Avg Bytes/Bulk",
+          "Fwd Avg Packets/Bulk",
+          "Fwd URG Flags"
+        ],
+        "feature_groups": [],
+        "locality": {
+          "scope_type": "partition_global",
+          "scope_value": "phase3a_batch_0406073857_friday-workinghours-afternoon-ddos.pcap_iscx_ee0ef0",
+          "localized": false,
+          "notes": [
+            "partition-level observation of low cardinality features"
+          ]
+        }
+      },
+      "evidence_refs": [
+        "e23",
+        "e24",
+        "e25",
+        "e26",
+        "e27",
+        "e28",
+        "e29",
+        "e30",
+        "e31",
+        "e32"
+      ],
+      "contradiction_refs": [],
+      "tension_refs": []
+    },
+    {
+      "region_id": "region_2_strong_feature_dependencies",
+      "region_kind": "dependency_region",
+      "status": "active",
+      "summary": "Several feature pairs exhibit perfect or near-perfect correlation (correlation=1 or 0.9993), indicating strong linear dependencies and potential redundancy.",
+      "feature_scope": {
+        "features": [
+          "Bwd Packet Length Mean",
+          "Avg Bwd Segment Size",
+          "Fwd Header Length",
+          "Fwd Header Length.1",
+          "Fwd PSH Flags",
+          "SYN Flag Count",
+          "Fwd Packet Length Mean",
+          "Avg Fwd Segment Size",
+          "RST Flag Count",
+          "ECE Flag Count",
+          "Total Backward Packets",
+          "Subflow Bwd Packets",
+          "Total Fwd Packets",
+          "Subflow Fwd Packets",
+          "Total Length of Bwd Packets",
+          "Subflow Bwd Bytes",
+          "Total Length of Fwd Packets",
+          "Subflow Fwd Bytes",
+          "Packet Length Mean",
+          "Average Packet Size"
+        ],
+        "feature_groups": [],
+        "locality": {
+          "scope_type": "dependency_cluster",
+          "scope_value": "Bwd Packet Length Mean|Avg Bwd Segment Size|Fwd Header Length|Fwd Header Length.1|Fwd PSH Flags|SYN Flag Count|Fwd Packet Length Mean|Avg Fwd Segment Size|RST Flag Count|ECE Flag Count|Total Backward Packets|Subflow Bwd Packets|Total Fwd Packets|Subflow Fwd Packets|Total Length of Bwd Packets|Subflow Bwd Bytes|Total Length of Fwd Packets|Subflow Fwd Bytes|Packet Length Mean|Average Packet Size",
+          "localized": true,
+          "notes": [
+            "strong linear dependencies observed across multiple feature pairs"
+          ]
+        }
+      },
+      "evidence_refs": [
+        "e13",
+        "e14",
+        "e15",
+        "e16",
+        "e17",
+        "e18",
+        "e19",
+        "e20",
+        "e21",
+        "e22"
+      ],
+      "contradiction_refs": [],
+      "tension_refs": []
+    },
+    {
+      "region_id": "region_3_class_conditioned_structural_variation",
+      "region_kind": "mixed_structural_region",
+      "status": "active",
+      "summary": "Several packet length and size features show substantial class-conditioned structural variation with high variance ratios and differing unique value counts between BENIGN and DDoS classes.",
+      "feature_scope": {
+        "features": [
+          "Bwd Packet Length Max",
+          "Bwd Packet Length Mean",
+          "Bwd Packet Length Std",
+          "Average Packet Size",
+          "Avg Bwd Segment Size"
+        ],
+        "feature_groups": [],
+        "locality": {
+          "scope_type": "feature_group",
+          "scope_value": "Bwd Packet Length Max|Bwd Packet Length Mean|Bwd Packet Length Std|Average Packet Size|Avg Bwd Segment Size",
+          "localized": true,
+          "notes": [
+            "features related to packet length and size statistics"
+          ]
+        }
+      },
+      "evidence_refs": [
+        "e8",
+        "e9",
+        "e10",
+        "e11",
+        "e12"
+      ],
+      "contradiction_refs": [],
+      "tension_refs": []
+    },
+    {
+      "region_id": "region_4_class_distribution_and_skew",
+      "region_kind": "representation_sensitive_region",
+      "status": "active",
+      "summary": "Destination Port feature shows strong distributional differences between BENIGN and DDoS classes with high dominant ratio in DDoS and substantial Jensen-Shannon divergence.",
+      "feature_scope": {
+        "features": [
+          "Destination Port"
+        ],
+        "feature_groups": [],
+        "locality": {
+          "scope_type": "feature_group",
+          "scope_value": "Destination Port",
+          "localized": true,
+          "notes": [
+            "feature distribution varies strongly by class"
+          ]
+        }
+      },
+      "evidence_refs": [
+        "e33"
+      ],
+      "contradiction_refs": [],
+      "tension_refs": []
+    },
+    {
+      "region_id": "region_5_partition_level_data_quality",
+      "region_kind": "mixed_structural_region",
+      "status": "broad_unvalidated",
+      "summary": "Partition overview reports moderate class imbalance and presence of duplicated rows, which may influence feature distributions and model behavior.",
+      "feature_scope": {
+        "features": [
+          "__dataset__"
+        ],
+        "feature_groups": [],
+        "locality": {
+          "scope_type": "partition_global",
+          "scope_value": "phase3a_batch_0406073857_friday-workinghours-afternoon-ddos.pcap_iscx_ee0ef0",
+          "localized": false,
+          "notes": [
+            "partition-level data quality observations"
+          ]
+        }
+      },
+      "evidence_refs": [
+        "e1",
+        "e2"
+      ],
+      "contradiction_refs": [],
+      "tension_refs": []
+    }
+  ],
+  "preserved_weak_signals": [
+    {
+      "weak_signal_id": "weak_1_low_cardinality_flags",
+      "descriptor": "Backward and forward PSH and URG flags show near-constant values with unique_values=1 and very low cardinality ratios.",
+      "feature_scope": {
+        "features": [
+          "Bwd PSH Flags",
+          "Bwd URG Flags",
+          "Fwd URG Flags"
+        ],
+        "feature_groups": [],
+        "locality": {
+          "scope_type": "feature_group",
+          "scope_value": "Bwd PSH Flags|Bwd URG Flags|Fwd URG Flags",
+          "localized": true,
+          "notes": [
+            "flag features with low variability"
+          ]
+        }
+      },
+      "evidence_refs": [
+        "e26",
+        "e27",
+        "e32"
+      ],
+      "preservation_reason": "Low cardinality flags may represent stable but potentially uninformative signals that could influence model behavior."
+    },
+    {
+      "weak_signal_id": "weak_2_packet_length_mean_top_rank",
+      "descriptor": "Bwd Packet Length Mean is the top-ranked feature in the partition overview and shows strong dependency with Avg Bwd Segment Size.",
+      "feature_scope": {
+        "features": [
+          "Bwd Packet Length Mean"
+        ],
+        "feature_groups": [],
+        "locality": {
+          "scope_type": "feature_group",
+          "scope_value": "Bwd Packet Length Mean",
+          "localized": true,
+          "notes": [
+            "top-ranked feature with strong dependency"
+          ]
+        }
+      },
+      "evidence_refs": [
+        "e3",
+        "e13"
+      ],
+      "preservation_reason": "High rank and strong dependency suggest this feature is structurally important but may also be redundant."
+    }
+  ],
+  "contradictions": [],
+  "unresolved_tensions": [
+    {
+      "tension_id": "tension_1_low_cardinality_vs_class_variation",
+      "description": "Tension between features exhibiting near-constant values (low cardinality) and other features showing strong class-conditioned structural variation.",
+      "related_region_ids": [
+        "region_1_low_diversity_cardinality",
+        "region_3_class_conditioned_structural_variation"
+      ],
+      "evidence_refs": [
+        "e8",
+        "e9",
+        "e10",
+        "e11",
+        "e12",
+        "e23",
+        "e24",
+        "e25"
+      ]
+    },
+    {
+      "tension_id": "tension_2_dependency_redundancy_vs_feature_importance",
+      "description": "Tension between strong feature dependencies indicating redundancy and high feature ranking suggesting importance.",
+      "related_region_ids": [
+        "region_2_strong_feature_dependencies",
+        "region_3_class_conditioned_structural_variation"
+      ],
+      "evidence_refs": [
+        "e3",
+        "e4",
+        "e13",
+        "e16"
+      ]
+    }
+  ]
+}

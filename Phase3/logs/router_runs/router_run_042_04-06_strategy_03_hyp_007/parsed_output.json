@@ -1,0 +1,56 @@
+{
+  "batch_id": "phase3a_batch_0406095248_friday-workinghours-afternoon-ddos.pcap_iscx_f8c2c2",
+  "round_id": "round-001",
+  "hypothesis_id": "hyp_007_class_conditioned_distribution_destination_port",
+  "planner_strategy_id": "strategy_03_hyp_007",
+  "worker_tasks": [
+    {
+      "task_id": "task_1",
+      "hypothesis_id": "hyp_007_class_conditioned_distribution_destination_port",
+      "task_scope": "Verify if zero entropy in destination port distribution is due to targeted attack patterns or dataset artifacts using evidence e33.",
+      "allowed_actions": [
+        "distribution_verification",
+        "duplication_verification"
+      ],
+      "local_context_refs": [
+        "e33"
+      ],
+      "stop_conditions": [
+        "confirmed zero entropy cause as attack or artifact",
+        "sample size sufficient for stable conclusion"
+      ]
+    },
+    {
+      "task_id": "task_2",
+      "hypothesis_id": "hyp_007_class_conditioned_distribution_destination_port",
+      "task_scope": "Analyze temporal and contextual factors influencing shifts in destination port distribution within evidence e33.",
+      "allowed_actions": [
+        "dependency_contextualization",
+        "relation_verification"
+      ],
+      "local_context_refs": [
+        "e33"
+      ],
+      "stop_conditions": [
+        "temporal patterns identified",
+        "contextual dependencies characterized"
+      ]
+    },
+    {
+      "task_id": "task_3",
+      "hypothesis_id": "hyp_007_class_conditioned_distribution_destination_port",
+      "task_scope": "Assess the robustness and shortcut risk of destination port distribution as a representation-sensitive feature using evidence e33.",
+      "allowed_actions": [
+        "shortcut_verification",
+        "local_consistency_verification"
+      ],
+      "local_context_refs": [
+        "e33"
+      ],
+      "stop_conditions": [
+        "shortcut signals evaluated",
+        "feature stability assessed"
+      ]
+    }
+  ]
+}

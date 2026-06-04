@@ -1,0 +1,47 @@
+{
+  "ok": true,
+  "tool": "distribution_analysis",
+  "feature_name": "Average Packet Size",
+  "value": 0.7526917897615742,
+  "error_code": null,
+  "error_message": null,
+  "meta": {
+    "dataset_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\data\\cic_ids_2017\\Friday-WorkingHours-Afternoon-DDos.pcap_ISCX.csv",
+    "label_column": "Label"
+  },
+  "evidence": {
+    "feature": "Average Packet Size",
+    "signals": [
+      "high_class_separation"
+    ],
+    "metrics": {
+      "entropy": {
+        "BENIGN": 5.886133276552761,
+        "DDoS": 2.6476085687136726
+      },
+      "dominant_ratio": {
+        "BENIGN": 0.08791624879756033,
+        "DDoS": 0.1795246315230381
+      },
+      "js_divergence": 0.7526917897615742
+    },
+    "support": {
+      "n_total": 225745,
+      "n_per_class": {
+        "DDoS": 128027,
+        "BENIGN": 97718
+      },
+      "total_samples": 225745,
+      "per_class": {
+        "DDoS": 128027,
+        "BENIGN": 97718
+      }
+    },
+    "provenance": {
+      "source": "tool",
+      "tool": "distribution_analysis",
+      "step": null
+    },
+    "status": "active"
+  }
+}

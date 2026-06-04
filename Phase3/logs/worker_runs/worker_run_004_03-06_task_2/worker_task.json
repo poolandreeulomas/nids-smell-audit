@@ -1,0 +1,17 @@
+{
+  "task_id": "task_2",
+  "hypothesis_id": "hyp_001_low_diversity_constant_features",
+  "task_scope": "Assess class-conditioned distribution shifts for near-constant features to evaluate their differentiation potential across classes.",
+  "allowed_actions": [
+    "distribution_verification",
+    "structural_summary"
+  ],
+  "local_context_refs": [
+    "e26",
+    "e27"
+  ],
+  "stop_conditions": [
+    "class-conditioned distributions fully characterized",
+    "significant distribution shifts detected or excluded"
+  ]
+}

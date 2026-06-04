@@ -1,0 +1,25 @@
+{
+  "task_id": "task_2",
+  "hypothesis_id": "hyp_002_strong_dependency_pairs_redundancy",
+  "task_scope": "Examine alignment of strong correlations with known protocol behaviors and preprocessing steps using preserved feature pairs and evidence.",
+  "allowed_actions": [
+    "relation_verification",
+    "dependency_contextualization"
+  ],
+  "local_context_refs": [
+    "e13",
+    "e14",
+    "e15",
+    "e16",
+    "e17",
+    "e18",
+    "e19",
+    "e20",
+    "e21",
+    "e22"
+  ],
+  "stop_conditions": [
+    "correlation alignment assessment complete",
+    "protocol behavior patterns identified"
+  ]
+}

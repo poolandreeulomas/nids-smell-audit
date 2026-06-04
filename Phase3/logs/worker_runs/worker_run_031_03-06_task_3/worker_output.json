@@ -1,0 +1,26 @@
+{
+  "batch_id": "phase3a_batch_0306161030_friday-workinghours-afternoon-ddos.pcap_iscx_0595cd",
+  "round_id": "round-001",
+  "worker_result": {
+    "task_id": "task_3",
+    "hypothesis_id": "hyp_3_distributional_skew_vs_partition_imbalance",
+    "status": "completed",
+    "findings": [
+      "Moderate class imbalance (1.577 ratio) exists at partition level with duplicated rows present.",
+      "Destination Port shows strong distributional divergence between classes (JS divergence=0.7315).",
+      "DDoS class distribution is highly skewed, dominated by a single port with zero entropy.",
+      "BENIGN class distribution is more diverse with higher entropy and lower dominant port ratio.",
+      "The strong distributional skew in Destination Port contrasts with moderate class imbalance, indicating potential instability or representativeness concerns."
+    ],
+    "evidence_refs": [
+      "task_3_step_03",
+      "task_3_step_05"
+    ],
+    "contradictions": [
+      "Preserved tension between strong distributional skew and moderate class imbalance at partition level."
+    ],
+    "limitations": [
+      "Analysis limited to local partition and single feature; no cross-feature or temporal stability checks performed."
+    ]
+  }
+}

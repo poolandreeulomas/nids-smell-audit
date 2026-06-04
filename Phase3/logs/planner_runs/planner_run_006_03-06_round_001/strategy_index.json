@@ -1,0 +1,35 @@
+{
+  "selected_count": 3,
+  "strategy_count": 3,
+  "missing_strategy_hypothesis_ids": [],
+  "unexpected_strategy_hypothesis_ids": [],
+  "strategies": [
+    {
+      "strategy_id": "strategy_01_hyp_4",
+      "hypothesis_id": "hyp_4_representation_sensitive_distribution_skew_in_destination_port",
+      "summary": "The Destination Port feature shows strong distributional differences between classes, with the DDoS class dominated by a single port and zero entropy, while the BENIGN class exhibits higher entropy and lower dominant port ratio, indicating representation-sensitive skew.",
+      "strategic_objective": "Clarify the nature and stability of the dominant destination port distribution difference between DDoS and BENIGN classes to assess representation sensitivity and potential sampling bias.",
+      "key_check_count": 3,
+      "success_criteria_count": 3,
+      "router_constraint_count": 2
+    },
+    {
+      "strategy_id": "strategy_02_hyp_2",
+      "hypothesis_id": "hyp_2_strong_feature_dependencies_and_redundancy",
+      "summary": "Several packet length, flag count, and subflow features show perfect or near-perfect correlations, indicating strong linear dependencies and potential redundancy that may mask or inflate the importance of certain features.",
+      "strategic_objective": "Characterize the extent, class stability, and structural impact of strong linear dependencies among packet length, flag count, and subflow features to understand redundancy and effective dimensionality.",
+      "key_check_count": 3,
+      "success_criteria_count": 3,
+      "router_constraint_count": 2
+    },
+    {
+      "strategy_id": "strategy_03_hyp_1",
+      "hypothesis_id": "hyp_1_low_diversity_bulk_features",
+      "summary": "Bulk-related backward and forward traffic features exhibit near-constant values with extremely low cardinality, suggesting a structural regularity or saturation effect in bulk traffic representation during the partition.",
+      "strategic_objective": "Determine whether near-constant bulk traffic feature values reflect genuine network saturation effects or artifacts of feature extraction under DDoS conditions.",
+      "key_check_count": 3,
+      "success_criteria_count": 3,
+      "router_constraint_count": 2
+    }
+  ]
+}

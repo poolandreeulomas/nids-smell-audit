@@ -1,0 +1,10 @@
+{
+  "status": "tracked",
+  "events": [
+    {
+      "cache_key": "neighborhood_consistency_analysis::Avg Bwd Segment Size",
+      "status": "miss"
+    }
+  ],
+  "event_count": 1
+}

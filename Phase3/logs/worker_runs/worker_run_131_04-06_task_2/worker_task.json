@@ -1,0 +1,15 @@
+{
+  "task_id": "task_2",
+  "hypothesis_id": "hyp_8_class_conditioned_distribution_destination_port",
+  "task_scope": "Measure shortcut-like predictive leverage from Destination Port feature within evidence e33 context",
+  "allowed_actions": [
+    "shortcut_verification"
+  ],
+  "local_context_refs": [
+    "e33"
+  ],
+  "stop_conditions": [
+    "shortcut potential quantified",
+    "predictive leverage impact assessed"
+  ]
+}

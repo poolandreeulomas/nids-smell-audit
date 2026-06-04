@@ -1,0 +1,344 @@
+{
+  "hypothesis_count": 10,
+  "evidence_ref_coverage": [
+    "e1",
+    "e10",
+    "e11",
+    "e12",
+    "e13",
+    "e14",
+    "e15",
+    "e16",
+    "e17",
+    "e18",
+    "e19",
+    "e2",
+    "e20",
+    "e21",
+    "e22",
+    "e23",
+    "e24",
+    "e25",
+    "e26",
+    "e27",
+    "e28",
+    "e29",
+    "e30",
+    "e31",
+    "e32",
+    "e33",
+    "e8",
+    "e9"
+  ],
+  "overlap_pairs": [
+    {
+      "left_hypothesis_id": "hyp_001_low_cardinality_bulk_features",
+      "right_hypothesis_id": "hyp_004_tension_between_low_cardinality_and_class_variation",
+      "shared_evidence_refs": [
+        "e23",
+        "e24",
+        "e25",
+        "e26",
+        "e27",
+        "e28",
+        "e29",
+        "e30",
+        "e31",
+        "e32"
+      ]
+    },
+    {
+      "left_hypothesis_id": "hyp_001_low_cardinality_bulk_features",
+      "right_hypothesis_id": "hyp_009_potential_structural_uniformity_masking_subtle_variations",
+      "shared_evidence_refs": [
+        "e23",
+        "e24",
+        "e25",
+        "e26",
+        "e27",
+        "e28",
+        "e29",
+        "e30",
+        "e31",
+        "e32"
+      ]
+    },
+    {
+      "left_hypothesis_id": "hyp_002_strong_feature_dependencies_indicate_redundancy",
+      "right_hypothesis_id": "hyp_005_tension_between_perfect_dependency_and_feature_diversity",
+      "shared_evidence_refs": [
+        "e13",
+        "e14",
+        "e15",
+        "e16",
+        "e17",
+        "e18",
+        "e19",
+        "e20",
+        "e21",
+        "e22"
+      ]
+    },
+    {
+      "left_hypothesis_id": "hyp_002_strong_feature_dependencies_indicate_redundancy",
+      "right_hypothesis_id": "hyp_010_interplay_of_redundancy_and_class_variation_affects_feature_reliability",
+      "shared_evidence_refs": [
+        "e13",
+        "e14",
+        "e15",
+        "e16",
+        "e17",
+        "e18",
+        "e19",
+        "e20",
+        "e21",
+        "e22"
+      ]
+    },
+    {
+      "left_hypothesis_id": "hyp_003_class_conditioned_structural_variation_in_packet_features",
+      "right_hypothesis_id": "hyp_004_tension_between_low_cardinality_and_class_variation",
+      "shared_evidence_refs": [
+        "e10",
+        "e11",
+        "e12",
+        "e8",
+        "e9"
+      ]
+    },
+    {
+      "left_hypothesis_id": "hyp_003_class_conditioned_structural_variation_in_packet_features",
+      "right_hypothesis_id": "hyp_005_tension_between_perfect_dependency_and_feature_diversity",
+      "shared_evidence_refs": [
+        "e10",
+        "e11",
+        "e12",
+        "e8",
+        "e9"
+      ]
+    },
+    {
+      "left_hypothesis_id": "hyp_003_class_conditioned_structural_variation_in_packet_features",
+      "right_hypothesis_id": "hyp_010_interplay_of_redundancy_and_class_variation_affects_feature_reliability",
+      "shared_evidence_refs": [
+        "e10",
+        "e11",
+        "e12",
+        "e8",
+        "e9"
+      ]
+    },
+    {
+      "left_hypothesis_id": "hyp_004_tension_between_low_cardinality_and_class_variation",
+      "right_hypothesis_id": "hyp_005_tension_between_perfect_dependency_and_feature_diversity",
+      "shared_evidence_refs": [
+        "e10",
+        "e11",
+        "e12",
+        "e8",
+        "e9"
+      ]
+    },
+    {
+      "left_hypothesis_id": "hyp_004_tension_between_low_cardinality_and_class_variation",
+      "right_hypothesis_id": "hyp_009_potential_structural_uniformity_masking_subtle_variations",
+      "shared_evidence_refs": [
+        "e23",
+        "e24",
+        "e25",
+        "e26",
+        "e27",
+        "e28",
+        "e29",
+        "e30",
+        "e31",
+        "e32"
+      ]
+    },
+    {
+      "left_hypothesis_id": "hyp_004_tension_between_low_cardinality_and_class_variation",
+      "right_hypothesis_id": "hyp_010_interplay_of_redundancy_and_class_variation_affects_feature_reliability",
+      "shared_evidence_refs": [
+        "e10",
+        "e11",
+        "e12",
+        "e8",
+        "e9"
+      ]
+    },
+    {
+      "left_hypothesis_id": "hyp_005_tension_between_perfect_dependency_and_feature_diversity",
+      "right_hypothesis_id": "hyp_010_interplay_of_redundancy_and_class_variation_affects_feature_reliability",
+      "shared_evidence_refs": [
+        "e10",
+        "e11",
+        "e12",
+        "e13",
+        "e14",
+        "e15",
+        "e16",
+        "e17",
+        "e18",
+        "e19",
+        "e20",
+        "e21",
+        "e22",
+        "e8",
+        "e9"
+      ]
+    },
+    {
+      "left_hypothesis_id": "hyp_006_class_distribution_and_destination_port_divergence",
+      "right_hypothesis_id": "hyp_008_localized_representation_sensitive_signal_in_destination_port_entropy",
+      "shared_evidence_refs": [
+        "e33"
+      ]
+    }
+  ],
+  "hypotheses": [
+    {
+      "hypothesis_id": "hyp_001_low_cardinality_bulk_features",
+      "evidence_refs": [
+        "e23",
+        "e24",
+        "e25",
+        "e26",
+        "e27",
+        "e28",
+        "e29",
+        "e30",
+        "e31",
+        "e32"
+      ],
+      "open_question_count": 2
+    },
+    {
+      "hypothesis_id": "hyp_002_strong_feature_dependencies_indicate_redundancy",
+      "evidence_refs": [
+        "e13",
+        "e14",
+        "e15",
+        "e16",
+        "e17",
+        "e18",
+        "e19",
+        "e20",
+        "e21",
+        "e22"
+      ],
+      "open_question_count": 2
+    },
+    {
+      "hypothesis_id": "hyp_003_class_conditioned_structural_variation_in_packet_features",
+      "evidence_refs": [
+        "e10",
+        "e11",
+        "e12",
+        "e8",
+        "e9"
+      ],
+      "open_question_count": 2
+    },
+    {
+      "hypothesis_id": "hyp_004_tension_between_low_cardinality_and_class_variation",
+      "evidence_refs": [
+        "e10",
+        "e11",
+        "e12",
+        "e23",
+        "e24",
+        "e25",
+        "e26",
+        "e27",
+        "e28",
+        "e29",
+        "e30",
+        "e31",
+        "e32",
+        "e8",
+        "e9"
+      ],
+      "open_question_count": 2
+    },
+    {
+      "hypothesis_id": "hyp_005_tension_between_perfect_dependency_and_feature_diversity",
+      "evidence_refs": [
+        "e10",
+        "e11",
+        "e12",
+        "e13",
+        "e14",
+        "e15",
+        "e16",
+        "e17",
+        "e18",
+        "e19",
+        "e20",
+        "e21",
+        "e22",
+        "e8",
+        "e9"
+      ],
+      "open_question_count": 2
+    },
+    {
+      "hypothesis_id": "hyp_006_class_distribution_and_destination_port_divergence",
+      "evidence_refs": [
+        "e2",
+        "e33"
+      ],
+      "open_question_count": 2
+    },
+    {
+      "hypothesis_id": "hyp_007_partition_contains_substantial_duplicates",
+      "evidence_refs": [
+        "e1"
+      ],
+      "open_question_count": 2
+    },
+    {
+      "hypothesis_id": "hyp_008_localized_representation_sensitive_signal_in_destination_port_entropy",
+      "evidence_refs": [
+        "e33"
+      ],
+      "open_question_count": 2
+    },
+    {
+      "hypothesis_id": "hyp_009_potential_structural_uniformity_masking_subtle_variations",
+      "evidence_refs": [
+        "e23",
+        "e24",
+        "e25",
+        "e26",
+        "e27",
+        "e28",
+        "e29",
+        "e30",
+        "e31",
+        "e32"
+      ],
+      "open_question_count": 2
+    },
+    {
+      "hypothesis_id": "hyp_010_interplay_of_redundancy_and_class_variation_affects_feature_reliability",
+      "evidence_refs": [
+        "e10",
+        "e11",
+        "e12",
+        "e13",
+        "e14",
+        "e15",
+        "e16",
+        "e17",
+        "e18",
+        "e19",
+        "e20",
+        "e21",
+        "e22",
+        "e8",
+        "e9"
+      ],
+      "open_question_count": 2
+    }
+  ]
+}

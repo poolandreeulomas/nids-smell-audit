@@ -1,0 +1,40 @@
+{
+  "hypothesis_id": "hyp_010_potential_effects_of_data_redundancy_on_feature_correlations",
+  "planner_strategy_id": "strategy_01_hyp_010",
+  "task_count": 4,
+  "action_class_count": 7,
+  "task_summaries": [
+    {
+      "task_id": "task_1",
+      "hypothesis_id": "hyp_010_potential_effects_of_data_redundancy_on_feature_correlations",
+      "task_scope": "Quantify the proportion and distribution of duplicated rows in the dataset within the preserved evidence scope",
+      "allowed_action_count": 2,
+      "local_context_ref_count": 12,
+      "stop_condition_count": 2
+    },
+    {
+      "task_id": "task_2",
+      "hypothesis_id": "hyp_010_potential_effects_of_data_redundancy_on_feature_correlations",
+      "task_scope": "Compare feature correlation matrices before and after removing duplicated rows focusing on correlated features",
+      "allowed_action_count": 2,
+      "local_context_ref_count": 10,
+      "stop_condition_count": 2
+    },
+    {
+      "task_id": "task_3",
+      "hypothesis_id": "hyp_010_potential_effects_of_data_redundancy_on_feature_correlations",
+      "task_scope": "Evaluate changes in feature importance or dependency concentration after deduplication within the correlated feature set",
+      "allowed_action_count": 2,
+      "local_context_ref_count": 10,
+      "stop_condition_count": 2
+    },
+    {
+      "task_id": "task_4",
+      "hypothesis_id": "hyp_010_potential_effects_of_data_redundancy_on_feature_correlations",
+      "task_scope": "Check for persistence or attenuation of near-perfect correlations after removing duplicates in the dataset",
+      "allowed_action_count": 2,
+      "local_context_ref_count": 10,
+      "stop_condition_count": 2
+    }
+  ]
+}

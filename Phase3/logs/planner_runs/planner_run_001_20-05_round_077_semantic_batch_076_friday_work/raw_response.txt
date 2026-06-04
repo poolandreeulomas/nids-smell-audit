@@ -1,0 +1,30 @@
+{
+  "batch_id": "semantic_batch_076_friday-workinghours-afternoon-ddos.pcap_iscx",
+  "round_id": "round_077_semantic_batch_076_friday-workinghours-afternoon-ddos.pcap_iscx",
+  "planner_strategies": [
+    {
+      "strategy_id": "strategy_01_hyp_05",
+      "hypothesis_id": "hyp_05_tension_between_redundancy_and_representation",
+      "strategic_objective": "Clarify how redundancy coexists with strong class-conditioned variance to inform feature selection and model robustness.",
+      "key_checks": "Measure class-conditioned distribution overlap and redundancy patterns; verify if redundancy is intra-class or inter-class; assess feature dependency clusters for mixed redundancy and representation.",
+      "success_criteria": "Identify features that are redundant within classes but discriminative across classes; characterize impact of redundancy on model robustness; delineate feature subsets balancing redundancy and class distinction.",
+      "router_constraints": "Preserve feature-level class-conditioned variance and redundancy metrics; maintain dependency cluster context; enable downstream modeling impact assessment."
+    },
+    {
+      "strategy_id": "strategy_02_hyp_06",
+      "hypothesis_id": "hyp_06_tension_between_constant_and_variable_features",
+      "strategic_objective": "Determine the nature and role of constant features amid variable ones to guide modeling and interpretation.",
+      "key_checks": "Verify constancy and detect subtle variations within constant features; investigate data collection or preprocessing artifacts; compare class-conditioned distributions of constants versus variable features.",
+      "success_criteria": "Confirm whether constants mask informative signals or are artifacts; establish treatment recommendations for constants in modeling; clarify relationship between constants and variable features.",
+      "router_constraints": "Retain feature constancy profiles and subtle variation evidence; preserve artifact indicators; support interpretability and modeling strategy decisions."
+    },
+    {
+      "strategy_id": "strategy_03_hyp_03",
+      "hypothesis_id": "hyp_03_class_conditioned_packet_size_and_port_distributions",
+      "strategic_objective": "Quantify and validate the role of packet-size, segment-size, and destination port distributions in class separation and redundancy context.",
+      "key_checks": "Analyze class-conditioned distribution stability over time; measure classification leverage of these features; relate distributional differences to redundancy in packet-size features.",
+      "success_criteria": "Demonstrate stable, strong class-conditioned distribution differences; confirm contribution to classification performance; clarify redundancy relationships with other packet-size features.",
+      "router_constraints": "Preserve temporal distribution profiles and classification relevance metrics; maintain redundancy linkage data; enable robust feature importance evaluation."
+    }
+  ]
+}

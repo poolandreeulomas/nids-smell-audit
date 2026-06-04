@@ -1,0 +1,70 @@
+{
+  "batch_id": "phase3a_batch_0406080944_friday-workinghours-afternoon-ddos.pcap_iscx_618cac",
+  "round_id": "round-001",
+  "hypothesis_id": "hyp_005_destination_port_distribution_shift",
+  "planner_strategy_id": "strategy_01_hyp_005",
+  "worker_tasks": [
+    {
+      "task_id": "task_1",
+      "hypothesis_id": "hyp_005_destination_port_distribution_shift",
+      "task_scope": "Verify class-conditioned distribution stability of Destination Port across temporal and data partitions within evidence e33",
+      "allowed_actions": [
+        "distribution_verification"
+      ],
+      "local_context_refs": [
+        "e33"
+      ],
+      "stop_conditions": [
+        "distribution metrics stable across partitions",
+        "no abrupt temporal shifts detected"
+      ]
+    },
+    {
+      "task_id": "task_2",
+      "hypothesis_id": "hyp_005_destination_port_distribution_shift",
+      "task_scope": "Measure cardinality and entropy of Destination Port within each class to detect near-constant or low-variation patterns in evidence e33",
+      "allowed_actions": [
+        "cardinality_verification",
+        "structural_summary"
+      ],
+      "local_context_refs": [
+        "e33"
+      ],
+      "stop_conditions": [
+        "cardinality and entropy metrics computed",
+        "low-variation patterns identified or ruled out"
+      ]
+    },
+    {
+      "task_id": "task_3",
+      "hypothesis_id": "hyp_005_destination_port_distribution_shift",
+      "task_scope": "Assess shortcut-like predictive leverage of Destination Port alone for the DDoS class within evidence e33",
+      "allowed_actions": [
+        "shortcut_verification"
+      ],
+      "local_context_refs": [
+        "e33"
+      ],
+      "stop_conditions": [
+        "shortcut signal strength quantified",
+        "predictive leverage thresholds evaluated"
+      ]
+    },
+    {
+      "task_id": "task_4",
+      "hypothesis_id": "hyp_005_destination_port_distribution_shift",
+      "task_scope": "Check for abrupt distributional shifts or near-deterministic mappings in Destination Port values within evidence e33",
+      "allowed_actions": [
+        "local_consistency_verification",
+        "relation_verification"
+      ],
+      "local_context_refs": [
+        "e33"
+      ],
+      "stop_conditions": [
+        "abrupt shifts detected or ruled out",
+        "near-deterministic mappings characterized"
+      ]
+    }
+  ]
+}

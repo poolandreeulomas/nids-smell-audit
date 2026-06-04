@@ -1,0 +1,24 @@
+{
+  "task_id": "task_2",
+  "hypothesis_id": "hyp_003",
+  "task_scope": "Analyze dependency concentration profiles for involved feature pairs to assess stability and class/time consistency using evidence refs e13 to e22.",
+  "allowed_actions": [
+    "dependency_contextualization"
+  ],
+  "local_context_refs": [
+    "e13",
+    "e14",
+    "e15",
+    "e16",
+    "e17",
+    "e18",
+    "e19",
+    "e20",
+    "e21",
+    "e22"
+  ],
+  "stop_conditions": [
+    "dependency concentration profiles generated for all feature pairs",
+    "profiles cover all classes and time windows"
+  ]
+}

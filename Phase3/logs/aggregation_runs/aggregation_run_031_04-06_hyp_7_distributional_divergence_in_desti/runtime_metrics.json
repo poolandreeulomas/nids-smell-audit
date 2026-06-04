@@ -1,0 +1,16 @@
+{
+  "batch_id": "phase3a_batch_0406122053_friday-workinghours-afternoon-ddos.pcap_iscx_2ba5ac",
+  "round_id": "round-001",
+  "hypothesis_id": "hyp_7_distributional_divergence_in_destination_port_feature",
+  "model_name": "gpt-4.1-mini",
+  "duration_ms": 12.093,
+  "status": "error",
+  "worker_result_count": 4,
+  "overlap_group_count": 3,
+  "source_contradiction_count": 2,
+  "handoff_committed": false,
+  "fresh_execution": true,
+  "replay_of": null,
+  "caller_mode": "cli",
+  "schema_version": "phase3a.aggregation.v1"
+}

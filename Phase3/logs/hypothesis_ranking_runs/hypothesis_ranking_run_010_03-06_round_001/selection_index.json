@@ -1,0 +1,73 @@
+{
+  "candidate_count": 10,
+  "selected_count": 3,
+  "deferred_count": 7,
+  "unaccounted_hypothesis_ids": [],
+  "selected_hypotheses": [
+    {
+      "hypothesis_id": "hyp_6_class_distribution_difference_destination_port",
+      "summary": "Destination Port feature exhibits strong distributional differences between BENIGN and DDoS classes, with a dominant ratio of 1.0 and zero entropy in DDoS, alongside a high Jensen-Shannon divergence of 0.7315, indicating a highly representation-sensitive and potentially shortcut-like feature.",
+      "reason": "Strong class-conditioned distribution skew with zero entropy and dominant ratio indicates a high-value shortcut-like feature worth immediate investigation.",
+      "evidence_ref_count": 1,
+      "open_question_count": 2
+    },
+    {
+      "hypothesis_id": "hyp_3_strong_feature_redundancy_pairs",
+      "summary": "Multiple feature pairs show perfect or near-perfect correlation (correlation=1 or ~0.9993), indicating strong redundancy and deterministic relationships that may reduce effective feature dimensionality and introduce unstable dependencies.",
+      "reason": "Perfect or near-perfect feature correlations suggest critical structural redundancies that may bias downstream analysis and merit prioritized attention.",
+      "evidence_ref_count": 10,
+      "open_question_count": 2
+    },
+    {
+      "hypothesis_id": "hyp_10_interplay_between_redundancy_and_class_conditioned_variation",
+      "summary": "Strong feature redundancies coexist with class-conditioned structural variations in packet length and size features, suggesting a complex interplay where some features may mask or amplify class-specific signals depending on their dependency structure.",
+      "reason": "Complex interplay between redundancies and class-conditioned variations may mask or amplify signals, offering high epistemic value for understanding dataset structure.",
+      "evidence_ref_count": 14,
+      "open_question_count": 2
+    }
+  ],
+  "deferred_hypotheses": [
+    {
+      "hypothesis_id": "hyp_1_low_diversity_backward_bulk",
+      "summary": "Backward bulk-related features exhibit near-constant values with unique value counts equal to 1 and very low cardinality ratios, suggesting a structural uniformity or saturation effect in backward bulk traffic representation.",
+      "evidence_ref_count": 6,
+      "open_question_count": 2
+    },
+    {
+      "hypothesis_id": "hyp_2_low_diversity_forward_bulk",
+      "summary": "Forward bulk-related features mirror the backward bulk features in showing extremely low cardinality and unique value counts of 1, indicating a possible symmetrical structural constraint or redundancy in bulk traffic features across directions.",
+      "evidence_ref_count": 4,
+      "open_question_count": 2
+    },
+    {
+      "hypothesis_id": "hyp_4_class_conditioned_variation_backward_packet_lengths",
+      "summary": "Backward packet length and segment size features display significant class-conditioned structural variation, with differing unique value counts and variance ratios between BENIGN and DDoS classes, suggesting these features capture meaningful class-dependent behavior.",
+      "evidence_ref_count": 4,
+      "open_question_count": 2
+    },
+    {
+      "hypothesis_id": "hyp_5_class_conditioned_variation_average_packet_size",
+      "summary": "Average Packet Size shows moderate class-conditioned structural variation with differing unique value counts and variance ratios between BENIGN and DDoS classes, indicating potential representation-sensitive behavior in packet size distribution.",
+      "evidence_ref_count": 1,
+      "open_question_count": 2
+    },
+    {
+      "hypothesis_id": "hyp_7_partition_level_data_quality_and_class_imbalance",
+      "summary": "The partition contains 729 duplicated rows and a class imbalance ratio of 1.577, indicating moderate class skew and potential data quality issues that may affect feature distribution stability and model generalization.",
+      "evidence_ref_count": 2,
+      "open_question_count": 2
+    },
+    {
+      "hypothesis_id": "hyp_8_low_cardinality_forward_psh_syn_flags_dependency",
+      "summary": "Forward PSH Flags and SYN Flag Count show perfect correlation and low cardinality, suggesting a dependency cluster that may represent a shortcut-like or unstable dependency pattern with limited variability.",
+      "evidence_ref_count": 1,
+      "open_question_count": 2
+    },
+    {
+      "hypothesis_id": "hyp_9_potential_structural_saturation_in_bulk_features",
+      "summary": "The near-constant values and extremely low cardinality in both forward and backward bulk-related features may reflect a saturation or ceiling effect in feature measurement or aggregation, limiting their discriminative capacity.",
+      "evidence_ref_count": 10,
+      "open_question_count": 2
+    }
+  ]
+}

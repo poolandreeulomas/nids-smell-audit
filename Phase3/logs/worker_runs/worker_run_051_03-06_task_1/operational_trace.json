@@ -1,0 +1,485 @@
+{
+  "task_id": "task_1",
+  "action_sequence": [
+    {
+      "step_index": 3,
+      "action_index": 1,
+      "action_class": "relation_verification",
+      "context_ref": "e15",
+      "feature_name": "Fwd PSH Flags",
+      "related_feature_name": "SYN Flag Count",
+      "call_id": "task_1_step_03",
+      "status": "ok"
+    },
+    {
+      "step_index": 5,
+      "action_index": 1,
+      "action_class": "relation_verification",
+      "context_ref": "e15",
+      "feature_name": "Fwd Header Length",
+      "related_feature_name": "Fwd Header Length.1",
+      "call_id": "task_1_step_05",
+      "status": "ok"
+    },
+    {
+      "step_index": 7,
+      "action_index": 1,
+      "action_class": "relation_verification",
+      "context_ref": "e15",
+      "feature_name": "Packet Length Mean",
+      "related_feature_name": "Average Packet Size",
+      "call_id": "task_1_step_07",
+      "status": "ok"
+    }
+  ],
+  "tool_events": [
+    {
+      "ok": true,
+      "execution_ok": true,
+      "call_id": "task_1_step_03",
+      "action": {
+        "action_class": "relation_verification",
+        "context_ref": "e15",
+        "feature_name": "Fwd PSH Flags",
+        "related_feature_name": "SYN Flag Count"
+      },
+      "tool_name": "feature_relation",
+      "request": {
+        "call_id": "task_1_step_03",
+        "tool_name": "feature_relation",
+        "target_scope": "feature_pair",
+        "input_refs": {
+          "feature_name": "Fwd PSH Flags",
+          "related_feature_name": "SYN Flag Count"
+        },
+        "preprocessing_profile_ref": "default",
+        "execution_constraints": {
+          "cache_policy": "reuse",
+          "validation_mode": "strict",
+          "save_raw_output": true
+        }
+      },
+      "request_validation": {
+        "ok": true,
+        "errors": [],
+        "warnings": []
+      },
+      "raw_tool_output": {
+        "ok": true,
+        "tool": "feature_relation",
+        "feature_name": "Fwd PSH Flags|SYN Flag Count",
+        "value": 1.0,
+        "error_code": null,
+        "error_message": null,
+        "meta": {
+          "dataset_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\data\\cic_ids_2017\\Friday-WorkingHours-Afternoon-DDos.pcap_ISCX.csv",
+          "label_column": "Label",
+          "feature_1": "Fwd PSH Flags",
+          "feature_2": "SYN Flag Count"
+        },
+        "evidence": {
+          "feature": "Fwd PSH Flags|SYN Flag Count",
+          "signals": [
+            "high_redundancy"
+          ],
+          "metrics": {
+            "correlation": 1.0
+          },
+          "support": {
+            "n_total": 225745,
+            "n_per_class": {
+              "DDoS": 128027,
+              "BENIGN": 97718
+            },
+            "total_samples": 225745,
+            "per_class": {
+              "DDoS": 128027,
+              "BENIGN": 97718
+            }
+          },
+          "provenance": {
+            "source": "tool",
+            "tool": "feature_relation",
+            "step": null
+          },
+          "status": "active"
+        }
+      },
+      "tool_result": {
+        "call_id": "task_1_step_03",
+        "tool_name": "feature_relation",
+        "status": "ok",
+        "observations": {
+          "feature_name": "Fwd PSH Flags|SYN Flag Count",
+          "value": 1.0,
+          "signals": [
+            "high_redundancy"
+          ],
+          "metrics": {
+            "correlation": 1.0
+          },
+          "support": {
+            "n_total": 225745,
+            "n_per_class": {
+              "DDoS": 128027,
+              "BENIGN": 97718
+            },
+            "total_samples": 225745,
+            "per_class": {
+              "DDoS": 128027,
+              "BENIGN": 97718
+            }
+          },
+          "provenance": {
+            "source": "tool",
+            "tool": "feature_relation",
+            "step": null
+          },
+          "feature": "Fwd PSH Flags|SYN Flag Count"
+        },
+        "evidence_refs": [
+          {
+            "artifact": "parsed_output",
+            "path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_257_03-06_feature_relation_feature_pair\\parsed_output.json"
+          },
+          {
+            "artifact": "raw_tool_output",
+            "path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_257_03-06_feature_relation_feature_pair\\raw_tool_output.json"
+          },
+          {
+            "artifact": "component_run",
+            "path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_257_03-06_feature_relation_feature_pair\\component_run.json"
+          }
+        ],
+        "limitations": []
+      },
+      "result_validation": {
+        "ok": true,
+        "errors": [],
+        "warnings": []
+      },
+      "cache_events": [
+        {
+          "cache_key": "feature_relation::corr_matrix",
+          "status": "miss"
+        }
+      ],
+      "artifact_paths": {
+        "component_run_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_257_03-06_feature_relation_feature_pair\\component_run.json",
+        "tool_call_request_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_257_03-06_feature_relation_feature_pair\\tool_call_request.json",
+        "tool_capability_record_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_257_03-06_feature_relation_feature_pair\\tool_capability_record.json",
+        "normalized_inputs_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_257_03-06_feature_relation_feature_pair\\normalized_inputs.json",
+        "raw_tool_output_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_257_03-06_feature_relation_feature_pair\\raw_tool_output.json",
+        "parsed_output_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_257_03-06_feature_relation_feature_pair\\parsed_output.json",
+        "validation_report_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_257_03-06_feature_relation_feature_pair\\validation_report.json",
+        "tool_metrics_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_257_03-06_feature_relation_feature_pair\\tool_metrics.json",
+        "cache_record_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_257_03-06_feature_relation_feature_pair\\cache_record.json"
+      },
+      "error_message": "",
+      "step_index": 3,
+      "action_index": 1
+    },
+    {
+      "ok": true,
+      "execution_ok": true,
+      "call_id": "task_1_step_05",
+      "action": {
+        "action_class": "relation_verification",
+        "context_ref": "e15",
+        "feature_name": "Fwd Header Length",
+        "related_feature_name": "Fwd Header Length.1"
+      },
+      "tool_name": "feature_relation",
+      "request": {
+        "call_id": "task_1_step_05",
+        "tool_name": "feature_relation",
+        "target_scope": "feature_pair",
+        "input_refs": {
+          "feature_name": "Fwd Header Length",
+          "related_feature_name": "Fwd Header Length.1"
+        },
+        "preprocessing_profile_ref": "default",
+        "execution_constraints": {
+          "cache_policy": "reuse",
+          "validation_mode": "strict",
+          "save_raw_output": true
+        }
+      },
+      "request_validation": {
+        "ok": true,
+        "errors": [],
+        "warnings": []
+      },
+      "raw_tool_output": {
+        "ok": true,
+        "tool": "feature_relation",
+        "feature_name": "Fwd Header Length|Fwd Header Length.1",
+        "value": 1.0,
+        "error_code": null,
+        "error_message": null,
+        "meta": {
+          "dataset_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\data\\cic_ids_2017\\Friday-WorkingHours-Afternoon-DDos.pcap_ISCX.csv",
+          "label_column": "Label",
+          "feature_1": "Fwd Header Length",
+          "feature_2": "Fwd Header Length.1"
+        },
+        "evidence": {
+          "feature": "Fwd Header Length|Fwd Header Length.1",
+          "signals": [
+            "high_redundancy"
+          ],
+          "metrics": {
+            "correlation": 1.0
+          },
+          "support": {
+            "n_total": 225745,
+            "n_per_class": {
+              "DDoS": 128027,
+              "BENIGN": 97718
+            },
+            "total_samples": 225745,
+            "per_class": {
+              "DDoS": 128027,
+              "BENIGN": 97718
+            }
+          },
+          "provenance": {
+            "source": "tool",
+            "tool": "feature_relation",
+            "step": null
+          },
+          "status": "active"
+        }
+      },
+      "tool_result": {
+        "call_id": "task_1_step_05",
+        "tool_name": "feature_relation",
+        "status": "ok",
+        "observations": {
+          "feature_name": "Fwd Header Length|Fwd Header Length.1",
+          "value": 1.0,
+          "signals": [
+            "high_redundancy"
+          ],
+          "metrics": {
+            "correlation": 1.0
+          },
+          "support": {
+            "n_total": 225745,
+            "n_per_class": {
+              "DDoS": 128027,
+              "BENIGN": 97718
+            },
+            "total_samples": 225745,
+            "per_class": {
+              "DDoS": 128027,
+              "BENIGN": 97718
+            }
+          },
+          "provenance": {
+            "source": "tool",
+            "tool": "feature_relation",
+            "step": null
+          },
+          "feature": "Fwd Header Length|Fwd Header Length.1"
+        },
+        "evidence_refs": [
+          {
+            "artifact": "parsed_output",
+            "path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_261_03-06_feature_relation_feature_pair\\parsed_output.json"
+          },
+          {
+            "artifact": "raw_tool_output",
+            "path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_261_03-06_feature_relation_feature_pair\\raw_tool_output.json"
+          },
+          {
+            "artifact": "component_run",
+            "path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_261_03-06_feature_relation_feature_pair\\component_run.json"
+          }
+        ],
+        "limitations": []
+      },
+      "result_validation": {
+        "ok": true,
+        "errors": [],
+        "warnings": []
+      },
+      "cache_events": [
+        {
+          "cache_key": "feature_relation::corr_matrix",
+          "status": "hit"
+        }
+      ],
+      "artifact_paths": {
+        "component_run_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_261_03-06_feature_relation_feature_pair\\component_run.json",
+        "tool_call_request_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_261_03-06_feature_relation_feature_pair\\tool_call_request.json",
+        "tool_capability_record_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_261_03-06_feature_relation_feature_pair\\tool_capability_record.json",
+        "normalized_inputs_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_261_03-06_feature_relation_feature_pair\\normalized_inputs.json",
+        "raw_tool_output_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_261_03-06_feature_relation_feature_pair\\raw_tool_output.json",
+        "parsed_output_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_261_03-06_feature_relation_feature_pair\\parsed_output.json",
+        "validation_report_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_261_03-06_feature_relation_feature_pair\\validation_report.json",
+        "tool_metrics_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_261_03-06_feature_relation_feature_pair\\tool_metrics.json",
+        "cache_record_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_261_03-06_feature_relation_feature_pair\\cache_record.json"
+      },
+      "error_message": "",
+      "step_index": 5,
+      "action_index": 1
+    },
+    {
+      "ok": true,
+      "execution_ok": true,
+      "call_id": "task_1_step_07",
+      "action": {
+        "action_class": "relation_verification",
+        "context_ref": "e15",
+        "feature_name": "Packet Length Mean",
+        "related_feature_name": "Average Packet Size"
+      },
+      "tool_name": "feature_relation",
+      "request": {
+        "call_id": "task_1_step_07",
+        "tool_name": "feature_relation",
+        "target_scope": "feature_pair",
+        "input_refs": {
+          "feature_name": "Packet Length Mean",
+          "related_feature_name": "Average Packet Size"
+        },
+        "preprocessing_profile_ref": "default",
+        "execution_constraints": {
+          "cache_policy": "reuse",
+          "validation_mode": "strict",
+          "save_raw_output": true
+        }
+      },
+      "request_validation": {
+        "ok": true,
+        "errors": [],
+        "warnings": []
+      },
+      "raw_tool_output": {
+        "ok": true,
+        "tool": "feature_relation",
+        "feature_name": "Average Packet Size|Packet Length Mean",
+        "value": 0.9993574671326869,
+        "error_code": null,
+        "error_message": null,
+        "meta": {
+          "dataset_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\data\\cic_ids_2017\\Friday-WorkingHours-Afternoon-DDos.pcap_ISCX.csv",
+          "label_column": "Label",
+          "feature_1": "Packet Length Mean",
+          "feature_2": "Average Packet Size"
+        },
+        "evidence": {
+          "feature": "Average Packet Size|Packet Length Mean",
+          "signals": [
+            "high_redundancy"
+          ],
+          "metrics": {
+            "correlation": 0.9993574671326869
+          },
+          "support": {
+            "n_total": 225745,
+            "n_per_class": {
+              "DDoS": 128027,
+              "BENIGN": 97718
+            },
+            "total_samples": 225745,
+            "per_class": {
+              "DDoS": 128027,
+              "BENIGN": 97718
+            }
+          },
+          "provenance": {
+            "source": "tool",
+            "tool": "feature_relation",
+            "step": null
+          },
+          "status": "active"
+        }
+      },
+      "tool_result": {
+        "call_id": "task_1_step_07",
+        "tool_name": "feature_relation",
+        "status": "ok",
+        "observations": {
+          "feature_name": "Average Packet Size|Packet Length Mean",
+          "value": 0.9993574671326869,
+          "signals": [
+            "high_redundancy"
+          ],
+          "metrics": {
+            "correlation": 0.9993574671326869
+          },
+          "support": {
+            "n_total": 225745,
+            "n_per_class": {
+              "DDoS": 128027,
+              "BENIGN": 97718
+            },
+            "total_samples": 225745,
+            "per_class": {
+              "DDoS": 128027,
+              "BENIGN": 97718
+            }
+          },
+          "provenance": {
+            "source": "tool",
+            "tool": "feature_relation",
+            "step": null
+          },
+          "feature": "Average Packet Size|Packet Length Mean"
+        },
+        "evidence_refs": [
+          {
+            "artifact": "parsed_output",
+            "path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_262_03-06_feature_relation_feature_pair\\parsed_output.json"
+          },
+          {
+            "artifact": "raw_tool_output",
+            "path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_262_03-06_feature_relation_feature_pair\\raw_tool_output.json"
+          },
+          {
+            "artifact": "component_run",
+            "path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_262_03-06_feature_relation_feature_pair\\component_run.json"
+          }
+        ],
+        "limitations": []
+      },
+      "result_validation": {
+        "ok": true,
+        "errors": [],
+        "warnings": []
+      },
+      "cache_events": [
+        {
+          "cache_key": "feature_relation::corr_matrix",
+          "status": "hit"
+        }
+      ],
+      "artifact_paths": {
+        "component_run_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_262_03-06_feature_relation_feature_pair\\component_run.json",
+        "tool_call_request_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_262_03-06_feature_relation_feature_pair\\tool_call_request.json",
+        "tool_capability_record_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_262_03-06_feature_relation_feature_pair\\tool_capability_record.json",
+        "normalized_inputs_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_262_03-06_feature_relation_feature_pair\\normalized_inputs.json",
+        "raw_tool_output_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_262_03-06_feature_relation_feature_pair\\raw_tool_output.json",
+        "parsed_output_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_262_03-06_feature_relation_feature_pair\\parsed_output.json",
+        "validation_report_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_262_03-06_feature_relation_feature_pair\\validation_report.json",
+        "tool_metrics_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_262_03-06_feature_relation_feature_pair\\tool_metrics.json",
+        "cache_record_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_262_03-06_feature_relation_feature_pair\\cache_record.json"
+      },
+      "error_message": "",
+      "step_index": 7,
+      "action_index": 1
+    }
+  ],
+  "retry_events": [],
+  "failure_events": [],
+  "budget_consumption": {
+    "max_steps": 8,
+    "max_retries": 1,
+    "steps_used": 8,
+    "retries_used": 0,
+    "termination_cause": "model_finish",
+    "result_committed": true
+  }
+}

@@ -1,0 +1,66 @@
+{
+  "batch_id": "phase3a_batch_0306143851_friday-workinghours-afternoon-ddos.pcap_iscx_ba9279",
+  "round_id": "round-001",
+  "planner_strategies": [
+    {
+      "strategy_id": "strategy_01_hyp_001",
+      "hypothesis_id": "hyp_001_low_diversity_constant_features",
+      "strategic_objective": "Clarify whether near-constant features represent stable network conditions or measurement artifacts and assess potential hidden variability at finer temporal scales.",
+      "key_checks": [
+        "Compare feature value stability across time slices within the capture period",
+        "Assess class-conditioned distribution shifts for near-constant features",
+        "Evaluate feature cardinality and detect subtle fluctuations below coarse aggregation",
+        "Check for correlation between near-constant features and known network events or measurement flags"
+      ],
+      "success_criteria": [
+        "Evidence distinguishes stable network behavior from measurement artifact patterns",
+        "Identification of any meaningful sub-temporal variability in low-diversity features",
+        "Clear characterization of the impact of these features on class differentiation potential"
+      ],
+      "router_constraints": [
+        "preserve feature_scope",
+        "preserve evidence refs"
+      ]
+    },
+    {
+      "strategy_id": "strategy_02_hyp_002",
+      "hypothesis_id": "hyp_002_strong_dependency_pairs_redundancy",
+      "strategic_objective": "Determine the consistency and class-specificity of strong feature dependencies and evaluate their influence on dataset redundancy and interpretability.",
+      "key_checks": [
+        "Measure dependency strength separately within BENIGN and DDoS classes",
+        "Analyze whether dependency patterns shift or weaken across classes",
+        "Examine potential redundancy impact by simulating feature removal or combination",
+        "Assess if dependency clusters align with known feature semantics or measurement processes"
+      ],
+      "success_criteria": [
+        "Clear evidence on whether dependencies are class-invariant or class-specific",
+        "Identification of dependency-driven redundancy affecting feature importance",
+        "Insights on whether dependency-based feature reduction could preserve or degrade dataset integrity"
+      ],
+      "router_constraints": [
+        "preserve feature_scope",
+        "preserve evidence refs"
+      ]
+    },
+    {
+      "strategy_id": "strategy_03_hyp_003",
+      "hypothesis_id": "hyp_003_class_conditioned_structural_variation",
+      "strategic_objective": "Quantify the stability and origin of class-conditioned structural variations to distinguish true behavioral differences from sampling or measurement biases.",
+      "key_checks": [
+        "Compare variance ratios and unique value counts across multiple time windows",
+        "Test for consistency of class-conditioned distribution differences under varying network conditions",
+        "Evaluate potential sampling biases by cross-referencing with capture metadata",
+        "Assess whether structural variations align with known DDoS behavioral signatures"
+      ],
+      "success_criteria": [
+        "Robust confirmation that structural variations reflect genuine class-distinguishing behavior",
+        "Detection or exclusion of sampling or measurement bias as primary variation source",
+        "Demonstrated stability of these variations across temporal and network condition subsets"
+      ],
+      "router_constraints": [
+        "preserve feature_scope",
+        "preserve evidence refs"
+      ]
+    }
+  ]
+}

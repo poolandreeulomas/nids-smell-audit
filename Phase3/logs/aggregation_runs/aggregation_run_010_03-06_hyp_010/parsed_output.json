@@ -1,0 +1,31 @@
+{
+  "batch_id": "phase3a_batch_0306173106_friday-workinghours-afternoon-ddos.pcap_iscx_98251a",
+  "round_id": "round-001",
+  "hypothesis_id": "hyp_010",
+  "merged_findings": [
+    "Backward and forward bulk-related features consistently exhibit extremely low cardinality, near-constant values, and low entropy, indicating minimal variability and stable dominant value signals within the local context.",
+    "Dataset-level duplicated rows and moderate class imbalance are confirmed and may influence feature distributions, structural patterns, and dependency signals.",
+    "Dependency concentration and pairwise dependency relations among bulk-related features remain undefined or inconclusive due to near-constant values and insufficient finite dependency signals.",
+    "The low-variability cluster of bulk and flag features is stable under the sampled local conditions without contradictory or instability evidence."
+  ],
+  "evidence_refs": [
+    "task_1_step_03",
+    "task_1_step_05",
+    "task_1_step_07",
+    "task_2_step_03",
+    "task_2_step_05",
+    "task_2_step_07",
+    "task_3_step_03",
+    "task_3_step_05",
+    "task_3_step_07",
+    "task_4_step_03",
+    "task_4_step_05",
+    "task_4_step_07"
+  ],
+  "preserved_contradictions": [],
+  "open_gaps": [
+    "Dependency contextualization and concentration remain unresolved due to lack of finite pairwise dependencies and undefined correlations.",
+    "Variability and stability of feature clusters under sampling conditions beyond the locally observed scope remain unverified."
+  ],
+  "update_focus": "Consolidate low variability and stability findings of bulk-related features while acknowledging unresolved dependency and sampling scope limitations."
+}

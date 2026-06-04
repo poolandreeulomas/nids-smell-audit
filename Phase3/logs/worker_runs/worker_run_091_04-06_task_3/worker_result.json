@@ -1,0 +1,21 @@
+{
+  "task_id": "task_3",
+  "hypothesis_id": "hyp_8_low_cardinality_features_as_potential_shortcut_signals",
+  "status": "inconclusive",
+  "findings": [
+    "Features e23 to e32 exhibit extremely low cardinality with near-constant values, preventing meaningful dependency concentration analysis.",
+    "Dependency contextualization attempts failed due to absence of finite pairwise dependencies, confirming lack of tight clustering with class labels.",
+    "Correlation between closely related low cardinality features is undefined, preserving local tension between low cardinality and class variation."
+  ],
+  "evidence_refs": [
+    "task_3_step_03",
+    "task_3_step_05",
+    "task_3_step_07"
+  ],
+  "contradictions": [
+    "Tension between near-constant low cardinality features and other features showing class-conditioned structural variation remains unresolved."
+  ],
+  "limitations": [
+    "Dependency concentration analysis is limited by the near-constant values and undefined correlations in the local feature set."
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "batch_id": "runtime-batch-002",
+  "round_id": "round-001",
+  "selected_hypothesis_count": 2,
+  "source_hypothesis_count": 2,
+  "model_name": "gpt-4.1-mini",
+  "temperature": 0.0,
+  "duration_ms": 9247.901,
+  "status": "ok",
+  "fresh_execution": true,
+  "replay_of": null,
+  "caller_mode": "phase3a_runtime",
+  "schema_version": "phase3a.inter_hypothesis_aggregation.v1",
+  "source_aggregation_count": 2,
+  "source_record_count": 2,
+  "preserved_finding_count": 2,
+  "preserved_contradiction_count": 0,
+  "preserved_open_gap_count": 2,
+  "preserved_limitation_count": 0,
+  "preserved_evidence_ref_count": 2
+}

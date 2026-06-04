@@ -1,0 +1,16 @@
+{
+  "task_id": "task_1",
+  "hypothesis_id": "hyp_005_class_conditioned_variation_backward_packet_lengths",
+  "status": "completed",
+  "findings": [
+    "Backward packet length features (Max, Mean, Std) exhibit stable class-conditioned structural variation with high class separation across examined time windows and network conditions.",
+    "No significant drift or instability detected in backward packet length variation distributions locally."
+  ],
+  "evidence_refs": [
+    "task_1_step_03",
+    "task_1_step_05",
+    "task_1_step_07"
+  ],
+  "contradictions": [],
+  "limitations": []
+}

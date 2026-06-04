@@ -1,0 +1,29 @@
+{
+  "task_id": "task_4",
+  "hypothesis_id": "hyp_10_interplay_between_redundancy_and_class_conditioned_variation",
+  "task_scope": "Assess impact of redundancy disentanglement on interpretability and detection of class patterns in packet length and size features",
+  "allowed_actions": [
+    "structural_summary",
+    "relation_verification"
+  ],
+  "local_context_refs": [
+    "e9",
+    "e10",
+    "e11",
+    "e12",
+    "e13",
+    "e14",
+    "e15",
+    "e16",
+    "e17",
+    "e18",
+    "e19",
+    "e20",
+    "e21",
+    "e22"
+  ],
+  "stop_conditions": [
+    "interpretability changes measured",
+    "class pattern detection impact evaluated"
+  ]
+}

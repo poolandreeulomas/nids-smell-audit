@@ -1,0 +1,17 @@
+{
+  "task_id": "task_1",
+  "hypothesis_id": "hyp_002_strong_dependency_pairs_redundancy",
+  "task_scope": "Measure dependency strength of identified feature pairs separately within BENIGN and DDoS classes to detect class-specific dependency patterns.",
+  "allowed_actions": [
+    "relation_verification"
+  ],
+  "local_context_refs": [
+    "e13",
+    "e14",
+    "e15"
+  ],
+  "stop_conditions": [
+    "dependency strength metrics computed for all target pairs in both classes",
+    "no missing class-specific dependency data"
+  ]
+}

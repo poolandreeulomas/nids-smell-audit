@@ -1,0 +1,20 @@
+{
+  "strategy_id": "strategy_02_hyp_3_strong_dependency_pairs",
+  "hypothesis_id": "hyp_3_strong_dependency_pairs",
+  "strategic_objective": "Delineate the origins and impacts of near-perfect linear correlations among key feature pairs",
+  "key_checks": [
+    "quantify dependency concentration and linear correlation strength for identified feature pairs",
+    "examine protocol and flow-level semantics that may explain dependencies",
+    "explore potential data processing or feature engineering steps contributing to redundancy",
+    "evaluate how these dependencies influence feature selection stability and model sensitivity"
+  ],
+  "success_criteria": [
+    "clear mapping of dependency sources to protocol or processing factors",
+    "recognition of redundancy patterns that could bias or destabilize downstream analysis",
+    "balanced understanding of dependency effects enabling informed feature scope decisions"
+  ],
+  "router_constraints": [
+    "preserve feature pairs involved in strong dependencies",
+    "preserve evidence references e13 to e22"
+  ]
+}

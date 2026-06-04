@@ -1,0 +1,62 @@
+{
+  "selected_hypotheses": [
+    {
+      "hypothesis_id": "hyp_6_class_distribution_difference_destination_port",
+      "summary": "Destination Port feature exhibits strong distributional differences between BENIGN and DDoS classes, with a dominant ratio of 1.0 and zero entropy in DDoS, alongside a high Jensen-Shannon divergence of 0.7315, indicating a highly representation-sensitive and potentially shortcut-like feature.",
+      "evidence_refs": [
+        "e33"
+      ],
+      "open_questions": [
+        "Is the zero entropy and dominant ratio in DDoS destination ports indicative of a single targeted port or a data collection artifact?",
+        "Could this strong class-conditioned distribution skew lead to overfitting or unstable model behavior?"
+      ],
+      "current_status": "unresolved"
+    },
+    {
+      "hypothesis_id": "hyp_3_strong_feature_redundancy_pairs",
+      "summary": "Multiple feature pairs show perfect or near-perfect correlation (correlation=1 or ~0.9993), indicating strong redundancy and deterministic relationships that may reduce effective feature dimensionality and introduce unstable dependencies.",
+      "evidence_refs": [
+        "e13",
+        "e14",
+        "e15",
+        "e16",
+        "e17",
+        "e18",
+        "e19",
+        "e20",
+        "e21",
+        "e22"
+      ],
+      "open_questions": [
+        "Are these perfect correlations inherent to the network traffic or induced by preprocessing steps such as feature engineering or aggregation?",
+        "Could these redundancies lead to shortcut-like signals that bias downstream analysis or model training?"
+      ],
+      "current_status": "unresolved"
+    },
+    {
+      "hypothesis_id": "hyp_10_interplay_between_redundancy_and_class_conditioned_variation",
+      "summary": "Strong feature redundancies coexist with class-conditioned structural variations in packet length and size features, suggesting a complex interplay where some features may mask or amplify class-specific signals depending on their dependency structure.",
+      "evidence_refs": [
+        "e9",
+        "e10",
+        "e11",
+        "e12",
+        "e13",
+        "e14",
+        "e15",
+        "e16",
+        "e17",
+        "e18",
+        "e19",
+        "e20",
+        "e21",
+        "e22"
+      ],
+      "open_questions": [
+        "How do these redundancies affect the interpretability and stability of class-conditioned variations?",
+        "Can disentangling these dependencies improve the detection of meaningful class-specific patterns?"
+      ],
+      "current_status": "unresolved"
+    }
+  ]
+}

@@ -1,0 +1,58 @@
+{
+  "ok": true,
+  "schema_version": "phase3a.aggregation.v1",
+  "worker_result_set_validation": {
+    "ok": true,
+    "severity": "FATAL",
+    "repairable": false,
+    "repaired": false,
+    "errors": [],
+    "warnings": [],
+    "stats": {
+      "worker_result_count": 3,
+      "evidence_ref_count": 9,
+      "contradiction_count": 0,
+      "limitation_count": 3,
+      "non_success_count": 0
+    }
+  },
+  "parse_validation": {
+    "ok": true,
+    "errors": [],
+    "warnings": []
+  },
+  "aggregation_handoff_validation": {
+    "ok": true,
+    "severity": "WARNING",
+    "repairable": false,
+    "repaired": false,
+    "errors": [],
+    "warnings": [],
+    "repair_attempts": [],
+    "stats": {
+      "merged_finding_count": 5,
+      "evidence_ref_count": 9,
+      "preserved_contradiction_count": 0,
+      "open_gap_count": 3
+    },
+    "forbidden_language_hits": []
+  },
+  "initial_aggregation_handoff_validation": {
+    "ok": true,
+    "severity": "WARNING",
+    "repairable": false,
+    "repaired": false,
+    "errors": [],
+    "warnings": [],
+    "repair_attempts": [],
+    "stats": {
+      "merged_finding_count": 5,
+      "evidence_ref_count": 9,
+      "preserved_contradiction_count": 0,
+      "open_gap_count": 3
+    },
+    "forbidden_language_hits": []
+  },
+  "repair_attempts": [],
+  "authoritative": true
+}

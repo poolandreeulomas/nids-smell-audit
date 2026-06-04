@@ -1,0 +1,34 @@
+{
+  "ok": false,
+  "schema_version": "phase3a.semantic_extraction.v1",
+  "overview_validation": {
+    "ok": true,
+    "errors": [],
+    "warnings": []
+  },
+  "partition_context_validation": {
+    "ok": true,
+    "errors": [],
+    "warnings": []
+  },
+  "parse_validation": {
+    "ok": false,
+    "errors": [
+      {
+        "field": "runtime",
+        "message": "The api_key client option must be set either by passing api_key to the client or by setting the OPENAI_API_KEY environment variable"
+      }
+    ],
+    "warnings": []
+  },
+  "output_validation": {
+    "ok": false,
+    "errors": [
+      {
+        "field": "parsed_output",
+        "message": "Parsed semantic substrate was not produced."
+      }
+    ],
+    "warnings": []
+  }
+}

@@ -1,0 +1,66 @@
+{
+  "batch_id": "phase3a_batch_2005190739_friday-workinghours-afternoon-ddos.pcap_iscx_dea76f",
+  "round_id": "round-001",
+  "planner_strategies": [
+    {
+      "strategy_id": "strategy_01_hyp_01",
+      "hypothesis_id": "hyp_01_low_diversity_bulk_features",
+      "strategic_objective": "Clarify the nature and implications of near-constant bulk features with low unique value counts",
+      "key_checks": [
+        "examine feature cardinality and near-constant value patterns across classes",
+        "assess class-conditioned distribution profiles for subtle variations",
+        "analyze dependency concentration to detect structural clustering",
+        "evaluate local label consistency around these features"
+      ],
+      "success_criteria": [
+        "identification of stable versus unstable low-diversity patterns",
+        "differentiation between genuine network behavior signals and representation biases",
+        "detection of any masked but relevant class-distinguishing variations"
+      ],
+      "router_constraints": [
+        "preserve feature scope for bulk-related backward and forward features",
+        "preserve evidence references e23 to e32"
+      ]
+    },
+    {
+      "strategy_id": "strategy_02_hyp_05",
+      "hypothesis_id": "hyp_05_destination_port_distribution_divergence",
+      "strategic_objective": "Investigate the stability and generalizability of the dominant destination port signal in the DDoS class",
+      "key_checks": [
+        "analyze class-conditioned distribution concentration on destination port",
+        "assess shortcut-like predictive leverage of the dominant port",
+        "evaluate dependency concentration to identify structural narrowness",
+        "explore potential brittleness due to reliance on a single port"
+      ],
+      "success_criteria": [
+        "characterization of the dominant port\u2019s stability across data partitions",
+        "evidence of potential shortcut signals or brittle dependencies",
+        "understanding of risks for evasion or poor generalization"
+      ],
+      "router_constraints": [
+        "preserve feature scope for destination port",
+        "preserve evidence reference e33"
+      ]
+    },
+    {
+      "strategy_id": "strategy_03_hyp_06",
+      "hypothesis_id": "hyp_06_top_ranked_packet_length_features_redundancy_and_stability",
+      "strategic_objective": "Elucidate the robustness and redundancy of high-salience packet length features under class-conditioned variance",
+      "key_checks": [
+        "summarize structural statistics of key packet length features",
+        "analyze distribution profiles conditioned on class labels",
+        "evaluate redundancy and dependency concentration among these features",
+        "assess shortcut-like signals and local label consistency"
+      ],
+      "success_criteria": [
+        "delineation of stable versus unstable dependencies in packet length features",
+        "identification of shortcut-like patterns affecting reliability",
+        "clarity on how redundancies influence feature robustness"
+      ],
+      "router_constraints": [
+        "preserve feature scope for Bwd Packet Length Mean, Avg Bwd Segment Size, Bwd Packet Length Max, Bwd Packet Length Std, Average Packet Size",
+        "preserve evidence references e3 to e7"
+      ]
+    }
+  ]
+}

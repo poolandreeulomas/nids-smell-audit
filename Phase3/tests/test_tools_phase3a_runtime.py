@@ -15,8 +15,14 @@ def _build_synthetic_df():
             "summary_feature": [1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100],
             "distribution_feature": [0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 5, 5, 5, 5, 5, 6, 6, 6, 6, 6],
             "cardinality_feature": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+            "shortcut_feature": [0] * 10 + [1] * 10,
+            "neighborhood_feature": [0, 0, 1, 1, 2, 2, 3, 3, 4, 4, 0, 0, 1, 1, 2, 2, 3, 3, 4, 4],
             "rel_a": list(range(1, 21)),
             "rel_b": [value * 2 for value in range(1, 21)],
+            "dep_anchor": [12, 1, 18, 4, 9, 7, 15, 3, 20, 6, 11, 2, 17, 5, 8, 14, 10, 13, 16, 19],
+            "dep_partner": [25, 3, 37, 9, 19, 15, 31, 7, 41, 13, 23, 5, 35, 11, 17, 29, 21, 27, 33, 39],
+            "rel_noise_1": [0, 3, 1, 4, 1, 5, 9, 2, 6, 5, 3, 5, 8, 9, 7, 9, 3, 2, 3, 8],
+            "rel_noise_2": [8, 6, 7, 5, 3, 0, 9, 9, 7, 9, 3, 2, 3, 8, 4, 6, 2, 6, 4, 3],
             "Label": ["BENIGN"] * 10 + ["ATTACK"] * 10,
         }
     )
@@ -25,8 +31,14 @@ def _build_synthetic_df():
         "summary_feature",
         "distribution_feature",
         "cardinality_feature",
+        "shortcut_feature",
+        "neighborhood_feature",
         "rel_a",
         "rel_b",
+        "dep_anchor",
+        "dep_partner",
+        "rel_noise_1",
+        "rel_noise_2",
     ]
     return df, valid_numeric_features
 
@@ -39,10 +51,53 @@ def test_capability_inventory_exposes_phase3a_contract_metadata():
         "distribution_analysis",
         "cardinality_analysis",
         "feature_relation",
+        "shortcut_analysis",
+        "neighborhood_consistency_analysis",
+        "dependency_concentration_analysis",
         "duplication_analysis",
     }
     assert get_tool_capability_record("feature_relation") == records["feature_relation"]
     assert records["duplication_analysis"]["supported_scopes"] == ["dataset"]
+
+
+def test_execute_tool_call_supports_new_phase3a_verification_tools(tmp_path: Path):
+    df, valid_numeric_features = _build_synthetic_df()
+
+    shortcut_bundle = execute_tool_call(
+        build_tool_call_request(
+            call_id="tool-call-005",
+            tool_name="shortcut_analysis",
+            target_scope="feature",
+            input_refs={"feature_name": "shortcut_feature"},
+            preprocessing_profile_ref="default",
+            execution_constraints={"cache_policy": "reuse", "validation_mode": "strict"},
+        ),
+        dataset_path="synthetic.csv",
+        config=get_default_dataset_config(),
+        dataset_frame=df,
+        valid_numeric_features=valid_numeric_features,
+        log_dir=tmp_path,
+    )
+    dependency_bundle = execute_tool_call(
+        build_tool_call_request(
+            call_id="tool-call-006",
+            tool_name="dependency_concentration_analysis",
+            target_scope="feature",
+            input_refs={"feature_name": "dep_anchor"},
+            preprocessing_profile_ref="default",
+            execution_constraints={"cache_policy": "reuse", "validation_mode": "strict"},
+        ),
+        dataset_path="synthetic.csv",
+        config=get_default_dataset_config(),
+        dataset_frame=df,
+        valid_numeric_features=valid_numeric_features,
+        log_dir=tmp_path,
+    )
+
+    assert shortcut_bundle["tool_result"]["status"] == "ok"
+    assert "strong_shortcut_signal" in shortcut_bundle["tool_result"]["observations"]["signals"]
+    assert dependency_bundle["tool_result"]["status"] == "ok"
+    assert dependency_bundle["tool_result"]["observations"]["metrics"]["top_partner"] == "dep_partner"
 
 
 def test_execute_tool_call_returns_phase3a_result_and_artifacts(tmp_path: Path):

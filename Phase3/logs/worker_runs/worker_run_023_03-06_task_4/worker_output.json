@@ -1,0 +1,25 @@
+{
+  "batch_id": "phase3a_batch_0306154538_friday-workinghours-afternoon-ddos.pcap_iscx_2a1de9",
+  "round_id": "round-001",
+  "worker_result": {
+    "task_id": "task_4",
+    "hypothesis_id": "hyp_4_distributional_divergence_destination_port",
+    "status": "completed",
+    "findings": [
+      "Destination Port feature exhibits strong distributional divergence between BENIGN and DDoS classes, with DDoS class showing zero entropy and dominant ratio of 1.0.",
+      "Local consistency verification revealed high label neighborhood conflicts and duplicate label conflicts, indicating unstable local label topology around Destination Port.",
+      "Dependency contextualization found no narrow structural dependency clusters for Destination Port, suggesting diffuse dependency profile.",
+      "Perturbation impact on classification sensitivity is stable and fully assessed within local evidence bounds."
+    ],
+    "evidence_refs": [
+      "task_4_step_03",
+      "task_4_step_05"
+    ],
+    "contradictions": [
+      "local contradiction preserved"
+    ],
+    "limitations": [
+      "Analysis limited to local evidence within e33; global dependency or aggregation effects not assessed."
+    ]
+  }
+}

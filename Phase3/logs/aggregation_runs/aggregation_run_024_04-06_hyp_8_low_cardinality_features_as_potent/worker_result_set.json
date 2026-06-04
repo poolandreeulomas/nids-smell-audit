@@ -1,0 +1,93 @@
+{
+  "batch_id": "phase3a_batch_0406073857_friday-workinghours-afternoon-ddos.pcap_iscx_ee0ef0",
+  "round_id": "round-001",
+  "hypothesis_id": "hyp_8_low_cardinality_features_as_potential_shortcut_signals",
+  "worker_results": [
+    {
+      "task_id": "task_1",
+      "hypothesis_id": "hyp_8_low_cardinality_features_as_potential_shortcut_signals",
+      "status": "completed",
+      "findings": [
+        "Multiple backward and forward bulk and flag features exhibit extremely low cardinality with near-constant values across the partition, confirming low cardinality as a potential shortcut signal.",
+        "Cardinality verification for Bwd PSH Flags and Fwd URG Flags confirmed low cardinality and near-constant behavior.",
+        "Local tension between low cardinality features and other features with strong class-conditioned variation is preserved."
+      ],
+      "evidence_refs": [
+        "task_1_step_03",
+        "task_1_step_05",
+        "task_1_step_07"
+      ],
+      "contradictions": [
+        "tension_1_low_cardinality_vs_class_variation"
+      ],
+      "limitations": [
+        "Distribution verification was not performed due to budget exhaustion, limiting full stability assessment of value distributions across partitions."
+      ]
+    },
+    {
+      "task_id": "task_2",
+      "hypothesis_id": "hyp_8_low_cardinality_features_as_potential_shortcut_signals",
+      "status": "completed",
+      "findings": [
+        "Features e23 to e32 show near-constant values with extremely low cardinality across the partition.",
+        "Distribution verification confirms low entropy and dominant values for sampled features (e23, e26).",
+        "Local consistency verification on e23 reveals label neighborhood conflicts despite low feature variability, indicating subtle deviations.",
+        "Tension between near-constant feature values and class-conditioned label variation is preserved but not fully resolved."
+      ],
+      "evidence_refs": [
+        "task_2_step_03",
+        "task_2_step_05",
+        "task_2_step_07"
+      ],
+      "contradictions": [
+        "High label neighborhood conflict in e23 despite near-constant feature values."
+      ],
+      "limitations": [
+        "Analysis limited to partition-global scope without localized subpartition evidence.",
+        "Only a subset of features (e23, e26) underwent distribution and consistency verification due to step budget."
+      ]
+    },
+    {
+      "task_id": "task_3",
+      "hypothesis_id": "hyp_8_low_cardinality_features_as_potential_shortcut_signals",
+      "status": "inconclusive",
+      "findings": [
+        "Features e23 to e32 exhibit extremely low cardinality with near-constant values, preventing meaningful dependency concentration analysis.",
+        "Dependency contextualization attempts failed due to absence of finite pairwise dependencies, confirming lack of tight clustering with class labels.",
+        "Correlation between closely related low cardinality features is undefined, preserving local tension between low cardinality and class variation."
+      ],
+      "evidence_refs": [
+        "task_3_step_03",
+        "task_3_step_05",
+        "task_3_step_07"
+      ],
+      "contradictions": [
+        "Tension between near-constant low cardinality features and other features showing class-conditioned structural variation remains unresolved."
+      ],
+      "limitations": [
+        "Dependency concentration analysis is limited by the near-constant values and undefined correlations in the local feature set."
+      ]
+    },
+    {
+      "task_id": "task_4",
+      "hypothesis_id": "hyp_8_low_cardinality_features_as_potential_shortcut_signals",
+      "status": "completed",
+      "findings": [
+        "Features e23, e24, and e25 exhibit weak shortcut-like predictive leverage consistent with their near-constant low cardinality values.",
+        "Low cardinality features across e23 to e32 show limited predictive signal individually, preserving unresolved tension with class-conditioned structural variation.",
+        "No strong shortcut signals were detected in the tested features, indicating limited shortcut risk from these low cardinality features."
+      ],
+      "evidence_refs": [
+        "task_4_step_03",
+        "task_4_step_05",
+        "task_4_step_07"
+      ],
+      "contradictions": [
+        "Tension between near-constant low cardinality features and other features with strong class-conditioned variation remains unresolved locally."
+      ],
+      "limitations": [
+        "Only a subset of features (e23, e24, e25) were tested individually due to budget constraints; combined feature shortcut leverage was not tested."
+      ]
+    }
+  ]
+}

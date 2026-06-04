@@ -1,0 +1,35 @@
+{
+  "selected_count": 3,
+  "strategy_count": 3,
+  "missing_strategy_hypothesis_ids": [],
+  "unexpected_strategy_hypothesis_ids": [],
+  "strategies": [
+    {
+      "strategy_id": "strategy_01_hyp_01",
+      "hypothesis_id": "hyp_01_low_diversity_bulk_features",
+      "summary": "The near-constant values and extremely low unique value counts in multiple bulk-related backward and forward features may indicate a structural artifact or a representation bias rather than meaningful variation across the partition.",
+      "strategic_objective": "Clarify the nature and impact of near-constant bulk features on class distinction and dataset structure",
+      "key_check_count": 4,
+      "success_criteria_count": 4,
+      "router_constraint_count": 2
+    },
+    {
+      "strategy_id": "strategy_02_hyp_05",
+      "hypothesis_id": "hyp_05_destination_port_distribution_divergence",
+      "summary": "The Destination Port feature exhibits strong distributional divergence between BENIGN and DDoS classes, with the DDoS class dominated by a single port and zero entropy, suggesting a localized representation-sensitive signal that may not generalize.",
+      "strategic_objective": "Bound the stability and generalizability of the dominant destination port signal in the DDoS class",
+      "key_check_count": 4,
+      "success_criteria_count": 3,
+      "router_constraint_count": 2
+    },
+    {
+      "strategy_id": "strategy_03_hyp_06",
+      "hypothesis_id": "hyp_06_top_ranked_packet_length_features_redundancy_and_stability",
+      "summary": "Top-ranked features such as Bwd Packet Length Mean, Avg Bwd Segment Size, Bwd Packet Length Max, Bwd Packet Length Std, and Average Packet Size show high importance despite structural complexities and redundancies, indicating potential unstable dependencies or shortcut-like signals.",
+      "strategic_objective": "Characterize redundancy, class-conditioned variance, and shortcut-like signals in top-ranked packet length features",
+      "key_check_count": 4,
+      "success_criteria_count": 3,
+      "router_constraint_count": 2
+    }
+  ]
+}

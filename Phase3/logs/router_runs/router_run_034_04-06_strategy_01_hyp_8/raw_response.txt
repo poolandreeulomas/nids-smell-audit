@@ -1,0 +1,40 @@
+{
+  "batch_id": "phase3a_batch_0406073857_friday-workinghours-afternoon-ddos.pcap_iscx_ee0ef0",
+  "round_id": "round-001",
+  "hypothesis_id": "hyp_8_low_cardinality_features_as_potential_shortcut_signals",
+  "planner_strategy_id": "strategy_01_hyp_8",
+  "worker_tasks": [
+    {
+      "task_id": "task_1",
+      "hypothesis_id": "hyp_8_low_cardinality_features_as_potential_shortcut_signals",
+      "task_scope": "Measure cardinality and value distribution stability of features e23 to e32 across multiple data partitions",
+      "allowed_actions": ["cardinality_verification", "distribution_verification"],
+      "local_context_refs": ["e23", "e24", "e25", "e26", "e27", "e28", "e29", "e30", "e31", "e32"],
+      "stop_conditions": ["cardinality metrics computed for all partitions", "value distributions stable across partitions"]
+    },
+    {
+      "task_id": "task_2",
+      "hypothesis_id": "hyp_8_low_cardinality_features_as_potential_shortcut_signals",
+      "task_scope": "Evaluate class-conditioned variability and detect subtle deviations within near-constant features e23 to e32",
+      "allowed_actions": ["distribution_verification", "local_consistency_verification"],
+      "local_context_refs": ["e23", "e24", "e25", "e26", "e27", "e28", "e29", "e30", "e31", "e32"],
+      "stop_conditions": ["class-conditioned variability quantified", "subtle deviations identified or ruled out"]
+    },
+    {
+      "task_id": "task_3",
+      "hypothesis_id": "hyp_8_low_cardinality_features_as_potential_shortcut_signals",
+      "task_scope": "Compare dependency concentration profiles of features e23 to e32 to detect tight clustering with class labels",
+      "allowed_actions": ["dependency_contextualization", "relation_verification"],
+      "local_context_refs": ["e23", "e24", "e25", "e26", "e27", "e28", "e29", "e30", "e31", "e32"],
+      "stop_conditions": ["dependency concentration profiles generated", "tight clustering with class labels confirmed or refuted"]
+    },
+    {
+      "task_id": "task_4",
+      "hypothesis_id": "hyp_8_low_cardinality_features_as_potential_shortcut_signals",
+      "task_scope": "Test shortcut-like predictive leverage of features e23 to e32 individually and in combination",
+      "allowed_actions": ["shortcut_verification"],
+      "local_context_refs": ["e23", "e24", "e25", "e26", "e27", "e28", "e29", "e30", "e31", "e32"],
+      "stop_conditions": ["shortcut signal strength assessed for each feature and combinations", "predictive leverage characterized"]
+    }
+  ]
+}

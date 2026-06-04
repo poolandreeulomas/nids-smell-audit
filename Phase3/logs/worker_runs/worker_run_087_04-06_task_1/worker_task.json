@@ -1,0 +1,20 @@
+{
+  "task_id": "task_1",
+  "hypothesis_id": "hyp_3_class_conditioned_structural_variation_in_packet_length_features",
+  "task_scope": "Analyze distributional differences and variance ratios of packet length features e8-e12 conditioned on class labels to identify structural variation patterns.",
+  "allowed_actions": [
+    "distribution_verification",
+    "structural_summary"
+  ],
+  "local_context_refs": [
+    "e8",
+    "e9",
+    "e10",
+    "e11",
+    "e12"
+  ],
+  "stop_conditions": [
+    "distribution metrics computed for all classes",
+    "variance ratios stabilized across features e8-e12"
+  ]
+}

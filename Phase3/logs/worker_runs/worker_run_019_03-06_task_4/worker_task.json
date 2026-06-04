@@ -1,0 +1,25 @@
+{
+  "task_id": "task_4",
+  "hypothesis_id": "hyp_2_strong_linear_dependencies",
+  "task_scope": "Evaluate impact of strong linear dependencies on effective feature dimensionality and potential model bias by verifying redundancy and shortcut-like signals in involved features.",
+  "allowed_actions": [
+    "cardinality_verification",
+    "shortcut_verification"
+  ],
+  "local_context_refs": [
+    "e13",
+    "e14",
+    "e15",
+    "e16",
+    "e17",
+    "e18",
+    "e19",
+    "e20",
+    "e21",
+    "e22"
+  ],
+  "stop_conditions": [
+    "redundancy indicators identified",
+    "shortcut-like predictive leverage assessed"
+  ]
+}

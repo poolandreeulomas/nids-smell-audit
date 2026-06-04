@@ -1,0 +1,239 @@
+{
+  "hypothesis_count": 10,
+  "evidence_ref_coverage": [
+    "e1",
+    "e10",
+    "e11",
+    "e12",
+    "e13",
+    "e14",
+    "e15",
+    "e16",
+    "e17",
+    "e18",
+    "e19",
+    "e2",
+    "e20",
+    "e21",
+    "e22",
+    "e23",
+    "e24",
+    "e25",
+    "e26",
+    "e27",
+    "e28",
+    "e29",
+    "e3",
+    "e30",
+    "e31",
+    "e32",
+    "e33",
+    "e4",
+    "e5",
+    "e6",
+    "e7",
+    "e8",
+    "e9"
+  ],
+  "overlap_pairs": [
+    {
+      "left_hypothesis_id": "hyp_001_low_diversity_constant_features",
+      "right_hypothesis_id": "hyp_008_interplay_between_low_diversity_and_dependency_regions",
+      "shared_evidence_refs": [
+        "e23",
+        "e24"
+      ]
+    },
+    {
+      "left_hypothesis_id": "hyp_001_low_diversity_constant_features",
+      "right_hypothesis_id": "hyp_010_redundancy_and_stability_tradeoffs_in_partition",
+      "shared_evidence_refs": [
+        "e23",
+        "e24"
+      ]
+    },
+    {
+      "left_hypothesis_id": "hyp_002_strong_dependency_pairs_redundancy",
+      "right_hypothesis_id": "hyp_007_potential_localized_representation_sensitive_handles",
+      "shared_evidence_refs": [
+        "e13",
+        "e14"
+      ]
+    },
+    {
+      "left_hypothesis_id": "hyp_002_strong_dependency_pairs_redundancy",
+      "right_hypothesis_id": "hyp_008_interplay_between_low_diversity_and_dependency_regions",
+      "shared_evidence_refs": [
+        "e13",
+        "e14"
+      ]
+    },
+    {
+      "left_hypothesis_id": "hyp_002_strong_dependency_pairs_redundancy",
+      "right_hypothesis_id": "hyp_010_redundancy_and_stability_tradeoffs_in_partition",
+      "shared_evidence_refs": [
+        "e13",
+        "e14"
+      ]
+    },
+    {
+      "left_hypothesis_id": "hyp_003_class_conditioned_structural_variation",
+      "right_hypothesis_id": "hyp_007_potential_localized_representation_sensitive_handles",
+      "shared_evidence_refs": [
+        "e8",
+        "e9"
+      ]
+    },
+    {
+      "left_hypothesis_id": "hyp_004_class_distribution_and_feature_divergence",
+      "right_hypothesis_id": "hyp_009_effect_of_class_imbalance_on_feature_distributions",
+      "shared_evidence_refs": [
+        "e2",
+        "e33"
+      ]
+    },
+    {
+      "left_hypothesis_id": "hyp_005_partition_level_data_redundancy",
+      "right_hypothesis_id": "hyp_010_redundancy_and_stability_tradeoffs_in_partition",
+      "shared_evidence_refs": [
+        "e1"
+      ]
+    },
+    {
+      "left_hypothesis_id": "hyp_007_potential_localized_representation_sensitive_handles",
+      "right_hypothesis_id": "hyp_008_interplay_between_low_diversity_and_dependency_regions",
+      "shared_evidence_refs": [
+        "e13",
+        "e14"
+      ]
+    },
+    {
+      "left_hypothesis_id": "hyp_007_potential_localized_representation_sensitive_handles",
+      "right_hypothesis_id": "hyp_010_redundancy_and_stability_tradeoffs_in_partition",
+      "shared_evidence_refs": [
+        "e13",
+        "e14"
+      ]
+    },
+    {
+      "left_hypothesis_id": "hyp_008_interplay_between_low_diversity_and_dependency_regions",
+      "right_hypothesis_id": "hyp_010_redundancy_and_stability_tradeoffs_in_partition",
+      "shared_evidence_refs": [
+        "e13",
+        "e14",
+        "e23",
+        "e24"
+      ]
+    }
+  ],
+  "hypotheses": [
+    {
+      "hypothesis_id": "hyp_001_low_diversity_constant_features",
+      "evidence_refs": [
+        "e23",
+        "e24",
+        "e25",
+        "e26",
+        "e27",
+        "e28",
+        "e29",
+        "e30",
+        "e31",
+        "e32"
+      ],
+      "open_question_count": 2
+    },
+    {
+      "hypothesis_id": "hyp_002_strong_dependency_pairs_redundancy",
+      "evidence_refs": [
+        "e13",
+        "e14",
+        "e15",
+        "e16",
+        "e17",
+        "e18",
+        "e19",
+        "e20",
+        "e21",
+        "e22"
+      ],
+      "open_question_count": 2
+    },
+    {
+      "hypothesis_id": "hyp_003_class_conditioned_structural_variation",
+      "evidence_refs": [
+        "e10",
+        "e11",
+        "e12",
+        "e8",
+        "e9"
+      ],
+      "open_question_count": 2
+    },
+    {
+      "hypothesis_id": "hyp_004_class_distribution_and_feature_divergence",
+      "evidence_refs": [
+        "e2",
+        "e33"
+      ],
+      "open_question_count": 2
+    },
+    {
+      "hypothesis_id": "hyp_005_partition_level_data_redundancy",
+      "evidence_refs": [
+        "e1"
+      ],
+      "open_question_count": 2
+    },
+    {
+      "hypothesis_id": "hyp_006_packet_length_features_as_structural_anchors",
+      "evidence_refs": [
+        "e3",
+        "e4",
+        "e5",
+        "e6",
+        "e7"
+      ],
+      "open_question_count": 2
+    },
+    {
+      "hypothesis_id": "hyp_007_potential_localized_representation_sensitive_handles",
+      "evidence_refs": [
+        "e13",
+        "e14",
+        "e8",
+        "e9"
+      ],
+      "open_question_count": 2
+    },
+    {
+      "hypothesis_id": "hyp_008_interplay_between_low_diversity_and_dependency_regions",
+      "evidence_refs": [
+        "e13",
+        "e14",
+        "e23",
+        "e24"
+      ],
+      "open_question_count": 2
+    },
+    {
+      "hypothesis_id": "hyp_009_effect_of_class_imbalance_on_feature_distributions",
+      "evidence_refs": [
+        "e2",
+        "e33"
+      ],
+      "open_question_count": 2
+    },
+    {
+      "hypothesis_id": "hyp_010_redundancy_and_stability_tradeoffs_in_partition",
+      "evidence_refs": [
+        "e1",
+        "e13",
+        "e14",
+        "e23",
+        "e24"
+      ],
+      "open_question_count": 2
+    }
+  ]
+}

@@ -1,0 +1,32 @@
+{
+  "hypothesis_id": "hyp_1_low_diversity_bulk_features",
+  "planner_strategy_id": "strategy_03_hyp_1",
+  "task_count": 3,
+  "action_class_count": 6,
+  "task_summaries": [
+    {
+      "task_id": "task_1",
+      "hypothesis_id": "hyp_1_low_diversity_bulk_features",
+      "task_scope": "Analyze cardinality and value distribution of bulk traffic features across classes and time to detect low diversity or near-constant patterns.",
+      "allowed_action_count": 2,
+      "local_context_ref_count": 3,
+      "stop_condition_count": 2
+    },
+    {
+      "task_id": "task_2",
+      "hypothesis_id": "hyp_1_low_diversity_bulk_features",
+      "task_scope": "Investigate potential ceiling or saturation effects in bulk traffic measurements by verifying structural summaries and local consistency of bulk features.",
+      "allowed_action_count": 2,
+      "local_context_ref_count": 3,
+      "stop_condition_count": 2
+    },
+    {
+      "task_id": "task_3",
+      "hypothesis_id": "hyp_1_low_diversity_bulk_features",
+      "task_scope": "Cross-check feature extraction methods for aggregation artifacts by verifying dependency concentration and shortcut-like signals in bulk features.",
+      "allowed_action_count": 2,
+      "local_context_ref_count": 4,
+      "stop_condition_count": 2
+    }
+  ]
+}

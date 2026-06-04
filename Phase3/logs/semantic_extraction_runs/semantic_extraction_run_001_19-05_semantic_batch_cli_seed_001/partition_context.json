@@ -1,0 +1,14 @@
+{
+  "semantics": [
+    "This partition models scanning behavior with high repetition."
+  ],
+  "expected_properties": [
+    "Highly regular scanning behavior may appear naturally."
+  ],
+  "epistemic_warnings": [
+    "Use context only to interpret behavior, not to validate it."
+  ],
+  "investigation_guidance": [
+    "Retain broad and local structure for downstream analysis."
+  ]
+}

@@ -1,0 +1,17 @@
+{
+  "task_id": "task_1",
+  "hypothesis_id": "hyp_003_class_conditioned_structural_variation",
+  "task_scope": "Compare variance ratios and unique value counts of key features across multiple defined time windows to detect structural variation stability.",
+  "allowed_actions": [
+    "cardinality_verification",
+    "distribution_verification"
+  ],
+  "local_context_refs": [
+    "e8",
+    "e9"
+  ],
+  "stop_conditions": [
+    "collected variance and unique count metrics for all time windows",
+    "no significant variance ratio changes detected across windows"
+  ]
+}

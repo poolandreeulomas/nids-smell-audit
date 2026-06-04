@@ -1,0 +1,20 @@
+{
+  "task_id": "task_1",
+  "hypothesis_id": "hyp_3_distributional_skew_vs_partition_imbalance",
+  "status": "completed",
+  "findings": [
+    "Destination Port exhibits strong and stable class-conditioned distributional skew across partitions.",
+    "DDoS class distribution is dominated by a single port with near-zero entropy, contrasting with the more diverse BENIGN class distribution.",
+    "Observed distributional skew is robust despite moderate class imbalance and presence of duplicated rows at partition level."
+  ],
+  "evidence_refs": [
+    "task_1_step_03",
+    "task_1_step_07"
+  ],
+  "contradictions": [
+    "No local contradictions detected; distributional skew aligns with partition-level observations."
+  ],
+  "limitations": [
+    "Analysis limited to Destination Port feature; other features not evaluated in this task scope."
+  ]
+}

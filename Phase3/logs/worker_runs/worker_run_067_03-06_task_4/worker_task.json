@@ -1,0 +1,26 @@
+{
+  "task_id": "task_4",
+  "hypothesis_id": "hyp_002_strong_linear_dependencies",
+  "task_scope": "Compare dependency patterns of packet length and related features between benign and DDoS classes to detect shifts or stability",
+  "allowed_actions": [
+    "dependency_contextualization",
+    "relation_verification",
+    "local_consistency_verification"
+  ],
+  "local_context_refs": [
+    "e13",
+    "e14",
+    "e15",
+    "e16",
+    "e17",
+    "e18",
+    "e19",
+    "e20",
+    "e21",
+    "e22"
+  ],
+  "stop_conditions": [
+    "dependency pattern differences characterized",
+    "stability or shifts confirmed"
+  ]
+}

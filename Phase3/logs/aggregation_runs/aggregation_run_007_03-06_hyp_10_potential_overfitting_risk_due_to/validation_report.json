@@ -1,0 +1,42 @@
+{
+  "ok": false,
+  "schema_version": "phase3a.aggregation.v1",
+  "worker_result_set_validation": {
+    "ok": true,
+    "errors": [],
+    "warnings": [],
+    "stats": {
+      "worker_result_count": 4,
+      "evidence_ref_count": 11,
+      "contradiction_count": 4,
+      "limitation_count": 5,
+      "non_success_count": 0
+    }
+  },
+  "parse_validation": {
+    "ok": true,
+    "errors": [],
+    "warnings": []
+  },
+  "aggregation_handoff_validation": {
+    "ok": false,
+    "errors": [
+      {
+        "field": "preserved_contradictions",
+        "message": "Unknown preserved_contradiction 'Tension between redundancy and top-rank importance preserved as unresolved local contradiction'."
+      },
+      {
+        "field": "preserved_contradictions",
+        "message": "Unknown preserved_contradiction 'Features with perfect correlation pairs are also top-ranked individually, preserving the tension between redundancy and importance'."
+      }
+    ],
+    "warnings": [],
+    "stats": {
+      "merged_finding_count": 5,
+      "evidence_ref_count": 11,
+      "preserved_contradiction_count": 3,
+      "open_gap_count": 3
+    },
+    "forbidden_language_hits": []
+  }
+}

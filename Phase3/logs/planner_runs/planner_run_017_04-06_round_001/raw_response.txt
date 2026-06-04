@@ -1,0 +1,63 @@
+{
+  "batch_id": "phase3a_batch_0406095248_friday-workinghours-afternoon-ddos.pcap_iscx_f8c2c2",
+  "round_id": "round-001",
+  "planner_strategies": [
+    {
+      "strategy_id": "strategy_01_hyp_004",
+      "hypothesis_id": "hyp_004_strong_feature_dependency_pairs",
+      "strategic_objective": "Clarify the nature, stability, and class-conditioning of strong feature dependencies to assess redundancy and dimensionality reduction potential.",
+      "key_checks": [
+        "Compare dependency strength across benign and attack classes",
+        "Assess if dependencies arise from protocol behavior or feature engineering",
+        "Evaluate consistency of dependencies over time and network conditions"
+      ],
+      "success_criteria": [
+        "Evidence that dependencies are stable or vary with class conditioning",
+        "Identification of dependencies inherent to protocol vs engineered artifacts",
+        "Determination of redundancy exploitable for feature reduction without information loss"
+      ],
+      "router_constraints": [
+        "preserve feature_scope",
+        "preserve evidence refs e13 to e22"
+      ]
+    },
+    {
+      "strategy_id": "strategy_02_hyp_005",
+      "hypothesis_id": "hyp_005_class_conditioned_variation_backward_packet_lengths",
+      "strategic_objective": "Investigate the stability and contextual sensitivity of class-conditioned variations in backward packet length features to understand their discriminative reliability.",
+      "key_checks": [
+        "Test variation stability across different time windows and network conditions",
+        "Analyze sensitivity to attack-specific packet size manipulation or fragmentation",
+        "Identify confounding factors such as flow duration or application type influencing variations"
+      ],
+      "success_criteria": [
+        "Confirmation that class-conditioned variations persist under varying conditions",
+        "Evidence that variations are not confounded by unrelated flow or application factors",
+        "Characterization of feature behavior supporting discriminative use without shortcut risk"
+      ],
+      "router_constraints": [
+        "preserve feature_scope",
+        "preserve evidence refs e9 to e12"
+      ]
+    },
+    {
+      "strategy_id": "strategy_03_hyp_007",
+      "hypothesis_id": "hyp_007_class_conditioned_distribution_destination_port",
+      "strategic_objective": "Elucidate the causes and stability of the zero entropy distribution in DDoS destination ports and its potential as a representation-sensitive detection signal.",
+      "key_checks": [
+        "Determine if zero entropy reflects targeted attack or dataset artifact",
+        "Examine temporal and contextual factors affecting port distribution shifts",
+        "Assess potential for this feature to serve as a strong localized representation-sensitive handle"
+      ],
+      "success_criteria": [
+        "Evidence clarifying whether port distribution is attack-driven or artifact",
+        "Identification of temporal/contextual influences on distribution shifts",
+        "Assessment of feature’s robustness and risk of shortcut exploitation"
+      ],
+      "router_constraints": [
+        "preserve feature_scope",
+        "preserve evidence ref e33"
+      ]
+    }
+  ]
+}

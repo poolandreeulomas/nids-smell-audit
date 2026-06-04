@@ -1,0 +1,27 @@
+{
+  "batch_id": "phase3a_batch_0406080944_friday-workinghours-afternoon-ddos.pcap_iscx_618cac",
+  "round_id": "round-001",
+  "hypothesis_id": "hyp_010_interplay_between_class_conditioned_variation_and_dependency_structure",
+  "merged_findings": [
+    "Features e8 through e12 demonstrate strong class-conditioned structural variation, with BENIGN class showing higher variance ratios and unique value counts compared to DDoS, particularly in backward packet length features (e9-e12).",
+    "Features e13 through e22 exhibit strong dependency concentration with near-perfect linear correlations, indicating structural redundancy that aligns with and likely reflects the class-conditioned variation observed in e8-e12, suggesting an interplay between dependency structure and class-conditioned variation.",
+    "Moderate label neighborhood conflicts and duplicate label conflicts in backward packet length features, along with shortcut-like predictive signals (e.g., Bwd Packet Length Max), reveal unstable feature importance and entanglement between class-conditioned variation and redundancy, contributing to selection bias."
+  ],
+  "evidence_refs": [
+    "task_1_step_03",
+    "task_1_step_05",
+    "task_1_step_07",
+    "task_2_step_03",
+    "task_2_step_05",
+    "task_2_step_07",
+    "task_3_step_03",
+    "task_3_step_05",
+    "task_3_step_07"
+  ],
+  "preserved_contradictions": [],
+  "open_gaps": [
+    "Direct distribution verification for features e11 and e12 was not performed due to step budget exhaustion, though strong locality and shared group context support inferred similarity.",
+    "Analyses are limited to local dependency clusters and single-feature shortcuts without global aggregation or cross-feature group synthesis, leaving broader structural interplay unresolved."
+  ],
+  "update_focus": "Further investigation should target global aggregation of dependency structures and cross-feature group synthesis to clarify the full extent of interplay between class-conditioned variation and dependency redundancy, while addressing unstable feature importance and shortcut effects in backward packet length features."
+}

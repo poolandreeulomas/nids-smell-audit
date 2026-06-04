@@ -1,0 +1,54 @@
+{
+  "selected_hypotheses": [
+    {
+      "hypothesis_id": "hyp_1_low_diversity_backward_bulk",
+      "summary": "The backward bulk traffic features exhibit near-constant values with extremely low unique value counts and cardinality ratios, suggesting a structural uniformity or constrained variability in backward bulk traffic patterns across the partition.",
+      "evidence_refs": [
+        "e23",
+        "e24",
+        "e25",
+        "e26",
+        "e27",
+        "e28"
+      ],
+      "open_questions": [
+        "Does this low diversity reflect a genuine network behavior pattern or an artifact of data collection or preprocessing?",
+        "Could this uniformity mask subtle but meaningful variations relevant to attack detection?"
+      ],
+      "current_status": "unresolved"
+    },
+    {
+      "hypothesis_id": "hyp_3_strong_dependency_pairs",
+      "summary": "Multiple feature pairs demonstrate near-perfect linear correlations (>= 0.9993), indicating strong dependencies and potential redundancy among packet length, segment size, flag counts, and packet counts features.",
+      "evidence_refs": [
+        "e13",
+        "e14",
+        "e15",
+        "e16",
+        "e17",
+        "e18",
+        "e19",
+        "e20",
+        "e21",
+        "e22"
+      ],
+      "open_questions": [
+        "Do these strong dependencies reflect inherent protocol or flow-level constraints, or do they arise from data processing steps?",
+        "How might these redundancies affect feature selection and model robustness in downstream analysis?"
+      ],
+      "current_status": "unresolved"
+    },
+    {
+      "hypothesis_id": "hyp_7_distributional_divergence_destination_port",
+      "summary": "The Destination Port feature shows strong distributional divergence between BENIGN and DDoS classes, with the DDoS class dominated by a single port and exhibiting zero entropy, indicating a highly skewed representation.",
+      "evidence_refs": [
+        "e33"
+      ],
+      "open_questions": [
+        "Does the dominance of a single port in DDoS traffic reflect a targeted attack vector or a dataset artifact?",
+        "How might this skew affect generalization and detection of other attack types or ports?"
+      ],
+      "current_status": "unresolved"
+    }
+  ]
+}

@@ -1,0 +1,57 @@
+{
+  "batch_id": "batch-001",
+  "round_id": "round-001",
+  "hypothesis_id": "hyp-1",
+  "worker_result_count": 2,
+  "expected_task_ids": [
+    "task-hyp-1-1",
+    "task-hyp-1-2"
+  ],
+  "selected_task_ids": [
+    "task-hyp-1-1",
+    "task-hyp-1-2"
+  ],
+  "missing_task_ids": [],
+  "extra_task_ids": [],
+  "source_run_dirs": [],
+  "status_counts": {
+    "completed": 2
+  },
+  "source_evidence_refs": [
+    "e1",
+    "e2"
+  ],
+  "source_contradictions": [],
+  "source_limitations": [],
+  "source_finding_count": 2,
+  "non_success_count": 0,
+  "worker_results": [
+    {
+      "task_id": "task-hyp-1-1",
+      "hypothesis_id": "hyp-1",
+      "status": "completed",
+      "findings": [
+        "finding-1"
+      ],
+      "evidence_refs": [
+        "e1"
+      ],
+      "contradictions": [],
+      "limitations": []
+    },
+    {
+      "task_id": "task-hyp-1-2",
+      "hypothesis_id": "hyp-1",
+      "status": "completed",
+      "findings": [
+        "finding-2"
+      ],
+      "evidence_refs": [
+        "e2"
+      ],
+      "contradictions": [],
+      "limitations": []
+    }
+  ],
+  "overlap_diagnostics": []
+}

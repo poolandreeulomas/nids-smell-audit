@@ -1,0 +1,21 @@
+{
+  "batch_id": "phase3a_batch_0406132627_friday-workinghours-afternoon-ddos.pcap_iscx_f0e355",
+  "round_id": "round-001",
+  "worker_result": {
+    "task_id": "task_4",
+    "hypothesis_id": "hyp_8_class_conditioned_distribution_destination_port",
+    "status": "completed",
+    "findings": [
+      "Destination Port feature exhibits a dominant value with a ratio of 1.0 for DDoS and 0.346 for BENIGN, indicating strong class-conditioned distribution differences.",
+      "High Jensen-Shannon divergence (0.7315) confirms significant distributional separation between classes on this feature.",
+      "Dependency contextualization did not reveal mitigating structural diversity, suggesting over-reliance risk on this feature's dominant port values in classification models."
+    ],
+    "evidence_refs": [
+      "task_4_step_03"
+    ],
+    "contradictions": [],
+    "limitations": [
+      "Analysis limited to local evidence from e33; broader dataset context or model internals not examined."
+    ]
+  }
+}

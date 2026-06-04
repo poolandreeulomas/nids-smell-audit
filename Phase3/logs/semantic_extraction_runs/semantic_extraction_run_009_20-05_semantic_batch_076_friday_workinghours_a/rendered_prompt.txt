@@ -1,0 +1,639 @@
+=== ROLE ===
+You are the Phase 3A Semantic Extraction module.
+Your job is to compress grounded overview evidence into a broad structural substrate.
+
+=== OBJECTIVE ===
+Initialize the structural substrate for batch_id=semantic_batch_076_friday-workinghours-afternoon-ddos.pcap_iscx.
+Preserve broad structural regions, weak but coherent signals, contradictions, and unresolved tensions.
+
+=== BOUNDARIES ===
+Use partition context only to temper interpretation, never to validate evidence.
+Do not generate hypotheses.
+Do not prioritize, rank, plan, route, or recommend next steps.
+Do not introduce causal explanations or artifact-family conclusions.
+Keep the output compact and grounded in the provided evidence IDs.
+
+=== OUTPUT RULES ===
+Return valid JSON only.
+Do not use markdown or code fences.
+Return exactly these top-level fields:
+substrate_id, batch_id, compressed_regions, preserved_weak_signals, contradictions, unresolved_tensions.
+Each compressed region must include:
+region_id, region_kind, status, summary, structural_descriptors, feature_scope, evidence_refs, supporting_patterns, contextual_modifiers, uncertainty_notes, contradiction_refs, tension_refs.
+Each weak signal must include:
+weak_signal_id, descriptor, feature_scope, evidence_refs, preservation_reason, contextual_modifiers, uncertainty_notes.
+Each contradiction must include:
+contradiction_id, contradiction_kind, description, feature_scope, supporting_evidence_refs, conflicting_evidence_refs, context_notes, downstream_relevance.
+Each tension must include:
+tension_id, description, related_region_ids, evidence_refs, context_notes, reason_unresolved.
+Allowed region_kind values: concentration_region, dependency_region, localized_separability_region, low_diversity_region, mixed_structural_region, redundancy_region, representation_sensitive_region, topology_motif_region.
+Allowed status values: active, broad_unvalidated, contradictory, emerging, localized, uncertain.
+Allowed locality.scope_type values: dependency_cluster, derived_family, feature_group, mixed, partition_global, representation_cluster.
+Every compressed region feature_scope must include features, feature_groups, and locality.
+Every locality must include scope_type, scope_value, localized, and notes.
+For weak signals, contradictions, and tensions, keep the same nested feature_scope shape and use list-valued refs/notes fields.
+Use [] for empty lists. Never emit null for any list field.
+All evidence_refs must cite only evidence_id values present in the overview evidence input.
+
+=== CANONICAL JSON SHAPES ===
+Use these exact nested shapes. Do not flatten them, rename keys, or change types.
+
+feature_scope (required inside every compressed region; strongly recommended for weak signals too):
+{
+  "features": ["feature_a", "feature_b"],
+  "feature_groups": ["feature_group_name"],
+  "locality": {
+    "scope_type": "dependency_cluster",
+    "scope_value": "feature_a|feature_b",
+    "localized": true,
+    "notes": ["short grounded note"]
+  }
+}
+
+feature_scope for a partition-wide region can use:
+{
+  "features": ["feature_a"],
+  "feature_groups": [],
+  "locality": {
+    "scope_type": "partition_global",
+    "scope_value": "semantic_batch_076_friday-workinghours-afternoon-ddos.pcap_iscx",
+    "localized": false,
+    "notes": ["partition-level observation"]
+  }
+}
+
+uncertainty_notes must always be a JSON list of strings, for example: ["note 1", "note 2"].
+Never emit a string, object, or null for uncertainty_notes.
+
+compressed region skeleton:
+{
+  "region_id": "region_1_example",
+  "region_kind": "dependency_region",
+  "status": "active",
+  "summary": "grounded summary",
+  "structural_descriptors": ["descriptor 1"],
+  "feature_scope": {
+    "features": ["feature_a", "feature_b"],
+    "feature_groups": ["feature_group_name"],
+    "locality": {
+      "scope_type": "dependency_cluster",
+      "scope_value": "feature_a|feature_b",
+      "localized": true,
+      "notes": []
+    }
+  }
+  "evidence_refs": ["e1"],
+  "supporting_patterns": ["pattern 1"],
+  "contextual_modifiers": ["modifier 1"],
+  "uncertainty_notes": ["note 1"],
+  "contradiction_refs": [],
+  "tension_refs": []
+}
+
+weak signal skeleton:
+{
+  "weak_signal_id": "weak_1_example",
+  "descriptor": "grounded descriptor",
+  "feature_scope": {
+    "features": ["feature_a"],
+    "feature_groups": [],
+    "locality": {
+      "scope_type": "feature_group",
+      "scope_value": "feature_a",
+      "localized": true,
+      "notes": []
+    }
+  }
+  "evidence_refs": ["e1"],
+  "preservation_reason": "grounded reason",
+  "contextual_modifiers": [],
+  "uncertainty_notes": []
+}
+
+For contradictions and tensions, follow the same list/object discipline: every refs field is a list, every notes field is a list, and every feature_scope uses the nested object shape above.
+
+=== PARTITION CONTEXT ===
+{
+  "epistemic_warnings": [
+    "Use this context only to interpret behavior, not to validate it. Do not assume patterns are valid because they match the attack type, and do not reward obvious confirmations."
+  ],
+  "expected_properties": [
+    "Extreme dominance, near-perfect relationships between features, or overly stable counters may require deeper inspection. Skew is expected, but not perfect structure."
+  ],
+  "investigation_guidance": [
+    "Focus on feature prioritization, avoidance of trivial confirmations, detection of meaningful artifacts, hypothesis revision quality, and step efficiency. Evaluate reasoning, not just signals, using only the JIF and this context.",
+    "The agent should distinguish burst behavior from structural collapse and analyze redundancy across counters and rate-based features."
+  ],
+  "semantics": [
+    "CICIDS2017 is a network-flow IDS benchmark with benign and attack traffic across days. Evaluate agent reasoning behavior relative to the phenomenon modeled in the partition.",
+    "This partition models saturation, spikes, and load."
+  ]
+}
+
+=== PROJECTED OVERVIEW EVIDENCE ===
+{
+  "batch_id": "semantic_batch_076_friday-workinghours-afternoon-ddos.pcap_iscx",
+  "evidence_count": 33,
+  "evidence_records": [
+    {
+      "evidence_id": "e23",
+      "feature_names": [
+        "Bwd Avg Bulk Rate"
+      ],
+      "metric_names": [
+        "unique_values",
+        "cardinality_ratio"
+      ],
+      "observation_text": "Bwd Avg Bulk Rate has unique_values=1 and cardinality_ratio=1e-05.",
+      "source_name": "feature_cardinality",
+      "source_type": "cardinality_metric"
+    },
+    {
+      "evidence_id": "e24",
+      "feature_names": [
+        "Bwd Avg Bytes/Bulk"
+      ],
+      "metric_names": [
+        "unique_values",
+        "cardinality_ratio"
+      ],
+      "observation_text": "Bwd Avg Bytes/Bulk has unique_values=1 and cardinality_ratio=1e-05.",
+      "source_name": "feature_cardinality",
+      "source_type": "cardinality_metric"
+    },
+    {
+      "evidence_id": "e25",
+      "feature_names": [
+        "Bwd Avg Packets/Bulk"
+      ],
+      "metric_names": [
+        "unique_values",
+        "cardinality_ratio"
+      ],
+      "observation_text": "Bwd Avg Packets/Bulk has unique_values=1 and cardinality_ratio=1e-05.",
+      "source_name": "feature_cardinality",
+      "source_type": "cardinality_metric"
+    },
+    {
+      "evidence_id": "e26",
+      "feature_names": [
+        "Bwd PSH Flags"
+      ],
+      "metric_names": [
+        "unique_values",
+        "cardinality_ratio"
+      ],
+      "observation_text": "Bwd PSH Flags has unique_values=1 and cardinality_ratio=1e-05.",
+      "source_name": "feature_cardinality",
+      "source_type": "cardinality_metric"
+    },
+    {
+      "evidence_id": "e27",
+      "feature_names": [
+        "Bwd URG Flags"
+      ],
+      "metric_names": [
+        "unique_values",
+        "cardinality_ratio"
+      ],
+      "observation_text": "Bwd URG Flags has unique_values=1 and cardinality_ratio=1e-05.",
+      "source_name": "feature_cardinality",
+      "source_type": "cardinality_metric"
+    },
+    {
+      "evidence_id": "e28",
+      "feature_names": [
+        "CWE Flag Count"
+      ],
+      "metric_names": [
+        "unique_values",
+        "cardinality_ratio"
+      ],
+      "observation_text": "CWE Flag Count has unique_values=1 and cardinality_ratio=1e-05.",
+      "source_name": "feature_cardinality",
+      "source_type": "cardinality_metric"
+    },
+    {
+      "evidence_id": "e29",
+      "feature_names": [
+        "Fwd Avg Bulk Rate"
+      ],
+      "metric_names": [
+        "unique_values",
+        "cardinality_ratio"
+      ],
+      "observation_text": "Fwd Avg Bulk Rate has unique_values=1 and cardinality_ratio=1e-05.",
+      "source_name": "feature_cardinality",
+      "source_type": "cardinality_metric"
+    },
+    {
+      "evidence_id": "e30",
+      "feature_names": [
+        "Fwd Avg Bytes/Bulk"
+      ],
+      "metric_names": [
+        "unique_values",
+        "cardinality_ratio"
+      ],
+      "observation_text": "Fwd Avg Bytes/Bulk has unique_values=1 and cardinality_ratio=1e-05.",
+      "source_name": "feature_cardinality",
+      "source_type": "cardinality_metric"
+    },
+    {
+      "evidence_id": "e31",
+      "feature_names": [
+        "Fwd Avg Packets/Bulk"
+      ],
+      "metric_names": [
+        "unique_values",
+        "cardinality_ratio"
+      ],
+      "observation_text": "Fwd Avg Packets/Bulk has unique_values=1 and cardinality_ratio=1e-05.",
+      "source_name": "feature_cardinality",
+      "source_type": "cardinality_metric"
+    },
+    {
+      "evidence_id": "e32",
+      "feature_names": [
+        "Fwd URG Flags"
+      ],
+      "metric_names": [
+        "unique_values",
+        "cardinality_ratio"
+      ],
+      "observation_text": "Fwd URG Flags has unique_values=1 and cardinality_ratio=1e-05.",
+      "source_name": "feature_cardinality",
+      "source_type": "cardinality_metric"
+    },
+    {
+      "evidence_id": "e13",
+      "feature_names": [
+        "Bwd Packet Length Mean",
+        "Avg Bwd Segment Size"
+      ],
+      "metric_names": [
+        "correlation"
+      ],
+      "observation_text": "Bwd Packet Length Mean and Avg Bwd Segment Size form a strong dependency pair with correlation=1.",
+      "source_name": "feature_redundancy",
+      "source_type": "dependency_observation"
+    },
+    {
+      "evidence_id": "e14",
+      "feature_names": [
+        "Fwd Header Length",
+        "Fwd Header Length.1"
+      ],
+      "metric_names": [
+        "correlation"
+      ],
+      "observation_text": "Fwd Header Length and Fwd Header Length.1 form a strong dependency pair with correlation=1.",
+      "source_name": "feature_redundancy",
+      "source_type": "dependency_observation"
+    },
+    {
+      "evidence_id": "e15",
+      "feature_names": [
+        "Fwd PSH Flags",
+        "SYN Flag Count"
+      ],
+      "metric_names": [
+        "correlation"
+      ],
+      "observation_text": "Fwd PSH Flags and SYN Flag Count form a strong dependency pair with correlation=1.",
+      "source_name": "feature_redundancy",
+      "source_type": "dependency_observation"
+    },
+    {
+      "evidence_id": "e16",
+      "feature_names": [
+        "Fwd Packet Length Mean",
+        "Avg Fwd Segment Size"
+      ],
+      "metric_names": [
+        "correlation"
+      ],
+      "observation_text": "Fwd Packet Length Mean and Avg Fwd Segment Size form a strong dependency pair with correlation=1.",
+      "source_name": "feature_redundancy",
+      "source_type": "dependency_observation"
+    },
+    {
+      "evidence_id": "e17",
+      "feature_names": [
+        "RST Flag Count",
+        "ECE Flag Count"
+      ],
+      "metric_names": [
+        "correlation"
+      ],
+      "observation_text": "RST Flag Count and ECE Flag Count form a strong dependency pair with correlation=1.",
+      "source_name": "feature_redundancy",
+      "source_type": "dependency_observation"
+    },
+    {
+      "evidence_id": "e18",
+      "feature_names": [
+        "Total Backward Packets",
+        "Subflow Bwd Packets"
+      ],
+      "metric_names": [
+        "correlation"
+      ],
+      "observation_text": "Total Backward Packets and Subflow Bwd Packets form a strong dependency pair with correlation=1.",
+      "source_name": "feature_redundancy",
+      "source_type": "dependency_observation"
+    },
+    {
+      "evidence_id": "e19",
+      "feature_names": [
+        "Total Fwd Packets",
+        "Subflow Fwd Packets"
+      ],
+      "metric_names": [
+        "correlation"
+      ],
+      "observation_text": "Total Fwd Packets and Subflow Fwd Packets form a strong dependency pair with correlation=1.",
+      "source_name": "feature_redundancy",
+      "source_type": "dependency_observation"
+    },
+    {
+      "evidence_id": "e20",
+      "feature_names": [
+        "Total Length of Bwd Packets",
+        "Subflow Bwd Bytes"
+      ],
+      "metric_names": [
+        "correlation"
+      ],
+      "observation_text": "Total Length of Bwd Packets and Subflow Bwd Bytes form a strong dependency pair with correlation=1.",
+      "source_name": "feature_redundancy",
+      "source_type": "dependency_observation"
+    },
+    {
+      "evidence_id": "e21",
+      "feature_names": [
+        "Total Length of Fwd Packets",
+        "Subflow Fwd Bytes"
+      ],
+      "metric_names": [
+        "correlation"
+      ],
+      "observation_text": "Total Length of Fwd Packets and Subflow Fwd Bytes form a strong dependency pair with correlation=1.",
+      "source_name": "feature_redundancy",
+      "source_type": "dependency_observation"
+    },
+    {
+      "evidence_id": "e22",
+      "feature_names": [
+        "Packet Length Mean",
+        "Average Packet Size"
+      ],
+      "metric_names": [
+        "correlation"
+      ],
+      "observation_text": "Packet Length Mean and Average Packet Size form a strong dependency pair with correlation=0.9993.",
+      "source_name": "feature_redundancy",
+      "source_type": "dependency_observation"
+    },
+    {
+      "evidence_id": "e33",
+      "feature_names": [
+        "Destination Port"
+      ],
+      "metric_names": [
+        "BENIGN",
+        "DDoS",
+        "js_divergence"
+      ],
+      "observation_text": "Destination Port includes distribution metrics: {'BENIGN': {'dominant_ratio': 0.3461320414368912, 'entropy': 5.036961320305959}, 'DDoS': {'dominant_ratio': 1.0, 'entropy': 0.0}, 'js_divergence': 0.7314975805392803}.",
+      "source_name": "distribution_metrics",
+      "source_type": "distribution_metric"
+    },
+    {
+      "evidence_id": "e10",
+      "feature_names": [
+        "Bwd Packet Length Max"
+      ],
+      "metric_names": [
+        "variance_ratio",
+        "unique_values"
+      ],
+      "observation_text": "Bwd Packet Length Max shows class-conditioned structural variation with variance_ratio=24.282293728545618 and unique_values_by_class={'BENIGN': 1218, 'DDoS': 15}.",
+      "source_name": "feature_analysis",
+      "source_type": "distribution_metric"
+    },
+    {
+      "evidence_id": "e11",
+      "feature_names": [
+        "Bwd Packet Length Mean"
+      ],
+      "metric_names": [
+        "variance_ratio",
+        "unique_values"
+      ],
+      "observation_text": "Bwd Packet Length Mean shows class-conditioned structural variation with variance_ratio=15.345088289599968 and unique_values_by_class={'BENIGN': 4209, 'DDoS': 15}.",
+      "source_name": "feature_analysis",
+      "source_type": "distribution_metric"
+    },
+    {
+      "evidence_id": "e12",
+      "feature_names": [
+        "Bwd Packet Length Std"
+      ],
+      "metric_names": [
+        "variance_ratio",
+        "unique_values"
+      ],
+      "observation_text": "Bwd Packet Length Std shows class-conditioned structural variation with variance_ratio=54.55627946967807 and unique_values_by_class={'BENIGN': 4446, 'DDoS': 83}.",
+      "source_name": "feature_analysis",
+      "source_type": "distribution_metric"
+    },
+    {
+      "evidence_id": "e8",
+      "feature_names": [
+        "Average Packet Size"
+      ],
+      "metric_names": [
+        "variance_ratio",
+        "unique_values"
+      ],
+      "observation_text": "Average Packet Size shows class-conditioned structural variation with variance_ratio=4.536816187896395 and unique_values_by_class={'BENIGN': 5658, 'DDoS': 56}.",
+      "source_name": "feature_analysis",
+      "source_type": "distribution_metric"
+    },
+    {
+      "evidence_id": "e9",
+      "feature_names": [
+        "Avg Bwd Segment Size"
+      ],
+      "metric_names": [
+        "variance_ratio",
+        "unique_values"
+      ],
+      "observation_text": "Avg Bwd Segment Size shows class-conditioned structural variation with variance_ratio=15.345088289587043 and unique_values_by_class={'BENIGN': 4209, 'DDoS': 15}.",
+      "source_name": "feature_analysis",
+      "source_type": "distribution_metric"
+    },
+    {
+      "evidence_id": "e1",
+      "feature_names": [],
+      "metric_names": [
+        "duplicates"
+      ],
+      "observation_text": "The deterministic partition overview found 729 duplicated rows.",
+      "source_name": "partition_duplicates",
+      "source_type": "duplication_observation"
+    },
+    {
+      "evidence_id": "e2",
+      "feature_names": [],
+      "metric_names": [
+        "class_imbalance_ratio"
+      ],
+      "observation_text": "The partition-level overview reports a class imbalance ratio of 1.577.",
+      "source_name": "class_imbalance_ratio",
+      "source_type": "overview_summary"
+    },
+    {
+      "evidence_id": "e3",
+      "feature_names": [
+        "Bwd Packet Length Mean"
+      ],
+      "metric_names": [
+        "top_feature_rank"
+      ],
+      "observation_text": "Bwd Packet Length Mean appears in top_feature_rank position 1 in the partition overview.",
+      "source_name": "top_feature_rank",
+      "source_type": "overview_summary"
+    },
+    {
+      "evidence_id": "e4",
+      "feature_names": [
+        "Avg Bwd Segment Size"
+      ],
+      "metric_names": [
+        "top_feature_rank"
+      ],
+      "observation_text": "Avg Bwd Segment Size appears in top_feature_rank position 2 in the partition overview.",
+      "source_name": "top_feature_rank",
+      "source_type": "overview_summary"
+    },
+    {
+      "evidence_id": "e5",
+      "feature_names": [
+        "Bwd Packet Length Max"
+      ],
+      "metric_names": [
+        "top_feature_rank"
+      ],
+      "observation_text": "Bwd Packet Length Max appears in top_feature_rank position 3 in the partition overview.",
+      "source_name": "top_feature_rank",
+      "source_type": "overview_summary"
+    },
+    {
+      "evidence_id": "e6",
+      "feature_names": [
+        "Bwd Packet Length Std"
+      ],
+      "metric_names": [
+        "top_feature_rank"
+      ],
+      "observation_text": "Bwd Packet Length Std appears in top_feature_rank position 4 in the partition overview.",
+      "source_name": "top_feature_rank",
+      "source_type": "overview_summary"
+    },
+    {
+      "evidence_id": "e7",
+      "feature_names": [
+        "Average Packet Size"
+      ],
+      "metric_names": [
+        "top_feature_rank"
+      ],
+      "observation_text": "Average Packet Size appears in top_feature_rank position 5 in the partition overview.",
+      "source_name": "top_feature_rank",
+      "source_type": "overview_summary"
+    }
+  ],
+  "feature_frequency": {
+    "Average Packet Size": 3,
+    "Avg Bwd Segment Size": 3,
+    "Avg Fwd Segment Size": 1,
+    "Bwd Avg Bulk Rate": 1,
+    "Bwd Avg Bytes/Bulk": 1,
+    "Bwd Avg Packets/Bulk": 1,
+    "Bwd PSH Flags": 1,
+    "Bwd Packet Length Max": 2,
+    "Bwd Packet Length Mean": 3,
+    "Bwd Packet Length Std": 2,
+    "Bwd URG Flags": 1,
+    "CWE Flag Count": 1,
+    "Destination Port": 1,
+    "ECE Flag Count": 1,
+    "Fwd Avg Bulk Rate": 1,
+    "Fwd Avg Bytes/Bulk": 1,
+    "Fwd Avg Packets/Bulk": 1,
+    "Fwd Header Length": 1,
+    "Fwd Header Length.1": 1,
+    "Fwd PSH Flags": 1,
+    "Fwd Packet Length Mean": 1,
+    "Fwd URG Flags": 1,
+    "Packet Length Mean": 1,
+    "RST Flag Count": 1,
+    "SYN Flag Count": 1,
+    "Subflow Bwd Bytes": 1,
+    "Subflow Bwd Packets": 1,
+    "Subflow Fwd Bytes": 1,
+    "Subflow Fwd Packets": 1,
+    "Total Backward Packets": 1,
+    "Total Fwd Packets": 1,
+    "Total Length of Bwd Packets": 1,
+    "Total Length of Fwd Packets": 1
+  },
+  "feature_scope_refs": [
+    "Average Packet Size",
+    "Avg Bwd Segment Size",
+    "Avg Fwd Segment Size",
+    "Bwd Avg Bulk Rate",
+    "Bwd Avg Bytes/Bulk",
+    "Bwd Avg Packets/Bulk",
+    "Bwd PSH Flags",
+    "Bwd Packet Length Max",
+    "Bwd Packet Length Mean",
+    "Bwd Packet Length Std",
+    "Bwd URG Flags",
+    "CWE Flag Count",
+    "Destination Port",
+    "ECE Flag Count",
+    "Fwd Avg Bulk Rate",
+    "Fwd Avg Bytes/Bulk",
+    "Fwd Avg Packets/Bulk",
+    "Fwd Header Length",
+    "Fwd Header Length.1",
+    "Fwd PSH Flags",
+    "Fwd Packet Length Mean",
+    "Fwd URG Flags",
+    "Packet Length Mean",
+    "RST Flag Count",
+    "SYN Flag Count",
+    "Subflow Bwd Bytes",
+    "Subflow Bwd Packets",
+    "Subflow Fwd Bytes",
+    "Subflow Fwd Packets",
+    "Total Backward Packets",
+    "Total Fwd Packets",
+    "Total Length of Bwd Packets",
+    "Total Length of Fwd Packets"
+  ],
+  "global_observation_refs": [
+    "e1",
+    "e2"
+  ],
+  "source_type_counts": {
+    "cardinality_metric": 10,
+    "dependency_observation": 10,
+    "distribution_metric": 6,
+    "duplication_observation": 1,
+    "overview_summary": 6
+  }
+}

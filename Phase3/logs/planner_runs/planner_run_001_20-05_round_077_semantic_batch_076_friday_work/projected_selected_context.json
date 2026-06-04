@@ -1,0 +1,86 @@
+{
+  "selected_count": 3,
+  "selected_hypotheses": [
+    {
+      "hypothesis_id": "hyp_05_tension_between_redundancy_and_representation",
+      "summary": "There is a tension between the strong feature redundancy observed and the presence of features with strong class-conditioned representational differences, indicating a complex relationship where some features may be redundant yet others capture critical class distinctions.",
+      "evidence_refs": [
+        "e8",
+        "e9",
+        "e10",
+        "e11",
+        "e12",
+        "e13",
+        "e14",
+        "e15",
+        "e16",
+        "e17",
+        "e18",
+        "e19",
+        "e20",
+        "e21",
+        "e22",
+        "e33"
+      ],
+      "open_questions": [
+        "How can redundancy coexist with strong class-conditioned variance in related features?",
+        "Are some features redundant only within classes but discriminative across classes?",
+        "What is the impact of this tension on feature selection and model robustness?"
+      ],
+      "current_status": "selected_for_round",
+      "evidence_ref_count": 16,
+      "open_question_count": 3
+    },
+    {
+      "hypothesis_id": "hyp_06_tension_between_constant_and_variable_features",
+      "summary": "Features that are effectively constant coexist with related features showing high class-conditioned variance, raising questions about whether constants represent genuine signals, defaults, or measurement artifacts.",
+      "evidence_refs": [
+        "e8",
+        "e9",
+        "e10",
+        "e11",
+        "e12",
+        "e13",
+        "e16",
+        "e23",
+        "e24",
+        "e25",
+        "e26",
+        "e27",
+        "e28",
+        "e29",
+        "e30",
+        "e31",
+        "e32"
+      ],
+      "open_questions": [
+        "Are constant features masking subtle variations that could be informative?",
+        "Could constants be artifacts of data collection or preprocessing?",
+        "How should these constants be treated in modeling and interpretation?"
+      ],
+      "current_status": "selected_for_round",
+      "evidence_ref_count": 17,
+      "open_question_count": 3
+    },
+    {
+      "hypothesis_id": "hyp_03_class_conditioned_packet_size_and_port_distributions",
+      "summary": "Packet-size and segment-size metrics along with destination port distributions show strong class-conditioned differences, suggesting these features may capture meaningful distinctions between benign and DDoS traffic classes.",
+      "evidence_refs": [
+        "e8",
+        "e9",
+        "e10",
+        "e11",
+        "e12",
+        "e33"
+      ],
+      "open_questions": [
+        "To what extent do these distributional differences drive classification performance?",
+        "Are these differences stable across time or specific to this partition?",
+        "How do these features relate to the observed redundancy in other packet-size features?"
+      ],
+      "current_status": "selected_for_round",
+      "evidence_ref_count": 6,
+      "open_question_count": 3
+    }
+  ]
+}

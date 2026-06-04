@@ -1,0 +1,79 @@
+{
+  "batch_id": "phase3a_batch_0306161030_friday-workinghours-afternoon-ddos.pcap_iscx_0595cd",
+  "round_id": "round-001",
+  "hypothesis_id": "hyp_3_distributional_skew_vs_partition_imbalance",
+  "planner_strategy_id": "strategy_02_hyp_3",
+  "worker_tasks": [
+    {
+      "task_id": "task_1",
+      "hypothesis_id": "hyp_3_distributional_skew_vs_partition_imbalance",
+      "task_scope": "Analyze class-conditioned distribution stability of Destination Port across dataset partitions to detect skew patterns.",
+      "allowed_actions": [
+        "distribution_verification"
+      ],
+      "local_context_refs": [
+        "e1",
+        "e2",
+        "e33"
+      ],
+      "stop_conditions": [
+        "distribution metrics stable across partitions",
+        "sample size threshold reached"
+      ]
+    },
+    {
+      "task_id": "task_2",
+      "hypothesis_id": "hyp_3_distributional_skew_vs_partition_imbalance",
+      "task_scope": "Quantify the impact of duplicated rows on Destination Port distribution skew and entropy to assess artifact influence.",
+      "allowed_actions": [
+        "duplication_verification",
+        "distribution_verification"
+      ],
+      "local_context_refs": [
+        "e1",
+        "e2",
+        "e33"
+      ],
+      "stop_conditions": [
+        "duplication impact metrics converge",
+        "entropy variation bounded"
+      ]
+    },
+    {
+      "task_id": "task_3",
+      "hypothesis_id": "hyp_3_distributional_skew_vs_partition_imbalance",
+      "task_scope": "Examine the relationship between class imbalance and distributional divergence in Destination Port to identify imbalance effects.",
+      "allowed_actions": [
+        "distribution_verification",
+        "relation_verification"
+      ],
+      "local_context_refs": [
+        "e1",
+        "e2",
+        "e33"
+      ],
+      "stop_conditions": [
+        "divergence measures stable",
+        "class imbalance quantified"
+      ]
+    },
+    {
+      "task_id": "task_4",
+      "hypothesis_id": "hyp_3_distributional_skew_vs_partition_imbalance",
+      "task_scope": "Check for local consistency and dependency concentration around dominant Destination Port values to detect stable or unstable signals.",
+      "allowed_actions": [
+        "local_consistency_verification",
+        "dependency_contextualization"
+      ],
+      "local_context_refs": [
+        "e1",
+        "e2",
+        "e33"
+      ],
+      "stop_conditions": [
+        "dependency concentration metrics stable",
+        "local consistency verified"
+      ]
+    }
+  ]
+}

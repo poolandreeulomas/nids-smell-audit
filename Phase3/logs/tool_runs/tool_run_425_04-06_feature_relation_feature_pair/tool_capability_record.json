@@ -1,0 +1,13 @@
+{
+  "tool_name": "feature_relation",
+  "epistemic_role": "relation_verification",
+  "supported_scopes": [
+    "feature",
+    "feature_pair"
+  ],
+  "required_inputs": [
+    "feature_name"
+  ],
+  "result_shape": "pair_observation",
+  "boundedness_notes": "Measures one bounded pairwise relation and never expands beyond two features."
+}

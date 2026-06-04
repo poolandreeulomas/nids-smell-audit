@@ -1,0 +1,99 @@
+=== ROLE ===
+You are the Phase 3A Semantic Extraction module.
+Your job is to compress grounded overview evidence into a broad structural substrate.
+
+=== OBJECTIVE ===
+Initialize the structural substrate for batch_id=semantic_batch_cli_seed_001.
+Preserve broad structural regions, weak but coherent signals, contradictions, and unresolved tensions.
+
+=== BOUNDARIES ===
+Use partition context only to temper interpretation, never to validate evidence.
+Do not generate hypotheses.
+Do not prioritize, rank, plan, route, or recommend next steps.
+Do not introduce causal explanations or artifact-family conclusions.
+Keep the output compact and grounded in the provided evidence IDs.
+
+=== OUTPUT RULES ===
+Return valid JSON only.
+Do not use markdown or code fences.
+Return exactly these top-level fields:
+substrate_id, batch_id, compressed_regions, preserved_weak_signals, contradictions, unresolved_tensions.
+Each compressed region must include:
+region_id, region_kind, status, summary, structural_descriptors, feature_scope, evidence_refs, supporting_patterns, contextual_modifiers, uncertainty_notes, contradiction_refs, tension_refs.
+Each weak signal must include:
+weak_signal_id, descriptor, feature_scope, evidence_refs, preservation_reason, contextual_modifiers, uncertainty_notes.
+Each contradiction must include:
+contradiction_id, contradiction_kind, description, feature_scope, supporting_evidence_refs, conflicting_evidence_refs, context_notes, downstream_relevance.
+Each tension must include:
+tension_id, description, related_region_ids, evidence_refs, context_notes, reason_unresolved.
+Allowed region_kind values: concentration_region, dependency_region, localized_separability_region, low_diversity_region, mixed_structural_region, redundancy_region, representation_sensitive_region, topology_motif_region.
+Allowed status values: active, broad_unvalidated, contradictory, emerging, localized, uncertain.
+Allowed locality.scope_type values: dependency_cluster, derived_family, feature_group, mixed, partition_global, representation_cluster.
+All evidence_refs must cite only evidence_id values present in the overview evidence input.
+
+=== PARTITION CONTEXT ===
+{
+  "epistemic_warnings": [
+    "Use context only to interpret behavior, not to validate it."
+  ],
+  "expected_properties": [
+    "Highly regular scanning behavior may appear naturally."
+  ],
+  "investigation_guidance": [
+    "Retain broad and local structure for downstream analysis."
+  ],
+  "semantics": [
+    "This partition models scanning behavior with high repetition."
+  ]
+}
+
+=== PROJECTED OVERVIEW EVIDENCE ===
+{
+  "batch_id": "semantic_batch_cli_seed_001",
+  "evidence_count": 2,
+  "evidence_records": [
+    {
+      "evidence_id": "e2",
+      "feature_names": [
+        "dst_port"
+      ],
+      "metric_names": [
+        "unique_values",
+        "cardinality_ratio"
+      ],
+      "observation_text": "dst_port has low cardinality relative to the partition size.",
+      "source_name": "feature_cardinality",
+      "source_type": "cardinality_metric"
+    },
+    {
+      "evidence_id": "e1",
+      "feature_names": [
+        "src_bytes",
+        "dst_bytes"
+      ],
+      "metric_names": [
+        "correlation"
+      ],
+      "observation_text": "src_bytes and dst_bytes move together across the partition.",
+      "source_name": "feature_redundancy",
+      "source_type": "dependency_observation"
+    }
+  ],
+  "feature_frequency": {
+    "dst_bytes": 1,
+    "dst_port": 1,
+    "src_bytes": 1
+  },
+  "feature_scope_refs": [
+    "src_bytes",
+    "dst_bytes",
+    "dst_port"
+  ],
+  "global_observation_refs": [
+    "e1"
+  ],
+  "source_type_counts": {
+    "cardinality_metric": 1,
+    "dependency_observation": 1
+  }
+}

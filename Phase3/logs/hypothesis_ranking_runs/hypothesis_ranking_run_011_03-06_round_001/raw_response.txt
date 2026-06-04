@@ -1,0 +1,32 @@
+{
+  "batch_id": "phase3a_batch_0306183859_friday-workinghours-afternoon-ddos.pcap_iscx_689174",
+  "round_id": "round-001",
+  "selected_hypothesis_ids": [
+    "hyp_005_class_distribution_skew_in_destination_port",
+    "hyp_003_class_conditioned_variation_in_backward_packet_lengths",
+    "hyp_002_strong_linear_dependencies"
+  ],
+  "deferred_hypothesis_ids": [
+    "hyp_001_low_diversity_bulk_features",
+    "hyp_004_class_conditioned_variation_in_average_packet_size",
+    "hyp_006_partition_level_class_imbalance_and_duplication_effects",
+    "hyp_007_high_ranked_backward_packet_length_features_with_structural_variation",
+    "hyp_008_average_packet_size_as_moderate_ranked_feature_with_variation",
+    "hyp_009_potential_for_localized_representation_sensitive_handles",
+    "hyp_010_overlapping_structural_patterns_support_multiple_interpretations"
+  ],
+  "selection_rationales": [
+    {
+      "hypothesis_id": "hyp_005_class_distribution_skew_in_destination_port",
+      "reason": "Strong class-conditioned skew with potential shortcut risk and attack behavior relevance."
+    },
+    {
+      "hypothesis_id": "hyp_003_class_conditioned_variation_in_backward_packet_lengths",
+      "reason": "Substantial class-conditioned variation indicating key discriminative features with high uncertainty."
+    },
+    {
+      "hypothesis_id": "hyp_002_strong_linear_dependencies",
+      "reason": "Critical structural redundancy and potential shortcut signals affecting dataset dimensionality and model behavior."
+    }
+  ]
+}

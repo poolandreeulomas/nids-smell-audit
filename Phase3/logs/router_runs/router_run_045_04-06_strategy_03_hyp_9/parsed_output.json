@@ -1,0 +1,96 @@
+{
+  "batch_id": "phase3a_batch_0406122053_friday-workinghours-afternoon-ddos.pcap_iscx_2ba5ac",
+  "round_id": "round-001",
+  "hypothesis_id": "hyp_9_tension_between_low_diversity_and_class_conditioned_variation",
+  "planner_strategy_id": "strategy_03_hyp_9",
+  "worker_tasks": [
+    {
+      "task_id": "task_1",
+      "hypothesis_id": "hyp_9_tension_between_low_diversity_and_class_conditioned_variation",
+      "task_scope": "Characterize feature subsets by measuring diversity and class-conditioned variation within features from evidence refs e9 to e12 and e23 to e25",
+      "allowed_actions": [
+        "cardinality_verification",
+        "distribution_verification"
+      ],
+      "local_context_refs": [
+        "e9",
+        "e10",
+        "e11",
+        "e12",
+        "e23",
+        "e24",
+        "e25"
+      ],
+      "stop_conditions": [
+        "diversity metrics computed for all target features",
+        "class-conditioned variation quantified for each feature"
+      ]
+    },
+    {
+      "task_id": "task_2",
+      "hypothesis_id": "hyp_9_tension_between_low_diversity_and_class_conditioned_variation",
+      "task_scope": "Investigate data processing or measurement steps that could produce low diversity features using evidence refs e9 to e12 and e23 to e25",
+      "allowed_actions": [
+        "duplication_verification",
+        "local_consistency_verification"
+      ],
+      "local_context_refs": [
+        "e9",
+        "e10",
+        "e11",
+        "e12",
+        "e23",
+        "e24",
+        "e25"
+      ],
+      "stop_conditions": [
+        "potential data processing artifacts identified",
+        "low diversity feature origins documented"
+      ]
+    },
+    {
+      "task_id": "task_3",
+      "hypothesis_id": "hyp_9_tension_between_low_diversity_and_class_conditioned_variation",
+      "task_scope": "Assess how stable and variable features contribute to class discrimination focusing on evidence refs e9 to e12 and e23 to e25",
+      "allowed_actions": [
+        "dependency_contextualization",
+        "relation_verification"
+      ],
+      "local_context_refs": [
+        "e9",
+        "e10",
+        "e11",
+        "e12",
+        "e23",
+        "e24",
+        "e25"
+      ],
+      "stop_conditions": [
+        "feature-class dependency patterns identified",
+        "contributions of stable vs variable features to class separation assessed"
+      ]
+    },
+    {
+      "task_id": "task_4",
+      "hypothesis_id": "hyp_9_tension_between_low_diversity_and_class_conditioned_variation",
+      "task_scope": "Evaluate potential trade-offs in model reliance on stable versus variable features using evidence refs e9 to e12 and e23 to e25",
+      "allowed_actions": [
+        "shortcut_verification",
+        "structural_summary"
+      ],
+      "local_context_refs": [
+        "e9",
+        "e10",
+        "e11",
+        "e12",
+        "e23",
+        "e24",
+        "e25"
+      ],
+      "stop_conditions": [
+        "trade-offs in feature reliance identified",
+        "structural implications for model interpretability documented"
+      ]
+    }
+  ]
+}

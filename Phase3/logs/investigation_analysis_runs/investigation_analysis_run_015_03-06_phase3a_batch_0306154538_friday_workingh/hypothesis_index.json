@@ -1,0 +1,241 @@
+{
+  "hypothesis_count": 10,
+  "evidence_ref_coverage": [
+    "e1",
+    "e10",
+    "e11",
+    "e12",
+    "e13",
+    "e14",
+    "e15",
+    "e16",
+    "e17",
+    "e18",
+    "e19",
+    "e2",
+    "e20",
+    "e21",
+    "e22",
+    "e23",
+    "e24",
+    "e25",
+    "e26",
+    "e27",
+    "e28",
+    "e29",
+    "e3",
+    "e30",
+    "e31",
+    "e32",
+    "e33",
+    "e4",
+    "e5",
+    "e6",
+    "e7",
+    "e8",
+    "e9"
+  ],
+  "overlap_pairs": [
+    {
+      "left_hypothesis_id": "hyp_1_low_diversity_bulk_features",
+      "right_hypothesis_id": "hyp_8_risk_of_trivial_confirmation_due_to_feature_saturation",
+      "shared_evidence_refs": [
+        "e23"
+      ]
+    },
+    {
+      "left_hypothesis_id": "hyp_1_low_diversity_bulk_features",
+      "right_hypothesis_id": "hyp_9_burst_behavior_vs_structural_collapse_in_feature_patterns",
+      "shared_evidence_refs": [
+        "e23"
+      ]
+    },
+    {
+      "left_hypothesis_id": "hyp_2_strong_linear_dependencies",
+      "right_hypothesis_id": "hyp_7_potential_overlap_of_dependency_and_representation_sensitive_patterns",
+      "shared_evidence_refs": [
+        "e13",
+        "e14"
+      ]
+    },
+    {
+      "left_hypothesis_id": "hyp_2_strong_linear_dependencies",
+      "right_hypothesis_id": "hyp_10_effect_of_data_quality_issues_on_feature_dependency_and_variation",
+      "shared_evidence_refs": [
+        "e13"
+      ]
+    },
+    {
+      "left_hypothesis_id": "hyp_3_class_conditioned_structural_variation_packet_length",
+      "right_hypothesis_id": "hyp_9_burst_behavior_vs_structural_collapse_in_feature_patterns",
+      "shared_evidence_refs": [
+        "e8",
+        "e9"
+      ]
+    },
+    {
+      "left_hypothesis_id": "hyp_3_class_conditioned_structural_variation_packet_length",
+      "right_hypothesis_id": "hyp_10_effect_of_data_quality_issues_on_feature_dependency_and_variation",
+      "shared_evidence_refs": [
+        "e8"
+      ]
+    },
+    {
+      "left_hypothesis_id": "hyp_4_distributional_divergence_destination_port",
+      "right_hypothesis_id": "hyp_7_potential_overlap_of_dependency_and_representation_sensitive_patterns",
+      "shared_evidence_refs": [
+        "e33"
+      ]
+    },
+    {
+      "left_hypothesis_id": "hyp_4_distributional_divergence_destination_port",
+      "right_hypothesis_id": "hyp_8_risk_of_trivial_confirmation_due_to_feature_saturation",
+      "shared_evidence_refs": [
+        "e33"
+      ]
+    },
+    {
+      "left_hypothesis_id": "hyp_5_partition_level_data_quality_and_skew",
+      "right_hypothesis_id": "hyp_10_effect_of_data_quality_issues_on_feature_dependency_and_variation",
+      "shared_evidence_refs": [
+        "e1",
+        "e2"
+      ]
+    },
+    {
+      "left_hypothesis_id": "hyp_7_potential_overlap_of_dependency_and_representation_sensitive_patterns",
+      "right_hypothesis_id": "hyp_8_risk_of_trivial_confirmation_due_to_feature_saturation",
+      "shared_evidence_refs": [
+        "e33"
+      ]
+    },
+    {
+      "left_hypothesis_id": "hyp_7_potential_overlap_of_dependency_and_representation_sensitive_patterns",
+      "right_hypothesis_id": "hyp_10_effect_of_data_quality_issues_on_feature_dependency_and_variation",
+      "shared_evidence_refs": [
+        "e13"
+      ]
+    },
+    {
+      "left_hypothesis_id": "hyp_8_risk_of_trivial_confirmation_due_to_feature_saturation",
+      "right_hypothesis_id": "hyp_9_burst_behavior_vs_structural_collapse_in_feature_patterns",
+      "shared_evidence_refs": [
+        "e23"
+      ]
+    },
+    {
+      "left_hypothesis_id": "hyp_9_burst_behavior_vs_structural_collapse_in_feature_patterns",
+      "right_hypothesis_id": "hyp_10_effect_of_data_quality_issues_on_feature_dependency_and_variation",
+      "shared_evidence_refs": [
+        "e8"
+      ]
+    }
+  ],
+  "hypotheses": [
+    {
+      "hypothesis_id": "hyp_1_low_diversity_bulk_features",
+      "evidence_refs": [
+        "e23",
+        "e24",
+        "e25",
+        "e26",
+        "e27",
+        "e28",
+        "e29",
+        "e30",
+        "e31",
+        "e32"
+      ],
+      "open_question_count": 2
+    },
+    {
+      "hypothesis_id": "hyp_2_strong_linear_dependencies",
+      "evidence_refs": [
+        "e13",
+        "e14",
+        "e15",
+        "e16",
+        "e17",
+        "e18",
+        "e19",
+        "e20",
+        "e21",
+        "e22"
+      ],
+      "open_question_count": 2
+    },
+    {
+      "hypothesis_id": "hyp_3_class_conditioned_structural_variation_packet_length",
+      "evidence_refs": [
+        "e10",
+        "e11",
+        "e12",
+        "e8",
+        "e9"
+      ],
+      "open_question_count": 2
+    },
+    {
+      "hypothesis_id": "hyp_4_distributional_divergence_destination_port",
+      "evidence_refs": [
+        "e33"
+      ],
+      "open_question_count": 2
+    },
+    {
+      "hypothesis_id": "hyp_5_partition_level_data_quality_and_skew",
+      "evidence_refs": [
+        "e1",
+        "e2"
+      ],
+      "open_question_count": 2
+    },
+    {
+      "hypothesis_id": "hyp_6_top_ranked_packet_length_features_as_key_signals",
+      "evidence_refs": [
+        "e3",
+        "e4",
+        "e5",
+        "e6",
+        "e7"
+      ],
+      "open_question_count": 2
+    },
+    {
+      "hypothesis_id": "hyp_7_potential_overlap_of_dependency_and_representation_sensitive_patterns",
+      "evidence_refs": [
+        "e13",
+        "e14",
+        "e33"
+      ],
+      "open_question_count": 2
+    },
+    {
+      "hypothesis_id": "hyp_8_risk_of_trivial_confirmation_due_to_feature_saturation",
+      "evidence_refs": [
+        "e23",
+        "e33"
+      ],
+      "open_question_count": 2
+    },
+    {
+      "hypothesis_id": "hyp_9_burst_behavior_vs_structural_collapse_in_feature_patterns",
+      "evidence_refs": [
+        "e23",
+        "e8",
+        "e9"
+      ],
+      "open_question_count": 2
+    },
+    {
+      "hypothesis_id": "hyp_10_effect_of_data_quality_issues_on_feature_dependency_and_variation",
+      "evidence_refs": [
+        "e1",
+        "e13",
+        "e2",
+        "e8"
+      ],
+      "open_question_count": 2
+    }
+  ]
+}

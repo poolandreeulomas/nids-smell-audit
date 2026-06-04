@@ -1,0 +1,15 @@
+{
+  "task_id": "task_1",
+  "hypothesis_id": "hyp_005_class_distribution_skew_in_destination_port",
+  "task_scope": "Measure class-conditioned distribution stability of Destination Port across defined time segments within evidence e33",
+  "allowed_actions": [
+    "distribution_verification"
+  ],
+  "local_context_refs": [
+    "e33"
+  ],
+  "stop_conditions": [
+    "distribution metrics stable across all time segments",
+    "sample size threshold reached"
+  ]
+}

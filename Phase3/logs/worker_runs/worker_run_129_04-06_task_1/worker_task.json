@@ -1,0 +1,17 @@
+{
+  "task_id": "task_1",
+  "hypothesis_id": "hyp_7_heterogeneous_structural_regimes",
+  "task_scope": "Identify temporal or network segment boundaries that correlate with shifts in structural regimes using evidence e8 and e9.",
+  "allowed_actions": [
+    "distribution_verification",
+    "structural_summary"
+  ],
+  "local_context_refs": [
+    "e8",
+    "e9"
+  ],
+  "stop_conditions": [
+    "detected stable temporal or segment boundaries",
+    "no new regime shifts found in evidence"
+  ]
+}

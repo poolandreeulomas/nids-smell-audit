@@ -1,0 +1,16 @@
+{
+  "batch_id": "semantic_batch_076_friday-workinghours-afternoon-ddos.pcap_iscx",
+  "round_id": "round_077_semantic_batch_076_friday-workinghours-afternoon-ddos.pcap_iscx",
+  "model_name": "gpt-4.1-mini",
+  "duration_ms": 9399.817,
+  "status": "error",
+  "prompt_chars": 7561,
+  "raw_response_chars": 2981,
+  "selected_count": 3,
+  "strategy_count": 3,
+  "tool_capability_ref_count": 8,
+  "fresh_execution": true,
+  "replay_of": null,
+  "caller_mode": "cli",
+  "schema_version": "phase3a.planner.v1"
+}

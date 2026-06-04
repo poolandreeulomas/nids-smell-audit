@@ -1,0 +1,25 @@
+{
+  "task_id": "task_1",
+  "hypothesis_id": "hyp_002_strong_dependency_pairs_redundancy",
+  "task_scope": "Evaluate dependency concentration and correlation stability of key feature pairs e13 to e22 across temporal segments in the dataset",
+  "allowed_actions": [
+    "dependency_contextualization",
+    "distribution_verification"
+  ],
+  "local_context_refs": [
+    "e13",
+    "e14",
+    "e15",
+    "e16",
+    "e17",
+    "e18",
+    "e19",
+    "e20",
+    "e21",
+    "e22"
+  ],
+  "stop_conditions": [
+    "dependency metrics stable across all temporal segments",
+    "minimum sample size per segment reached"
+  ]
+}

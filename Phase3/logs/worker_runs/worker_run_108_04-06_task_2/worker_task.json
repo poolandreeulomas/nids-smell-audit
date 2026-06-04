@@ -1,0 +1,26 @@
+{
+  "task_id": "task_2",
+  "hypothesis_id": "hyp_004_strong_feature_dependency_pairs",
+  "task_scope": "Assess whether observed feature dependencies originate from inherent protocol behavior or from feature engineering artifacts using evidence refs e13 to e22.",
+  "allowed_actions": [
+    "dependency_contextualization",
+    "structural_summary",
+    "relation_verification"
+  ],
+  "local_context_refs": [
+    "e13",
+    "e14",
+    "e15",
+    "e16",
+    "e17",
+    "e18",
+    "e19",
+    "e20",
+    "e21",
+    "e22"
+  ],
+  "stop_conditions": [
+    "dependencies classified by origin (protocol vs engineered)",
+    "structural patterns linked to dependency sources identified"
+  ]
+}

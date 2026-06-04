@@ -1,0 +1,66 @@
+{
+  "batch_id": "phase3a_batch_0406122053_friday-workinghours-afternoon-ddos.pcap_iscx_2ba5ac",
+  "round_id": "round-001",
+  "planner_strategies": [
+    {
+      "strategy_id": "strategy_01_hyp_3",
+      "hypothesis_id": "hyp_3_strong_feature_dependencies_and_redundancy",
+      "strategic_objective": "Clarify stability and class-dependence of strong feature correlations and assess redundancy impact on model simplification potential.",
+      "key_checks": [
+        "Compare dependency strength across BENIGN and DDoS classes",
+        "Identify feature pairs with near-perfect correlation within each class",
+        "Evaluate if redundancy patterns persist under different attack phases or time windows",
+        "Assess if removing redundant features affects class-separability signals"
+      ],
+      "success_criteria": [
+        "Evidence of stable or varying dependency profiles by class",
+        "Identification of redundant features that can be removed without loss of key signal",
+        "Characterization of dependency patterns that may simplify feature space without weakening detection"
+      ],
+      "router_constraints": [
+        "preserve feature_scope",
+        "preserve evidence refs e13 to e22"
+      ]
+    },
+    {
+      "strategy_id": "strategy_02_hyp_7",
+      "hypothesis_id": "hyp_7_distributional_divergence_in_destination_port_feature",
+      "strategic_objective": "Determine temporal stability and sampling sensitivity of the dominant port distribution in the DDoS class to assess representation sensitivity.",
+      "key_checks": [
+        "Analyze destination port distribution across multiple time windows",
+        "Check for class imbalance effects on port distribution divergence",
+        "Compare entropy measures of destination port in BENIGN vs DDoS over different subsets",
+        "Investigate if dominant port presence correlates with specific attack campaigns"
+      ],
+      "success_criteria": [
+        "Confirmation of stable or fluctuating dominant port pattern in DDoS class",
+        "Identification of potential sampling or imbalance artifacts influencing distribution",
+        "Clear understanding of representation-sensitive signals linked to destination port"
+      ],
+      "router_constraints": [
+        "preserve feature_scope",
+        "preserve evidence ref e33"
+      ]
+    },
+    {
+      "strategy_id": "strategy_03_hyp_9",
+      "hypothesis_id": "hyp_9_tension_between_low_diversity_and_class_conditioned_variation",
+      "strategic_objective": "Explore mechanisms behind coexistence of near-constant and strongly class-variable features and implications for model reliance balancing.",
+      "key_checks": [
+        "Characterize feature subsets by diversity and class-conditioned variation",
+        "Investigate data processing or measurement steps that could produce low diversity features",
+        "Assess how stable and variable features contribute to class discrimination",
+        "Evaluate potential trade-offs in model reliance on stable vs variable features"
+      ],
+      "success_criteria": [
+        "Identification of plausible data or processing origins for contrasting feature behaviors",
+        "Evidence-based guidance on balancing feature reliance in modeling",
+        "Improved interpretability of dataset structure considering feature tension"
+      ],
+      "router_constraints": [
+        "preserve feature_scope",
+        "preserve evidence refs e9 to e12 and e23 to e25"
+      ]
+    }
+  ]
+}

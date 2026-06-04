@@ -1,0 +1,27 @@
+{
+  "component": "phase3a_runtime",
+  "created_at": "2026-06-03T13:38:56.772075+00:00",
+  "completed_at": "2026-06-03T13:40:51.340172+00:00",
+  "schema_version": "phase3a.runtime.v1",
+  "batch_id": "phase3a_batch_0306133856_friday-workinghours-afternoon-ddos.pcap_iscx_163504",
+  "status": "completed",
+  "final_status": "completed_partial_runtime",
+  "terminal_reason": "stopped_after_router",
+  "validation_ok": true,
+  "execution_mode": "cognitive_only",
+  "final_state_version": 1,
+  "round_count": 1,
+  "model_name": "gpt-4.1-mini",
+  "critic_enabled": false,
+  "caller_mode": "cli",
+  "artifact_paths": {
+    "component_run_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\phase3a_runtime_runs\\phase3a_runtime_run_008_03-06_phase3a_batch_0306133856_friday_workingh\\component_run.json",
+    "batch_ledger_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\phase3a_runtime_runs\\phase3a_runtime_run_008_03-06_phase3a_batch_0306133856_friday_workingh\\batch_ledger.json",
+    "initial_runtime_context_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\phase3a_runtime_runs\\phase3a_runtime_run_008_03-06_phase3a_batch_0306133856_friday_workingh\\initial_runtime_context.json",
+    "initial_state_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\phase3a_runtime_runs\\phase3a_runtime_run_008_03-06_phase3a_batch_0306133856_friday_workingh\\initial_state.json",
+    "finalization_summary_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\phase3a_runtime_runs\\phase3a_runtime_run_008_03-06_phase3a_batch_0306133856_friday_workingh\\finalization_summary.json",
+    "runtime_metrics_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\phase3a_runtime_runs\\phase3a_runtime_run_008_03-06_phase3a_batch_0306133856_friday_workingh\\runtime_metrics.json",
+    "replay_metadata_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\phase3a_runtime_runs\\phase3a_runtime_run_008_03-06_phase3a_batch_0306133856_friday_workingh\\replay_metadata.json",
+    "round_manifests_dir": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\phase3a_runtime_runs\\phase3a_runtime_run_008_03-06_phase3a_batch_0306133856_friday_workingh\\round_manifests"
+  }
+}

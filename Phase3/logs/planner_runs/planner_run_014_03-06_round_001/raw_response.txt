@@ -1,0 +1,69 @@
+{
+  "batch_id": "phase3a_batch_0306192600_friday-workinghours-afternoon-ddos.pcap_iscx_a08c4b",
+  "round_id": "round-001",
+  "planner_strategies": [
+    {
+      "strategy_id": "strategy_01_hyp_010",
+      "hypothesis_id": "hyp_010_potential_effects_of_data_redundancy_on_feature_correlations",
+      "strategic_objective": "Assess the impact of duplicated rows on feature correlation strength and dependency inflation to understand redundancy effects on dataset structure.",
+      "key_checks": [
+        "Quantify the proportion and distribution of duplicated rows in the dataset",
+        "Compare feature correlation matrices before and after deduplication",
+        "Evaluate changes in feature importance or dependency concentration post-deduplication",
+        "Check for persistence or attenuation of near-perfect correlations after removing duplicates"
+      ],
+      "success_criteria": [
+        "Clear evidence that deduplication reduces inflated correlations and dependency measures",
+        "Identification of features whose dependency profiles are robust versus sensitive to redundancy",
+        "Bounded understanding of how redundancy biases downstream structural interpretations"
+      ],
+      "router_constraints": [
+        "preserve evidence refs e1,e2,e13,e14,e15,e16,e17,e18,e19,e20,e21,e22",
+        "preserve feature_scope related to correlated features",
+        "preserve dataset scope for duplication context"
+      ]
+    },
+    {
+      "strategy_id": "strategy_02_hyp_002",
+      "hypothesis_id": "hyp_002_strong_dependency_pairs_redundancy",
+      "strategic_objective": "Investigate the stability and origin of strong feature pair dependencies to distinguish inherent protocol patterns from dataset artifacts.",
+      "key_checks": [
+        "Analyze dependency strength consistency across temporal partitions or dataset segments",
+        "Examine whether strong correlations align with known protocol behaviors or preprocessing steps",
+        "Assess if dependency concentration clusters remain stable or shift with data partitioning",
+        "Evaluate potential confounding effects of redundancy on observed feature pair dependencies"
+      ],
+      "success_criteria": [
+        "Demonstrated stability or variability of strong dependencies across temporal or partitioned views",
+        "Evidence clarifying whether dependencies reflect genuine protocol characteristics or artifacts",
+        "Identification of dependency pairs sensitive to redundancy or preprocessing"
+      ],
+      "router_constraints": [
+        "preserve evidence refs e13,e14,e15,e16,e17,e18,e19,e20,e21,e22",
+        "preserve feature pairs involved in strong dependencies",
+        "preserve temporal segmentation metadata if available"
+      ]
+    },
+    {
+      "strategy_id": "strategy_03_hyp_003",
+      "hypothesis_id": "hyp_003_class_conditioned_variation_backward_packet_lengths",
+      "strategic_objective": "Characterize the generalizability and stability of class-conditioned variation in backward packet length features under class imbalance and sampling biases.",
+      "key_checks": [
+        "Compare class-conditioned distribution profiles of backward packet length features across multiple partitions",
+        "Measure variance ratios and unique value counts controlling for class imbalance",
+        "Assess sensitivity of these features to sampling bias or dataset partitioning",
+        "Evaluate local label-topology consistency around these features within each class"
+      ],
+      "success_criteria": [
+        "Evidence that class-conditioned variation is consistent beyond the current partition",
+        "Identification of features with stable versus unstable discriminative signals",
+        "Bounded understanding of how class imbalance and sampling affect feature structural profiles"
+      ],
+      "router_constraints": [
+        "preserve evidence refs e9,e10,e11,e12",
+        "preserve feature scope for backward packet length features",
+        "preserve class label information and partition metadata"
+      ]
+    }
+  ]
+}

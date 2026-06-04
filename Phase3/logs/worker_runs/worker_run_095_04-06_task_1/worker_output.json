@@ -1,0 +1,19 @@
+{
+  "batch_id": "phase3a_batch_0406080944_friday-workinghours-afternoon-ddos.pcap_iscx_618cac",
+  "round_id": "round-001",
+  "worker_result": {
+    "task_id": "task_1",
+    "hypothesis_id": "hyp_005_destination_port_distribution_shift",
+    "status": "completed",
+    "findings": [
+      "Destination Port distributions exhibit strong class separation with DDoS class showing a dominant single value and zero entropy.",
+      "High Jensen-Shannon divergence (0.7315) confirms significant distributional shift between BENIGN and DDoS classes.",
+      "No evidence of abrupt temporal shifts or instability within the local evidence scope."
+    ],
+    "evidence_refs": [
+      "task_1_step_03"
+    ],
+    "contradictions": [],
+    "limitations": []
+  }
+}

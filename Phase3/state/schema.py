@@ -68,6 +68,27 @@ def _ensure_json_primitive(obj: Any) -> Any:
         return obj
 
 
+def _string_list(values: Any) -> List[str]:
+    if not isinstance(values, list):
+        return []
+
+    normalized: List[str] = []
+    for value in values:
+        if not isinstance(value, str):
+            continue
+        stripped = value.strip()
+        if stripped:
+            normalized.append(stripped)
+    return normalized
+
+
+def _int_value(value: Any, default: int = 0) -> int:
+    try:
+        return int(value)
+    except Exception:
+        return default
+
+
 @dataclass
 class EvidenceBlock:
     """Structured evidence unit for Phase 2.
@@ -108,6 +129,135 @@ class EvidenceBlock:
             support=dict(payload.get("support", {}) or {}),
             provenance=dict(payload.get("provenance", {}) or {}),
             status=payload.get("status", "active") or "active",
+        )
+
+
+@dataclass
+class InterpretiveHypothesis:
+    """Canonical planner-facing hypothesis state for one batch."""
+
+    hypothesis_id: str
+    summary: str = ""
+    status: str = "unresolved"
+    evidence_refs: List[str] = field(default_factory=list)
+    open_gaps: List[str] = field(default_factory=list)
+    preserved_contradictions: List[str] = field(default_factory=list)
+    merged_findings: List[str] = field(default_factory=list)
+    update_focus: str = ""
+    last_updated_round: str = ""
+    revision_count: int = 0
+
+    def to_dict(self) -> Dict[str, Any]:
+        return _ensure_json_primitive(asdict(self))
+
+    @classmethod
+    def from_dict(
+        cls,
+        payload: Dict[str, Any] | None,
+    ) -> "InterpretiveHypothesis":
+        if not payload:
+            return cls(hypothesis_id="")
+
+        return cls(
+            hypothesis_id=str(payload.get("hypothesis_id", "") or ""),
+            summary=str(payload.get("summary", "") or ""),
+            status=str(payload.get("status", "unresolved") or "unresolved"),
+            evidence_refs=_string_list(payload.get("evidence_refs")),
+            open_gaps=_string_list(payload.get("open_gaps")),
+            preserved_contradictions=_string_list(
+                payload.get("preserved_contradictions")
+            ),
+            merged_findings=_string_list(payload.get("merged_findings")),
+            update_focus=str(payload.get("update_focus", "") or ""),
+            last_updated_round=str(payload.get("last_updated_round", "") or ""),
+            revision_count=_int_value(payload.get("revision_count"), default=0),
+        )
+
+
+@dataclass
+class StateRevisionRecord:
+    """Append-only revision metadata for canonical batch-state commits."""
+
+    revision_type: str = "state_update"
+    state_version: int = 0
+    round_id: str = ""
+    hypothesis_id: str = ""
+    applied_updates: List[Dict[str, Any]] = field(default_factory=list)
+    timestamp: str = ""
+
+    def to_dict(self) -> Dict[str, Any]:
+        return _ensure_json_primitive(asdict(self))
+
+    @classmethod
+    def from_dict(
+        cls,
+        payload: Dict[str, Any] | None,
+    ) -> "StateRevisionRecord":
+        raw = payload or {}
+        updates = raw.get("applied_updates")
+        normalized_updates: List[Dict[str, Any]] = []
+        if isinstance(updates, list):
+            for item in updates:
+                if isinstance(item, dict):
+                    normalized_updates.append(dict(item))
+
+        return cls(
+            revision_type=str(raw.get("revision_type", "state_update") or "state_update"),
+            state_version=_int_value(raw.get("state_version"), default=0),
+            round_id=str(raw.get("round_id", "") or ""),
+            hypothesis_id=str(raw.get("hypothesis_id", "") or ""),
+            applied_updates=normalized_updates,
+            timestamp=str(raw.get("timestamp", "") or ""),
+        )
+
+
+@dataclass
+class CanonicalBatchState:
+    """Two-layer canonical batch state for Phase 3A."""
+
+    batch_id: str
+    state_version: int = 1
+    structural_substrate: Dict[str, Any] = field(default_factory=dict)
+    interpretive_hypotheses: List[InterpretiveHypothesis] = field(default_factory=list)
+    revision_log: List[StateRevisionRecord] = field(default_factory=list)
+
+    def to_dict(self) -> Dict[str, Any]:
+        return _ensure_json_primitive(asdict(self))
+
+    @classmethod
+    def from_dict(cls, payload: Dict[str, Any] | None) -> "CanonicalBatchState":
+        if not payload:
+            raise ValueError(
+                "payload must be a non-empty dict to build CanonicalBatchState"
+            )
+
+        raw_hypotheses = payload.get("interpretive_hypotheses") or []
+        if isinstance(raw_hypotheses, dict):
+            raw_hypotheses = list(raw_hypotheses.values())
+
+        hypotheses: List[InterpretiveHypothesis] = []
+        if isinstance(raw_hypotheses, list):
+            for item in raw_hypotheses:
+                if isinstance(item, InterpretiveHypothesis):
+                    hypotheses.append(item)
+                elif isinstance(item, dict):
+                    hypotheses.append(InterpretiveHypothesis.from_dict(item))
+
+        raw_revision_log = payload.get("revision_log") or []
+        revisions: List[StateRevisionRecord] = []
+        if isinstance(raw_revision_log, list):
+            for item in raw_revision_log:
+                if isinstance(item, StateRevisionRecord):
+                    revisions.append(item)
+                elif isinstance(item, dict):
+                    revisions.append(StateRevisionRecord.from_dict(item))
+
+        return cls(
+            batch_id=str(payload.get("batch_id", "") or ""),
+            state_version=_int_value(payload.get("state_version"), default=1),
+            structural_substrate=dict(payload.get("structural_substrate", {}) or {}),
+            interpretive_hypotheses=hypotheses,
+            revision_log=revisions,
         )
 
 

@@ -1,0 +1,66 @@
+{
+  "batch_id": "phase3a_batch_2005190226_friday-workinghours-afternoon-ddos.pcap_iscx_01bd74",
+  "round_id": "round-001",
+  "planner_strategies": [
+    {
+      "strategy_id": "strategy_01_hyp_1_low_diversity_backward_bulk",
+      "hypothesis_id": "hyp_1_low_diversity_backward_bulk",
+      "strategic_objective": "Characterize the nature and implications of near-constant backward bulk traffic features",
+      "key_checks": [
+        "measure exact unique value counts and cardinality ratios for backward bulk features",
+        "compare backward bulk feature distributions across time slices and traffic segments",
+        "assess potential preprocessing or collection steps that could induce uniformity",
+        "investigate subtle intra-class variations within backward bulk features"
+      ],
+      "success_criteria": [
+        "identification of bounded variability patterns consistent with genuine network behavior or data constraints",
+        "detection of any meaningful sub-patterns or deviations within the uniform backward bulk features",
+        "evidence that uniformity does not obscure relevant attack-related signals"
+      ],
+      "router_constraints": [
+        "preserve backward bulk feature scope",
+        "preserve evidence references e23 to e28"
+      ]
+    },
+    {
+      "strategy_id": "strategy_02_hyp_3_strong_dependency_pairs",
+      "hypothesis_id": "hyp_3_strong_dependency_pairs",
+      "strategic_objective": "Delineate the origins and impacts of near-perfect linear correlations among key feature pairs",
+      "key_checks": [
+        "quantify dependency concentration and linear correlation strength for identified feature pairs",
+        "examine protocol and flow-level semantics that may explain dependencies",
+        "explore potential data processing or feature engineering steps contributing to redundancy",
+        "evaluate how these dependencies influence feature selection stability and model sensitivity"
+      ],
+      "success_criteria": [
+        "clear mapping of dependency sources to protocol or processing factors",
+        "recognition of redundancy patterns that could bias or destabilize downstream analysis",
+        "balanced understanding of dependency effects enabling informed feature scope decisions"
+      ],
+      "router_constraints": [
+        "preserve feature pairs involved in strong dependencies",
+        "preserve evidence references e13 to e22"
+      ]
+    },
+    {
+      "strategy_id": "strategy_03_hyp_7_distributional_divergence_destination_port",
+      "hypothesis_id": "hyp_7_distributional_divergence_destination_port",
+      "strategic_objective": "Clarify the representational skew and its implications in the Destination Port feature distribution",
+      "key_checks": [
+        "analyze class-conditioned distribution profiles and entropy measures for Destination Port",
+        "investigate the prevalence and role of the dominant port in DDoS traffic",
+        "assess potential dataset biases or artifacts influencing port distribution",
+        "consider effects of skew on generalization to other attack types or ports"
+      ],
+      "success_criteria": [
+        "evidence distinguishing targeted attack vector from dataset artifact",
+        "understanding of how skewed port representation affects detection robustness",
+        "identification of conditions under which port distribution may limit generalization"
+      ],
+      "router_constraints": [
+        "preserve Destination Port feature scope",
+        "preserve evidence reference e33"
+      ]
+    }
+  ]
+}

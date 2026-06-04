@@ -1,0 +1,85 @@
+{
+  "batch_id": "phase3a_batch_0406095248_friday-workinghours-afternoon-ddos.pcap_iscx_f8c2c2",
+  "round_id": "round-001",
+  "hypothesis_id": "hyp_004_strong_feature_dependency_pairs",
+  "planner_strategy_id": "strategy_01_hyp_004",
+  "worker_tasks": [
+    {
+      "task_id": "task_1",
+      "hypothesis_id": "hyp_004_strong_feature_dependency_pairs",
+      "task_scope": "Compare strength of feature dependencies between benign and attack classes within evidence refs e13 to e22 to identify class-conditioned dependency variations.",
+      "allowed_actions": [
+        "dependency_contextualization",
+        "relation_verification"
+      ],
+      "local_context_refs": [
+        "e13",
+        "e14",
+        "e15",
+        "e16",
+        "e17",
+        "e18",
+        "e19",
+        "e20",
+        "e21",
+        "e22"
+      ],
+      "stop_conditions": [
+        "dependency strength metrics computed for both classes",
+        "class-conditioned dependency differences identified or ruled out"
+      ]
+    },
+    {
+      "task_id": "task_2",
+      "hypothesis_id": "hyp_004_strong_feature_dependency_pairs",
+      "task_scope": "Assess whether observed feature dependencies originate from inherent protocol behavior or from feature engineering artifacts using evidence refs e13 to e22.",
+      "allowed_actions": [
+        "dependency_contextualization",
+        "structural_summary",
+        "relation_verification"
+      ],
+      "local_context_refs": [
+        "e13",
+        "e14",
+        "e15",
+        "e16",
+        "e17",
+        "e18",
+        "e19",
+        "e20",
+        "e21",
+        "e22"
+      ],
+      "stop_conditions": [
+        "dependencies classified by origin (protocol vs engineered)",
+        "structural patterns linked to dependency sources identified"
+      ]
+    },
+    {
+      "task_id": "task_3",
+      "hypothesis_id": "hyp_004_strong_feature_dependency_pairs",
+      "task_scope": "Evaluate stability and consistency of strong feature dependencies over time and varying network conditions within evidence refs e13 to e22.",
+      "allowed_actions": [
+        "dependency_contextualization",
+        "distribution_verification",
+        "local_consistency_verification"
+      ],
+      "local_context_refs": [
+        "e13",
+        "e14",
+        "e15",
+        "e16",
+        "e17",
+        "e18",
+        "e19",
+        "e20",
+        "e21",
+        "e22"
+      ],
+      "stop_conditions": [
+        "dependency stability metrics over time and conditions computed",
+        "inconsistent or unstable dependencies flagged"
+      ]
+    }
+  ]
+}

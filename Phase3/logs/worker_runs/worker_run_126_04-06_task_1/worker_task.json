@@ -1,0 +1,17 @@
+{
+  "task_id": "task_1",
+  "hypothesis_id": "hyp_4_class_distribution_and_port_skew",
+  "task_scope": "Measure concentration and entropy of Destination Port distribution conditioned on DDoS and non-DDoS classes using evidence e2 and e33.",
+  "allowed_actions": [
+    "distribution_verification",
+    "cardinality_verification"
+  ],
+  "local_context_refs": [
+    "e2",
+    "e33"
+  ],
+  "stop_conditions": [
+    "distribution concentration metrics computed",
+    "entropy values stabilized"
+  ]
+}

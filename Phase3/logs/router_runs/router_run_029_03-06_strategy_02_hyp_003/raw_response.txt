@@ -1,0 +1,40 @@
+{
+  "batch_id": "phase3a_batch_0306183859_friday-workinghours-afternoon-ddos.pcap_iscx_689174",
+  "round_id": "round-001",
+  "hypothesis_id": "hyp_003_class_conditioned_variation_in_backward_packet_lengths",
+  "planner_strategy_id": "strategy_02_hyp_003",
+  "worker_tasks": [
+    {
+      "task_id": "task_1",
+      "hypothesis_id": "hyp_003_class_conditioned_variation_in_backward_packet_lengths",
+      "task_scope": "Quantify variance ratios and count unique values of backward packet length features per class using evidence refs e9, e10, e11, e12.",
+      "allowed_actions": ["cardinality_verification", "distribution_verification"],
+      "local_context_refs": ["e9", "e10", "e11", "e12"],
+      "stop_conditions": ["collected variance ratios for all classes", "unique value counts stabilized"]
+    },
+    {
+      "task_id": "task_2",
+      "hypothesis_id": "hyp_003_class_conditioned_variation_in_backward_packet_lengths",
+      "task_scope": "Assess dependency concentration and distribution shifts of backward packet length features across network contexts using evidence refs e9, e10, e11, e12.",
+      "allowed_actions": ["dependency_contextualization", "distribution_verification"],
+      "local_context_refs": ["e9", "e10", "e11", "e12"],
+      "stop_conditions": ["dependency concentration metrics stable", "distribution shift metrics stable"]
+    },
+    {
+      "task_id": "task_3",
+      "hypothesis_id": "hyp_003_class_conditioned_variation_in_backward_packet_lengths",
+      "task_scope": "Investigate potential sampling or labeling biases influencing backward packet length feature distributions using evidence refs e9, e10, e11, e12.",
+      "allowed_actions": ["duplication_verification", "shortcut_verification"],
+      "local_context_refs": ["e9", "e10", "e11", "e12"],
+      "stop_conditions": ["sampling bias indicators evaluated", "labeling bias indicators evaluated"]
+    },
+    {
+      "task_id": "task_4",
+      "hypothesis_id": "hyp_003_class_conditioned_variation_in_backward_packet_lengths",
+      "task_scope": "Examine local label-topology consistency around backward packet length features using evidence refs e9, e10, e11, e12.",
+      "allowed_actions": ["local_consistency_verification", "relation_verification"],
+      "local_context_refs": ["e9", "e10", "e11", "e12"],
+      "stop_conditions": ["local label-topology consistency metrics stable", "no conflicting local label patterns found"]
+    }
+  ]
+}

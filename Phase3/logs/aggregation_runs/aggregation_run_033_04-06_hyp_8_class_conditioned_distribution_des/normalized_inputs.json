@@ -1,0 +1,109 @@
+{
+  "batch_id": "phase3a_batch_0406132627_friday-workinghours-afternoon-ddos.pcap_iscx_f0e355",
+  "round_id": "round-001",
+  "hypothesis_id": "hyp_8_class_conditioned_distribution_destination_port",
+  "worker_result_count": 4,
+  "expected_task_ids": [
+    "task_1",
+    "task_2",
+    "task_3",
+    "task_4"
+  ],
+  "selected_task_ids": [
+    "task_1",
+    "task_2",
+    "task_3",
+    "task_4"
+  ],
+  "missing_task_ids": [],
+  "extra_task_ids": [],
+  "source_run_dirs": [
+    "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\worker_runs\\worker_run_130_04-06_task_1",
+    "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\worker_runs\\worker_run_131_04-06_task_2",
+    "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\worker_runs\\worker_run_132_04-06_task_3",
+    "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\worker_runs\\worker_run_134_04-06_task_4"
+  ],
+  "status_counts": {
+    "completed": 4
+  },
+  "source_evidence_refs": [
+    "task_1_step_03",
+    "task_2_step_03",
+    "task_3_step_03",
+    "task_3_step_05",
+    "task_4_step_03"
+  ],
+  "source_contradictions": [],
+  "source_limitations": [
+    "Analysis limited to local evidence from e33; broader dataset context or model internals not examined.",
+    "Analysis limited to single-feature deterministic decision stump; multifeature interactions not assessed."
+  ],
+  "source_finding_count": 10,
+  "non_success_count": 0,
+  "worker_results": [
+    {
+      "task_id": "task_1",
+      "hypothesis_id": "hyp_8_class_conditioned_distribution_destination_port",
+      "status": "completed",
+      "findings": [
+        "Destination Port distribution exhibits strong class-conditioned differences with low entropy and a dominant value for DDoS class.",
+        "High Jensen-Shannon divergence (0.7315) confirms significant distributional separation between BENIGN and DDoS classes.",
+        "Distribution differences align with targeted attack patterns rather than dataset sampling bias."
+      ],
+      "evidence_refs": [
+        "task_1_step_03"
+      ],
+      "contradictions": [],
+      "limitations": []
+    },
+    {
+      "task_id": "task_2",
+      "hypothesis_id": "hyp_8_class_conditioned_distribution_destination_port",
+      "status": "completed",
+      "findings": [
+        "Destination Port feature exhibits moderate shortcut-like predictive leverage within the local evidence context e33, supported by class-conditioned distribution differences and a high Jensen-Shannon divergence."
+      ],
+      "evidence_refs": [
+        "task_2_step_03"
+      ],
+      "contradictions": [],
+      "limitations": [
+        "Analysis limited to single-feature deterministic decision stump; multifeature interactions not assessed."
+      ]
+    },
+    {
+      "task_id": "task_3",
+      "hypothesis_id": "hyp_8_class_conditioned_distribution_destination_port",
+      "status": "completed",
+      "findings": [
+        "Destination Port distribution exhibits strong class-conditioned skew with dominant values and low entropy.",
+        "High Jensen-Shannon divergence (0.7315) confirms significant class separation in destination port usage.",
+        "Distribution stability is supported by consistent signals across multiple verification steps."
+      ],
+      "evidence_refs": [
+        "task_3_step_03",
+        "task_3_step_05"
+      ],
+      "contradictions": [],
+      "limitations": []
+    },
+    {
+      "task_id": "task_4",
+      "hypothesis_id": "hyp_8_class_conditioned_distribution_destination_port",
+      "status": "completed",
+      "findings": [
+        "Destination Port feature exhibits a dominant value with a ratio of 1.0 for DDoS and 0.346 for BENIGN, indicating strong class-conditioned distribution differences.",
+        "High Jensen-Shannon divergence (0.7315) confirms significant distributional separation between classes on this feature.",
+        "Dependency contextualization did not reveal mitigating structural diversity, suggesting over-reliance risk on this feature's dominant port values in classification models."
+      ],
+      "evidence_refs": [
+        "task_4_step_03"
+      ],
+      "contradictions": [],
+      "limitations": [
+        "Analysis limited to local evidence from e33; broader dataset context or model internals not examined."
+      ]
+    }
+  ],
+  "overlap_diagnostics": []
+}

@@ -1,0 +1,40 @@
+{
+  "hypothesis_id": "hyp_005_destination_port_distribution_shift",
+  "planner_strategy_id": "strategy_01_hyp_005",
+  "task_count": 4,
+  "action_class_count": 6,
+  "task_summaries": [
+    {
+      "task_id": "task_1",
+      "hypothesis_id": "hyp_005_destination_port_distribution_shift",
+      "task_scope": "Verify class-conditioned distribution stability of Destination Port across temporal and data partitions within evidence e33",
+      "allowed_action_count": 1,
+      "local_context_ref_count": 1,
+      "stop_condition_count": 2
+    },
+    {
+      "task_id": "task_2",
+      "hypothesis_id": "hyp_005_destination_port_distribution_shift",
+      "task_scope": "Measure cardinality and entropy of Destination Port within each class to detect near-constant or low-variation patterns in evidence e33",
+      "allowed_action_count": 2,
+      "local_context_ref_count": 1,
+      "stop_condition_count": 2
+    },
+    {
+      "task_id": "task_3",
+      "hypothesis_id": "hyp_005_destination_port_distribution_shift",
+      "task_scope": "Assess shortcut-like predictive leverage of Destination Port alone for the DDoS class within evidence e33",
+      "allowed_action_count": 1,
+      "local_context_ref_count": 1,
+      "stop_condition_count": 2
+    },
+    {
+      "task_id": "task_4",
+      "hypothesis_id": "hyp_005_destination_port_distribution_shift",
+      "task_scope": "Check for abrupt distributional shifts or near-deterministic mappings in Destination Port values within evidence e33",
+      "allowed_action_count": 2,
+      "local_context_ref_count": 1,
+      "stop_condition_count": 2
+    }
+  ]
+}

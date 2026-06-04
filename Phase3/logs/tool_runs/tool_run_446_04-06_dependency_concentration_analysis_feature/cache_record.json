@@ -1,0 +1,10 @@
+{
+  "status": "tracked",
+  "events": [
+    {
+      "cache_key": "dependency_concentration_analysis::corr_matrix",
+      "status": "hit"
+    }
+  ],
+  "event_count": 1
+}

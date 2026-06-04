@@ -1,0 +1,19 @@
+{
+  "strategy_id": "strategy_03_hyp_007",
+  "hypothesis_id": "hyp_007_class_conditioned_distribution_destination_port",
+  "strategic_objective": "Elucidate the causes and stability of the zero entropy distribution in DDoS destination ports and its potential as a representation-sensitive detection signal.",
+  "key_checks": [
+    "Determine if zero entropy reflects targeted attack or dataset artifact",
+    "Examine temporal and contextual factors affecting port distribution shifts",
+    "Assess potential for this feature to serve as a strong localized representation-sensitive handle"
+  ],
+  "success_criteria": [
+    "Evidence clarifying whether port distribution is attack-driven or artifact",
+    "Identification of temporal/contextual influences on distribution shifts",
+    "Assessment of feature\u2019s robustness and risk of shortcut exploitation"
+  ],
+  "router_constraints": [
+    "preserve feature_scope",
+    "preserve evidence ref e33"
+  ]
+}

@@ -1,0 +1,40 @@
+{
+  "batch_id": "phase3a_batch_0406132627_friday-workinghours-afternoon-ddos.pcap_iscx_f0e355",
+  "round_id": "round-001",
+  "hypothesis_id": "hyp_6_class_conditioned_variation_backward_packet_lengths",
+  "planner_strategy_id": "strategy_03_hyp_6",
+  "worker_tasks": [
+    {
+      "task_id": "task_1",
+      "hypothesis_id": "hyp_6_class_conditioned_variation_backward_packet_lengths",
+      "task_scope": "Verify stability of class-conditioned distribution shifts in backward packet length features across different time windows and network conditions using evidence refs e10 to e12.",
+      "allowed_actions": ["distribution_verification", "local_consistency_verification"],
+      "local_context_refs": ["e10", "e11", "e12"],
+      "stop_conditions": ["distribution shifts characterized for all relevant time windows", "stability assessment completed across network conditions"]
+    },
+    {
+      "task_id": "task_2",
+      "hypothesis_id": "hyp_6_class_conditioned_variation_backward_packet_lengths",
+      "task_scope": "Compare variance ratios and unique value counts of backward packet length features between classes to identify structural differences using evidence refs e10 to e12.",
+      "allowed_actions": ["cardinality_verification", "distribution_verification"],
+      "local_context_refs": ["e10", "e11", "e12"],
+      "stop_conditions": ["variance ratios computed for all classes", "unique value counts compared across classes"]
+    },
+    {
+      "task_id": "task_3",
+      "hypothesis_id": "hyp_6_class_conditioned_variation_backward_packet_lengths",
+      "task_scope": "Assess risk of overfitting by detecting dataset-specific artifacts and shortcut-like signals in backward packet length features using evidence refs e10 to e12.",
+      "allowed_actions": ["shortcut_verification", "duplication_verification"],
+      "local_context_refs": ["e10", "e11", "e12"],
+      "stop_conditions": ["artifact presence evaluated", "shortcut signals identified or ruled out"]
+    },
+    {
+      "task_id": "task_4",
+      "hypothesis_id": "hyp_6_class_conditioned_variation_backward_packet_lengths",
+      "task_scope": "Evaluate potential for reliable class discrimination based on structural variations in backward packet length features under varying conditions using evidence refs e10 to e12.",
+      "allowed_actions": ["relation_verification", "dependency_contextualization"],
+      "local_context_refs": ["e10", "e11", "e12"],
+      "stop_conditions": ["discriminative patterns identified", "dependency risks assessed for robustness"]
+    }
+  ]
+}

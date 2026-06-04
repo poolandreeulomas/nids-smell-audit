@@ -1,0 +1,17 @@
+{
+  "task_id": "task_4",
+  "hypothesis_id": "hyp_003_class_conditioned_structural_variation",
+  "task_scope": "Assess alignment of observed structural variations with known DDoS behavioral signatures using structural summary and shortcut verification.",
+  "allowed_actions": [
+    "structural_summary",
+    "shortcut_verification"
+  ],
+  "local_context_refs": [
+    "e11",
+    "e12"
+  ],
+  "stop_conditions": [
+    "structural patterns matched or excluded as DDoS signatures",
+    "shortcut-like predictive signals evaluated"
+  ]
+}

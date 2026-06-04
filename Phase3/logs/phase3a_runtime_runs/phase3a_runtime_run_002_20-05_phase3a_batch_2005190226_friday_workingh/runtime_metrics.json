@@ -1,0 +1,14 @@
+{
+  "batch_id": "phase3a_batch_2005190226_friday-workinghours-afternoon-ddos.pcap_iscx_01bd74",
+  "model_name": "gpt-4.1-mini",
+  "duration_ms": 145930.682,
+  "round_count": 1,
+  "analysis_refresh_count": 0,
+  "execution_mode": "cognitive_only",
+  "final_state_version": 1,
+  "critic_run_count": 0,
+  "final_audit_committed": false,
+  "status": "completed",
+  "terminal_reason": "stopped_after_router",
+  "schema_version": "phase3a.runtime.v1"
+}

@@ -1,0 +1,264 @@
+{
+  "hypothesis_count": 10,
+  "evidence_ref_coverage": [
+    "e1",
+    "e10",
+    "e11",
+    "e12",
+    "e13",
+    "e14",
+    "e15",
+    "e16",
+    "e17",
+    "e18",
+    "e19",
+    "e2",
+    "e20",
+    "e21",
+    "e22",
+    "e23",
+    "e24",
+    "e25",
+    "e26",
+    "e27",
+    "e28",
+    "e29",
+    "e30",
+    "e31",
+    "e32",
+    "e33",
+    "e8",
+    "e9"
+  ],
+  "overlap_pairs": [
+    {
+      "left_hypothesis_id": "hyp_001_low_diversity_backward_bulk_features",
+      "right_hypothesis_id": "hyp_009_potential_representation_sensitive_handles_in_bulk_and_flag_features",
+      "shared_evidence_refs": [
+        "e23",
+        "e24",
+        "e25",
+        "e26",
+        "e27"
+      ]
+    },
+    {
+      "left_hypothesis_id": "hyp_001_low_diversity_backward_bulk_features",
+      "right_hypothesis_id": "hyp_010_overlapping_structural_patterns_and_competing_interpretations",
+      "shared_evidence_refs": [
+        "e23",
+        "e24",
+        "e25",
+        "e26",
+        "e27"
+      ]
+    },
+    {
+      "left_hypothesis_id": "hyp_002_low_diversity_forward_bulk_features",
+      "right_hypothesis_id": "hyp_009_potential_representation_sensitive_handles_in_bulk_and_flag_features",
+      "shared_evidence_refs": [
+        "e29",
+        "e30",
+        "e31",
+        "e32"
+      ]
+    },
+    {
+      "left_hypothesis_id": "hyp_002_low_diversity_forward_bulk_features",
+      "right_hypothesis_id": "hyp_010_overlapping_structural_patterns_and_competing_interpretations",
+      "shared_evidence_refs": [
+        "e29",
+        "e30",
+        "e31",
+        "e32"
+      ]
+    },
+    {
+      "left_hypothesis_id": "hyp_003_strong_feature_dependencies_and_redundancy",
+      "right_hypothesis_id": "hyp_010_overlapping_structural_patterns_and_competing_interpretations",
+      "shared_evidence_refs": [
+        "e13",
+        "e14",
+        "e15",
+        "e16",
+        "e17",
+        "e18",
+        "e19",
+        "e20",
+        "e21",
+        "e22"
+      ]
+    },
+    {
+      "left_hypothesis_id": "hyp_004_class_conditioned_structural_variation_backward_packet_lengths",
+      "right_hypothesis_id": "hyp_010_overlapping_structural_patterns_and_competing_interpretations",
+      "shared_evidence_refs": [
+        "e10",
+        "e11",
+        "e12",
+        "e9"
+      ]
+    },
+    {
+      "left_hypothesis_id": "hyp_005_class_conditioned_structural_variation_average_packet_size",
+      "right_hypothesis_id": "hyp_010_overlapping_structural_patterns_and_competing_interpretations",
+      "shared_evidence_refs": [
+        "e8"
+      ]
+    },
+    {
+      "left_hypothesis_id": "hyp_006_class_distribution_and_js_divergence_destination_port",
+      "right_hypothesis_id": "hyp_010_overlapping_structural_patterns_and_competing_interpretations",
+      "shared_evidence_refs": [
+        "e33"
+      ]
+    },
+    {
+      "left_hypothesis_id": "hyp_008_low_cardinality_flag_features_as_weak_signals",
+      "right_hypothesis_id": "hyp_010_overlapping_structural_patterns_and_competing_interpretations",
+      "shared_evidence_refs": [
+        "e28"
+      ]
+    },
+    {
+      "left_hypothesis_id": "hyp_009_potential_representation_sensitive_handles_in_bulk_and_flag_features",
+      "right_hypothesis_id": "hyp_010_overlapping_structural_patterns_and_competing_interpretations",
+      "shared_evidence_refs": [
+        "e23",
+        "e24",
+        "e25",
+        "e26",
+        "e27",
+        "e29",
+        "e30",
+        "e31",
+        "e32"
+      ]
+    }
+  ],
+  "hypotheses": [
+    {
+      "hypothesis_id": "hyp_001_low_diversity_backward_bulk_features",
+      "evidence_refs": [
+        "e23",
+        "e24",
+        "e25",
+        "e26",
+        "e27"
+      ],
+      "open_question_count": 3
+    },
+    {
+      "hypothesis_id": "hyp_002_low_diversity_forward_bulk_features",
+      "evidence_refs": [
+        "e29",
+        "e30",
+        "e31",
+        "e32"
+      ],
+      "open_question_count": 3
+    },
+    {
+      "hypothesis_id": "hyp_003_strong_feature_dependencies_and_redundancy",
+      "evidence_refs": [
+        "e13",
+        "e14",
+        "e15",
+        "e16",
+        "e17",
+        "e18",
+        "e19",
+        "e20",
+        "e21",
+        "e22"
+      ],
+      "open_question_count": 3
+    },
+    {
+      "hypothesis_id": "hyp_004_class_conditioned_structural_variation_backward_packet_lengths",
+      "evidence_refs": [
+        "e10",
+        "e11",
+        "e12",
+        "e9"
+      ],
+      "open_question_count": 3
+    },
+    {
+      "hypothesis_id": "hyp_005_class_conditioned_structural_variation_average_packet_size",
+      "evidence_refs": [
+        "e8"
+      ],
+      "open_question_count": 3
+    },
+    {
+      "hypothesis_id": "hyp_006_class_distribution_and_js_divergence_destination_port",
+      "evidence_refs": [
+        "e33"
+      ],
+      "open_question_count": 3
+    },
+    {
+      "hypothesis_id": "hyp_007_partition_level_data_properties_and_redundancy",
+      "evidence_refs": [
+        "e1",
+        "e2"
+      ],
+      "open_question_count": 3
+    },
+    {
+      "hypothesis_id": "hyp_008_low_cardinality_flag_features_as_weak_signals",
+      "evidence_refs": [
+        "e28"
+      ],
+      "open_question_count": 3
+    },
+    {
+      "hypothesis_id": "hyp_009_potential_representation_sensitive_handles_in_bulk_and_flag_features",
+      "evidence_refs": [
+        "e23",
+        "e24",
+        "e25",
+        "e26",
+        "e27",
+        "e29",
+        "e30",
+        "e31",
+        "e32"
+      ],
+      "open_question_count": 3
+    },
+    {
+      "hypothesis_id": "hyp_010_overlapping_structural_patterns_and_competing_interpretations",
+      "evidence_refs": [
+        "e10",
+        "e11",
+        "e12",
+        "e13",
+        "e14",
+        "e15",
+        "e16",
+        "e17",
+        "e18",
+        "e19",
+        "e20",
+        "e21",
+        "e22",
+        "e23",
+        "e24",
+        "e25",
+        "e26",
+        "e27",
+        "e28",
+        "e29",
+        "e30",
+        "e31",
+        "e32",
+        "e33",
+        "e8",
+        "e9"
+      ],
+      "open_question_count": 3
+    }
+  ]
+}

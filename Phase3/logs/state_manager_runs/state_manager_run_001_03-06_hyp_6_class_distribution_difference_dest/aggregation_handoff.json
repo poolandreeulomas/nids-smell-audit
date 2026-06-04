@@ -1,0 +1,31 @@
+{
+  "batch_id": "phase3a_batch_0306181120_friday-workinghours-afternoon-ddos.pcap_iscx_5e8f98",
+  "round_id": "round-001",
+  "hypothesis_id": "hyp_6_class_distribution_difference_destination_port",
+  "merged_findings": [
+    "Destination Port in the DDoS class exhibits a dominant single value with zero entropy, indicating strong class-conditioned distributional difference and a potential shortcut-like predictive signal.",
+    "Global distribution confirms a dominant ratio of 1.0 for this port in DDoS, but local partition analyses reveal label neighborhood and duplicate label conflicts, suggesting instability and possible sampling artifacts affecting this distribution.",
+    "Dependency and relation verifications show no narrow or unstable structural dependencies confounding the signal, supporting the feature's strong discriminative role.",
+    "Perturbation or exclusion of Destination Port is expected to significantly impact model behavior due to its concentrated and discriminative nature."
+  ],
+  "evidence_refs": [
+    "task_1_step_03",
+    "task_1_step_05",
+    "task_2_step_03",
+    "task_2_step_05",
+    "task_2_step_07",
+    "task_3_step_03",
+    "task_3_step_05",
+    "task_4_step_03",
+    "task_4_step_05"
+  ],
+  "preserved_contradictions": [
+    "high_label_neighborhood_conflict",
+    "duplicate_label_conflict"
+  ],
+  "open_gaps": [
+    "Instability and conflicts in local evidence limit confidence in the global stability of the dominant destination port ratio across all partitions.",
+    "Moderate shortcut signal strength and limited cross-feature interaction analysis prevent definitive shortcut risk confirmation."
+  ],
+  "update_focus": "Consolidate understanding of Destination Port's strong but locally unstable discriminative distribution and its implications for shortcut risk."
+}

@@ -1,0 +1,10 @@
+{
+  "status": "tracked",
+  "events": [
+    {
+      "cache_key": "shortcut_analysis::shortcut_feature",
+      "status": "miss"
+    }
+  ],
+  "event_count": 1
+}

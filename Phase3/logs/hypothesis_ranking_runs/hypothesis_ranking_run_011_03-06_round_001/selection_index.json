@@ -1,0 +1,73 @@
+{
+  "candidate_count": 10,
+  "selected_count": 3,
+  "deferred_count": 7,
+  "unaccounted_hypothesis_ids": [],
+  "selected_hypotheses": [
+    {
+      "hypothesis_id": "hyp_005_class_distribution_skew_in_destination_port",
+      "summary": "The Destination Port feature shows strong class-conditioned distributional differences, with the DDoS class dominated by a single port and zero entropy, while the BENIGN class has higher entropy and a lower dominant port ratio, indicating a representation-sensitive pattern that may reflect attack targeting or scanning behavior.",
+      "reason": "Strong class-conditioned skew with potential shortcut risk and attack behavior relevance.",
+      "evidence_ref_count": 1,
+      "open_question_count": 2
+    },
+    {
+      "hypothesis_id": "hyp_003_class_conditioned_variation_in_backward_packet_lengths",
+      "summary": "Backward packet length features show substantial structural variation conditioned on class, with high variance ratios and differing unique value counts between BENIGN and DDoS classes, suggesting these features may encode class-distinctive traffic patterns.",
+      "reason": "Substantial class-conditioned variation indicating key discriminative features with high uncertainty.",
+      "evidence_ref_count": 4,
+      "open_question_count": 2
+    },
+    {
+      "hypothesis_id": "hyp_002_strong_linear_dependencies",
+      "summary": "Several feature pairs exhibit perfect or near-perfect correlation, indicating strong linear dependencies and potential redundancy among packet length, segment size, header length, and flag count features, which may reduce the effective dimensionality of the dataset.",
+      "reason": "Critical structural redundancy and potential shortcut signals affecting dataset dimensionality and model behavior.",
+      "evidence_ref_count": 10,
+      "open_question_count": 2
+    }
+  ],
+  "deferred_hypotheses": [
+    {
+      "hypothesis_id": "hyp_001_low_diversity_bulk_features",
+      "summary": "The near-constant values and extremely low unique value counts in multiple bulk-related backward and forward features suggest a structural uniformity or load concentration effect in these features, potentially reflecting a stable but narrow traffic pattern or saturation in bulk transfer characteristics.",
+      "evidence_ref_count": 10,
+      "open_question_count": 2
+    },
+    {
+      "hypothesis_id": "hyp_004_class_conditioned_variation_in_average_packet_size",
+      "summary": "Average Packet Size exhibits moderate class-conditioned structural variation with a variance ratio around 4.5 and unique value disparities, indicating it may partially differentiate BENIGN and DDoS traffic but with less pronounced separation than backward packet length features.",
+      "evidence_ref_count": 1,
+      "open_question_count": 2
+    },
+    {
+      "hypothesis_id": "hyp_006_partition_level_class_imbalance_and_duplication_effects",
+      "summary": "Moderate class imbalance and presence of duplicated rows at the partition level may influence observed structural patterns and feature distributions, potentially amplifying or distorting signals related to class-conditioned variation and feature dependencies.",
+      "evidence_ref_count": 2,
+      "open_question_count": 2
+    },
+    {
+      "hypothesis_id": "hyp_007_high_ranked_backward_packet_length_features_with_structural_variation",
+      "summary": "Top-ranked features such as Bwd Packet Length Mean, Avg Bwd Segment Size, Bwd Packet Length Max, and Bwd Packet Length Std show both high importance and class-conditioned structural variation, suggesting these features may be key but also potentially sensitive to unstable dependencies or representation shifts.",
+      "evidence_ref_count": 4,
+      "open_question_count": 2
+    },
+    {
+      "hypothesis_id": "hyp_008_average_packet_size_as_moderate_ranked_feature_with_variation",
+      "summary": "Average Packet Size, ranked fifth, shows moderate class-conditioned structural variation, indicating it may contribute to classification but with less pronounced or more unstable patterns compared to backward packet length features.",
+      "evidence_ref_count": 1,
+      "open_question_count": 2
+    },
+    {
+      "hypothesis_id": "hyp_009_potential_for_localized_representation_sensitive_handles",
+      "summary": "Features with extremely low unique values and cardinality ratios in bulk and flag groups may serve as localized representation-sensitive handles that capture narrow but meaningful signals, even if they do not explain the full substrate or broader traffic behavior.",
+      "evidence_ref_count": 10,
+      "open_question_count": 2
+    },
+    {
+      "hypothesis_id": "hyp_010_overlapping_structural_patterns_support_multiple_interpretations",
+      "summary": "The coexistence of strong linear dependencies, class-conditioned structural variation, and representation-sensitive distribution skews suggests overlapping and partially compatible structural patterns that justify maintaining multiple competing hypotheses about the substrate's nature and its implications for modeling.",
+      "evidence_ref_count": 25,
+      "open_question_count": 2
+    }
+  ]
+}

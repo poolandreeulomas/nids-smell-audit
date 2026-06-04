@@ -1,0 +1,35 @@
+{
+  "selected_count": 3,
+  "strategy_count": 3,
+  "missing_strategy_hypothesis_ids": [],
+  "unexpected_strategy_hypothesis_ids": [],
+  "strategies": [
+    {
+      "strategy_id": "strategy_01_hyp_1",
+      "hypothesis_id": "hyp_1_redundancy_vs_importance_tension",
+      "summary": "The presence of feature pairs with perfect or near-perfect correlation alongside their high individual feature ranking suggests a tension between redundancy and genuine importance. This may indicate that some features are proxies for the same underlying signal, yet each retains apparent predictive relevance.",
+      "strategic_objective": "Clarify the unique versus redundant informational contribution of strongly correlated features with high relative importance.",
+      "key_check_count": 4,
+      "success_criteria_count": 3,
+      "router_constraint_count": 2
+    },
+    {
+      "strategy_id": "strategy_02_hyp_3",
+      "hypothesis_id": "hyp_3_distributional_skew_vs_partition_imbalance",
+      "summary": "The Destination Port feature shows strong distributional divergence between classes, with the DDoS class dominated by a single port and zero entropy, contrasting with the BENIGN class's higher entropy and lower dominant ratio. This skew contrasts with the moderate class imbalance and presence of duplicated rows at the partition level, raising questions about representativeness and stability.",
+      "strategic_objective": "Determine if the dominant single port in the DDoS class reflects a genuine attack pattern or sampling artifact influenced by duplication and class imbalance.",
+      "key_check_count": 4,
+      "success_criteria_count": 3,
+      "router_constraint_count": 2
+    },
+    {
+      "strategy_id": "strategy_03_hyp_10",
+      "hypothesis_id": "hyp_10_potential_overfitting_risk_due_to_redundant_features",
+      "summary": "The presence of multiple perfectly correlated feature pairs combined with their high individual rankings may increase the risk of overfitting in models trained on this dataset, as redundant features could amplify spurious signals.",
+      "strategic_objective": "Assess the extent to which redundancy among high-salience features may artificially inflate model performance and identify mitigation directions.",
+      "key_check_count": 4,
+      "success_criteria_count": 3,
+      "router_constraint_count": 2
+    }
+  ]
+}

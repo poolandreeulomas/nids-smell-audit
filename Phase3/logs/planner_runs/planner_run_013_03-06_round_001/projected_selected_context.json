@@ -1,0 +1,59 @@
+{
+  "selected_count": 3,
+  "selected_hypotheses": [
+    {
+      "hypothesis_id": "hyp_005_class_distribution_skew_in_destination_port",
+      "summary": "The Destination Port feature shows strong class-conditioned distributional differences, with the DDoS class dominated by a single port and zero entropy, while the BENIGN class has higher entropy and a lower dominant port ratio, indicating a representation-sensitive pattern that may reflect attack targeting or scanning behavior.",
+      "evidence_refs": [
+        "e33"
+      ],
+      "open_questions": [
+        "Is the dominance of a single port in DDoS traffic a stable characteristic or could it vary with attack campaigns?",
+        "Could this skew lead to shortcut exploitation by models relying heavily on port-based heuristics?"
+      ],
+      "current_status": "unresolved",
+      "evidence_ref_count": 1,
+      "open_question_count": 2
+    },
+    {
+      "hypothesis_id": "hyp_003_class_conditioned_variation_in_backward_packet_lengths",
+      "summary": "Backward packet length features show substantial structural variation conditioned on class, with high variance ratios and differing unique value counts between BENIGN and DDoS classes, suggesting these features may encode class-distinctive traffic patterns.",
+      "evidence_refs": [
+        "e9",
+        "e10",
+        "e11",
+        "e12"
+      ],
+      "open_questions": [
+        "To what extent do these class-conditioned variations reflect genuine behavioral differences versus sampling or labeling biases?",
+        "Could these features be sensitive to representation shifts or unstable dependencies across different network contexts?"
+      ],
+      "current_status": "unresolved",
+      "evidence_ref_count": 4,
+      "open_question_count": 2
+    },
+    {
+      "hypothesis_id": "hyp_002_strong_linear_dependencies",
+      "summary": "Several feature pairs exhibit perfect or near-perfect correlation, indicating strong linear dependencies and potential redundancy among packet length, segment size, header length, and flag count features, which may reduce the effective dimensionality of the dataset.",
+      "evidence_refs": [
+        "e13",
+        "e14",
+        "e15",
+        "e16",
+        "e17",
+        "e18",
+        "e19",
+        "e20",
+        "e21",
+        "e22"
+      ],
+      "open_questions": [
+        "Are these dependencies stable across classes or do they shift under attack conditions?",
+        "Could these dependencies lead to shortcut-like signals that models might exploit without capturing deeper traffic semantics?"
+      ],
+      "current_status": "unresolved",
+      "evidence_ref_count": 10,
+      "open_question_count": 2
+    }
+  ]
+}

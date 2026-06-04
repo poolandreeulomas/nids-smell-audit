@@ -1,0 +1,36 @@
+{
+  "batch_id": "phase3a_batch_0306161030_friday-workinghours-afternoon-ddos.pcap_iscx_0595cd",
+  "round_id": "round-001",
+  "hypothesis_id": "hyp_10_potential_overfitting_risk_due_to_redundant_features",
+  "merged_findings": [
+    "Strong linear dependencies and perfect or near-perfect correlations exist among top-ranked feature pairs such as 'Bwd Packet Length Mean' and 'Avg Bwd Segment Size', and 'Fwd Header Length' and 'Fwd Header Length.1', indicating significant redundancy.",
+    "These redundant features maintain moderate shortcut-like predictive leverage, contributing spurious signals and creating tension between redundancy and their individual top-rank importance.",
+    "Local label noise and distributional overlap are observed around redundant feature clusters, further complicating the redundancy versus importance relationship.",
+    "The tension between redundancy and top-rank importance remains unresolved and preserved as a grounded local contradiction.",
+    "Impact of redundancy removal on model performance is implied but not directly quantified within the bounded local context."
+  ],
+  "evidence_refs": [
+    "task_1_step_03",
+    "task_1_step_05",
+    "task_1_step_07",
+    "task_2_step_03",
+    "task_2_step_05",
+    "task_2_step_07",
+    "task_3_step_03",
+    "task_3_step_05",
+    "task_3_step_07",
+    "task_4_step_05",
+    "task_4_step_07"
+  ],
+  "preserved_contradictions": [
+    "Tension between redundancy and top-rank importance preserved as unresolved local contradiction",
+    "tension_1_redundancy_vs_top_rank_importance",
+    "Features with perfect correlation pairs are also top-ranked individually, preserving the tension between redundancy and importance"
+  ],
+  "open_gaps": [
+    "No direct quantification of redundancy removal impact on performance within local evidence",
+    "Distributional overlap verification not performed due to budget constraints, limiting full assessment",
+    "Shortcut verification limited to subset of redundant features; broader feature set not exhaustively tested"
+  ],
+  "update_focus": "Consolidate local evidence on redundancy and importance tension without resolving contradictions or quantifying performance impact"
+}

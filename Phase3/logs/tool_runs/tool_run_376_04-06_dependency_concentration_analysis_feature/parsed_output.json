@@ -1,0 +1,55 @@
+{
+  "call_id": "task_1_step_03",
+  "tool_name": "dependency_concentration_analysis",
+  "status": "ok",
+  "observations": {
+    "feature_name": "Average Packet Size",
+    "value": 0.0873076559477249,
+    "signals": [],
+    "metrics": {
+      "partner_count": 67,
+      "strong_partner_count": 9,
+      "top_partner": "Packet Length Mean",
+      "top_partner_correlation": 0.9993574671326869,
+      "top_partner_share": 0.12558910238136536,
+      "top3_share": 0.3410574017413659,
+      "concentration_index": 0.0873076559477249,
+      "effective_partner_count": 11.453749263395022,
+      "mean_abs_correlation": 0.20231307669608237,
+      "median_abs_correlation": 0.0823351385486704
+    },
+    "support": {
+      "n_total": 225745,
+      "n_per_class": {
+        "DDoS": 128027,
+        "BENIGN": 97718
+      },
+      "total_samples": 225745,
+      "per_class": {
+        "DDoS": 128027,
+        "BENIGN": 97718
+      }
+    },
+    "provenance": {
+      "source": "tool",
+      "tool": "dependency_concentration_analysis",
+      "step": null
+    },
+    "feature": "Average Packet Size"
+  },
+  "evidence_refs": [
+    {
+      "artifact": "parsed_output",
+      "path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_376_04-06_dependency_concentration_analysis_feature\\parsed_output.json"
+    },
+    {
+      "artifact": "raw_tool_output",
+      "path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_376_04-06_dependency_concentration_analysis_feature\\raw_tool_output.json"
+    },
+    {
+      "artifact": "component_run",
+      "path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_376_04-06_dependency_concentration_analysis_feature\\component_run.json"
+    }
+  ],
+  "limitations": []
+}

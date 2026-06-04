@@ -1,0 +1,20 @@
+{
+  "strategy_id": "strategy_01_hyp_006",
+  "hypothesis_id": "hyp_006",
+  "strategic_objective": "Clarify whether the zero entropy and dominant ratio of 1.0 in Destination Port for the DDoS class represent a fixed attack vector or a dataset artifact, and assess how this distributional difference influences model reliance.",
+  "key_checks": [
+    "Compare Destination Port distribution entropy and dominant ratio across classes",
+    "Assess stability of Destination Port distribution over time segments",
+    "Evaluate shortcut-like predictive leverage of Destination Port in isolation",
+    "Examine correlation of Destination Port with other features in DDoS class"
+  ],
+  "success_criteria": [
+    "Evidence supports either a fixed attack vector or dataset artifact explanation",
+    "Clear indication of whether model reliance on Destination Port is shortcut-like or robust",
+    "Identification of distributional stability or variability across time"
+  ],
+  "router_constraints": [
+    "preserve feature_scope for Destination Port",
+    "preserve evidence refs e33"
+  ]
+}

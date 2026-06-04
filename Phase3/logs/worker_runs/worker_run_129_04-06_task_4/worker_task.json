@@ -1,0 +1,17 @@
+{
+  "task_id": "task_4",
+  "hypothesis_id": "hyp_7_heterogeneous_structural_regimes",
+  "task_scope": "Evaluate potential for regime-aware modeling or detection strategies by verifying local consistency and cardinality of heterogeneous regime features using evidence e8 and e23.",
+  "allowed_actions": [
+    "local_consistency_verification",
+    "cardinality_verification"
+  ],
+  "local_context_refs": [
+    "e8",
+    "e23"
+  ],
+  "stop_conditions": [
+    "regime-aware feature sets validated",
+    "no inconsistencies in feature cardinality found"
+  ]
+}

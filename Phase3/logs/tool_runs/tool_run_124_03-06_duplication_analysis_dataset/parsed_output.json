@@ -1,0 +1,51 @@
+{
+  "call_id": "task_3_step_03",
+  "tool_name": "duplication_analysis",
+  "status": "ok",
+  "observations": {
+    "feature_name": "__dataset__",
+    "value": 0.011663602737602162,
+    "signals": [],
+    "metrics": {
+      "duplicate_count": 2633,
+      "duplicate_ratio": 0.011663602737602162,
+      "duplicate_count_per_class": {
+        "BENIGN": 2622,
+        "DDoS": 11
+      }
+    },
+    "support": {
+      "n_total": 225745,
+      "n_per_class": {
+        "DDoS": 128027,
+        "BENIGN": 97718
+      },
+      "total_samples": 225745,
+      "per_class": {
+        "DDoS": 128027,
+        "BENIGN": 97718
+      }
+    },
+    "provenance": {
+      "source": "tool",
+      "tool": "duplication_analysis",
+      "step": null
+    },
+    "feature": "__dataset__"
+  },
+  "evidence_refs": [
+    {
+      "artifact": "parsed_output",
+      "path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_124_03-06_duplication_analysis_dataset\\parsed_output.json"
+    },
+    {
+      "artifact": "raw_tool_output",
+      "path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_124_03-06_duplication_analysis_dataset\\raw_tool_output.json"
+    },
+    {
+      "artifact": "component_run",
+      "path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_124_03-06_duplication_analysis_dataset\\component_run.json"
+    }
+  ],
+  "limitations": []
+}

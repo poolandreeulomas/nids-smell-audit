@@ -1,0 +1,63 @@
+{
+  "batch_id": "phase3a_batch_0306133856_friday-workinghours-afternoon-ddos.pcap_iscx_163504",
+  "round_id": "round-001",
+  "hypothesis_id": "hyp_1_low_diversity_bulk_features",
+  "planner_strategy_id": "strategy_03_hyp_1",
+  "worker_tasks": [
+    {
+      "task_id": "task_1",
+      "hypothesis_id": "hyp_1_low_diversity_bulk_features",
+      "task_scope": "Analyze cardinality and value distribution of bulk traffic features across classes and time to detect low diversity or near-constant patterns.",
+      "allowed_actions": [
+        "cardinality_verification",
+        "distribution_verification"
+      ],
+      "local_context_refs": [
+        "e23",
+        "e24",
+        "e25"
+      ],
+      "stop_conditions": [
+        "cardinality metrics computed for all bulk features",
+        "value distributions stable across time windows and classes"
+      ]
+    },
+    {
+      "task_id": "task_2",
+      "hypothesis_id": "hyp_1_low_diversity_bulk_features",
+      "task_scope": "Investigate potential ceiling or saturation effects in bulk traffic measurements by verifying structural summaries and local consistency of bulk features.",
+      "allowed_actions": [
+        "structural_summary",
+        "local_consistency_verification"
+      ],
+      "local_context_refs": [
+        "e26",
+        "e27",
+        "e28"
+      ],
+      "stop_conditions": [
+        "saturation patterns identified or ruled out",
+        "local consistency scores stable across bulk features"
+      ]
+    },
+    {
+      "task_id": "task_3",
+      "hypothesis_id": "hyp_1_low_diversity_bulk_features",
+      "task_scope": "Cross-check feature extraction methods for aggregation artifacts by verifying dependency concentration and shortcut-like signals in bulk features.",
+      "allowed_actions": [
+        "dependency_contextualization",
+        "shortcut_verification"
+      ],
+      "local_context_refs": [
+        "e29",
+        "e30",
+        "e31",
+        "e32"
+      ],
+      "stop_conditions": [
+        "dependency clusters identified or disproved",
+        "shortcut-like predictive signals absent or confirmed"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,36 @@
+{
+  "batch_id": "phase3a_batch_0406073857_friday-workinghours-afternoon-ddos.pcap_iscx_ee0ef0",
+  "round_id": "round-001",
+  "hypothesis_id": "hyp_8_low_cardinality_features_as_potential_shortcut_signals",
+  "merged_findings": [
+    "Multiple features (including Bwd PSH Flags, Fwd URG Flags, and features e23 to e32) consistently exhibit extremely low cardinality with near-constant values across the partition, confirming low cardinality as a potential shortcut signal.",
+    "Distribution and local consistency verifications reveal low entropy and dominant values but also label neighborhood conflicts and subtle deviations, preserving local tension between low cardinality features and other features with strong class-conditioned variation.",
+    "Dependency and correlation analyses are limited or inconclusive due to near-constant values and undefined correlations, maintaining unresolved tension between low cardinality features and class-conditioned structural variation.",
+    "Predictive leverage of low cardinality features (e23, e24, e25) is weak and limited individually, with no strong shortcut signals detected, indicating limited shortcut risk but preserving unresolved tension with class-conditioned variation."
+  ],
+  "evidence_refs": [
+    "task_1_step_03",
+    "task_1_step_05",
+    "task_1_step_07",
+    "task_2_step_03",
+    "task_2_step_05",
+    "task_2_step_07",
+    "task_3_step_03",
+    "task_3_step_05",
+    "task_3_step_07",
+    "task_4_step_03",
+    "task_4_step_05",
+    "task_4_step_07"
+  ],
+  "preserved_contradictions": [
+    "tension_1_low_cardinality_vs_class_variation",
+    "High label neighborhood conflict in e23 despite near-constant feature values.",
+    "Tension between near-constant low cardinality features and other features showing class-conditioned structural variation remains unresolved locally."
+  ],
+  "open_gaps": [
+    "Distribution verification was not performed comprehensively across all partitions and features due to budget exhaustion, limiting full stability assessment of value distributions.",
+    "Analysis was limited to partition-global scope without localized subpartition evidence, restricting finer-grained understanding of feature behavior.",
+    "Dependency concentration and combined feature shortcut leverage analyses were limited or not performed due to near-constant values and budget constraints."
+  ],
+  "update_focus": "Focus on resolving the tension between low cardinality near-constant features and class-conditioned structural variation by enabling more granular distribution and dependency analyses, including localized subpartition assessments and combined feature shortcut leverage testing."
+}

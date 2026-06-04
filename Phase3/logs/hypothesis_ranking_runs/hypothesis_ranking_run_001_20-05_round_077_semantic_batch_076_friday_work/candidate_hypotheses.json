@@ -1,0 +1,197 @@
+{
+  "analysis_id": "analysis_001_semantic_batch_076",
+  "batch_id": "semantic_batch_076_friday-workinghours-afternoon-ddos.pcap_iscx",
+  "hypotheses": [
+    {
+      "hypothesis_id": "hyp_01_redundant_packet_size_features",
+      "summary": "Multiple packet-size, segment-size, subflow, and flag-count features exhibit near-perfect linear correlations, suggesting these features may represent overlapping or redundant information about traffic flow characteristics in the partition.",
+      "evidence_refs": [
+        "e13",
+        "e14",
+        "e15",
+        "e16",
+        "e17",
+        "e18",
+        "e19",
+        "e20",
+        "e21",
+        "e22"
+      ],
+      "open_questions": [
+        "Do these redundancies reflect stable traffic patterns or artifacts of feature engineering?",
+        "Could the redundancy mask subtle but important variations relevant to attack detection?"
+      ]
+    },
+    {
+      "hypothesis_id": "hyp_02_constant_bulk_rate_and_flag_features",
+      "summary": "A set of bulk-rate and flag-count features remain effectively constant across the partition, indicating either a uniform traffic behavior or potential measurement or preprocessing artifacts that suppress variability in these features.",
+      "evidence_refs": [
+        "e23",
+        "e24",
+        "e25",
+        "e26",
+        "e27",
+        "e28",
+        "e29",
+        "e30",
+        "e31",
+        "e32"
+      ],
+      "open_questions": [
+        "Are these constant values genuine reflections of network behavior during the capture period?",
+        "Could these constants be defaults or placeholders that obscure meaningful signal?",
+        "How do these constants interact with features showing class-conditioned variance?"
+      ]
+    },
+    {
+      "hypothesis_id": "hyp_03_class_conditioned_packet_size_and_port_distributions",
+      "summary": "Packet-size and segment-size metrics along with destination port distributions show strong class-conditioned differences, suggesting these features may capture meaningful distinctions between benign and DDoS traffic classes.",
+      "evidence_refs": [
+        "e8",
+        "e9",
+        "e10",
+        "e11",
+        "e12",
+        "e33"
+      ],
+      "open_questions": [
+        "To what extent do these distributional differences drive classification performance?",
+        "Are these differences stable across time or specific to this partition?",
+        "How do these features relate to the observed redundancy in other packet-size features?"
+      ]
+    },
+    {
+      "hypothesis_id": "hyp_04_duplicate_rows_influence_on_statistics",
+      "summary": "The presence of 729 duplicated rows in the partition may influence summary statistics, correlation measures, and unique-value counts, potentially inflating apparent feature stability or redundancy.",
+      "evidence_refs": [
+        "e1"
+      ],
+      "open_questions": [
+        "Do duplicated rows correspond to repeated benign or attack flows?",
+        "How does duplication affect the interpretation of feature correlations and class-conditioned distributions?",
+        "Should duplicates be filtered or weighted differently in analysis?"
+      ]
+    },
+    {
+      "hypothesis_id": "hyp_05_tension_between_redundancy_and_representation",
+      "summary": "There is a tension between the strong feature redundancy observed and the presence of features with strong class-conditioned representational differences, indicating a complex relationship where some features may be redundant yet others capture critical class distinctions.",
+      "evidence_refs": [
+        "e8",
+        "e9",
+        "e10",
+        "e11",
+        "e12",
+        "e13",
+        "e14",
+        "e15",
+        "e16",
+        "e17",
+        "e18",
+        "e19",
+        "e20",
+        "e21",
+        "e22",
+        "e33"
+      ],
+      "open_questions": [
+        "How can redundancy coexist with strong class-conditioned variance in related features?",
+        "Are some features redundant only within classes but discriminative across classes?",
+        "What is the impact of this tension on feature selection and model robustness?"
+      ]
+    },
+    {
+      "hypothesis_id": "hyp_06_tension_between_constant_and_variable_features",
+      "summary": "Features that are effectively constant coexist with related features showing high class-conditioned variance, raising questions about whether constants represent genuine signals, defaults, or measurement artifacts.",
+      "evidence_refs": [
+        "e8",
+        "e9",
+        "e10",
+        "e11",
+        "e12",
+        "e13",
+        "e16",
+        "e23",
+        "e24",
+        "e25",
+        "e26",
+        "e27",
+        "e28",
+        "e29",
+        "e30",
+        "e31",
+        "e32"
+      ],
+      "open_questions": [
+        "Are constant features masking subtle variations that could be informative?",
+        "Could constants be artifacts of data collection or preprocessing?",
+        "How should these constants be treated in modeling and interpretation?"
+      ]
+    },
+    {
+      "hypothesis_id": "hyp_07_average_packet_size_as_representational_anchor",
+      "summary": "Average Packet Size appears repeatedly in top feature rankings and shows class-conditioned variance, suggesting it may serve as a key representational anchor for distinguishing traffic classes in this partition.",
+      "evidence_refs": [
+        "e7",
+        "e8"
+      ],
+      "open_questions": [
+        "Is Average Packet Size consistently informative across different attack types or time periods?",
+        "How does it interact with other correlated packet-size features?",
+        "Could it be used as a simplified proxy for more complex feature sets?"
+      ]
+    },
+    {
+      "hypothesis_id": "hyp_08_destination_port_distribution_as_attack_indicator",
+      "summary": "The Destination Port feature shows a strong divergence between benign and DDoS traffic distributions, possibly reflecting concentrated port usage patterns characteristic of the attack class.",
+      "evidence_refs": [
+        "e33"
+      ],
+      "open_questions": [
+        "Is the port distribution stable or does it vary with attack campaigns?",
+        "Does port concentration correlate with specific attack vectors or tools?",
+        "Could port distribution alone serve as a reliable indicator for DDoS detection?"
+      ]
+    },
+    {
+      "hypothesis_id": "hyp_09_effect_of_class_imbalance_and_duplicates_on_feature_signals",
+      "summary": "Mild class imbalance combined with duplicated rows may bias feature distributions and correlations, potentially inflating signals associated with the dominant class or repeated flows.",
+      "evidence_refs": [
+        "e1",
+        "e4",
+        "e5",
+        "e6"
+      ],
+      "open_questions": [
+        "How does class imbalance affect the interpretability of feature importance?",
+        "Are duplicated rows disproportionately from one class?",
+        "What adjustments might be necessary to mitigate these biases?"
+      ]
+    },
+    {
+      "hypothesis_id": "hyp_10_localized_representational_signals_within_redundant_features",
+      "summary": "Despite broad redundancy among packet-size and flag features, localized representational signals emerge in subsets of these features, indicating that some features may retain unique class-discriminative information even within highly correlated groups.",
+      "evidence_refs": [
+        "e8",
+        "e9",
+        "e10",
+        "e11",
+        "e12",
+        "e13",
+        "e14",
+        "e15",
+        "e16",
+        "e17",
+        "e18",
+        "e19",
+        "e20",
+        "e21",
+        "e22"
+      ],
+      "open_questions": [
+        "Which features within redundant groups provide unique class information?",
+        "Can localized signals be leveraged to improve detection without redundancy overhead?",
+        "How stable are these localized signals across different data partitions?"
+      ]
+    }
+  ]
+}

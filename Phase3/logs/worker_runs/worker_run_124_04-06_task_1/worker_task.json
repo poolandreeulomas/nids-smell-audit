@@ -1,0 +1,22 @@
+{
+  "task_id": "task_1",
+  "hypothesis_id": "hyp_9_tension_between_low_diversity_and_class_conditioned_variation",
+  "task_scope": "Characterize feature subsets by measuring diversity and class-conditioned variation within features from evidence refs e9 to e12 and e23 to e25",
+  "allowed_actions": [
+    "cardinality_verification",
+    "distribution_verification"
+  ],
+  "local_context_refs": [
+    "e9",
+    "e10",
+    "e11",
+    "e12",
+    "e23",
+    "e24",
+    "e25"
+  ],
+  "stop_conditions": [
+    "diversity metrics computed for all target features",
+    "class-conditioned variation quantified for each feature"
+  ]
+}

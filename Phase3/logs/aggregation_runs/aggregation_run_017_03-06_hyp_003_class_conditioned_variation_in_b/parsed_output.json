@@ -1,0 +1,34 @@
+{
+  "batch_id": "phase3a_batch_0306183859_friday-workinghours-afternoon-ddos.pcap_iscx_689174",
+  "round_id": "round-001",
+  "hypothesis_id": "hyp_003_class_conditioned_variation_in_backward_packet_lengths",
+  "merged_findings": [
+    "Backward packet length features consistently exhibit substantial class-conditioned structural variation characterized by high variance ratios and unique value disparities between BENIGN and DDoS classes.",
+    "Distributional shifts in Bwd Packet Length Mean, Std, and Max are strongly confirmed, supporting class-conditioned variation.",
+    "Moderate shortcut signals and local label-topology conflicts around key backward packet length features suggest potential labeling or sampling biases and unresolved local neighborhood inconsistencies."
+  ],
+  "evidence_refs": [
+    "task_1_step_03",
+    "task_1_step_05",
+    "task_1_step_07",
+    "task_2_step_03",
+    "task_2_step_05",
+    "task_2_step_07",
+    "task_3_step_03",
+    "task_3_step_05",
+    "task_3_step_07",
+    "task_4_step_03",
+    "task_4_step_05",
+    "task_4_step_07"
+  ],
+  "preserved_contradictions": [
+    "Persistent local label neighborhood conflicts and duplicate label conflicts in backward packet length features."
+  ],
+  "open_gaps": [
+    "No direct distribution verification in task_1 limits deeper distributional insights.",
+    "No duplication verification performed in task_3 limits assessment of exact data duplication effects on bias.",
+    "Local label-topology conflicts remain unresolved within bounded neighborhoods in task_4.",
+    "No further bounded evidence acquisition possible within budget to resolve conflicts."
+  ],
+  "update_focus": "Consolidate class-conditioned structural variation evidence while preserving unresolved local label conflicts and potential shortcut biases."
+}

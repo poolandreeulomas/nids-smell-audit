@@ -1,0 +1,12 @@
+{
+  "call_id": "task_1_step_05",
+  "tool_name": "duplication_analysis",
+  "target_scope": "dataset",
+  "input_refs": {},
+  "preprocessing_profile_ref": "default",
+  "execution_constraints": {
+    "cache_policy": "reuse",
+    "validation_mode": "strict",
+    "save_raw_output": true
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "batch_id": "phase3a_batch_0306181120_friday-workinghours-afternoon-ddos.pcap_iscx_5e8f98",
+  "round_id": "round-001",
+  "worker_result": {
+    "task_id": "task_4",
+    "hypothesis_id": "hyp_6_class_distribution_difference_destination_port",
+    "status": "completed",
+    "findings": [
+      "Destination Port feature shows a highly concentrated dependency profile with strong class-conditioned distributional differences.",
+      "The feature's distribution in the DDoS class is dominated by a single value with zero entropy, indicating potential shortcut-like behavior.",
+      "Relation verification did not reveal unstable or contradictory dependencies with other features in the local context.",
+      "Excluding or perturbing Destination Port is expected to significantly affect model behavior due to its strong discriminative signal."
+    ],
+    "evidence_refs": [
+      "task_4_step_03",
+      "task_4_step_05"
+    ],
+    "contradictions": [],
+    "limitations": [
+      "Analysis limited to local evidence without global aggregation or cross-feature interaction beyond pairwise verification."
+    ]
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "batch_id": "phase3a_batch_0406095248_friday-workinghours-afternoon-ddos.pcap_iscx_f8c2c2",
+  "round_id": "round-001",
+  "worker_result": {
+    "task_id": "task_2",
+    "hypothesis_id": "hyp_005_class_conditioned_variation_backward_packet_lengths",
+    "status": "completed",
+    "findings": [
+      "Backward packet length features (Max, Mean, Std) and Avg Bwd Segment Size exhibit significant class-conditioned structural variation with high variance ratios and unique value differences between BENIGN and DDoS classes.",
+      "High redundancy among backward packet length features confirms consistent structural patterns rather than isolated anomalies.",
+      "Moderate shortcut-like predictive leverage detected in Bwd Packet Length Mean suggests sensitivity to attack-specific packet size manipulation or fragmentation effects."
+    ],
+    "evidence_refs": [
+      "task_2_step_03",
+      "task_2_step_05",
+      "task_2_step_07"
+    ],
+    "contradictions": [],
+    "limitations": [
+      "Analysis limited to local evidence within e9; broader fragmentation impact characterization across all refs e9 to e12 inferred but not separately verified."
+    ]
+  }
+}

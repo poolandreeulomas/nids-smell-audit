@@ -1,0 +1,66 @@
+{
+  "batch_id": "phase3a_batch_0306181120_friday-workinghours-afternoon-ddos.pcap_iscx_5e8f98",
+  "round_id": "round-001",
+  "planner_strategies": [
+    {
+      "strategy_id": "strategy_01_hyp_6",
+      "hypothesis_id": "hyp_6_class_distribution_difference_destination_port",
+      "strategic_objective": "Clarify the nature and impact of the extreme class-conditioned distribution skew in the Destination Port feature.",
+      "key_checks": [
+        "Verify if zero entropy in DDoS destination ports corresponds to a single or very few targeted ports",
+        "Assess if the dominant ratio of 1.0 is consistent across data partitions or a sampling artifact",
+        "Evaluate potential shortcut-like predictive leverage of Destination Port for DDoS class",
+        "Examine stability of model behavior when excluding or perturbing Destination Port feature"
+      ],
+      "success_criteria": [
+        "Evidence supports whether the distribution skew is a genuine network pattern or data artifact",
+        "Identification of any shortcut-like risk posed by Destination Port feature",
+        "Clear understanding of how this feature’s distribution affects model robustness and generalization"
+      ],
+      "router_constraints": [
+        "preserve feature scope on Destination Port",
+        "preserve evidence refs related to distribution and entropy (e33)"
+      ]
+    },
+    {
+      "strategy_id": "strategy_02_hyp_3",
+      "hypothesis_id": "hyp_3_strong_feature_redundancy_pairs",
+      "strategic_objective": "Investigate the origin and implications of perfect or near-perfect correlations among feature pairs.",
+      "key_checks": [
+        "Determine if perfect correlations arise from inherent network traffic properties or preprocessing steps",
+        "Identify which feature pairs contribute to shortcut-like signals due to redundancy",
+        "Assess how these redundancies affect effective feature dimensionality and dependency stability",
+        "Explore if removing or consolidating redundant features alters class-conditioned patterns"
+      ],
+      "success_criteria": [
+        "Clear distinction between natural and preprocessing-induced redundancies",
+        "Quantification of shortcut-like risks from redundant feature pairs",
+        "Insights on how redundancy influences downstream analysis stability and interpretability"
+      ],
+      "router_constraints": [
+        "preserve feature pair scope for correlated features",
+        "preserve evidence refs covering correlation and redundancy (e13 to e22)"
+      ]
+    },
+    {
+      "strategy_id": "strategy_03_hyp_10",
+      "hypothesis_id": "hyp_10_interplay_between_redundancy_and_class_conditioned_variation",
+      "strategic_objective": "Elucidate how feature redundancies interact with class-conditioned structural variations to affect signal clarity and stability.",
+      "key_checks": [
+        "Analyze dependency structures linking redundant features with class-conditioned packet length and size variations",
+        "Evaluate if disentangling redundancies clarifies or amplifies meaningful class-specific signals",
+        "Check for unstable dependencies that may mask or distort class-conditioned variation",
+        "Assess impact of redundancy disentanglement on interpretability and detection of class patterns"
+      ],
+      "success_criteria": [
+        "Improved understanding of how redundancy modulates class-conditioned feature variation",
+        "Identification of strategies to separate stable class signals from redundant noise",
+        "Evidence that disentangling dependencies enhances interpretability and robustness of class-specific patterns"
+      ],
+      "router_constraints": [
+        "preserve feature scope on packet length and size features",
+        "preserve evidence refs related to redundancy and class variation (e9 to e22)"
+      ]
+    }
+  ]
+}

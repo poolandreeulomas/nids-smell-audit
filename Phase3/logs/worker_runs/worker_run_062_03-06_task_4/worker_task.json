@@ -1,0 +1,16 @@
+{
+  "task_id": "task_4",
+  "hypothesis_id": "hyp_005_class_distribution_skew_in_destination_port",
+  "task_scope": "Compare port distribution patterns between attack campaigns and benign traffic within evidence e33",
+  "allowed_actions": [
+    "distribution_verification",
+    "relation_verification"
+  ],
+  "local_context_refs": [
+    "e33"
+  ],
+  "stop_conditions": [
+    "distribution differences identified or ruled out",
+    "statistical significance threshold met"
+  ]
+}

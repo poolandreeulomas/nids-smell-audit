@@ -1,0 +1,27 @@
+{
+  "task_id": "task_4",
+  "hypothesis_id": "hyp_3_strong_feature_redundancy_pairs",
+  "task_scope": "Explore if removing or consolidating redundant features alters class-conditioned patterns and distributional properties.",
+  "allowed_actions": [
+    "distribution_verification",
+    "duplication_verification",
+    "relation_verification"
+  ],
+  "local_context_refs": [
+    "e13",
+    "e14",
+    "e15",
+    "e16",
+    "e17",
+    "e18",
+    "e19",
+    "e20",
+    "e21",
+    "e22"
+  ],
+  "stop_conditions": [
+    "class-conditioned pattern changes measured",
+    "distribution shifts detected",
+    "redundant feature removal effects evaluated"
+  ]
+}

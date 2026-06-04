@@ -1,0 +1,58 @@
+{
+  "call_id": "task_3_step_07",
+  "tool_name": "neighborhood_consistency_analysis",
+  "status": "ok",
+  "observations": {
+    "feature_name": "Average Packet Size",
+    "value": 0.23210259363441055,
+    "signals": [
+      "moderate_label_neighborhood_conflict",
+      "duplicate_label_conflict"
+    ],
+    "metrics": {
+      "neighbor_count": 5,
+      "retained_rows": 225745,
+      "coverage_ratio": 1.0,
+      "local_consistency_rate": 0.7678974063655895,
+      "inconsistency_rate": 0.23210259363441055,
+      "attack_consistency_rate": 0.6737641278792754,
+      "benign_consistency_rate": 0.8912278188256002,
+      "boundary_instability_rate": 0.043433963099957916,
+      "duplicate_conflict_rate": 0.688604398768522,
+      "duplicate_cluster_rate": 0.9611552858313583
+    },
+    "support": {
+      "n_total": 225745,
+      "n_per_class": {
+        "DDoS": 128027,
+        "BENIGN": 97718
+      },
+      "total_samples": 225745,
+      "per_class": {
+        "DDoS": 128027,
+        "BENIGN": 97718
+      }
+    },
+    "provenance": {
+      "source": "tool",
+      "tool": "neighborhood_consistency_analysis",
+      "step": null
+    },
+    "feature": "Average Packet Size"
+  },
+  "evidence_refs": [
+    {
+      "artifact": "parsed_output",
+      "path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_198_03-06_neighborhood_consistency_analysis_feature\\parsed_output.json"
+    },
+    {
+      "artifact": "raw_tool_output",
+      "path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_198_03-06_neighborhood_consistency_analysis_feature\\raw_tool_output.json"
+    },
+    {
+      "artifact": "component_run",
+      "path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_198_03-06_neighborhood_consistency_analysis_feature\\component_run.json"
+    }
+  ],
+  "limitations": []
+}

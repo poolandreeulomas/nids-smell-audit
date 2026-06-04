@@ -1,0 +1,73 @@
+{
+  "candidate_count": 10,
+  "selected_count": 3,
+  "deferred_count": 7,
+  "unaccounted_hypothesis_ids": [],
+  "selected_hypotheses": [
+    {
+      "hypothesis_id": "hyp_5_strong_linear_dependencies",
+      "summary": "Multiple feature pairs exhibit near-perfect or perfect linear correlations (correlation >= 0.9993), indicating strong dependencies and potential redundancy among packet length, segment size, flag counts, and packet/byte counts.",
+      "reason": "Strong near-perfect correlations suggest critical feature redundancies impacting model robustness and feature selection.",
+      "evidence_ref_count": 10,
+      "open_question_count": 2
+    },
+    {
+      "hypothesis_id": "hyp_8_class_conditioned_distribution_destination_port",
+      "summary": "The Destination Port feature shows strong class-conditioned distribution differences, with dominant ratio 0.346 for BENIGN and 1.0 for DDoS, and a high Jensen-Shannon divergence of 0.7315, indicating a representation-sensitive pattern linked to class.",
+      "reason": "High class-conditioned distribution skew with strong divergence indicates potential shortcut learning risk.",
+      "evidence_ref_count": 1,
+      "open_question_count": 2
+    },
+    {
+      "hypothesis_id": "hyp_6_class_conditioned_variation_backward_packet_lengths",
+      "summary": "Backward packet length features (Max, Mean, Std) show significant structural variation conditioned on class labels, with high variance ratios and differing unique value counts between BENIGN and DDoS classes, suggesting class-sensitive distributional shifts.",
+      "reason": "Significant class-conditioned structural variation offers high uncertainty-reduction potential for class discrimination.",
+      "evidence_ref_count": 3,
+      "open_question_count": 2
+    }
+  ],
+  "deferred_hypotheses": [
+    {
+      "hypothesis_id": "hyp_1_low_diversity_backward_bulk",
+      "summary": "Backward bulk-related features (Bwd Avg Bulk Rate, Bwd Avg Bytes/Bulk, Bwd Avg Packets/Bulk) exhibit near-constant values with unique value counts of 1 and very low cardinality ratios, suggesting a structural uniformity or saturation effect in backward traffic bulk characteristics.",
+      "evidence_ref_count": 3,
+      "open_question_count": 2
+    },
+    {
+      "hypothesis_id": "hyp_2_low_diversity_backward_tcp_flags",
+      "summary": "Backward TCP flag features (Bwd PSH Flags, Bwd URG Flags) show extremely low variability with unique values of 1, indicating a near-constant signaling pattern in backward TCP flags during the partition timeframe.",
+      "evidence_ref_count": 2,
+      "open_question_count": 2
+    },
+    {
+      "hypothesis_id": "hyp_3_low_diversity_forward_bulk",
+      "summary": "Forward bulk-related features (Fwd Avg Bulk Rate, Fwd Avg Bytes/Bulk, Fwd Avg Packets/Bulk) mirror the backward bulk features by also exhibiting near-constant values with unique value counts of 1, suggesting a symmetric structural pattern in bulk traffic features across directions.",
+      "evidence_ref_count": 3,
+      "open_question_count": 2
+    },
+    {
+      "hypothesis_id": "hyp_4_low_diversity_forward_flags_and_cwe",
+      "summary": "Forward TCP flag features (Fwd URG Flags) and CWE Flag Count show near-constant values with unique values of 1, indicating minimal variability in these signaling features and counts within the forward direction.",
+      "evidence_ref_count": 2,
+      "open_question_count": 2
+    },
+    {
+      "hypothesis_id": "hyp_7_class_conditioned_variation_packet_size_features",
+      "summary": "Packet size related features (Average Packet Size, Avg Bwd Segment Size) also demonstrate class-conditioned structural variation with moderate to high variance ratios and differing unique value counts, indicating potential sensitivity to traffic class.",
+      "evidence_ref_count": 2,
+      "open_question_count": 2
+    },
+    {
+      "hypothesis_id": "hyp_9_partition_level_class_imbalance_and_duplicates",
+      "summary": "At the partition level, a moderate class imbalance ratio of 1.577 and presence of 729 duplicated rows suggest structural skew and redundancy that may influence model training and evaluation.",
+      "evidence_ref_count": 2,
+      "open_question_count": 2
+    },
+    {
+      "hypothesis_id": "hyp_10_low_cardinality_forward_flags_dependency",
+      "summary": "Forward PSH Flags and SYN Flag Count form a perfect correlation pair with correlation=1, yet both features individually show extremely low cardinality with unique values=1, indicating a potentially unstable or trivial signal despite strong dependency.",
+      "evidence_ref_count": 3,
+      "open_question_count": 2
+    }
+  ]
+}

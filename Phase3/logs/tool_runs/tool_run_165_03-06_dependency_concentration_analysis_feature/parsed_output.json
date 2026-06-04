@@ -1,0 +1,55 @@
+{
+  "call_id": "task_2_step_05",
+  "tool_name": "dependency_concentration_analysis",
+  "status": "ok",
+  "observations": {
+    "feature_name": "Avg Bwd Segment Size",
+    "value": 0.07867142115562414,
+    "signals": [],
+    "metrics": {
+      "partner_count": 67,
+      "strong_partner_count": 8,
+      "top_partner": "Bwd Packet Length Mean",
+      "top_partner_correlation": 1.0,
+      "top_partner_share": 0.11981547949781052,
+      "top3_share": 0.3400743744473708,
+      "concentration_index": 0.07867142115562414,
+      "effective_partner_count": 12.71109616822412,
+      "mean_abs_correlation": 0.2356704160558253,
+      "median_abs_correlation": 0.16533986230848696
+    },
+    "support": {
+      "n_total": 225745,
+      "n_per_class": {
+        "DDoS": 128027,
+        "BENIGN": 97718
+      },
+      "total_samples": 225745,
+      "per_class": {
+        "DDoS": 128027,
+        "BENIGN": 97718
+      }
+    },
+    "provenance": {
+      "source": "tool",
+      "tool": "dependency_concentration_analysis",
+      "step": null
+    },
+    "feature": "Avg Bwd Segment Size"
+  },
+  "evidence_refs": [
+    {
+      "artifact": "parsed_output",
+      "path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_165_03-06_dependency_concentration_analysis_feature\\parsed_output.json"
+    },
+    {
+      "artifact": "raw_tool_output",
+      "path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_165_03-06_dependency_concentration_analysis_feature\\raw_tool_output.json"
+    },
+    {
+      "artifact": "component_run",
+      "path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_165_03-06_dependency_concentration_analysis_feature\\component_run.json"
+    }
+  ],
+  "limitations": []
+}

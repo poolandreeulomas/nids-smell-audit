@@ -1,0 +1,19 @@
+{
+  "batch_id": "phase3a_batch_0406130425_friday-workinghours-afternoon-ddos.pcap_iscx_d272aa",
+  "model_name": "gpt-4.1-mini",
+  "duration_ms": 147684.557,
+  "round_count": 0,
+  "analysis_refresh_count": 0,
+  "execution_mode": "full_round",
+  "final_state_version": 0,
+  "critic_run_count": 0,
+  "final_audit_committed": false,
+  "status": "failed",
+  "terminal_reason": "runtime_error",
+  "failed_component": "round-001",
+  "completed_component_count": 2,
+  "failed_component_count": 1,
+  "warning_count": 0,
+  "error_count": 1,
+  "schema_version": "phase3a.runtime.v1"
+}

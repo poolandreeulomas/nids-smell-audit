@@ -1,0 +1,91 @@
+{
+  "ok": false,
+  "schema_version": "phase3a.planner.v1",
+  "ranking_decision_validation": {
+    "ok": true,
+    "errors": [],
+    "warnings": [],
+    "stats": {
+      "selected_count": 3
+    }
+  },
+  "selected_context_validation": {
+    "ok": true,
+    "errors": [],
+    "warnings": [],
+    "stats": {
+      "selected_count": 3,
+      "expected_selected_count": 3
+    },
+    "invariants": {
+      "selected_ids_match": true
+    }
+  },
+  "planner_round_context_validation": {
+    "ok": true,
+    "errors": [],
+    "warnings": [],
+    "stats": {
+      "related_substrate_ref_count": 26,
+      "tool_capability_ref_count": 8,
+      "round_constraint_count": 4
+    }
+  },
+  "parse_validation": {
+    "ok": true,
+    "errors": [],
+    "warnings": []
+  },
+  "output_validation": {
+    "ok": false,
+    "errors": [
+      {
+        "field": "planner_strategies[0].key_checks",
+        "message": "key_checks must be a non-empty list of strings."
+      },
+      {
+        "field": "planner_strategies[0].success_criteria",
+        "message": "success_criteria must be a non-empty list of strings."
+      },
+      {
+        "field": "planner_strategies[0].router_constraints",
+        "message": "router_constraints must be a non-empty list of strings."
+      },
+      {
+        "field": "planner_strategies[1].key_checks",
+        "message": "key_checks must be a non-empty list of strings."
+      },
+      {
+        "field": "planner_strategies[1].success_criteria",
+        "message": "success_criteria must be a non-empty list of strings."
+      },
+      {
+        "field": "planner_strategies[1].router_constraints",
+        "message": "router_constraints must be a non-empty list of strings."
+      },
+      {
+        "field": "planner_strategies[2].key_checks",
+        "message": "key_checks must be a non-empty list of strings."
+      },
+      {
+        "field": "planner_strategies[2].success_criteria",
+        "message": "success_criteria must be a non-empty list of strings."
+      },
+      {
+        "field": "planner_strategies[2].router_constraints",
+        "message": "router_constraints must be a non-empty list of strings."
+      }
+    ],
+    "warnings": [],
+    "stats": {
+      "selected_count": 3,
+      "strategy_count": 3,
+      "missing_strategy_count": 0
+    },
+    "invariants": {
+      "one_strategy_per_selected_hypothesis": true,
+      "selected_ids_known": true
+    },
+    "forbidden_language_hits": []
+  }
+}

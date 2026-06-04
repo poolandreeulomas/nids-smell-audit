@@ -1,0 +1,37 @@
+{
+  "round_id": "round-001",
+  "related_substrate_refs": [
+    "e23",
+    "e24",
+    "e25",
+    "e26",
+    "e27",
+    "e28",
+    "e29",
+    "e30",
+    "e31",
+    "e32",
+    "e33",
+    "e3",
+    "e4",
+    "e5",
+    "e6",
+    "e7"
+  ],
+  "tool_capability_refs": [
+    "cardinality_analysis",
+    "dependency_concentration_analysis",
+    "distribution_analysis",
+    "duplication_analysis",
+    "feature_relation",
+    "feature_summary",
+    "neighborhood_consistency_analysis",
+    "shortcut_analysis"
+  ],
+  "round_constraints": [
+    "strategic_only",
+    "no_exact_tool_calls",
+    "preserve_selected_scope",
+    "router_ready_handoff"
+  ]
+}

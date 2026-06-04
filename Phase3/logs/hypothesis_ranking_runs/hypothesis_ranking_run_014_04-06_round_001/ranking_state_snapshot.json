@@ -1,0 +1,122 @@
+{
+  "round_id": "round-001",
+  "selection_budget": 3,
+  "hypothesis_state_refs": [
+    {
+      "hypothesis_id": "hyp_001_low_diversity_bulk_features",
+      "state_notes": [
+        "status=unresolved",
+        "summary=The extremely low cardinality and near-constant values observed in multiple bulk-related backward and forward features (e23-e32) may indicate a structural uniformity or load concentration effect, potentially reflecting a stable but narrow traffic pattern or a saturation artifact in bulk transfer metrics.",
+        "revision_count=0",
+        "last_updated_round=initialization",
+        "open_gap=Does the low diversity in bulk features reflect a genuine network behavior pattern or an artifact of data aggregation or sampling?",
+        "open_gap=Could this uniformity mask underlying burst or spike behaviors that are not captured by these aggregated metrics?"
+      ]
+    },
+    {
+      "hypothesis_id": "hyp_002_strong_dependency_pairs_redundancy",
+      "state_notes": [
+        "status=unresolved",
+        "summary=The presence of perfect or near-perfect correlations (correlation=1 or 0.9993) among several feature pairs (e13-e22) suggests strong linear dependencies that may introduce redundancy, potentially reducing the effective dimensionality of the dataset and indicating that some features may be proxies or transformations of others.",
+        "revision_count=0",
+        "last_updated_round=initialization",
+        "open_gap=Are these strong dependencies stable across different temporal segments or specific to this partition?",
+        "open_gap=Do these dependencies reflect inherent protocol or flow structure, or are they influenced by preprocessing or feature engineering steps?"
+      ]
+    },
+    {
+      "hypothesis_id": "hyp_003_class_conditioned_variation_in_backward_packet_lengths",
+      "state_notes": [
+        "status=unresolved",
+        "summary=Backward packet length features (e9-e12) exhibit strong class-conditioned structural variation, with higher variance and unique value counts in BENIGN compared to DDoS classes, suggesting that these features may capture discriminative patterns but also reflect representation sensitivity to class distribution.",
+        "revision_count=0",
+        "last_updated_round=initialization",
+        "open_gap=To what extent does the class-conditioned variation in backward packet lengths contribute to classification versus reflecting sampling bias?",
+        "open_gap=Could the lower diversity in DDoS class backward packet lengths indicate a shortcut or oversimplified representation?"
+      ]
+    },
+    {
+      "hypothesis_id": "hyp_004_average_packet_size_class_conditioned_variation",
+      "state_notes": [
+        "status=unresolved",
+        "summary=The Average Packet Size feature (e8) shows moderate class-conditioned structural variation with higher unique values in BENIGN class, indicating potential representation sensitivity and partial discriminative capacity, but also possible instability or overlap in distributions.",
+        "revision_count=0",
+        "last_updated_round=initialization",
+        "open_gap=Is the moderate variance ratio sufficient to reliably separate classes, or does it introduce ambiguity in classification?",
+        "open_gap=Does the variation in Average Packet Size correlate with other packet length or flow features, suggesting redundancy?"
+      ]
+    },
+    {
+      "hypothesis_id": "hyp_005_destination_port_distribution_shift",
+      "state_notes": [
+        "status=unresolved",
+        "summary=The Destination Port feature (e33) demonstrates strong class separation with a dominant ratio of 1.0 and zero entropy in the DDoS class, alongside a high Jensen-Shannon divergence (0.7315), indicating a pronounced distributional shift that may serve as a localized representation-sensitive handle or a potential shortcut feature.",
+        "revision_count=0",
+        "last_updated_round=initialization",
+        "open_gap=Does the strong class separation in Destination Port reflect a genuine attack vector targeting specific ports or an artifact of dataset construction?",
+        "open_gap=Could reliance on this feature lead to overfitting or brittle detection models sensitive to port distribution changes?"
+      ]
+    },
+    {
+      "hypothesis_id": "hyp_006_partition_level_class_imbalance_and_duplicates",
+      "state_notes": [
+        "status=unresolved",
+        "summary=The partition-level observations (e1, e2) reveal a moderate class imbalance ratio of 1.577 and the presence of 729 duplicated rows, suggesting potential data skew and redundancy that may influence feature distributions and model learning dynamics.",
+        "revision_count=0",
+        "last_updated_round=initialization",
+        "open_gap=How do duplicated rows affect the stability and generalizability of learned patterns in this dataset?",
+        "open_gap=Does the class imbalance interact with feature representation to bias detection performance or feature importance rankings?"
+      ]
+    },
+    {
+      "hypothesis_id": "hyp_007_preserved_weak_signals_in_backward_packet_length_features",
+      "state_notes": [
+        "status=unresolved",
+        "summary=Despite structural complexities and potential redundancies, backward packet length features (e3-e6) maintain top ranks in feature importance, indicating that class-conditioned structural variation in these features may preserve meaningful signals relevant for discrimination.",
+        "revision_count=0",
+        "last_updated_round=initialization",
+        "open_gap=Are these backward packet length features capturing stable behavioral differences or are they sensitive to dataset-specific artifacts?",
+        "open_gap=Could their high importance be partially driven by correlations with other redundant features?"
+      ]
+    },
+    {
+      "hypothesis_id": "hyp_008_joint_importance_of_strongly_correlated_backward_segment_features",
+      "state_notes": [
+        "status=unresolved",
+        "summary=The strong dependency cluster including Bwd Packet Length Mean and Avg Bwd Segment Size (e3, e4) suggests a joint importance that may reflect a stable underlying traffic characteristic, but also raises questions about potential redundancy and representation sensitivity.",
+        "revision_count=0",
+        "last_updated_round=initialization",
+        "open_gap=Does the joint importance of these features indicate a robust signal or a representation-sensitive shortcut?",
+        "open_gap=How does this dependency cluster behave under different attack scenarios or benign traffic variations?"
+      ]
+    },
+    {
+      "hypothesis_id": "hyp_009_potential_representation_sensitive_shortcuts_in_flag_features",
+      "state_notes": [
+        "status=unresolved",
+        "summary=The low cardinality and near-constant values in backward and forward flag-related features (e23-e32) may indicate representation-sensitive shortcuts or saturation effects, potentially limiting their discriminative utility or causing brittle model behavior.",
+        "revision_count=0",
+        "last_updated_round=initialization",
+        "open_gap=Are these flag features genuinely stable due to protocol behavior or artificially constrained by preprocessing?",
+        "open_gap=Could these features mask transient or bursty flag activity relevant for attack detection?"
+      ]
+    },
+    {
+      "hypothesis_id": "hyp_010_interplay_between_class_conditioned_variation_and_dependency_structure",
+      "state_notes": [
+        "status=unresolved",
+        "summary=The coexistence of strong class-conditioned structural variation (e8-e12) and near-perfect feature dependencies (e13-e22) suggests a complex interplay where discriminative signals may be entangled with redundant or dependent features, complicating feature selection and interpretation.",
+        "revision_count=0",
+        "last_updated_round=initialization",
+        "open_gap=How can feature selection balance preserving class-conditioned variation while minimizing redundancy from strong dependencies?",
+        "open_gap=Does this interplay affect model robustness or lead to unstable feature importance rankings?"
+      ]
+    }
+  ],
+  "round_constraints": [
+    "selection_budget=3",
+    "allocation_only",
+    "preserve_deferred_hypotheses",
+    "round_start_state_version=1"
+  ]
+}

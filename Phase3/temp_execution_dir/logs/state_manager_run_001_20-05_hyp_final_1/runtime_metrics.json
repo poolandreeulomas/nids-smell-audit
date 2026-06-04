@@ -1,0 +1,23 @@
+{
+  "request_id": "state_manager_d36c52c8ba1b4bb1b0e427a76f5963b2",
+  "batch_id": "final-audit-batch-001",
+  "round_id": "round-001",
+  "hypothesis_id": "hyp-final-1",
+  "prompt_version": "phase3a.state_manager.prompt.v1",
+  "model_name": "gpt-4.1-mini",
+  "temperature": 0.0,
+  "duration_ms": 0.432,
+  "status": "error",
+  "previous_state_version": 1,
+  "new_state_version": null,
+  "applied_update_count": 0,
+  "remaining_open_gap_count": 0,
+  "state_committed": false,
+  "prior_state_origin": null,
+  "prompt_chars": 4633,
+  "raw_response_chars": 411,
+  "fresh_execution": true,
+  "replay_of": null,
+  "caller_mode": "cli",
+  "schema_version": "phase3a.state_manager.v1"
+}

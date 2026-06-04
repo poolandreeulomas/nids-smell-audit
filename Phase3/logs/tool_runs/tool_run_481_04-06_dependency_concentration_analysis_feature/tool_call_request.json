@@ -1,0 +1,14 @@
+{
+  "call_id": "task_2_step_03",
+  "tool_name": "dependency_concentration_analysis",
+  "target_scope": "feature",
+  "input_refs": {
+    "feature_name": "Fwd Header Length"
+  },
+  "preprocessing_profile_ref": "default",
+  "execution_constraints": {
+    "cache_policy": "reuse",
+    "validation_mode": "strict",
+    "save_raw_output": true
+  }
+}

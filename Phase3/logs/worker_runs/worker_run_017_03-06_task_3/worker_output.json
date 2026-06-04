@@ -1,0 +1,19 @@
+{
+  "batch_id": "phase3a_batch_0306154538_friday-workinghours-afternoon-ddos.pcap_iscx_2a1de9",
+  "round_id": "round-001",
+  "worker_result": {
+    "task_id": "task_3",
+    "hypothesis_id": "hyp_4_distributional_divergence_destination_port",
+    "status": "partial",
+    "findings": [
+      "Destination Port feature exhibits moderate shortcut-like predictive leverage in evidence e33, consistent with its strong class distributional divergence."
+    ],
+    "evidence_refs": [
+      "task_3_step_03"
+    ],
+    "contradictions": [],
+    "limitations": [
+      "Shortcut verification limited to a single deterministic one-feature decision stump; more complex interactions not assessed."
+    ]
+  }
+}

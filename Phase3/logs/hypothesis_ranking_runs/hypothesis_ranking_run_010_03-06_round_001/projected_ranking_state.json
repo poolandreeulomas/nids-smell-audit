@@ -1,0 +1,122 @@
+{
+  "round_id": "round-001",
+  "selection_budget": 3,
+  "hypothesis_state_refs": [
+    {
+      "hypothesis_id": "hyp_1_low_diversity_backward_bulk",
+      "state_notes": [
+        "status=unresolved",
+        "summary=Backward bulk-related features exhibit near-constant values with unique value counts equal to 1 and very low cardinality ratios, suggesting a structural uniformity or saturation effect in backward bulk traffic representation.",
+        "revision_count=0",
+        "last_updated_round=initialization",
+        "open_gap=Does the low diversity in backward bulk features reflect a genuine network behavior pattern or an artifact of feature extraction or aggregation?",
+        "open_gap=Could this near-constant pattern mask subtle but meaningful variations relevant for distinguishing traffic classes?"
+      ]
+    },
+    {
+      "hypothesis_id": "hyp_2_low_diversity_forward_bulk",
+      "state_notes": [
+        "status=unresolved",
+        "summary=Forward bulk-related features mirror the backward bulk features in showing extremely low cardinality and unique value counts of 1, indicating a possible symmetrical structural constraint or redundancy in bulk traffic features across directions.",
+        "revision_count=0",
+        "last_updated_round=initialization",
+        "open_gap=Is the low diversity in forward bulk features a consequence of the same underlying process affecting backward bulk features, or does it arise independently?",
+        "open_gap=How does this symmetry impact the interpretability and discriminative power of bulk-related features in the dataset?"
+      ]
+    },
+    {
+      "hypothesis_id": "hyp_3_strong_feature_redundancy_pairs",
+      "state_notes": [
+        "status=unresolved",
+        "summary=Multiple feature pairs show perfect or near-perfect correlation (correlation=1 or ~0.9993), indicating strong redundancy and deterministic relationships that may reduce effective feature dimensionality and introduce unstable dependencies.",
+        "revision_count=0",
+        "last_updated_round=initialization",
+        "open_gap=Are these perfect correlations inherent to the network traffic or induced by preprocessing steps such as feature engineering or aggregation?",
+        "open_gap=Could these redundancies lead to shortcut-like signals that bias downstream analysis or model training?"
+      ]
+    },
+    {
+      "hypothesis_id": "hyp_4_class_conditioned_variation_backward_packet_lengths",
+      "state_notes": [
+        "status=unresolved",
+        "summary=Backward packet length and segment size features display significant class-conditioned structural variation, with differing unique value counts and variance ratios between BENIGN and DDoS classes, suggesting these features capture meaningful class-dependent behavior.",
+        "revision_count=0",
+        "last_updated_round=initialization",
+        "open_gap=To what extent does the class-conditioned variation in backward packet lengths reflect genuine attack versus benign traffic characteristics versus dataset artifacts?",
+        "open_gap=Are these variations stable across different temporal or network contexts within the dataset?"
+      ]
+    },
+    {
+      "hypothesis_id": "hyp_5_class_conditioned_variation_average_packet_size",
+      "state_notes": [
+        "status=unresolved",
+        "summary=Average Packet Size shows moderate class-conditioned structural variation with differing unique value counts and variance ratios between BENIGN and DDoS classes, indicating potential representation-sensitive behavior in packet size distribution.",
+        "revision_count=0",
+        "last_updated_round=initialization",
+        "open_gap=Does the observed variation in average packet size correspond to meaningful traffic pattern differences or to sampling or measurement biases?",
+        "open_gap=How consistent is this variation across other related packet size features?"
+      ]
+    },
+    {
+      "hypothesis_id": "hyp_6_class_distribution_difference_destination_port",
+      "state_notes": [
+        "status=unresolved",
+        "summary=Destination Port feature exhibits strong distributional differences between BENIGN and DDoS classes, with a dominant ratio of 1.0 and zero entropy in DDoS, alongside a high Jensen-Shannon divergence of 0.7315, indicating a highly representation-sensitive and potentially shortcut-like feature.",
+        "revision_count=0",
+        "last_updated_round=initialization",
+        "open_gap=Is the zero entropy and dominant ratio in DDoS destination ports indicative of a single targeted port or a data collection artifact?",
+        "open_gap=Could this strong class-conditioned distribution skew lead to overfitting or unstable model behavior?"
+      ]
+    },
+    {
+      "hypothesis_id": "hyp_7_partition_level_data_quality_and_class_imbalance",
+      "state_notes": [
+        "status=unresolved",
+        "summary=The partition contains 729 duplicated rows and a class imbalance ratio of 1.577, indicating moderate class skew and potential data quality issues that may affect feature distribution stability and model generalization.",
+        "revision_count=0",
+        "last_updated_round=initialization",
+        "open_gap=Do duplicated rows correspond to repeated network flows or artifacts of data processing?",
+        "open_gap=How does the class imbalance influence the observed structural patterns and feature correlations?"
+      ]
+    },
+    {
+      "hypothesis_id": "hyp_8_low_cardinality_forward_psh_syn_flags_dependency",
+      "state_notes": [
+        "status=unresolved",
+        "summary=Forward PSH Flags and SYN Flag Count show perfect correlation and low cardinality, suggesting a dependency cluster that may represent a shortcut-like or unstable dependency pattern with limited variability.",
+        "revision_count=0",
+        "last_updated_round=initialization",
+        "open_gap=Is the perfect correlation between these flags a genuine protocol behavior or a feature extraction artifact?",
+        "open_gap=Could this dependency reduce the robustness of models relying on these features?"
+      ]
+    },
+    {
+      "hypothesis_id": "hyp_9_potential_structural_saturation_in_bulk_features",
+      "state_notes": [
+        "status=unresolved",
+        "summary=The near-constant values and extremely low cardinality in both forward and backward bulk-related features may reflect a saturation or ceiling effect in feature measurement or aggregation, limiting their discriminative capacity.",
+        "revision_count=0",
+        "last_updated_round=initialization",
+        "open_gap=Are these saturation-like patterns consistent across different time windows or network segments?",
+        "open_gap=Could alternative feature engineering approaches reveal more nuanced bulk traffic behavior?"
+      ]
+    },
+    {
+      "hypothesis_id": "hyp_10_interplay_between_redundancy_and_class_conditioned_variation",
+      "state_notes": [
+        "status=unresolved",
+        "summary=Strong feature redundancies coexist with class-conditioned structural variations in packet length and size features, suggesting a complex interplay where some features may mask or amplify class-specific signals depending on their dependency structure.",
+        "revision_count=0",
+        "last_updated_round=initialization",
+        "open_gap=How do these redundancies affect the interpretability and stability of class-conditioned variations?",
+        "open_gap=Can disentangling these dependencies improve the detection of meaningful class-specific patterns?"
+      ]
+    }
+  ],
+  "round_constraints": [
+    "selection_budget=3",
+    "allocation_only",
+    "preserve_deferred_hypotheses",
+    "round_start_state_version=1"
+  ]
+}

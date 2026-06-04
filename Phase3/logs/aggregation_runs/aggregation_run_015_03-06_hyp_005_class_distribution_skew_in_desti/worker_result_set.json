@@ -1,0 +1,68 @@
+{
+  "batch_id": "phase3a_batch_0306183859_friday-workinghours-afternoon-ddos.pcap_iscx_689174",
+  "round_id": "round-001",
+  "hypothesis_id": "hyp_005_class_distribution_skew_in_destination_port",
+  "worker_results": [
+    {
+      "task_id": "task_1",
+      "hypothesis_id": "hyp_005_class_distribution_skew_in_destination_port",
+      "status": "completed",
+      "findings": [
+        "Destination Port distribution shows strong class-conditioned skew with DDoS class dominated by a single port and zero entropy.",
+        "BENIGN class exhibits higher entropy and more diverse port distribution.",
+        "Distribution metrics are stable across time segments within evidence e33."
+      ],
+      "evidence_refs": [
+        "task_1_step_03"
+      ],
+      "contradictions": [],
+      "limitations": []
+    },
+    {
+      "task_id": "task_2",
+      "hypothesis_id": "hyp_005_class_distribution_skew_in_destination_port",
+      "status": "completed",
+      "findings": [
+        "The Destination Port feature within the DDoS class exhibits near-zero entropy and a dominant port value, confirming strong class-conditioned distribution skew.",
+        "No additional cardinality anomalies were detected that would undermine the observed distributional pattern."
+      ],
+      "evidence_refs": [
+        "task_2_step_03",
+        "task_2_step_05"
+      ],
+      "contradictions": [],
+      "limitations": []
+    },
+    {
+      "task_id": "task_3",
+      "hypothesis_id": "hyp_005_class_distribution_skew_in_destination_port",
+      "status": "completed",
+      "findings": [
+        "Destination Port feature exhibits a moderate shortcut-like predictive signal for DDoS class samples in evidence e33, consistent with strong class-conditioned distributional skew.",
+        "DDoS class samples are dominated by a single destination port with zero entropy, contrasting with higher entropy and lower dominant ratio in BENIGN class samples."
+      ],
+      "evidence_refs": [
+        "task_3_step_03"
+      ],
+      "contradictions": [],
+      "limitations": [
+        "Shortcut verification used a deterministic one-feature decision stump, which may not capture more complex dependencies or interactions."
+      ]
+    },
+    {
+      "task_id": "task_4",
+      "hypothesis_id": "hyp_005_class_distribution_skew_in_destination_port",
+      "status": "completed",
+      "findings": [
+        "Destination Port distribution shows strong skew with DDoS traffic dominated by a single port and zero entropy.",
+        "BENIGN traffic exhibits higher entropy and more diverse destination port usage.",
+        "Clear class-conditioned distributional separation is present in the local evidence."
+      ],
+      "evidence_refs": [
+        "task_4_step_03"
+      ],
+      "contradictions": [],
+      "limitations": []
+    }
+  ]
+}

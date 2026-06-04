@@ -1,0 +1,48 @@
+{
+  "call_id": "task-hyp-1-1_step_03",
+  "tool_name": "feature_relation",
+  "status": "ok",
+  "observations": {
+    "feature_name": "dst_bytes|src_bytes",
+    "value": 1.0,
+    "signals": [
+      "high_redundancy"
+    ],
+    "metrics": {
+      "correlation": 1.0
+    },
+    "support": {
+      "n_total": 4,
+      "n_per_class": {
+        "BENIGN": 2,
+        "ATTACK": 2
+      },
+      "total_samples": 4,
+      "per_class": {
+        "BENIGN": 2,
+        "ATTACK": 2
+      }
+    },
+    "provenance": {
+      "source": "tool",
+      "tool": "feature_relation",
+      "step": null
+    },
+    "feature": "dst_bytes|src_bytes"
+  },
+  "evidence_refs": [
+    {
+      "artifact": "parsed_output",
+      "path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_077_20-05_feature_relation_feature_pair\\parsed_output.json"
+    },
+    {
+      "artifact": "raw_tool_output",
+      "path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_077_20-05_feature_relation_feature_pair\\raw_tool_output.json"
+    },
+    {
+      "artifact": "component_run",
+      "path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_077_20-05_feature_relation_feature_pair\\component_run.json"
+    }
+  ],
+  "limitations": []
+}

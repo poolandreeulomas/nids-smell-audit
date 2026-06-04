@@ -1,0 +1,8 @@
+[
+  {
+    "step_index": 8,
+    "attempt_index": 1,
+    "reason": "execution_trace_summary must be a list of objects with step, action, and outcome.",
+    "retry_kind": "result_repair"
+  }
+]

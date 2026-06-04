@@ -1,0 +1,18 @@
+{
+  "batch_id": "final-audit-batch-001",
+  "round_id": "round-001",
+  "hypothesis_id": "hyp-final-1",
+  "merged_findings": [
+    "Finding"
+  ],
+  "evidence_refs": [
+    "final-task-step-01"
+  ],
+  "preserved_contradictions": [
+    "Contradiction"
+  ],
+  "open_gaps": [
+    "Gap"
+  ],
+  "update_focus": "Focus"
+}

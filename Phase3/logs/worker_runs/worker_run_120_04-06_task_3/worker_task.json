@@ -1,0 +1,22 @@
+{
+  "task_id": "task_3",
+  "hypothesis_id": "hyp_9_tension_between_low_diversity_and_class_conditioned_variation",
+  "task_scope": "Assess how stable and variable features contribute to class discrimination focusing on evidence refs e9 to e12 and e23 to e25",
+  "allowed_actions": [
+    "dependency_contextualization",
+    "relation_verification"
+  ],
+  "local_context_refs": [
+    "e9",
+    "e10",
+    "e11",
+    "e12",
+    "e23",
+    "e24",
+    "e25"
+  ],
+  "stop_conditions": [
+    "feature-class dependency patterns identified",
+    "contributions of stable vs variable features to class separation assessed"
+  ]
+}

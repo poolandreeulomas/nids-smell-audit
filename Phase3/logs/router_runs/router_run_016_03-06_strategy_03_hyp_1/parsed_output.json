@@ -1,0 +1,108 @@
+{
+  "batch_id": "phase3a_batch_0306154538_friday-workinghours-afternoon-ddos.pcap_iscx_2a1de9",
+  "round_id": "round-001",
+  "hypothesis_id": "hyp_1_low_diversity_bulk_features",
+  "planner_strategy_id": "strategy_03_hyp_1",
+  "worker_tasks": [
+    {
+      "task_id": "task_1",
+      "hypothesis_id": "hyp_1_low_diversity_bulk_features",
+      "task_scope": "Quantify cardinality and near-constant behavior of bulk features across dataset partitions using evidence refs e23 to e32",
+      "allowed_actions": [
+        "cardinality_verification",
+        "distribution_verification"
+      ],
+      "local_context_refs": [
+        "e23",
+        "e24",
+        "e25",
+        "e26",
+        "e27",
+        "e28",
+        "e29",
+        "e30",
+        "e31",
+        "e32"
+      ],
+      "stop_conditions": [
+        "cardinality metrics computed for all bulk features",
+        "near-constant behavior patterns identified"
+      ]
+    },
+    {
+      "task_id": "task_2",
+      "hypothesis_id": "hyp_1_low_diversity_bulk_features",
+      "task_scope": "Investigate temporal consistency of low diversity patterns in bulk features using evidence refs e23 to e32",
+      "allowed_actions": [
+        "distribution_verification",
+        "local_consistency_verification"
+      ],
+      "local_context_refs": [
+        "e23",
+        "e24",
+        "e25",
+        "e26",
+        "e27",
+        "e28",
+        "e29",
+        "e30",
+        "e31",
+        "e32"
+      ],
+      "stop_conditions": [
+        "temporal distribution stability assessed",
+        "local label-topology consistency verified"
+      ]
+    },
+    {
+      "task_id": "task_3",
+      "hypothesis_id": "hyp_1_low_diversity_bulk_features",
+      "task_scope": "Explore subtle variations within near-constant bulk features for potential meaningful signal using evidence refs e23 to e32",
+      "allowed_actions": [
+        "feature_summary",
+        "dependency_contextualization"
+      ],
+      "local_context_refs": [
+        "e23",
+        "e24",
+        "e25",
+        "e26",
+        "e27",
+        "e28",
+        "e29",
+        "e30",
+        "e31",
+        "e32"
+      ],
+      "stop_conditions": [
+        "subtle feature variations characterized",
+        "dependency concentration patterns identified"
+      ]
+    },
+    {
+      "task_id": "task_4",
+      "hypothesis_id": "hyp_1_low_diversity_bulk_features",
+      "task_scope": "Assess whether low diversity in bulk features limits or masks relevant attack-related variations using evidence refs e23 to e32",
+      "allowed_actions": [
+        "shortcut_verification",
+        "relation_verification"
+      ],
+      "local_context_refs": [
+        "e23",
+        "e24",
+        "e25",
+        "e26",
+        "e27",
+        "e28",
+        "e29",
+        "e30",
+        "e31",
+        "e32"
+      ],
+      "stop_conditions": [
+        "shortcut-like predictive signals evaluated",
+        "feature pair relations analyzed for masked variations"
+      ]
+    }
+  ]
+}

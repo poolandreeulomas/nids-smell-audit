@@ -1,0 +1,56 @@
+{
+  "call_id": "task-hyp-1-1_step_03",
+  "tool_name": "shortcut_analysis",
+  "status": "ok",
+  "observations": {
+    "feature_name": "src_bytes",
+    "value": 1.0,
+    "signals": [
+      "strong_shortcut_signal"
+    ],
+    "metrics": {
+      "cv_balanced_accuracy": 1.0,
+      "cv_balanced_accuracy_std": 0.0,
+      "train_balanced_accuracy": 1.0,
+      "generalization_gap": 0.0,
+      "threshold": 56.0,
+      "fold_count": 2,
+      "attack_rate": 0.5,
+      "retained_rows": 4,
+      "coverage_ratio": 1.0
+    },
+    "support": {
+      "n_total": 4,
+      "n_per_class": {
+        "BENIGN": 2,
+        "ATTACK": 2
+      },
+      "total_samples": 4,
+      "per_class": {
+        "BENIGN": 2,
+        "ATTACK": 2
+      }
+    },
+    "provenance": {
+      "source": "tool",
+      "tool": "shortcut_analysis",
+      "step": null
+    },
+    "feature": "src_bytes"
+  },
+  "evidence_refs": [
+    {
+      "artifact": "parsed_output",
+      "path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_209_03-06_shortcut_analysis_feature\\parsed_output.json"
+    },
+    {
+      "artifact": "raw_tool_output",
+      "path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_209_03-06_shortcut_analysis_feature\\raw_tool_output.json"
+    },
+    {
+      "artifact": "component_run",
+      "path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_209_03-06_shortcut_analysis_feature\\component_run.json"
+    }
+  ],
+  "limitations": []
+}

@@ -1,0 +1,136 @@
+ROLE:
+You are Aggregation. Stay inside one hypothesis-local, round-local merge after Worker and before State Manager.
+Do not reroute, replan, mutate canonical state, emit critic feedback, or summarize raw traces.
+Preserve grounded contradictions and unresolved gaps instead of flattening them away.
+
+TASK:
+{
+  "batch_id": "phase3a_batch_0306181120_friday-workinghours-afternoon-ddos.pcap_iscx_5e8f98",
+  "round_id": "round-001",
+  "hypothesis_id": "hyp_3_strong_feature_redundancy_pairs",
+  "worker_result_count": 4,
+  "expected_task_ids": [
+    "task_1",
+    "task_2",
+    "task_3",
+    "task_4"
+  ],
+  "selected_task_ids": [
+    "task_1",
+    "task_2",
+    "task_3",
+    "task_4"
+  ]
+}
+
+SOURCE_WORKER_RESULTS:
+[
+  {
+    "task_id": "task_1",
+    "hypothesis_id": "hyp_3_strong_feature_redundancy_pairs",
+    "status": "completed",
+    "findings": [
+      "Multiple feature pairs exhibit perfect or near-perfect correlation indicating deterministic redundancy likely induced by preprocessing or feature engineering.",
+      "Verified pairs such as Fwd PSH Flags & SYN Flag Count, Fwd Header Length & Fwd Header Length.1, and Packet Length Mean & Average Packet Size confirm strong redundancy signals.",
+      "No evidence supports these correlations arising naturally from network traffic properties within the bounded local context."
+    ],
+    "evidence_refs": [
+      "task_1_step_03",
+      "task_1_step_05",
+      "task_1_step_07"
+    ],
+    "contradictions": [],
+    "limitations": [
+      "Analysis limited to bounded local dependency cluster; global dataset-wide duplication checks were not performed."
+    ]
+  },
+  {
+    "task_id": "task_2",
+    "hypothesis_id": "hyp_3_strong_feature_redundancy_pairs",
+    "status": "completed",
+    "findings": [
+      "Multiple feature pairs within the strongly correlated cluster exhibit near-perfect redundancy.",
+      "Representative features Average Packet Size, Packet Length Mean, and Fwd Packet Length Mean show moderate shortcut-like predictive signals individually.",
+      "These findings indicate that redundant feature pairs contribute to shortcut-like signals in the dataset."
+    ],
+    "evidence_refs": [
+      "task_2_step_03",
+      "task_2_step_05",
+      "task_2_step_07"
+    ],
+    "contradictions": [],
+    "limitations": [
+      "Shortcut verification was performed on a subset of representative features rather than exhaustively on all redundant pairs."
+    ]
+  },
+  {
+    "task_id": "task_3",
+    "hypothesis_id": "hyp_3_strong_feature_redundancy_pairs",
+    "status": "completed",
+    "findings": [
+      "Multiple feature pairs in the cluster show perfect or near-perfect correlation, confirming strong redundancy.",
+      "'Fwd Header Length' is low-cardinality and near-constant, reducing effective feature dimensionality.",
+      "Local label-topology consistency checks reveal conflicts, indicating unstable dependencies around redundant features.",
+      "Dependency profiles are not narrowly concentrated, suggesting redundancy impacts dependency stability broadly."
+    ],
+    "evidence_refs": [
+      "task_3_step_03",
+      "task_3_step_05",
+      "task_3_step_07"
+    ],
+    "contradictions": [
+      "High label neighborhood conflicts and duplicate label conflicts around 'Fwd Header Length' indicate local contradictions in dependency stability."
+    ],
+    "limitations": [
+      "Analysis limited to features within the provided local dependency cluster; broader dataset effects not assessed."
+    ]
+  },
+  {
+    "task_id": "task_4",
+    "hypothesis_id": "hyp_3_strong_feature_redundancy_pairs",
+    "status": "completed",
+    "findings": [
+      "Multiple feature pairs in the cluster exhibit perfect or near-perfect correlation, confirming strong redundancy.",
+      "Fwd PSH Flags and SYN Flag Count show perfect correlation and low entropy with dominant values, indicating low variability and redundancy.",
+      "Removing or consolidating these redundant features is likely to alter class-conditioned patterns and distributional properties due to their deterministic relationships."
+    ],
+    "evidence_refs": [
+      "task_4_step_03",
+      "task_4_step_05",
+      "task_4_step_07"
+    ],
+    "contradictions": [],
+    "limitations": [
+      "Analysis limited to local cluster and specific feature pairs; global dataset effects not assessed."
+    ]
+  }
+]
+
+OVERLAP_DIAGNOSTICS:
+[]
+
+OUTPUT_RULES:
+Return exactly one JSON object.
+Only cite evidence_refs that appear in SOURCE_WORKER_RESULTS.
+Only preserve contradictions that already appear in SOURCE_WORKER_RESULTS.
+Keep update_focus short and state-facing, but do not describe state mutation.
+{
+  "aggregation_handoff": {
+    "batch_id": "phase3a_batch_0306181120_friday-workinghours-afternoon-ddos.pcap_iscx_5e8f98",
+    "round_id": "round-001",
+    "hypothesis_id": "hyp_3_strong_feature_redundancy_pairs",
+    "merged_findings": [
+      "grounded merged finding"
+    ],
+    "evidence_refs": [
+      "source evidence_ref"
+    ],
+    "preserved_contradictions": [
+      "unresolved source contradiction"
+    ],
+    "open_gaps": [
+      "remaining unresolved gap or limitation"
+    ],
+    "update_focus": "short orientation for the touched interpretive area"
+  }
+}

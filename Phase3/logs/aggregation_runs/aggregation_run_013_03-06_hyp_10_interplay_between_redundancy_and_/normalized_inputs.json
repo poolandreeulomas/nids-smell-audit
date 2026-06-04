@@ -1,0 +1,129 @@
+{
+  "batch_id": "phase3a_batch_0306181120_friday-workinghours-afternoon-ddos.pcap_iscx_5e8f98",
+  "round_id": "round-001",
+  "hypothesis_id": "hyp_10_interplay_between_redundancy_and_class_conditioned_variation",
+  "worker_result_count": 4,
+  "expected_task_ids": [
+    "task_1",
+    "task_2",
+    "task_3",
+    "task_4"
+  ],
+  "selected_task_ids": [
+    "task_1",
+    "task_2",
+    "task_3",
+    "task_4"
+  ],
+  "missing_task_ids": [],
+  "extra_task_ids": [],
+  "source_run_dirs": [
+    "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\worker_runs\\worker_run_054_03-06_task_2",
+    "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\worker_runs\\worker_run_055_03-06_task_4",
+    "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\worker_runs\\worker_run_056_03-06_task_1",
+    "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\worker_runs\\worker_run_058_03-06_task_3"
+  ],
+  "status_counts": {
+    "completed": 4
+  },
+  "source_evidence_refs": [
+    "task_1_step_03",
+    "task_1_step_05",
+    "task_1_step_07",
+    "task_2_step_03",
+    "task_2_step_05",
+    "task_2_step_07",
+    "task_3_step_03",
+    "task_3_step_05",
+    "task_3_step_07",
+    "task_4_step_03",
+    "task_4_step_05",
+    "task_4_step_07"
+  ],
+  "source_contradictions": [
+    "Moderate label neighborhood conflicts and duplicate label conflicts represent preserved local contradictions."
+  ],
+  "source_limitations": [
+    "Analysis limited to local neighborhoods and specific features; global dependency effects remain unassessed.",
+    "Analysis limited to pairwise relations within bounded feature groups; global impact on interpretability and detection not directly measured."
+  ],
+  "source_finding_count": 12,
+  "non_success_count": 0,
+  "worker_results": [
+    {
+      "task_id": "task_1",
+      "hypothesis_id": "hyp_10_interplay_between_redundancy_and_class_conditioned_variation",
+      "status": "completed",
+      "findings": [
+        "Backward packet length features (Bwd Packet Length Max, Mean) exhibit high redundancy and tightly clustered dependency profiles.",
+        "Avg Bwd Segment Size shows strong redundancy with Bwd Packet Length Mean, indicating interplay between segment size and packet length features.",
+        "Class-conditioned structural variation is evident in backward packet length and segment size features, supporting the hypothesis of interplay between redundancy and class-conditioned variation."
+      ],
+      "evidence_refs": [
+        "task_1_step_03",
+        "task_1_step_05",
+        "task_1_step_07"
+      ],
+      "contradictions": [],
+      "limitations": []
+    },
+    {
+      "task_id": "task_2",
+      "hypothesis_id": "hyp_10_interplay_between_redundancy_and_class_conditioned_variation",
+      "status": "completed",
+      "findings": [
+        "Backward packet length features exhibit strong class-conditioned structural variation with high class separation.",
+        "Strong feature redundancy clusters indicate deterministic relationships that likely preserve or clarify class-specific signals when redundancies are disentangled.",
+        "No local contradictions or unresolved tensions remain regarding the impact of redundancy disentanglement on class-specific packet length signals."
+      ],
+      "evidence_refs": [
+        "task_2_step_03",
+        "task_2_step_05",
+        "task_2_step_07"
+      ],
+      "contradictions": [],
+      "limitations": []
+    },
+    {
+      "task_id": "task_3",
+      "hypothesis_id": "hyp_10_interplay_between_redundancy_and_class_conditioned_variation",
+      "status": "completed",
+      "findings": [
+        "Strong redundancy and near-deterministic correlations exist among packet length and size features, including 'Bwd Packet Length Mean'.",
+        "Local label-topology consistency checks reveal moderate conflicts and duplicate label conflicts around 'Bwd Packet Length Mean' and 'Avg Bwd Segment Size', indicating unstable dependencies.",
+        "These unstable dependencies likely mask or distort class-conditioned variation in packet length and size features."
+      ],
+      "evidence_refs": [
+        "task_3_step_03",
+        "task_3_step_05",
+        "task_3_step_07"
+      ],
+      "contradictions": [
+        "Moderate label neighborhood conflicts and duplicate label conflicts represent preserved local contradictions."
+      ],
+      "limitations": [
+        "Analysis limited to local neighborhoods and specific features; global dependency effects remain unassessed."
+      ]
+    },
+    {
+      "task_id": "task_4",
+      "hypothesis_id": "hyp_10_interplay_between_redundancy_and_class_conditioned_variation",
+      "status": "completed",
+      "findings": [
+        "Strong redundancy exists between Bwd Packet Length Mean and Bwd Packet Length Std, and between Bwd Packet Length Mean and Avg Bwd Segment Size, confirmed by high redundancy signals.",
+        "Forward PSH Flags and SYN Flag Count exhibit perfect correlation and low cardinality, indicating redundancy that may obscure class pattern detection.",
+        "Backward packet length features show significant class-conditioned structural variation, suggesting that redundancy disentanglement can enhance interpretability and class pattern detection in these features."
+      ],
+      "evidence_refs": [
+        "task_4_step_03",
+        "task_4_step_05",
+        "task_4_step_07"
+      ],
+      "contradictions": [],
+      "limitations": [
+        "Analysis limited to pairwise relations within bounded feature groups; global impact on interpretability and detection not directly measured."
+      ]
+    }
+  ],
+  "overlap_diagnostics": []
+}

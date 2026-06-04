@@ -1,0 +1,21 @@
+{
+  "task_id": "task_2",
+  "hypothesis_id": "hyp_003_class_conditioned_structural_variation",
+  "status": "partial",
+  "findings": [
+    "High class separation in 'Average Packet Size' distribution confirms class-conditioned structural variation.",
+    "Moderate local label neighborhood conflicts and duplicate label conflicts detected in 'Average Packet Size' and 'Bwd Packet Length Max' features.",
+    "Local label-topology consistency is not fully stable, preserving some epistemic tension."
+  ],
+  "evidence_refs": [
+    "task_2_step_03",
+    "task_2_step_05",
+    "task_2_step_07"
+  ],
+  "contradictions": [
+    "local contradiction preserved"
+  ],
+  "limitations": [
+    "local label-topology conflicts limit conclusive stability assessment"
+  ]
+}

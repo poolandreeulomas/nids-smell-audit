@@ -13,10 +13,13 @@ import pandas as pd
 from data.dataset_config import DatasetConfig
 from tools.contracts import build_tool_capability_record
 from tools.cardinality_analysis import cardinality_analysis
+from tools.dependency_concentration_analysis import dependency_concentration_analysis
 from tools.distribution_analysis import distribution_analysis
 from tools.duplication_analysis import duplication_analysis
 from tools.feature_relation import feature_relation
 from tools.feature_summary import feature_summary
+from tools.neighborhood_consistency_analysis import neighborhood_consistency_analysis
+from tools.shortcut_analysis import shortcut_analysis
 
 ToolFn = Callable[..., dict[str, Any]]
 
@@ -56,6 +59,30 @@ def get_tool_capability_records() -> dict[str, dict[str, Any]]:
             result_shape="pair_observation",
             boundedness_notes="Measures one bounded pairwise relation and never expands beyond two features.",
         ),
+        "shortcut_analysis": build_tool_capability_record(
+            tool_name="shortcut_analysis",
+            epistemic_role="shortcut_verification",
+            supported_scopes=["feature"],
+            required_inputs=["feature_name"],
+            result_shape="feature_observation",
+            boundedness_notes="Uses a deterministic one-feature decision stump to test shortcut-like predictive leverage.",
+        ),
+        "neighborhood_consistency_analysis": build_tool_capability_record(
+            tool_name="neighborhood_consistency_analysis",
+            epistemic_role="local_consistency_verification",
+            supported_scopes=["feature"],
+            required_inputs=["feature_name"],
+            result_shape="feature_observation",
+            boundedness_notes="Measures local label-topology consistency around one feature with bounded deterministic neighborhoods.",
+        ),
+        "dependency_concentration_analysis": build_tool_capability_record(
+            tool_name="dependency_concentration_analysis",
+            epistemic_role="dependency_contextualization",
+            supported_scopes=["feature"],
+            required_inputs=["feature_name"],
+            result_shape="feature_observation",
+            boundedness_notes="Measures whether one feature's dependency profile is concentrated into a narrow structural cluster.",
+        ),
         "duplication_analysis": build_tool_capability_record(
             tool_name="duplication_analysis",
             epistemic_role="duplication_verification",
@@ -79,6 +106,9 @@ def get_tool_registry() -> dict[str, ToolFn]:
         "distribution_analysis": distribution_analysis,
         "cardinality_analysis": cardinality_analysis,
         "feature_relation": feature_relation,
+        "shortcut_analysis": shortcut_analysis,
+        "neighborhood_consistency_analysis": neighborhood_consistency_analysis,
+        "dependency_concentration_analysis": dependency_concentration_analysis,
         "duplication_analysis": duplication_analysis,
     }
 

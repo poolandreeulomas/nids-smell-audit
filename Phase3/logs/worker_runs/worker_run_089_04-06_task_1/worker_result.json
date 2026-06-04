@@ -1,0 +1,15 @@
+{
+  "task_id": "task_1",
+  "hypothesis_id": "hyp_4_destination_port_distribution_skew_reflects_attack_targeting",
+  "status": "completed",
+  "findings": [
+    "Destination Port feature exhibits strong distributional skew with a dominant port value in DDoS attack instances.",
+    "High Jensen-Shannon divergence and low entropy indicate consistent and stable skew patterns across attack instances.",
+    "Clear class separation in destination port distribution supports the hypothesis of targeted attack behavior."
+  ],
+  "evidence_refs": [
+    "task_1_step_03"
+  ],
+  "contradictions": [],
+  "limitations": []
+}

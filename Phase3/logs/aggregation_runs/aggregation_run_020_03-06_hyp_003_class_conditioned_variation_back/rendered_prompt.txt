@@ -1,0 +1,134 @@
+ROLE:
+You are Aggregation. Stay inside one hypothesis-local, round-local merge after Worker and before State Manager.
+Do not reroute, replan, mutate canonical state, emit critic feedback, or summarize raw traces.
+Preserve grounded contradictions and unresolved gaps instead of flattening them away.
+
+TASK:
+{
+  "batch_id": "phase3a_batch_0306192600_friday-workinghours-afternoon-ddos.pcap_iscx_a08c4b",
+  "round_id": "round-001",
+  "hypothesis_id": "hyp_003_class_conditioned_variation_backward_packet_lengths",
+  "worker_result_count": 4,
+  "expected_task_ids": [
+    "task_1",
+    "task_2",
+    "task_3",
+    "task_4"
+  ],
+  "selected_task_ids": [
+    "task_1",
+    "task_2",
+    "task_3",
+    "task_4"
+  ]
+}
+
+SOURCE_WORKER_RESULTS:
+[
+  {
+    "task_id": "task_1",
+    "hypothesis_id": "hyp_003_class_conditioned_variation_backward_packet_lengths",
+    "status": "completed",
+    "findings": [
+      "Backward packet length features exhibit substantial class-conditioned structural variation with high variance ratios and unique value count skews between BENIGN and DDoS classes.",
+      "Distribution verification of Bwd Packet Length Max, Avg Bwd Segment Size, and Bwd Packet Length Mean confirmed high class separation signals.",
+      "Class label conditioning is verified locally with consistent evidence across multiple partitions."
+    ],
+    "evidence_refs": [
+      "task_1_step_03",
+      "task_1_step_05",
+      "task_1_step_07"
+    ],
+    "contradictions": [],
+    "limitations": []
+  },
+  {
+    "task_id": "task_2",
+    "hypothesis_id": "hyp_003_class_conditioned_variation_backward_packet_lengths",
+    "status": "partial",
+    "findings": [
+      "Backward packet length features show low cardinality and near-constant behavior in some cases, consistent with class-conditioned structural variation but indicating limited feature variability.",
+      "Unique value counts have stabilized, supporting the reliability of the observed variance ratio signals.",
+      "Evidence supports the presence of representation-sensitive patterns and structural irregularities in backward packet length features."
+    ],
+    "evidence_refs": [
+      "task_2_step_03",
+      "task_2_step_05",
+      "task_2_step_07"
+    ],
+    "contradictions": [],
+    "limitations": [
+      "Low cardinality and near-constant signals limit the granularity of variance ratio interpretation.",
+      "No direct variance ratio values computed locally, only inferred from cardinality signals."
+    ]
+  },
+  {
+    "task_id": "task_3",
+    "hypothesis_id": "hyp_003_class_conditioned_variation_backward_packet_lengths",
+    "status": "completed",
+    "findings": [
+      "Backward packet length features show high sensitivity to class-conditioned structural variation, indicated by variance ratios > 15 and skewed unique value counts between BENIGN and DDoS classes.",
+      "Dependency profiles of these features are concentrated within a narrow structural cluster, reinforcing their representation-sensitive nature under class imbalance.",
+      "No local contradictions or instability signals were detected in the dependency contextualization steps."
+    ],
+    "evidence_refs": [
+      "task_3_step_03",
+      "task_3_step_05",
+      "task_3_step_07"
+    ],
+    "contradictions": [],
+    "limitations": [
+      "Analysis limited to local evidence within backward packet length features; cross-feature or global dataset effects remain unassessed."
+    ]
+  },
+  {
+    "task_id": "task_4",
+    "hypothesis_id": "hyp_003_class_conditioned_variation_backward_packet_lengths",
+    "status": "partial",
+    "findings": [
+      "Moderate label neighborhood conflicts detected around 'Bwd Packet Length Mean', 'Bwd Packet Length Std', and 'Avg Bwd Segment Size' features.",
+      "Duplicate label conflicts observed, indicating local label-topology inconsistencies within backward packet length features.",
+      "Structural irregularities are consistent with class-conditioned variation and unique value skew between BENIGN and DDoS classes."
+    ],
+    "evidence_refs": [
+      "task_4_step_03",
+      "task_4_step_05",
+      "task_4_step_07"
+    ],
+    "contradictions": [
+      "Local label neighborhood conflicts and duplicate label conflicts remain unresolved."
+    ],
+    "limitations": [
+      "Analysis limited to bounded local neighborhoods and available backward packet length features; global aggregation or rerouting not performed."
+    ]
+  }
+]
+
+OVERLAP_DIAGNOSTICS:
+[]
+
+OUTPUT_RULES:
+Return exactly one JSON object.
+Only cite evidence_refs that appear in SOURCE_WORKER_RESULTS.
+Only preserve contradictions that already appear in SOURCE_WORKER_RESULTS.
+Keep update_focus short and state-facing, but do not describe state mutation.
+{
+  "aggregation_handoff": {
+    "batch_id": "phase3a_batch_0306192600_friday-workinghours-afternoon-ddos.pcap_iscx_a08c4b",
+    "round_id": "round-001",
+    "hypothesis_id": "hyp_003_class_conditioned_variation_backward_packet_lengths",
+    "merged_findings": [
+      "grounded merged finding"
+    ],
+    "evidence_refs": [
+      "source evidence_ref"
+    ],
+    "preserved_contradictions": [
+      "unresolved source contradiction"
+    ],
+    "open_gaps": [
+      "remaining unresolved gap or limitation"
+    ],
+    "update_focus": "short orientation for the touched interpretive area"
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "strategy_id": "strategy_01_hyp_4",
+  "hypothesis_id": "hyp_4_distributional_divergence_destination_port",
+  "strategic_objective": "Assess the stability and generality of the dominant single destination port pattern in DDoS traffic and its impact on model robustness.",
+  "key_checks": [
+    "Measure distributional stability of destination port across temporal and attack scenario subsets",
+    "Evaluate entropy and cardinality of destination port within DDoS class over multiple partitions",
+    "Check for shortcut-like predictive leverage of destination port alone",
+    "Test sensitivity of classification outcomes to perturbations or masking of destination port feature"
+  ],
+  "success_criteria": [
+    "Evidence that destination port dominance is consistent across diverse temporal and scenario slices",
+    "Identification of potential overfitting risk if port usage is narrowly concentrated",
+    "Detection of vulnerability to evasion if port distribution shifts",
+    "Clear characterization of destination port as a representation-sensitive but brittle indicator"
+  ],
+  "router_constraints": [
+    "preserve feature_scope for destination port",
+    "preserve evidence refs e33"
+  ]
+}

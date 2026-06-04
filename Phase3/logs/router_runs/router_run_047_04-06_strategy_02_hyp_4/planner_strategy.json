@@ -1,0 +1,20 @@
+{
+  "strategy_id": "strategy_02_hyp_4",
+  "hypothesis_id": "hyp_4_class_distribution_and_port_skew",
+  "strategic_objective": "Determine if zero entropy in Destination Port for DDoS class indicates a narrow attack vector or dataset artifact and understand implications for model bias and overfitting.",
+  "key_checks": [
+    "Measure class-conditioned distribution concentration of Destination Port",
+    "Analyze port usage diversity within DDoS and non-DDoS classes",
+    "Evaluate impact of port skew on class imbalance and predictive leverage",
+    "Check for dataset collection or labeling biases affecting port distribution"
+  ],
+  "success_criteria": [
+    "Clear differentiation between attack targeting and dataset artifact explanations",
+    "Quantification of potential bias or overfitting risks from port skew",
+    "Insights into how port distribution affects class representation"
+  ],
+  "router_constraints": [
+    "preserve feature scope for Destination Port",
+    "preserve evidence references e2 and e33"
+  ]
+}

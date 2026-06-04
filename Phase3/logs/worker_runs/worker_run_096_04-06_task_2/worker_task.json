@@ -1,0 +1,16 @@
+{
+  "task_id": "task_2",
+  "hypothesis_id": "hyp_005_destination_port_distribution_shift",
+  "task_scope": "Measure cardinality and entropy of Destination Port within each class to detect near-constant or low-variation patterns in evidence e33",
+  "allowed_actions": [
+    "cardinality_verification",
+    "structural_summary"
+  ],
+  "local_context_refs": [
+    "e33"
+  ],
+  "stop_conditions": [
+    "cardinality and entropy metrics computed",
+    "low-variation patterns identified or ruled out"
+  ]
+}

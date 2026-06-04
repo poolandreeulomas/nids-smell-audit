@@ -38,7 +38,8 @@ def distribution_analysis(
         cfg, df, resolved_valid_features = resolve_tool_inputs(
             dataset_path, config, dataset_frame, valid_numeric_features
         )
-        validate_feature_name(feature_name, resolved_valid_features)
+        feature_name = validate_feature_name(
+            feature_name, resolved_valid_features)
 
         summary = get_or_cache(
             df,

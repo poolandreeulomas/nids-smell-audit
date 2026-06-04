@@ -1,0 +1,50 @@
+{
+  "selected_hypotheses": [
+    {
+      "hypothesis_id": "hyp_1_redundancy_vs_importance_tension",
+      "summary": "The presence of feature pairs with perfect or near-perfect correlation alongside their high individual feature ranking suggests a tension between redundancy and genuine importance. This may indicate that some features are proxies for the same underlying signal, yet each retains apparent predictive relevance.",
+      "evidence_refs": [
+        "e3",
+        "e4",
+        "e13",
+        "e16",
+        "e22"
+      ],
+      "open_questions": [
+        "To what extent do these strongly correlated features contribute unique information versus redundant signals?",
+        "Could the high ranking of correlated features be an artifact of the evaluation method or dataset structure?"
+      ],
+      "current_status": "unresolved"
+    },
+    {
+      "hypothesis_id": "hyp_3_distributional_skew_vs_partition_imbalance",
+      "summary": "The Destination Port feature shows strong distributional divergence between classes, with the DDoS class dominated by a single port and zero entropy, contrasting with the BENIGN class's higher entropy and lower dominant ratio. This skew contrasts with the moderate class imbalance and presence of duplicated rows at the partition level, raising questions about representativeness and stability.",
+      "evidence_refs": [
+        "e1",
+        "e2",
+        "e33"
+      ],
+      "open_questions": [
+        "Does the dominance of a single port in the DDoS class reflect a genuine attack pattern or a sampling artifact?",
+        "How might duplicated rows and class imbalance influence the observed distributional skew in Destination Port?"
+      ],
+      "current_status": "unresolved"
+    },
+    {
+      "hypothesis_id": "hyp_10_potential_overfitting_risk_due_to_redundant_features",
+      "summary": "The presence of multiple perfectly correlated feature pairs combined with their high individual rankings may increase the risk of overfitting in models trained on this dataset, as redundant features could amplify spurious signals.",
+      "evidence_refs": [
+        "e3",
+        "e4",
+        "e13",
+        "e16",
+        "e22"
+      ],
+      "open_questions": [
+        "Does the redundancy among top-ranked features inflate model performance metrics artificially?",
+        "What strategies could mitigate overfitting risks arising from these dependencies?"
+      ],
+      "current_status": "unresolved"
+    }
+  ]
+}

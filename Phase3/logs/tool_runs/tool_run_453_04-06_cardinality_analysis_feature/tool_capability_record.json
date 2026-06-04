@@ -1,0 +1,12 @@
+{
+  "tool_name": "cardinality_analysis",
+  "epistemic_role": "cardinality_verification",
+  "supported_scopes": [
+    "feature"
+  ],
+  "required_inputs": [
+    "feature_name"
+  ],
+  "result_shape": "feature_observation",
+  "boundedness_notes": "Checks low-cardinality and near-constant behavior for one feature."
+}

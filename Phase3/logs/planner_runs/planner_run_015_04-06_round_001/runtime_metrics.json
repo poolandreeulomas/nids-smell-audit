@@ -1,0 +1,16 @@
+{
+  "batch_id": "phase3a_batch_0406073857_friday-workinghours-afternoon-ddos.pcap_iscx_ee0ef0",
+  "round_id": "round-001",
+  "model_name": "gpt-4.1-mini",
+  "duration_ms": 7797.222,
+  "status": "ok",
+  "prompt_chars": 9556,
+  "raw_response_chars": 4233,
+  "selected_count": 3,
+  "strategy_count": 3,
+  "tool_capability_ref_count": 8,
+  "fresh_execution": true,
+  "replay_of": null,
+  "caller_mode": "cli",
+  "schema_version": "phase3a.planner.v1"
+}

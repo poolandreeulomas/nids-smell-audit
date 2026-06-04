@@ -1,0 +1,34 @@
+{
+  "aggregation_handoff": {
+    "batch_id": "phase3a_batch_0406132627_friday-workinghours-afternoon-ddos.pcap_iscx_f0e355",
+    "round_id": "round-001",
+    "hypothesis_id": "hyp_6_class_conditioned_variation_backward_packet_lengths",
+    "merged_findings": [
+      "Backward packet length features (Max, Mean, Std) consistently exhibit significant class-conditioned structural variation characterized by high variance ratios and differing unique value counts between BENIGN and DDoS classes, supporting stable class separation signals across examined conditions.",
+      "Among these, Bwd Packet Length Mean shows the strongest class separation and structural differences, while Max and Std features have lower cardinality and exhibit redundancy, indicating overlapping rather than fully independent discriminative information.",
+      "Moderate shortcut-like signals are present in these features, suggesting potential dataset-specific artifacts and a risk of overfitting due to representation-sensitive patterns.",
+      "Dependency analysis reveals dispersed profiles without narrow, robust clusters, limiting the robustness of structural variation signals in 'Bwd Packet Length Max'."
+    ],
+    "evidence_refs": [
+      "task_1_step_03",
+      "task_1_step_05",
+      "task_1_step_07",
+      "task_2_step_03",
+      "task_2_step_05",
+      "task_2_step_07",
+      "task_3_step_03",
+      "task_3_step_05",
+      "task_3_step_07",
+      "task_4_step_03",
+      "task_4_step_05",
+      "task_4_step_07"
+    ],
+    "preserved_contradictions": [],
+    "open_gaps": [
+      "No duplication verification was performed to exclude exact data duplication artifacts that could influence observed shortcut signals.",
+      "Redundancy among backward packet length features limits their independent discriminative power and requires further disentanglement.",
+      "Dispersed dependency profiles reduce confidence in the robustness of structural variation patterns, warranting deeper dependency contextualization."
+    ],
+    "update_focus": "Focus on disentangling redundancy among backward packet length features and verifying potential data duplication artifacts to clarify the robustness and independence of class-conditioned structural variation signals."
+  }
+}

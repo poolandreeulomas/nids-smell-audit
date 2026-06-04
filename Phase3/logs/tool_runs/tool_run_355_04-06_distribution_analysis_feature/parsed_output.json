@@ -1,0 +1,56 @@
+{
+  "call_id": "task_1_step_05",
+  "tool_name": "distribution_analysis",
+  "status": "ok",
+  "observations": {
+    "feature_name": "Average Packet Size",
+    "value": 0.7526917897615742,
+    "signals": [
+      "high_class_separation"
+    ],
+    "metrics": {
+      "entropy": {
+        "BENIGN": 5.886133276552761,
+        "DDoS": 2.6476085687136726
+      },
+      "dominant_ratio": {
+        "BENIGN": 0.08791624879756033,
+        "DDoS": 0.1795246315230381
+      },
+      "js_divergence": 0.7526917897615742
+    },
+    "support": {
+      "n_total": 225745,
+      "n_per_class": {
+        "DDoS": 128027,
+        "BENIGN": 97718
+      },
+      "total_samples": 225745,
+      "per_class": {
+        "DDoS": 128027,
+        "BENIGN": 97718
+      }
+    },
+    "provenance": {
+      "source": "tool",
+      "tool": "distribution_analysis",
+      "step": null
+    },
+    "feature": "Average Packet Size"
+  },
+  "evidence_refs": [
+    {
+      "artifact": "parsed_output",
+      "path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_355_04-06_distribution_analysis_feature\\parsed_output.json"
+    },
+    {
+      "artifact": "raw_tool_output",
+      "path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_355_04-06_distribution_analysis_feature\\raw_tool_output.json"
+    },
+    {
+      "artifact": "component_run",
+      "path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_355_04-06_distribution_analysis_feature\\component_run.json"
+    }
+  ],
+  "limitations": []
+}

@@ -1,0 +1,27 @@
+{
+  "component": "aggregation",
+  "created_at": "2026-06-03T18:41:24.732261+00:00",
+  "schema_version": "phase3a.aggregation.v1",
+  "batch_id": "phase3a_batch_0306183859_friday-workinghours-afternoon-ddos.pcap_iscx_689174",
+  "round_id": "round-001",
+  "hypothesis_id": "hyp_005_class_distribution_skew_in_destination_port",
+  "status": "error",
+  "validation_ok": false,
+  "handoff_committed": false,
+  "model_name": "gpt-4.1-mini",
+  "caller_mode": "cli",
+  "replay_of": null,
+  "artifact_paths": {
+    "component_run_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\aggregation_runs\\aggregation_run_015_03-06_hyp_005_class_distribution_skew_in_desti\\component_run.json",
+    "worker_result_set_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\aggregation_runs\\aggregation_run_015_03-06_hyp_005_class_distribution_skew_in_desti\\worker_result_set.json",
+    "normalized_inputs_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\aggregation_runs\\aggregation_run_015_03-06_hyp_005_class_distribution_skew_in_desti\\normalized_inputs.json",
+    "overlap_diagnostics_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\aggregation_runs\\aggregation_run_015_03-06_hyp_005_class_distribution_skew_in_desti\\overlap_diagnostics.json",
+    "rendered_prompt_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\aggregation_runs\\aggregation_run_015_03-06_hyp_005_class_distribution_skew_in_desti\\rendered_prompt.txt",
+    "raw_response_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\aggregation_runs\\aggregation_run_015_03-06_hyp_005_class_distribution_skew_in_desti\\raw_response.txt",
+    "parsed_output_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\aggregation_runs\\aggregation_run_015_03-06_hyp_005_class_distribution_skew_in_desti\\parsed_output.json",
+    "aggregation_handoff_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\aggregation_runs\\aggregation_run_015_03-06_hyp_005_class_distribution_skew_in_desti\\aggregation_handoff.json",
+    "validation_report_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\aggregation_runs\\aggregation_run_015_03-06_hyp_005_class_distribution_skew_in_desti\\validation_report.json",
+    "runtime_metrics_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\aggregation_runs\\aggregation_run_015_03-06_hyp_005_class_distribution_skew_in_desti\\runtime_metrics.json",
+    "replay_metadata_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\aggregation_runs\\aggregation_run_015_03-06_hyp_005_class_distribution_skew_in_desti\\replay_metadata.json"
+  }
+}

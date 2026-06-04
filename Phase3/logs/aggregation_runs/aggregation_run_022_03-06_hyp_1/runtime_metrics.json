@@ -1,0 +1,16 @@
+{
+  "batch_id": "batch-001",
+  "round_id": "round-001",
+  "hypothesis_id": "hyp-1",
+  "model_name": "gpt-4.1-mini",
+  "duration_ms": 0.388,
+  "status": "ok",
+  "worker_result_count": 2,
+  "overlap_group_count": 0,
+  "source_contradiction_count": 0,
+  "handoff_committed": true,
+  "fresh_execution": true,
+  "replay_of": null,
+  "caller_mode": "cli",
+  "schema_version": "phase3a.aggregation.v1"
+}

@@ -1,0 +1,23 @@
+{
+  "task_id": "task_1",
+  "hypothesis_id": "hyp_05_tension_between_redundancy_and_representation",
+  "task_scope": "Identify features exhibiting high redundancy and analyze their class-conditioned distribution differences to detect distinct representational patterns.",
+  "allowed_actions": [
+    "duplication_verification",
+    "distribution_verification",
+    "relation_verification"
+  ],
+  "local_context_refs": [
+    "e8",
+    "e9",
+    "e10",
+    "e11",
+    "e12",
+    "e13"
+  ],
+  "stop_conditions": [
+    "identified features with redundancy and class-conditioned distribution differences",
+    "collected distribution profiles for redundant features",
+    "verified pairwise redundancy relations within feature subsets"
+  ]
+}

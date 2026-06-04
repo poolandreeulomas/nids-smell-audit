@@ -1,0 +1,47 @@
+{
+  "ok": true,
+  "tool": "shortcut_analysis",
+  "feature_name": "src_bytes",
+  "value": 1.0,
+  "error_code": null,
+  "error_message": null,
+  "meta": {
+    "dataset_path": "C:\\Users\\Uni\\AppData\\Local\\Temp\\pytest-of-Uni\\pytest-63\\test_run_worker_executes_non_r0\\worker_fixture.csv",
+    "label_column": "Label"
+  },
+  "evidence": {
+    "feature": "src_bytes",
+    "signals": [
+      "strong_shortcut_signal"
+    ],
+    "metrics": {
+      "cv_balanced_accuracy": 1.0,
+      "cv_balanced_accuracy_std": 0.0,
+      "train_balanced_accuracy": 1.0,
+      "generalization_gap": 0.0,
+      "threshold": 56.0,
+      "fold_count": 2,
+      "attack_rate": 0.5,
+      "retained_rows": 4,
+      "coverage_ratio": 1.0
+    },
+    "support": {
+      "n_total": 4,
+      "n_per_class": {
+        "BENIGN": 2,
+        "ATTACK": 2
+      },
+      "total_samples": 4,
+      "per_class": {
+        "BENIGN": 2,
+        "ATTACK": 2
+      }
+    },
+    "provenance": {
+      "source": "tool",
+      "tool": "shortcut_analysis",
+      "step": null
+    },
+    "status": "active"
+  }
+}

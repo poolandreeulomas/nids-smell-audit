@@ -1,0 +1,72 @@
+{
+  "batch_id": "phase3a_batch_0406073857_friday-workinghours-afternoon-ddos.pcap_iscx_ee0ef0",
+  "round_id": "round-001",
+  "planner_strategies": [
+    {
+      "strategy_id": "strategy_01_hyp_8",
+      "hypothesis_id": "hyp_8_low_cardinality_features_as_potential_shortcut_signals",
+      "strategic_objective": "Assess stability and subtle variability of low cardinality features to understand their potential as brittle shortcut signals.",
+      "key_checks": [
+        "Measure cardinality and value distribution stability of features e23-e32 across multiple data partitions",
+        "Evaluate class-conditioned variability and subtle deviations within these near-constant features",
+        "Compare dependency concentration profiles to detect if these features cluster tightly with class labels",
+        "Test shortcut-like predictive leverage of these features individually and in combination"
+      ],
+      "success_criteria": [
+        "Identification of consistent low cardinality patterns that persist across partitions",
+        "Evidence of subtle but meaningful variation that may mitigate pure shortcut risk",
+        "Detection of strong shortcut signals that could induce brittle model behavior",
+        "Clear characterization of features that warrant exclusion or special handling"
+      ],
+      "router_constraints": [
+        "preserve feature scope for e23-e32",
+        "preserve evidence references e23-e32",
+        "maintain focus on cardinality and shortcut-related checks"
+      ]
+    },
+    {
+      "strategy_id": "strategy_02_hyp_3",
+      "hypothesis_id": "hyp_3_class_conditioned_structural_variation_in_packet_length_features",
+      "strategic_objective": "Clarify whether class-conditioned structural differences in packet length features reflect true behavioral signals or sampling biases and their interaction with low cardinality features.",
+      "key_checks": [
+        "Analyze distributional differences and variance ratios of features e8-e12 conditioned on class labels",
+        "Assess dependency concentration and local consistency to distinguish behavioral signal from bias",
+        "Examine joint relations and potential confounding with low cardinality features e23-e32",
+        "Evaluate stability of these structural variations across data partitions"
+      ],
+      "success_criteria": [
+        "Evidence supporting behavioral origin of class-conditioned structural variation",
+        "Identification of any sampling or measurement biases influencing these features",
+        "Understanding of interaction effects with low cardinality features",
+        "Robustness of observed patterns across partitions"
+      ],
+      "router_constraints": [
+        "preserve feature scope for e8-e12 and e23-e32",
+        "preserve evidence references e8-e12",
+        "maintain focus on distributional and dependency analyses"
+      ]
+    },
+    {
+      "strategy_id": "strategy_03_hyp_4",
+      "hypothesis_id": "hyp_4_destination_port_distribution_skew_reflects_attack_targeting",
+      "strategic_objective": "Determine consistency and representational leverage of destination port distribution skew as an attack targeting signal.",
+      "key_checks": [
+        "Measure distributional skew and Jensen-Shannon divergence of destination port feature e33 across multiple attack instances",
+        "Assess class-conditioned dependency concentration and local label consistency around destination port",
+        "Evaluate potential shortcut-like predictive power of destination port distribution differences",
+        "Check for temporal or batch-specific variability in distributional patterns"
+      ],
+      "success_criteria": [
+        "Confirmation of consistent distributional skew across attack instances",
+        "Evidence that distributional differences provide stable representation-sensitive handles",
+        "Identification of potential shortcut risks or robust signal characteristics",
+        "Characterization of temporal stability or batch specificity"
+      ],
+      "router_constraints": [
+        "preserve feature scope for e33",
+        "preserve evidence reference e33",
+        "maintain focus on distribution and shortcut verification"
+      ]
+    }
+  ]
+}

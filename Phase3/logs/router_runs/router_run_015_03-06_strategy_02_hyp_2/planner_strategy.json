@@ -1,0 +1,21 @@
+{
+  "strategy_id": "strategy_02_hyp_2",
+  "hypothesis_id": "hyp_2_strong_linear_dependencies",
+  "strategic_objective": "Characterize the stability and origin of strong linear dependencies between feature pairs to understand redundancy and potential bias.",
+  "key_checks": [
+    "Analyze correlation stability of identified feature pairs across temporal segments",
+    "Compare dependency profiles before and after preprocessing steps",
+    "Assess whether dependencies align with known protocol relationships or data transformations",
+    "Evaluate impact of dependencies on effective feature dimensionality and model bias potential"
+  ],
+  "success_criteria": [
+    "Confirmation of stable or unstable dependency patterns over time",
+    "Clarification of whether dependencies stem from inherent network behavior or preprocessing",
+    "Identification of redundant features that may bias learning",
+    "Evidence supporting or weakening the hypothesis of structural redundancy"
+  ],
+  "router_constraints": [
+    "preserve feature_scope for all involved feature pairs",
+    "preserve evidence refs e13,e14,e15,e16,e17,e18,e19,e20,e21,e22"
+  ]
+}

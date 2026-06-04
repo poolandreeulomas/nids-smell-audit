@@ -1,0 +1,25 @@
+{
+  "task_id": "task_2",
+  "hypothesis_id": "hyp_5_strong_linear_dependencies",
+  "task_scope": "Distinguish dependencies arising from protocol or measurement constraints versus engineered feature overlap in evidence refs e13 to e22",
+  "allowed_actions": [
+    "dependency_contextualization",
+    "structural_summary"
+  ],
+  "local_context_refs": [
+    "e13",
+    "e14",
+    "e15",
+    "e16",
+    "e17",
+    "e18",
+    "e19",
+    "e20",
+    "e21",
+    "e22"
+  ],
+  "stop_conditions": [
+    "dependency origins classified as protocol-based or engineered",
+    "no unresolved dependency sources remain"
+  ]
+}

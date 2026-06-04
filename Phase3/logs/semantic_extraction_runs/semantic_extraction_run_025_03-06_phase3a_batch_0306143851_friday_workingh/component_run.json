@@ -1,0 +1,23 @@
+{
+  "component": "semantic_extraction",
+  "created_at": "2026-06-03T14:39:55.534583+00:00",
+  "schema_version": "phase3a.semantic_extraction.v1",
+  "batch_id": "phase3a_batch_0306143851_friday-workinghours-afternoon-ddos.pcap_iscx_ba9279",
+  "status": "ok",
+  "validation_ok": true,
+  "model_name": "gpt-4.1-mini",
+  "caller_mode": "cli",
+  "replay_of": null,
+  "artifact_paths": {
+    "component_run_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\semantic_extraction_runs\\semantic_extraction_run_025_03-06_phase3a_batch_0306143851_friday_workingh\\component_run.json",
+    "overview_summary_min_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\semantic_extraction_runs\\semantic_extraction_run_025_03-06_phase3a_batch_0306143851_friday_workingh\\overview_summary_min.json",
+    "partition_context_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\semantic_extraction_runs\\semantic_extraction_run_025_03-06_phase3a_batch_0306143851_friday_workingh\\partition_context.json",
+    "projected_evidence_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\semantic_extraction_runs\\semantic_extraction_run_025_03-06_phase3a_batch_0306143851_friday_workingh\\projected_evidence.json",
+    "rendered_prompt_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\semantic_extraction_runs\\semantic_extraction_run_025_03-06_phase3a_batch_0306143851_friday_workingh\\rendered_prompt.txt",
+    "raw_response_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\semantic_extraction_runs\\semantic_extraction_run_025_03-06_phase3a_batch_0306143851_friday_workingh\\raw_response.txt",
+    "parsed_output_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\semantic_extraction_runs\\semantic_extraction_run_025_03-06_phase3a_batch_0306143851_friday_workingh\\parsed_output.json",
+    "validation_report_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\semantic_extraction_runs\\semantic_extraction_run_025_03-06_phase3a_batch_0306143851_friday_workingh\\validation_report.json",
+    "runtime_metrics_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\semantic_extraction_runs\\semantic_extraction_run_025_03-06_phase3a_batch_0306143851_friday_workingh\\runtime_metrics.json",
+    "replay_metadata_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\semantic_extraction_runs\\semantic_extraction_run_025_03-06_phase3a_batch_0306143851_friday_workingh\\replay_metadata.json"
+  }
+}

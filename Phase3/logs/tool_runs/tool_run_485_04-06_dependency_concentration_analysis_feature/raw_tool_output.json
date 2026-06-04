@@ -1,0 +1,46 @@
+{
+  "ok": true,
+  "tool": "dependency_concentration_analysis",
+  "feature_name": "Subflow Fwd Bytes",
+  "value": 0.07438696983260856,
+  "error_code": null,
+  "error_message": null,
+  "meta": {
+    "dataset_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\data\\cic_ids_2017\\Friday-WorkingHours-Afternoon-DDos.pcap_ISCX.csv",
+    "label_column": "Label"
+  },
+  "evidence": {
+    "feature": "Subflow Fwd Bytes",
+    "signals": [],
+    "metrics": {
+      "partner_count": 67,
+      "strong_partner_count": 5,
+      "top_partner": "Total Length of Fwd Packets",
+      "top_partner_correlation": 1.0,
+      "top_partner_share": 0.142021475906737,
+      "top3_share": 0.35133752878410124,
+      "concentration_index": 0.07438696983260856,
+      "effective_partner_count": 13.443214614740713,
+      "mean_abs_correlation": 0.22655505122006564,
+      "median_abs_correlation": 0.17439593433327363
+    },
+    "support": {
+      "n_total": 225745,
+      "n_per_class": {
+        "DDoS": 128027,
+        "BENIGN": 97718
+      },
+      "total_samples": 225745,
+      "per_class": {
+        "DDoS": 128027,
+        "BENIGN": 97718
+      }
+    },
+    "provenance": {
+      "source": "tool",
+      "tool": "dependency_concentration_analysis",
+      "step": null
+    },
+    "status": "active"
+  }
+}

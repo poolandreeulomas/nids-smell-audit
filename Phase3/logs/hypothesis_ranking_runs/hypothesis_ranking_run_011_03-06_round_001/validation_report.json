@@ -1,0 +1,65 @@
+{
+  "ok": true,
+  "schema_version": "phase3a.hypothesis_ranking.v1",
+  "hypothesis_set_validation": {
+    "ok": true,
+    "errors": [],
+    "warnings": [
+      {
+        "field": "hypotheses[0].summary",
+        "message": "Semantic language flag detected (closure_language)."
+      }
+    ],
+    "stats": {
+      "hypothesis_count": 10,
+      "open_question_count": 20,
+      "distinct_evidence_ref_count": 33,
+      "overlap_pair_count": 6
+    },
+    "invariants": {
+      "bounded_hypothesis_count": true,
+      "grounded_only": true,
+      "open_questions_present": true,
+      "non_empty_hypothesis_space": true
+    },
+    "forbidden_language_hits": [
+      {
+        "field": "hypotheses[0].summary",
+        "code": "closure_language"
+      }
+    ]
+  },
+  "ranking_state_validation": {
+    "ok": true,
+    "errors": [],
+    "warnings": [],
+    "stats": {
+      "selection_budget": 3,
+      "hypothesis_state_ref_count": 10,
+      "round_constraint_count": 4
+    }
+  },
+  "parse_validation": {
+    "ok": true,
+    "errors": [],
+    "warnings": []
+  },
+  "output_validation": {
+    "ok": true,
+    "errors": [],
+    "warnings": [],
+    "stats": {
+      "candidate_count": 10,
+      "selected_count": 3,
+      "deferred_count": 7,
+      "selection_budget": 3
+    },
+    "invariants": {
+      "selected_within_budget": true,
+      "all_candidates_accounted_for": true,
+      "selected_ids_known": true,
+      "deferred_ids_known": true
+    },
+    "forbidden_language_hits": []
+  }
+}

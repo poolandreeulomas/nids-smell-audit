@@ -1,0 +1,26 @@
+{
+  "batch_id": "phase3a_batch_0406080944_friday-workinghours-afternoon-ddos.pcap_iscx_618cac",
+  "round_id": "round-001",
+  "hypothesis_id": "hyp_005_destination_port_distribution_shift",
+  "merged_findings": [
+    "There is a strong and consistent distributional shift in the Destination Port feature between BENIGN and DDoS classes, characterized by a dominant single value and zero entropy in the DDoS class, contrasting with higher cardinality and entropy in the BENIGN class.",
+    "High Jensen-Shannon divergence (0.7315) quantitatively confirms this significant distributional shift.",
+    "The near-deterministic mapping of Destination Port values to class labels in the DDoS class suggests strong class separation and predictive leverage of this feature alone within the local evidence scope (e33).",
+    "Local consistency checks reveal high label neighborhood conflicts and duplicate label conflicts, reinforcing the abruptness and strength of the distributional shift.",
+    "No contradictions were observed across the worker results within the local evidence scope."
+  ],
+  "evidence_refs": [
+    "task_1_step_03",
+    "task_2_step_03",
+    "task_2_step_05",
+    "task_3_step_03",
+    "task_4_step_03",
+    "task_4_step_05",
+    "task_4_step_07"
+  ],
+  "preserved_contradictions": [],
+  "open_gaps": [
+    "Analyses are limited to the single feature Destination Port within localized evidence e33; broader context, multi-feature interactions, and global aggregation remain unassessed."
+  ],
+  "update_focus": "Maintain focus on the strong local distributional shift in Destination Port between BENIGN and DDoS classes, emphasizing its near-deterministic predictive role and the need to explore broader feature interactions and global context in subsequent rounds."
+}

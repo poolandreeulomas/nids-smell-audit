@@ -1,0 +1,17 @@
+{
+  "task_id": "task_4",
+  "hypothesis_id": "hyp_003_class_conditioned_structural_variation",
+  "status": "completed",
+  "findings": [
+    "Bwd Packet Length Max and Mean features exhibit significant class-conditioned structural variation with high variance imbalance consistent with DDoS signatures.",
+    "Average Packet Size shows moderate shortcut-like predictive signal but does not alone confirm shortcut exploitation.",
+    "No local contradictions or unresolved tensions remain in the bounded evidence."
+  ],
+  "evidence_refs": [
+    "task_4_step_03",
+    "task_4_step_05",
+    "task_4_step_07"
+  ],
+  "contradictions": [],
+  "limitations": []
+}

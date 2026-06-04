@@ -1,0 +1,18 @@
+{
+  "task_id": "task_1",
+  "hypothesis_id": "hyp_003_class_conditioned_variation_backward_packet_lengths",
+  "task_scope": "Compare class-conditioned distribution profiles of backward packet length features across multiple dataset partitions preserving class labels and partition metadata.",
+  "allowed_actions": [
+    "distribution_verification"
+  ],
+  "local_context_refs": [
+    "e9",
+    "e10",
+    "e11",
+    "e12"
+  ],
+  "stop_conditions": [
+    "distribution profiles compared across all partitions",
+    "class label conditioning verified"
+  ]
+}

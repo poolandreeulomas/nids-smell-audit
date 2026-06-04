@@ -1,0 +1,66 @@
+{
+  "ok": false,
+  "request_id": "state_manager_d36c52c8ba1b4bb1b0e427a76f5963b2",
+  "prompt_version": "phase3a.state_manager.prompt.v1",
+  "schema_version": "phase3a.state_manager.v1",
+  "state_input_validation": {
+    "ok": true,
+    "errors": [],
+    "warnings": [],
+    "stats": {
+      "state_version": 1,
+      "hypothesis_count": 1,
+      "revision_count": 1
+    }
+  },
+  "handoff_input_validation": {
+    "ok": true,
+    "errors": [],
+    "warnings": [],
+    "stats": {
+      "merged_finding_count": 1,
+      "evidence_ref_count": 1,
+      "preserved_contradiction_count": 1,
+      "open_gap_count": 1
+    }
+  },
+  "parse_validation": {
+    "ok": true,
+    "errors": [],
+    "warnings": []
+  },
+  "state_delta_validation": {
+    "ok": false,
+    "errors": [
+      {
+        "field": "evidence_refs",
+        "message": "state_delta_record dropped required evidence_refs: ['final-region-e1', 'final-task-step-01']."
+      },
+      {
+        "field": "evidence_refs",
+        "message": "Unknown evidence_ref 'ref1'."
+      },
+      {
+        "field": "preserved_contradictions",
+        "message": "state_delta_record removed prior contradictions without an explicit preserved_contradictions update: ['Contradiction']."
+      },
+      {
+        "field": "open_gaps",
+        "message": "state_delta_record removed prior open_gaps without an explicit open_gaps update: ['Gap', 'Need to verify whether the dependency stays local.']."
+      },
+      {
+        "field": "merged_findings",
+        "message": "state_delta_record removed prior merged_findings without an explicit merged_findings update: ['Finding']."
+      }
+    ],
+    "warnings": [],
+    "stats": {
+      "applied_update_count": 1,
+      "evidence_ref_count": 1,
+      "preserved_contradiction_count": 1,
+      "open_gap_count": 1,
+      "merged_finding_count": 1
+    },
+    "forbidden_language_hits": []
+  }
+}

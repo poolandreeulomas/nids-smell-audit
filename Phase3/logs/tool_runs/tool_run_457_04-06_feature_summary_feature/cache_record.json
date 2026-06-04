@@ -1,0 +1,10 @@
+{
+  "status": "tracked",
+  "events": [
+    {
+      "cache_key": "feature_summary::Bwd Avg Bytes/Bulk",
+      "status": "miss"
+    }
+  ],
+  "event_count": 1
+}

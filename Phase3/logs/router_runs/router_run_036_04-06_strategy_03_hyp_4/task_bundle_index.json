@@ -1,0 +1,40 @@
+{
+  "hypothesis_id": "hyp_4_destination_port_distribution_skew_reflects_attack_targeting",
+  "planner_strategy_id": "strategy_03_hyp_4",
+  "task_count": 4,
+  "action_class_count": 4,
+  "task_summaries": [
+    {
+      "task_id": "task_1",
+      "hypothesis_id": "hyp_4_destination_port_distribution_skew_reflects_attack_targeting",
+      "task_scope": "Measure distributional skew and Jensen-Shannon divergence of destination port feature e33 across multiple attack instances to identify consistent skew patterns.",
+      "allowed_action_count": 1,
+      "local_context_ref_count": 1,
+      "stop_condition_count": 2
+    },
+    {
+      "task_id": "task_2",
+      "hypothesis_id": "hyp_4_destination_port_distribution_skew_reflects_attack_targeting",
+      "task_scope": "Assess class-conditioned dependency concentration and local label consistency around destination port feature e33 to evaluate representational stability.",
+      "allowed_action_count": 2,
+      "local_context_ref_count": 1,
+      "stop_condition_count": 2
+    },
+    {
+      "task_id": "task_3",
+      "hypothesis_id": "hyp_4_destination_port_distribution_skew_reflects_attack_targeting",
+      "task_scope": "Evaluate potential shortcut-like predictive power of destination port distribution differences to identify risks of shortcut exploitation.",
+      "allowed_action_count": 1,
+      "local_context_ref_count": 1,
+      "stop_condition_count": 2
+    },
+    {
+      "task_id": "task_4",
+      "hypothesis_id": "hyp_4_destination_port_distribution_skew_reflects_attack_targeting",
+      "task_scope": "Check for temporal or batch-specific variability in destination port distribution patterns to characterize stability over time and batches.",
+      "allowed_action_count": 1,
+      "local_context_ref_count": 1,
+      "stop_condition_count": 2
+    }
+  ]
+}

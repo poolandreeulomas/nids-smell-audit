@@ -1,0 +1,16 @@
+{
+  "task_id": "task_2",
+  "hypothesis_id": "hyp_4_distributional_divergence_destination_port",
+  "task_scope": "Evaluate entropy and cardinality of destination port within DDoS class over multiple data partitions in evidence e33",
+  "allowed_actions": [
+    "cardinality_verification",
+    "structural_summary"
+  ],
+  "local_context_refs": [
+    "e33"
+  ],
+  "stop_conditions": [
+    "entropy and cardinality metrics computed for all partitions",
+    "no further partitions remain"
+  ]
+}

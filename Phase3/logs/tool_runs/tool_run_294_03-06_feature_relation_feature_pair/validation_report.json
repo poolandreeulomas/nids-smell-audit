@@ -1,0 +1,19 @@
+{
+  "ok": true,
+  "schema_version": "phase3a.tools.v1",
+  "inventory_validation": {
+    "ok": true,
+    "errors": [],
+    "warnings": []
+  },
+  "request_validation": {
+    "ok": true,
+    "errors": [],
+    "warnings": []
+  },
+  "result_validation": {
+    "ok": true,
+    "errors": [],
+    "warnings": []
+  }
+}

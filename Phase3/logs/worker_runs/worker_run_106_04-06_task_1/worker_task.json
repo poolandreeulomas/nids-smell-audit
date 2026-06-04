@@ -1,0 +1,16 @@
+{
+  "task_id": "task_1",
+  "hypothesis_id": "hyp_007_class_conditioned_distribution_destination_port",
+  "task_scope": "Verify if zero entropy in destination port distribution is due to targeted attack patterns or dataset artifacts using evidence e33.",
+  "allowed_actions": [
+    "distribution_verification",
+    "duplication_verification"
+  ],
+  "local_context_refs": [
+    "e33"
+  ],
+  "stop_conditions": [
+    "confirmed zero entropy cause as attack or artifact",
+    "sample size sufficient for stable conclusion"
+  ]
+}

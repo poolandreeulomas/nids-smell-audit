@@ -1,0 +1,20 @@
+{
+  "strategy_id": "strategy_03_hyp_6",
+  "hypothesis_id": "hyp_6_class_conditioned_variation_backward_packet_lengths",
+  "strategic_objective": "Characterize the stability and discriminative value of class-conditioned variations in backward packet length features under varying conditions.",
+  "key_checks": [
+    "Verify stability of class-conditioned distribution shifts across time windows and network conditions",
+    "Compare variance ratios and unique value counts between classes for backward packet length features",
+    "Assess risk of overfitting due to dataset-specific artifacts in these features",
+    "Evaluate potential for reliable class discrimination based on these structural variations"
+  ],
+  "success_criteria": [
+    "Demonstrated stability or instability of distributional shifts over relevant conditions",
+    "Clear evidence of discriminative power balanced against overfitting risk",
+    "Guidance on feature usage for robust classification"
+  ],
+  "router_constraints": [
+    "preserve feature distribution and variance context",
+    "preserve evidence refs e10 to e12"
+  ]
+}

@@ -1,0 +1,32 @@
+{
+  "batch_id": "phase3a_batch_0306161030_friday-workinghours-afternoon-ddos.pcap_iscx_0595cd",
+  "round_id": "round-001",
+  "selected_hypothesis_ids": [
+    "hyp_1_redundancy_vs_importance_tension",
+    "hyp_3_distributional_skew_vs_partition_imbalance",
+    "hyp_10_potential_overfitting_risk_due_to_redundant_features"
+  ],
+  "deferred_hypothesis_ids": [
+    "hyp_2_low_cardinality_vs_class_variation_tension",
+    "hyp_4_backward_packet_length_features_as_structural_variation_indicators",
+    "hyp_5_average_packet_size_moderate_class_conditioned_variation",
+    "hyp_6_low_diversity_bulk_features_as_stable_baseline",
+    "hyp_7_impact_of_partition_level_data_quality_on_structural_patterns",
+    "hyp_8_localized_representation_sensitive_signal_in_destination_port",
+    "hyp_9_tension_between_burst_behavior_and_structural_collapse"
+  ],
+  "selection_rationales": [
+    {
+      "hypothesis_id": "hyp_1_redundancy_vs_importance_tension",
+      "reason": "High potential to clarify unique versus redundant feature contributions critical for model reliability."
+    },
+    {
+      "hypothesis_id": "hyp_3_distributional_skew_vs_partition_imbalance",
+      "reason": "Strong class-specific distributional skew with potential sampling artifacts warrants immediate scrutiny."
+    },
+    {
+      "hypothesis_id": "hyp_10_potential_overfitting_risk_due_to_redundant_features",
+      "reason": "Redundancy among top features poses a direct risk of overfitting, impacting model generalization."
+    }
+  ]
+}

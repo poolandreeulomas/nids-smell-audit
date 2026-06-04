@@ -1,0 +1,35 @@
+{
+  "task_id": "task_3",
+  "action_sequence": [],
+  "tool_events": [],
+  "retry_events": [
+    {
+      "step_index": 3,
+      "attempt_index": 1,
+      "reason": "Unknown context_ref 'e23'.",
+      "retry_kind": "step_repair"
+    }
+  ],
+  "failure_events": [
+    {
+      "step_index": 3,
+      "attempt_index": 0,
+      "failure_kind": "step_validation_error",
+      "message": "Unknown context_ref 'e23'."
+    },
+    {
+      "step_index": 3,
+      "attempt_index": 1,
+      "failure_kind": "step_validation_error",
+      "message": "context_ref must be a non-empty string."
+    }
+  ],
+  "budget_consumption": {
+    "max_steps": 8,
+    "max_retries": 1,
+    "steps_used": 3,
+    "retries_used": 1,
+    "termination_cause": "invalid_step",
+    "result_committed": false
+  }
+}

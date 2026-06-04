@@ -1,0 +1,506 @@
+[
+  {
+    "ok": true,
+    "execution_ok": true,
+    "call_id": "task_3_step_03",
+    "action": {
+      "action_class": "dependency_contextualization",
+      "context_ref": "e13",
+      "feature_name": "Average Packet Size"
+    },
+    "tool_name": "dependency_concentration_analysis",
+    "request": {
+      "call_id": "task_3_step_03",
+      "tool_name": "dependency_concentration_analysis",
+      "target_scope": "feature",
+      "input_refs": {
+        "feature_name": "Average Packet Size"
+      },
+      "preprocessing_profile_ref": "default",
+      "execution_constraints": {
+        "cache_policy": "reuse",
+        "validation_mode": "strict",
+        "save_raw_output": true
+      }
+    },
+    "request_validation": {
+      "ok": true,
+      "errors": [],
+      "warnings": []
+    },
+    "raw_tool_output": {
+      "ok": true,
+      "tool": "dependency_concentration_analysis",
+      "feature_name": "Average Packet Size",
+      "value": 0.0873076559477249,
+      "error_code": null,
+      "error_message": null,
+      "meta": {
+        "dataset_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\data\\cic_ids_2017\\Friday-WorkingHours-Afternoon-DDos.pcap_ISCX.csv",
+        "label_column": "Label"
+      },
+      "evidence": {
+        "feature": "Average Packet Size",
+        "signals": [],
+        "metrics": {
+          "partner_count": 67,
+          "strong_partner_count": 9,
+          "top_partner": "Packet Length Mean",
+          "top_partner_correlation": 0.9993574671326869,
+          "top_partner_share": 0.12558910238136536,
+          "top3_share": 0.3410574017413659,
+          "concentration_index": 0.0873076559477249,
+          "effective_partner_count": 11.453749263395022,
+          "mean_abs_correlation": 0.20231307669608237,
+          "median_abs_correlation": 0.0823351385486704
+        },
+        "support": {
+          "n_total": 225745,
+          "n_per_class": {
+            "DDoS": 128027,
+            "BENIGN": 97718
+          },
+          "total_samples": 225745,
+          "per_class": {
+            "DDoS": 128027,
+            "BENIGN": 97718
+          }
+        },
+        "provenance": {
+          "source": "tool",
+          "tool": "dependency_concentration_analysis",
+          "step": null
+        },
+        "status": "active"
+      }
+    },
+    "tool_result": {
+      "call_id": "task_3_step_03",
+      "tool_name": "dependency_concentration_analysis",
+      "status": "ok",
+      "observations": {
+        "feature_name": "Average Packet Size",
+        "value": 0.0873076559477249,
+        "signals": [],
+        "metrics": {
+          "partner_count": 67,
+          "strong_partner_count": 9,
+          "top_partner": "Packet Length Mean",
+          "top_partner_correlation": 0.9993574671326869,
+          "top_partner_share": 0.12558910238136536,
+          "top3_share": 0.3410574017413659,
+          "concentration_index": 0.0873076559477249,
+          "effective_partner_count": 11.453749263395022,
+          "mean_abs_correlation": 0.20231307669608237,
+          "median_abs_correlation": 0.0823351385486704
+        },
+        "support": {
+          "n_total": 225745,
+          "n_per_class": {
+            "DDoS": 128027,
+            "BENIGN": 97718
+          },
+          "total_samples": 225745,
+          "per_class": {
+            "DDoS": 128027,
+            "BENIGN": 97718
+          }
+        },
+        "provenance": {
+          "source": "tool",
+          "tool": "dependency_concentration_analysis",
+          "step": null
+        },
+        "feature": "Average Packet Size"
+      },
+      "evidence_refs": [
+        {
+          "artifact": "parsed_output",
+          "path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_314_03-06_dependency_concentration_analysis_feature\\parsed_output.json"
+        },
+        {
+          "artifact": "raw_tool_output",
+          "path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_314_03-06_dependency_concentration_analysis_feature\\raw_tool_output.json"
+        },
+        {
+          "artifact": "component_run",
+          "path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_314_03-06_dependency_concentration_analysis_feature\\component_run.json"
+        }
+      ],
+      "limitations": []
+    },
+    "result_validation": {
+      "ok": true,
+      "errors": [],
+      "warnings": []
+    },
+    "cache_events": [
+      {
+        "cache_key": "dependency_concentration_analysis::corr_matrix",
+        "status": "miss"
+      }
+    ],
+    "artifact_paths": {
+      "component_run_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_314_03-06_dependency_concentration_analysis_feature\\component_run.json",
+      "tool_call_request_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_314_03-06_dependency_concentration_analysis_feature\\tool_call_request.json",
+      "tool_capability_record_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_314_03-06_dependency_concentration_analysis_feature\\tool_capability_record.json",
+      "normalized_inputs_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_314_03-06_dependency_concentration_analysis_feature\\normalized_inputs.json",
+      "raw_tool_output_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_314_03-06_dependency_concentration_analysis_feature\\raw_tool_output.json",
+      "parsed_output_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_314_03-06_dependency_concentration_analysis_feature\\parsed_output.json",
+      "validation_report_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_314_03-06_dependency_concentration_analysis_feature\\validation_report.json",
+      "tool_metrics_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_314_03-06_dependency_concentration_analysis_feature\\tool_metrics.json",
+      "cache_record_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_314_03-06_dependency_concentration_analysis_feature\\cache_record.json"
+    },
+    "tool_metrics": {
+      "tool_name": "dependency_concentration_analysis",
+      "target_scope": "feature",
+      "duration_ms": 23983.928,
+      "status": "ok",
+      "cache_status": "tracked",
+      "cache_event_count": 1,
+      "fresh_execution": true,
+      "replay_of": null,
+      "caller_mode": "worker",
+      "schema_version": "phase3a.tools.v1"
+    },
+    "error_message": "",
+    "step_index": 3,
+    "action_index": 1
+  },
+  {
+    "ok": true,
+    "execution_ok": true,
+    "call_id": "task_3_step_05",
+    "action": {
+      "action_class": "dependency_contextualization",
+      "context_ref": "e13",
+      "feature_name": "Fwd Packet Length Mean"
+    },
+    "tool_name": "dependency_concentration_analysis",
+    "request": {
+      "call_id": "task_3_step_05",
+      "tool_name": "dependency_concentration_analysis",
+      "target_scope": "feature",
+      "input_refs": {
+        "feature_name": "Fwd Packet Length Mean"
+      },
+      "preprocessing_profile_ref": "default",
+      "execution_constraints": {
+        "cache_policy": "reuse",
+        "validation_mode": "strict",
+        "save_raw_output": true
+      }
+    },
+    "request_validation": {
+      "ok": true,
+      "errors": [],
+      "warnings": []
+    },
+    "raw_tool_output": {
+      "ok": true,
+      "tool": "dependency_concentration_analysis",
+      "feature_name": "Fwd Packet Length Mean",
+      "value": 0.0751194861686647,
+      "error_code": null,
+      "error_message": null,
+      "meta": {
+        "dataset_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\data\\cic_ids_2017\\Friday-WorkingHours-Afternoon-DDos.pcap_ISCX.csv",
+        "label_column": "Label"
+      },
+      "evidence": {
+        "feature": "Fwd Packet Length Mean",
+        "signals": [],
+        "metrics": {
+          "partner_count": 67,
+          "strong_partner_count": 5,
+          "top_partner": "Avg Fwd Segment Size",
+          "top_partner_correlation": 1.0,
+          "top_partner_share": 0.1315205578614762,
+          "top3_share": 0.35919800473774344,
+          "concentration_index": 0.0751194861686647,
+          "effective_partner_count": 13.312125135610144,
+          "mean_abs_correlation": 0.2223804516735508,
+          "median_abs_correlation": 0.16742980195406307
+        },
+        "support": {
+          "n_total": 225745,
+          "n_per_class": {
+            "DDoS": 128027,
+            "BENIGN": 97718
+          },
+          "total_samples": 225745,
+          "per_class": {
+            "DDoS": 128027,
+            "BENIGN": 97718
+          }
+        },
+        "provenance": {
+          "source": "tool",
+          "tool": "dependency_concentration_analysis",
+          "step": null
+        },
+        "status": "active"
+      }
+    },
+    "tool_result": {
+      "call_id": "task_3_step_05",
+      "tool_name": "dependency_concentration_analysis",
+      "status": "ok",
+      "observations": {
+        "feature_name": "Fwd Packet Length Mean",
+        "value": 0.0751194861686647,
+        "signals": [],
+        "metrics": {
+          "partner_count": 67,
+          "strong_partner_count": 5,
+          "top_partner": "Avg Fwd Segment Size",
+          "top_partner_correlation": 1.0,
+          "top_partner_share": 0.1315205578614762,
+          "top3_share": 0.35919800473774344,
+          "concentration_index": 0.0751194861686647,
+          "effective_partner_count": 13.312125135610144,
+          "mean_abs_correlation": 0.2223804516735508,
+          "median_abs_correlation": 0.16742980195406307
+        },
+        "support": {
+          "n_total": 225745,
+          "n_per_class": {
+            "DDoS": 128027,
+            "BENIGN": 97718
+          },
+          "total_samples": 225745,
+          "per_class": {
+            "DDoS": 128027,
+            "BENIGN": 97718
+          }
+        },
+        "provenance": {
+          "source": "tool",
+          "tool": "dependency_concentration_analysis",
+          "step": null
+        },
+        "feature": "Fwd Packet Length Mean"
+      },
+      "evidence_refs": [
+        {
+          "artifact": "parsed_output",
+          "path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_317_03-06_dependency_concentration_analysis_feature\\parsed_output.json"
+        },
+        {
+          "artifact": "raw_tool_output",
+          "path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_317_03-06_dependency_concentration_analysis_feature\\raw_tool_output.json"
+        },
+        {
+          "artifact": "component_run",
+          "path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_317_03-06_dependency_concentration_analysis_feature\\component_run.json"
+        }
+      ],
+      "limitations": []
+    },
+    "result_validation": {
+      "ok": true,
+      "errors": [],
+      "warnings": []
+    },
+    "cache_events": [
+      {
+        "cache_key": "dependency_concentration_analysis::corr_matrix",
+        "status": "hit"
+      }
+    ],
+    "artifact_paths": {
+      "component_run_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_317_03-06_dependency_concentration_analysis_feature\\component_run.json",
+      "tool_call_request_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_317_03-06_dependency_concentration_analysis_feature\\tool_call_request.json",
+      "tool_capability_record_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_317_03-06_dependency_concentration_analysis_feature\\tool_capability_record.json",
+      "normalized_inputs_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_317_03-06_dependency_concentration_analysis_feature\\normalized_inputs.json",
+      "raw_tool_output_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_317_03-06_dependency_concentration_analysis_feature\\raw_tool_output.json",
+      "parsed_output_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_317_03-06_dependency_concentration_analysis_feature\\parsed_output.json",
+      "validation_report_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_317_03-06_dependency_concentration_analysis_feature\\validation_report.json",
+      "tool_metrics_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_317_03-06_dependency_concentration_analysis_feature\\tool_metrics.json",
+      "cache_record_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_317_03-06_dependency_concentration_analysis_feature\\cache_record.json"
+    },
+    "tool_metrics": {
+      "tool_name": "dependency_concentration_analysis",
+      "target_scope": "feature",
+      "duration_ms": 53.179,
+      "status": "ok",
+      "cache_status": "tracked",
+      "cache_event_count": 1,
+      "fresh_execution": true,
+      "replay_of": null,
+      "caller_mode": "worker",
+      "schema_version": "phase3a.tools.v1"
+    },
+    "error_message": "",
+    "step_index": 5,
+    "action_index": 1
+  },
+  {
+    "ok": true,
+    "execution_ok": true,
+    "call_id": "task_3_step_07",
+    "action": {
+      "action_class": "dependency_contextualization",
+      "context_ref": "e13",
+      "feature_name": "Fwd Header Length"
+    },
+    "tool_name": "dependency_concentration_analysis",
+    "request": {
+      "call_id": "task_3_step_07",
+      "tool_name": "dependency_concentration_analysis",
+      "target_scope": "feature",
+      "input_refs": {
+        "feature_name": "Fwd Header Length"
+      },
+      "preprocessing_profile_ref": "default",
+      "execution_constraints": {
+        "cache_policy": "reuse",
+        "validation_mode": "strict",
+        "save_raw_output": true
+      }
+    },
+    "request_validation": {
+      "ok": true,
+      "errors": [],
+      "warnings": []
+    },
+    "raw_tool_output": {
+      "ok": true,
+      "tool": "dependency_concentration_analysis",
+      "feature_name": "Fwd Header Length",
+      "value": 0.101944338517028,
+      "error_code": null,
+      "error_message": null,
+      "meta": {
+        "dataset_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\data\\cic_ids_2017\\Friday-WorkingHours-Afternoon-DDos.pcap_ISCX.csv",
+        "label_column": "Label"
+      },
+      "evidence": {
+        "feature": "Fwd Header Length",
+        "signals": [],
+        "metrics": {
+          "partner_count": 67,
+          "strong_partner_count": 9,
+          "top_partner": "Fwd Header Length.1",
+          "top_partner_correlation": 1.0,
+          "top_partner_share": 0.12096703418388534,
+          "top3_share": 0.3478682824207636,
+          "concentration_index": 0.101944338517028,
+          "effective_partner_count": 9.80927449770021,
+          "mean_abs_correlation": 0.17883451523518792,
+          "median_abs_correlation": 0.049051154250679366
+        },
+        "support": {
+          "n_total": 225745,
+          "n_per_class": {
+            "DDoS": 128027,
+            "BENIGN": 97718
+          },
+          "total_samples": 225745,
+          "per_class": {
+            "DDoS": 128027,
+            "BENIGN": 97718
+          }
+        },
+        "provenance": {
+          "source": "tool",
+          "tool": "dependency_concentration_analysis",
+          "step": null
+        },
+        "status": "active"
+      }
+    },
+    "tool_result": {
+      "call_id": "task_3_step_07",
+      "tool_name": "dependency_concentration_analysis",
+      "status": "ok",
+      "observations": {
+        "feature_name": "Fwd Header Length",
+        "value": 0.101944338517028,
+        "signals": [],
+        "metrics": {
+          "partner_count": 67,
+          "strong_partner_count": 9,
+          "top_partner": "Fwd Header Length.1",
+          "top_partner_correlation": 1.0,
+          "top_partner_share": 0.12096703418388534,
+          "top3_share": 0.3478682824207636,
+          "concentration_index": 0.101944338517028,
+          "effective_partner_count": 9.80927449770021,
+          "mean_abs_correlation": 0.17883451523518792,
+          "median_abs_correlation": 0.049051154250679366
+        },
+        "support": {
+          "n_total": 225745,
+          "n_per_class": {
+            "DDoS": 128027,
+            "BENIGN": 97718
+          },
+          "total_samples": 225745,
+          "per_class": {
+            "DDoS": 128027,
+            "BENIGN": 97718
+          }
+        },
+        "provenance": {
+          "source": "tool",
+          "tool": "dependency_concentration_analysis",
+          "step": null
+        },
+        "feature": "Fwd Header Length"
+      },
+      "evidence_refs": [
+        {
+          "artifact": "parsed_output",
+          "path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_323_03-06_dependency_concentration_analysis_feature\\parsed_output.json"
+        },
+        {
+          "artifact": "raw_tool_output",
+          "path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_323_03-06_dependency_concentration_analysis_feature\\raw_tool_output.json"
+        },
+        {
+          "artifact": "component_run",
+          "path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_323_03-06_dependency_concentration_analysis_feature\\component_run.json"
+        }
+      ],
+      "limitations": []
+    },
+    "result_validation": {
+      "ok": true,
+      "errors": [],
+      "warnings": []
+    },
+    "cache_events": [
+      {
+        "cache_key": "dependency_concentration_analysis::corr_matrix",
+        "status": "hit"
+      }
+    ],
+    "artifact_paths": {
+      "component_run_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_323_03-06_dependency_concentration_analysis_feature\\component_run.json",
+      "tool_call_request_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_323_03-06_dependency_concentration_analysis_feature\\tool_call_request.json",
+      "tool_capability_record_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_323_03-06_dependency_concentration_analysis_feature\\tool_capability_record.json",
+      "normalized_inputs_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_323_03-06_dependency_concentration_analysis_feature\\normalized_inputs.json",
+      "raw_tool_output_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_323_03-06_dependency_concentration_analysis_feature\\raw_tool_output.json",
+      "parsed_output_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_323_03-06_dependency_concentration_analysis_feature\\parsed_output.json",
+      "validation_report_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_323_03-06_dependency_concentration_analysis_feature\\validation_report.json",
+      "tool_metrics_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_323_03-06_dependency_concentration_analysis_feature\\tool_metrics.json",
+      "cache_record_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_323_03-06_dependency_concentration_analysis_feature\\cache_record.json"
+    },
+    "tool_metrics": {
+      "tool_name": "dependency_concentration_analysis",
+      "target_scope": "feature",
+      "duration_ms": 404.078,
+      "status": "ok",
+      "cache_status": "tracked",
+      "cache_event_count": 1,
+      "fresh_execution": true,
+      "replay_of": null,
+      "caller_mode": "worker",
+      "schema_version": "phase3a.tools.v1"
+    },
+    "error_message": "",
+    "step_index": 7,
+    "action_index": 1
+  }
+]

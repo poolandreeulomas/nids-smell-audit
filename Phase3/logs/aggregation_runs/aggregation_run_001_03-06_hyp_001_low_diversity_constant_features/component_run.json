@@ -1,0 +1,27 @@
+{
+  "component": "aggregation",
+  "created_at": "2026-06-03T14:43:20.674518+00:00",
+  "schema_version": "phase3a.aggregation.v1",
+  "batch_id": "phase3a_batch_0306143851_friday-workinghours-afternoon-ddos.pcap_iscx_ba9279",
+  "round_id": "round-001",
+  "hypothesis_id": "hyp_001_low_diversity_constant_features",
+  "status": "ok",
+  "validation_ok": true,
+  "handoff_committed": true,
+  "model_name": "gpt-4.1-mini",
+  "caller_mode": "cli",
+  "replay_of": null,
+  "artifact_paths": {
+    "component_run_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\aggregation_runs\\aggregation_run_001_03-06_hyp_001_low_diversity_constant_features\\component_run.json",
+    "worker_result_set_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\aggregation_runs\\aggregation_run_001_03-06_hyp_001_low_diversity_constant_features\\worker_result_set.json",
+    "normalized_inputs_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\aggregation_runs\\aggregation_run_001_03-06_hyp_001_low_diversity_constant_features\\normalized_inputs.json",
+    "overlap_diagnostics_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\aggregation_runs\\aggregation_run_001_03-06_hyp_001_low_diversity_constant_features\\overlap_diagnostics.json",
+    "rendered_prompt_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\aggregation_runs\\aggregation_run_001_03-06_hyp_001_low_diversity_constant_features\\rendered_prompt.txt",
+    "raw_response_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\aggregation_runs\\aggregation_run_001_03-06_hyp_001_low_diversity_constant_features\\raw_response.txt",
+    "parsed_output_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\aggregation_runs\\aggregation_run_001_03-06_hyp_001_low_diversity_constant_features\\parsed_output.json",
+    "aggregation_handoff_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\aggregation_runs\\aggregation_run_001_03-06_hyp_001_low_diversity_constant_features\\aggregation_handoff.json",
+    "validation_report_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\aggregation_runs\\aggregation_run_001_03-06_hyp_001_low_diversity_constant_features\\validation_report.json",
+    "runtime_metrics_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\aggregation_runs\\aggregation_run_001_03-06_hyp_001_low_diversity_constant_features\\runtime_metrics.json",
+    "replay_metadata_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\aggregation_runs\\aggregation_run_001_03-06_hyp_001_low_diversity_constant_features\\replay_metadata.json"
+  }
+}

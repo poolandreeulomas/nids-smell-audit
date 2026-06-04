@@ -1,0 +1,15 @@
+{
+  "task_id": "task_1",
+  "hypothesis_id": "hyp_8_class_conditioned_distribution_destination_port",
+  "task_scope": "Assess if destination port distribution differences correspond to targeted attack patterns or dataset sampling bias using evidence e33",
+  "allowed_actions": [
+    "distribution_verification"
+  ],
+  "local_context_refs": [
+    "e33"
+  ],
+  "stop_conditions": [
+    "distribution differences characterized",
+    "targeted attack vs sampling bias evidence identified"
+  ]
+}

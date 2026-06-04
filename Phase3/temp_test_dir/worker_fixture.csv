@@ -1,0 +1,5 @@
+src_bytes,dst_bytes,dst_port,Label
+10,11,80,BENIGN
+12,13,80,BENIGN
+100,101,443,ATTACK
+105,106,443,ATTACK

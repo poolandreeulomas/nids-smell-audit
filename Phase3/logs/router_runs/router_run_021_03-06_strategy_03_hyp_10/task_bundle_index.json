@@ -1,0 +1,40 @@
+{
+  "hypothesis_id": "hyp_10_potential_overfitting_risk_due_to_redundant_features",
+  "planner_strategy_id": "strategy_03_hyp_10",
+  "task_count": 4,
+  "action_class_count": 7,
+  "task_summaries": [
+    {
+      "task_id": "task_1",
+      "hypothesis_id": "hyp_10_potential_overfitting_risk_due_to_redundant_features",
+      "task_scope": "Evaluate dependency concentration and redundancy patterns among top-ranked features within redundant feature clusters",
+      "allowed_action_count": 2,
+      "local_context_ref_count": 5,
+      "stop_condition_count": 2
+    },
+    {
+      "task_id": "task_2",
+      "hypothesis_id": "hyp_10_potential_overfitting_risk_due_to_redundant_features",
+      "task_scope": "Test shortcut-like predictive leverage of individual redundant features to identify spurious signal contributors",
+      "allowed_action_count": 1,
+      "local_context_ref_count": 5,
+      "stop_condition_count": 2
+    },
+    {
+      "task_id": "task_3",
+      "hypothesis_id": "hyp_10_potential_overfitting_risk_due_to_redundant_features",
+      "task_scope": "Examine local label consistency and distributional overlap within redundant feature clusters to assess label noise and overlap",
+      "allowed_action_count": 2,
+      "local_context_ref_count": 5,
+      "stop_condition_count": 2
+    },
+    {
+      "task_id": "task_4",
+      "hypothesis_id": "hyp_10_potential_overfitting_risk_due_to_redundant_features",
+      "task_scope": "Explore bounded scenarios where removing redundancy affects performance indicators to identify mitigation directions",
+      "allowed_action_count": 2,
+      "local_context_ref_count": 5,
+      "stop_condition_count": 2
+    }
+  ]
+}

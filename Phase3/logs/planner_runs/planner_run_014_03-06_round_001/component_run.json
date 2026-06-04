@@ -1,0 +1,27 @@
+{
+  "component": "planner",
+  "created_at": "2026-06-03T19:27:37.960846+00:00",
+  "schema_version": "phase3a.planner.v1",
+  "batch_id": "phase3a_batch_0306192600_friday-workinghours-afternoon-ddos.pcap_iscx_a08c4b",
+  "round_id": "round-001",
+  "status": "ok",
+  "validation_ok": true,
+  "model_name": "gpt-4.1-mini",
+  "caller_mode": "cli",
+  "replay_of": null,
+  "artifact_paths": {
+    "component_run_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\planner_runs\\planner_run_014_03-06_round_001\\component_run.json",
+    "ranking_decision_min_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\planner_runs\\planner_run_014_03-06_round_001\\ranking_decision_min.json",
+    "selected_hypothesis_context_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\planner_runs\\planner_run_014_03-06_round_001\\selected_hypothesis_context.json",
+    "planner_round_context_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\planner_runs\\planner_run_014_03-06_round_001\\planner_round_context.json",
+    "projected_selected_context_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\planner_runs\\planner_run_014_03-06_round_001\\projected_selected_context.json",
+    "projected_planner_round_context_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\planner_runs\\planner_run_014_03-06_round_001\\projected_planner_round_context.json",
+    "rendered_prompt_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\planner_runs\\planner_run_014_03-06_round_001\\rendered_prompt.txt",
+    "raw_response_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\planner_runs\\planner_run_014_03-06_round_001\\raw_response.txt",
+    "parsed_output_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\planner_runs\\planner_run_014_03-06_round_001\\parsed_output.json",
+    "strategy_index_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\planner_runs\\planner_run_014_03-06_round_001\\strategy_index.json",
+    "validation_report_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\planner_runs\\planner_run_014_03-06_round_001\\validation_report.json",
+    "runtime_metrics_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\planner_runs\\planner_run_014_03-06_round_001\\runtime_metrics.json",
+    "replay_metadata_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\planner_runs\\planner_run_014_03-06_round_001\\replay_metadata.json"
+  }
+}

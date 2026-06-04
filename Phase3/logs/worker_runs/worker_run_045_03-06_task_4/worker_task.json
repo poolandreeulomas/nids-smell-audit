@@ -1,0 +1,25 @@
+{
+  "task_id": "task_4",
+  "hypothesis_id": "hyp_003",
+  "task_scope": "Check redundancy impact on feature prioritization by verifying feature relations and duplication effects among correlated features using evidence refs e13 to e22.",
+  "allowed_actions": [
+    "duplication_verification",
+    "relation_verification"
+  ],
+  "local_context_refs": [
+    "e13",
+    "e14",
+    "e15",
+    "e16",
+    "e17",
+    "e18",
+    "e19",
+    "e20",
+    "e21",
+    "e22"
+  ],
+  "stop_conditions": [
+    "redundancy impact assessed for all correlated features",
+    "feature prioritization implications clarified"
+  ]
+}

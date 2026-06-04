@@ -1,0 +1,16 @@
+{
+  "task_id": "task_2",
+  "hypothesis_id": "hyp_6_class_distribution_difference_destination_port",
+  "task_scope": "Assess if the dominant ratio of 1.0 for destination port in DDoS class is consistent across data partitions in evidence e33",
+  "allowed_actions": [
+    "distribution_verification",
+    "local_consistency_verification"
+  ],
+  "local_context_refs": [
+    "e33"
+  ],
+  "stop_conditions": [
+    "ratio stability confirmed across partitions",
+    "sampling artifact ruled out or identified"
+  ]
+}

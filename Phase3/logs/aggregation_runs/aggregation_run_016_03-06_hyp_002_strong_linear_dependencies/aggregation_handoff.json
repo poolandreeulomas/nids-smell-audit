@@ -1,0 +1,30 @@
+{
+  "batch_id": "phase3a_batch_0306183859_friday-workinghours-afternoon-ddos.pcap_iscx_689174",
+  "round_id": "round-001",
+  "hypothesis_id": "hyp_002_strong_linear_dependencies",
+  "merged_findings": [
+    "Strong linear dependencies and near-perfect correlations exist among packet length related features including Packet Length Mean, Average Packet Size, Fwd Packet Length Mean, Avg Fwd Segment Size, Bwd Packet Length Mean, and Avg Bwd Segment Size across classes, indicating high redundancy and reduced effective dimensionality within this feature cluster.",
+    "These dependencies form a stable and consistent pattern without detected shifts across classes, confirming structural dependency concentration.",
+    "Moderate shortcut-like predictive leverage is observed in Packet Length Mean and Average Packet Size, consistent with the redundancy and correlation patterns.",
+    "Average Packet Size exhibits low cardinality, supporting the presence of near-constant or limited variation features within the cluster."
+  ],
+  "evidence_refs": [
+    "task_1_step_03",
+    "task_1_step_05",
+    "task_1_step_07",
+    "task_2_step_03",
+    "task_2_step_05",
+    "task_2_step_07",
+    "task_3_step_03",
+    "task_3_step_05",
+    "task_3_step_07",
+    "task_4_step_03",
+    "task_4_step_05",
+    "task_4_step_07"
+  ],
+  "preserved_contradictions": [],
+  "open_gaps": [
+    "Analyses are limited to local evidence and the specified feature cluster; global dataset effects and broader contextual impacts remain unassessed."
+  ],
+  "update_focus": "consolidate understanding of strong linear dependencies and redundancy within packet length related features cluster"
+}

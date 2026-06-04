@@ -1,0 +1,62 @@
+{
+  "selected_count": 3,
+  "selected_hypotheses": [
+    {
+      "hypothesis_id": "hyp_004_strong_feature_dependency_pairs",
+      "summary": "Multiple feature pairs exhibit perfect or near-perfect correlation (correlation=1 or ~0.9993), indicating strong redundancy and deterministic relationships among packet length, segment size, header length, flag counts, and packet counts in both forward and backward directions.",
+      "evidence_refs": [
+        "e13",
+        "e14",
+        "e15",
+        "e16",
+        "e17",
+        "e18",
+        "e19",
+        "e20",
+        "e21",
+        "e22"
+      ],
+      "open_questions": [
+        "Are these strong dependencies inherent to the network protocol behavior or induced by feature engineering steps?",
+        "Could these redundancies be exploited to reduce feature dimensionality without loss of information?",
+        "Do these dependencies hold consistently across benign and attack classes or vary with class conditioning?"
+      ],
+      "current_status": "unresolved",
+      "evidence_ref_count": 10,
+      "open_question_count": 3
+    },
+    {
+      "hypothesis_id": "hyp_005_class_conditioned_variation_backward_packet_lengths",
+      "summary": "Backward packet length features (Max, Mean, Std) and Avg Bwd Segment Size show significant class-conditioned structural variation with high variance ratios and large differences in unique values between BENIGN and DDoS classes, indicating potential discriminative power.",
+      "evidence_refs": [
+        "e9",
+        "e10",
+        "e11",
+        "e12"
+      ],
+      "open_questions": [
+        "Is the observed class-conditioned variation stable across different time windows or network conditions?",
+        "Could these features be sensitive to attack-specific packet size manipulation or fragmentation?",
+        "Are there confounding factors influencing these variations such as flow duration or application type?"
+      ],
+      "current_status": "unresolved",
+      "evidence_ref_count": 4,
+      "open_question_count": 3
+    },
+    {
+      "hypothesis_id": "hyp_007_class_conditioned_distribution_destination_port",
+      "summary": "Destination Port feature shows strong distributional differences between BENIGN and DDoS classes, with DDoS having a dominant ratio of 1.0 and zero entropy, while BENIGN has lower dominant ratio and higher entropy, resulting in high Jensen-Shannon divergence, indicating representation sensitivity to class-conditioned shifts.",
+      "evidence_refs": [
+        "e33"
+      ],
+      "open_questions": [
+        "Does the zero entropy in DDoS destination ports reflect a targeted attack on specific ports or a dataset artifact?",
+        "Could this feature be exploited as a strong localized representation-sensitive handle for attack detection?",
+        "Are there temporal or contextual factors influencing the port distribution shifts?"
+      ],
+      "current_status": "unresolved",
+      "evidence_ref_count": 1,
+      "open_question_count": 3
+    }
+  ]
+}

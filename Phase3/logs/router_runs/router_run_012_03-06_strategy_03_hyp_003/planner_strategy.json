@@ -1,0 +1,20 @@
+{
+  "strategy_id": "strategy_03_hyp_003",
+  "hypothesis_id": "hyp_003_class_conditioned_structural_variation",
+  "strategic_objective": "Quantify the stability and origin of class-conditioned structural variations to distinguish true behavioral differences from sampling or measurement biases.",
+  "key_checks": [
+    "Compare variance ratios and unique value counts across multiple time windows",
+    "Test for consistency of class-conditioned distribution differences under varying network conditions",
+    "Evaluate potential sampling biases by cross-referencing with capture metadata",
+    "Assess whether structural variations align with known DDoS behavioral signatures"
+  ],
+  "success_criteria": [
+    "Robust confirmation that structural variations reflect genuine class-distinguishing behavior",
+    "Detection or exclusion of sampling or measurement bias as primary variation source",
+    "Demonstrated stability of these variations across temporal and network condition subsets"
+  ],
+  "router_constraints": [
+    "preserve feature_scope",
+    "preserve evidence refs"
+  ]
+}

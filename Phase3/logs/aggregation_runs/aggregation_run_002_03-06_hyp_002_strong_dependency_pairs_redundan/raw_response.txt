@@ -1,0 +1,36 @@
+{
+  "aggregation_handoff": {
+    "batch_id": "phase3a_batch_0306143851_friday-workinghours-afternoon-ddos.pcap_iscx_ba9279",
+    "round_id": "round-001",
+    "hypothesis_id": "hyp_002_strong_dependency_pairs_redundancy",
+    "merged_findings": [
+      "Multiple feature pairs consistently exhibit perfect or near-perfect correlations, confirming strong linear dependencies and redundancy within the local feature cluster.",
+      "These strong dependencies are stable across BENIGN and DDoS classes, with no detected class-dependent shifts, supporting persistent redundancy.",
+      "Despite redundancy, some features maintain individual discriminative power as shown by class separation in distributions.",
+      "Redundancy likely arises from measurement or protocol semantics, supported by low cardinality and near-constant values in certain features.",
+      "Local label neighborhood and duplicate label conflicts around features like Fwd Header Length reveal unresolved local inconsistencies in label topology."
+    ],
+    "evidence_refs": [
+      "task_1_step_03",
+      "task_1_step_05",
+      "task_1_step_07",
+      "task_2_step_03",
+      "task_2_step_05",
+      "task_2_step_07",
+      "task_3_step_03",
+      "task_3_step_05",
+      "task_3_step_07",
+      "task_4_step_03",
+      "task_4_step_05",
+      "task_4_step_07"
+    ],
+    "preserved_contradictions": [
+      "Local label neighborhood conflicts and duplicate label conflicts around Fwd Header Length indicate unresolved local inconsistencies."
+    ],
+    "open_gaps": [
+      "No direct simulation of feature removal or combination impact to quantify effects on classification performance.",
+      "Analysis limited to local clusters; potential global shifts or cross-cluster dependency changes remain unexamined."
+    ],
+    "update_focus": "Consolidate local evidence on strong feature dependencies and redundancy while preserving label topology conflicts and noting limitations on global and intervention impact."
+  }
+}

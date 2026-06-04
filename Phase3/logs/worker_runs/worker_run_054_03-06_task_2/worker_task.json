@@ -1,0 +1,29 @@
+{
+  "task_id": "task_2",
+  "hypothesis_id": "hyp_10_interplay_between_redundancy_and_class_conditioned_variation",
+  "task_scope": "Evaluate if disentangling redundancies clarifies or amplifies meaningful class-specific packet length and size signals in the preserved feature scope",
+  "allowed_actions": [
+    "distribution_verification",
+    "duplication_verification"
+  ],
+  "local_context_refs": [
+    "e9",
+    "e10",
+    "e11",
+    "e12",
+    "e13",
+    "e14",
+    "e15",
+    "e16",
+    "e17",
+    "e18",
+    "e19",
+    "e20",
+    "e21",
+    "e22"
+  ],
+  "stop_conditions": [
+    "class-specific signal clarity assessed",
+    "redundancy impact quantified"
+  ]
+}

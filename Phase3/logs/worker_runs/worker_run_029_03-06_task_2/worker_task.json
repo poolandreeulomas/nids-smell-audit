@@ -1,0 +1,19 @@
+{
+  "task_id": "task_2",
+  "hypothesis_id": "hyp_10_potential_overfitting_risk_due_to_redundant_features",
+  "task_scope": "Test shortcut-like predictive leverage of individual redundant features to identify spurious signal contributors",
+  "allowed_actions": [
+    "shortcut_verification"
+  ],
+  "local_context_refs": [
+    "e3",
+    "e4",
+    "e13",
+    "e16",
+    "e22"
+  ],
+  "stop_conditions": [
+    "shortcut signal strength quantified for all redundant features",
+    "no new shortcut patterns detected"
+  ]
+}

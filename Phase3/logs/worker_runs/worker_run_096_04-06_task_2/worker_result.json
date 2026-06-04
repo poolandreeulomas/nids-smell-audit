@@ -1,0 +1,17 @@
+{
+  "task_id": "task_2",
+  "hypothesis_id": "hyp_005_destination_port_distribution_shift",
+  "status": "completed",
+  "findings": [
+    "Destination Port in the DDoS class exhibits near-constant behavior with zero entropy and a dominant single value ratio of 1.0.",
+    "BENIGN class shows higher cardinality and entropy, indicating more variation in Destination Port.",
+    "High Jensen-Shannon divergence (0.7315) confirms a strong distributional shift between classes.",
+    "Structural summary indicates a high variance imbalance consistent with the hypothesis."
+  ],
+  "evidence_refs": [
+    "task_2_step_03",
+    "task_2_step_05"
+  ],
+  "contradictions": [],
+  "limitations": []
+}

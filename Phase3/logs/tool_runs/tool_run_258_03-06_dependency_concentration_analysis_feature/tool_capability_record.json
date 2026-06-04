@@ -1,0 +1,12 @@
+{
+  "tool_name": "dependency_concentration_analysis",
+  "epistemic_role": "dependency_contextualization",
+  "supported_scopes": [
+    "feature"
+  ],
+  "required_inputs": [
+    "feature_name"
+  ],
+  "result_shape": "feature_observation",
+  "boundedness_notes": "Measures whether one feature's dependency profile is concentrated into a narrow structural cluster."
+}

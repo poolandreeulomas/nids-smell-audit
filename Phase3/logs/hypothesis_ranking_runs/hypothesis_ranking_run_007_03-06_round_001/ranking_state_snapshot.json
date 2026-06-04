@@ -1,0 +1,122 @@
+{
+  "round_id": "round-001",
+  "selection_budget": 3,
+  "hypothesis_state_refs": [
+    {
+      "hypothesis_id": "hyp_1_low_diversity_bulk_features",
+      "state_notes": [
+        "status=unresolved",
+        "summary=The near-constant values and extremely low unique value counts in multiple bulk-related backward and forward traffic features may indicate a structural saturation or a constrained representation in these features across the partition, potentially limiting their discriminative power.",
+        "revision_count=0",
+        "last_updated_round=initialization",
+        "open_gap=Does the low diversity in bulk features reflect a genuine network behavior pattern or an artifact of feature extraction or aggregation?",
+        "open_gap=Could this near-constant behavior mask subtle but important variations relevant for attack detection?"
+      ]
+    },
+    {
+      "hypothesis_id": "hyp_2_strong_linear_dependencies",
+      "state_notes": [
+        "status=unresolved",
+        "summary=Several feature pairs exhibit near-perfect or perfect correlations, suggesting strong linear dependencies and potential redundancy that may reduce the effective dimensionality of the feature space and bias model learning.",
+        "revision_count=0",
+        "last_updated_round=initialization",
+        "open_gap=Are these strong dependencies stable across different temporal segments or specific to this partition?",
+        "open_gap=Do these dependencies arise from inherent network protocol relationships or from preprocessing steps?"
+      ]
+    },
+    {
+      "hypothesis_id": "hyp_3_class_conditioned_structural_variation_packet_length",
+      "state_notes": [
+        "status=unresolved",
+        "summary=Packet length and segment size features show substantial class-conditioned structural variation, with large variance ratios and differing unique value counts between BENIGN and DDoS classes, indicating these features may encode class-distinctive structural patterns.",
+        "revision_count=0",
+        "last_updated_round=initialization",
+        "open_gap=To what extent do these class-conditioned variations reflect true behavioral differences versus sampling or labeling biases?",
+        "open_gap=Could these features be sensitive to specific attack subtypes or benign traffic patterns?"
+      ]
+    },
+    {
+      "hypothesis_id": "hyp_4_distributional_divergence_destination_port",
+      "state_notes": [
+        "status=unresolved",
+        "summary=The Destination Port feature shows strong distributional divergence between BENIGN and DDoS classes, with the DDoS class dominated by a single port value and zero entropy, suggesting a representation-sensitive pattern that may act as a narrow but strong class indicator.",
+        "revision_count=0",
+        "last_updated_round=initialization",
+        "open_gap=Is the dominance of a single destination port in DDoS traffic a stable characteristic or an artifact of this dataset's attack scenarios?",
+        "open_gap=Could reliance on this feature lead to overfitting or vulnerability to evasion if port usage changes?"
+      ]
+    },
+    {
+      "hypothesis_id": "hyp_5_partition_level_data_quality_and_skew",
+      "state_notes": [
+        "status=unresolved",
+        "summary=Moderate class imbalance and the presence of 729 duplicated rows indicate potential data quality issues and representational skew that may affect model generalization and bias performance metrics.",
+        "revision_count=0",
+        "last_updated_round=initialization",
+        "open_gap=Do duplicated rows correspond to repeated attack bursts or benign repetitions, and how do they impact feature distributions?",
+        "open_gap=How does the class imbalance interact with feature representation stability and model sensitivity?"
+      ]
+    },
+    {
+      "hypothesis_id": "hyp_6_top_ranked_packet_length_features_as_key_signals",
+      "state_notes": [
+        "status=unresolved",
+        "summary=Top ranked features by partition overview include packet length and size metrics, which despite redundancy and low diversity in other features, may retain meaningful signal for distinguishing traffic classes.",
+        "revision_count=0",
+        "last_updated_round=initialization",
+        "open_gap=Are these top-ranked features robust to the observed strong dependencies and low diversity in related features?",
+        "open_gap=Could these features be leveraged to mitigate the impact of redundant or saturated features?"
+      ]
+    },
+    {
+      "hypothesis_id": "hyp_7_potential_overlap_of_dependency_and_representation_sensitive_patterns",
+      "state_notes": [
+        "status=unresolved",
+        "summary=The coexistence of strong linear dependencies and representation-sensitive distributional divergences suggests overlapping but partially compatible structural patterns that may require joint consideration to avoid premature feature exclusion.",
+        "revision_count=0",
+        "last_updated_round=initialization",
+        "open_gap=How do dependency-backed regularities interact with localized representation-sensitive handles in shaping model decision boundaries?",
+        "open_gap=Can these overlapping patterns be disentangled or should they be modeled jointly?"
+      ]
+    },
+    {
+      "hypothesis_id": "hyp_8_risk_of_trivial_confirmation_due_to_feature_saturation",
+      "state_notes": [
+        "status=unresolved",
+        "summary=The presence of near-constant features and dominant single-value distributions raises the risk of trivial confirmation where models rely on saturated features that do not generalize beyond the dataset context.",
+        "revision_count=0",
+        "last_updated_round=initialization",
+        "open_gap=Are these saturated features stable across different datasets or temporal windows?",
+        "open_gap=What is the impact of removing or transforming these features on model robustness?"
+      ]
+    },
+    {
+      "hypothesis_id": "hyp_9_burst_behavior_vs_structural_collapse_in_feature_patterns",
+      "state_notes": [
+        "status=unresolved",
+        "summary=Observed feature patterns may reflect either bursty network behavior or structural collapse in feature variability, complicating interpretation and requiring careful distinction to avoid misattribution of signals.",
+        "revision_count=0",
+        "last_updated_round=initialization",
+        "open_gap=Can temporal analysis differentiate burst-induced feature saturation from genuine structural collapse?",
+        "open_gap=How do burst behaviors manifest differently in forward versus backward traffic features?"
+      ]
+    },
+    {
+      "hypothesis_id": "hyp_10_effect_of_data_quality_issues_on_feature_dependency_and_variation",
+      "state_notes": [
+        "status=unresolved",
+        "summary=Data quality concerns such as duplicated rows and class imbalance may influence observed strong dependencies and class-conditioned structural variations, potentially confounding interpretation of feature behavior.",
+        "revision_count=0",
+        "last_updated_round=initialization",
+        "open_gap=To what extent do duplicated rows inflate correlation measures or variance estimates?",
+        "open_gap=Could data quality remediation alter the observed structural patterns significantly?"
+      ]
+    }
+  ],
+  "round_constraints": [
+    "selection_budget=3",
+    "allocation_only",
+    "preserve_deferred_hypotheses",
+    "round_start_state_version=1"
+  ]
+}

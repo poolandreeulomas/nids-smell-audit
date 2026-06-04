@@ -1,0 +1,18 @@
+{
+  "task_id": "task_2",
+  "hypothesis_id": "hyp_3_distributional_skew_vs_partition_imbalance",
+  "task_scope": "Quantify the impact of duplicated rows on Destination Port distribution skew and entropy to assess artifact influence.",
+  "allowed_actions": [
+    "duplication_verification",
+    "distribution_verification"
+  ],
+  "local_context_refs": [
+    "e1",
+    "e2",
+    "e33"
+  ],
+  "stop_conditions": [
+    "duplication impact metrics converge",
+    "entropy variation bounded"
+  ]
+}

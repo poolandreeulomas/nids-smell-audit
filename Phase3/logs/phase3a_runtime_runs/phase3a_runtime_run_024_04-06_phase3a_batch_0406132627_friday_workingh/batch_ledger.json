@@ -1,0 +1,22 @@
+{
+  "batch_id": "phase3a_batch_0406132627_friday-workinghours-afternoon-ddos.pcap_iscx_f0e355",
+  "dataset_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\data\\cic_ids_2017\\Friday-WorkingHours-Afternoon-DDos.pcap_ISCX.csv",
+  "model_name": "gpt-4.1-mini",
+  "max_rounds": 1,
+  "critic_enabled": true,
+  "status": "failed",
+  "created_at": "2026-06-04T13:26:27.098442+00:00",
+  "completed_at": "2026-06-04T13:46:40.809295+00:00",
+  "semantic_extraction_run_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\semantic_extraction_runs\\semantic_extraction_run_039_04-06_phase3a_batch_0406132627_friday_workingh\\component_run.json",
+  "initial_investigation_analysis_run_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\investigation_analysis_runs\\investigation_analysis_run_026_04-06_phase3a_batch_0406132627_friday_workingh\\component_run.json",
+  "initial_state_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\phase3a_runtime_runs\\phase3a_runtime_run_024_04-06_phase3a_batch_0406132627_friday_workingh\\initial_state.json",
+  "initial_state_version": 1,
+  "round_manifests": [],
+  "finalization": {
+    "terminal_reason": "runtime_error",
+    "final_state_manager_run_path": "",
+    "final_batch_auditor_run_path": "",
+    "final_state_version": 0,
+    "final_status": "failed"
+  }
+}

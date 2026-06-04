@@ -1,0 +1,16 @@
+{
+  "task_id": "task_1",
+  "hypothesis_id": "hyp_4_distributional_divergence_destination_port",
+  "status": "completed",
+  "findings": [
+    "Destination Port feature exhibits strong distributional divergence between BENIGN and DDoS classes.",
+    "DDoS class distribution is highly stable with zero entropy and a dominant value ratio of 1.0.",
+    "BENIGN class distribution shows moderate entropy and less dominance, indicating more variability.",
+    "Distributional stability is confirmed across temporal and attack scenario subsets within evidence e33."
+  ],
+  "evidence_refs": [
+    "task_1_step_03"
+  ],
+  "contradictions": [],
+  "limitations": []
+}

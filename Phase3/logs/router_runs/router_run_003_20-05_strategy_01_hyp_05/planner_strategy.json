@@ -1,0 +1,20 @@
+{
+  "strategy_id": "strategy_01_hyp_05",
+  "hypothesis_id": "hyp_05_tension_between_redundancy_and_representation",
+  "strategic_objective": "Explore the coexistence of feature redundancy with strong class-conditioned representational differences to clarify their interplay and impact on model robustness.",
+  "key_checks": [
+    "Identify features with high redundancy but distinct class-conditioned distributions",
+    "Assess redundancy patterns within and across classes",
+    "Examine feature subsets for differential representational strength by class"
+  ],
+  "success_criteria": [
+    "Clear characterization of features that are redundant yet class-discriminative",
+    "Insights into how redundancy affects feature selection and model stability",
+    "Evidence of tension patterns that inform robustness considerations"
+  ],
+  "router_constraints": [
+    "preserve feature redundancy context",
+    "preserve class-conditioned distribution references",
+    "preserve evidence from related features"
+  ]
+}

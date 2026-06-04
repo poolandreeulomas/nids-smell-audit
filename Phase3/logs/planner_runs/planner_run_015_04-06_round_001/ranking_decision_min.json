@@ -1,0 +1,9 @@
+{
+  "batch_id": "phase3a_batch_0406073857_friday-workinghours-afternoon-ddos.pcap_iscx_ee0ef0",
+  "round_id": "round-001",
+  "selected_hypothesis_ids": [
+    "hyp_8_low_cardinality_features_as_potential_shortcut_signals",
+    "hyp_3_class_conditioned_structural_variation_in_packet_length_features",
+    "hyp_4_destination_port_distribution_skew_reflects_attack_targeting"
+  ]
+}

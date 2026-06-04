@@ -1,0 +1,24 @@
+{
+  "task_id": "task_3",
+  "hypothesis_id": "hyp_003",
+  "task_scope": "Test shortcut-like predictive power of individual features within correlated pairs to identify potential shortcut signals using evidence refs e13 to e22.",
+  "allowed_actions": [
+    "shortcut_verification"
+  ],
+  "local_context_refs": [
+    "e13",
+    "e14",
+    "e15",
+    "e16",
+    "e17",
+    "e18",
+    "e19",
+    "e20",
+    "e21",
+    "e22"
+  ],
+  "stop_conditions": [
+    "shortcut-like signals tested for all correlated features",
+    "predictive power results documented"
+  ]
+}

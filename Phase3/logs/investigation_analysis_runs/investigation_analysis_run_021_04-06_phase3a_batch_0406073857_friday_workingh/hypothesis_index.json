@@ -1,0 +1,221 @@
+{
+  "hypothesis_count": 10,
+  "evidence_ref_coverage": [
+    "e1",
+    "e10",
+    "e11",
+    "e12",
+    "e13",
+    "e14",
+    "e15",
+    "e16",
+    "e17",
+    "e18",
+    "e19",
+    "e2",
+    "e20",
+    "e21",
+    "e22",
+    "e23",
+    "e24",
+    "e25",
+    "e26",
+    "e27",
+    "e28",
+    "e29",
+    "e3",
+    "e30",
+    "e31",
+    "e32",
+    "e33",
+    "e4",
+    "e8",
+    "e9"
+  ],
+  "overlap_pairs": [
+    {
+      "left_hypothesis_id": "hyp_1_low_cardinality_flags_as_stable_background",
+      "right_hypothesis_id": "hyp_8_low_cardinality_features_as_potential_shortcut_signals",
+      "shared_evidence_refs": [
+        "e26",
+        "e27",
+        "e32"
+      ]
+    },
+    {
+      "left_hypothesis_id": "hyp_2_strong_linear_dependencies_indicate_redundancy",
+      "right_hypothesis_id": "hyp_7_tension_between_feature_redundancy_and_feature_importance",
+      "shared_evidence_refs": [
+        "e13",
+        "e16"
+      ]
+    },
+    {
+      "left_hypothesis_id": "hyp_2_strong_linear_dependencies_indicate_redundancy",
+      "right_hypothesis_id": "hyp_9_dependency_backed_regularity_reflects_stable_protocol_behavior",
+      "shared_evidence_refs": [
+        "e13",
+        "e14",
+        "e15",
+        "e16",
+        "e17",
+        "e18",
+        "e19",
+        "e20",
+        "e21",
+        "e22"
+      ]
+    },
+    {
+      "left_hypothesis_id": "hyp_3_class_conditioned_structural_variation_in_packet_length_features",
+      "right_hypothesis_id": "hyp_6_tension_between_low_cardinality_and_class_variation_features",
+      "shared_evidence_refs": [
+        "e10",
+        "e11",
+        "e12",
+        "e8",
+        "e9"
+      ]
+    },
+    {
+      "left_hypothesis_id": "hyp_4_destination_port_distribution_skew_reflects_attack_targeting",
+      "right_hypothesis_id": "hyp_10_localized_representation_sensitive_handles_in_destination_port",
+      "shared_evidence_refs": [
+        "e33"
+      ]
+    },
+    {
+      "left_hypothesis_id": "hyp_6_tension_between_low_cardinality_and_class_variation_features",
+      "right_hypothesis_id": "hyp_8_low_cardinality_features_as_potential_shortcut_signals",
+      "shared_evidence_refs": [
+        "e23",
+        "e24",
+        "e25"
+      ]
+    },
+    {
+      "left_hypothesis_id": "hyp_7_tension_between_feature_redundancy_and_feature_importance",
+      "right_hypothesis_id": "hyp_9_dependency_backed_regularity_reflects_stable_protocol_behavior",
+      "shared_evidence_refs": [
+        "e13",
+        "e16"
+      ]
+    }
+  ],
+  "hypotheses": [
+    {
+      "hypothesis_id": "hyp_1_low_cardinality_flags_as_stable_background",
+      "evidence_refs": [
+        "e26",
+        "e27",
+        "e32"
+      ],
+      "open_question_count": 2
+    },
+    {
+      "hypothesis_id": "hyp_2_strong_linear_dependencies_indicate_redundancy",
+      "evidence_refs": [
+        "e13",
+        "e14",
+        "e15",
+        "e16",
+        "e17",
+        "e18",
+        "e19",
+        "e20",
+        "e21",
+        "e22"
+      ],
+      "open_question_count": 2
+    },
+    {
+      "hypothesis_id": "hyp_3_class_conditioned_structural_variation_in_packet_length_features",
+      "evidence_refs": [
+        "e10",
+        "e11",
+        "e12",
+        "e8",
+        "e9"
+      ],
+      "open_question_count": 2
+    },
+    {
+      "hypothesis_id": "hyp_4_destination_port_distribution_skew_reflects_attack_targeting",
+      "evidence_refs": [
+        "e33"
+      ],
+      "open_question_count": 2
+    },
+    {
+      "hypothesis_id": "hyp_5_partition_level_data_quality_issues_influence_feature_distributions",
+      "evidence_refs": [
+        "e1",
+        "e2"
+      ],
+      "open_question_count": 2
+    },
+    {
+      "hypothesis_id": "hyp_6_tension_between_low_cardinality_and_class_variation_features",
+      "evidence_refs": [
+        "e10",
+        "e11",
+        "e12",
+        "e23",
+        "e24",
+        "e25",
+        "e8",
+        "e9"
+      ],
+      "open_question_count": 2
+    },
+    {
+      "hypothesis_id": "hyp_7_tension_between_feature_redundancy_and_feature_importance",
+      "evidence_refs": [
+        "e13",
+        "e16",
+        "e3",
+        "e4"
+      ],
+      "open_question_count": 2
+    },
+    {
+      "hypothesis_id": "hyp_8_low_cardinality_features_as_potential_shortcut_signals",
+      "evidence_refs": [
+        "e23",
+        "e24",
+        "e25",
+        "e26",
+        "e27",
+        "e28",
+        "e29",
+        "e30",
+        "e31",
+        "e32"
+      ],
+      "open_question_count": 2
+    },
+    {
+      "hypothesis_id": "hyp_9_dependency_backed_regularity_reflects_stable_protocol_behavior",
+      "evidence_refs": [
+        "e13",
+        "e14",
+        "e15",
+        "e16",
+        "e17",
+        "e18",
+        "e19",
+        "e20",
+        "e21",
+        "e22"
+      ],
+      "open_question_count": 2
+    },
+    {
+      "hypothesis_id": "hyp_10_localized_representation_sensitive_handles_in_destination_port",
+      "evidence_refs": [
+        "e33"
+      ],
+      "open_question_count": 2
+    }
+  ]
+}

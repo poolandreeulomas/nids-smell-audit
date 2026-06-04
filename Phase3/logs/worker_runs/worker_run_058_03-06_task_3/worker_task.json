@@ -1,0 +1,29 @@
+{
+  "task_id": "task_3",
+  "hypothesis_id": "hyp_10_interplay_between_redundancy_and_class_conditioned_variation",
+  "task_scope": "Check for unstable dependencies that may mask or distort class-conditioned variation in packet length and size features",
+  "allowed_actions": [
+    "local_consistency_verification",
+    "dependency_contextualization"
+  ],
+  "local_context_refs": [
+    "e9",
+    "e10",
+    "e11",
+    "e12",
+    "e13",
+    "e14",
+    "e15",
+    "e16",
+    "e17",
+    "e18",
+    "e19",
+    "e20",
+    "e21",
+    "e22"
+  ],
+  "stop_conditions": [
+    "unstable dependencies identified",
+    "masking effects documented"
+  ]
+}

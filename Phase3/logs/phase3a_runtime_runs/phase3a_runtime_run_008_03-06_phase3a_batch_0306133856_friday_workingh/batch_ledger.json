@@ -1,0 +1,102 @@
+{
+  "batch_id": "phase3a_batch_0306133856_friday-workinghours-afternoon-ddos.pcap_iscx_163504",
+  "dataset_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\data\\cic_ids_2017\\Friday-WorkingHours-Afternoon-DDos.pcap_ISCX.csv",
+  "model_name": "gpt-4.1-mini",
+  "max_rounds": 1,
+  "critic_enabled": false,
+  "status": "completed",
+  "created_at": "2026-06-03T13:38:56.772075+00:00",
+  "completed_at": "2026-06-03T13:40:51.340172+00:00",
+  "semantic_extraction_run_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\semantic_extraction_runs\\semantic_extraction_run_024_03-06_phase3a_batch_0306133856_friday_workingh\\component_run.json",
+  "initial_investigation_analysis_run_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\investigation_analysis_runs\\investigation_analysis_run_011_03-06_phase3a_batch_0306133856_friday_workingh\\component_run.json",
+  "initial_state_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\phase3a_runtime_runs\\phase3a_runtime_run_008_03-06_phase3a_batch_0306133856_friday_workingh\\initial_state.json",
+  "initial_state_version": 1,
+  "round_manifests": [
+    {
+      "round_id": "round-001",
+      "round_index": 1,
+      "analysis_mode": "initial",
+      "analysis_run_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\investigation_analysis_runs\\investigation_analysis_run_011_03-06_phase3a_batch_0306133856_friday_workingh\\component_run.json",
+      "frozen_snapshot_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\phase3a_runtime_runs\\phase3a_runtime_run_008_03-06_phase3a_batch_0306133856_friday_workingh\\round_manifests\\round-001_snapshot.json",
+      "global_aggregation_path": "",
+      "ranking_run_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\hypothesis_ranking_runs\\hypothesis_ranking_run_004_03-06_round_001\\component_run.json",
+      "planner_run_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\planner_runs\\planner_run_006_03-06_round_001\\component_run.json",
+      "selected_hypothesis_ids": [
+        "hyp_4_representation_sensitive_distribution_skew_in_destination_port",
+        "hyp_2_strong_feature_dependencies_and_redundancy",
+        "hyp_1_low_diversity_bulk_features"
+      ],
+      "deferred_hypothesis_ids": [
+        "hyp_3_class_conditioned_structural_variation_in_packet_lengths",
+        "hyp_5_partition_level_data_quality_and_class_imbalance_effects",
+        "hyp_6_preserved_weak_signals_in_packet_length_features",
+        "hyp_7_potential_saturation_or_ceiling_effect_in_bulk_features",
+        "hyp_8_interplay_between_strong_dependencies_and_class_conditioned_variation",
+        "hyp_9_localized_representation_sensitive_handles_in_packet_length_and_flag_features",
+        "hyp_10_effect_of_class_distribution_skew_on_feature_entropy_and_variance"
+      ],
+      "start_state_version": 1,
+      "end_state_version": 1,
+      "status": "completed",
+      "terminal_reason": "stopped_after_router",
+      "critic_run_path": "",
+      "hypothesis_runs": [
+        {
+          "hypothesis_id": "hyp_4_representation_sensitive_distribution_skew_in_destination_port",
+          "planner_strategy_id": "strategy_01_hyp_4",
+          "router_run_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\router_runs\\router_run_007_03-06_strategy_01_hyp_4\\component_run.json",
+          "task_ids": [
+            "task_1",
+            "task_2",
+            "task_3"
+          ],
+          "worker_run_paths": [],
+          "aggregation_run_path": "",
+          "state_manager_run_path": "",
+          "start_state_version": 1,
+          "end_state_version": 1,
+          "status": "routed"
+        },
+        {
+          "hypothesis_id": "hyp_2_strong_feature_dependencies_and_redundancy",
+          "planner_strategy_id": "strategy_02_hyp_2",
+          "router_run_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\router_runs\\router_run_008_03-06_strategy_02_hyp_2\\component_run.json",
+          "task_ids": [
+            "task_1",
+            "task_2",
+            "task_3"
+          ],
+          "worker_run_paths": [],
+          "aggregation_run_path": "",
+          "state_manager_run_path": "",
+          "start_state_version": 1,
+          "end_state_version": 1,
+          "status": "routed"
+        },
+        {
+          "hypothesis_id": "hyp_1_low_diversity_bulk_features",
+          "planner_strategy_id": "strategy_03_hyp_1",
+          "router_run_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\router_runs\\router_run_009_03-06_strategy_03_hyp_1\\component_run.json",
+          "task_ids": [
+            "task_1",
+            "task_2",
+            "task_3"
+          ],
+          "worker_run_paths": [],
+          "aggregation_run_path": "",
+          "state_manager_run_path": "",
+          "start_state_version": 1,
+          "end_state_version": 1,
+          "status": "routed"
+        }
+      ]
+    }
+  ],
+  "finalization": {
+    "terminal_reason": "stopped_after_router",
+    "final_state_manager_run_path": "",
+    "final_batch_auditor_run_path": "",
+    "final_state_version": 1,
+    "final_status": "completed_partial_runtime"
+  }
+}

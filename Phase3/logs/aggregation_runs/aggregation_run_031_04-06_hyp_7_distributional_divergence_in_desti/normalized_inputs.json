@@ -1,0 +1,167 @@
+{
+  "batch_id": "phase3a_batch_0406122053_friday-workinghours-afternoon-ddos.pcap_iscx_2ba5ac",
+  "round_id": "round-001",
+  "hypothesis_id": "hyp_7_distributional_divergence_in_destination_port_feature",
+  "worker_result_count": 4,
+  "expected_task_ids": [
+    "task_1",
+    "task_2",
+    "task_3",
+    "task_4"
+  ],
+  "selected_task_ids": [
+    "task_1",
+    "task_2",
+    "task_3",
+    "task_4"
+  ],
+  "missing_task_ids": [],
+  "extra_task_ids": [],
+  "source_run_dirs": [
+    "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\worker_runs\\worker_run_114_04-06_task_4",
+    "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\worker_runs\\worker_run_115_04-06_task_3",
+    "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\worker_runs\\worker_run_116_04-06_task_2",
+    "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\worker_runs\\worker_run_119_04-06_task_1"
+  ],
+  "status_counts": {
+    "completed": 3,
+    "partial": 1
+  },
+  "source_evidence_refs": [
+    "task_1_step_03",
+    "task_1_step_05",
+    "task_1_step_07",
+    "task_2_step_03",
+    "task_2_step_05",
+    "task_3_step_03",
+    "task_3_step_05",
+    "task_4_step_03",
+    "task_4_step_05",
+    "task_4_step_07"
+  ],
+  "source_contradictions": [
+    "Potential confounding effect of class imbalance on distributional divergence remains unresolved.",
+    "Strong distributional divergence may be confounded by class imbalance, preserving local tension."
+  ],
+  "source_limitations": [
+    "Analysis limited to local evidence within e33; broader dataset context not incorporated.",
+    "Analysis limited to local temporal windows within evidence e33; no global or cross-batch verification performed.",
+    "Class imbalance impact on distributional divergence stability remains unresolved.",
+    "Moderate class imbalance in the dataset limits the generalizability and epistemic certainty of the shortcut-like signal."
+  ],
+  "source_finding_count": 12,
+  "non_success_count": 0,
+  "worker_results": [
+    {
+      "task_id": "task_1",
+      "hypothesis_id": "hyp_7_distributional_divergence_in_destination_port_feature",
+      "status": "completed",
+      "findings": [
+        "Destination Port feature exhibits stable, strong distributional divergence between BENIGN and DDoS classes across multiple time windows within evidence e33.",
+        "DDoS class distribution is dominated by a single port value with near-zero entropy, indicating a shortcut-like signal.",
+        "Temporal distribution patterns are stable but may be influenced by moderate class imbalance, raising uncertainty about broader generalizability."
+      ],
+      "evidence_refs": [
+        "task_1_step_03",
+        "task_1_step_05",
+        "task_1_step_07"
+      ],
+      "contradictions": [
+        "Potential confounding effect of class imbalance on distributional divergence remains unresolved."
+      ],
+      "limitations": [
+        "Analysis limited to local temporal windows within evidence e33; no global or cross-batch verification performed."
+      ]
+    },
+    {
+      "task_id": "task_2",
+      "hypothesis_id": "hyp_7_distributional_divergence_in_destination_port_feature",
+      "status": "partial",
+      "findings": [
+        "Destination Port feature shows strong distributional divergence between BENIGN and DDoS classes with low entropy and a dominant port in DDoS.",
+        "Cardinality verification confirms low-cardinality behavior consistent with dominant port usage.",
+        "Moderate class imbalance introduces uncertainty about the stability and generalizability of the distributional divergence."
+      ],
+      "evidence_refs": [
+        "task_2_step_03",
+        "task_2_step_05"
+      ],
+      "contradictions": [
+        "Strong distributional divergence may be confounded by class imbalance, preserving local tension."
+      ],
+      "limitations": [
+        "Class imbalance impact on distributional divergence stability remains unresolved."
+      ]
+    },
+    {
+      "task_id": "task_3",
+      "hypothesis_id": "hyp_7_distributional_divergence_in_destination_port_feature",
+      "status": "completed",
+      "findings": [
+        "Destination Port feature exhibits strong distributional divergence between BENIGN and DDoS classes, with DDoS dominated by a single port and near-zero entropy.",
+        "No evidence of narrow structural dependency clusters was found for Destination Port, indicating the divergence is distributional rather than dependency-driven.",
+        "An unresolved tension remains about the impact of moderate class imbalance on the stability and generalizability of this distributional signal."
+      ],
+      "evidence_refs": [
+        "task_3_step_03",
+        "task_3_step_05"
+      ],
+      "contradictions": [
+        "Potential confounding effect of class imbalance on distributional divergence remains unresolved."
+      ],
+      "limitations": [
+        "Analysis limited to local evidence within e33; broader dataset context not incorporated."
+      ]
+    },
+    {
+      "task_id": "task_4",
+      "hypothesis_id": "hyp_7_distributional_divergence_in_destination_port_feature",
+      "status": "completed",
+      "findings": [
+        "Destination Port feature exhibits strong distributional divergence between BENIGN and DDoS classes with a dominant port in DDoS and zero entropy.",
+        "Shortcut verification consistently detected a moderate shortcut-like predictive signal in Destination Port.",
+        "Class imbalance may confound the observed distributional divergence, limiting confidence in signal stability."
+      ],
+      "evidence_refs": [
+        "task_4_step_03",
+        "task_4_step_05",
+        "task_4_step_07"
+      ],
+      "contradictions": [
+        "Potential confounding effect of class imbalance on distributional divergence remains unresolved."
+      ],
+      "limitations": [
+        "Moderate class imbalance in the dataset limits the generalizability and epistemic certainty of the shortcut-like signal."
+      ]
+    }
+  ],
+  "overlap_diagnostics": [
+    {
+      "left_task_id": "task_1",
+      "right_task_id": "task_3",
+      "shared_findings": [],
+      "shared_evidence_refs": [],
+      "shared_contradictions": [
+        "Potential confounding effect of class imbalance on distributional divergence remains unresolved."
+      ]
+    },
+    {
+      "left_task_id": "task_1",
+      "right_task_id": "task_4",
+      "shared_findings": [],
+      "shared_evidence_refs": [],
+      "shared_contradictions": [
+        "Potential confounding effect of class imbalance on distributional divergence remains unresolved."
+      ]
+    },
+    {
+      "left_task_id": "task_3",
+      "right_task_id": "task_4",
+      "shared_findings": [],
+      "shared_evidence_refs": [],
+      "shared_contradictions": [
+        "Potential confounding effect of class imbalance on distributional divergence remains unresolved."
+      ]
+    }
+  ]
+}

@@ -1,0 +1,33 @@
+{
+  "component": "worker",
+  "created_at": "2026-06-04T13:29:39.809565+00:00",
+  "schema_version": "phase3a.worker.v1",
+  "batch_id": "phase3a_batch_0406132627_friday-workinghours-afternoon-ddos.pcap_iscx_f0e355",
+  "round_id": "round-001",
+  "task_id": "task_1",
+  "hypothesis_id": "hyp_5_strong_linear_dependencies",
+  "status": "ok",
+  "worker_status": "completed",
+  "validation_ok": true,
+  "result_committed": true,
+  "model_name": "gpt-4.1-mini",
+  "caller_mode": "cli",
+  "replay_of": null,
+  "artifact_paths": {
+    "component_run_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\worker_runs\\worker_run_136_04-06_task_1\\component_run.json",
+    "worker_task_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\worker_runs\\worker_run_136_04-06_task_1\\worker_task.json",
+    "worker_runtime_refs_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\worker_runs\\worker_run_136_04-06_task_1\\worker_runtime_refs.json",
+    "prompt_snapshots_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\worker_runs\\worker_run_136_04-06_task_1\\prompt_snapshots.json",
+    "raw_model_responses_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\worker_runs\\worker_run_136_04-06_task_1\\raw_model_responses.json",
+    "parsed_steps_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\worker_runs\\worker_run_136_04-06_task_1\\parsed_steps.json",
+    "tool_events_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\worker_runs\\worker_run_136_04-06_task_1\\tool_events.json",
+    "retry_events_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\worker_runs\\worker_run_136_04-06_task_1\\retry_events.json",
+    "failure_events_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\worker_runs\\worker_run_136_04-06_task_1\\failure_events.json",
+    "worker_result_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\worker_runs\\worker_run_136_04-06_task_1\\worker_result.json",
+    "worker_output_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\worker_runs\\worker_run_136_04-06_task_1\\worker_output.json",
+    "operational_trace_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\worker_runs\\worker_run_136_04-06_task_1\\operational_trace.json",
+    "validation_report_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\worker_runs\\worker_run_136_04-06_task_1\\validation_report.json",
+    "runtime_metrics_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\worker_runs\\worker_run_136_04-06_task_1\\runtime_metrics.json",
+    "replay_metadata_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\worker_runs\\worker_run_136_04-06_task_1\\replay_metadata.json"
+  }
+}

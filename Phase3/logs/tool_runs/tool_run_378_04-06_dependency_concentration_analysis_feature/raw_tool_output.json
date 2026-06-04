@@ -1,0 +1,46 @@
+{
+  "ok": true,
+  "tool": "dependency_concentration_analysis",
+  "feature_name": "Avg Fwd Segment Size",
+  "value": 0.07511948616866473,
+  "error_code": null,
+  "error_message": null,
+  "meta": {
+    "dataset_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\data\\cic_ids_2017\\Friday-WorkingHours-Afternoon-DDos.pcap_ISCX.csv",
+    "label_column": "Label"
+  },
+  "evidence": {
+    "feature": "Avg Fwd Segment Size",
+    "signals": [],
+    "metrics": {
+      "partner_count": 67,
+      "strong_partner_count": 5,
+      "top_partner": "Fwd Packet Length Mean",
+      "top_partner_correlation": 1.0,
+      "top_partner_share": 0.13152055786147623,
+      "top3_share": 0.35919800473774344,
+      "concentration_index": 0.07511948616866473,
+      "effective_partner_count": 13.31212513561014,
+      "mean_abs_correlation": 0.2223804516735508,
+      "median_abs_correlation": 0.1674298019540631
+    },
+    "support": {
+      "n_total": 225745,
+      "n_per_class": {
+        "DDoS": 128027,
+        "BENIGN": 97718
+      },
+      "total_samples": 225745,
+      "per_class": {
+        "DDoS": 128027,
+        "BENIGN": 97718
+      }
+    },
+    "provenance": {
+      "source": "tool",
+      "tool": "dependency_concentration_analysis",
+      "step": null
+    },
+    "status": "active"
+  }
+}

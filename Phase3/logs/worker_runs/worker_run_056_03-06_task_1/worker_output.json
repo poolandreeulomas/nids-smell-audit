@@ -1,0 +1,21 @@
+{
+  "batch_id": "phase3a_batch_0306181120_friday-workinghours-afternoon-ddos.pcap_iscx_5e8f98",
+  "round_id": "round-001",
+  "worker_result": {
+    "task_id": "task_1",
+    "hypothesis_id": "hyp_10_interplay_between_redundancy_and_class_conditioned_variation",
+    "status": "completed",
+    "findings": [
+      "Backward packet length features (Bwd Packet Length Max, Mean) exhibit high redundancy and tightly clustered dependency profiles.",
+      "Avg Bwd Segment Size shows strong redundancy with Bwd Packet Length Mean, indicating interplay between segment size and packet length features.",
+      "Class-conditioned structural variation is evident in backward packet length and segment size features, supporting the hypothesis of interplay between redundancy and class-conditioned variation."
+    ],
+    "evidence_refs": [
+      "task_1_step_03",
+      "task_1_step_05",
+      "task_1_step_07"
+    ],
+    "contradictions": [],
+    "limitations": []
+  }
+}

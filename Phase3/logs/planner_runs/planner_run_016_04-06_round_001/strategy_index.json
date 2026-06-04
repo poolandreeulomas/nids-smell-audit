@@ -1,0 +1,35 @@
+{
+  "selected_count": 3,
+  "strategy_count": 3,
+  "missing_strategy_hypothesis_ids": [],
+  "unexpected_strategy_hypothesis_ids": [],
+  "strategies": [
+    {
+      "strategy_id": "strategy_01_hyp_005",
+      "hypothesis_id": "hyp_005_destination_port_distribution_shift",
+      "summary": "The Destination Port feature (e33) demonstrates strong class separation with a dominant ratio of 1.0 and zero entropy in the DDoS class, alongside a high Jensen-Shannon divergence (0.7315), indicating a pronounced distributional shift that may serve as a localized representation-sensitive handle or a potential shortcut feature.",
+      "strategic_objective": "Clarify whether the strong class separation in Destination Port is a stable, genuine attack signal or a dataset artifact and assess its risk as a shortcut feature.",
+      "key_check_count": 4,
+      "success_criteria_count": 3,
+      "router_constraint_count": 2
+    },
+    {
+      "strategy_id": "strategy_02_hyp_002",
+      "hypothesis_id": "hyp_002_strong_dependency_pairs_redundancy",
+      "summary": "The presence of perfect or near-perfect correlations (correlation=1 or 0.9993) among several feature pairs (e13-e22) suggests strong linear dependencies that may introduce redundancy, potentially reducing the effective dimensionality of the dataset and indicating that some features may be proxies or transformations of others.",
+      "strategic_objective": "Determine the stability and origin of strong linear dependencies among feature pairs and their impact on dataset redundancy.",
+      "key_check_count": 3,
+      "success_criteria_count": 3,
+      "router_constraint_count": 2
+    },
+    {
+      "strategy_id": "strategy_03_hyp_010",
+      "hypothesis_id": "hyp_010_interplay_between_class_conditioned_variation_and_dependency_structure",
+      "summary": "The coexistence of strong class-conditioned structural variation (e8-e12) and near-perfect feature dependencies (e13-e22) suggests a complex interplay where discriminative signals may be entangled with redundant or dependent features, complicating feature selection and interpretation.",
+      "strategic_objective": "Explore how class-conditioned variation and strong dependencies coexist and influence feature selection and model robustness.",
+      "key_check_count": 3,
+      "success_criteria_count": 3,
+      "router_constraint_count": 2
+    }
+  ]
+}

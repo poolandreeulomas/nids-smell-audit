@@ -1,0 +1,18 @@
+{
+  "task_id": "task_4",
+  "hypothesis_id": "hyp_6_class_conditioned_variation_backward_packet_lengths",
+  "task_scope": "Evaluate potential for reliable class discrimination based on structural variations in backward packet length features under varying conditions using evidence refs e10 to e12.",
+  "allowed_actions": [
+    "relation_verification",
+    "dependency_contextualization"
+  ],
+  "local_context_refs": [
+    "e10",
+    "e11",
+    "e12"
+  ],
+  "stop_conditions": [
+    "discriminative patterns identified",
+    "dependency risks assessed for robustness"
+  ]
+}

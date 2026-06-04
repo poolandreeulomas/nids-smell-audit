@@ -1,0 +1,32 @@
+{
+  "batch_id": "phase3a_batch_0406080944_friday-workinghours-afternoon-ddos.pcap_iscx_618cac",
+  "round_id": "round-001",
+  "selected_hypothesis_ids": [
+    "hyp_005_destination_port_distribution_shift",
+    "hyp_002_strong_dependency_pairs_redundancy",
+    "hyp_010_interplay_between_class_conditioned_variation_and_dependency_structure"
+  ],
+  "deferred_hypothesis_ids": [
+    "hyp_001_low_diversity_bulk_features",
+    "hyp_003_class_conditioned_variation_in_backward_packet_lengths",
+    "hyp_004_average_packet_size_class_conditioned_variation",
+    "hyp_006_partition_level_class_imbalance_and_duplicates",
+    "hyp_007_preserved_weak_signals_in_backward_packet_length_features",
+    "hyp_008_joint_importance_of_strongly_correlated_backward_segment_features",
+    "hyp_009_potential_representation_sensitive_shortcuts_in_flag_features"
+  ],
+  "selection_rationales": [
+    {
+      "hypothesis_id": "hyp_005_destination_port_distribution_shift",
+      "reason": "Strong class separation and distributional shift suggest a high-value representation-sensitive shortcut or attack vector."
+    },
+    {
+      "hypothesis_id": "hyp_002_strong_dependency_pairs_redundancy",
+      "reason": "Near-perfect correlations indicate critical redundancy affecting dataset dimensionality and feature interpretation."
+    },
+    {
+      "hypothesis_id": "hyp_010_interplay_between_class_conditioned_variation_and_dependency_structure",
+      "reason": "Complex interaction of discriminative variation and redundancy poses key challenges for robust feature selection."
+    }
+  ]
+}

@@ -1,0 +1,24 @@
+{
+  "batch_id": "phase3a_batch_0406095248_friday-workinghours-afternoon-ddos.pcap_iscx_f8c2c2",
+  "round_id": "round-001",
+  "worker_result": {
+    "task_id": "task_3",
+    "hypothesis_id": "hyp_007_class_conditioned_distribution_destination_port",
+    "status": "completed",
+    "findings": [
+      "Destination Port shows strong class-conditioned distributional shifts with dominant port ratio 1.0 and zero entropy in DDoS class.",
+      "Moderate shortcut signal detected, indicating potential shortcut risk.",
+      "High local label neighborhood conflicts and duplicate label conflicts reveal unstable dependencies and local contradictions."
+    ],
+    "evidence_refs": [
+      "task_3_step_03",
+      "task_3_step_05"
+    ],
+    "contradictions": [
+      "High label neighborhood conflict and duplicate label conflict indicate local contradictions in label topology."
+    ],
+    "limitations": [
+      "Analysis limited to local evidence within e33; no global aggregation performed."
+    ]
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "task_id": "task_2",
+  "hypothesis_id": "hyp_007_class_conditioned_distribution_destination_port",
+  "task_scope": "Analyze temporal and contextual factors influencing shifts in destination port distribution within evidence e33.",
+  "allowed_actions": [
+    "dependency_contextualization",
+    "relation_verification"
+  ],
+  "local_context_refs": [
+    "e33"
+  ],
+  "stop_conditions": [
+    "temporal patterns identified",
+    "contextual dependencies characterized"
+  ]
+}

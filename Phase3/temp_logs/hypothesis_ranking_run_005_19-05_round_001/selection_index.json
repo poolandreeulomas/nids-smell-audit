@@ -1,0 +1,30 @@
+{
+  "candidate_count": 3,
+  "selected_count": 2,
+  "deferred_count": 1,
+  "unaccounted_hypothesis_ids": [],
+  "selected_hypotheses": [
+    {
+      "hypothesis_id": "hyp-1",
+      "summary": "The broad dependency region may reflect a batch-wide regularity that still leaves room for a narrow local interpretation.",
+      "reason": "Broad-plus-local tension could clarify a large part of the batch quickly.",
+      "evidence_ref_count": 3,
+      "open_question_count": 1
+    },
+    {
+      "hypothesis_id": "hyp-3",
+      "summary": "The contradiction between duplication-sensitive and local-separability evidence is a key target for disambiguation.",
+      "reason": "The contradiction could materially reshape which interpretation deserves later effort.",
+      "evidence_ref_count": 2,
+      "open_question_count": 1
+    }
+  ],
+  "deferred_hypotheses": [
+    {
+      "hypothesis_id": "hyp-2",
+      "summary": "The dst_port signal may remain a distinct representation-sensitive framing with unresolved local scope.",
+      "evidence_ref_count": 2,
+      "open_question_count": 1
+    }
+  ]
+}

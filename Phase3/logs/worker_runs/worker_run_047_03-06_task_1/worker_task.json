@@ -1,0 +1,14 @@
+{
+  "task_id": "task_1",
+  "hypothesis_id": "hyp_006",
+  "task_scope": "Compare Destination Port distribution entropy and dominant ratio across DDoS and other classes using evidence e33",
+  "allowed_actions": [
+    "distribution_verification"
+  ],
+  "local_context_refs": [
+    "e33"
+  ],
+  "stop_conditions": [
+    "distribution entropy and dominant ratio metrics computed for all classes"
+  ]
+}

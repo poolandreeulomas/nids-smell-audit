@@ -1,0 +1,39 @@
+{
+  "ok": true,
+  "schema_version": "phase3a.semantic_extraction.v1",
+  "overview_validation": {
+    "ok": true,
+    "errors": [],
+    "warnings": []
+  },
+  "partition_context_validation": {
+    "ok": true,
+    "errors": [],
+    "warnings": []
+  },
+  "parse_validation": {
+    "ok": true,
+    "errors": [],
+    "warnings": []
+  },
+  "output_validation": {
+    "ok": true,
+    "errors": [],
+    "warnings": [],
+    "stats": {
+      "region_count": 7,
+      "weak_signal_count": 2,
+      "contradiction_count": 0,
+      "tension_count": 0,
+      "grounded_reference_count": 33
+    },
+    "invariants": {
+      "grounded_only": true,
+      "contradictions_preserved": false,
+      "minority_signals_preserved": true,
+      "causal_inference_introduced": false,
+      "context_used_only_for_interpretation": true
+    },
+    "forbidden_language_hits": []
+  }
+}

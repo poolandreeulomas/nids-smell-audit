@@ -1,0 +1,40 @@
+{
+  "hypothesis_id": "hyp_8_class_conditioned_distribution_destination_port",
+  "planner_strategy_id": "strategy_02_hyp_8",
+  "task_count": 4,
+  "action_class_count": 3,
+  "task_summaries": [
+    {
+      "task_id": "task_1",
+      "hypothesis_id": "hyp_8_class_conditioned_distribution_destination_port",
+      "task_scope": "Assess if destination port distribution differences correspond to targeted attack patterns or dataset sampling bias using evidence e33",
+      "allowed_action_count": 1,
+      "local_context_ref_count": 1,
+      "stop_condition_count": 2
+    },
+    {
+      "task_id": "task_2",
+      "hypothesis_id": "hyp_8_class_conditioned_distribution_destination_port",
+      "task_scope": "Measure shortcut-like predictive leverage from Destination Port feature within evidence e33 context",
+      "allowed_action_count": 1,
+      "local_context_ref_count": 1,
+      "stop_condition_count": 2
+    },
+    {
+      "task_id": "task_3",
+      "hypothesis_id": "hyp_8_class_conditioned_distribution_destination_port",
+      "task_scope": "Evaluate stability of destination port distribution skew across dataset partitions or time slices in evidence e33",
+      "allowed_action_count": 1,
+      "local_context_ref_count": 1,
+      "stop_condition_count": 2
+    },
+    {
+      "task_id": "task_4",
+      "hypothesis_id": "hyp_8_class_conditioned_distribution_destination_port",
+      "task_scope": "Check for over-reliance risk in classification models due to dominant destination port values using evidence e33",
+      "allowed_action_count": 1,
+      "local_context_ref_count": 1,
+      "stop_condition_count": 2
+    }
+  ]
+}

@@ -1,0 +1,17 @@
+{
+  "task_id": "task_1",
+  "hypothesis_id": "hyp_3_distributional_skew_vs_partition_imbalance",
+  "task_scope": "Analyze class-conditioned distribution stability of Destination Port across dataset partitions to detect skew patterns.",
+  "allowed_actions": [
+    "distribution_verification"
+  ],
+  "local_context_refs": [
+    "e1",
+    "e2",
+    "e33"
+  ],
+  "stop_conditions": [
+    "distribution metrics stable across partitions",
+    "sample size threshold reached"
+  ]
+}

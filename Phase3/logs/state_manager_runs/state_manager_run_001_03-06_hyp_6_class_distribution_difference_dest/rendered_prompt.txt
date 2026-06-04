@@ -1,0 +1,167 @@
+GLOBAL_MISSION:
+Preserve one evidence-grounded canonical batch state for the active batch.
+The grounded structural substrate is stable. Only the targeted interpretive hypothesis may change here.
+
+LOCAL_ROLE:
+You are State Manager. Apply one conservative, evidence-referenced, hypothesis-local update after Aggregation and before Critic or the next planning round.
+Do not rewrite the structural substrate, re-aggregate worker results, reroute work, replan strategy, or emit critic feedback.
+
+ARCHITECTURAL_BOUNDARIES:
+Prefer patch-style updates over whole-state reconstruction.
+Carry forward contradictions, open gaps, and traceable evidence unless the current inputs explicitly justify a bounded shift.
+Only emit the resulting state delta record for the targeted hypothesis.
+
+TASK:
+{
+  "batch_id": "phase3a_batch_0306181120_friday-workinghours-afternoon-ddos.pcap_iscx_5e8f98",
+  "round_id": "round-001",
+  "hypothesis_id": "hyp_6_class_distribution_difference_destination_port",
+  "previous_state_version": 1
+}
+
+CURRENT_TARGET_STATE:
+{
+  "hypothesis_id": "hyp_6_class_distribution_difference_destination_port",
+  "summary": "Destination Port feature exhibits strong distributional differences between BENIGN and DDoS classes, with a dominant ratio of 1.0 and zero entropy in DDoS, alongside a high Jensen-Shannon divergence of 0.7315, indicating a highly representation-sensitive and potentially shortcut-like feature.",
+  "status": "unresolved",
+  "evidence_refs": [
+    "e33"
+  ],
+  "open_gaps": [
+    "Is the zero entropy and dominant ratio in DDoS destination ports indicative of a single targeted port or a data collection artifact?",
+    "Could this strong class-conditioned distribution skew lead to overfitting or unstable model behavior?"
+  ],
+  "preserved_contradictions": [],
+  "merged_findings": [],
+  "update_focus": "",
+  "last_updated_round": "",
+  "revision_count": 0
+}
+
+STRUCTURAL_SUBSTRATE_REFERENCE:
+{
+  "substrate_id": "substrate_phase3a_batch_0306181120_friday-workinghours-afternoon-ddos.pcap_iscx_5e8f98",
+  "batch_id": "phase3a_batch_0306181120_friday-workinghours-afternoon-ddos.pcap_iscx_5e8f98",
+  "compressed_regions": [
+    {
+      "region_id": "region_6_class_distribution_and_js_divergence_destination_port",
+      "region_kind": "representation_sensitive_region",
+      "status": "active",
+      "summary": "Destination Port feature shows strong distributional differences between BENIGN and DDoS classes, with dominant ratio 1.0 and zero entropy in DDoS, and a high Jensen-Shannon divergence of 0.7315.",
+      "feature_scope": {
+        "features": [
+          "Destination Port"
+        ],
+        "feature_groups": [],
+        "locality": {
+          "scope_type": "feature_group",
+          "scope_value": "Destination Port",
+          "localized": true,
+          "notes": [
+            "Feature with class-conditioned distributional differences"
+          ]
+        }
+      },
+      "evidence_refs": [
+        "e33"
+      ]
+    }
+  ],
+  "preserved_weak_signals": [],
+  "contradictions": [],
+  "unresolved_tensions": []
+}
+
+RECENT_REVISION_CONTEXT:
+[
+  {
+    "revision_type": "initialization",
+    "state_version": 1,
+    "round_id": "",
+    "hypothesis_id": "",
+    "applied_updates": [
+      {
+        "action": "register_structural_substrate",
+        "substrate_id": "substrate_phase3a_batch_0306181120_friday-workinghours-afternoon-ddos.pcap_iscx_5e8f98",
+        "region_count": 7,
+        "weak_signal_count": 1,
+        "contradiction_count": 0,
+        "tension_count": 0
+      },
+      {
+        "action": "register_interpretive_hypotheses",
+        "analysis_id": "analysis_phase3a_0306181120_1",
+        "hypothesis_count": 10
+      }
+    ],
+    "timestamp": "2026-06-03T18:12:16.885090+00:00"
+  }
+]
+
+AGGREGATION_HANDOFF:
+{
+  "batch_id": "phase3a_batch_0306181120_friday-workinghours-afternoon-ddos.pcap_iscx_5e8f98",
+  "round_id": "round-001",
+  "hypothesis_id": "hyp_6_class_distribution_difference_destination_port",
+  "merged_findings": [
+    "Destination Port in the DDoS class exhibits a dominant single value with zero entropy, indicating strong class-conditioned distributional difference and a potential shortcut-like predictive signal.",
+    "Global distribution confirms a dominant ratio of 1.0 for this port in DDoS, but local partition analyses reveal label neighborhood and duplicate label conflicts, suggesting instability and possible sampling artifacts affecting this distribution.",
+    "Dependency and relation verifications show no narrow or unstable structural dependencies confounding the signal, supporting the feature's strong discriminative role.",
+    "Perturbation or exclusion of Destination Port is expected to significantly impact model behavior due to its concentrated and discriminative nature."
+  ],
+  "evidence_refs": [
+    "task_1_step_03",
+    "task_1_step_05",
+    "task_2_step_03",
+    "task_2_step_05",
+    "task_2_step_07",
+    "task_3_step_03",
+    "task_3_step_05",
+    "task_4_step_03",
+    "task_4_step_05"
+  ],
+  "preserved_contradictions": [
+    "high_label_neighborhood_conflict",
+    "duplicate_label_conflict"
+  ],
+  "open_gaps": [
+    "Instability and conflicts in local evidence limit confidence in the global stability of the dominant destination port ratio across all partitions.",
+    "Moderate shortcut signal strength and limited cross-feature interaction analysis prevent definitive shortcut risk confirmation."
+  ],
+  "update_focus": "Consolidate understanding of Destination Port's strong but locally unstable discriminative distribution and its implications for shortcut risk."
+}
+
+OUTPUT_RULES:
+Return exactly one JSON object.
+The output lists must represent the resulting target-hypothesis state after this round, not only the newly introduced items.
+Preserve all current and newly supplied evidence_refs, preserved_contradictions, open_gaps, and merged_findings unless a field is genuinely unchanged and already present.
+Use only these status values: ['active', 'dormant', 'emerging', 'merged', 'partially_absorbed', 'reopened', 'uncertain', 'unresolved', 'weakened'].
+Do not mention planning, worker execution, routing, critic supervision, or canonical-state commit mechanics in the content fields.
+{
+  "state_delta_record": {
+    "batch_id": "phase3a_batch_0306181120_friday-workinghours-afternoon-ddos.pcap_iscx_5e8f98",
+    "round_id": "round-001",
+    "hypothesis_id": "hyp_6_class_distribution_difference_destination_port",
+    "summary": "updated concise interpretive summary for the target hypothesis",
+    "status": "active",
+    "evidence_refs": [
+      "carried-forward evidence_ref"
+    ],
+    "preserved_contradictions": [
+      "explicit unresolved contradiction"
+    ],
+    "open_gaps": [
+      "remaining unresolved verification gap"
+    ],
+    "merged_findings": [
+      "resulting evidence-grounded finding carried in state"
+    ],
+    "update_focus": "short orientation for the touched interpretive area",
+    "applied_updates": [
+      {
+        "field": "summary",
+        "reason": "why this bounded change is justified by the aggregation handoff and current state"
+      }
+    ]
+  }
+}

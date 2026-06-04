@@ -1,0 +1,51 @@
+{
+  "selected_hypotheses": [
+    {
+      "hypothesis_id": "hyp_5_strong_linear_dependencies",
+      "summary": "Multiple feature pairs exhibit near-perfect or perfect linear correlations (correlation >= 0.9993), indicating strong dependencies and potential redundancy among packet length, segment size, flag counts, and packet/byte counts.",
+      "evidence_refs": [
+        "e13",
+        "e14",
+        "e15",
+        "e16",
+        "e17",
+        "e18",
+        "e19",
+        "e20",
+        "e21",
+        "e22"
+      ],
+      "open_questions": [
+        "Do these strong linear dependencies reflect inherent protocol or measurement relationships, or do they indicate feature engineering redundancies?",
+        "How might these dependencies impact model robustness and feature selection strategies?"
+      ],
+      "current_status": "unresolved"
+    },
+    {
+      "hypothesis_id": "hyp_8_class_conditioned_distribution_destination_port",
+      "summary": "The Destination Port feature shows strong class-conditioned distribution differences, with dominant ratio 0.346 for BENIGN and 1.0 for DDoS, and a high Jensen-Shannon divergence of 0.7315, indicating a representation-sensitive pattern linked to class.",
+      "evidence_refs": [
+        "e33"
+      ],
+      "open_questions": [
+        "Does the strong class-conditioned distribution in Destination Port reflect a targeted attack vector or a dataset sampling artifact?",
+        "Could this feature's distributional skew lead to shortcut learning or over-reliance in classification models?"
+      ],
+      "current_status": "unresolved"
+    },
+    {
+      "hypothesis_id": "hyp_6_class_conditioned_variation_backward_packet_lengths",
+      "summary": "Backward packet length features (Max, Mean, Std) show significant structural variation conditioned on class labels, with high variance ratios and differing unique value counts between BENIGN and DDoS classes, suggesting class-sensitive distributional shifts.",
+      "evidence_refs": [
+        "e10",
+        "e11",
+        "e12"
+      ],
+      "open_questions": [
+        "Are the observed class-conditioned variations stable across different time windows or network conditions?",
+        "Could these variations be exploited for reliable class discrimination or do they risk overfitting to specific dataset artifacts?"
+      ],
+      "current_status": "unresolved"
+    }
+  ]
+}

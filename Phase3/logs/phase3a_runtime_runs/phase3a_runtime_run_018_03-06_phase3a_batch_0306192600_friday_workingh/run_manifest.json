@@ -1,0 +1,23 @@
+{
+  "run_id": "phase3a_runtime_run_018_03-06_phase3a_batch_0306192600_friday_workingh",
+  "batch_id": "phase3a_batch_0306192600_friday-workinghours-afternoon-ddos.pcap_iscx_a08c4b",
+  "mode": "full_round",
+  "status": "failed",
+  "start_time": "2026-06-03T19:26:00.720997+00:00",
+  "end_time": "2026-06-03T19:37:46.027892+00:00",
+  "dataset": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\data\\cic_ids_2017\\Friday-WorkingHours-Afternoon-DDos.pcap_ISCX.csv",
+  "completed_components": [
+    "semantic_extraction",
+    "investigation_analysis"
+  ],
+  "failed_components": [
+    "round-001"
+  ],
+  "warnings": [],
+  "errors": [
+    {
+      "type": "RuntimeError",
+      "message": "aggregation returned a non-authoritative bundle."
+    }
+  ]
+}

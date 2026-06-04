@@ -1,0 +1,30 @@
+{
+  "task_id": "task_3",
+  "hypothesis_id": "hyp_010_interplay_between_class_conditioned_variation_and_dependency_structure",
+  "task_scope": "Investigate unstable feature importance or selection bias caused by entangled class-conditioned variation and redundancy among features e8 through e22.",
+  "allowed_actions": [
+    "local_consistency_verification",
+    "shortcut_verification"
+  ],
+  "local_context_refs": [
+    "e8",
+    "e9",
+    "e10",
+    "e11",
+    "e12",
+    "e13",
+    "e14",
+    "e15",
+    "e16",
+    "e17",
+    "e18",
+    "e19",
+    "e20",
+    "e21",
+    "e22"
+  ],
+  "stop_conditions": [
+    "evidence of unstable feature importance or selection bias identified",
+    "entanglement effects between variation and redundancy characterized"
+  ]
+}

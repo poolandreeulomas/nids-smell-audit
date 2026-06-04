@@ -1,0 +1,145 @@
+{
+  "batch_id": "phase3a_batch_0306183859_friday-workinghours-afternoon-ddos.pcap_iscx_689174",
+  "round_id": "round-001",
+  "hypothesis_id": "hyp_003_class_conditioned_variation_in_backward_packet_lengths",
+  "worker_result_count": 4,
+  "expected_task_ids": [
+    "task_1",
+    "task_2",
+    "task_3",
+    "task_4"
+  ],
+  "selected_task_ids": [
+    "task_1",
+    "task_2",
+    "task_3",
+    "task_4"
+  ],
+  "missing_task_ids": [],
+  "extra_task_ids": [],
+  "source_run_dirs": [
+    "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\worker_runs\\worker_run_063_03-06_task_1",
+    "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\worker_runs\\worker_run_064_03-06_task_2",
+    "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\worker_runs\\worker_run_065_03-06_task_3",
+    "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\worker_runs\\worker_run_070_03-06_task_4"
+  ],
+  "status_counts": {
+    "completed": 3,
+    "partial": 1
+  },
+  "source_evidence_refs": [
+    "task_1_step_03",
+    "task_1_step_05",
+    "task_1_step_07",
+    "task_2_step_03",
+    "task_2_step_05",
+    "task_2_step_07",
+    "task_3_step_03",
+    "task_3_step_05",
+    "task_3_step_07",
+    "task_4_step_03",
+    "task_4_step_05",
+    "task_4_step_07"
+  ],
+  "source_contradictions": [
+    "Persistent local label neighborhood conflicts and duplicate label conflicts in backward packet length features."
+  ],
+  "source_limitations": [
+    "Analysis limited to bounded local neighborhoods without expansion to global or aggregated contexts.",
+    "Moderate shortcut signals do not definitively prove bias but indicate potential shortcut-like dependencies requiring cautious interpretation.",
+    "No direct distribution verification was performed due to budget exhaustion, limiting deeper distributional insights.",
+    "No duplication verification was performed, limiting assessment of exact data duplication effects on bias.",
+    "No further bounded evidence acquisition possible within budget to resolve conflicts."
+  ],
+  "source_finding_count": 10,
+  "non_success_count": 0,
+  "worker_results": [
+    {
+      "task_id": "task_1",
+      "hypothesis_id": "hyp_003_class_conditioned_variation_in_backward_packet_lengths",
+      "status": "completed",
+      "findings": [
+        "Backward packet length features exhibit low cardinality or near-constant values within classes, indicating structural differences conditioned on class.",
+        "Variance ratios are implied to be high (>15) as per local context, supporting class-conditioned variation.",
+        "Unique value counts per class have stabilized, confirming consistent structural patterns."
+      ],
+      "evidence_refs": [
+        "task_1_step_03",
+        "task_1_step_05",
+        "task_1_step_07"
+      ],
+      "contradictions": [],
+      "limitations": [
+        "No direct distribution verification was performed due to budget exhaustion, limiting deeper distributional insights."
+      ]
+    },
+    {
+      "task_id": "task_2",
+      "hypothesis_id": "hyp_003_class_conditioned_variation_in_backward_packet_lengths",
+      "status": "completed",
+      "findings": [
+        "Backward packet length features exhibit substantial class-conditioned structural variation with high variance ratios and unique value disparities between BENIGN and DDoS classes.",
+        "Distribution verification confirms high class separation in Bwd Packet Length Mean, Std, and Max, indicating strong distribution shifts conditioned on class."
+      ],
+      "evidence_refs": [
+        "task_2_step_03",
+        "task_2_step_05",
+        "task_2_step_07"
+      ],
+      "contradictions": [],
+      "limitations": []
+    },
+    {
+      "task_id": "task_3",
+      "hypothesis_id": "hyp_003_class_conditioned_variation_in_backward_packet_lengths",
+      "status": "completed",
+      "findings": [
+        "Backward packet length features exhibit substantial class-conditioned structural variation with high variance ratios and unique value disparities between BENIGN and DDoS classes.",
+        "Moderate shortcut signals detected on Bwd Packet Length Mean, Bwd Packet Length Max, and Avg Bwd Segment Size features suggest potential labeling or sampling biases influencing these features' distributions."
+      ],
+      "evidence_refs": [
+        "task_3_step_03",
+        "task_3_step_05",
+        "task_3_step_07"
+      ],
+      "contradictions": [],
+      "limitations": [
+        "No duplication verification was performed, limiting assessment of exact data duplication effects on bias.",
+        "Moderate shortcut signals do not definitively prove bias but indicate potential shortcut-like dependencies requiring cautious interpretation."
+      ]
+    },
+    {
+      "task_id": "task_4",
+      "hypothesis_id": "hyp_003_class_conditioned_variation_in_backward_packet_lengths",
+      "status": "partial",
+      "findings": [
+        "Backward packet length features exhibit substantial class-conditioned structural variation with high variance ratios and unique value disparities.",
+        "Local label-topology consistency checks reveal moderate neighborhood conflicts and duplicate label conflicts around Bwd Packet Length Mean, Std, and Max.",
+        "No resolution of conflicting local label patterns was achieved within bounded neighborhoods."
+      ],
+      "evidence_refs": [
+        "task_4_step_03",
+        "task_4_step_05",
+        "task_4_step_07"
+      ],
+      "contradictions": [
+        "Persistent local label neighborhood conflicts and duplicate label conflicts in backward packet length features."
+      ],
+      "limitations": [
+        "Analysis limited to bounded local neighborhoods without expansion to global or aggregated contexts.",
+        "No further bounded evidence acquisition possible within budget to resolve conflicts."
+      ]
+    }
+  ],
+  "overlap_diagnostics": [
+    {
+      "left_task_id": "task_2",
+      "right_task_id": "task_3",
+      "shared_findings": [
+        "Backward packet length features exhibit substantial class-conditioned structural variation with high variance ratios and unique value disparities between BENIGN and DDoS classes."
+      ],
+      "shared_evidence_refs": [],
+      "shared_contradictions": []
+    }
+  ]
+}

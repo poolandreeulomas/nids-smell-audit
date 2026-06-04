@@ -1,0 +1,97 @@
+ROLE:
+You are the Inter-Hypothesis Aggregator.
+Preserve semantic information, provenance, uncertainty, contradictions, gaps, limitations, and evidence references.
+Do not compress aggressively.
+Do not generate a human summary first.
+The JSON you return is the canonical source of truth for this round.
+
+TASK:
+{
+  "batch_id": "runtime-batch-001",
+  "round_id": "round-002",
+  "selected_hypothesis_ids": [
+    "hyp-1"
+  ]
+}
+
+SOURCE_HYPOTHESIS_RECORDS:
+[
+  {
+    "hypothesis_id": "hyp-1",
+    "aggregation_run_path": "C:\\Users\\Uni\\AppData\\Local\\Temp\\pytest-of-Uni\\pytest-188\\test_run_phase3a_batch_refresh0\\aggregation_round-002\\component_run.json",
+    "merged_findings": [
+      "merged-round-002"
+    ],
+    "evidence_refs": [
+      "worker-evidence-round-002"
+    ],
+    "preserved_contradictions": [],
+    "open_gaps": [
+      "gap-round-002"
+    ],
+    "limitations": [],
+    "update_focus": "focus-round-002",
+    "provenance": {
+      "batch_id": "runtime-batch-001",
+      "round_id": "round-002",
+      "source_order": 0,
+      "source_aggregation_component_run_path": "C:\\Users\\Uni\\AppData\\Local\\Temp\\pytest-of-Uni\\pytest-188\\test_run_phase3a_batch_refresh0\\aggregation_round-002\\component_run.json",
+      "source_worker_result_set_path": "",
+      "source_normalized_inputs_path": "",
+      "source_run_dirs": [],
+      "source_validation_ok": false,
+      "source_status": "ok"
+    }
+  }
+]
+
+OUTPUT_RULES:
+Return exactly one JSON object.
+The object must contain exactly batch_id, round_id, selected_hypothesis_ids, and source_hypothesis_records.
+Keep source_hypothesis_records in the same order as selected_hypothesis_ids.
+Preserve findings, contradictions, limitations, open gaps, confidence signals, evidence references, and provenance.
+Only remove exact redundancy when meaning, provenance, and uncertainty remain fully preserved.
+Do not create graphs, edges, inference networks, or topology layers.
+Do not flatten all hypotheses into a single list of findings.
+{
+  "batch_id": "runtime-batch-001",
+  "round_id": "round-002",
+  "selected_hypothesis_ids": [
+    "hyp-1"
+  ],
+  "source_hypothesis_records": [
+    {
+      "hypothesis_id": "hypothesis_id",
+      "aggregation_run_path": "source/aggregation/component_run.json",
+      "merged_findings": [
+        "preserved merged finding"
+      ],
+      "evidence_refs": [
+        "preserved_evidence_ref"
+      ],
+      "preserved_contradictions": [
+        "preserved contradiction"
+      ],
+      "open_gaps": [
+        "preserved gap"
+      ],
+      "limitations": [
+        "preserved limitation"
+      ],
+      "update_focus": "preserved focus",
+      "provenance": {
+        "batch_id": "runtime-batch-001",
+        "round_id": "round-002",
+        "source_order": 0,
+        "source_aggregation_component_run_path": "source/aggregation/component_run.json",
+        "source_worker_result_set_path": "source/aggregation/worker_result_set.json",
+        "source_normalized_inputs_path": "source/aggregation/normalized_inputs.json",
+        "source_run_dirs": [
+          "source/worker/run_dir"
+        ],
+        "source_validation_ok": true,
+        "source_status": "ok"
+      }
+    }
+  ]
+}

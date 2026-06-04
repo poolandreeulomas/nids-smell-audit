@@ -1,0 +1,19 @@
+{
+  "batch_id": "phase3a_batch_0306181120_friday-workinghours-afternoon-ddos.pcap_iscx_5e8f98",
+  "round_id": "round-001",
+  "worker_result": {
+    "task_id": "task_1",
+    "hypothesis_id": "hyp_6_class_distribution_difference_destination_port",
+    "status": "completed",
+    "findings": [
+      "Destination Port feature in evidence e33 exhibits zero entropy in the DDoS class due to a single or very few targeted ports.",
+      "Distribution analysis shows a dominant port value with strong separation from BENIGN class, confirming targeted port behavior."
+    ],
+    "evidence_refs": [
+      "task_1_step_03",
+      "task_1_step_05"
+    ],
+    "contradictions": [],
+    "limitations": []
+  }
+}

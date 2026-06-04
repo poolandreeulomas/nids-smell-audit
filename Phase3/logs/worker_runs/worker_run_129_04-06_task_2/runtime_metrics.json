@@ -1,0 +1,21 @@
+{
+  "batch_id": "phase3a_batch_0406130425_friday-workinghours-afternoon-ddos.pcap_iscx_d272aa",
+  "round_id": "round-001",
+  "task_id": "task_2",
+  "hypothesis_id": "hyp_7_heterogeneous_structural_regimes",
+  "model_name": "gpt-4.1-mini",
+  "duration_ms": 30.879,
+  "status": "error",
+  "worker_status": "unavailable",
+  "steps_used": 0,
+  "retries_used": 0,
+  "prompt_count": 0,
+  "tool_event_count": 0,
+  "failure_event_count": 0,
+  "termination_cause": "validation_failed",
+  "result_committed": false,
+  "fresh_execution": true,
+  "replay_of": null,
+  "caller_mode": "cli",
+  "schema_version": "phase3a.worker.v1"
+}

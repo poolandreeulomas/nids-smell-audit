@@ -1,0 +1,18 @@
+{
+  "batch_id": "phase3a_batch_0406130425_friday-workinghours-afternoon-ddos.pcap_iscx_d272aa",
+  "analysis_id": "analysis_phase3a_0406130425_01",
+  "round_id": "round-001",
+  "model_name": "gpt-4.1-mini",
+  "duration_ms": 6870.031,
+  "status": "ok",
+  "prompt_chars": 16558,
+  "raw_response_chars": 1451,
+  "candidate_count": 10,
+  "selected_count": 3,
+  "deferred_count": 7,
+  "selection_budget": 3,
+  "fresh_execution": true,
+  "replay_of": null,
+  "caller_mode": "cli",
+  "schema_version": "phase3a.hypothesis_ranking.v1"
+}

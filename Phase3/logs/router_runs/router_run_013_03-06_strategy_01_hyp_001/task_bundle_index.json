@@ -1,0 +1,40 @@
+{
+  "hypothesis_id": "hyp_001_low_cardinality_bulk_features",
+  "planner_strategy_id": "strategy_01_hyp_001",
+  "task_count": 4,
+  "action_class_count": 6,
+  "task_summaries": [
+    {
+      "task_id": "task_1",
+      "hypothesis_id": "hyp_001_low_cardinality_bulk_features",
+      "task_scope": "Measure temporal stability of low cardinality in bulk features e23 to e32 over the dataset timeframe",
+      "allowed_action_count": 1,
+      "local_context_ref_count": 10,
+      "stop_condition_count": 2
+    },
+    {
+      "task_id": "task_2",
+      "hypothesis_id": "hyp_001_low_cardinality_bulk_features",
+      "task_scope": "Compare class-conditioned distributions of bulk features e23 to e32 between attack and benign traffic classes",
+      "allowed_action_count": 1,
+      "local_context_ref_count": 10,
+      "stop_condition_count": 2
+    },
+    {
+      "task_id": "task_3",
+      "hypothesis_id": "hyp_001_low_cardinality_bulk_features",
+      "task_scope": "Assess sensitivity of bulk features e23 to e32 to minor traffic fluctuations to detect masking by near-constant values",
+      "allowed_action_count": 2,
+      "local_context_ref_count": 10,
+      "stop_condition_count": 3
+    },
+    {
+      "task_id": "task_4",
+      "hypothesis_id": "hyp_001_low_cardinality_bulk_features",
+      "task_scope": "Check for potential masking of relevant signals by near-constant bulk feature values e23 to e32 via dependency and relation contextualization",
+      "allowed_action_count": 2,
+      "local_context_ref_count": 10,
+      "stop_condition_count": 3
+    }
+  ]
+}

@@ -1,0 +1,26 @@
+{
+  "batch_id": "phase3a_batch_0406132627_friday-workinghours-afternoon-ddos.pcap_iscx_f0e355",
+  "round_id": "round-001",
+  "worker_result": {
+    "task_id": "task_1",
+    "hypothesis_id": "hyp_5_strong_linear_dependencies",
+    "status": "completed",
+    "findings": [
+      "Multiple feature pairs within e13 to e22 exhibit near-perfect linear correlations (>= 0.9993), indicating strong linear dependencies and potential redundancy.",
+      "Confirmed strong linear dependency between 'Fwd Header Length' and 'Fwd Header Length.1' (correlation ~1).",
+      "Confirmed strong linear dependency between 'Fwd Packet Length Mean' and 'Packet Length Mean'.",
+      "Confirmed strong linear dependency between 'Subflow Fwd Bytes' and 'Subflow Fwd Packets'.",
+      "No evidence of instability or contradictory correlation metrics across samples."
+    ],
+    "evidence_refs": [
+      "task_1_step_03",
+      "task_1_step_05",
+      "task_1_step_07"
+    ],
+    "contradictions": [],
+    "limitations": [
+      "Analysis limited to local evidence within e13 to e22; global dataset correlations not assessed.",
+      "Low cardinality features with perfect correlation (e.g., 'Fwd PSH Flags' and 'SYN Flag Count') noted but not further analyzed due to task scope."
+    ]
+  }
+}

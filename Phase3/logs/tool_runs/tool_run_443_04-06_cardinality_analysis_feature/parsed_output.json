@@ -1,0 +1,50 @@
+{
+  "call_id": "task_1_step_03",
+  "tool_name": "cardinality_analysis",
+  "status": "ok",
+  "observations": {
+    "feature_name": "Bwd Avg Bulk Rate",
+    "value": 4.429776960730027e-06,
+    "signals": [
+      "low_cardinality",
+      "near_constant"
+    ],
+    "metrics": {
+      "unique_values": 1,
+      "cardinality_ratio": 4.429776960730027e-06
+    },
+    "support": {
+      "n_total": 225745,
+      "n_per_class": {
+        "DDoS": 128027,
+        "BENIGN": 97718
+      },
+      "total_samples": 225745,
+      "per_class": {
+        "DDoS": 128027,
+        "BENIGN": 97718
+      }
+    },
+    "provenance": {
+      "source": "tool",
+      "tool": "cardinality_analysis",
+      "step": null
+    },
+    "feature": "Bwd Avg Bulk Rate"
+  },
+  "evidence_refs": [
+    {
+      "artifact": "parsed_output",
+      "path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_443_04-06_cardinality_analysis_feature\\parsed_output.json"
+    },
+    {
+      "artifact": "raw_tool_output",
+      "path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_443_04-06_cardinality_analysis_feature\\raw_tool_output.json"
+    },
+    {
+      "artifact": "component_run",
+      "path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_443_04-06_cardinality_analysis_feature\\component_run.json"
+    }
+  ],
+  "limitations": []
+}

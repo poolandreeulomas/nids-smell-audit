@@ -1,0 +1,78 @@
+{
+  "batch_id": "phase3a_batch_0406130425_friday-workinghours-afternoon-ddos.pcap_iscx_d272aa",
+  "round_id": "round-001",
+  "hypothesis_id": "hyp_1_low_diversity_constant_features",
+  "planner_strategy_id": "strategy_01_hyp_1",
+  "worker_tasks": [
+    {
+      "task_id": "task_1",
+      "hypothesis_id": "hyp_1_low_diversity_constant_features",
+      "task_scope": "Compare cardinality and value stability of bulk and flag features across classes within evidence refs e23 to e26",
+      "allowed_actions": [
+        "cardinality_verification",
+        "distribution_verification"
+      ],
+      "local_context_refs": [
+        "e23",
+        "e24",
+        "e25",
+        "e26"
+      ],
+      "stop_conditions": [
+        "cardinality counts stable across classes",
+        "value distributions show no unexpected shifts"
+      ]
+    },
+    {
+      "task_id": "task_2",
+      "hypothesis_id": "hyp_1_low_diversity_constant_features",
+      "task_scope": "Assess correlation of near-constant features with known saturation indicators using evidence refs e27 to e29",
+      "allowed_actions": [
+        "relation_verification",
+        "dependency_contextualization"
+      ],
+      "local_context_refs": [
+        "e27",
+        "e28",
+        "e29"
+      ],
+      "stop_conditions": [
+        "correlation coefficients computed",
+        "saturation indicators identified or ruled out"
+      ]
+    },
+    {
+      "task_id": "task_3",
+      "hypothesis_id": "hyp_1_low_diversity_constant_features",
+      "task_scope": "Evaluate presence of subtle intra-class variation within near-constant features in evidence refs e30 to e31",
+      "allowed_actions": [
+        "distribution_verification",
+        "local_consistency_verification"
+      ],
+      "local_context_refs": [
+        "e30",
+        "e31"
+      ],
+      "stop_conditions": [
+        "intra-class variation metrics stable",
+        "no hidden variation patterns detected"
+      ]
+    },
+    {
+      "task_id": "task_4",
+      "hypothesis_id": "hyp_1_low_diversity_constant_features",
+      "task_scope": "Check for measurement or logging constraints causing low diversity in features using evidence refs e32",
+      "allowed_actions": [
+        "shortcut_verification",
+        "duplication_verification"
+      ],
+      "local_context_refs": [
+        "e32"
+      ],
+      "stop_conditions": [
+        "measurement artifacts identified or excluded",
+        "logging constraints characterized"
+      ]
+    }
+  ]
+}

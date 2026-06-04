@@ -1,0 +1,22 @@
+{
+  "strategy_id": "strategy_03_hyp_4",
+  "hypothesis_id": "hyp_4_destination_port_distribution_skew_reflects_attack_targeting",
+  "strategic_objective": "Determine consistency and representational leverage of destination port distribution skew as an attack targeting signal.",
+  "key_checks": [
+    "Measure distributional skew and Jensen-Shannon divergence of destination port feature e33 across multiple attack instances",
+    "Assess class-conditioned dependency concentration and local label consistency around destination port",
+    "Evaluate potential shortcut-like predictive power of destination port distribution differences",
+    "Check for temporal or batch-specific variability in distributional patterns"
+  ],
+  "success_criteria": [
+    "Confirmation of consistent distributional skew across attack instances",
+    "Evidence that distributional differences provide stable representation-sensitive handles",
+    "Identification of potential shortcut risks or robust signal characteristics",
+    "Characterization of temporal stability or batch specificity"
+  ],
+  "router_constraints": [
+    "preserve feature scope for e33",
+    "preserve evidence reference e33",
+    "maintain focus on distribution and shortcut verification"
+  ]
+}

@@ -1,0 +1,26 @@
+{
+  "batch_id": "phase3a_batch_0306183859_friday-workinghours-afternoon-ddos.pcap_iscx_689174",
+  "round_id": "round-001",
+  "worker_result": {
+    "task_id": "task_4",
+    "hypothesis_id": "hyp_003_class_conditioned_variation_in_backward_packet_lengths",
+    "status": "partial",
+    "findings": [
+      "Backward packet length features exhibit substantial class-conditioned structural variation with high variance ratios and unique value disparities.",
+      "Local label-topology consistency checks reveal moderate neighborhood conflicts and duplicate label conflicts around Bwd Packet Length Mean, Std, and Max.",
+      "No resolution of conflicting local label patterns was achieved within bounded neighborhoods."
+    ],
+    "evidence_refs": [
+      "task_4_step_03",
+      "task_4_step_05",
+      "task_4_step_07"
+    ],
+    "contradictions": [
+      "Persistent local label neighborhood conflicts and duplicate label conflicts in backward packet length features."
+    ],
+    "limitations": [
+      "Analysis limited to bounded local neighborhoods without expansion to global or aggregated contexts.",
+      "No further bounded evidence acquisition possible within budget to resolve conflicts."
+    ]
+  }
+}

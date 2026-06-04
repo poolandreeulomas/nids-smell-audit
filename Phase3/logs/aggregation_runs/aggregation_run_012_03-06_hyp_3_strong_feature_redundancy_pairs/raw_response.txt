@@ -1,0 +1,35 @@
+{
+  "aggregation_handoff": {
+    "batch_id": "phase3a_batch_0306181120_friday-workinghours-afternoon-ddos.pcap_iscx_5e8f98",
+    "round_id": "round-001",
+    "hypothesis_id": "hyp_3_strong_feature_redundancy_pairs",
+    "merged_findings": [
+      "Multiple feature pairs within the local dependency cluster exhibit perfect or near-perfect correlation, confirming strong deterministic redundancy likely induced by preprocessing or feature engineering rather than natural network traffic properties.",
+      "Representative redundant pairs include Fwd PSH Flags & SYN Flag Count, Fwd Header Length & Fwd Header Length.1, and Packet Length Mean & Average Packet Size, with some features showing low cardinality and near-constant values that reduce effective dimensionality.",
+      "These redundant pairs contribute to shortcut-like predictive signals and impact dependency stability, as evidenced by local label-topology conflicts and unstable dependency profiles.",
+      "Removing or consolidating these redundant features is expected to alter class-conditioned patterns and distributional properties due to their deterministic relationships."
+    ],
+    "evidence_refs": [
+      "task_1_step_03",
+      "task_1_step_05",
+      "task_1_step_07",
+      "task_2_step_03",
+      "task_2_step_05",
+      "task_2_step_07",
+      "task_3_step_03",
+      "task_3_step_05",
+      "task_3_step_07",
+      "task_4_step_03",
+      "task_4_step_05",
+      "task_4_step_07"
+    ],
+    "preserved_contradictions": [
+      "High label neighborhood conflicts and duplicate label conflicts around 'Fwd Header Length' indicate local contradictions in dependency stability."
+    ],
+    "open_gaps": [
+      "Global dataset-wide duplication and redundancy effects were not assessed, limiting understanding of broader impact.",
+      "Shortcut verification was performed on a subset of representative features rather than exhaustively on all redundant pairs."
+    ],
+    "update_focus": "Interpret redundancy impact on local dependency stability and shortcut signals within bounded feature cluster."
+  }
+}

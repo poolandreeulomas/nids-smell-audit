@@ -1,0 +1,40 @@
+{
+  "hypothesis_id": "hyp_3_strong_dependency_pairs",
+  "planner_strategy_id": "strategy_02_hyp_3_strong_dependency_pairs",
+  "task_count": 4,
+  "action_class_count": 6,
+  "task_summaries": [
+    {
+      "task_id": "task_1",
+      "hypothesis_id": "hyp_3_strong_dependency_pairs",
+      "task_scope": "Quantify dependency concentration and linear correlation strength for each identified strong dependency feature pair using bounded pairwise relation measures.",
+      "allowed_action_count": 1,
+      "local_context_ref_count": 10,
+      "stop_condition_count": 2
+    },
+    {
+      "task_id": "task_2",
+      "hypothesis_id": "hyp_3_strong_dependency_pairs",
+      "task_scope": "Examine protocol and flow-level semantics relevant to the strong dependency feature pairs to contextualize dependency origins and structural causes.",
+      "allowed_action_count": 1,
+      "local_context_ref_count": 10,
+      "stop_condition_count": 2
+    },
+    {
+      "task_id": "task_3",
+      "hypothesis_id": "hyp_3_strong_dependency_pairs",
+      "task_scope": "Explore potential data processing or feature engineering steps contributing to redundancy patterns among the strong dependency pairs using structural summaries and distribution verifications.",
+      "allowed_action_count": 2,
+      "local_context_ref_count": 10,
+      "stop_condition_count": 2
+    },
+    {
+      "task_id": "task_4",
+      "hypothesis_id": "hyp_3_strong_dependency_pairs",
+      "task_scope": "Evaluate how strong dependencies influence feature selection stability and model sensitivity by verifying local consistency and shortcut-like predictive signals for involved features.",
+      "allowed_action_count": 2,
+      "local_context_ref_count": 10,
+      "stop_condition_count": 2
+    }
+  ]
+}

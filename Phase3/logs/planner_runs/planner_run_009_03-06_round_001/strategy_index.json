@@ -1,0 +1,35 @@
+{
+  "selected_count": 3,
+  "strategy_count": 3,
+  "missing_strategy_hypothesis_ids": [],
+  "unexpected_strategy_hypothesis_ids": [],
+  "strategies": [
+    {
+      "strategy_id": "strategy_01_hyp_4",
+      "hypothesis_id": "hyp_4_distributional_divergence_destination_port",
+      "summary": "The Destination Port feature shows strong distributional divergence between BENIGN and DDoS classes, with the DDoS class dominated by a single port value and zero entropy, suggesting a representation-sensitive pattern that may act as a narrow but strong class indicator.",
+      "strategic_objective": "Assess the stability and generality of the dominant single destination port pattern in DDoS traffic and its impact on model robustness.",
+      "key_check_count": 4,
+      "success_criteria_count": 4,
+      "router_constraint_count": 2
+    },
+    {
+      "strategy_id": "strategy_02_hyp_2",
+      "hypothesis_id": "hyp_2_strong_linear_dependencies",
+      "summary": "Several feature pairs exhibit near-perfect or perfect correlations, suggesting strong linear dependencies and potential redundancy that may reduce the effective dimensionality of the feature space and bias model learning.",
+      "strategic_objective": "Characterize the stability and origin of strong linear dependencies between feature pairs to understand redundancy and potential bias.",
+      "key_check_count": 4,
+      "success_criteria_count": 4,
+      "router_constraint_count": 2
+    },
+    {
+      "strategy_id": "strategy_03_hyp_1",
+      "hypothesis_id": "hyp_1_low_diversity_bulk_features",
+      "summary": "The near-constant values and extremely low unique value counts in multiple bulk-related backward and forward traffic features may indicate a structural saturation or a constrained representation in these features across the partition, potentially limiting their discriminative power.",
+      "strategic_objective": "Determine if low diversity in bulk traffic features reflects genuine network behavior or dataset artifact and its effect on discriminative capacity.",
+      "key_check_count": 4,
+      "success_criteria_count": 4,
+      "router_constraint_count": 2
+    }
+  ]
+}

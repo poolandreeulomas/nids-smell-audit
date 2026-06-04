@@ -1,0 +1,149 @@
+{
+  "hypothesis_count": 10,
+  "evidence_ref_coverage": [
+    "e1",
+    "e10",
+    "e11",
+    "e12",
+    "e13",
+    "e14",
+    "e15",
+    "e16",
+    "e17",
+    "e18",
+    "e19",
+    "e2",
+    "e20",
+    "e21",
+    "e22",
+    "e23",
+    "e24",
+    "e25",
+    "e26",
+    "e27",
+    "e28",
+    "e29",
+    "e30",
+    "e31",
+    "e32",
+    "e33",
+    "e8",
+    "e9"
+  ],
+  "overlap_pairs": [
+    {
+      "left_hypothesis_id": "hyp_2_low_diversity_backward_tcp_flags",
+      "right_hypothesis_id": "hyp_10_low_cardinality_forward_flags_dependency",
+      "shared_evidence_refs": [
+        "e26"
+      ]
+    },
+    {
+      "left_hypothesis_id": "hyp_4_low_diversity_forward_flags_and_cwe",
+      "right_hypothesis_id": "hyp_10_low_cardinality_forward_flags_dependency",
+      "shared_evidence_refs": [
+        "e28"
+      ]
+    },
+    {
+      "left_hypothesis_id": "hyp_5_strong_linear_dependencies",
+      "right_hypothesis_id": "hyp_10_low_cardinality_forward_flags_dependency",
+      "shared_evidence_refs": [
+        "e15"
+      ]
+    }
+  ],
+  "hypotheses": [
+    {
+      "hypothesis_id": "hyp_1_low_diversity_backward_bulk",
+      "evidence_refs": [
+        "e23",
+        "e24",
+        "e25"
+      ],
+      "open_question_count": 2
+    },
+    {
+      "hypothesis_id": "hyp_2_low_diversity_backward_tcp_flags",
+      "evidence_refs": [
+        "e26",
+        "e27"
+      ],
+      "open_question_count": 2
+    },
+    {
+      "hypothesis_id": "hyp_3_low_diversity_forward_bulk",
+      "evidence_refs": [
+        "e29",
+        "e30",
+        "e31"
+      ],
+      "open_question_count": 2
+    },
+    {
+      "hypothesis_id": "hyp_4_low_diversity_forward_flags_and_cwe",
+      "evidence_refs": [
+        "e28",
+        "e32"
+      ],
+      "open_question_count": 2
+    },
+    {
+      "hypothesis_id": "hyp_5_strong_linear_dependencies",
+      "evidence_refs": [
+        "e13",
+        "e14",
+        "e15",
+        "e16",
+        "e17",
+        "e18",
+        "e19",
+        "e20",
+        "e21",
+        "e22"
+      ],
+      "open_question_count": 2
+    },
+    {
+      "hypothesis_id": "hyp_6_class_conditioned_variation_backward_packet_lengths",
+      "evidence_refs": [
+        "e10",
+        "e11",
+        "e12"
+      ],
+      "open_question_count": 2
+    },
+    {
+      "hypothesis_id": "hyp_7_class_conditioned_variation_packet_size_features",
+      "evidence_refs": [
+        "e8",
+        "e9"
+      ],
+      "open_question_count": 2
+    },
+    {
+      "hypothesis_id": "hyp_8_class_conditioned_distribution_destination_port",
+      "evidence_refs": [
+        "e33"
+      ],
+      "open_question_count": 2
+    },
+    {
+      "hypothesis_id": "hyp_9_partition_level_class_imbalance_and_duplicates",
+      "evidence_refs": [
+        "e1",
+        "e2"
+      ],
+      "open_question_count": 2
+    },
+    {
+      "hypothesis_id": "hyp_10_low_cardinality_forward_flags_dependency",
+      "evidence_refs": [
+        "e15",
+        "e26",
+        "e28"
+      ],
+      "open_question_count": 2
+    }
+  ]
+}

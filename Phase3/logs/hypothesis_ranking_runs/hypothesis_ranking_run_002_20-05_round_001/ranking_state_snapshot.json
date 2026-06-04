@@ -1,0 +1,122 @@
+{
+  "round_id": "round-001",
+  "selection_budget": 3,
+  "hypothesis_state_refs": [
+    {
+      "hypothesis_id": "hyp_1_low_diversity_backward_bulk",
+      "state_notes": [
+        "status=unresolved",
+        "summary=The backward bulk traffic features exhibit near-constant values with extremely low unique value counts and cardinality ratios, suggesting a structural uniformity or constrained variability in backward bulk traffic patterns across the partition.",
+        "revision_count=0",
+        "last_updated_round=initialization",
+        "open_gap=Does this low diversity reflect a genuine network behavior pattern or an artifact of data collection or preprocessing?",
+        "open_gap=Could this uniformity mask subtle but meaningful variations relevant to attack detection?"
+      ]
+    },
+    {
+      "hypothesis_id": "hyp_2_low_diversity_forward_bulk",
+      "state_notes": [
+        "status=unresolved",
+        "summary=Forward bulk traffic features mirror the backward bulk features in showing extremely low unique value counts and cardinality ratios, indicating a similar constrained variability or stable pattern in forward bulk traffic.",
+        "revision_count=0",
+        "last_updated_round=initialization",
+        "open_gap=Is the low diversity in forward bulk features causally linked to the backward bulk feature uniformity, or do they arise independently?",
+        "open_gap=Could these low-diversity regions represent a baseline traffic pattern or a structural artifact?"
+      ]
+    },
+    {
+      "hypothesis_id": "hyp_3_strong_dependency_pairs",
+      "state_notes": [
+        "status=unresolved",
+        "summary=Multiple feature pairs demonstrate near-perfect linear correlations (>= 0.9993), indicating strong dependencies and potential redundancy among packet length, segment size, flag counts, and packet counts features.",
+        "revision_count=0",
+        "last_updated_round=initialization",
+        "open_gap=Do these strong dependencies reflect inherent protocol or flow-level constraints, or do they arise from data processing steps?",
+        "open_gap=How might these redundancies affect feature selection and model robustness in downstream analysis?"
+      ]
+    },
+    {
+      "hypothesis_id": "hyp_4_class_conditioned_variation_backward_packet_lengths",
+      "state_notes": [
+        "status=unresolved",
+        "summary=Backward packet length features show substantial structural variation conditioned on class labels, with large variance ratios and differing unique value counts between BENIGN and DDoS classes, suggesting class-dependent traffic behavior.",
+        "revision_count=0",
+        "last_updated_round=initialization",
+        "open_gap=To what extent does this class-conditioned variation reflect true behavioral differences versus sampling or labeling biases?",
+        "open_gap=Could these features serve as reliable discriminators or are they sensitive to confounding factors?"
+      ]
+    },
+    {
+      "hypothesis_id": "hyp_5_class_conditioned_variation_average_packet_size",
+      "state_notes": [
+        "status=unresolved",
+        "summary=Average Packet Size exhibits class-conditioned structural variation with moderate variance ratio and differing unique value counts between BENIGN and DDoS classes, indicating potential sensitivity to class representation.",
+        "revision_count=0",
+        "last_updated_round=initialization",
+        "open_gap=Is the moderate variance ratio sufficient to distinguish classes robustly, or does it reflect overlapping distributions?",
+        "open_gap=How stable is this variation across different temporal or network contexts?"
+      ]
+    },
+    {
+      "hypothesis_id": "hyp_6_class_imbalance_and_duplicates_effects",
+      "state_notes": [
+        "status=unresolved",
+        "summary=The partition-level overview reveals moderate class imbalance and the presence of duplicated rows, which may influence observed structural patterns, feature distributions, and potentially bias model training or evaluation.",
+        "revision_count=0",
+        "last_updated_round=initialization",
+        "open_gap=How do duplicates and class imbalance interact to affect feature stability and representativeness?",
+        "open_gap=Are duplicates concentrated in specific classes or feature value ranges, and what is their origin?"
+      ]
+    },
+    {
+      "hypothesis_id": "hyp_7_distributional_divergence_destination_port",
+      "state_notes": [
+        "status=unresolved",
+        "summary=The Destination Port feature shows strong distributional divergence between BENIGN and DDoS classes, with the DDoS class dominated by a single port and exhibiting zero entropy, indicating a highly skewed representation.",
+        "revision_count=0",
+        "last_updated_round=initialization",
+        "open_gap=Does the dominance of a single port in DDoS traffic reflect a targeted attack vector or a dataset artifact?",
+        "open_gap=How might this skew affect generalization and detection of other attack types or ports?"
+      ]
+    },
+    {
+      "hypothesis_id": "hyp_8_structural_prominence_of_backward_packet_length_features",
+      "state_notes": [
+        "status=unresolved",
+        "summary=Backward packet length features (Mean, Max, Std) rank among the top features in the partition overview, suggesting structural prominence despite observed class-conditioned variation and strong dependencies.",
+        "revision_count=0",
+        "last_updated_round=initialization",
+        "open_gap=Are these top ranks driven by genuine discriminative power or by correlated redundancies with other features?",
+        "open_gap=Could their prominence be influenced by the class imbalance or duplicated rows?"
+      ]
+    },
+    {
+      "hypothesis_id": "hyp_9_structural_relevance_of_avg_bwd_segment_size",
+      "state_notes": [
+        "status=unresolved",
+        "summary=Avg Bwd Segment Size ranks second in the partition overview and shows strong dependency with Bwd Packet Length Mean, indicating structural relevance that may reflect underlying traffic segmentation patterns.",
+        "revision_count=0",
+        "last_updated_round=initialization",
+        "open_gap=Does the strong dependency with Bwd Packet Length Mean limit its independent informational value?",
+        "open_gap=How does this feature behave across different classes and temporal segments?"
+      ]
+    },
+    {
+      "hypothesis_id": "hyp_10_mixed_signals_of_low_diversity_and_dependency",
+      "state_notes": [
+        "status=unresolved",
+        "summary=The coexistence of low-diversity regions in bulk traffic features and strong dependency pairs in packet-level features suggests a complex structural substrate where stable, near-constant signals coexist with tightly coupled feature groups, potentially reflecting both stable network behaviors and data representation constraints.",
+        "revision_count=0",
+        "last_updated_round=initialization",
+        "open_gap=How do these contrasting structural patterns interact to influence detection performance and feature interpretability?",
+        "open_gap=Could some of these patterns be artifacts of feature engineering or data aggregation methods?"
+      ]
+    }
+  ],
+  "round_constraints": [
+    "selection_budget=3",
+    "allocation_only",
+    "preserve_deferred_hypotheses",
+    "round_start_state_version=1"
+  ]
+}

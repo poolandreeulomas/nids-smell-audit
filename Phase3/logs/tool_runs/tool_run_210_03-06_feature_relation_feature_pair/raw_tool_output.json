@@ -1,0 +1,41 @@
+{
+  "ok": true,
+  "tool": "feature_relation",
+  "feature_name": "dst_bytes|src_bytes",
+  "value": 1.0,
+  "error_code": null,
+  "error_message": null,
+  "meta": {
+    "dataset_path": "C:\\Users\\Uni\\AppData\\Local\\Temp\\pytest-of-Uni\\pytest-171\\test_run_worker_executes_multi0\\worker_fixture.csv",
+    "label_column": "Label",
+    "feature_1": "src_bytes",
+    "feature_2": "dst_bytes"
+  },
+  "evidence": {
+    "feature": "dst_bytes|src_bytes",
+    "signals": [
+      "high_redundancy"
+    ],
+    "metrics": {
+      "correlation": 1.0
+    },
+    "support": {
+      "n_total": 4,
+      "n_per_class": {
+        "BENIGN": 2,
+        "ATTACK": 2
+      },
+      "total_samples": 4,
+      "per_class": {
+        "BENIGN": 2,
+        "ATTACK": 2
+      }
+    },
+    "provenance": {
+      "source": "tool",
+      "tool": "feature_relation",
+      "step": null
+    },
+    "status": "active"
+  }
+}

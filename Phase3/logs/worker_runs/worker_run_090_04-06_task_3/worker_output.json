@@ -1,0 +1,21 @@
+{
+  "batch_id": "phase3a_batch_0406073857_friday-workinghours-afternoon-ddos.pcap_iscx_ee0ef0",
+  "round_id": "round-001",
+  "worker_result": {
+    "task_id": "task_3",
+    "hypothesis_id": "hyp_4_destination_port_distribution_skew_reflects_attack_targeting",
+    "status": "completed",
+    "findings": [
+      "Destination Port feature exhibits strong class-dependent distributional skew with moderate shortcut-like predictive leverage.",
+      "This suggests a moderate risk of shortcut exploitation based on destination port distribution differences in this dataset."
+    ],
+    "evidence_refs": [
+      "task_3_step_03"
+    ],
+    "contradictions": [],
+    "limitations": [
+      "Analysis limited to single-feature deterministic decision stump; multifeature interactions not assessed.",
+      "Local evidence only; global aggregation or cross-feature validation not performed."
+    ]
+  }
+}

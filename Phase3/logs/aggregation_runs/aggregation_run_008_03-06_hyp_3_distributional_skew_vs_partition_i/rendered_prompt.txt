@@ -1,0 +1,139 @@
+ROLE:
+You are Aggregation. Stay inside one hypothesis-local, round-local merge after Worker and before State Manager.
+Do not reroute, replan, mutate canonical state, emit critic feedback, or summarize raw traces.
+Preserve grounded contradictions and unresolved gaps instead of flattening them away.
+
+TASK:
+{
+  "batch_id": "phase3a_batch_0306161030_friday-workinghours-afternoon-ddos.pcap_iscx_0595cd",
+  "round_id": "round-001",
+  "hypothesis_id": "hyp_3_distributional_skew_vs_partition_imbalance",
+  "worker_result_count": 4,
+  "expected_task_ids": [
+    "task_1",
+    "task_2",
+    "task_3",
+    "task_4"
+  ],
+  "selected_task_ids": [
+    "task_1",
+    "task_2",
+    "task_3",
+    "task_4"
+  ]
+}
+
+SOURCE_WORKER_RESULTS:
+[
+  {
+    "task_id": "task_1",
+    "hypothesis_id": "hyp_3_distributional_skew_vs_partition_imbalance",
+    "status": "completed",
+    "findings": [
+      "Destination Port exhibits strong and stable class-conditioned distributional skew across partitions.",
+      "DDoS class distribution is dominated by a single port with near-zero entropy, contrasting with the more diverse BENIGN class distribution.",
+      "Observed distributional skew is robust despite moderate class imbalance and presence of duplicated rows at partition level."
+    ],
+    "evidence_refs": [
+      "task_1_step_03",
+      "task_1_step_07"
+    ],
+    "contradictions": [
+      "No local contradictions detected; distributional skew aligns with partition-level observations."
+    ],
+    "limitations": [
+      "Analysis limited to Destination Port feature; other features not evaluated in this task scope."
+    ]
+  },
+  {
+    "task_id": "task_2",
+    "hypothesis_id": "hyp_3_distributional_skew_vs_partition_imbalance",
+    "status": "completed",
+    "findings": [
+      "Duplicated rows are confirmed at the dataset level and contribute to the structural skew in Destination Port distribution.",
+      "Destination Port shows strong distributional divergence between classes with low entropy and dominant values, consistent across verifications.",
+      "Entropy variation is bounded and stable despite duplication presence, indicating a robust artifact influence on distributional skew."
+    ],
+    "evidence_refs": [
+      "task_2_step_03",
+      "task_2_step_05",
+      "task_2_step_07"
+    ],
+    "contradictions": [],
+    "limitations": [
+      "Analysis limited to local dataset scope without semantic interpretation of duplication causes."
+    ]
+  },
+  {
+    "task_id": "task_3",
+    "hypothesis_id": "hyp_3_distributional_skew_vs_partition_imbalance",
+    "status": "completed",
+    "findings": [
+      "Moderate class imbalance (1.577 ratio) exists at partition level with duplicated rows present.",
+      "Destination Port shows strong distributional divergence between classes (JS divergence=0.7315).",
+      "DDoS class distribution is highly skewed, dominated by a single port with zero entropy.",
+      "BENIGN class distribution is more diverse with higher entropy and lower dominant port ratio.",
+      "The strong distributional skew in Destination Port contrasts with moderate class imbalance, indicating potential instability or representativeness concerns."
+    ],
+    "evidence_refs": [
+      "task_3_step_03",
+      "task_3_step_05"
+    ],
+    "contradictions": [
+      "Preserved tension between strong distributional skew and moderate class imbalance at partition level."
+    ],
+    "limitations": [
+      "Analysis limited to local partition and single feature; no cross-feature or temporal stability checks performed."
+    ]
+  },
+  {
+    "task_id": "task_4",
+    "hypothesis_id": "hyp_3_distributional_skew_vs_partition_imbalance",
+    "status": "inconclusive",
+    "findings": [
+      "Destination Port shows strong dependency concentration but local label neighborhoods exhibit high conflict and duplicate label conflicts.",
+      "Local label-topology consistency is not verified due to persistent conflicts despite bounded neighborhood analysis.",
+      "Distributional skew in Destination Port contrasts with moderate class imbalance and duplicated rows, raising stability concerns."
+    ],
+    "evidence_refs": [
+      "task_4_step_03",
+      "task_4_step_05",
+      "task_4_step_07"
+    ],
+    "contradictions": [
+      "local contradiction preserved"
+    ],
+    "limitations": [
+      "Analysis limited to bounded local neighborhoods around Destination Port; global aggregation or rerouting not performed."
+    ]
+  }
+]
+
+OVERLAP_DIAGNOSTICS:
+[]
+
+OUTPUT_RULES:
+Return exactly one JSON object.
+Only cite evidence_refs that appear in SOURCE_WORKER_RESULTS.
+Only preserve contradictions that already appear in SOURCE_WORKER_RESULTS.
+Keep update_focus short and state-facing, but do not describe state mutation.
+{
+  "aggregation_handoff": {
+    "batch_id": "phase3a_batch_0306161030_friday-workinghours-afternoon-ddos.pcap_iscx_0595cd",
+    "round_id": "round-001",
+    "hypothesis_id": "hyp_3_distributional_skew_vs_partition_imbalance",
+    "merged_findings": [
+      "grounded merged finding"
+    ],
+    "evidence_refs": [
+      "source evidence_ref"
+    ],
+    "preserved_contradictions": [
+      "unresolved source contradiction"
+    ],
+    "open_gaps": [
+      "remaining unresolved gap or limitation"
+    ],
+    "update_focus": "short orientation for the touched interpretive area"
+  }
+}

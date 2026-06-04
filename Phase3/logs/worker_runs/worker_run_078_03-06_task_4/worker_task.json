@@ -1,0 +1,25 @@
+{
+  "task_id": "task_4",
+  "hypothesis_id": "hyp_010_potential_effects_of_data_redundancy_on_feature_correlations",
+  "task_scope": "Check for persistence or attenuation of near-perfect correlations after removing duplicates in the dataset",
+  "allowed_actions": [
+    "relation_verification",
+    "local_consistency_verification"
+  ],
+  "local_context_refs": [
+    "e13",
+    "e14",
+    "e15",
+    "e16",
+    "e17",
+    "e18",
+    "e19",
+    "e20",
+    "e21",
+    "e22"
+  ],
+  "stop_conditions": [
+    "near-perfect correlations identified pre-deduplication",
+    "persistence or attenuation confirmed post-deduplication"
+  ]
+}

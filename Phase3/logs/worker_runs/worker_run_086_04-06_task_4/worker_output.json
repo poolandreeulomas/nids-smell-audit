@@ -1,0 +1,23 @@
+{
+  "batch_id": "phase3a_batch_0406073857_friday-workinghours-afternoon-ddos.pcap_iscx_ee0ef0",
+  "round_id": "round-001",
+  "worker_result": {
+    "task_id": "task_4",
+    "hypothesis_id": "hyp_3_class_conditioned_structural_variation_in_packet_length_features",
+    "status": "completed",
+    "findings": [
+      "Consistent high class separation in 'Average Packet Size' across multiple partitions confirms stable class-conditioned structural variation.",
+      "Local evidence from e8, e9, and e10 partitions supports robustness of packet length feature variation without detected drift.",
+      "Unresolved tension regarding low cardinality vs. strong class variation remains noted but does not contradict stability findings."
+    ],
+    "evidence_refs": [
+      "task_4_step_03",
+      "task_4_step_05",
+      "task_4_step_07"
+    ],
+    "contradictions": [],
+    "limitations": [
+      "Analysis limited to 'Average Packet Size' feature due to budget and action constraints; other packet length features not independently verified in this task."
+    ]
+  }
+}

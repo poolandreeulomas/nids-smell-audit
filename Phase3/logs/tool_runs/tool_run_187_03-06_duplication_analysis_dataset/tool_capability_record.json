@@ -1,0 +1,10 @@
+{
+  "tool_name": "duplication_analysis",
+  "epistemic_role": "duplication_verification",
+  "supported_scopes": [
+    "dataset"
+  ],
+  "required_inputs": [],
+  "result_shape": "dataset_observation",
+  "boundedness_notes": "Checks exact duplication at dataset scope without semantic interpretation."
+}

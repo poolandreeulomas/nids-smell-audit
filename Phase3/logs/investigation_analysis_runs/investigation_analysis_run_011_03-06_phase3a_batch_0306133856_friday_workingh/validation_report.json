@@ -1,0 +1,89 @@
+{
+  "ok": true,
+  "schema_version": "phase3a.investigation_analysis.v1",
+  "substrate_validation": {
+    "ok": true,
+    "errors": [],
+    "warnings": [],
+    "stats": {
+      "region_count": 5,
+      "weak_signal_count": 5,
+      "contradiction_count": 0,
+      "tension_count": 0,
+      "grounded_reference_count": 0
+    },
+    "invariants": {
+      "grounded_only": true,
+      "contradictions_preserved": false,
+      "minority_signals_preserved": true,
+      "causal_inference_introduced": false,
+      "context_used_only_for_interpretation": true
+    },
+    "forbidden_language_hits": []
+  },
+  "analysis_context_validation": {
+    "ok": true,
+    "errors": [],
+    "warnings": [],
+    "stats": {
+      "artifact_framing_count": 3
+    }
+  },
+  "analysis_iteration_context_validation": {
+    "ok": true,
+    "errors": [],
+    "warnings": [],
+    "stats": {
+      "mode": "initial"
+    }
+  },
+  "parse_validation": {
+    "ok": true,
+    "errors": [],
+    "warnings": []
+  },
+  "output_validation": {
+    "ok": true,
+    "errors": [],
+    "warnings": [
+      {
+        "field": "hypotheses[0].summary",
+        "message": "Semantic language flag detected (closure_language)."
+      },
+      {
+        "field": "hypotheses[0].open_questions[1]",
+        "message": "Semantic language flag detected (closure_language)."
+      },
+      {
+        "field": "hypotheses[6].summary",
+        "message": "Semantic language flag detected (closure_language)."
+      }
+    ],
+    "stats": {
+      "hypothesis_count": 10,
+      "open_question_count": 20,
+      "distinct_evidence_ref_count": 33,
+      "overlap_pair_count": 8
+    },
+    "invariants": {
+      "bounded_hypothesis_count": true,
+      "grounded_only": true,
+      "open_questions_present": true,
+      "non_empty_hypothesis_space": true
+    },
+    "forbidden_language_hits": [
+      {
+        "field": "hypotheses[0].summary",
+        "code": "closure_language"
+      },
+      {
+        "field": "hypotheses[0].open_questions[1]",
+        "code": "closure_language"
+      },
+      {
+        "field": "hypotheses[6].summary",
+        "code": "closure_language"
+      }
+    ]
+  }
+}

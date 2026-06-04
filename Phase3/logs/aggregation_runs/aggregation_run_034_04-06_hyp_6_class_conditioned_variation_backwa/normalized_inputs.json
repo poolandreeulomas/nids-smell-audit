@@ -1,0 +1,127 @@
+{
+  "batch_id": "phase3a_batch_0406132627_friday-workinghours-afternoon-ddos.pcap_iscx_f0e355",
+  "round_id": "round-001",
+  "hypothesis_id": "hyp_6_class_conditioned_variation_backward_packet_lengths",
+  "worker_result_count": 4,
+  "expected_task_ids": [
+    "task_1",
+    "task_2",
+    "task_3",
+    "task_4"
+  ],
+  "selected_task_ids": [
+    "task_1",
+    "task_2",
+    "task_3",
+    "task_4"
+  ],
+  "missing_task_ids": [],
+  "extra_task_ids": [],
+  "source_run_dirs": [
+    "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\worker_runs\\worker_run_137_04-06_task_3",
+    "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\worker_runs\\worker_run_138_04-06_task_2",
+    "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\worker_runs\\worker_run_139_04-06_task_4",
+    "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\worker_runs\\worker_run_140_04-06_task_1"
+  ],
+  "status_counts": {
+    "completed": 3,
+    "inconclusive": 1
+  },
+  "source_evidence_refs": [
+    "task_1_step_03",
+    "task_1_step_05",
+    "task_1_step_07",
+    "task_2_step_03",
+    "task_2_step_05",
+    "task_2_step_07",
+    "task_3_step_03",
+    "task_3_step_05",
+    "task_3_step_07",
+    "task_4_step_03",
+    "task_4_step_05",
+    "task_4_step_07"
+  ],
+  "source_contradictions": [],
+  "source_limitations": [
+    "Dependency profiles are dispersed, reducing robustness of structural variation signals.",
+    "No duplication verification was performed to check for exact data duplication artifacts.",
+    "Redundancy among backward packet length features limits independent discriminative power."
+  ],
+  "source_finding_count": 11,
+  "non_success_count": 1,
+  "worker_results": [
+    {
+      "task_id": "task_1",
+      "hypothesis_id": "hyp_6_class_conditioned_variation_backward_packet_lengths",
+      "status": "completed",
+      "findings": [
+        "Backward packet length features (Max, Mean, Std) exhibit stable and significant class-conditioned distribution shifts with high class separation across the examined time windows and network conditions."
+      ],
+      "evidence_refs": [
+        "task_1_step_03",
+        "task_1_step_05",
+        "task_1_step_07"
+      ],
+      "contradictions": [],
+      "limitations": []
+    },
+    {
+      "task_id": "task_2",
+      "hypothesis_id": "hyp_6_class_conditioned_variation_backward_packet_lengths",
+      "status": "completed",
+      "findings": [
+        "Bwd Packet Length Max exhibits low cardinality and near-constant values across classes, indicating limited variability.",
+        "Bwd Packet Length Std also shows low cardinality, suggesting constrained variation in backward packet length dispersion.",
+        "Bwd Packet Length Mean demonstrates high class separation in distribution, confirming structural differences between BENIGN and DDoS classes.",
+        "Overall, backward packet length features show significant class-conditioned structural variation with differing variance ratios and unique value counts."
+      ],
+      "evidence_refs": [
+        "task_2_step_03",
+        "task_2_step_05",
+        "task_2_step_07"
+      ],
+      "contradictions": [],
+      "limitations": []
+    },
+    {
+      "task_id": "task_3",
+      "hypothesis_id": "hyp_6_class_conditioned_variation_backward_packet_lengths",
+      "status": "completed",
+      "findings": [
+        "Backward packet length features (Max, Mean, Std) exhibit moderate shortcut-like signals indicating class-conditioned structural variation.",
+        "These features show high variance ratios and differing unique value counts between BENIGN and DDoS classes, supporting the presence of dataset-specific artifacts.",
+        "The moderate shortcut signals suggest a risk of overfitting due to representation-sensitive patterns in backward packet length features."
+      ],
+      "evidence_refs": [
+        "task_3_step_03",
+        "task_3_step_05",
+        "task_3_step_07"
+      ],
+      "contradictions": [],
+      "limitations": [
+        "No duplication verification was performed to check for exact data duplication artifacts."
+      ]
+    },
+    {
+      "task_id": "task_4",
+      "hypothesis_id": "hyp_6_class_conditioned_variation_backward_packet_lengths",
+      "status": "inconclusive",
+      "findings": [
+        "Backward packet length features exhibit significant class-conditioned structural variation with high variance ratios and differing unique value counts between classes.",
+        "High redundancy exists between 'Bwd Packet Length Max', 'Mean', and 'Std', indicating overlapping information rather than independent discriminative signals.",
+        "Dependency contextualization did not reveal narrow, robust dependency clusters for 'Bwd Packet Length Max', suggesting limited robustness in structural variation patterns."
+      ],
+      "evidence_refs": [
+        "task_4_step_03",
+        "task_4_step_05",
+        "task_4_step_07"
+      ],
+      "contradictions": [],
+      "limitations": [
+        "Redundancy among backward packet length features limits independent discriminative power.",
+        "Dependency profiles are dispersed, reducing robustness of structural variation signals."
+      ]
+    }
+  ],
+  "overlap_diagnostics": []
+}

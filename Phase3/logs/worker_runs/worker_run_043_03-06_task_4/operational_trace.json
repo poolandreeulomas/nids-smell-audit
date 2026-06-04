@@ -1,0 +1,348 @@
+{
+  "task_id": "task_4",
+  "action_sequence": [
+    {
+      "step_index": 3,
+      "action_index": 1,
+      "action_class": "dependency_contextualization",
+      "context_ref": "e33",
+      "feature_name": "Destination Port",
+      "related_feature_name": null,
+      "call_id": "task_4_step_03",
+      "status": "ok"
+    },
+    {
+      "step_index": 7,
+      "action_index": 1,
+      "action_class": "relation_verification",
+      "context_ref": "e33",
+      "feature_name": "Destination Port",
+      "related_feature_name": null,
+      "call_id": "task_4_step_07",
+      "status": "ok"
+    }
+  ],
+  "tool_events": [
+    {
+      "ok": true,
+      "execution_ok": true,
+      "call_id": "task_4_step_03",
+      "action": {
+        "action_class": "dependency_contextualization",
+        "context_ref": "e33",
+        "feature_name": "Destination Port"
+      },
+      "tool_name": "dependency_concentration_analysis",
+      "request": {
+        "call_id": "task_4_step_03",
+        "tool_name": "dependency_concentration_analysis",
+        "target_scope": "feature",
+        "input_refs": {
+          "feature_name": "Destination Port"
+        },
+        "preprocessing_profile_ref": "default",
+        "execution_constraints": {
+          "cache_policy": "reuse",
+          "validation_mode": "strict",
+          "save_raw_output": true
+        }
+      },
+      "request_validation": {
+        "ok": true,
+        "errors": [],
+        "warnings": []
+      },
+      "raw_tool_output": {
+        "ok": true,
+        "tool": "dependency_concentration_analysis",
+        "feature_name": "Destination Port",
+        "value": 0.06282726601524029,
+        "error_code": null,
+        "error_message": null,
+        "meta": {
+          "dataset_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\data\\cic_ids_2017\\Friday-WorkingHours-Afternoon-DDos.pcap_ISCX.csv",
+          "label_column": "Label"
+        },
+        "evidence": {
+          "feature": "Destination Port",
+          "signals": [],
+          "metrics": {
+            "partner_count": 67,
+            "strong_partner_count": 1,
+            "top_partner": "URG Flag Count",
+            "top_partner_correlation": 0.7509343748796095,
+            "top_partner_share": 0.11993131154436384,
+            "top3_share": 0.30429129063397875,
+            "concentration_index": 0.06282726601524029,
+            "effective_partner_count": 15.91665630902076,
+            "mean_abs_correlation": 0.18101471103982356,
+            "median_abs_correlation": 0.11068726835426233
+          },
+          "support": {
+            "n_total": 225745,
+            "n_per_class": {
+              "DDoS": 128027,
+              "BENIGN": 97718
+            },
+            "total_samples": 225745,
+            "per_class": {
+              "DDoS": 128027,
+              "BENIGN": 97718
+            }
+          },
+          "provenance": {
+            "source": "tool",
+            "tool": "dependency_concentration_analysis",
+            "step": null
+          },
+          "status": "active"
+        }
+      },
+      "tool_result": {
+        "call_id": "task_4_step_03",
+        "tool_name": "dependency_concentration_analysis",
+        "status": "ok",
+        "observations": {
+          "feature_name": "Destination Port",
+          "value": 0.06282726601524029,
+          "signals": [],
+          "metrics": {
+            "partner_count": 67,
+            "strong_partner_count": 1,
+            "top_partner": "URG Flag Count",
+            "top_partner_correlation": 0.7509343748796095,
+            "top_partner_share": 0.11993131154436384,
+            "top3_share": 0.30429129063397875,
+            "concentration_index": 0.06282726601524029,
+            "effective_partner_count": 15.91665630902076,
+            "mean_abs_correlation": 0.18101471103982356,
+            "median_abs_correlation": 0.11068726835426233
+          },
+          "support": {
+            "n_total": 225745,
+            "n_per_class": {
+              "DDoS": 128027,
+              "BENIGN": 97718
+            },
+            "total_samples": 225745,
+            "per_class": {
+              "DDoS": 128027,
+              "BENIGN": 97718
+            }
+          },
+          "provenance": {
+            "source": "tool",
+            "tool": "dependency_concentration_analysis",
+            "step": null
+          },
+          "feature": "Destination Port"
+        },
+        "evidence_refs": [
+          {
+            "artifact": "parsed_output",
+            "path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_223_03-06_dependency_concentration_analysis_feature\\parsed_output.json"
+          },
+          {
+            "artifact": "raw_tool_output",
+            "path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_223_03-06_dependency_concentration_analysis_feature\\raw_tool_output.json"
+          },
+          {
+            "artifact": "component_run",
+            "path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_223_03-06_dependency_concentration_analysis_feature\\component_run.json"
+          }
+        ],
+        "limitations": []
+      },
+      "result_validation": {
+        "ok": true,
+        "errors": [],
+        "warnings": []
+      },
+      "cache_events": [
+        {
+          "cache_key": "dependency_concentration_analysis::corr_matrix",
+          "status": "miss"
+        }
+      ],
+      "artifact_paths": {
+        "component_run_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_223_03-06_dependency_concentration_analysis_feature\\component_run.json",
+        "tool_call_request_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_223_03-06_dependency_concentration_analysis_feature\\tool_call_request.json",
+        "tool_capability_record_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_223_03-06_dependency_concentration_analysis_feature\\tool_capability_record.json",
+        "normalized_inputs_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_223_03-06_dependency_concentration_analysis_feature\\normalized_inputs.json",
+        "raw_tool_output_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_223_03-06_dependency_concentration_analysis_feature\\raw_tool_output.json",
+        "parsed_output_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_223_03-06_dependency_concentration_analysis_feature\\parsed_output.json",
+        "validation_report_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_223_03-06_dependency_concentration_analysis_feature\\validation_report.json",
+        "tool_metrics_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_223_03-06_dependency_concentration_analysis_feature\\tool_metrics.json",
+        "cache_record_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_223_03-06_dependency_concentration_analysis_feature\\cache_record.json"
+      },
+      "error_message": "",
+      "step_index": 3,
+      "action_index": 1
+    },
+    {
+      "ok": true,
+      "execution_ok": true,
+      "call_id": "task_4_step_07",
+      "action": {
+        "action_class": "relation_verification",
+        "context_ref": "e33",
+        "feature_name": "Destination Port"
+      },
+      "tool_name": "feature_relation",
+      "request": {
+        "call_id": "task_4_step_07",
+        "tool_name": "feature_relation",
+        "target_scope": "feature",
+        "input_refs": {
+          "feature_name": "Destination Port"
+        },
+        "preprocessing_profile_ref": "default",
+        "execution_constraints": {
+          "cache_policy": "reuse",
+          "validation_mode": "strict",
+          "save_raw_output": true
+        }
+      },
+      "request_validation": {
+        "ok": true,
+        "errors": [],
+        "warnings": []
+      },
+      "raw_tool_output": {
+        "ok": true,
+        "tool": "feature_relation",
+        "feature_name": "Destination Port|URG Flag Count",
+        "value": 0.7509343748796095,
+        "error_code": null,
+        "error_message": null,
+        "meta": {
+          "dataset_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\data\\cic_ids_2017\\Friday-WorkingHours-Afternoon-DDos.pcap_ISCX.csv",
+          "label_column": "Label",
+          "feature_1": "Destination Port",
+          "feature_2": "URG Flag Count"
+        },
+        "evidence": {
+          "feature": "Destination Port|URG Flag Count",
+          "signals": [],
+          "metrics": {
+            "correlation": 0.7509343748796095
+          },
+          "support": {
+            "n_total": 225745,
+            "n_per_class": {
+              "DDoS": 128027,
+              "BENIGN": 97718
+            },
+            "total_samples": 225745,
+            "per_class": {
+              "DDoS": 128027,
+              "BENIGN": 97718
+            }
+          },
+          "provenance": {
+            "source": "tool",
+            "tool": "feature_relation",
+            "step": null
+          },
+          "status": "active"
+        }
+      },
+      "tool_result": {
+        "call_id": "task_4_step_07",
+        "tool_name": "feature_relation",
+        "status": "ok",
+        "observations": {
+          "feature_name": "Destination Port|URG Flag Count",
+          "value": 0.7509343748796095,
+          "signals": [],
+          "metrics": {
+            "correlation": 0.7509343748796095
+          },
+          "support": {
+            "n_total": 225745,
+            "n_per_class": {
+              "DDoS": 128027,
+              "BENIGN": 97718
+            },
+            "total_samples": 225745,
+            "per_class": {
+              "DDoS": 128027,
+              "BENIGN": 97718
+            }
+          },
+          "provenance": {
+            "source": "tool",
+            "tool": "feature_relation",
+            "step": null
+          },
+          "feature": "Destination Port|URG Flag Count"
+        },
+        "evidence_refs": [
+          {
+            "artifact": "parsed_output",
+            "path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_245_03-06_feature_relation_feature\\parsed_output.json"
+          },
+          {
+            "artifact": "raw_tool_output",
+            "path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_245_03-06_feature_relation_feature\\raw_tool_output.json"
+          },
+          {
+            "artifact": "component_run",
+            "path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_245_03-06_feature_relation_feature\\component_run.json"
+          }
+        ],
+        "limitations": []
+      },
+      "result_validation": {
+        "ok": true,
+        "errors": [],
+        "warnings": []
+      },
+      "cache_events": [
+        {
+          "cache_key": "feature_relation::corr_matrix",
+          "status": "miss"
+        }
+      ],
+      "artifact_paths": {
+        "component_run_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_245_03-06_feature_relation_feature\\component_run.json",
+        "tool_call_request_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_245_03-06_feature_relation_feature\\tool_call_request.json",
+        "tool_capability_record_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_245_03-06_feature_relation_feature\\tool_capability_record.json",
+        "normalized_inputs_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_245_03-06_feature_relation_feature\\normalized_inputs.json",
+        "raw_tool_output_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_245_03-06_feature_relation_feature\\raw_tool_output.json",
+        "parsed_output_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_245_03-06_feature_relation_feature\\parsed_output.json",
+        "validation_report_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_245_03-06_feature_relation_feature\\validation_report.json",
+        "tool_metrics_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_245_03-06_feature_relation_feature\\tool_metrics.json",
+        "cache_record_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_245_03-06_feature_relation_feature\\cache_record.json"
+      },
+      "error_message": "",
+      "step_index": 7,
+      "action_index": 1
+    }
+  ],
+  "retry_events": [
+    {
+      "step_index": 5,
+      "attempt_index": 1,
+      "reason": "related_feature_name 'Protocol' is outside the selected local context.",
+      "retry_kind": "action_repair"
+    }
+  ],
+  "failure_events": [
+    {
+      "step_index": 5,
+      "attempt_index": 0,
+      "failure_kind": "tool_execution_error",
+      "message": "related_feature_name 'Protocol' is outside the selected local context.",
+      "call_id": "task_4_step_05"
+    }
+  ],
+  "budget_consumption": {
+    "max_steps": 8,
+    "max_retries": 1,
+    "steps_used": 8,
+    "retries_used": 1,
+    "termination_cause": "model_finish",
+    "result_committed": true
+  }
+}

@@ -1,0 +1,40 @@
+{
+  "hypothesis_id": "hyp_1_redundancy_vs_importance_tension",
+  "planner_strategy_id": "strategy_01_hyp_1",
+  "task_count": 4,
+  "action_class_count": 6,
+  "task_summaries": [
+    {
+      "task_id": "task_1",
+      "hypothesis_id": "hyp_1_redundancy_vs_importance_tension",
+      "task_scope": "Measure pairwise correlation strength and overlap in predictive signal among top-ranked correlated feature pairs using evidence refs e3, e4, e13, e16, e22.",
+      "allowed_action_count": 2,
+      "local_context_ref_count": 5,
+      "stop_condition_count": 2
+    },
+    {
+      "task_id": "task_2",
+      "hypothesis_id": "hyp_1_redundancy_vs_importance_tension",
+      "task_scope": "Assess feature importance stability under perturbations that remove or combine correlated features within evidence refs e3, e4, e13, e16, e22.",
+      "allowed_action_count": 2,
+      "local_context_ref_count": 5,
+      "stop_condition_count": 2
+    },
+    {
+      "task_id": "task_3",
+      "hypothesis_id": "hyp_1_redundancy_vs_importance_tension",
+      "task_scope": "Compare distributional and dependency profiles of correlated features across classes and data partitions using evidence refs e3, e4, e13, e16, e22.",
+      "allowed_action_count": 2,
+      "local_context_ref_count": 5,
+      "stop_condition_count": 2
+    },
+    {
+      "task_id": "task_4",
+      "hypothesis_id": "hyp_1_redundancy_vs_importance_tension",
+      "task_scope": "Evaluate whether correlated features exhibit shortcut-like behavior or local label consistency within evidence refs e3, e4, e13, e16, e22.",
+      "allowed_action_count": 2,
+      "local_context_ref_count": 5,
+      "stop_condition_count": 2
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "task_id": "task_1",
+  "hypothesis_id": "hyp_3_strong_feature_redundancy_pairs",
+  "task_scope": "Determine if perfect correlations among feature pairs arise from inherent network traffic properties or preprocessing steps using correlation and redundancy evidence.",
+  "allowed_actions": [
+    "relation_verification",
+    "duplication_verification"
+  ],
+  "local_context_refs": [
+    "e13",
+    "e14",
+    "e15",
+    "e16",
+    "e17"
+  ],
+  "stop_conditions": [
+    "correlation origin classified as natural or preprocessing-induced",
+    "all key feature pairs analyzed"
+  ]
+}

@@ -1,0 +1,33 @@
+{
+  "batch_id": "phase3a_batch_0306192600_friday-workinghours-afternoon-ddos.pcap_iscx_a08c4b",
+  "round_id": "round-001",
+  "hypothesis_id": "hyp_003_class_conditioned_variation_backward_packet_lengths",
+  "merged_findings": [
+    "Backward packet length features demonstrate substantial class-conditioned structural variation characterized by high variance ratios, skewed unique value counts, and representation-sensitive patterns distinguishing BENIGN and DDoS classes.",
+    "Distribution and dependency analyses confirm strong local class separation signals in features such as Bwd Packet Length Max, Avg Bwd Segment Size, and Bwd Packet Length Mean, despite some features exhibiting low cardinality and near-constant behavior limiting granularity.",
+    "Local label neighborhood conflicts and duplicate label conflicts persist around key backward packet length features, indicating unresolved local label-topology inconsistencies consistent with observed structural irregularities."
+  ],
+  "evidence_refs": [
+    "task_1_step_03",
+    "task_1_step_05",
+    "task_1_step_07",
+    "task_2_step_03",
+    "task_2_step_05",
+    "task_2_step_07",
+    "task_3_step_03",
+    "task_3_step_05",
+    "task_3_step_07",
+    "task_4_step_03",
+    "task_4_step_05",
+    "task_4_step_07"
+  ],
+  "preserved_contradictions": [
+    "Local label neighborhood conflicts and duplicate label conflicts remain unresolved."
+  ],
+  "open_gaps": [
+    "Limited granularity in variance ratio interpretation due to low cardinality and near-constant feature behavior.",
+    "No direct local computation of variance ratio values in some tasks, only inferred from cardinality signals.",
+    "Analysis confined to local backward packet length features without cross-feature or global dataset context."
+  ],
+  "update_focus": "Consolidate local class-conditioned structural variation evidence in backward packet length features while preserving label conflict contradictions and acknowledging granularity and scope limitations."
+}

@@ -1,0 +1,34 @@
+{
+  "batch_id": "phase3a_batch_0306181120_friday-workinghours-afternoon-ddos.pcap_iscx_5e8f98",
+  "round_id": "round-001",
+  "hypothesis_id": "hyp_10_interplay_between_redundancy_and_class_conditioned_variation",
+  "merged_findings": [
+    "Backward packet length features (e.g., Bwd Packet Length Max, Mean, Std) and Avg Bwd Segment Size exhibit strong redundancy and near-deterministic correlations, forming tightly clustered dependency groups.",
+    "These redundant feature clusters show significant class-conditioned structural variation, with high class separation and preserved class-specific signals when redundancies are disentangled.",
+    "However, local label-topology consistency checks reveal moderate conflicts and duplicate label conflicts around key features like Bwd Packet Length Mean and Avg Bwd Segment Size, indicating unstable dependencies that may mask or distort class-conditioned variation.",
+    "Additional redundancy is observed in forward flags (PSH and SYN), which may obscure class pattern detection.",
+    "Disentangling redundancy in these features can enhance interpretability and improve detection of class-specific patterns."
+  ],
+  "evidence_refs": [
+    "task_1_step_03",
+    "task_1_step_05",
+    "task_1_step_07",
+    "task_2_step_03",
+    "task_2_step_05",
+    "task_2_step_07",
+    "task_3_step_03",
+    "task_3_step_05",
+    "task_3_step_07",
+    "task_4_step_03",
+    "task_4_step_05",
+    "task_4_step_07"
+  ],
+  "preserved_contradictions": [
+    "Moderate label neighborhood conflicts and duplicate label conflicts represent preserved local contradictions."
+  ],
+  "open_gaps": [
+    "Global dependency effects and overall impact of redundancy disentanglement on interpretability and detection remain unassessed.",
+    "Limitations in analysis scope to local neighborhoods and pairwise relations restrict comprehensive understanding of feature interplay."
+  ],
+  "update_focus": "Focus on resolving local dependency conflicts and assessing global effects of redundancy disentanglement on class-conditioned feature variation."
+}

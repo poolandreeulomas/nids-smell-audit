@@ -1,0 +1,20 @@
+{
+  "strategy_id": "strategy_02_hyp_003",
+  "hypothesis_id": "hyp_003_class_conditioned_variation_in_backward_packet_lengths",
+  "strategic_objective": "Characterize the nature and stability of class-conditioned structural variation in backward packet length features.",
+  "key_checks": [
+    "Quantify variance ratios and unique value counts per class for backward packet length features",
+    "Assess dependency concentration and distribution shifts across network contexts",
+    "Investigate potential sampling or labeling biases influencing feature distributions",
+    "Examine local label-topology consistency around backward packet length features"
+  ],
+  "success_criteria": [
+    "Clear differentiation of genuine behavioral differences from dataset artifacts",
+    "Identification of unstable dependencies or representation shifts affecting these features",
+    "Evidence supporting or refuting sensitivity to sampling or labeling biases"
+  ],
+  "router_constraints": [
+    "preserve feature_scope for backward packet length features",
+    "preserve evidence refs e9 e10 e11 e12"
+  ]
+}

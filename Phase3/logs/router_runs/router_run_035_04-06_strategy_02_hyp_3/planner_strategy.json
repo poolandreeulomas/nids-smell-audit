@@ -1,0 +1,22 @@
+{
+  "strategy_id": "strategy_02_hyp_3",
+  "hypothesis_id": "hyp_3_class_conditioned_structural_variation_in_packet_length_features",
+  "strategic_objective": "Clarify whether class-conditioned structural differences in packet length features reflect true behavioral signals or sampling biases and their interaction with low cardinality features.",
+  "key_checks": [
+    "Analyze distributional differences and variance ratios of features e8-e12 conditioned on class labels",
+    "Assess dependency concentration and local consistency to distinguish behavioral signal from bias",
+    "Examine joint relations and potential confounding with low cardinality features e23-e32",
+    "Evaluate stability of these structural variations across data partitions"
+  ],
+  "success_criteria": [
+    "Evidence supporting behavioral origin of class-conditioned structural variation",
+    "Identification of any sampling or measurement biases influencing these features",
+    "Understanding of interaction effects with low cardinality features",
+    "Robustness of observed patterns across partitions"
+  ],
+  "router_constraints": [
+    "preserve feature scope for e8-e12 and e23-e32",
+    "preserve evidence references e8-e12",
+    "maintain focus on distributional and dependency analyses"
+  ]
+}

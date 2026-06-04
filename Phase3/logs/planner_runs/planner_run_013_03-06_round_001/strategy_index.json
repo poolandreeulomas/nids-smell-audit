@@ -1,0 +1,35 @@
+{
+  "selected_count": 3,
+  "strategy_count": 3,
+  "missing_strategy_hypothesis_ids": [],
+  "unexpected_strategy_hypothesis_ids": [],
+  "strategies": [
+    {
+      "strategy_id": "strategy_01_hyp_005",
+      "hypothesis_id": "hyp_005_class_distribution_skew_in_destination_port",
+      "summary": "The Destination Port feature shows strong class-conditioned distributional differences, with the DDoS class dominated by a single port and zero entropy, while the BENIGN class has higher entropy and a lower dominant port ratio, indicating a representation-sensitive pattern that may reflect attack targeting or scanning behavior.",
+      "strategic_objective": "Assess the stability and shortcut potential of the dominant destination port distribution in DDoS traffic.",
+      "key_check_count": 4,
+      "success_criteria_count": 3,
+      "router_constraint_count": 2
+    },
+    {
+      "strategy_id": "strategy_02_hyp_003",
+      "hypothesis_id": "hyp_003_class_conditioned_variation_in_backward_packet_lengths",
+      "summary": "Backward packet length features show substantial structural variation conditioned on class, with high variance ratios and differing unique value counts between BENIGN and DDoS classes, suggesting these features may encode class-distinctive traffic patterns.",
+      "strategic_objective": "Characterize the nature and stability of class-conditioned structural variation in backward packet length features.",
+      "key_check_count": 4,
+      "success_criteria_count": 3,
+      "router_constraint_count": 2
+    },
+    {
+      "strategy_id": "strategy_03_hyp_002",
+      "hypothesis_id": "hyp_002_strong_linear_dependencies",
+      "summary": "Several feature pairs exhibit perfect or near-perfect correlation, indicating strong linear dependencies and potential redundancy among packet length, segment size, header length, and flag count features, which may reduce the effective dimensionality of the dataset.",
+      "strategic_objective": "Evaluate the stability and shortcut risk of strong linear dependencies among packet length and related features.",
+      "key_check_count": 4,
+      "success_criteria_count": 3,
+      "router_constraint_count": 2
+    }
+  ]
+}

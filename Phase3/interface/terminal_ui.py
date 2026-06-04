@@ -26,16 +26,28 @@ def _section(title: str, lines: list[str]) -> list[str]:
     return [title, "-" * len(title), *lines, ""]
 
 
+def _clean_ui_text(text: str) -> str:
+    return (
+        str(text)
+        .replace("  <available>", "")
+        .replace(" <available>", "")
+        .replace(" are available", " are implemented")
+        .replace("Available Models", "Models")
+        .replace("Available Partitions", "Partitions")
+        .replace("available models", "models")
+    )
+
+
 def _meta_lines(path_label: str, hint: str | None = None) -> list[str]:
     lines = [f"Path: {path_label}"]
     if hint:
-        lines.append(f"Hint: {hint}")
+        lines.append(f"Hint: {_clean_ui_text(hint)}")
     lines.append("")
     return lines
 
 
 def _menu_lines(options: list[tuple[str, str]]) -> list[str]:
-    return [f"[{key}] {label}" for key, label in options]
+    return [f"[{key}] {_clean_ui_text(label)}" for key, label in options]
 
 
 def _kv_lines(pairs: list[tuple[str, str]]) -> list[str]:
@@ -144,21 +156,22 @@ def render_main_menu(
 
 def render_phase3a_components_menu() -> str:
     lines = [
-        *_meta_lines("Home / Phase 3A Components", "Tools is the first implemented component surface."),
+        *_meta_lines("Home / Phase 3A Components", "Phase 3A Batch Runtime, Semantic Extraction, Investigation Analysis, Hypothesis Ranking, Planner, Router, Worker, Aggregation, State Manager, Critic, Final Batch Auditor, and Tools have core run/review surfaces."),
         *(_section(
             "Components",
             [
-                "[11] Tools  <available>",
-                "[1]  Semantic Extraction  <planned>",
-                "[2]  Investigation Analysis  <planned>",
-                "[3]  Hypothesis Ranking  <planned>",
-                "[4]  Planner  <planned>",
-                "[5]  Router  <planned>",
-                "[6]  Worker  <planned>",
-                "[7]  Aggregation  <planned>",
-                "[8]  State Manager  <planned>",
-                "[9]  Critic  <planned>",
-                "[10] Final Batch Auditor  <planned>",
+                "[1]  Semantic Extraction  <available>",
+                "[2]  Investigation Analysis  <available>",
+                "[3]  Hypothesis Ranking  <available>",
+                "[4]  Planner  <available>",
+                "[5]  Router  <available>",
+                "[6]  Worker  <available>",
+                "[7]  Aggregation  <available>",
+                "[8]  State Manager  <available>",
+                "[9]  Critic  <available>",
+                "[10] Final Batch Auditor  <available>",
+                "[11] Tools",
+                "[12] Phase 3A Batch Runtime",
             ],
         )),
         *(_section("Actions", _menu_lines([("B", "Back"), ("Q", "Quit")]))),
@@ -166,9 +179,57 @@ def render_phase3a_components_menu() -> str:
     return _block("Phase 3A Components", lines)
 
 
+def render_phase3a_runtime_menu(
+    *,
+    dataset_name: str,
+    default_model_name: str,
+    planning_model_name: str,
+    worker_model_name: str,
+    synthesis_model_name: str,
+    latest_run_name: str | None,
+) -> str:
+    lines = [
+        *_meta_lines("Home / Phase 3A Components / Batch Runtime",
+                     "Authoritative deterministic Phase 3A orchestration with ledger-first review. Grouped execution, latest-run review, and saved-run browsing are implemented; evaluate and replay remain planned."),
+        *(_section(
+            "Session",
+            _kv_lines(
+                [
+                    ("dataset", dataset_name),
+                    ("default_model", default_model_name),
+                    ("planning_model", planning_model_name),
+                    ("worker_model", worker_model_name),
+                    ("synthesis_model", synthesis_model_name),
+                    ("latest_run", latest_run_name or "none"),
+                ]
+            ),
+        )),
+        *(_section(
+            "Actions",
+            _menu_lines(
+                [
+                    ("1", "Run Cognitive Chain"),
+                    ("2", "Run Hypothesis Execution"),
+                    ("3", "Run Full Round"),
+                    ("4", "Run Full Batch"),
+                    ("L", "Review Latest Phase 3A Batch Run"),
+                    ("V", "View Saved Phase 3A Batch Runs"),
+                    ("E", "Evaluate Phase 3A Batch Runs  <planned>"),
+                    ("D", "Debug / Replay Phase 3A Batch Run  <planned>"),
+                    ("C", "Open Session Config"),
+                    ("B", "Back"),
+                    ("Q", "Quit"),
+                ]
+            ),
+        )),
+    ]
+    return _block("Phase 3A Batch Runtime", lines)
+
+
 def render_tools_menu(*, dataset_name: str, latest_run_name: str | None, selected_tool_name: str | None) -> str:
     lines = [
-        *_meta_lines("Home / Phase 3A Components / Tools", "Direct deterministic tools execution and artifact review."),
+        *_meta_lines("Home / Phase 3A Components / Tools",
+                     "Direct deterministic tools execution and artifact review. Run, inventory, latest-run review, and saved-run browsing are available; evaluate/debug/config remain planned."),
         *(_section(
             "Session",
             _kv_lines(
@@ -183,10 +244,13 @@ def render_tools_menu(*, dataset_name: str, latest_run_name: str | None, selecte
             "Actions",
             _menu_lines(
                 [
-                    ("R", "Run Tool"),
-                    ("I", "Inspect Tool Inventory"),
-                    ("L", "Review Latest Tool Run"),
-                    ("V", "View Saved Tool Runs"),
+                    ("R", "Run Tool  <available>"),
+                    ("I", "Inspect Tool Inventory  <available>"),
+                    ("L", "Review Latest Tool Run  <available>"),
+                    ("V", "View Saved Tool Runs  <available>"),
+                    ("E", "Evaluate Tool Runs  <planned>"),
+                    ("D", "Debug / Replay Tool Run  <planned>"),
+                    ("C", "Tools Config  <planned>"),
                     ("B", "Back"),
                     ("Q", "Quit"),
                 ]
@@ -196,9 +260,341 @@ def render_tools_menu(*, dataset_name: str, latest_run_name: str | None, selecte
     return _block("Tools", lines)
 
 
+def render_semantic_extraction_menu(*, dataset_name: str, model_name: str, latest_run_name: str | None) -> str:
+    lines = [
+        *_meta_lines("Home / Phase 3A Components / Semantic Extraction",
+                     "One-shot structural compression over overview evidence with artifact-first review. Run, latest-run review, and saved-run browsing are available; evaluate/debug/config remain planned."),
+        *(_section(
+            "Session",
+            _kv_lines(
+                [
+                    ("dataset", dataset_name),
+                    ("model", model_name),
+                    ("latest_run", latest_run_name or "none"),
+                ]
+            ),
+        )),
+        *(_section(
+            "Actions",
+            _menu_lines(
+                [
+                    ("R", "Run Semantic Extraction  <available>"),
+                    ("L", "Review Latest Semantic Extraction Run  <available>"),
+                    ("V", "View Saved Semantic Extraction Runs  <available>"),
+                    ("E", "Evaluate Semantic Extraction Runs  <planned>"),
+                    ("D", "Debug / Replay Semantic Extraction  <planned>"),
+                    ("C", "Semantic Extraction Config  <planned>"),
+                    ("B", "Back"),
+                    ("Q", "Quit"),
+                ]
+            ),
+        )),
+    ]
+    return _block("Semantic Extraction", lines)
+
+
+def render_investigation_analysis_menu(*, dataset_name: str, model_name: str, latest_run_name: str | None) -> str:
+    lines = [
+        *_meta_lines("Home / Phase 3A Components / Investigation Analysis",
+                     "Bounded interpretive hypothesis generation over the structural substrate with artifact-first review. Run, latest-run review, and saved-run browsing are available; evaluate/debug/config remain planned."),
+        *(_section(
+            "Session",
+            _kv_lines(
+                [
+                    ("dataset", dataset_name),
+                    ("model", model_name),
+                    ("latest_run", latest_run_name or "none"),
+                ]
+            ),
+        )),
+        *(_section(
+            "Actions",
+            _menu_lines(
+                [
+                    ("R", "Run Investigation Analysis  <available>"),
+                    ("L", "Review Latest Investigation Analysis Run  <available>"),
+                    ("V", "View Saved Investigation Analysis Runs  <available>"),
+                    ("E", "Evaluate Investigation Analysis Runs  <planned>"),
+                    ("D", "Debug / Replay Investigation Analysis  <planned>"),
+                    ("C", "Investigation Analysis Config  <planned>"),
+                    ("B", "Back"),
+                    ("Q", "Quit"),
+                ]
+            ),
+        )),
+    ]
+    return _block("Investigation Analysis", lines)
+
+
+def render_hypothesis_ranking_menu(*, dataset_name: str, model_name: str, latest_run_name: str | None) -> str:
+    lines = [
+        *_meta_lines("Home / Phase 3A Components / Hypothesis Ranking",
+                     "Bounded round-level hypothesis allocation with artifact-first review. Run, latest-run review, and saved-run browsing are available; evaluate/debug/config remain planned."),
+        *(_section(
+            "Session",
+            _kv_lines(
+                [
+                    ("dataset", dataset_name),
+                    ("model", model_name),
+                    ("latest_run", latest_run_name or "none"),
+                ]
+            ),
+        )),
+        *(_section(
+            "Actions",
+            _menu_lines(
+                [
+                    ("R", "Run Hypothesis Ranking  <available>"),
+                    ("L", "Review Latest Hypothesis Ranking Run  <available>"),
+                    ("V", "View Saved Hypothesis Ranking Runs  <available>"),
+                    ("E", "Evaluate Hypothesis Ranking Runs  <planned>"),
+                    ("D", "Debug / Replay Hypothesis Ranking  <planned>"),
+                    ("C", "Hypothesis Ranking Config  <planned>"),
+                    ("B", "Back"),
+                    ("Q", "Quit"),
+                ]
+            ),
+        )),
+    ]
+    return _block("Hypothesis Ranking", lines)
+
+
+def render_planner_menu(*, dataset_name: str, model_name: str, latest_run_name: str | None) -> str:
+    lines = [
+        *_meta_lines("Home / Phase 3A Components / Planner",
+                     "Bounded strategic investigation design over the selected hypothesis set with artifact-first review. Run, latest-run review, and saved-run browsing are available; evaluate/debug/config remain planned."),
+        *(_section(
+            "Session",
+            _kv_lines(
+                [
+                    ("dataset", dataset_name),
+                    ("model", model_name),
+                    ("latest_run", latest_run_name or "none"),
+                ]
+            ),
+        )),
+        *(_section(
+            "Actions",
+            _menu_lines(
+                [
+                    ("R", "Run Planner  <available>"),
+                    ("L", "Review Latest Planner Run  <available>"),
+                    ("V", "View Saved Planner Runs  <available>"),
+                    ("E", "Evaluate Planner Runs  <planned>"),
+                    ("D", "Debug / Replay Planner  <planned>"),
+                    ("C", "Planner Config  <planned>"),
+                    ("B", "Back"),
+                    ("Q", "Quit"),
+                ]
+            ),
+        )),
+    ]
+    return _block("Planner", lines)
+
+
+def render_router_menu(*, dataset_name: str, model_name: str, latest_run_name: str | None) -> str:
+    lines = [
+        *_meta_lines("Home / Phase 3A Components / Router",
+                     "Bounded operational decomposition over one planner strategy with artifact-first review. Run, latest-run review, and saved-run browsing are available; evaluate/debug/config remain planned."),
+        *(_section(
+            "Session",
+            _kv_lines(
+                [
+                    ("dataset", dataset_name),
+                    ("model", model_name),
+                    ("latest_run", latest_run_name or "none"),
+                ]
+            ),
+        )),
+        *(_section(
+            "Actions",
+            _menu_lines(
+                [
+                    ("R", "Run Router  <available>"),
+                    ("L", "Review Latest Router Run  <available>"),
+                    ("V", "View Saved Router Runs  <available>"),
+                    ("E", "Evaluate Router Runs  <planned>"),
+                    ("D", "Debug / Replay Router  <planned>"),
+                    ("C", "Router Config  <planned>"),
+                    ("B", "Back"),
+                    ("Q", "Quit"),
+                ]
+            ),
+        )),
+    ]
+    return _block("Router", lines)
+
+
+def render_worker_menu(*, dataset_name: str, model_name: str, latest_run_name: str | None) -> str:
+    lines = [
+        *_meta_lines("Home / Phase 3A Components / Worker",
+                     "Bounded local execution over one routed worker task with artifact-first review. Run, latest-run review, and saved-run browsing are available; evaluate/debug/config remain planned."),
+        *(_section(
+            "Session",
+            _kv_lines(
+                [
+                    ("dataset", dataset_name),
+                    ("model", model_name),
+                    ("latest_run", latest_run_name or "none"),
+                ]
+            ),
+        )),
+        *(_section(
+            "Actions",
+            _menu_lines(
+                [
+                    ("R", "Run Worker  <available>"),
+                    ("L", "Review Latest Worker Run  <available>"),
+                    ("V", "View Saved Worker Runs  <available>"),
+                    ("E", "Evaluate Worker Runs  <planned>"),
+                    ("D", "Debug / Replay Worker  <planned>"),
+                    ("C", "Worker Config  <planned>"),
+                    ("B", "Back"),
+                    ("Q", "Quit"),
+                ]
+            ),
+        )),
+    ]
+    return _block("Worker", lines)
+
+
+def render_aggregation_menu(*, dataset_name: str, model_name: str, latest_run_name: str | None) -> str:
+    lines = [
+        *_meta_lines("Home / Phase 3A Components / Aggregation",
+                     "Hypothesis-local structured consolidation over committed Worker results with artifact-first review. Run, latest-run review, and saved-run browsing are available; evaluate/debug/config remain planned."),
+        *(_section(
+            "Session",
+            _kv_lines(
+                [
+                    ("dataset", dataset_name),
+                    ("model", model_name),
+                    ("latest_run", latest_run_name or "none"),
+                ]
+            ),
+        )),
+        *(_section(
+            "Actions",
+            _menu_lines(
+                [
+                    ("R", "Run Aggregation  <available>"),
+                    ("L", "Review Latest Aggregation Run  <available>"),
+                    ("V", "View Saved Aggregation Runs  <available>"),
+                    ("H", "Browse Latest Phase3A Hypotheses  <available>"),
+                    ("E", "Evaluate Aggregation Runs  <planned>"),
+                    ("D", "Debug / Replay Aggregation  <planned>"),
+                    ("C", "Aggregation Config  <planned>"),
+                    ("B", "Back"),
+                    ("Q", "Quit"),
+                ]
+            ),
+        )),
+    ]
+    return _block("Aggregation", lines)
+
+
+def render_state_manager_menu(*, dataset_name: str, model_name: str, latest_run_name: str | None) -> str:
+    lines = [
+        *_meta_lines("Home / Phase 3A Components / State Manager",
+                     "Canonical batch-state revision over one committed Aggregation handoff with artifact-first review. Run, latest-run review, and saved-run browsing are available; evaluate/debug/config remain planned."),
+        *(_section(
+            "Session",
+            _kv_lines(
+                [
+                    ("dataset", dataset_name),
+                    ("model", model_name),
+                    ("latest_run", latest_run_name or "none"),
+                ]
+            ),
+        )),
+        *(_section(
+            "Actions",
+            _menu_lines(
+                [
+                    ("R", "Run State Manager  <available>"),
+                    ("L", "Review Latest State Manager Run  <available>"),
+                    ("V", "View Saved State Manager Runs  <available>"),
+                    ("E", "Evaluate State Manager Runs  <planned>"),
+                    ("D", "Debug / Replay State Manager  <planned>"),
+                    ("C", "State Manager Config  <planned>"),
+                    ("B", "Back"),
+                    ("Q", "Quit"),
+                ]
+            ),
+        )),
+    ]
+    return _block("State Manager", lines)
+
+
+def render_critic_menu(*, dataset_name: str, model_name: str, latest_run_name: str | None) -> str:
+    lines = [
+        *_meta_lines("Home / Phase 3A Components / Critic",
+                     "Bounded reflective process supervision over one committed State Manager run with artifact-first review. Run, latest-run review, and saved-run browsing are available; evaluate/debug/config remain planned."),
+        *(_section(
+            "Session",
+            _kv_lines(
+                [
+                    ("dataset", dataset_name),
+                    ("model", model_name),
+                    ("latest_run", latest_run_name or "none"),
+                ]
+            ),
+        )),
+        *(_section(
+            "Actions",
+            _menu_lines(
+                [
+                    ("R", "Run Critic  <available>"),
+                    ("L", "Review Latest Critic Run  <available>"),
+                    ("V", "View Saved Critic Runs  <available>"),
+                    ("E", "Evaluate Critic Runs  <planned>"),
+                    ("D", "Debug / Replay Critic  <planned>"),
+                    ("C", "Critic Config  <planned>"),
+                    ("B", "Back"),
+                    ("Q", "Quit"),
+                ]
+            ),
+        )),
+    ]
+    return _block("Critic", lines)
+
+
+def render_final_batch_auditor_menu(*, dataset_name: str, model_name: str, latest_run_name: str | None) -> str:
+    lines = [
+        *_meta_lines("Home / Phase 3A Components / Final Batch Auditor",
+                     "Terminal debugging-oriented batch inspection over one committed final State Manager state with artifact-first review. Run, latest-run review, and saved-run browsing are available; evaluate/debug/config remain planned."),
+        *(_section(
+            "Session",
+            _kv_lines(
+                [
+                    ("dataset", dataset_name),
+                    ("model", model_name),
+                    ("latest_run", latest_run_name or "none"),
+                ]
+            ),
+        )),
+        *(_section(
+            "Actions",
+            _menu_lines(
+                [
+                    ("R", "Run Final Batch Auditor  <available>"),
+                    ("L", "Review Latest Final Batch Audit  <available>"),
+                    ("V", "View Saved Final Batch Audits  <available>"),
+                    ("E", "Evaluate Final Batch Audits  <planned>"),
+                    ("D", "Debug / Replay Final Batch Audit  <planned>"),
+                    ("C", "Final Batch Auditor Config  <planned>"),
+                    ("B", "Back"),
+                    ("Q", "Quit"),
+                ]
+            ),
+        )),
+    ]
+    return _block("Final Batch Auditor", lines)
+
+
 def render_tool_inventory(records: list[dict[str, Any]]) -> str:
     lines: list[str] = [
-        *_meta_lines("Phase 3A Components / Tools / Inventory", "Capability-oriented inventory for the admitted deterministic stack."),
+        *_meta_lines("Phase 3A Components / Tools / Inventory",
+                     "Capability-oriented inventory for the admitted deterministic stack."),
     ]
     if not records:
         lines.append("No tool capability records are available.")
@@ -207,11 +603,16 @@ def render_tool_inventory(records: list[dict[str, Any]]) -> str:
     for record in records:
         lines.append(_rule("-"))
         lines.append(str(record.get("tool_name") or "unknown"))
-        lines.extend(_wrap_field("Role", str(record.get("epistemic_role") or "unknown")))
-        lines.extend(_wrap_field("Scopes", ", ".join(record.get("supported_scopes") or []) or "none"))
-        lines.extend(_wrap_field("Inputs", ", ".join(record.get("required_inputs") or []) or "none"))
-        lines.extend(_wrap_field("Result", str(record.get("result_shape") or "unknown")))
-        lines.extend(_wrap_field("Bounds", str(record.get("boundedness_notes") or "n/a")))
+        lines.extend(_wrap_field("Role", str(
+            record.get("epistemic_role") or "unknown")))
+        lines.extend(_wrap_field("Scopes", ", ".join(
+            record.get("supported_scopes") or []) or "none"))
+        lines.extend(_wrap_field("Inputs", ", ".join(
+            record.get("required_inputs") or []) or "none"))
+        lines.extend(_wrap_field("Result", str(
+            record.get("result_shape") or "unknown")))
+        lines.extend(_wrap_field("Bounds", str(
+            record.get("boundedness_notes") or "n/a")))
         lines.append("")
 
     if lines and lines[-1] == "":
@@ -224,21 +625,323 @@ def render_recent_tool_runs(paths: list[Path], limit: int) -> str:
         return _block(
             "Saved Tool Runs",
             [
-                *_meta_lines("Phase 3A Components / Tools / Saved Runs", "Select a saved tool run directory."),
+                *_meta_lines("Phase 3A Components / Tools / Saved Runs",
+                             "Select a saved tool run directory."),
                 "No tool run artifacts were found in logs/tool_runs.",
                 "",
-                *(_section("Actions", _menu_lines([("B", "Back"), ("Q", "Quit")]))),
+                *(_section("Actions",
+                  _menu_lines([("B", "Back"), ("Q", "Quit")]))),
             ],
         )
 
     lines = [
-        *_meta_lines("Phase 3A Components / Tools / Saved Runs", "Select a saved tool run directory."),
+        *_meta_lines("Phase 3A Components / Tools / Saved Runs",
+                     "Select a saved tool run directory."),
         f"Showing latest {len(paths)} tool run(s) out of limit {limit}.",
         "",
-        *(_section("Available Tool Runs", [f"[{index}] {path.name}" for index, path in enumerate(paths, start=1)])),
-        *(_section("Actions", _menu_lines([("N", "Change number of visible runs"), ("B", "Back"), ("Q", "Quit")]))),
+        *(_section("Available Tool Runs",
+          [f"[{index}] {path.name}" for index, path in enumerate(paths, start=1)])),
+        *(_section("Actions",
+          _menu_lines([("N", "Change number of visible runs"), ("B", "Back"), ("Q", "Quit")]))),
     ]
     return _block("Saved Tool Runs", lines)
+
+
+def render_recent_semantic_extraction_runs(paths: list[Path], limit: int) -> str:
+    if not paths:
+        return _block(
+            "Saved Semantic Extraction Runs",
+            [
+                *_meta_lines("Phase 3A Components / Semantic Extraction / Saved Runs",
+                             "Select a saved Semantic Extraction run directory."),
+                "No Semantic Extraction run artifacts were found in logs/semantic_extraction_runs.",
+                "",
+                *(_section("Actions",
+                  _menu_lines([("B", "Back"), ("Q", "Quit")]))),
+            ],
+        )
+
+    lines = [
+        *_meta_lines("Phase 3A Components / Semantic Extraction / Saved Runs",
+                     "Select a saved Semantic Extraction run directory."),
+        f"Showing latest {len(paths)} run(s) out of limit {limit}.",
+        "",
+        *(_section("Available Runs",
+          [f"[{index}] {path.name}" for index, path in enumerate(paths, start=1)])),
+        *(_section("Actions",
+          _menu_lines([("N", "Change number of visible runs"), ("B", "Back"), ("Q", "Quit")]))),
+    ]
+    return _block("Saved Semantic Extraction Runs", lines)
+
+
+def render_recent_investigation_analysis_runs(paths: list[Path], limit: int) -> str:
+    if not paths:
+        return _block(
+            "Saved Investigation Analysis Runs",
+            [
+                *_meta_lines("Phase 3A Components / Investigation Analysis / Saved Runs",
+                             "Select a saved Investigation Analysis run directory."),
+                "No Investigation Analysis run artifacts were found in logs/investigation_analysis_runs.",
+                "",
+                *(_section("Actions",
+                  _menu_lines([("B", "Back"), ("Q", "Quit")]))),
+            ],
+        )
+
+    lines = [
+        *_meta_lines("Phase 3A Components / Investigation Analysis / Saved Runs",
+                     "Select a saved Investigation Analysis run directory."),
+        f"Showing latest {len(paths)} run(s) out of limit {limit}.",
+        "",
+        *(_section("Available Runs",
+          [f"[{index}] {path.name}" for index, path in enumerate(paths, start=1)])),
+        *(_section("Actions",
+          _menu_lines([("N", "Change number of visible runs"), ("B", "Back"), ("Q", "Quit")]))),
+    ]
+    return _block("Saved Investigation Analysis Runs", lines)
+
+
+def render_recent_hypothesis_ranking_runs(paths: list[Path], limit: int) -> str:
+    if not paths:
+        return _block(
+            "Saved Hypothesis Ranking Runs",
+            [
+                *_meta_lines("Phase 3A Components / Hypothesis Ranking / Saved Runs",
+                             "Select a saved Hypothesis Ranking run directory."),
+                "No Hypothesis Ranking run artifacts were found in logs/hypothesis_ranking_runs.",
+                "",
+                *(_section("Actions",
+                  _menu_lines([("B", "Back"), ("Q", "Quit")]))),
+            ],
+        )
+
+    lines = [
+        *_meta_lines("Phase 3A Components / Hypothesis Ranking / Saved Runs",
+                     "Select a saved Hypothesis Ranking run directory."),
+        f"Showing latest {len(paths)} run(s) out of limit {limit}.",
+        "",
+        *(_section("Available Runs",
+          [f"[{index}] {path.name}" for index, path in enumerate(paths, start=1)])),
+        *(_section("Actions",
+          _menu_lines([("N", "Change number of visible runs"), ("B", "Back"), ("Q", "Quit")]))),
+    ]
+    return _block("Saved Hypothesis Ranking Runs", lines)
+
+
+def render_recent_planner_runs(paths: list[Path], limit: int) -> str:
+    if not paths:
+        return _block(
+            "Saved Planner Runs",
+            [
+                *_meta_lines("Phase 3A Components / Planner / Saved Runs",
+                             "Select a saved Planner run directory."),
+                "No Planner run artifacts were found in logs/planner_runs.",
+                "",
+                *(_section("Actions",
+                  _menu_lines([("B", "Back"), ("Q", "Quit")]))),
+            ],
+        )
+
+    lines = [
+        *_meta_lines("Phase 3A Components / Planner / Saved Runs",
+                     "Select a saved Planner run directory."),
+        f"Showing latest {len(paths)} run(s) out of limit {limit}.",
+        "",
+        *(_section("Available Runs",
+          [f"[{index}] {path.name}" for index, path in enumerate(paths, start=1)])),
+        *(_section("Actions",
+          _menu_lines([("N", "Change number of visible runs"), ("B", "Back"), ("Q", "Quit")]))),
+    ]
+    return _block("Saved Planner Runs", lines)
+
+
+def render_recent_router_runs(paths: list[Path], limit: int) -> str:
+    if not paths:
+        return _block(
+            "Saved Router Runs",
+            [
+                *_meta_lines("Phase 3A Components / Router / Saved Runs",
+                             "Select a saved Router run directory."),
+                "No Router run artifacts were found in logs/router_runs.",
+                "",
+                *(_section("Actions",
+                  _menu_lines([("B", "Back"), ("Q", "Quit")]))),
+            ],
+        )
+
+    lines = [
+        *_meta_lines("Phase 3A Components / Router / Saved Runs",
+                     "Select a saved Router run directory."),
+        f"Showing latest {len(paths)} run(s) out of limit {limit}.",
+        "",
+        *(_section("Available Runs",
+          [f"[{index}] {path.name}" for index, path in enumerate(paths, start=1)])),
+        *(_section("Actions",
+          _menu_lines([("N", "Change number of visible runs"), ("B", "Back"), ("Q", "Quit")]))),
+    ]
+    return _block("Saved Router Runs", lines)
+
+
+def render_recent_worker_runs(paths: list[Path], limit: int) -> str:
+    if not paths:
+        return _block(
+            "Saved Worker Runs",
+            [
+                *_meta_lines("Phase 3A Components / Worker / Saved Runs",
+                             "Select a saved Worker run directory."),
+                "No Worker run artifacts were found in logs/worker_runs.",
+                "",
+                *(_section("Actions",
+                  _menu_lines([("B", "Back"), ("Q", "Quit")]))),
+            ],
+        )
+
+    lines = [
+        *_meta_lines("Phase 3A Components / Worker / Saved Runs",
+                     "Select a saved Worker run directory."),
+        f"Showing latest {len(paths)} run(s) out of limit {limit}.",
+        "",
+        *(_section("Available Runs",
+          [f"[{index}] {path.name}" for index, path in enumerate(paths, start=1)])),
+        *(_section("Actions",
+          _menu_lines([("N", "Change number of visible runs"), ("B", "Back"), ("Q", "Quit")]))),
+    ]
+    return _block("Saved Worker Runs", lines)
+
+
+def render_recent_aggregation_runs(paths: list[Path], limit: int) -> str:
+    if not paths:
+        return _block(
+            "Saved Aggregation Runs",
+            [
+                *_meta_lines("Phase 3A Components / Aggregation / Saved Runs",
+                             "Select a saved Aggregation run directory."),
+                "No Aggregation run artifacts were found in logs/aggregation_runs.",
+                "",
+                *(_section("Actions",
+                  _menu_lines([("B", "Back"), ("Q", "Quit")]))),
+            ],
+        )
+
+    lines = [
+        *_meta_lines("Phase 3A Components / Aggregation / Saved Runs",
+                     "Select a saved Aggregation run directory."),
+        f"Showing latest {len(paths)} run(s) out of limit {limit}.",
+        "",
+        *(_section("Available Runs",
+          [f"[{index}] {path.name}" for index, path in enumerate(paths, start=1)])),
+        *(_section("Actions",
+          _menu_lines([("N", "Change number of visible runs"), ("B", "Back"), ("Q", "Quit")]))),
+    ]
+    return _block("Saved Aggregation Runs", lines)
+
+
+def render_recent_state_manager_runs(paths: list[Path], limit: int) -> str:
+    if not paths:
+        return _block(
+            "Saved State Manager Runs",
+            [
+                *_meta_lines("Phase 3A Components / State Manager / Saved Runs",
+                             "Select a saved State Manager run directory."),
+                "No State Manager run artifacts were found in logs/state_manager_runs.",
+                "",
+                *(_section("Actions",
+                  _menu_lines([("B", "Back"), ("Q", "Quit")]))),
+            ],
+        )
+
+    lines = [
+        *_meta_lines("Phase 3A Components / State Manager / Saved Runs",
+                     "Select a saved State Manager run directory."),
+        f"Showing latest {len(paths)} run(s) out of limit {limit}.",
+        "",
+        *(_section("Available Runs",
+          [f"[{index}] {path.name}" for index, path in enumerate(paths, start=1)])),
+        *(_section("Actions",
+          _menu_lines([("N", "Change number of visible runs"), ("B", "Back"), ("Q", "Quit")]))),
+    ]
+    return _block("Saved State Manager Runs", lines)
+
+
+def render_recent_critic_runs(paths: list[Path], limit: int) -> str:
+    if not paths:
+        return _block(
+            "Saved Critic Runs",
+            [
+                *_meta_lines("Phase 3A Components / Critic / Saved Runs",
+                             "Select a saved Critic run directory."),
+                "No Critic run artifacts were found in logs/critic_runs.",
+                "",
+                *(_section("Actions",
+                  _menu_lines([("B", "Back"), ("Q", "Quit")]))),
+            ],
+        )
+
+    lines = [
+        *_meta_lines("Phase 3A Components / Critic / Saved Runs",
+                     "Select a saved Critic run directory."),
+        f"Showing latest {len(paths)} run(s) out of limit {limit}.",
+        "",
+        *(_section("Available Runs",
+          [f"[{index}] {path.name}" for index, path in enumerate(paths, start=1)])),
+        *(_section("Actions",
+          _menu_lines([("N", "Change number of visible runs"), ("B", "Back"), ("Q", "Quit")]))),
+    ]
+    return _block("Saved Critic Runs", lines)
+
+
+def render_recent_final_batch_auditor_runs(paths: list[Path], limit: int) -> str:
+    if not paths:
+        return _block(
+            "Saved Final Batch Audits",
+            [
+                *_meta_lines("Phase 3A Components / Final Batch Auditor / Saved Runs",
+                             "Select a saved Final Batch Auditor run directory."),
+                "No Final Batch Auditor run artifacts were found in logs/final_batch_auditor_runs.",
+                "",
+                *(_section("Actions",
+                  _menu_lines([("B", "Back"), ("Q", "Quit")]))),
+            ],
+        )
+
+    lines = [
+        *_meta_lines("Phase 3A Components / Final Batch Auditor / Saved Runs",
+                     "Select a saved Final Batch Auditor run directory."),
+        f"Showing latest {len(paths)} run(s) out of limit {limit}.",
+        "",
+        *(_section("Available Runs",
+          [f"[{index}] {path.name}" for index, path in enumerate(paths, start=1)])),
+        *(_section("Actions",
+          _menu_lines([("N", "Change number of visible runs"), ("B", "Back"), ("Q", "Quit")]))),
+    ]
+    return _block("Saved Final Batch Audits", lines)
+
+
+def render_recent_phase3a_runtime_runs(paths: list[Path], limit: int) -> str:
+    if not paths:
+        return _block(
+            "Saved Phase 3A Batch Runs",
+            [
+                *_meta_lines("Phase 3A Components / Batch Runtime / Saved Runs",
+                             "Select a saved Phase 3A batch runtime directory."),
+                "No Phase 3A batch runtime artifacts were found in logs/phase3a_runtime_runs.",
+                "",
+                *(_section("Actions",
+                  _menu_lines([("B", "Back"), ("Q", "Quit")]))),
+            ],
+        )
+
+    lines = [
+        *_meta_lines("Phase 3A Components / Batch Runtime / Saved Runs",
+                     "Select a saved Phase 3A batch runtime directory."),
+        f"Showing latest {len(paths)} run(s) out of limit {limit}.",
+        "",
+        *(_section("Available Runs",
+          [f"[{index}] {path.name}" for index, path in enumerate(paths, start=1)])),
+        *(_section("Actions",
+          _menu_lines([("N", "Change number of visible runs"), ("B", "Back"), ("Q", "Quit")]))),
+    ]
+    return _block("Saved Phase 3A Batch Runs", lines)
 
 
 def render_tool_run_review(
@@ -249,7 +952,8 @@ def render_tool_run_review(
     options: list[tuple[str, str]],
 ) -> str:
     lines = [
-        *_meta_lines("Phase 3A Components / Tools / Review", "Inspect normalized inputs, raw output, parsed output, validation, and artifacts."),
+        *_meta_lines("Phase 3A Components / Tools / Review",
+                     "Inspect normalized inputs, raw output, parsed output, validation, and artifacts."),
         run_name,
         "",
         *(_section("Summary", _kv_lines(summary_pairs))),
@@ -257,16 +961,582 @@ def render_tool_run_review(
             "Artifacts",
             _kv_lines(
                 [
-                    ("component_run", artifact_paths.get("component_run_path", "unavailable")),
-                    ("request", artifact_paths.get("tool_call_request_path", "unavailable")),
-                    ("parsed_output", artifact_paths.get("parsed_output_path", "unavailable")),
-                    ("validation", artifact_paths.get("validation_report_path", "unavailable")),
+                    ("component_run", artifact_paths.get(
+                        "component_run_path", "unavailable")),
+                    ("request", artifact_paths.get(
+                        "tool_call_request_path", "unavailable")),
+                    ("parsed_output", artifact_paths.get(
+                        "parsed_output_path", "unavailable")),
+                    ("validation", artifact_paths.get(
+                        "validation_report_path", "unavailable")),
                 ]
             ),
         )),
         *(_section("Actions", _menu_lines(options))),
     ]
     return _block("Tool Run Review", lines)
+
+
+def render_semantic_extraction_run_review(
+    *,
+    run_name: str,
+    summary_pairs: list[tuple[str, str]],
+    artifact_paths: dict[str, str],
+    options: list[tuple[str, str]],
+) -> str:
+    lines = [
+        *_meta_lines("Phase 3A Components / Semantic Extraction / Review",
+                     "Inspect inputs, substrate, validation, prompt-response text, and artifacts."),
+        run_name,
+        "",
+        *(_section("Summary", _kv_lines(summary_pairs))),
+        *(_section(
+            "Artifacts",
+            _kv_lines(
+                [
+                    ("component_run", artifact_paths.get(
+                        "component_run_path", "unavailable")),
+                    ("overview_input", artifact_paths.get(
+                        "overview_summary_min_path", "unavailable")),
+                    ("parsed_output", artifact_paths.get(
+                        "parsed_output_path", "unavailable")),
+                    ("validation", artifact_paths.get(
+                        "validation_report_path", "unavailable")),
+                ]
+            ),
+        )),
+        *(_section("Actions", _menu_lines(options))),
+    ]
+    return _block("Semantic Extraction Review", lines)
+
+
+def render_investigation_analysis_run_review(
+    *,
+    run_name: str,
+    summary_pairs: list[tuple[str, str]],
+    artifact_paths: dict[str, str],
+    options: list[tuple[str, str]],
+) -> str:
+    lines = [
+        *_meta_lines("Phase 3A Components / Investigation Analysis / Review",
+                     "Inspect substrate inputs, hypothesis outputs, validation, prompt-response text, and artifacts."),
+        run_name,
+        "",
+        *(_section("Summary", _kv_lines(summary_pairs))),
+        *(_section(
+            "Artifacts",
+            _kv_lines(
+                [
+                    ("component_run", artifact_paths.get(
+                        "component_run_path", "unavailable")),
+                    ("semantic_substrate", artifact_paths.get(
+                        "semantic_substrate_path", "unavailable")),
+                    ("parsed_output", artifact_paths.get(
+                        "parsed_output_path", "unavailable")),
+                    ("validation", artifact_paths.get(
+                        "validation_report_path", "unavailable")),
+                ]
+            ),
+        )),
+        *(_section("Actions", _menu_lines(options))),
+    ]
+    return _block("Investigation Analysis Review", lines)
+
+
+def render_hypothesis_ranking_run_review(
+    *,
+    run_name: str,
+    summary_pairs: list[tuple[str, str]],
+    artifact_paths: dict[str, str],
+    options: list[tuple[str, str]],
+) -> str:
+    lines = [
+        *_meta_lines("Phase 3A Components / Hypothesis Ranking / Review",
+                     "Inspect candidate inputs, selection decision, validation, prompt-response text, and artifacts."),
+        run_name,
+        "",
+        *(_section("Summary", _kv_lines(summary_pairs))),
+        *(_section(
+            "Artifacts",
+            _kv_lines(
+                [
+                    ("component_run", artifact_paths.get(
+                        "component_run_path", "unavailable")),
+                    ("candidate_hypotheses", artifact_paths.get(
+                        "candidate_hypotheses_path", "unavailable")),
+                    ("parsed_output", artifact_paths.get(
+                        "parsed_output_path", "unavailable")),
+                    ("validation", artifact_paths.get(
+                        "validation_report_path", "unavailable")),
+                ]
+            ),
+        )),
+        *(_section("Actions", _menu_lines(options))),
+    ]
+    return _block("Hypothesis Ranking Review", lines)
+
+
+def render_planner_run_review(
+    *,
+    run_name: str,
+    summary_pairs: list[tuple[str, str]],
+    artifact_paths: dict[str, str],
+    options: list[tuple[str, str]],
+) -> str:
+    lines = [
+        *_meta_lines("Phase 3A Components / Planner / Review",
+                     "Inspect planning inputs, strategy bundle, validation, prompt-response text, and artifacts."),
+        run_name,
+        "",
+        *(_section("Summary", _kv_lines(summary_pairs))),
+        *(_section(
+            "Artifacts",
+            _kv_lines(
+                [
+                    ("component_run", artifact_paths.get(
+                        "component_run_path", "unavailable")),
+                    ("ranking_decision_min", artifact_paths.get(
+                        "ranking_decision_min_path", "unavailable")),
+                    ("parsed_output", artifact_paths.get(
+                        "parsed_output_path", "unavailable")),
+                    ("validation", artifact_paths.get(
+                        "validation_report_path", "unavailable")),
+                ]
+            ),
+        )),
+        *(_section("Actions", _menu_lines(options))),
+    ]
+    return _block("Planner Review", lines)
+
+
+def render_router_run_review(
+    *,
+    run_name: str,
+    summary_pairs: list[tuple[str, str]],
+    artifact_paths: dict[str, str],
+    options: list[tuple[str, str]],
+) -> str:
+    lines = [
+        *_meta_lines("Phase 3A Components / Router / Review",
+                     "Inspect planner strategy input, reduced context, task bundle, validation, prompt-response text, and artifacts."),
+        run_name,
+        "",
+        *(_section("Summary", _kv_lines(summary_pairs))),
+        *(_section(
+            "Artifacts",
+            _kv_lines(
+                [
+                    ("component_run", artifact_paths.get(
+                        "component_run_path", "unavailable")),
+                    ("planner_strategy", artifact_paths.get(
+                        "planner_strategy_path", "unavailable")),
+                    ("parsed_output", artifact_paths.get(
+                        "parsed_output_path", "unavailable")),
+                    ("validation", artifact_paths.get(
+                        "validation_report_path", "unavailable")),
+                ]
+            ),
+        )),
+        *(_section("Actions", _menu_lines(options))),
+    ]
+    return _block("Router Review", lines)
+
+
+def render_worker_run_review(
+    *,
+    run_name: str,
+    summary_pairs: list[tuple[str, str]],
+    artifact_paths: dict[str, str],
+    latest_step_lines: list[str] | None = None,
+    options: list[tuple[str, str]],
+) -> str:
+    lines = [
+        *_meta_lines("Phase 3A Components / Worker / Review",
+                     "Inspect worker task inputs, step trace, validation, prompt-response history, and artifacts."),
+        run_name,
+        "",
+        *(_section("Summary", _kv_lines(summary_pairs))),
+        *(_section("Latest Step (Default)",
+          latest_step_lines or ["No persisted Worker step timeline is available."])),
+        *(_section(
+            "Artifacts",
+            _kv_lines(
+                [
+                    ("component_run", artifact_paths.get(
+                        "component_run_path", "unavailable")),
+                    ("worker_task", artifact_paths.get(
+                        "worker_task_path", "unavailable")),
+                    ("worker_result", artifact_paths.get(
+                        "worker_result_path", "unavailable")),
+                    ("validation", artifact_paths.get(
+                        "validation_report_path", "unavailable")),
+                ]
+            ),
+        )),
+        *(_section("Actions", _menu_lines(options))),
+    ]
+    return _block("Worker Review", lines)
+
+
+def render_aggregation_run_review(
+    *,
+    run_name: str,
+    summary_pairs: list[tuple[str, str]],
+    artifact_paths: dict[str, str],
+    options: list[tuple[str, str]],
+) -> str:
+    lines = [
+        *_meta_lines("Phase 3A Components / Aggregation / Review",
+                     "Inspect worker-result inputs, overlap diagnostics, merged handoff, validation, prompt-response text, and artifacts."),
+        run_name,
+        "",
+        *(_section("Summary", _kv_lines(summary_pairs))),
+        *(_section(
+            "Artifacts",
+            _kv_lines(
+                [
+                    ("component_run", artifact_paths.get(
+                        "component_run_path", "unavailable")),
+                    ("worker_result_set", artifact_paths.get(
+                        "worker_result_set_path", "unavailable")),
+                    ("aggregation_handoff", artifact_paths.get(
+                        "aggregation_handoff_path", "unavailable")),
+                    ("validation", artifact_paths.get(
+                        "validation_report_path", "unavailable")),
+                ]
+            ),
+        )),
+        *(_section("Actions", _menu_lines(options))),
+    ]
+    return _block("Aggregation Review", lines)
+
+
+def render_state_manager_run_review(
+    *,
+    run_name: str,
+    summary_pairs: list[tuple[str, str]],
+    artifact_paths: dict[str, str],
+    options: list[tuple[str, str]],
+) -> str:
+    lines = [
+        *_meta_lines("Phase 3A Components / State Manager / Review",
+                     "Inspect prior state, state delta, updated canonical state, validation, prompt-response text, and artifacts."),
+        run_name,
+        "",
+        *(_section("Summary", _kv_lines(summary_pairs))),
+        *(_section(
+            "Artifacts",
+            _kv_lines(
+                [
+                    ("component_run", artifact_paths.get(
+                        "component_run_path", "unavailable")),
+                    ("prior_state", artifact_paths.get(
+                        "prior_state_path", "unavailable")),
+                    ("updated_batch_state", artifact_paths.get(
+                        "updated_batch_state_path", "unavailable")),
+                    ("validation", artifact_paths.get(
+                        "validation_report_path", "unavailable")),
+                ]
+            ),
+        )),
+        *(_section("Actions", _menu_lines(options))),
+    ]
+    return _block("State Manager Review", lines)
+
+
+def render_critic_run_review(
+    *,
+    run_name: str,
+    summary_pairs: list[tuple[str, str]],
+    artifact_paths: dict[str, str],
+    options: list[tuple[str, str]],
+) -> str:
+    lines = [
+        *_meta_lines("Phase 3A Components / Critic / Review",
+                     "Inspect critic input summaries, feedback payload, validation, prompt-response text, and artifacts."),
+        run_name,
+        "",
+        *(_section("Summary", _kv_lines(summary_pairs))),
+        *(_section(
+            "Artifacts",
+            _kv_lines(
+                [
+                    ("component_run", artifact_paths.get(
+                        "component_run_path", "unavailable")),
+                    ("critic_input_bundle", artifact_paths.get(
+                        "critic_input_bundle_path", "unavailable")),
+                    ("critic_feedback_payload", artifact_paths.get(
+                        "critic_feedback_payload_path", "unavailable")),
+                    ("validation", artifact_paths.get(
+                        "validation_report_path", "unavailable")),
+                ]
+            ),
+        )),
+        *(_section("Actions", _menu_lines(options))),
+    ]
+    return _block("Critic Review", lines)
+
+
+def render_final_batch_auditor_run_review(
+    *,
+    run_name: str,
+    summary_pairs: list[tuple[str, str]],
+    artifact_paths: dict[str, str],
+    options: list[tuple[str, str]],
+) -> str:
+    lines = [
+        *_meta_lines("Phase 3A Components / Final Batch Auditor / Review",
+                     "Inspect final audit input refs, debugging report, validation, prompt-response text, and artifacts."),
+        run_name,
+        "",
+        *(_section("Summary", _kv_lines(summary_pairs))),
+        *(_section(
+            "Artifacts",
+            _kv_lines(
+                [
+                    ("component_run", artifact_paths.get(
+                        "component_run_path", "unavailable")),
+                    ("final_audit_input", artifact_paths.get(
+                        "final_audit_input_path", "unavailable")),
+                    ("debugging_audit_report", artifact_paths.get(
+                        "debugging_audit_report_path", "unavailable")),
+                    ("validation", artifact_paths.get(
+                        "validation_report_path", "unavailable")),
+                ]
+            ),
+        )),
+        *(_section("Actions", _menu_lines(options))),
+    ]
+    return _block("Final Batch Auditor Review", lines)
+
+
+def render_phase3a_runtime_run_review(
+    *,
+    run_name: str,
+    summary_pairs: list[tuple[str, str]],
+    artifact_paths: dict[str, str],
+    options: list[tuple[str, str]],
+) -> str:
+    lines = [
+        *_meta_lines("Phase 3A Components / Batch Runtime / Debugger",
+                     "Inspect the persisted execution tree for this batch run, then drill into semantic extraction, rounds, hypotheses, statement, critic, and technical artifacts."),
+        run_name,
+        "",
+        *(_section("Summary", _kv_lines(summary_pairs))),
+        *(_section(
+            "Artifacts",
+            _kv_lines(
+                [
+                    ("component_run", artifact_paths.get(
+                        "component_run_path", "unavailable")),
+                    ("batch_ledger", artifact_paths.get(
+                        "batch_ledger_path", "unavailable")),
+                    ("initial_state", artifact_paths.get(
+                        "initial_state_path", "unavailable")),
+                    ("finalization", artifact_paths.get(
+                        "finalization_summary_path", "unavailable")),
+                ]
+            ),
+        )),
+        *(_section("Actions", _menu_lines(options))),
+    ]
+    return _block("Phase 3A Runtime Execution Tree", lines)
+
+
+def render_phase3a_runtime_rounds_index(
+    *,
+    run_name: str,
+    round_lines: list[str],
+    options: list[tuple[str, str]],
+) -> str:
+    lines = [
+        *_meta_lines("Phase 3A Components / Batch Runtime / Review / Rounds",
+                     "Select a persisted round manifest to inspect its frozen snapshot and execution lineage."),
+        run_name,
+        "",
+        *(_section("Rounds", round_lines or ["No round manifests are available."])),
+        *(_section("Actions", _menu_lines(options))),
+    ]
+    return _block("Phase 3A Runtime Rounds", lines)
+
+
+def render_phase3a_runtime_round_review(
+    *,
+    round_id: str,
+    summary_pairs: list[tuple[str, str]],
+    artifact_pairs: list[tuple[str, str]],
+    default_hypothesis_lines: list[str] | None = None,
+    options: list[tuple[str, str]],
+) -> str:
+    lines = [
+        *_meta_lines("Phase 3A Components / Batch Runtime / Review / Round",
+                     "Inspect the frozen snapshot and persisted component lineage for one round."),
+        round_id,
+        "",
+        *(_section("Summary", _kv_lines(summary_pairs))),
+        *(_section("Default Hypothesis", default_hypothesis_lines or [
+          "No persisted hypothesis execution is available for this round."])),
+        *(_section("Artifacts", _kv_lines(artifact_pairs))),
+        *(_section("Actions", _menu_lines(options))),
+    ]
+    return _block("Phase 3A Round Review", lines)
+
+
+def render_phase3a_runtime_inter_hypothesis_aggregation_review(
+    *,
+    round_id: str,
+    summary_pairs: list[tuple[str, str]],
+    synthesis_lines: list[str],
+    options: list[tuple[str, str]],
+) -> str:
+    lines = [
+        *_meta_lines("Phase 3A Components / Batch Runtime / Review / Round / Inter-Hypothesis Aggregation",
+                     "Inspect the persisted round-level cross-hypothesis aggregation record before any state updates are committed."),
+        round_id,
+        "",
+        *(_section("Summary", _kv_lines(summary_pairs))),
+        *(_section("Hypothesis Syntheses",
+          synthesis_lines or ["No persisted inter-hypothesis synthesis records are available."])),
+        *(_section("Actions", _menu_lines(options))),
+    ]
+    return _block("Phase 3A Inter-Hypothesis Aggregation", lines)
+
+
+def render_phase3a_runtime_hypothesis_index(
+    *,
+    round_id: str,
+    hypothesis_lines: list[str],
+    options: list[tuple[str, str]],
+) -> str:
+    lines = [
+        *_meta_lines("Phase 3A Components / Batch Runtime / Review / Hypotheses",
+                     "Select a hypothesis execution lineage to inspect Router, Worker, Aggregation, and State Manager artifacts."),
+        round_id,
+        "",
+        *(_section("Hypothesis Lineage",
+          hypothesis_lines or ["No hypothesis executions were recorded for this round."])),
+        *(_section("Actions", _menu_lines(options))),
+    ]
+    return _block("Phase 3A Hypothesis Lineage", lines)
+
+
+def render_phase3a_runtime_hypothesis_review(
+    *,
+    hypothesis_id: str,
+    summary_pairs: list[tuple[str, str]],
+    artifact_pairs: list[tuple[str, str]],
+    default_worker_lines: list[str] | None = None,
+    options: list[tuple[str, str]],
+) -> str:
+    lines = [
+        *_meta_lines("Phase 3A Components / Batch Runtime / Review / Hypothesis",
+                     "Inspect the persisted execution lineage for one hypothesis within a round."),
+        hypothesis_id,
+        "",
+        *(_section("Summary", _kv_lines(summary_pairs))),
+        *(_section("Default Worker Task", default_worker_lines or [
+          "No persisted Worker task is available for this hypothesis."])),
+        *(_section("Artifacts", _kv_lines(artifact_pairs))),
+        *(_section("Actions", _menu_lines(options))),
+    ]
+    return _block("Phase 3A Hypothesis Review", lines)
+
+
+def render_phase3a_runtime_worker_index(
+    *,
+    hypothesis_id: str,
+    worker_lines: list[str],
+    options: list[tuple[str, str]],
+) -> str:
+    lines = [
+        *_meta_lines("Phase 3A Components / Batch Runtime / Review / Hypothesis / Workers",
+                     "Select a Worker task execution to inspect bounded task inputs, step timeline, and final result."),
+        hypothesis_id,
+        "",
+        *(_section("Worker Tasks",
+          worker_lines or ["No Worker executions were recorded for this hypothesis."])),
+        *(_section("Actions", _menu_lines(options))),
+    ]
+    return _block("Phase 3A Worker Tasks", lines)
+
+
+def render_phase3a_runtime_event_stream_index(
+    *,
+    run_name: str,
+    summary_pairs: list[tuple[str, str]],
+    event_lines: list[str],
+    options: list[tuple[str, str]],
+) -> str:
+    lines = [
+        *_meta_lines("Phase 3A Components / Batch Runtime / Debugger / Event Stream",
+                     "Select a persisted runtime event to inspect structured metadata and captured terminal lines."),
+        run_name,
+        "",
+        *(_section("Summary", _kv_lines(summary_pairs))),
+        *(_section("Events",
+          event_lines or ["No persisted runtime events are available."])),
+        *(_section("Actions", _menu_lines(options))),
+    ]
+    return _block("Phase 3A Runtime Event Stream", lines)
+
+
+def render_phase3a_runtime_event_review(
+    *,
+    event_label: str,
+    summary_pairs: list[tuple[str, str]],
+    focus_lines: list[str],
+    options: list[tuple[str, str]],
+) -> str:
+    lines = [
+        *_meta_lines("Phase 3A Components / Batch Runtime / Debugger / Event",
+                     "Inspect one persisted runtime event with its structured payload and captured terminal replay lines."),
+        event_label,
+        "",
+        *(_section("Summary", _kv_lines(summary_pairs))),
+        *(_section("Focus",
+          focus_lines or ["No additional event context is available."])),
+        *(_section("Actions", _menu_lines(options))),
+    ]
+    return _block("Phase 3A Runtime Event Review", lines)
+
+
+def render_worker_step_index(
+    *,
+    task_id: str,
+    step_lines: list[str],
+    options: list[tuple[str, str]],
+) -> str:
+    lines = [
+        *_meta_lines("Phase 3A Components / Worker / Review / Steps",
+                     "Select a persisted Worker step to inspect prompt, response, parsed output, actions, retries, and flags."),
+        task_id,
+        "",
+        *(_section("Step Timeline",
+          step_lines or ["No persisted Worker steps are available."])),
+        *(_section("Actions", _menu_lines(options))),
+    ]
+    return _block("Worker Step Timeline", lines)
+
+
+def render_worker_step_review(
+    *,
+    task_id: str,
+    step_label: str,
+    summary_pairs: list[tuple[str, str]],
+    focus_lines: list[str],
+    options: list[tuple[str, str]],
+) -> str:
+    lines = [
+        *_meta_lines("Phase 3A Components / Worker / Review / Step",
+                     "Inspect one Worker step across attempts, prompt-response text, parser output, execution history, and local action results."),
+        f"{task_id} / {step_label}",
+        "",
+        *(_section("Summary", _kv_lines(summary_pairs))),
+        *(_section("Focus",
+          focus_lines or ["No additional step context is available."])),
+        *(_section("Actions", _menu_lines(options))),
+    ]
+    return _block("Worker Step Review", lines)
 
 
 def render_tool_json_view(*, title: str, path_label: str, payload: Any, hint: str | None = None) -> str:
@@ -277,9 +1547,18 @@ def render_tool_json_view(*, title: str, path_label: str, payload: Any, hint: st
     return _block(title, lines)
 
 
+def render_text_view(*, title: str, path_label: str, content: str, hint: str | None = None) -> str:
+    lines = [*_meta_lines(path_label, hint)]
+    lines.extend(str(content or "").splitlines() or [""])
+    return _block(title, lines)
+
+
 def render_session_config(
     *,
     model_name: str,
+    planning_model_name: str,
+    worker_model_name: str,
+    synthesis_model_name: str,
     judge_model_name: str,
     dataset_name: str,
     trace_enabled: bool,
@@ -293,7 +1572,10 @@ def render_session_config(
             "Current Session Configuration",
             _kv_lines(
                 [
-                    ("model", model_name),
+                    ("default_model", model_name),
+                    ("planning_model", planning_model_name),
+                    ("worker_model", worker_model_name),
+                    ("synthesis_model", synthesis_model_name),
                     ("judge_model", judge_model_name),
                     ("dataset", dataset_name),
                     ("max_steps", str(max_steps)),
@@ -306,12 +1588,15 @@ def render_session_config(
             "Actions",
             _menu_lines(
                 [
-                    ("1", "Change Model"),
-                    ("2", "Change Judge Model"),
-                    ("3", "Select Partition"),
-                    ("4", "Toggle Live Trace"),
-                    ("5", "Change Max Steps"),
-                    ("6", "Change Evaluation Window"),
+                    ("1", "Change Default Model"),
+                    ("2", "Change Planning Model"),
+                    ("3", "Change Worker Model"),
+                    ("4", "Change Synthesis Model"),
+                    ("5", "Change Judge Model"),
+                    ("6", "Select Partition"),
+                    ("7", "Toggle Live Trace"),
+                    ("8", "Change Max Steps"),
+                    ("9", "Change Evaluation Window"),
                     ("B", "Back"),
                     ("Q", "Quit"),
                 ]
@@ -326,7 +1611,7 @@ def render_dataset_selection(paths: list[Path], current_name: str | None) -> str
         *_meta_lines("Home / Session Config / Dataset",
                      "Choose the partition used by the next run."),
         *(_section(
-            "Available Partitions",
+            "Partitions",
             [
                 f"[{index}] {path.name}{'  <current>' if path.name == current_name else ''}"
                 for index, path in enumerate(paths, start=1)
@@ -347,8 +1632,8 @@ def render_model_selection(
     models: list[tuple[str, str]],
     current_name: str,
     *,
-    description: str = "Choose one of the available models or enter a custom model ID.",
-    section_title: str = "Available Models",
+    description: str = "Choose one of the models or enter a custom model ID.",
+    section_title: str = "Models",
     extra_actions: list[tuple[str, str]] | None = None,
 ) -> str:
     actions = list(extra_actions or [])

@@ -1,0 +1,31 @@
+{
+  "aggregation_handoff": {
+    "batch_id": "phase3a_batch_0406073857_friday-workinghours-afternoon-ddos.pcap_iscx_ee0ef0",
+    "round_id": "round-001",
+    "hypothesis_id": "hyp_4_destination_port_distribution_skew_reflects_attack_targeting",
+    "merged_findings": [
+      "The Destination Port feature consistently exhibits a strong, stable distributional skew characterized by a dominant port value across DDoS attack instances, supporting the hypothesis of targeted attack behavior.",
+      "This skew is reflected in high class separation and low entropy patterns that remain stable across temporal and batch-specific subsets, indicating persistent attack targeting rather than transient anomalies.",
+      "Despite global distributional stability, local label consistency checks reveal significant neighborhood and duplicate label conflicts around Destination Port, indicating epistemic instability and local representational challenges.",
+      "There is moderate shortcut-like predictive leverage from the Destination Port distribution, suggesting some risk of model shortcut exploitation, though this analysis is limited to single-feature deterministic assessments without multifeature interaction validation."
+    ],
+    "evidence_refs": [
+      "task_1_step_03",
+      "task_2_step_03",
+      "task_2_step_05",
+      "task_3_step_03",
+      "task_4_step_03",
+      "task_4_step_05",
+      "task_4_step_07"
+    ],
+    "preserved_contradictions": [
+      "local contradiction preserved"
+    ],
+    "open_gaps": [
+      "local label inconsistency limits representational stability conclusions",
+      "analysis limited to single-feature deterministic decision stump; multifeature interactions not assessed",
+      "local evidence only; global aggregation or cross-feature validation not performed"
+    ],
+    "update_focus": "focus on reconciling global distributional skew and class separation with local label inconsistencies and epistemic instability around Destination Port, while considering the implications of moderate shortcut risk and the need for multifeature and global validation"
+  }
+}

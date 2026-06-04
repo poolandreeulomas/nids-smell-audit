@@ -1,0 +1,7 @@
+{
+  "terminal_reason": "stopped_after_router",
+  "final_state_manager_run_path": "",
+  "final_batch_auditor_run_path": "",
+  "final_state_version": 1,
+  "final_status": "completed_partial_runtime"
+}

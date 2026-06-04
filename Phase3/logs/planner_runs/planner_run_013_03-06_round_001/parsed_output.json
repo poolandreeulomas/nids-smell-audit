@@ -1,0 +1,66 @@
+{
+  "batch_id": "phase3a_batch_0306183859_friday-workinghours-afternoon-ddos.pcap_iscx_689174",
+  "round_id": "round-001",
+  "planner_strategies": [
+    {
+      "strategy_id": "strategy_01_hyp_005",
+      "hypothesis_id": "hyp_005_class_distribution_skew_in_destination_port",
+      "strategic_objective": "Assess the stability and shortcut potential of the dominant destination port distribution in DDoS traffic.",
+      "key_checks": [
+        "Measure class-conditioned distribution stability of Destination Port across time segments",
+        "Evaluate entropy and dominant port ratio variability within DDoS class",
+        "Test shortcut-like predictive leverage of Destination Port feature alone",
+        "Compare port distribution patterns between attack campaigns and benign traffic"
+      ],
+      "success_criteria": [
+        "Evidence of stable dominance of a single port in DDoS class across samples",
+        "Identification of potential shortcut exploitation via port-based heuristics",
+        "Detection of representation-sensitive shifts in port distribution under different conditions"
+      ],
+      "router_constraints": [
+        "preserve feature_scope for Destination Port",
+        "preserve evidence refs e33"
+      ]
+    },
+    {
+      "strategy_id": "strategy_02_hyp_003",
+      "hypothesis_id": "hyp_003_class_conditioned_variation_in_backward_packet_lengths",
+      "strategic_objective": "Characterize the nature and stability of class-conditioned structural variation in backward packet length features.",
+      "key_checks": [
+        "Quantify variance ratios and unique value counts per class for backward packet length features",
+        "Assess dependency concentration and distribution shifts across network contexts",
+        "Investigate potential sampling or labeling biases influencing feature distributions",
+        "Examine local label-topology consistency around backward packet length features"
+      ],
+      "success_criteria": [
+        "Clear differentiation of genuine behavioral differences from dataset artifacts",
+        "Identification of unstable dependencies or representation shifts affecting these features",
+        "Evidence supporting or refuting sensitivity to sampling or labeling biases"
+      ],
+      "router_constraints": [
+        "preserve feature_scope for backward packet length features",
+        "preserve evidence refs e9 e10 e11 e12"
+      ]
+    },
+    {
+      "strategy_id": "strategy_03_hyp_002",
+      "hypothesis_id": "hyp_002_strong_linear_dependencies",
+      "strategic_objective": "Evaluate the stability and shortcut risk of strong linear dependencies among packet length and related features.",
+      "key_checks": [
+        "Measure correlation stability of feature pairs across classes and attack conditions",
+        "Analyze shortcut-like predictive leverage arising from these dependencies",
+        "Assess redundancy impact on effective dataset dimensionality",
+        "Compare dependency patterns between benign and DDoS classes"
+      ],
+      "success_criteria": [
+        "Confirmation of stable or shifting linear dependencies under different conditions",
+        "Identification of shortcut signals linked to these dependencies",
+        "Understanding of redundancy effects on model reliance and dataset structure"
+      ],
+      "router_constraints": [
+        "preserve feature_scope for correlated feature pairs",
+        "preserve evidence refs e13 e14 e15 e16 e17 e18 e19 e20 e21 e22"
+      ]
+    }
+  ]
+}

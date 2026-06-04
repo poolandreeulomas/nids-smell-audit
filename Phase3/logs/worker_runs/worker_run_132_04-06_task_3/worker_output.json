@@ -1,0 +1,20 @@
+{
+  "batch_id": "phase3a_batch_0406132627_friday-workinghours-afternoon-ddos.pcap_iscx_f0e355",
+  "round_id": "round-001",
+  "worker_result": {
+    "task_id": "task_3",
+    "hypothesis_id": "hyp_8_class_conditioned_distribution_destination_port",
+    "status": "completed",
+    "findings": [
+      "Destination Port distribution exhibits strong class-conditioned skew with dominant values and low entropy.",
+      "High Jensen-Shannon divergence (0.7315) confirms significant class separation in destination port usage.",
+      "Distribution stability is supported by consistent signals across multiple verification steps."
+    ],
+    "evidence_refs": [
+      "task_3_step_03",
+      "task_3_step_05"
+    ],
+    "contradictions": [],
+    "limitations": []
+  }
+}

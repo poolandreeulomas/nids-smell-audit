@@ -1,0 +1,68 @@
+{
+  "ok": false,
+  "schema_version": "phase3a.aggregation.v1",
+  "worker_result_set_validation": {
+    "ok": false,
+    "severity": "FATAL",
+    "repairable": false,
+    "repaired": false,
+    "errors": [
+      {
+        "field": "worker_results[0]",
+        "message": "worker_result contains unsupported fields: ['execution_trace_summary']."
+      },
+      {
+        "field": "worker_results[1]",
+        "message": "worker_result contains unsupported fields: ['execution_trace_summary']."
+      },
+      {
+        "field": "worker_results[2]",
+        "message": "worker_result contains unsupported fields: ['execution_trace_summary']."
+      },
+      {
+        "field": "worker_results[3]",
+        "message": "worker_result contains unsupported fields: ['execution_trace_summary']."
+      }
+    ],
+    "warnings": [],
+    "stats": {
+      "worker_result_count": 4,
+      "evidence_ref_count": 10,
+      "contradiction_count": 4,
+      "limitation_count": 4,
+      "non_success_count": 0
+    }
+  },
+  "parse_validation": {
+    "ok": false,
+    "errors": [
+      {
+        "field": "raw_response",
+        "message": "Model response was not produced."
+      }
+    ],
+    "warnings": []
+  },
+  "aggregation_handoff_validation": {
+    "ok": false,
+    "errors": [
+      {
+        "field": "aggregation_handoff",
+        "message": "aggregation_handoff was not produced."
+      }
+    ],
+    "warnings": []
+  },
+  "initial_aggregation_handoff_validation": {
+    "ok": false,
+    "errors": [
+      {
+        "field": "aggregation_handoff",
+        "message": "aggregation_handoff was not produced."
+      }
+    ],
+    "warnings": []
+  },
+  "repair_attempts": [],
+  "authoritative": false
+}

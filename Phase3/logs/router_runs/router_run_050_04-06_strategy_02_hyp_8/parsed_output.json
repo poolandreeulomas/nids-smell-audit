@@ -1,0 +1,68 @@
+{
+  "batch_id": "phase3a_batch_0406132627_friday-workinghours-afternoon-ddos.pcap_iscx_f0e355",
+  "round_id": "round-001",
+  "hypothesis_id": "hyp_8_class_conditioned_distribution_destination_port",
+  "planner_strategy_id": "strategy_02_hyp_8",
+  "worker_tasks": [
+    {
+      "task_id": "task_1",
+      "hypothesis_id": "hyp_8_class_conditioned_distribution_destination_port",
+      "task_scope": "Assess if destination port distribution differences correspond to targeted attack patterns or dataset sampling bias using evidence e33",
+      "allowed_actions": [
+        "distribution_verification"
+      ],
+      "local_context_refs": [
+        "e33"
+      ],
+      "stop_conditions": [
+        "distribution differences characterized",
+        "targeted attack vs sampling bias evidence identified"
+      ]
+    },
+    {
+      "task_id": "task_2",
+      "hypothesis_id": "hyp_8_class_conditioned_distribution_destination_port",
+      "task_scope": "Measure shortcut-like predictive leverage from Destination Port feature within evidence e33 context",
+      "allowed_actions": [
+        "shortcut_verification"
+      ],
+      "local_context_refs": [
+        "e33"
+      ],
+      "stop_conditions": [
+        "shortcut potential quantified",
+        "predictive leverage impact assessed"
+      ]
+    },
+    {
+      "task_id": "task_3",
+      "hypothesis_id": "hyp_8_class_conditioned_distribution_destination_port",
+      "task_scope": "Evaluate stability of destination port distribution skew across dataset partitions or time slices in evidence e33",
+      "allowed_actions": [
+        "distribution_verification"
+      ],
+      "local_context_refs": [
+        "e33"
+      ],
+      "stop_conditions": [
+        "distribution stability measured",
+        "temporal or partition variance characterized"
+      ]
+    },
+    {
+      "task_id": "task_4",
+      "hypothesis_id": "hyp_8_class_conditioned_distribution_destination_port",
+      "task_scope": "Check for over-reliance risk in classification models due to dominant destination port values using evidence e33",
+      "allowed_actions": [
+        "dependency_contextualization"
+      ],
+      "local_context_refs": [
+        "e33"
+      ],
+      "stop_conditions": [
+        "over-reliance risk identified or ruled out",
+        "dominant port value impact quantified"
+      ]
+    }
+  ]
+}

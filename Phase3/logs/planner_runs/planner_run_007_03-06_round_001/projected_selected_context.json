@@ -1,0 +1,69 @@
+{
+  "selected_count": 3,
+  "selected_hypotheses": [
+    {
+      "hypothesis_id": "hyp_001_low_diversity_constant_features",
+      "summary": "The presence of multiple features with near-constant values across the partition suggests a structural substrate where certain metrics may not contribute to class differentiation or may reflect invariant network conditions during the capture period.",
+      "evidence_refs": [
+        "e23",
+        "e24",
+        "e25",
+        "e26",
+        "e27",
+        "e28",
+        "e29",
+        "e30",
+        "e31",
+        "e32"
+      ],
+      "open_questions": [
+        "Do these near-constant features represent measurement artifacts, or do they reflect stable network behaviors during the DDoS event?",
+        "Could these low-diversity features mask subtle but important variations if analyzed at a finer temporal granularity?"
+      ],
+      "current_status": "unresolved",
+      "evidence_ref_count": 10,
+      "open_question_count": 2
+    },
+    {
+      "hypothesis_id": "hyp_002_strong_dependency_pairs_redundancy",
+      "summary": "Several feature pairs exhibit near-perfect linear correlations, indicating strong dependencies that may introduce redundancy in the dataset and affect feature importance assessments.",
+      "evidence_refs": [
+        "e13",
+        "e14",
+        "e15",
+        "e16",
+        "e17",
+        "e18",
+        "e19",
+        "e20",
+        "e21",
+        "e22"
+      ],
+      "open_questions": [
+        "Are these strong dependencies consistent across all classes or do they vary between BENIGN and DDoS samples?",
+        "Could removing or combining these dependent features improve model robustness or interpretability?"
+      ],
+      "current_status": "unresolved",
+      "evidence_ref_count": 10,
+      "open_question_count": 2
+    },
+    {
+      "hypothesis_id": "hyp_003_class_conditioned_structural_variation",
+      "summary": "Key packet length and size features show significant structural variation conditioned on class labels, with differing variance ratios and unique value counts between BENIGN and DDoS classes, suggesting these features capture meaningful class-distinguishing patterns.",
+      "evidence_refs": [
+        "e8",
+        "e9",
+        "e10",
+        "e11",
+        "e12"
+      ],
+      "open_questions": [
+        "To what extent do these class-conditioned variations reflect true behavioral differences versus sampling or measurement biases?",
+        "Are these variations stable across different time windows or network conditions within the partition?"
+      ],
+      "current_status": "unresolved",
+      "evidence_ref_count": 5,
+      "open_question_count": 2
+    }
+  ]
+}

@@ -1,0 +1,122 @@
+{
+  "round_id": "round-001",
+  "selection_budget": 3,
+  "hypothesis_state_refs": [
+    {
+      "hypothesis_id": "hyp_1_redundancy_vs_importance_tension",
+      "state_notes": [
+        "status=unresolved",
+        "summary=The presence of feature pairs with perfect or near-perfect correlation alongside their high individual feature ranking suggests a tension between redundancy and genuine importance. This may indicate that some features are proxies for the same underlying signal, yet each retains apparent predictive relevance.",
+        "revision_count=0",
+        "last_updated_round=initialization",
+        "open_gap=To what extent do these strongly correlated features contribute unique information versus redundant signals?",
+        "open_gap=Could the high ranking of correlated features be an artifact of the evaluation method or dataset structure?"
+      ]
+    },
+    {
+      "hypothesis_id": "hyp_2_low_cardinality_vs_class_variation_tension",
+      "state_notes": [
+        "status=unresolved",
+        "summary=Features related to bulk rates and flags exhibit near-constant values with extremely low cardinality, while backward packet length features show substantial class-conditioned structural variation. This suggests a tension between features that may be stable but uninformative and others that vary meaningfully by class.",
+        "revision_count=0",
+        "last_updated_round=initialization",
+        "open_gap=Are the low cardinality bulk and flag features truly uninformative, or do they capture a stable baseline important for distinguishing classes?",
+        "open_gap=How does the class-conditioned variation in backward packet length features interact with the near-constant bulk features in predictive modeling?"
+      ]
+    },
+    {
+      "hypothesis_id": "hyp_3_distributional_skew_vs_partition_imbalance",
+      "state_notes": [
+        "status=unresolved",
+        "summary=The Destination Port feature shows strong distributional divergence between classes, with the DDoS class dominated by a single port and zero entropy, contrasting with the BENIGN class's higher entropy and lower dominant ratio. This skew contrasts with the moderate class imbalance and presence of duplicated rows at the partition level, raising questions about representativeness and stability.",
+        "revision_count=0",
+        "last_updated_round=initialization",
+        "open_gap=Does the dominance of a single port in the DDoS class reflect a genuine attack pattern or a sampling artifact?",
+        "open_gap=How might duplicated rows and class imbalance influence the observed distributional skew in Destination Port?"
+      ]
+    },
+    {
+      "hypothesis_id": "hyp_4_backward_packet_length_features_as_structural_variation_indicators",
+      "state_notes": [
+        "status=unresolved",
+        "summary=Backward packet length features, including max, mean, and standard deviation, show high variance ratios and unique value disparities between classes, suggesting they capture meaningful structural variation conditioned on class.",
+        "revision_count=0",
+        "last_updated_round=initialization",
+        "open_gap=Are these backward packet length features stable indicators of class differences or subject to instability due to burst or noise effects?",
+        "open_gap=How do these features interact with other correlated features in the dataset?"
+      ]
+    },
+    {
+      "hypothesis_id": "hyp_5_average_packet_size_moderate_class_conditioned_variation",
+      "state_notes": [
+        "status=unresolved",
+        "summary=Average Packet Size shows moderate class-conditioned structural variation with a variance ratio around 4.5 and differences in unique values by class, indicating a weaker but potentially coherent signal.",
+        "revision_count=0",
+        "last_updated_round=initialization",
+        "open_gap=Is the moderate variation in Average Packet Size sufficient to support reliable class discrimination?",
+        "open_gap=Does this feature complement or overlap with other packet length or size features?"
+      ]
+    },
+    {
+      "hypothesis_id": "hyp_6_low_diversity_bulk_features_as_stable_baseline",
+      "state_notes": [
+        "status=unresolved",
+        "summary=Bulk-related backward and forward features exhibit extremely low cardinality with near-constant values, which may reflect a stable baseline characteristic of the traffic rather than informative variation.",
+        "revision_count=0",
+        "last_updated_round=initialization",
+        "open_gap=Do these near-constant bulk features provide meaningful context or are they effectively noise for classification?",
+        "open_gap=Could these features mask subtle but important variations due to their low cardinality?"
+      ]
+    },
+    {
+      "hypothesis_id": "hyp_7_impact_of_partition_level_data_quality_on_structural_patterns",
+      "state_notes": [
+        "status=unresolved",
+        "summary=The presence of duplicated rows and moderate class imbalance at the partition level may influence observed structural patterns and feature distributions, potentially confounding interpretation of feature importance and stability.",
+        "revision_count=0",
+        "last_updated_round=initialization",
+        "open_gap=How do duplicated rows affect the stability and generalizability of feature relationships?",
+        "open_gap=Does the class imbalance skew feature distributions or induce artificial correlations?"
+      ]
+    },
+    {
+      "hypothesis_id": "hyp_8_localized_representation_sensitive_signal_in_destination_port",
+      "state_notes": [
+        "status=unresolved",
+        "summary=The strong distributional divergence in Destination Port between classes may represent a localized, representation-sensitive signal that is meaningful in isolation but may not generalize across the full dataset.",
+        "revision_count=0",
+        "last_updated_round=initialization",
+        "open_gap=Is the Destination Port feature a reliable indicator of attack behavior or a narrow artifact of this dataset partition?",
+        "open_gap=How does this feature behave in other temporal or contextual partitions?"
+      ]
+    },
+    {
+      "hypothesis_id": "hyp_9_tension_between_burst_behavior_and_structural_collapse",
+      "state_notes": [
+        "status=unresolved",
+        "summary=The combination of extreme dominance in some features and class-conditioned variation in others suggests a tension between burst-like behavior and structural collapse, complicating interpretation of feature stability and informativeness.",
+        "revision_count=0",
+        "last_updated_round=initialization",
+        "open_gap=Are observed feature dominances due to transient bursts or stable structural properties?",
+        "open_gap=How can burst effects be distinguished from genuine structural signals in this dataset?"
+      ]
+    },
+    {
+      "hypothesis_id": "hyp_10_potential_overfitting_risk_due_to_redundant_features",
+      "state_notes": [
+        "status=unresolved",
+        "summary=The presence of multiple perfectly correlated feature pairs combined with their high individual rankings may increase the risk of overfitting in models trained on this dataset, as redundant features could amplify spurious signals.",
+        "revision_count=0",
+        "last_updated_round=initialization",
+        "open_gap=Does the redundancy among top-ranked features inflate model performance metrics artificially?",
+        "open_gap=What strategies could mitigate overfitting risks arising from these dependencies?"
+      ]
+    }
+  ],
+  "round_constraints": [
+    "selection_budget=3",
+    "allocation_only",
+    "preserve_deferred_hypotheses",
+    "round_start_state_version=1"
+  ]
+}

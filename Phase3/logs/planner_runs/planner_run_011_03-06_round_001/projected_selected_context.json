@@ -1,0 +1,66 @@
+{
+  "selected_count": 3,
+  "selected_hypotheses": [
+    {
+      "hypothesis_id": "hyp_006",
+      "summary": "The Destination Port feature exhibits strong class-conditioned distributional differences, with the DDoS class showing a dominant ratio of 1.0 and zero entropy, while the BENIGN class has moderate entropy and dominant ratio, resulting in high Jensen-Shannon divergence, which may reflect representation-sensitive or shortcut-like signals.",
+      "evidence_refs": [
+        "e33"
+      ],
+      "open_questions": [
+        "Does the zero entropy and dominant ratio in the DDoS class for Destination Port indicate a fixed attack vector or a dataset artifact?",
+        "How does this distributional difference impact model reliance on this feature for classification?"
+      ],
+      "current_status": "unresolved",
+      "evidence_ref_count": 1,
+      "open_question_count": 2
+    },
+    {
+      "hypothesis_id": "hyp_003",
+      "summary": "Multiple feature pairs show near-perfect or perfect linear correlations (correlation >= 0.9993), indicating strong dependencies and potential redundancy among packet length, segment size, flag counts, and packet count features, which may affect feature prioritization and model robustness.",
+      "evidence_refs": [
+        "e13",
+        "e14",
+        "e15",
+        "e16",
+        "e17",
+        "e18",
+        "e19",
+        "e20",
+        "e21",
+        "e22"
+      ],
+      "open_questions": [
+        "Are these strong linear dependencies stable across different classes and time windows, or do they fluctuate?",
+        "Could these dependencies be exploited as shortcut signals by models, potentially reducing generalization?"
+      ],
+      "current_status": "unresolved",
+      "evidence_ref_count": 10,
+      "open_question_count": 2
+    },
+    {
+      "hypothesis_id": "hyp_010",
+      "summary": "The strong class-conditioned distributional differences and low variability in multiple feature clusters may reflect a dependency-backed regularity rather than isolated narrow signals, but the presence of class imbalance and duplicated data complicates the epistemic certainty of these patterns.",
+      "evidence_refs": [
+        "e23",
+        "e24",
+        "e25",
+        "e26",
+        "e27",
+        "e29",
+        "e30",
+        "e31",
+        "e32",
+        "e1",
+        "e2"
+      ],
+      "open_questions": [
+        "To what degree do class imbalance and data duplication amplify or distort these dependency-backed regularities?",
+        "Are these regularities stable across other datasets or specific to this partition?"
+      ],
+      "current_status": "unresolved",
+      "evidence_ref_count": 11,
+      "open_question_count": 2
+    }
+  ]
+}

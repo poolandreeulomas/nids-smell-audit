@@ -1,0 +1,32 @@
+{
+  "hypothesis_id": "hyp_05_tension_between_redundancy_and_representation",
+  "planner_strategy_id": "strategy_01_hyp_05",
+  "task_count": 3,
+  "action_class_count": 6,
+  "task_summaries": [
+    {
+      "task_id": "task_01_identify_redundant_class_conditioned_features",
+      "hypothesis_id": "hyp_05_tension_between_redundancy_and_representation",
+      "task_scope": "Identify features exhibiting high redundancy while maintaining distinct class-conditioned distributions using feature-level distribution and duplication checks.",
+      "allowed_action_count": 2,
+      "local_context_ref_count": 5,
+      "stop_condition_count": 0
+    },
+    {
+      "task_id": "task_02_assess_redundancy_patterns_within_across_classes",
+      "hypothesis_id": "hyp_05_tension_between_redundancy_and_representation",
+      "task_scope": "Analyze redundancy patterns within and across classes by verifying pairwise feature relations and dependency concentration to preserve redundancy context.",
+      "allowed_action_count": 2,
+      "local_context_ref_count": 5,
+      "stop_condition_count": 0
+    },
+    {
+      "task_id": "task_03_examine_feature_subsets_for_class_representational_strength",
+      "hypothesis_id": "hyp_05_tension_between_redundancy_and_representation",
+      "task_scope": "Examine subsets of features for differential representational strength by class using structural summaries and local consistency verification to preserve evidence from related features.",
+      "allowed_action_count": 2,
+      "local_context_ref_count": 6,
+      "stop_condition_count": 0
+    }
+  ]
+}

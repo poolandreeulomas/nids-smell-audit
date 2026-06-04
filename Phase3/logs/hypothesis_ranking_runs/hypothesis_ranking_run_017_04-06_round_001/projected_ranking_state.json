@@ -1,0 +1,122 @@
+{
+  "round_id": "round-001",
+  "selection_budget": 3,
+  "hypothesis_state_refs": [
+    {
+      "hypothesis_id": "hyp_1_low_diversity_constant_features",
+      "state_notes": [
+        "status=unresolved",
+        "summary=The presence of multiple backward and forward bulk-related features with near-constant values and extremely low cardinality suggests a structural regime dominated by uniform or saturated load conditions, potentially reflecting stable traffic patterns or measurement artifacts.",
+        "revision_count=0",
+        "last_updated_round=initialization",
+        "open_gap=Do these near-constant bulk and flag features represent genuine network saturation or measurement limitations?",
+        "open_gap=Could these features mask subtle variations relevant for attack detection?"
+      ]
+    },
+    {
+      "hypothesis_id": "hyp_2_strong_dependency_pairs_indicate_redundancy",
+      "state_notes": [
+        "status=unresolved",
+        "summary=Several feature pairs exhibit perfect or near-perfect correlation, indicating strong linear dependencies that may introduce redundancy and reduce effective feature diversity, potentially biasing model interpretation or inflating feature importance.",
+        "revision_count=0",
+        "last_updated_round=initialization",
+        "open_gap=Are these dependencies inherent to the network flow structure or artifacts of feature engineering?",
+        "open_gap=How might these dependencies affect the stability and generalizability of detection models?"
+      ]
+    },
+    {
+      "hypothesis_id": "hyp_3_class_conditioned_structural_variation",
+      "state_notes": [
+        "status=unresolved",
+        "summary=Packet length and segment size features show significant class-conditioned variance and unique value disparities, suggesting that these features capture structural differences between BENIGN and DDoS traffic classes that may be critical for discrimination.",
+        "revision_count=0",
+        "last_updated_round=initialization",
+        "open_gap=To what extent do these class-conditioned variations reflect true behavioral differences versus sampling or labeling biases?",
+        "open_gap=Could these features be sensitive to temporal or contextual shifts within the dataset?"
+      ]
+    },
+    {
+      "hypothesis_id": "hyp_4_class_distribution_and_port_skew",
+      "state_notes": [
+        "status=unresolved",
+        "summary=The moderate class imbalance combined with a strong distributional divergence and zero entropy in the Destination Port feature for the DDoS class indicates a representation-sensitive pattern that may reflect attack targeting or dataset collection biases.",
+        "revision_count=0",
+        "last_updated_round=initialization",
+        "open_gap=Does the zero entropy in Destination Port for DDoS traffic indicate a narrow attack vector or a dataset artifact?",
+        "open_gap=How might this skew influence model bias or overfitting?"
+      ]
+    },
+    {
+      "hypothesis_id": "hyp_5_partition_level_duplicates_indicate_redundancy",
+      "state_notes": [
+        "status=unresolved",
+        "summary=The presence of 729 duplicated rows in the partition suggests redundancy at the data record level, which may affect statistical estimates, model training stability, and evaluation metrics.",
+        "revision_count=0",
+        "last_updated_round=initialization",
+        "open_gap=Are these duplicates concentrated in specific classes or feature value ranges?",
+        "open_gap=Do duplicates correspond to repeated network events or data processing artifacts?"
+      ]
+    },
+    {
+      "hypothesis_id": "hyp_6_tension_between_top_rank_and_dependency",
+      "state_notes": [
+        "status=unresolved",
+        "summary=Top-ranked features such as Bwd Packet Length Mean and Avg Bwd Segment Size exhibit near-perfect correlations, creating tension between their high importance and potential redundancy, complicating feature prioritization and interpretation.",
+        "revision_count=0",
+        "last_updated_round=initialization",
+        "open_gap=Should feature selection prioritize decorrelation or preserve top-ranked features despite redundancy?",
+        "open_gap=How does this tension impact downstream model explainability?"
+      ]
+    },
+    {
+      "hypothesis_id": "hyp_7_heterogeneous_structural_regimes",
+      "state_notes": [
+        "status=unresolved",
+        "summary=The coexistence of near-constant features with features showing strong class-conditioned structural variation suggests heterogeneous structural regimes within the dataset, possibly reflecting mixed traffic states or layered attack behaviors.",
+        "revision_count=0",
+        "last_updated_round=initialization",
+        "open_gap=Do these heterogeneous regimes correspond to distinct temporal phases or network segments?",
+        "open_gap=How might models adapt to or exploit this heterogeneity?"
+      ]
+    },
+    {
+      "hypothesis_id": "hyp_8_class_distribution_vs_variance_pattern_tension",
+      "state_notes": [
+        "status=unresolved",
+        "summary=The tension between class imbalance and distributional skew in Destination Port and the variance-based structural differences in packet length features indicates complex representation-sensitive patterns that may challenge simple class separation assumptions.",
+        "revision_count=0",
+        "last_updated_round=initialization",
+        "open_gap=How do these contrasting patterns affect the robustness of class discrimination?",
+        "open_gap=Could these tensions reveal subpopulations or attack variants within classes?"
+      ]
+    },
+    {
+      "hypothesis_id": "hyp_9_localized_representation_sensitive_handles_in_packet_features",
+      "state_notes": [
+        "status=unresolved",
+        "summary=Despite strong dependencies, certain packet length and segment size features maintain localized representation-sensitive signals that may provide meaningful discrimination handles even if they do not explain the entire substrate.",
+        "revision_count=0",
+        "last_updated_round=initialization",
+        "open_gap=Which localized signals are most stable across different data slices or attack scenarios?",
+        "open_gap=Can these localized handles be isolated to improve model focus?"
+      ]
+    },
+    {
+      "hypothesis_id": "hyp_10_potential_measurement_or_labeling_artifacts",
+      "state_notes": [
+        "status=unresolved",
+        "summary=Some structural uniformities and perfect correlations may arise from measurement artifacts, feature engineering choices, or labeling inconsistencies rather than intrinsic network behavior, warranting cautious interpretation.",
+        "revision_count=0",
+        "last_updated_round=initialization",
+        "open_gap=What preprocessing or collection steps could have introduced these artifacts?",
+        "open_gap=How might artifact presence be detected and mitigated in future analyses?"
+      ]
+    }
+  ],
+  "round_constraints": [
+    "selection_budget=3",
+    "allocation_only",
+    "preserve_deferred_hypotheses",
+    "round_start_state_version=1"
+  ]
+}

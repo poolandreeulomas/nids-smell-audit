@@ -1,0 +1,17 @@
+{
+  "task_id": "task_3",
+  "hypothesis_id": "hyp_4_class_distribution_and_port_skew",
+  "task_scope": "Evaluate dependency and predictive leverage of Destination Port skew on class imbalance and potential overfitting risks.",
+  "allowed_actions": [
+    "dependency_contextualization",
+    "shortcut_verification"
+  ],
+  "local_context_refs": [
+    "e2",
+    "e33"
+  ],
+  "stop_conditions": [
+    "dependency strength assessed",
+    "shortcut signals identified or ruled out"
+  ]
+}

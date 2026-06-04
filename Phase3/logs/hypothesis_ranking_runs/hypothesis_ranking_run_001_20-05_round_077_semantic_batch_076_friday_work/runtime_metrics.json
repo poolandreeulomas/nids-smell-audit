@@ -1,0 +1,18 @@
+{
+  "batch_id": "semantic_batch_076_friday-workinghours-afternoon-ddos.pcap_iscx",
+  "analysis_id": "analysis_001_semantic_batch_076",
+  "round_id": "round_077_semantic_batch_076_friday-workinghours-afternoon-ddos.pcap_iscx",
+  "model_name": "gpt-4.1-mini",
+  "duration_ms": 15566.3,
+  "status": "ok",
+  "prompt_chars": 11578,
+  "raw_response_chars": 1599,
+  "candidate_count": 10,
+  "selected_count": 3,
+  "deferred_count": 7,
+  "selection_budget": 3,
+  "fresh_execution": true,
+  "replay_of": null,
+  "caller_mode": "cli",
+  "schema_version": "phase3a.hypothesis_ranking.v1"
+}

@@ -1,0 +1,639 @@
+{
+  "batch_id": "phase3a_batch_0306153018_friday-workinghours-afternoon-ddos.pcap_iscx_218609",
+  "state_version": 1,
+  "structural_substrate": {
+    "substrate_id": "substrate_phase3a_batch_0306153018_friday-workinghours-afternoon-ddos.pcap_iscx_218609",
+    "batch_id": "phase3a_batch_0306153018_friday-workinghours-afternoon-ddos.pcap_iscx_218609",
+    "compressed_regions": [
+      {
+        "region_id": "region_1_low_diversity_bulk_features",
+        "region_kind": "low_diversity_region",
+        "status": "active",
+        "summary": "Multiple bulk-related backward and forward features exhibit extremely low cardinality with unique values=1 and cardinality ratios near zero, indicating near-constant values across the partition.",
+        "structural_descriptors": [
+          "near-constant feature values",
+          "extreme cardinality skew"
+        ],
+        "feature_scope": {
+          "features": [
+            "Bwd Avg Bulk Rate",
+            "Bwd Avg Bytes/Bulk",
+            "Bwd Avg Packets/Bulk",
+            "Bwd PSH Flags",
+            "Bwd URG Flags",
+            "CWE Flag Count",
+            "Fwd Avg Bulk Rate",
+            "Fwd Avg Bytes/Bulk",
+            "Fwd Avg Packets/Bulk",
+            "Fwd URG Flags"
+          ],
+          "feature_groups": [],
+          "locality": {
+            "scope_type": "feature_group",
+            "scope_value": "bulk_and_flag_features_low_cardinality",
+            "localized": true,
+            "notes": [
+              "Features with unique_values=1 and cardinality_ratio=1e-05",
+              "Suggests structural uniformity or saturation"
+            ]
+          }
+        },
+        "evidence_refs": [
+          "e23",
+          "e24",
+          "e25",
+          "e26",
+          "e27",
+          "e28",
+          "e29",
+          "e30",
+          "e31",
+          "e32"
+        ],
+        "supporting_patterns": [
+          "extreme cardinality compression",
+          "near-zero variance in bulk and flag features"
+        ],
+        "contextual_modifiers": [
+          "partition-level low diversity",
+          "potential saturation or default values"
+        ],
+        "uncertainty_notes": [
+          "Low cardinality may reflect measurement saturation or feature design",
+          "Uniformity could mask subtle class-dependent variations"
+        ],
+        "contradiction_refs": [],
+        "tension_refs": []
+      },
+      {
+        "region_id": "region_2_strong_feature_dependencies",
+        "region_kind": "dependency_region",
+        "status": "active",
+        "summary": "Several feature pairs exhibit perfect or near-perfect correlation (correlation=1 or 0.9993), indicating strong linear dependencies and potential redundancy.",
+        "structural_descriptors": [
+          "perfect correlation pairs",
+          "redundant feature pairs"
+        ],
+        "feature_scope": {
+          "features": [
+            "Bwd Packet Length Mean",
+            "Avg Bwd Segment Size",
+            "Fwd Header Length",
+            "Fwd Header Length.1",
+            "Fwd PSH Flags",
+            "SYN Flag Count",
+            "Fwd Packet Length Mean",
+            "Avg Fwd Segment Size",
+            "RST Flag Count",
+            "ECE Flag Count",
+            "Total Backward Packets",
+            "Subflow Bwd Packets",
+            "Total Fwd Packets",
+            "Subflow Fwd Packets",
+            "Total Length of Bwd Packets",
+            "Subflow Bwd Bytes",
+            "Total Length of Fwd Packets",
+            "Subflow Fwd Bytes",
+            "Packet Length Mean",
+            "Average Packet Size"
+          ],
+          "feature_groups": [
+            "strongly_correlated_pairs"
+          ],
+          "locality": {
+            "scope_type": "dependency_cluster",
+            "scope_value": "strong_correlation_pairs",
+            "localized": true,
+            "notes": [
+              "Pairs with correlation=1 or near 1",
+              "Indicates near-perfect linear relationships"
+            ]
+          }
+        },
+        "evidence_refs": [
+          "e13",
+          "e14",
+          "e15",
+          "e16",
+          "e17",
+          "e18",
+          "e19",
+          "e20",
+          "e21",
+          "e22"
+        ],
+        "supporting_patterns": [
+          "perfect correlation",
+          "redundancy in packet length and flag count features"
+        ],
+        "contextual_modifiers": [
+          "dependency cluster",
+          "potential feature duplication"
+        ],
+        "uncertainty_notes": [
+          "Perfect correlations may reflect feature engineering or measurement overlap",
+          "Dependencies may affect model stability or interpretability"
+        ],
+        "contradiction_refs": [],
+        "tension_refs": []
+      },
+      {
+        "region_id": "region_3_class_conditioned_structural_variation",
+        "region_kind": "mixed_structural_region",
+        "status": "active",
+        "summary": "Several packet length and size features show strong class-conditioned structural variation with high variance ratios and differing unique value counts between BENIGN and DDoS classes.",
+        "structural_descriptors": [
+          "class-conditioned variance ratio",
+          "class-dependent unique value distribution"
+        ],
+        "feature_scope": {
+          "features": [
+            "Bwd Packet Length Max",
+            "Bwd Packet Length Mean",
+            "Bwd Packet Length Std",
+            "Average Packet Size",
+            "Avg Bwd Segment Size"
+          ],
+          "feature_groups": [
+            "class_conditioned_features"
+          ],
+          "locality": {
+            "scope_type": "feature_group",
+            "scope_value": "class_conditioned_packet_features",
+            "localized": true,
+            "notes": [
+              "Features with variance_ratio > 4",
+              "Unique values differ significantly by class"
+            ]
+          }
+        },
+        "evidence_refs": [
+          "e8",
+          "e9",
+          "e10",
+          "e11",
+          "e12"
+        ],
+        "supporting_patterns": [
+          "high variance ratio",
+          "class-dependent structural diversity"
+        ],
+        "contextual_modifiers": [
+          "class-conditioned structural variation",
+          "potentially informative for class separation"
+        ],
+        "uncertainty_notes": [
+          "Variance ratio magnitude varies widely across features",
+          "Unique value counts are much higher in BENIGN class, indicating skew"
+        ],
+        "contradiction_refs": [],
+        "tension_refs": []
+      },
+      {
+        "region_id": "region_4_class_distribution_and_imbalance",
+        "region_kind": "mixed_structural_region",
+        "status": "broad_unvalidated",
+        "summary": "Partition-level class imbalance ratio is moderate (1.577), and the Destination Port feature shows strong distributional divergence between BENIGN and DDoS classes with high JS divergence and entropy differences.",
+        "structural_descriptors": [
+          "class imbalance",
+          "distributional divergence",
+          "feature entropy variation"
+        ],
+        "feature_scope": {
+          "features": [
+            "Destination Port"
+          ],
+          "feature_groups": [],
+          "locality": {
+            "scope_type": "partition_global",
+            "scope_value": "phase3a_batch_0306153018_friday-workinghours-afternoon-ddos.pcap_iscx_218609",
+            "localized": false,
+            "notes": [
+              "Partition-level class imbalance and distribution metrics"
+            ]
+          }
+        },
+        "evidence_refs": [
+          "e2",
+          "e33"
+        ],
+        "supporting_patterns": [
+          "moderate class imbalance",
+          "high JS divergence in Destination Port distribution"
+        ],
+        "contextual_modifiers": [
+          "partition-global observation",
+          "distributional contrast between classes"
+        ],
+        "uncertainty_notes": [
+          "Class imbalance ratio is moderate, not extreme",
+          "Distributional metrics suggest strong class separation on Destination Port but do not confirm predictive validity"
+        ],
+        "contradiction_refs": [],
+        "tension_refs": []
+      },
+      {
+        "region_id": "region_5_partition_duplicates",
+        "region_kind": "concentration_region",
+        "status": "active",
+        "summary": "The partition contains a substantial number of duplicated rows (729), indicating potential data redundancy or repeated patterns.",
+        "structural_descriptors": [
+          "data duplication",
+          "row redundancy"
+        ],
+        "feature_scope": {
+          "features": [
+            "__dataset__"
+          ],
+          "feature_groups": [],
+          "locality": {
+            "scope_type": "partition_global",
+            "scope_value": "phase3a_batch_0306153018_friday-workinghours-afternoon-ddos.pcap_iscx_218609",
+            "localized": false,
+            "notes": [
+              "Partition-level duplication observation"
+            ]
+          }
+        },
+        "evidence_refs": [
+          "e1"
+        ],
+        "supporting_patterns": [
+          "high duplicate count"
+        ],
+        "contextual_modifiers": [
+          "partition-wide duplication"
+        ],
+        "uncertainty_notes": [
+          "Duplicated rows may affect statistical independence assumptions",
+          "Impact on downstream analysis uncertain without further context"
+        ],
+        "contradiction_refs": [],
+        "tension_refs": []
+      }
+    ],
+    "preserved_weak_signals": [
+      {
+        "weak_signal_id": "weak_1_destination_port_entropy_variation",
+        "descriptor": "Destination Port shows high entropy in BENIGN class but zero entropy in DDoS class, indicating a strong class-dependent distributional difference.",
+        "feature_scope": {
+          "features": [
+            "Destination Port"
+          ],
+          "feature_groups": [],
+          "locality": {
+            "scope_type": "feature_group",
+            "scope_value": "Destination Port",
+            "localized": true,
+            "notes": [
+              "Distributional metric observation"
+            ]
+          }
+        },
+        "evidence_refs": [
+          "e33"
+        ],
+        "preservation_reason": "Preserves subtle distributional contrast that may be overshadowed by dominant class imbalance or other features.",
+        "contextual_modifiers": [
+          "class-dependent entropy variation"
+        ],
+        "uncertainty_notes": [
+          "Entropy difference may reflect protocol or attack behavior but requires further verification"
+        ]
+      }
+    ],
+    "contradictions": [],
+    "unresolved_tensions": [
+      {
+        "tension_id": "tension_1_low_cardinality_vs_class_variation",
+        "description": "Features with near-constant values (low cardinality) coexist with features showing strong class-conditioned structural variation, creating tension between uniformity and class-dependent diversity.",
+        "related_region_ids": [
+          "region_1_low_diversity_bulk_features",
+          "region_3_class_conditioned_structural_variation"
+        ],
+        "evidence_refs": [
+          "e8",
+          "e9",
+          "e10",
+          "e11",
+          "e12",
+          "e23",
+          "e24",
+          "e25",
+          "e26",
+          "e27",
+          "e28",
+          "e29",
+          "e30",
+          "e31",
+          "e32"
+        ],
+        "context_notes": [
+          "Partition exhibits both extreme uniformity in some features and strong class-dependent variation in others",
+          "This tension complicates interpretation of feature informativeness"
+        ],
+        "reason_unresolved": "Insufficient evidence to determine if low cardinality features mask subtle class signals or represent saturation artifacts."
+      },
+      {
+        "tension_id": "tension_2_perfect_dependency_vs_feature_diversity",
+        "description": "Strong perfect correlations among many feature pairs contrast with the presence of features showing class-conditioned variance and unique value differences, indicating tension between redundancy and diversity.",
+        "related_region_ids": [
+          "region_2_strong_feature_dependencies",
+          "region_3_class_conditioned_structural_variation"
+        ],
+        "evidence_refs": [
+          "e8",
+          "e9",
+          "e10",
+          "e11",
+          "e12",
+          "e13",
+          "e14",
+          "e15",
+          "e16",
+          "e17",
+          "e18",
+          "e19",
+          "e20",
+          "e21",
+          "e22"
+        ],
+        "context_notes": [
+          "Perfect correlations suggest redundancy, while variance ratios suggest meaningful class variation",
+          "This tension may affect feature selection and model stability"
+        ],
+        "reason_unresolved": "No direct evidence to resolve whether dependencies obscure or complement class-conditioned variation."
+      }
+    ]
+  },
+  "interpretive_hypotheses": [
+    {
+      "hypothesis_id": "hyp_001_low_cardinality_bulk_features",
+      "summary": "The extremely low cardinality and near-constant values observed in multiple bulk-related backward and forward features (e23-e32) may indicate a structural uniformity or load concentration effect in the dataset, potentially reflecting a stable traffic pattern or saturation in these metrics.",
+      "status": "unresolved",
+      "evidence_refs": [
+        "e23",
+        "e24",
+        "e25",
+        "e26",
+        "e27",
+        "e28",
+        "e29",
+        "e30",
+        "e31",
+        "e32"
+      ],
+      "open_gaps": [
+        "Does this near-constant behavior reflect a genuine network saturation or a data collection artifact?",
+        "Could these features be masking subtle variations relevant to attack detection?"
+      ],
+      "preserved_contradictions": [],
+      "merged_findings": [],
+      "update_focus": "",
+      "last_updated_round": "",
+      "revision_count": 0
+    },
+    {
+      "hypothesis_id": "hyp_002_strong_feature_dependencies_indicate_redundancy",
+      "summary": "The presence of perfect or near-perfect correlations (correlation=1 or 0.9993) among many feature pairs (e13-e22) suggests strong linear dependencies that may introduce redundancy, potentially reducing the effective dimensionality of the dataset.",
+      "status": "unresolved",
+      "evidence_refs": [
+        "e13",
+        "e14",
+        "e15",
+        "e16",
+        "e17",
+        "e18",
+        "e19",
+        "e20",
+        "e21",
+        "e22"
+      ],
+      "open_gaps": [
+        "Are these dependencies stable across different classes or do they vary with attack presence?",
+        "Could these dependencies obscure meaningful independent signals?"
+      ],
+      "preserved_contradictions": [],
+      "merged_findings": [],
+      "update_focus": "",
+      "last_updated_round": "",
+      "revision_count": 0
+    },
+    {
+      "hypothesis_id": "hyp_003_class_conditioned_structural_variation_in_packet_features",
+      "summary": "Several packet length and size features (e8-e12) show strong class-conditioned structural variation, with high variance ratios and differing unique value counts between BENIGN and DDoS classes, indicating that these features may capture meaningful class-distinguishing information.",
+      "status": "unresolved",
+      "evidence_refs": [
+        "e8",
+        "e9",
+        "e10",
+        "e11",
+        "e12"
+      ],
+      "open_gaps": [
+        "To what extent do these class-conditioned variations persist when controlling for feature dependencies?",
+        "Could these variations be leveraged to improve class separation despite other uniformities?"
+      ],
+      "preserved_contradictions": [],
+      "merged_findings": [],
+      "update_focus": "",
+      "last_updated_round": "",
+      "revision_count": 0
+    },
+    {
+      "hypothesis_id": "hyp_004_tension_between_low_cardinality_and_class_variation",
+      "summary": "There is a notable tension between features exhibiting near-constant values (e23-e32) and those showing strong class-conditioned structural variation (e8-e12), suggesting coexistence of uniformity and diversity that complicates straightforward interpretation of feature behavior.",
+      "status": "unresolved",
+      "evidence_refs": [
+        "e8",
+        "e9",
+        "e10",
+        "e11",
+        "e12",
+        "e23",
+        "e24",
+        "e25",
+        "e26",
+        "e27",
+        "e28",
+        "e29",
+        "e30",
+        "e31",
+        "e32"
+      ],
+      "open_gaps": [
+        "Does this tension reflect different underlying traffic phenomena or measurement artifacts?",
+        "How should modeling approaches reconcile these conflicting structural patterns?"
+      ],
+      "preserved_contradictions": [],
+      "merged_findings": [],
+      "update_focus": "",
+      "last_updated_round": "",
+      "revision_count": 0
+    },
+    {
+      "hypothesis_id": "hyp_005_tension_between_perfect_dependency_and_feature_diversity",
+      "summary": "Strong perfect correlations among many feature pairs (e13-e22) contrast with features showing class-conditioned variance and unique value differences (e8-e12), indicating a tension between redundancy and diversity that may affect feature selection and model robustness.",
+      "status": "unresolved",
+      "evidence_refs": [
+        "e8",
+        "e9",
+        "e10",
+        "e11",
+        "e12",
+        "e13",
+        "e14",
+        "e15",
+        "e16",
+        "e17",
+        "e18",
+        "e19",
+        "e20",
+        "e21",
+        "e22"
+      ],
+      "open_gaps": [
+        "Are the perfectly correlated features stable across classes or do they mask class-specific variations?",
+        "Could this tension lead to unstable model behavior under different traffic conditions?"
+      ],
+      "preserved_contradictions": [],
+      "merged_findings": [],
+      "update_focus": "",
+      "last_updated_round": "",
+      "revision_count": 0
+    },
+    {
+      "hypothesis_id": "hyp_006_class_distribution_and_destination_port_divergence",
+      "summary": "The partition exhibits a moderate class imbalance ratio (1.577) and the Destination Port feature shows strong distributional divergence between BENIGN and DDoS classes, including high Jensen-Shannon divergence and entropy differences (e2, e33), suggesting that Destination Port may be a key discriminative feature.",
+      "status": "unresolved",
+      "evidence_refs": [
+        "e2",
+        "e33"
+      ],
+      "open_gaps": [
+        "Is the zero entropy in DDoS Destination Port indicative of a targeted attack vector or a dataset artifact?",
+        "How stable is this distributional divergence across time or other partitions?"
+      ],
+      "preserved_contradictions": [],
+      "merged_findings": [],
+      "update_focus": "",
+      "last_updated_round": "",
+      "revision_count": 0
+    },
+    {
+      "hypothesis_id": "hyp_007_partition_contains_substantial_duplicates",
+      "summary": "The presence of a substantial number of duplicated rows (729) in the partition (e1) may indicate data redundancy or repeated traffic patterns, which could bias statistical analyses or model training.",
+      "status": "unresolved",
+      "evidence_refs": [
+        "e1"
+      ],
+      "open_gaps": [
+        "Are these duplicates concentrated in specific classes or feature subsets?",
+        "Do duplicates correspond to repeated attack bursts or benign traffic repetitions?"
+      ],
+      "preserved_contradictions": [],
+      "merged_findings": [],
+      "update_focus": "",
+      "last_updated_round": "",
+      "revision_count": 0
+    },
+    {
+      "hypothesis_id": "hyp_008_localized_representation_sensitive_signal_in_destination_port_entropy",
+      "summary": "The high entropy in the BENIGN class and zero entropy in the DDoS class for the Destination Port feature (e33) may represent a localized representation-sensitive signal that captures a narrow but meaningful class-dependent distributional difference.",
+      "status": "unresolved",
+      "evidence_refs": [
+        "e33"
+      ],
+      "open_gaps": [
+        "Could this signal be leveraged for targeted detection despite its narrow scope?",
+        "Is this pattern consistent across other related features or partitions?"
+      ],
+      "preserved_contradictions": [],
+      "merged_findings": [],
+      "update_focus": "",
+      "last_updated_round": "",
+      "revision_count": 0
+    },
+    {
+      "hypothesis_id": "hyp_009_potential_structural_uniformity_masking_subtle_variations",
+      "summary": "The near-constant values in bulk and flag-related features (e23-e32) might mask subtle but important variations that are overshadowed by dominant uniformity, potentially limiting the sensitivity of models relying on these features.",
+      "status": "unresolved",
+      "evidence_refs": [
+        "e23",
+        "e24",
+        "e25",
+        "e26",
+        "e27",
+        "e28",
+        "e29",
+        "e30",
+        "e31",
+        "e32"
+      ],
+      "open_gaps": [
+        "Are there temporal or contextual subregions where these features exhibit more variability?",
+        "Could alternative feature transformations reveal hidden structure?"
+      ],
+      "preserved_contradictions": [],
+      "merged_findings": [],
+      "update_focus": "",
+      "last_updated_round": "",
+      "revision_count": 0
+    },
+    {
+      "hypothesis_id": "hyp_010_interplay_of_redundancy_and_class_variation_affects_feature_reliability",
+      "summary": "The coexistence of strong feature dependencies (e13-e22) and class-conditioned structural variation (e8-e12) suggests an interplay that may affect the reliability and interpretability of features, potentially complicating feature engineering and model generalization.",
+      "status": "unresolved",
+      "evidence_refs": [
+        "e8",
+        "e9",
+        "e10",
+        "e11",
+        "e12",
+        "e13",
+        "e14",
+        "e15",
+        "e16",
+        "e17",
+        "e18",
+        "e19",
+        "e20",
+        "e21",
+        "e22"
+      ],
+      "open_gaps": [
+        "How can feature selection balance redundancy removal with preservation of class-distinguishing variation?",
+        "Does this interplay vary across different attack types or benign traffic?"
+      ],
+      "preserved_contradictions": [],
+      "merged_findings": [],
+      "update_focus": "",
+      "last_updated_round": "",
+      "revision_count": 0
+    }
+  ],
+  "revision_log": [
+    {
+      "revision_type": "initialization",
+      "state_version": 1,
+      "round_id": "",
+      "hypothesis_id": "",
+      "applied_updates": [
+        {
+          "action": "register_structural_substrate",
+          "substrate_id": "substrate_phase3a_batch_0306153018_friday-workinghours-afternoon-ddos.pcap_iscx_218609",
+          "region_count": 5,
+          "weak_signal_count": 1,
+          "contradiction_count": 0,
+          "tension_count": 2
+        },
+        {
+          "action": "register_interpretive_hypotheses",
+          "analysis_id": "analysis_phase3a_0306153018_01",
+          "hypothesis_count": 10
+        }
+      ],
+      "timestamp": "2026-06-03T15:31:41.808518+00:00"
+    }
+  ]
+}

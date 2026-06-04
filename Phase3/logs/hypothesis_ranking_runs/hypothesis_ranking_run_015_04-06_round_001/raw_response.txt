@@ -1,0 +1,32 @@
+{
+  "batch_id": "phase3a_batch_0406095248_friday-workinghours-afternoon-ddos.pcap_iscx_f8c2c2",
+  "round_id": "round-001",
+  "selected_hypothesis_ids": [
+    "hyp_004_strong_feature_dependency_pairs",
+    "hyp_005_class_conditioned_variation_backward_packet_lengths",
+    "hyp_007_class_conditioned_distribution_destination_port"
+  ],
+  "deferred_hypothesis_ids": [
+    "hyp_001_low_diversity_backward_bulk",
+    "hyp_002_low_diversity_backward_flag_features",
+    "hyp_003_low_diversity_forward_bulk_and_flag_features",
+    "hyp_006_class_conditioned_variation_average_packet_size",
+    "hyp_008_partition_level_data_quality_and_class_imbalance",
+    "hyp_009_weak_signal_backward_flag_constantness",
+    "hyp_010_weak_signal_forward_flag_constantness"
+  ],
+  "selection_rationales": [
+    {
+      "hypothesis_id": "hyp_004_strong_feature_dependency_pairs",
+      "reason": "Strong correlations suggest critical redundancies impacting feature design and dimensionality reduction potential."
+    },
+    {
+      "hypothesis_id": "hyp_005_class_conditioned_variation_backward_packet_lengths",
+      "reason": "Significant class-conditioned variation indicates high potential for discriminative feature utility."
+    },
+    {
+      "hypothesis_id": "hyp_007_class_conditioned_distribution_destination_port",
+      "reason": "Clear class-conditioned distribution shifts with zero entropy in attack class highlight a strong representation-sensitive signal."
+    }
+  ]
+}

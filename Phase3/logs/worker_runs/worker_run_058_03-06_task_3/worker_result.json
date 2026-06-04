@@ -1,0 +1,21 @@
+{
+  "task_id": "task_3",
+  "hypothesis_id": "hyp_10_interplay_between_redundancy_and_class_conditioned_variation",
+  "status": "completed",
+  "findings": [
+    "Strong redundancy and near-deterministic correlations exist among packet length and size features, including 'Bwd Packet Length Mean'.",
+    "Local label-topology consistency checks reveal moderate conflicts and duplicate label conflicts around 'Bwd Packet Length Mean' and 'Avg Bwd Segment Size', indicating unstable dependencies.",
+    "These unstable dependencies likely mask or distort class-conditioned variation in packet length and size features."
+  ],
+  "evidence_refs": [
+    "task_3_step_03",
+    "task_3_step_05",
+    "task_3_step_07"
+  ],
+  "contradictions": [
+    "Moderate label neighborhood conflicts and duplicate label conflicts represent preserved local contradictions."
+  ],
+  "limitations": [
+    "Analysis limited to local neighborhoods and specific features; global dependency effects remain unassessed."
+  ]
+}

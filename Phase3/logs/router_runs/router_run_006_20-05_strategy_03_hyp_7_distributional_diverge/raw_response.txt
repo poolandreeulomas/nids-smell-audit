@@ -1,0 +1,40 @@
+{
+  "batch_id": "phase3a_batch_2005190226_friday-workinghours-afternoon-ddos.pcap_iscx_01bd74",
+  "round_id": "round-001",
+  "hypothesis_id": "hyp_7_distributional_divergence_destination_port",
+  "planner_strategy_id": "strategy_03_hyp_7_distributional_divergence_destination_port",
+  "worker_tasks": [
+    {
+      "task_id": "task_1",
+      "hypothesis_id": "hyp_7_distributional_divergence_destination_port",
+      "task_scope": "Analyze class-conditioned distribution profiles and entropy measures for the Destination Port feature to identify representational skew and variability.",
+      "allowed_actions": ["distribution_verification", "structural_summary"],
+      "local_context_refs": ["e33"],
+      "stop_conditions": ["distribution profile fully characterized", "entropy measures stabilized"]
+    },
+    {
+      "task_id": "task_2",
+      "hypothesis_id": "hyp_7_distributional_divergence_destination_port",
+      "task_scope": "Investigate the prevalence and role of the dominant destination port in the DDoS traffic subset to distinguish targeted attack vectors from dataset artifacts.",
+      "allowed_actions": ["cardinality_verification", "shortcut_verification"],
+      "local_context_refs": ["e33"],
+      "stop_conditions": ["dominant port prevalence quantified", "shortcut-like predictive leverage assessed"]
+    },
+    {
+      "task_id": "task_3",
+      "hypothesis_id": "hyp_7_distributional_divergence_destination_port",
+      "task_scope": "Assess potential dataset biases or artifacts influencing the Destination Port distribution to identify structural irregularities affecting representational validity.",
+      "allowed_actions": ["dependency_contextualization", "relation_verification"],
+      "local_context_refs": ["e33"],
+      "stop_conditions": ["bias indicators identified or ruled out", "dependency patterns contextualized"]
+    },
+    {
+      "task_id": "task_4",
+      "hypothesis_id": "hyp_7_distributional_divergence_destination_port",
+      "task_scope": "Consider effects of skew in Destination Port distribution on generalization to other attack types or ports by verifying local label-topology consistency and potential shortcut signals.",
+      "allowed_actions": ["local_consistency_verification", "shortcut_verification"],
+      "local_context_refs": ["e33"],
+      "stop_conditions": ["local consistency metrics stable", "shortcut signals evaluated"]
+    }
+  ]
+}

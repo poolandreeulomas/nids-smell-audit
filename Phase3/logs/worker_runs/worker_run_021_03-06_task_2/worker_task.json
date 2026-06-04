@@ -1,0 +1,25 @@
+{
+  "task_id": "task_2",
+  "hypothesis_id": "hyp_2_strong_linear_dependencies",
+  "task_scope": "Compare dependency profiles of feature pairs before and after preprocessing steps to clarify if dependencies originate from inherent data or transformations.",
+  "allowed_actions": [
+    "relation_verification",
+    "dependency_contextualization"
+  ],
+  "local_context_refs": [
+    "e13",
+    "e14",
+    "e15",
+    "e16",
+    "e17",
+    "e18",
+    "e19",
+    "e20",
+    "e21",
+    "e22"
+  ],
+  "stop_conditions": [
+    "dependency profiles generated for preprocessed and raw data",
+    "differences or consistencies documented"
+  ]
+}

@@ -1,0 +1,40 @@
+{
+  "batch_id": "phase3a_batch_0306173106_friday-workinghours-afternoon-ddos.pcap_iscx_98251a",
+  "round_id": "round-001",
+  "hypothesis_id": "hyp_006",
+  "planner_strategy_id": "strategy_01_hyp_006",
+  "worker_tasks": [
+    {
+      "task_id": "task_1",
+      "hypothesis_id": "hyp_006",
+      "task_scope": "Compare Destination Port distribution entropy and dominant ratio across DDoS and other classes using evidence e33",
+      "allowed_actions": ["distribution_verification"],
+      "local_context_refs": ["e33"],
+      "stop_conditions": ["distribution entropy and dominant ratio metrics computed for all classes"]
+    },
+    {
+      "task_id": "task_2",
+      "hypothesis_id": "hyp_006",
+      "task_scope": "Assess stability of Destination Port distribution over defined time segments within evidence e33",
+      "allowed_actions": ["distribution_verification"],
+      "local_context_refs": ["e33"],
+      "stop_conditions": ["distribution metrics stable or variable patterns identified across time segments"]
+    },
+    {
+      "task_id": "task_3",
+      "hypothesis_id": "hyp_006",
+      "task_scope": "Evaluate shortcut-like predictive leverage of Destination Port feature in isolation within evidence e33",
+      "allowed_actions": ["shortcut_verification"],
+      "local_context_refs": ["e33"],
+      "stop_conditions": ["shortcut-like predictive signals quantified or ruled out"]
+    },
+    {
+      "task_id": "task_4",
+      "hypothesis_id": "hyp_006",
+      "task_scope": "Examine correlation of Destination Port with other features specifically in the DDoS class using evidence e33",
+      "allowed_actions": ["relation_verification", "dependency_contextualization"],
+      "local_context_refs": ["e33"],
+      "stop_conditions": ["correlation and dependency patterns identified or excluded"]
+    }
+  ]
+}

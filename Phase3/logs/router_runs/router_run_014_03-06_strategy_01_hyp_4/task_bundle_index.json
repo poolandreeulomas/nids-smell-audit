@@ -1,0 +1,40 @@
+{
+  "hypothesis_id": "hyp_4_distributional_divergence_destination_port",
+  "planner_strategy_id": "strategy_01_hyp_4",
+  "task_count": 4,
+  "action_class_count": 6,
+  "task_summaries": [
+    {
+      "task_id": "task_1",
+      "hypothesis_id": "hyp_4_distributional_divergence_destination_port",
+      "task_scope": "Measure distributional stability of destination port across temporal and attack scenario subsets within evidence e33",
+      "allowed_action_count": 1,
+      "local_context_ref_count": 1,
+      "stop_condition_count": 2
+    },
+    {
+      "task_id": "task_2",
+      "hypothesis_id": "hyp_4_distributional_divergence_destination_port",
+      "task_scope": "Evaluate entropy and cardinality of destination port within DDoS class over multiple data partitions in evidence e33",
+      "allowed_action_count": 2,
+      "local_context_ref_count": 1,
+      "stop_condition_count": 2
+    },
+    {
+      "task_id": "task_3",
+      "hypothesis_id": "hyp_4_distributional_divergence_destination_port",
+      "task_scope": "Check for shortcut-like predictive leverage of destination port feature alone in evidence e33",
+      "allowed_action_count": 1,
+      "local_context_ref_count": 1,
+      "stop_condition_count": 2
+    },
+    {
+      "task_id": "task_4",
+      "hypothesis_id": "hyp_4_distributional_divergence_destination_port",
+      "task_scope": "Test sensitivity of classification outcomes to perturbations or masking of destination port feature within evidence e33",
+      "allowed_action_count": 2,
+      "local_context_ref_count": 1,
+      "stop_condition_count": 2
+    }
+  ]
+}

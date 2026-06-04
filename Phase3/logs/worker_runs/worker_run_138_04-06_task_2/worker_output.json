@@ -1,0 +1,22 @@
+{
+  "batch_id": "phase3a_batch_0406132627_friday-workinghours-afternoon-ddos.pcap_iscx_f0e355",
+  "round_id": "round-001",
+  "worker_result": {
+    "task_id": "task_2",
+    "hypothesis_id": "hyp_6_class_conditioned_variation_backward_packet_lengths",
+    "status": "completed",
+    "findings": [
+      "Bwd Packet Length Max exhibits low cardinality and near-constant values across classes, indicating limited variability.",
+      "Bwd Packet Length Std also shows low cardinality, suggesting constrained variation in backward packet length dispersion.",
+      "Bwd Packet Length Mean demonstrates high class separation in distribution, confirming structural differences between BENIGN and DDoS classes.",
+      "Overall, backward packet length features show significant class-conditioned structural variation with differing variance ratios and unique value counts."
+    ],
+    "evidence_refs": [
+      "task_2_step_03",
+      "task_2_step_05",
+      "task_2_step_07"
+    ],
+    "contradictions": [],
+    "limitations": []
+  }
+}

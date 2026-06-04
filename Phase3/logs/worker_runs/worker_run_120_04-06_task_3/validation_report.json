@@ -1,0 +1,45 @@
+{
+  "ok": true,
+  "schema_version": "phase3a.worker.v1",
+  "task_validation": {
+    "ok": true,
+    "errors": [],
+    "warnings": [],
+    "stats": {
+      "allowed_action_count": 2,
+      "local_context_ref_count": 7,
+      "stop_condition_count": 2
+    }
+  },
+  "runtime_refs_validation": {
+    "ok": true,
+    "errors": [],
+    "warnings": [],
+    "stats": {
+      "expected_local_context_count": 7,
+      "available_context_count": 28
+    }
+  },
+  "action_map_validation": {
+    "ok": true,
+    "errors": [],
+    "warnings": []
+  },
+  "worker_result_validation": {
+    "ok": true,
+    "errors": [],
+    "warnings": [],
+    "stats": {
+      "finding_count": 3,
+      "evidence_ref_count": 3,
+      "contradiction_count": 2,
+      "limitation_count": 2,
+      "execution_trace_summary_count": 3
+    }
+  },
+  "worker_output_validation": {
+    "ok": true,
+    "errors": [],
+    "warnings": []
+  }
+}

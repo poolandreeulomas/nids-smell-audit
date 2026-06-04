@@ -1,0 +1,19 @@
+{
+  "task_id": "task_4",
+  "hypothesis_id": "hyp_10_interplay_between_redundancy_and_class_conditioned_variation",
+  "status": "completed",
+  "findings": [
+    "Strong redundancy exists between Bwd Packet Length Mean and Bwd Packet Length Std, and between Bwd Packet Length Mean and Avg Bwd Segment Size, confirmed by high redundancy signals.",
+    "Forward PSH Flags and SYN Flag Count exhibit perfect correlation and low cardinality, indicating redundancy that may obscure class pattern detection.",
+    "Backward packet length features show significant class-conditioned structural variation, suggesting that redundancy disentanglement can enhance interpretability and class pattern detection in these features."
+  ],
+  "evidence_refs": [
+    "task_4_step_03",
+    "task_4_step_05",
+    "task_4_step_07"
+  ],
+  "contradictions": [],
+  "limitations": [
+    "Analysis limited to pairwise relations within bounded feature groups; global impact on interpretability and detection not directly measured."
+  ]
+}

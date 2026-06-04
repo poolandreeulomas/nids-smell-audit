@@ -1,0 +1,11 @@
+{
+  "status": "tracked",
+  "events": [
+    {
+      "cache_key": "distribution_analysis::Destination Port",
+      "status": "hit"
+    }
+  ],
+  "event_count": 1
+}": 1
+}

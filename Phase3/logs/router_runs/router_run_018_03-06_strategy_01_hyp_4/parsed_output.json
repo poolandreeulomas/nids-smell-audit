@@ -1,0 +1,68 @@
+{
+  "batch_id": "phase3a_batch_0306154538_friday-workinghours-afternoon-ddos.pcap_iscx_2a1de9",
+  "round_id": "round-001",
+  "hypothesis_id": "hyp_4_distributional_divergence_destination_port",
+  "planner_strategy_id": "strategy_01_hyp_4",
+  "worker_tasks": [
+    {
+      "task_id": "task_1",
+      "hypothesis_id": "hyp_4_distributional_divergence_destination_port",
+      "task_scope": "Measure distributional stability of destination port across temporal and attack scenario subsets within evidence e33",
+      "allowed_actions": [
+        "distribution_verification"
+      ],
+      "local_context_refs": [
+        "e33"
+      ],
+      "stop_conditions": [
+        "distribution metrics stable across all temporal and scenario partitions",
+        "all relevant subsets analyzed"
+      ]
+    },
+    {
+      "task_id": "task_2",
+      "hypothesis_id": "hyp_4_distributional_divergence_destination_port",
+      "task_scope": "Evaluate entropy and cardinality of destination port within DDoS class over multiple data partitions in evidence e33",
+      "allowed_actions": [
+        "cardinality_verification"
+      ],
+      "local_context_refs": [
+        "e33"
+      ],
+      "stop_conditions": [
+        "entropy and cardinality values computed for all partitions",
+        "no further partitions remain"
+      ]
+    },
+    {
+      "task_id": "task_3",
+      "hypothesis_id": "hyp_4_distributional_divergence_destination_port",
+      "task_scope": "Check for shortcut-like predictive leverage of destination port alone within evidence e33",
+      "allowed_actions": [
+        "shortcut_verification"
+      ],
+      "local_context_refs": [
+        "e33"
+      ],
+      "stop_conditions": [
+        "shortcut signal strength quantified",
+        "no additional shortcut evidence found"
+      ]
+    },
+    {
+      "task_id": "task_4",
+      "hypothesis_id": "hyp_4_distributional_divergence_destination_port",
+      "task_scope": "Test sensitivity of classification outcomes to perturbations or masking of destination port feature in evidence e33",
+      "allowed_actions": [
+        "dependency_contextualization"
+      ],
+      "local_context_refs": [
+        "e33"
+      ],
+      "stop_conditions": [
+        "classification sensitivity metrics stable",
+        "perturbation impact fully assessed"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,108 @@
+{
+  "batch_id": "phase3a_batch_0406122053_friday-workinghours-afternoon-ddos.pcap_iscx_2ba5ac",
+  "round_id": "round-001",
+  "hypothesis_id": "hyp_3_strong_feature_dependencies_and_redundancy",
+  "planner_strategy_id": "strategy_01_hyp_3",
+  "worker_tasks": [
+    {
+      "task_id": "task_1",
+      "hypothesis_id": "hyp_3_strong_feature_dependencies_and_redundancy",
+      "task_scope": "Compare dependency strength of features across BENIGN and DDoS classes within evidence refs e13 to e22",
+      "allowed_actions": [
+        "dependency_contextualization",
+        "relation_verification"
+      ],
+      "local_context_refs": [
+        "e13",
+        "e14",
+        "e15",
+        "e16",
+        "e17",
+        "e18",
+        "e19",
+        "e20",
+        "e21",
+        "e22"
+      ],
+      "stop_conditions": [
+        "dependency metrics computed for both classes",
+        "class-wise dependency differences identified"
+      ]
+    },
+    {
+      "task_id": "task_2",
+      "hypothesis_id": "hyp_3_strong_feature_dependencies_and_redundancy",
+      "task_scope": "Identify feature pairs with near-perfect correlation within each class using evidence refs e13 to e22",
+      "allowed_actions": [
+        "dependency_contextualization",
+        "relation_verification"
+      ],
+      "local_context_refs": [
+        "e13",
+        "e14",
+        "e15",
+        "e16",
+        "e17",
+        "e18",
+        "e19",
+        "e20",
+        "e21",
+        "e22"
+      ],
+      "stop_conditions": [
+        "all feature pairs evaluated",
+        "near-perfect correlations flagged per class"
+      ]
+    },
+    {
+      "task_id": "task_3",
+      "hypothesis_id": "hyp_3_strong_feature_dependencies_and_redundancy",
+      "task_scope": "Evaluate redundancy pattern stability across different attack phases or time windows within evidence refs e13 to e22",
+      "allowed_actions": [
+        "distribution_verification",
+        "duplication_verification"
+      ],
+      "local_context_refs": [
+        "e13",
+        "e14",
+        "e15",
+        "e16",
+        "e17",
+        "e18",
+        "e19",
+        "e20",
+        "e21",
+        "e22"
+      ],
+      "stop_conditions": [
+        "redundancy patterns compared across phases",
+        "stability or variation documented"
+      ]
+    },
+    {
+      "task_id": "task_4",
+      "hypothesis_id": "hyp_3_strong_feature_dependencies_and_redundancy",
+      "task_scope": "Assess impact of removing redundant features on class-separability signals within evidence refs e13 to e22",
+      "allowed_actions": [
+        "distribution_verification",
+        "relation_verification"
+      ],
+      "local_context_refs": [
+        "e13",
+        "e14",
+        "e15",
+        "e16",
+        "e17",
+        "e18",
+        "e19",
+        "e20",
+        "e21",
+        "e22"
+      ],
+      "stop_conditions": [
+        "class-separability metrics computed pre and post removal",
+        "impact on signal strength evaluated"
+      ]
+    }
+  ]
+}

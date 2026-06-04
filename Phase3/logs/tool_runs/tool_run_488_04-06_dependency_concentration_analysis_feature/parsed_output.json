@@ -1,0 +1,55 @@
+{
+  "call_id": "task_2_step_07",
+  "tool_name": "dependency_concentration_analysis",
+  "status": "ok",
+  "observations": {
+    "feature_name": "Total Fwd Packets",
+    "value": 0.09930609673755039,
+    "signals": [],
+    "metrics": {
+      "partner_count": 67,
+      "strong_partner_count": 9,
+      "top_partner": "Subflow Fwd Packets",
+      "top_partner_correlation": 1.0,
+      "top_partner_share": 0.11620514114811589,
+      "top3_share": 0.3341743734760639,
+      "concentration_index": 0.09930609673755039,
+      "effective_partner_count": 10.06987519248526,
+      "mean_abs_correlation": 0.18466809684112823,
+      "median_abs_correlation": 0.05877131341505995
+    },
+    "support": {
+      "n_total": 225745,
+      "n_per_class": {
+        "DDoS": 128027,
+        "BENIGN": 97718
+      },
+      "total_samples": 225745,
+      "per_class": {
+        "DDoS": 128027,
+        "BENIGN": 97718
+      }
+    },
+    "provenance": {
+      "source": "tool",
+      "tool": "dependency_concentration_analysis",
+      "step": null
+    },
+    "feature": "Total Fwd Packets"
+  },
+  "evidence_refs": [
+    {
+      "artifact": "parsed_output",
+      "path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_488_04-06_dependency_concentration_analysis_feature\\parsed_output.json"
+    },
+    {
+      "artifact": "raw_tool_output",
+      "path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_488_04-06_dependency_concentration_analysis_feature\\raw_tool_output.json"
+    },
+    {
+      "artifact": "component_run",
+      "path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_488_04-06_dependency_concentration_analysis_feature\\component_run.json"
+    }
+  ],
+  "limitations": []
+}

@@ -1,0 +1,47 @@
+{
+  "ok": true,
+  "tool": "shortcut_analysis",
+  "feature_name": "Bwd Avg Bytes/Bulk",
+  "value": 0.5,
+  "error_code": null,
+  "error_message": null,
+  "meta": {
+    "dataset_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\data\\cic_ids_2017\\Friday-WorkingHours-Afternoon-DDos.pcap_ISCX.csv",
+    "label_column": "Label"
+  },
+  "evidence": {
+    "feature": "Bwd Avg Bytes/Bulk",
+    "signals": [
+      "weak_shortcut_evidence"
+    ],
+    "metrics": {
+      "cv_balanced_accuracy": 0.5,
+      "cv_balanced_accuracy_std": 0.0,
+      "train_balanced_accuracy": 0.5,
+      "generalization_gap": 0.0,
+      "threshold": null,
+      "fold_count": 5,
+      "attack_rate": 0.5671310549513832,
+      "retained_rows": 225745,
+      "coverage_ratio": 1.0
+    },
+    "support": {
+      "n_total": 225745,
+      "n_per_class": {
+        "DDoS": 128027,
+        "BENIGN": 97718
+      },
+      "total_samples": 225745,
+      "per_class": {
+        "DDoS": 128027,
+        "BENIGN": 97718
+      }
+    },
+    "provenance": {
+      "source": "tool",
+      "tool": "shortcut_analysis",
+      "step": null
+    },
+    "status": "active"
+  }
+}

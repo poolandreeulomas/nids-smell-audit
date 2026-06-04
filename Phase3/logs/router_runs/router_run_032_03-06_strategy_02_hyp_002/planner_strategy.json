@@ -1,0 +1,21 @@
+{
+  "strategy_id": "strategy_02_hyp_002",
+  "hypothesis_id": "hyp_002_strong_dependency_pairs_redundancy",
+  "strategic_objective": "Investigate the stability and origin of strong feature pair dependencies to distinguish inherent protocol patterns from dataset artifacts.",
+  "key_checks": [
+    "Analyze dependency strength consistency across temporal partitions or dataset segments",
+    "Examine whether strong correlations align with known protocol behaviors or preprocessing steps",
+    "Assess if dependency concentration clusters remain stable or shift with data partitioning",
+    "Evaluate potential confounding effects of redundancy on observed feature pair dependencies"
+  ],
+  "success_criteria": [
+    "Demonstrated stability or variability of strong dependencies across temporal or partitioned views",
+    "Evidence clarifying whether dependencies reflect genuine protocol characteristics or artifacts",
+    "Identification of dependency pairs sensitive to redundancy or preprocessing"
+  ],
+  "router_constraints": [
+    "preserve evidence refs e13,e14,e15,e16,e17,e18,e19,e20,e21,e22",
+    "preserve feature pairs involved in strong dependencies",
+    "preserve temporal segmentation metadata if available"
+  ]
+}

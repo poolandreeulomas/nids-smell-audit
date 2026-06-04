@@ -1,0 +1,32 @@
+{
+  "batch_id": "semantic_batch_076_friday-workinghours-afternoon-ddos.pcap_iscx",
+  "round_id": "round_077_semantic_batch_076_friday-workinghours-afternoon-ddos.pcap_iscx",
+  "selected_hypothesis_ids": [
+    "hyp_05_tension_between_redundancy_and_representation",
+    "hyp_06_tension_between_constant_and_variable_features",
+    "hyp_03_class_conditioned_packet_size_and_port_distributions"
+  ],
+  "deferred_hypothesis_ids": [
+    "hyp_01_redundant_packet_size_features",
+    "hyp_02_constant_bulk_rate_and_flag_features",
+    "hyp_04_duplicate_rows_influence_on_statistics",
+    "hyp_07_average_packet_size_as_representational_anchor",
+    "hyp_08_destination_port_distribution_as_attack_indicator",
+    "hyp_09_effect_of_class_imbalance_and_duplicates_on_feature_signals",
+    "hyp_10_localized_representational_signals_within_redundant_features"
+  ],
+  "selection_rationales": [
+    {
+      "hypothesis_id": "hyp_05_tension_between_redundancy_and_representation",
+      "reason": "Addresses critical interplay between redundancy and class-distinctive features, key for feature selection and model robustness."
+    },
+    {
+      "hypothesis_id": "hyp_06_tension_between_constant_and_variable_features",
+      "reason": "Explores the coexistence of constant and variable features, essential to understand potential masking or artifact effects."
+    },
+    {
+      "hypothesis_id": "hyp_03_class_conditioned_packet_size_and_port_distributions",
+      "reason": "Focuses on strong class-conditioned differences likely driving classification, foundational for attack detection insights."
+    }
+  ]
+}

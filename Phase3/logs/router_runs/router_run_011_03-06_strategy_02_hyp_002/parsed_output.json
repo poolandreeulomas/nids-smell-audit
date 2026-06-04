@@ -1,0 +1,76 @@
+{
+  "batch_id": "phase3a_batch_0306143851_friday-workinghours-afternoon-ddos.pcap_iscx_ba9279",
+  "round_id": "round-001",
+  "hypothesis_id": "hyp_002_strong_dependency_pairs_redundancy",
+  "planner_strategy_id": "strategy_02_hyp_002",
+  "worker_tasks": [
+    {
+      "task_id": "task_1",
+      "hypothesis_id": "hyp_002_strong_dependency_pairs_redundancy",
+      "task_scope": "Measure dependency strength of identified feature pairs separately within BENIGN and DDoS classes to detect class-specific dependency patterns.",
+      "allowed_actions": [
+        "relation_verification"
+      ],
+      "local_context_refs": [
+        "e13",
+        "e14",
+        "e15"
+      ],
+      "stop_conditions": [
+        "dependency strength metrics computed for all target pairs in both classes",
+        "no missing class-specific dependency data"
+      ]
+    },
+    {
+      "task_id": "task_2",
+      "hypothesis_id": "hyp_002_strong_dependency_pairs_redundancy",
+      "task_scope": "Analyze shifts or weakening in dependency patterns of feature pairs when comparing BENIGN versus DDoS classes to identify class-dependent changes.",
+      "allowed_actions": [
+        "dependency_contextualization"
+      ],
+      "local_context_refs": [
+        "e16",
+        "e17",
+        "e18"
+      ],
+      "stop_conditions": [
+        "dependency pattern comparison completed for all pairs",
+        "significant pattern shifts identified or ruled out"
+      ]
+    },
+    {
+      "task_id": "task_3",
+      "hypothesis_id": "hyp_002_strong_dependency_pairs_redundancy",
+      "task_scope": "Simulate removal or combination of strongly dependent feature pairs to assess impact on dataset redundancy and feature importance.",
+      "allowed_actions": [
+        "distribution_verification",
+        "structural_summary"
+      ],
+      "local_context_refs": [
+        "e19",
+        "e20"
+      ],
+      "stop_conditions": [
+        "feature removal impact quantified on distributions",
+        "redundancy effects on feature importance assessed"
+      ]
+    },
+    {
+      "task_id": "task_4",
+      "hypothesis_id": "hyp_002_strong_dependency_pairs_redundancy",
+      "task_scope": "Evaluate if dependency clusters correspond to known feature semantics or measurement processes to interpret redundancy and dependency origins.",
+      "allowed_actions": [
+        "local_consistency_verification",
+        "cardinality_verification"
+      ],
+      "local_context_refs": [
+        "e21",
+        "e22"
+      ],
+      "stop_conditions": [
+        "dependency clusters mapped to feature semantics or measurement metadata",
+        "local consistency verified within clusters"
+      ]
+    }
+  ]
+}

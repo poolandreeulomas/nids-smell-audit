@@ -1,0 +1,25 @@
+{
+  "task_id": "task_1",
+  "hypothesis_id": "hyp_5_strong_linear_dependencies",
+  "task_scope": "Quantify linear dependency strength and identify feature pairs with correlations >= 0.9993 within evidence refs e13 to e22",
+  "allowed_actions": [
+    "dependency_contextualization",
+    "relation_verification"
+  ],
+  "local_context_refs": [
+    "e13",
+    "e14",
+    "e15",
+    "e16",
+    "e17",
+    "e18",
+    "e19",
+    "e20",
+    "e21",
+    "e22"
+  ],
+  "stop_conditions": [
+    "all feature pairs with correlation >= 0.9993 identified",
+    "correlation metrics stable across samples"
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "tool_name": "neighborhood_consistency_analysis",
+  "target_scope": "feature",
+  "duration_ms": 727473.989,
+  "status": "ok",
+  "cache_status": "tracked",
+  "cache_event_count": 1,
+  "fresh_execution": true,
+  "replay_of": null,
+  "caller_mode": "worker",
+  "schema_version": "phase3a.tools.v1"
+}

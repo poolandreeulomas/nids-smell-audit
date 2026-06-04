@@ -1,0 +1,19 @@
+{
+  "task_id": "task_2",
+  "hypothesis_id": "hyp_3_distributional_skew_vs_partition_imbalance",
+  "status": "completed",
+  "findings": [
+    "Duplicated rows are confirmed at the dataset level and contribute to the structural skew in Destination Port distribution.",
+    "Destination Port shows strong distributional divergence between classes with low entropy and dominant values, consistent across verifications.",
+    "Entropy variation is bounded and stable despite duplication presence, indicating a robust artifact influence on distributional skew."
+  ],
+  "evidence_refs": [
+    "task_2_step_03",
+    "task_2_step_05",
+    "task_2_step_07"
+  ],
+  "contradictions": [],
+  "limitations": [
+    "Analysis limited to local dataset scope without semantic interpretation of duplication causes."
+  ]
+}

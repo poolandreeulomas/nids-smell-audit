@@ -1,0 +1,400 @@
+{
+  "substrate_id": "substrate_semantic_batch_076_init",
+  "batch_id": "semantic_batch_076_friday-workinghours-afternoon-ddos.pcap_iscx",
+  "compressed_regions": [
+    {
+      "region_id": "region_redundancy_01",
+      "region_kind": "redundancy_region",
+      "status": "active",
+      "summary": "Multiple feature pairs show near-perfect pairwise correlations (several exactly 1.0, one at 0.9993), indicating strong linear dependencies among packet-size, segment-size, subflow, and flag-count features.",
+      "structural_descriptors": [
+        "near-perfect pairwise correlations",
+        "paired derived counters (packet/subflow, forward/backward symmetry)",
+        "redundant numeric relationships"
+      ],
+      "feature_scope": {
+        "features": [
+          "Bwd Packet Length Mean",
+          "Avg Bwd Segment Size",
+          "Fwd Header Length",
+          "Fwd Header Length.1",
+          "Fwd PSH Flags",
+          "SYN Flag Count",
+          "Fwd Packet Length Mean",
+          "Avg Fwd Segment Size",
+          "RST Flag Count",
+          "ECE Flag Count",
+          "Total Backward Packets",
+          "Subflow Bwd Packets",
+          "Total Fwd Packets",
+          "Subflow Fwd Packets",
+          "Total Length of Bwd Packets",
+          "Subflow Bwd Bytes",
+          "Total Length of Fwd Packets",
+          "Subflow Fwd Bytes",
+          "Packet Length Mean",
+          "Average Packet Size"
+        ],
+        "feature_groups": [],
+        "locality": {
+          "scope_type": "dependency_cluster",
+          "scope_value": "Bwd Packet Length Mean|Avg Bwd Segment Size|Fwd Header Length|Fwd Header Length.1|Fwd PSH Flags|SYN Flag Count|Fwd Packet Length Mean|Avg Fwd Segment Size|RST Flag Count|ECE Flag Count|Total Backward Packets|Subflow Bwd Packets|Total Fwd Packets|Subflow Fwd Packets|Total Length of Bwd Packets|Subflow Bwd Bytes|Total Length of Fwd Packets|Subflow Fwd Bytes|Packet Length Mean|Average Packet Size",
+          "localized": true,
+          "notes": [
+            "e13-e22 report correlation metrics across these pairs"
+          ]
+        }
+      },
+      "evidence_refs": [
+        "e13",
+        "e14",
+        "e15",
+        "e16",
+        "e17",
+        "e18",
+        "e19",
+        "e20",
+        "e21",
+        "e22"
+      ],
+      "supporting_patterns": [
+        "correlation = 1.0 (multiple pairs)",
+        "correlation \u2248 0.9993 (packet length mean / average packet size)"
+      ],
+      "contextual_modifiers": [
+        "observations derived from pairwise redundancy metrics",
+        "pairs span forward/backward, packet/segment, and subflow counters"
+      ],
+      "uncertainty_notes": [
+        "Perfect correlation may reflect deterministic derivation or duplicate features rather than measurement noise",
+        "Impact of duplicated rows (e1) on computed correlations is not resolved"
+      ],
+      "contradiction_refs": [],
+      "tension_refs": [
+        "tension_01",
+        "tension_02"
+      ]
+    },
+    {
+      "region_id": "region_low_diversity_01",
+      "region_kind": "low_diversity_region",
+      "status": "active",
+      "summary": "A set of bulk-rate and several flag/count features are effectively constant across the partition (unique_values = 1, very low cardinality ratio).",
+      "structural_descriptors": [
+        "near-constant features",
+        "extremely low cardinality",
+        "potential encoding or missing-value defaults"
+      ],
+      "feature_scope": {
+        "features": [
+          "Bwd Avg Bulk Rate",
+          "Bwd Avg Bytes/Bulk",
+          "Bwd Avg Packets/Bulk",
+          "Bwd PSH Flags",
+          "Bwd URG Flags",
+          "CWE Flag Count",
+          "Fwd Avg Bulk Rate",
+          "Fwd Avg Bytes/Bulk",
+          "Fwd Avg Packets/Bulk",
+          "Fwd URG Flags"
+        ],
+        "feature_groups": [],
+        "locality": {
+          "scope_type": "feature_group",
+          "scope_value": "Bwd Avg Bulk Rate|Bwd Avg Bytes/Bulk|Bwd Avg Packets/Bulk|Bwd PSH Flags|Bwd URG Flags|CWE Flag Count|Fwd Avg Bulk Rate|Fwd Avg Bytes/Bulk|Fwd Avg Packets/Bulk|Fwd URG Flags",
+          "localized": true,
+          "notes": [
+            "e23-e32 report unique_values=1 and cardinality_ratio=1e-05 for these features"
+          ]
+        }
+      },
+      "evidence_refs": [
+        "e23",
+        "e24",
+        "e25",
+        "e26",
+        "e27",
+        "e28",
+        "e29",
+        "e30",
+        "e31",
+        "e32"
+      ],
+      "supporting_patterns": [
+        "unique_values == 1",
+        "cardinality_ratio extremely small (1e-05)"
+      ],
+      "contextual_modifiers": [
+        "consistent across forward/backward and bulk-related features",
+        "may reflect constant default values or lack of measurement"
+      ],
+      "uncertainty_notes": [
+        "Low cardinality could be due to deliberate encoding, missing-value sentinel, or genuine lack of variation",
+        "Small cardinality ratio noted without per-class breakdown in these evidences"
+      ],
+      "contradiction_refs": [],
+      "tension_refs": [
+        "tension_02"
+      ]
+    },
+    {
+      "region_id": "region_representation_sensitive_01",
+      "region_kind": "representation_sensitive_region",
+      "status": "emerging",
+      "summary": "Several packet-size and segment-size metrics plus destination port show strong class-conditioned distributional differences (high variance ratios, unequal unique_values_by_class, and high JS divergence for port distributions).",
+      "structural_descriptors": [
+        "class-conditioned variance",
+        "unequal unique-values across classes",
+        "distributional divergence (JS)"
+      ],
+      "feature_scope": {
+        "features": [
+          "Average Packet Size",
+          "Avg Bwd Segment Size",
+          "Bwd Packet Length Max",
+          "Bwd Packet Length Mean",
+          "Bwd Packet Length Std",
+          "Destination Port"
+        ],
+        "feature_groups": [],
+        "locality": {
+          "scope_type": "representation_cluster",
+          "scope_value": "Average Packet Size|Avg Bwd Segment Size|Bwd Packet Length Max|Bwd Packet Length Mean|Bwd Packet Length Std|Destination Port",
+          "localized": true,
+          "notes": [
+            "e8-e12 report variance_ratio and unique_values_by_class",
+            "e33 reports class-conditioned distribution metrics for Destination Port"
+          ]
+        }
+      },
+      "evidence_refs": [
+        "e8",
+        "e9",
+        "e10",
+        "e11",
+        "e12",
+        "e33"
+      ],
+      "supporting_patterns": [
+        "variance_ratio >> 1 across multiple features",
+        "unique_values_by_class heavily skewed (BENIGN vs DDoS)",
+        "Destination Port shows DDoS dominant_ratio=1.0 and js_divergence=0.7315"
+      ],
+      "contextual_modifiers": [
+        "features appear in top_feature_rank positions (e3-e7 reference these top features)",
+        "class-conditioned counts vary widely across features"
+      ],
+      "uncertainty_notes": [
+        "Variance_ratio magnitudes depend on sample sizes and may be inflated by small DDoS sample unique_value counts",
+        "Distributional metrics may be affected by duplicated rows (e1) or sampling"
+      ],
+      "contradiction_refs": [],
+      "tension_refs": [
+        "tension_01",
+        "tension_02"
+      ]
+    },
+    {
+      "region_id": "region_partition_summary_01",
+      "region_kind": "mixed_structural_region",
+      "status": "broad_unvalidated",
+      "summary": "Partition-level metadata: non-negligible duplicated rows, mild class imbalance, and a small ranked set of top features identified in the overview.",
+      "structural_descriptors": [
+        "duplicated rows count",
+        "class imbalance ratio",
+        "top-feature ranking"
+      ],
+      "feature_scope": {
+        "features": [
+          "__dataset__"
+        ],
+        "feature_groups": [],
+        "locality": {
+          "scope_type": "partition_global",
+          "scope_value": "semantic_batch_076_friday-workinghours-afternoon-ddos.pcap_iscx",
+          "localized": false,
+          "notes": [
+            "partition-level observations (duplicates, imbalance, top-feature ranks)"
+          ]
+        }
+      },
+      "evidence_refs": [
+        "e1",
+        "e2",
+        "e3",
+        "e4",
+        "e5",
+        "e6",
+        "e7"
+      ],
+      "supporting_patterns": [
+        "729 duplicated rows reported",
+        "class_imbalance_ratio = 1.577",
+        "top_feature_rank positions 1-5 listed"
+      ],
+      "contextual_modifiers": [
+        "overview-level summary metrics",
+        "top-feature ranks reference features that also appear in redundancy and representation-sensitive regions"
+      ],
+      "uncertainty_notes": [
+        "Duplicate rows may bias top-feature ranks and distributional counts",
+        "Class imbalance is moderate but may interact with per-class unique value counts"
+      ],
+      "contradiction_refs": [],
+      "tension_refs": []
+    }
+  ],
+  "preserved_weak_signals": [
+    {
+      "weak_signal_id": "weak_01_avg_packet_size prominence",
+      "descriptor": "Average Packet Size appears frequently in feature lists and shows class-conditioned variance metrics.",
+      "feature_scope": {
+        "features": [
+          "Average Packet Size"
+        ],
+        "feature_groups": [],
+        "locality": {
+          "scope_type": "feature_group",
+          "scope_value": "Average Packet Size",
+          "localized": true,
+          "notes": [
+            "e7 (top rank) and e8 (variance_ratio) reference this feature"
+          ]
+        }
+      },
+      "evidence_refs": [
+        "e7",
+        "e8"
+      ],
+      "preservation_reason": "Repeated presence in top_feature_rank and distributional evidence suggests representational importance in overview.",
+      "contextual_modifiers": [
+        "frequency in overview may reflect ranking heuristic"
+      ],
+      "uncertainty_notes": [
+        "Prominence could be influenced by duplicated rows or ranking methodology"
+      ]
+    },
+    {
+      "weak_signal_id": "weak_02_duplicate_rows",
+      "descriptor": "Presence of 729 duplicated rows in the partition.",
+      "feature_scope": {
+        "features": [
+          "__dataset__"
+        ],
+        "feature_groups": [],
+        "locality": {
+          "scope_type": "partition_global",
+          "scope_value": "semantic_batch_076_friday-workinghours-afternoon-ddos.pcap_iscx",
+          "localized": false,
+          "notes": [
+            "e1 reports duplication count"
+          ]
+        }
+      },
+      "evidence_refs": [
+        "e1"
+      ],
+      "preservation_reason": "Duplicate rows can affect summary statistics, correlation computations, and unique-value counts; preserved for structural caution.",
+      "contextual_modifiers": [],
+      "uncertainty_notes": [
+        "Unknown whether duplicates are identical flows, logging artifacts, or expected repeated records"
+      ]
+    },
+    {
+      "weak_signal_id": "weak_03_destination_port_divergence",
+      "descriptor": "Destination Port shows high divergence between BENIGN and DDoS distributions (DDoS dominant_ratio=1.0, js_divergence~0.7315).",
+      "feature_scope": {
+        "features": [
+          "Destination Port"
+        ],
+        "feature_groups": [],
+        "locality": {
+          "scope_type": "feature_group",
+          "scope_value": "Destination Port",
+          "localized": true,
+          "notes": [
+            "e33 distribution metrics"
+          ]
+        }
+      },
+      "evidence_refs": [
+        "e33"
+      ],
+      "preservation_reason": "Strong class-conditioned distributional signal preserved as it may reflect concentrated port usage in one class.",
+      "contextual_modifiers": [
+        "JS divergence and per-class dominant ratios reported"
+      ],
+      "uncertainty_notes": [
+        "Dominant_ratio could reflect small DDoS sample focusing on a single port or labeling artifacts"
+      ]
+    }
+  ],
+  "contradictions": [],
+  "unresolved_tensions": [
+    {
+      "tension_id": "tension_01",
+      "description": "Apparent strong feature redundancy (near-perfect correlations) coexists with features that exhibit strong class-conditioned representation differences; the relation between redundancy and representational signal is unresolved.",
+      "related_region_ids": [
+        "region_redundancy_01",
+        "region_representation_sensitive_01"
+      ],
+      "evidence_refs": [
+        "e13",
+        "e14",
+        "e15",
+        "e16",
+        "e17",
+        "e18",
+        "e19",
+        "e20",
+        "e21",
+        "e22",
+        "e8",
+        "e9",
+        "e10",
+        "e11",
+        "e12",
+        "e33"
+      ],
+      "context_notes": [
+        "Redundancy evidences are pairwise correlations across many size/segment/subflow features (e13-e22).",
+        "Representation-sensitive evidences show variance_ratio and distributional class differences (e8-e12, e33)."
+      ],
+      "reason_unresolved": "Determining whether redundancy masks or duplicates class-differentiating signals requires deeper per-class dependency analysis not present in the overview."
+    },
+    {
+      "tension_id": "tension_02",
+      "description": "A group of features is effectively constant (unique_values=1) while other related features show high class-conditioned variance; unclear if constants are genuine signals, defaults, or measurement artifacts.",
+      "related_region_ids": [
+        "region_low_diversity_01",
+        "region_representation_sensitive_01",
+        "region_redundancy_01"
+      ],
+      "evidence_refs": [
+        "e23",
+        "e24",
+        "e25",
+        "e26",
+        "e27",
+        "e28",
+        "e29",
+        "e30",
+        "e31",
+        "e32",
+        "e8",
+        "e9",
+        "e10",
+        "e11",
+        "e12",
+        "e13",
+        "e16"
+      ],
+      "context_notes": [
+        "Low-diversity evidences (e23-e32) report unique_values=1 for bulk-rate and some flag/count features.",
+        "Representation-sensitive evidences (e8-e12) record strong variance_ratio for packet/segment metrics.",
+        "Redundancy evidences (e13,e16, etc.) show derived relationships among packet/segment features."
+      ],
+      "reason_unresolved": "Overview does not indicate whether constant-valued features are intentional defaults, missing-value encodings, or valid low-variance signals; interaction with duplicated rows and derived pairs is not resolved."
+    }
+  ]
+}

@@ -1,0 +1,122 @@
+{
+  "batch_id": "phase3a_batch_0306133856_friday-workinghours-afternoon-ddos.pcap_iscx_163504",
+  "round_id": "round-001",
+  "round_index": 1,
+  "analysis_mode": "initial",
+  "round_start_state_version": 1,
+  "current_state_ref": {
+    "state_id": "phase3a_batch_0306133856_friday-workinghours-afternoon-ddos.pcap_iscx_163504:v1",
+    "state_notes": [
+      "state_version=1",
+      "hypothesis_id=hyp_1_low_diversity_bulk_features | status=unresolved | summary=Bulk-related backward and forward traffic features exhibit near-constant values with extremely low cardinality, suggesting a structural regularity or saturation effect in bulk traffic representation during the partition. | last_updated_round=initialization | revision_count=0",
+      "hyp_1_low_diversity_bulk_features evidence_ref=e23",
+      "hyp_1_low_diversity_bulk_features evidence_ref=e24",
+      "hyp_1_low_diversity_bulk_features evidence_ref=e25",
+      "hyp_1_low_diversity_bulk_features evidence_ref=e26",
+      "hyp_1_low_diversity_bulk_features open_gap=Does the near-constant bulk feature behavior reflect a genuine network traffic pattern or an artifact of feature extraction or aggregation?",
+      "hyp_1_low_diversity_bulk_features open_gap=Could this low diversity indicate a saturation or ceiling effect in bulk traffic measurement under DDoS conditions?",
+      "hypothesis_id=hyp_2_strong_feature_dependencies_and_redundancy | status=unresolved | summary=Several packet length, flag count, and subflow features show perfect or near-perfect correlations, indicating strong linear dependencies and potential redundancy that may mask or inflate the importance of certain features. | last_updated_round=initialization | revision_count=0",
+      "hyp_2_strong_feature_dependencies_and_redundancy evidence_ref=e13",
+      "hyp_2_strong_feature_dependencies_and_redundancy evidence_ref=e14",
+      "hyp_2_strong_feature_dependencies_and_redundancy evidence_ref=e15",
+      "hyp_2_strong_feature_dependencies_and_redundancy evidence_ref=e16",
+      "hyp_2_strong_feature_dependencies_and_redundancy open_gap=To what extent do these strong dependencies reduce the effective dimensionality of the feature space?",
+      "hyp_2_strong_feature_dependencies_and_redundancy open_gap=Are these dependencies stable across classes or do they vary, potentially encoding class-specific structural differences?",
+      "hypothesis_id=hyp_3_class_conditioned_structural_variation_in_packet_lengths | status=unresolved | summary=Packet length and segment size features show significant class-conditioned structural variation, with differing unique value counts and variance ratios between BENIGN and DDoS classes, suggesting partial discriminative structure embedded in these features. | last_updated_round=initialization | revision_count=0",
+      "hyp_3_class_conditioned_structural_variation_in_packet_lengths evidence_ref=e8",
+      "hyp_3_class_conditioned_structural_variation_in_packet_lengths evidence_ref=e9",
+      "hyp_3_class_conditioned_structural_variation_in_packet_lengths evidence_ref=e10",
+      "hyp_3_class_conditioned_structural_variation_in_packet_lengths evidence_ref=e11",
+      "hyp_3_class_conditioned_structural_variation_in_packet_lengths open_gap=Are the observed class-conditioned variations consistent across the entire partition or localized to specific subflows or time windows?",
+      "hyp_3_class_conditioned_structural_variation_in_packet_lengths open_gap=Could these variations be influenced by class imbalance or duplicated rows affecting distributional estimates?",
+      "hypothesis_id=hyp_4_representation_sensitive_distribution_skew_in_destination_port | status=unresolved | summary=The Destination Port feature shows strong distributional differences between classes, with the DDoS class dominated by a single port and zero entropy, while the BENIGN class exhibits higher entropy and lower dominant port ratio, indicating representation-sensitive skew. | last_updated_round=initialization | revision_count=0",
+      "hyp_4_representation_sensitive_distribution_skew_in_destination_port evidence_ref=e33",
+      "hyp_4_representation_sensitive_distribution_skew_in_destination_port open_gap=Does the dominance of a single port in the DDoS class reflect a targeted attack vector or a sampling bias?",
+      "hyp_4_representation_sensitive_distribution_skew_in_destination_port open_gap=How stable is this port distribution difference across other partitions or time frames?",
+      "hypothesis_id=hyp_5_partition_level_data_quality_and_class_imbalance_effects | status=unresolved | summary=Moderate class imbalance and presence of duplicated rows at the partition level may influence feature distributions, potentially confounding structural interpretations and downstream analysis. | last_updated_round=initialization | revision_count=0",
+      "hyp_5_partition_level_data_quality_and_class_imbalance_effects evidence_ref=e1",
+      "hyp_5_partition_level_data_quality_and_class_imbalance_effects evidence_ref=e2",
+      "hyp_5_partition_level_data_quality_and_class_imbalance_effects open_gap=What is the impact of duplicated rows on feature correlation and variance estimates?",
+      "hyp_5_partition_level_data_quality_and_class_imbalance_effects open_gap=Could class imbalance exacerbate or mask structural differences between classes?",
+      "hypothesis_id=hyp_6_preserved_weak_signals_in_packet_length_features | status=unresolved | summary=Top-ranked features such as Bwd Packet Length Mean, Avg Bwd Segment Size, Bwd Packet Length Max, Bwd Packet Length Std, and Average Packet Size show partial relevance despite redundancy and class-conditioned variation, indicating weak but coherent signals worthy of preservation. | last_updated_round=initialization | revision_count=0",
+      "hyp_6_preserved_weak_signals_in_packet_length_features evidence_ref=e3",
+      "hyp_6_preserved_weak_signals_in_packet_length_features evidence_ref=e4",
+      "hyp_6_preserved_weak_signals_in_packet_length_features evidence_ref=e5",
+      "hyp_6_preserved_weak_signals_in_packet_length_features evidence_ref=e6",
+      "hyp_6_preserved_weak_signals_in_packet_length_features open_gap=Do these weak signals represent stable discriminative patterns or are they sensitive to class imbalance and feature dependencies?",
+      "hyp_6_preserved_weak_signals_in_packet_length_features open_gap=How do these features interact with bulk and flag features in combined models?",
+      "hypothesis_id=hyp_7_potential_saturation_or_ceiling_effect_in_bulk_features | status=unresolved | summary=The extremely low cardinality and near-constant values in bulk traffic features may indicate a saturation or ceiling effect in measurement or aggregation, limiting their variability and interpretability. | last_updated_round=initialization | revision_count=0",
+      "hyp_7_potential_saturation_or_ceiling_effect_in_bulk_features evidence_ref=e23",
+      "hyp_7_potential_saturation_or_ceiling_effect_in_bulk_features evidence_ref=e24",
+      "hyp_7_potential_saturation_or_ceiling_effect_in_bulk_features evidence_ref=e25",
+      "hyp_7_potential_saturation_or_ceiling_effect_in_bulk_features evidence_ref=e26",
+      "hyp_7_potential_saturation_or_ceiling_effect_in_bulk_features open_gap=Is the observed low variability a result of network conditions or a limitation in feature extraction methods?",
+      "hyp_7_potential_saturation_or_ceiling_effect_in_bulk_features open_gap=Could this effect obscure meaningful variations in bulk traffic during DDoS events?",
+      "hypothesis_id=hyp_8_interplay_between_strong_dependencies_and_class_conditioned_variation | status=unresolved | summary=Strong linear dependencies among features coexist with class-conditioned structural variations, creating a tension that may complicate feature selection and interpretation in modeling. | last_updated_round=initialization | revision_count=0",
+      "hyp_8_interplay_between_strong_dependencies_and_class_conditioned_variation evidence_ref=e8",
+      "hyp_8_interplay_between_strong_dependencies_and_class_conditioned_variation evidence_ref=e9",
+      "hyp_8_interplay_between_strong_dependencies_and_class_conditioned_variation evidence_ref=e13",
+      "hyp_8_interplay_between_strong_dependencies_and_class_conditioned_variation evidence_ref=e14",
+      "hyp_8_interplay_between_strong_dependencies_and_class_conditioned_variation open_gap=How can models disentangle redundancy from meaningful class-specific variation?",
+      "hyp_8_interplay_between_strong_dependencies_and_class_conditioned_variation open_gap=Are some dependencies more stable across classes while others encode class differences?",
+      "hypothesis_id=hyp_9_localized_representation_sensitive_handles_in_packet_length_and_flag_features | status=unresolved | summary=Certain packet length and flag count features may serve as localized, representation-sensitive handles that capture meaningful variation in specific subflows or attack patterns despite overall redundancy. | last_updated_round=initialization | revision_count=0",
+      "hyp_9_localized_representation_sensitive_handles_in_packet_length_and_flag_features evidence_ref=e8",
+      "hyp_9_localized_representation_sensitive_handles_in_packet_length_and_flag_features evidence_ref=e9",
+      "hyp_9_localized_representation_sensitive_handles_in_packet_length_and_flag_features evidence_ref=e10",
+      "hyp_9_localized_representation_sensitive_handles_in_packet_length_and_flag_features evidence_ref=e11",
+      "hyp_9_localized_representation_sensitive_handles_in_packet_length_and_flag_features open_gap=Which features provide the most stable localized signals across different attack instances?",
+      "hyp_9_localized_representation_sensitive_handles_in_packet_length_and_flag_features open_gap=Can these localized handles be leveraged to improve detection without overfitting to representation artifacts?",
+      "hypothesis_id=hyp_10_effect_of_class_distribution_skew_on_feature_entropy_and_variance | status=unresolved | summary=Class distribution skew, especially in features like Destination Port, influences entropy and variance measures, potentially biasing feature importance and interpretability. | last_updated_round=initialization | revision_count=0",
+      "hyp_10_effect_of_class_distribution_skew_on_feature_entropy_and_variance evidence_ref=e33",
+      "hyp_10_effect_of_class_distribution_skew_on_feature_entropy_and_variance evidence_ref=e1",
+      "hyp_10_effect_of_class_distribution_skew_on_feature_entropy_and_variance evidence_ref=e2",
+      "hyp_10_effect_of_class_distribution_skew_on_feature_entropy_and_variance open_gap=How does class skew affect entropy-based feature selection methods?",
+      "hyp_10_effect_of_class_distribution_skew_on_feature_entropy_and_variance open_gap=Are there normalization or balancing techniques that can mitigate these biases?"
+    ]
+  },
+  "initial_hypothesis_set_ref": {
+    "analysis_id": "analysis_phase3a_0306133856_1",
+    "hypothesis_refs": [
+      {
+        "hypothesis_id": "hyp_1_low_diversity_bulk_features",
+        "summary": "Bulk-related backward and forward traffic features exhibit near-constant values with extremely low cardinality, suggesting a structural regularity or saturation effect in bulk traffic representation during the partition."
+      },
+      {
+        "hypothesis_id": "hyp_2_strong_feature_dependencies_and_redundancy",
+        "summary": "Several packet length, flag count, and subflow features show perfect or near-perfect correlations, indicating strong linear dependencies and potential redundancy that may mask or inflate the importance of certain features."
+      },
+      {
+        "hypothesis_id": "hyp_3_class_conditioned_structural_variation_in_packet_lengths",
+        "summary": "Packet length and segment size features show significant class-conditioned structural variation, with differing unique value counts and variance ratios between BENIGN and DDoS classes, suggesting partial discriminative structure embedded in these features."
+      },
+      {
+        "hypothesis_id": "hyp_4_representation_sensitive_distribution_skew_in_destination_port",
+        "summary": "The Destination Port feature shows strong distributional differences between classes, with the DDoS class dominated by a single port and zero entropy, while the BENIGN class exhibits higher entropy and lower dominant port ratio, indicating representation-sensitive skew."
+      },
+      {
+        "hypothesis_id": "hyp_5_partition_level_data_quality_and_class_imbalance_effects",
+        "summary": "Moderate class imbalance and presence of duplicated rows at the partition level may influence feature distributions, potentially confounding structural interpretations and downstream analysis."
+      },
+      {
+        "hypothesis_id": "hyp_6_preserved_weak_signals_in_packet_length_features",
+        "summary": "Top-ranked features such as Bwd Packet Length Mean, Avg Bwd Segment Size, Bwd Packet Length Max, Bwd Packet Length Std, and Average Packet Size show partial relevance despite redundancy and class-conditioned variation, indicating weak but coherent signals worthy of preservation."
+      },
+      {
+        "hypothesis_id": "hyp_7_potential_saturation_or_ceiling_effect_in_bulk_features",
+        "summary": "The extremely low cardinality and near-constant values in bulk traffic features may indicate a saturation or ceiling effect in measurement or aggregation, limiting their variability and interpretability."
+      },
+      {
+        "hypothesis_id": "hyp_8_interplay_between_strong_dependencies_and_class_conditioned_variation",
+        "summary": "Strong linear dependencies among features coexist with class-conditioned structural variations, creating a tension that may complicate feature selection and interpretation in modeling."
+      },
+      {
+        "hypothesis_id": "hyp_9_localized_representation_sensitive_handles_in_packet_length_and_flag_features",
+        "summary": "Certain packet length and flag count features may serve as localized, representation-sensitive handles that capture meaningful variation in specific subflows or attack patterns despite overall redundancy."
+      },
+      {
+        "hypothesis_id": "hyp_10_effect_of_class_distribution_skew_on_feature_entropy_and_variance",
+        "summary": "Class distribution skew, especially in features like Destination Port, influences entropy and variance measures, potentially biasing feature importance and interpretability."
+      }
+    ]
+  }
+}

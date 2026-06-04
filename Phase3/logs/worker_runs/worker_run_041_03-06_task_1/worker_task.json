@@ -1,0 +1,25 @@
+{
+  "task_id": "task_1",
+  "hypothesis_id": "hyp_003",
+  "task_scope": "Measure linear correlation coefficients for packet length, segment size, flag counts, and packet count features across classes and time windows using evidence refs e13 to e22.",
+  "allowed_actions": [
+    "relation_verification",
+    "distribution_verification"
+  ],
+  "local_context_refs": [
+    "e13",
+    "e14",
+    "e15",
+    "e16",
+    "e17",
+    "e18",
+    "e19",
+    "e20",
+    "e21",
+    "e22"
+  ],
+  "stop_conditions": [
+    "correlation coefficients computed for all feature pairs",
+    "results cover all classes and time windows"
+  ]
+}

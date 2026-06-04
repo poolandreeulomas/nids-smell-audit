@@ -1,0 +1,19 @@
+{
+  "strategy_id": "strategy_03_hyp_1",
+  "hypothesis_id": "hyp_1_low_diversity_bulk_features",
+  "strategic_objective": "Determine whether near-constant bulk traffic feature values reflect genuine network saturation effects or artifacts of feature extraction under DDoS conditions.",
+  "key_checks": [
+    "Analyze cardinality and value distribution of bulk features across classes and time",
+    "Investigate potential ceiling or saturation effects in bulk traffic measurements",
+    "Cross-check feature extraction methods for possible aggregation artifacts"
+  ],
+  "success_criteria": [
+    "Evidence supporting genuine network pattern versus extraction artifact",
+    "Bounded understanding of saturation effects on bulk feature diversity",
+    "Identification of stable versus unstable bulk feature behavior"
+  ],
+  "router_constraints": [
+    "preserve bulk feature scope",
+    "preserve evidence references on feature cardinality and distribution"
+  ]
+}

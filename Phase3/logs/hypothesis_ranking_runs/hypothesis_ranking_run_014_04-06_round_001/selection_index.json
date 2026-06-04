@@ -1,0 +1,73 @@
+{
+  "candidate_count": 10,
+  "selected_count": 3,
+  "deferred_count": 7,
+  "unaccounted_hypothesis_ids": [],
+  "selected_hypotheses": [
+    {
+      "hypothesis_id": "hyp_005_destination_port_distribution_shift",
+      "summary": "The Destination Port feature (e33) demonstrates strong class separation with a dominant ratio of 1.0 and zero entropy in the DDoS class, alongside a high Jensen-Shannon divergence (0.7315), indicating a pronounced distributional shift that may serve as a localized representation-sensitive handle or a potential shortcut feature.",
+      "reason": "Strong class separation and distributional shift suggest a high-value representation-sensitive shortcut or attack vector.",
+      "evidence_ref_count": 1,
+      "open_question_count": 2
+    },
+    {
+      "hypothesis_id": "hyp_002_strong_dependency_pairs_redundancy",
+      "summary": "The presence of perfect or near-perfect correlations (correlation=1 or 0.9993) among several feature pairs (e13-e22) suggests strong linear dependencies that may introduce redundancy, potentially reducing the effective dimensionality of the dataset and indicating that some features may be proxies or transformations of others.",
+      "reason": "Near-perfect correlations indicate critical redundancy affecting dataset dimensionality and feature interpretation.",
+      "evidence_ref_count": 10,
+      "open_question_count": 2
+    },
+    {
+      "hypothesis_id": "hyp_010_interplay_between_class_conditioned_variation_and_dependency_structure",
+      "summary": "The coexistence of strong class-conditioned structural variation (e8-e12) and near-perfect feature dependencies (e13-e22) suggests a complex interplay where discriminative signals may be entangled with redundant or dependent features, complicating feature selection and interpretation.",
+      "reason": "Complex interaction of discriminative variation and redundancy poses key challenges for robust feature selection.",
+      "evidence_ref_count": 15,
+      "open_question_count": 2
+    }
+  ],
+  "deferred_hypotheses": [
+    {
+      "hypothesis_id": "hyp_001_low_diversity_bulk_features",
+      "summary": "The extremely low cardinality and near-constant values observed in multiple bulk-related backward and forward features (e23-e32) may indicate a structural uniformity or load concentration effect, potentially reflecting a stable but narrow traffic pattern or a saturation artifact in bulk transfer metrics.",
+      "evidence_ref_count": 10,
+      "open_question_count": 2
+    },
+    {
+      "hypothesis_id": "hyp_003_class_conditioned_variation_in_backward_packet_lengths",
+      "summary": "Backward packet length features (e9-e12) exhibit strong class-conditioned structural variation, with higher variance and unique value counts in BENIGN compared to DDoS classes, suggesting that these features may capture discriminative patterns but also reflect representation sensitivity to class distribution.",
+      "evidence_ref_count": 4,
+      "open_question_count": 2
+    },
+    {
+      "hypothesis_id": "hyp_004_average_packet_size_class_conditioned_variation",
+      "summary": "The Average Packet Size feature (e8) shows moderate class-conditioned structural variation with higher unique values in BENIGN class, indicating potential representation sensitivity and partial discriminative capacity, but also possible instability or overlap in distributions.",
+      "evidence_ref_count": 1,
+      "open_question_count": 2
+    },
+    {
+      "hypothesis_id": "hyp_006_partition_level_class_imbalance_and_duplicates",
+      "summary": "The partition-level observations (e1, e2) reveal a moderate class imbalance ratio of 1.577 and the presence of 729 duplicated rows, suggesting potential data skew and redundancy that may influence feature distributions and model learning dynamics.",
+      "evidence_ref_count": 2,
+      "open_question_count": 2
+    },
+    {
+      "hypothesis_id": "hyp_007_preserved_weak_signals_in_backward_packet_length_features",
+      "summary": "Despite structural complexities and potential redundancies, backward packet length features (e3-e6) maintain top ranks in feature importance, indicating that class-conditioned structural variation in these features may preserve meaningful signals relevant for discrimination.",
+      "evidence_ref_count": 4,
+      "open_question_count": 2
+    },
+    {
+      "hypothesis_id": "hyp_008_joint_importance_of_strongly_correlated_backward_segment_features",
+      "summary": "The strong dependency cluster including Bwd Packet Length Mean and Avg Bwd Segment Size (e3, e4) suggests a joint importance that may reflect a stable underlying traffic characteristic, but also raises questions about potential redundancy and representation sensitivity.",
+      "evidence_ref_count": 2,
+      "open_question_count": 2
+    },
+    {
+      "hypothesis_id": "hyp_009_potential_representation_sensitive_shortcuts_in_flag_features",
+      "summary": "The low cardinality and near-constant values in backward and forward flag-related features (e23-e32) may indicate representation-sensitive shortcuts or saturation effects, potentially limiting their discriminative utility or causing brittle model behavior.",
+      "evidence_ref_count": 10,
+      "open_question_count": 2
+    }
+  ]
+}

@@ -1,0 +1,40 @@
+{
+  "hypothesis_id": "hyp_1_low_diversity_backward_bulk",
+  "planner_strategy_id": "strategy_01_hyp_1_low_diversity_backward_bulk",
+  "task_count": 4,
+  "action_class_count": 6,
+  "task_summaries": [
+    {
+      "task_id": "task_1",
+      "hypothesis_id": "hyp_1_low_diversity_backward_bulk",
+      "task_scope": "Measure exact unique value counts and cardinality ratios for backward bulk features within evidence refs e23 to e28",
+      "allowed_action_count": 1,
+      "local_context_ref_count": 6,
+      "stop_condition_count": 2
+    },
+    {
+      "task_id": "task_2",
+      "hypothesis_id": "hyp_1_low_diversity_backward_bulk",
+      "task_scope": "Compare distribution profiles of backward bulk features across different time slices and traffic segments in evidence refs e23 to e28",
+      "allowed_action_count": 1,
+      "local_context_ref_count": 6,
+      "stop_condition_count": 2
+    },
+    {
+      "task_id": "task_3",
+      "hypothesis_id": "hyp_1_low_diversity_backward_bulk",
+      "task_scope": "Assess potential preprocessing or data collection steps that could induce uniformity in backward bulk features using evidence refs e23 to e28",
+      "allowed_action_count": 2,
+      "local_context_ref_count": 6,
+      "stop_condition_count": 2
+    },
+    {
+      "task_id": "task_4",
+      "hypothesis_id": "hyp_1_low_diversity_backward_bulk",
+      "task_scope": "Investigate subtle intra-class variations and shortcut-like signals within backward bulk features in evidence refs e23 to e28",
+      "allowed_action_count": 2,
+      "local_context_ref_count": 6,
+      "stop_condition_count": 2
+    }
+  ]
+}

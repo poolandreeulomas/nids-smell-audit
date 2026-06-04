@@ -1,0 +1,32 @@
+{
+  "batch_id": "phase3a_batch_0306173106_friday-workinghours-afternoon-ddos.pcap_iscx_98251a",
+  "round_id": "round-001",
+  "selected_hypothesis_ids": [
+    "hyp_006",
+    "hyp_003",
+    "hyp_010"
+  ],
+  "deferred_hypothesis_ids": [
+    "hyp_001",
+    "hyp_002",
+    "hyp_004",
+    "hyp_005",
+    "hyp_007",
+    "hyp_008",
+    "hyp_009"
+  ],
+  "selection_rationales": [
+    {
+      "hypothesis_id": "hyp_006",
+      "reason": "Strong class-conditioned distributional difference with potential shortcut-like signal and high impact on model reliance."
+    },
+    {
+      "hypothesis_id": "hyp_003",
+      "reason": "Near-perfect linear correlations indicate critical dependencies affecting feature redundancy and model robustness."
+    },
+    {
+      "hypothesis_id": "hyp_010",
+      "reason": "Class imbalance and duplication complicate interpretation of dependency-backed regularities, warranting focused investigation."
+    }
+  ]
+}

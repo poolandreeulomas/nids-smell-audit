@@ -1,0 +1,16 @@
+{
+  "task_id": "task_3",
+  "hypothesis_id": "hyp_007_class_conditioned_distribution_destination_port",
+  "task_scope": "Assess the robustness and shortcut risk of destination port distribution as a representation-sensitive feature using evidence e33.",
+  "allowed_actions": [
+    "shortcut_verification",
+    "local_consistency_verification"
+  ],
+  "local_context_refs": [
+    "e33"
+  ],
+  "stop_conditions": [
+    "shortcut signals evaluated",
+    "feature stability assessed"
+  ]
+}

@@ -1,0 +1,217 @@
+{
+  "batch_id": "phase3a_batch_0406132627_friday-workinghours-afternoon-ddos.pcap_iscx_f0e355",
+  "state_version": 1,
+  "target_hypothesis": {
+    "hypothesis_id": "hyp_5_strong_linear_dependencies",
+    "summary": "Multiple feature pairs exhibit near-perfect or perfect linear correlations (correlation >= 0.9993), indicating strong dependencies and potential redundancy among packet length, segment size, flag counts, and packet/byte counts.",
+    "status": "unresolved",
+    "evidence_refs": [
+      "e13",
+      "e14",
+      "e15",
+      "e16",
+      "e17",
+      "e18",
+      "e19",
+      "e20",
+      "e21",
+      "e22"
+    ],
+    "open_gaps": [
+      "Do these strong linear dependencies reflect inherent protocol or measurement relationships, or do they indicate feature engineering redundancies?",
+      "How might these dependencies impact model robustness and feature selection strategies?"
+    ],
+    "preserved_contradictions": [],
+    "merged_findings": [],
+    "update_focus": "",
+    "last_updated_round": "",
+    "revision_count": 0
+  },
+  "structural_substrate_ref": {
+    "substrate_id": "substrate_phase3a_batch_0406132627_friday-workinghours-afternoon-ddos.pcap_iscx_f0e355",
+    "batch_id": "phase3a_batch_0406132627_friday-workinghours-afternoon-ddos.pcap_iscx_f0e355",
+    "compressed_regions": [
+      {
+        "region_id": "region_5_strong_dependency_pairs",
+        "region_kind": "dependency_region",
+        "status": "active",
+        "summary": "Multiple feature pairs exhibit perfect or near-perfect correlation (correlation=1 or 0.9993), indicating strong linear dependencies and potential redundancy.",
+        "feature_scope": {
+          "features": [
+            "Bwd Packet Length Mean",
+            "Avg Bwd Segment Size",
+            "Fwd Header Length",
+            "Fwd Header Length.1",
+            "Fwd PSH Flags",
+            "SYN Flag Count",
+            "Fwd Packet Length Mean",
+            "Avg Fwd Segment Size",
+            "RST Flag Count",
+            "ECE Flag Count",
+            "Total Backward Packets",
+            "Subflow Bwd Packets",
+            "Total Fwd Packets",
+            "Subflow Fwd Packets",
+            "Total Length of Bwd Packets",
+            "Subflow Bwd Bytes",
+            "Total Length of Fwd Packets",
+            "Subflow Fwd Bytes",
+            "Packet Length Mean",
+            "Average Packet Size"
+          ],
+          "feature_groups": [
+            "Strongly Correlated Pairs"
+          ],
+          "locality": {
+            "scope_type": "dependency_cluster",
+            "scope_value": "multiple_strong_pairs",
+            "localized": true,
+            "notes": [
+              "cluster of feature pairs with correlation >= 0.9993"
+            ]
+          }
+        },
+        "evidence_refs": [
+          "e13",
+          "e14",
+          "e15",
+          "e16",
+          "e17",
+          "e18",
+          "e19",
+          "e20",
+          "e21",
+          "e22"
+        ]
+      }
+    ],
+    "preserved_weak_signals": [
+      {
+        "weak_signal_id": "weak_1_low_cardinality_forward_flags",
+        "descriptor": "Forward PSH Flags and SYN Flag Count form a perfect correlation pair with correlation=1, but both features individually show extremely low cardinality with unique values=1.",
+        "feature_scope": {
+          "features": [
+            "Fwd PSH Flags",
+            "SYN Flag Count"
+          ],
+          "feature_groups": [],
+          "locality": {
+            "scope_type": "dependency_cluster",
+            "scope_value": "Fwd PSH Flags|SYN Flag Count",
+            "localized": true,
+            "notes": [
+              "dependency pair with low cardinality features"
+            ]
+          }
+        },
+        "evidence_refs": [
+          "e15",
+          "e26",
+          "e28"
+        ]
+      }
+    ],
+    "contradictions": [],
+    "unresolved_tensions": []
+  },
+  "recent_revision_log": [
+    {
+      "revision_type": "initialization",
+      "state_version": 1,
+      "round_id": "",
+      "hypothesis_id": "",
+      "applied_updates": [
+        {
+          "action": "register_structural_substrate",
+          "substrate_id": "substrate_phase3a_batch_0406132627_friday-workinghours-afternoon-ddos.pcap_iscx_f0e355",
+          "region_count": 9,
+          "weak_signal_count": 1,
+          "contradiction_count": 0,
+          "tension_count": 0
+        },
+        {
+          "action": "register_interpretive_hypotheses",
+          "analysis_id": "analysis_phase3a_0406132627",
+          "hypothesis_count": 10
+        }
+      ],
+      "timestamp": "2026-06-04T13:27:40.636210+00:00"
+    }
+  ],
+  "aggregation_handoff": {
+    "batch_id": "phase3a_batch_0406132627_friday-workinghours-afternoon-ddos.pcap_iscx_f0e355",
+    "round_id": "round-001",
+    "hypothesis_id": "hyp_5_strong_linear_dependencies",
+    "merged_findings": [
+      "Multiple feature pairs within the examined feature subset exhibit near-perfect linear correlations (>= 0.9993), indicating strong linear dependencies and potential redundancy rather than exact duplications.",
+      "These strong linear dependencies largely reflect inherent protocol aggregation properties and measurement constraints, especially among packet size, flow byte/packet count, and flag count features.",
+      "Low cardinality features such as 'Fwd PSH Flags' and 'SYN Flag Count' form perfectly correlated pairs but show high local label neighborhood conflicts and duplicate label conflicts, revealing unstable dependencies sensitive to local label topology and contributing to feature selection instability and model sensitivity variations.",
+      "Some features, e.g., 'Average Packet Size' and 'Fwd Header Length', retain discriminative power or moderate shortcut-like predictive signals despite these dependencies.",
+      "No evidence was found for engineered redundancy, narrow structural clusters, masking, or amplification effects beyond the identified strong linear correlations."
+    ],
+    "evidence_refs": [
+      "task_1_step_03",
+      "task_1_step_05",
+      "task_1_step_07",
+      "task_2_step_03",
+      "task_2_step_05",
+      "task_2_step_07",
+      "task_3_step_03",
+      "task_3_step_05",
+      "task_3_step_07",
+      "task_4_step_03",
+      "task_4_step_05",
+      "task_4_step_07"
+    ],
+    "preserved_contradictions": [
+      "High label neighborhood conflicts in perfectly correlated low-cardinality features indicate local contradictions in label topology."
+    ],
+    "open_gaps": [
+      "Analyses are limited to local evidence within a bounded feature subset without global dataset correlation assessment or semantic interpretation beyond correlation and shortcut signals.",
+      "Low cardinality feature correlations were noted but not deeply analyzed for their broader impact on model generalization or stability."
+    ],
+    "update_focus": "Focus on resolving the impact of local label topology conflicts on feature stability and exploring global correlation structures beyond the current bounded feature subset to better understand redundancy and discriminative power trade-offs."
+  },
+  "known_evidence_refs": [
+    "e1",
+    "e10",
+    "e11",
+    "e12",
+    "e13",
+    "e14",
+    "e15",
+    "e16",
+    "e17",
+    "e18",
+    "e19",
+    "e2",
+    "e20",
+    "e21",
+    "e22",
+    "e23",
+    "e24",
+    "e25",
+    "e26",
+    "e27",
+    "e28",
+    "e29",
+    "e30",
+    "e31",
+    "e32",
+    "e33",
+    "e8",
+    "e9",
+    "task_1_step_03",
+    "task_1_step_05",
+    "task_1_step_07",
+    "task_2_step_03",
+    "task_2_step_05",
+    "task_2_step_07",
+    "task_3_step_03",
+    "task_3_step_05",
+    "task_3_step_07",
+    "task_4_step_03",
+    "task_4_step_05",
+    "task_4_step_07"
+  ]
+}

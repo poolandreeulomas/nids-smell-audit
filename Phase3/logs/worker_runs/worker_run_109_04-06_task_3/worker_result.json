@@ -1,0 +1,19 @@
+{
+  "task_id": "task_3",
+  "hypothesis_id": "hyp_005_class_conditioned_variation_backward_packet_lengths",
+  "status": "completed",
+  "findings": [
+    "Backward packet length features exhibit class-conditioned structural variation with high variance ratios and unique value differences between BENIGN and DDoS classes.",
+    "High redundancy between Bwd Packet Length Max and Mean suggests these features share structural dependency rather than being independently confounded.",
+    "No local evidence of confounding factors such as flow duration or application type influencing backward packet length variations was detected."
+  ],
+  "evidence_refs": [
+    "task_3_step_03",
+    "task_3_step_05",
+    "task_3_step_07"
+  ],
+  "contradictions": [],
+  "limitations": [
+    "Analysis limited to local evidence within backward packet length features; broader dataset context not assessed."
+  ]
+}

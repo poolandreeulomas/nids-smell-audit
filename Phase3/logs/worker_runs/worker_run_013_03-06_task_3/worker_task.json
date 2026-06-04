@@ -1,0 +1,17 @@
+{
+  "task_id": "task_3",
+  "hypothesis_id": "hyp_003_class_conditioned_structural_variation",
+  "task_scope": "Evaluate potential sampling biases by cross-referencing structural variation features with capture metadata and duplication checks.",
+  "allowed_actions": [
+    "duplication_verification",
+    "relation_verification"
+  ],
+  "local_context_refs": [
+    "e10",
+    "e11"
+  ],
+  "stop_conditions": [
+    "sampling bias indicators identified or excluded",
+    "duplication rates quantified and correlated with metadata"
+  ]
+}

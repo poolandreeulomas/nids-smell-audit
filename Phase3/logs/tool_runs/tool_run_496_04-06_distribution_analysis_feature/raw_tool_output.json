@@ -1,0 +1,47 @@
+{
+  "ok": true,
+  "tool": "distribution_analysis",
+  "feature_name": "Bwd Packet Length Std",
+  "value": 0.5988012996249986,
+  "error_code": null,
+  "error_message": null,
+  "meta": {
+    "dataset_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\data\\cic_ids_2017\\Friday-WorkingHours-Afternoon-DDos.pcap_ISCX.csv",
+    "label_column": "Label"
+  },
+  "evidence": {
+    "feature": "Bwd Packet Length Std",
+    "signals": [
+      "high_class_separation"
+    ],
+    "metrics": {
+      "entropy": {
+        "BENIGN": 2.53758297844777,
+        "DDoS": 2.724441427804084
+      },
+      "dominant_ratio": {
+        "BENIGN": 0.6643914120223501,
+        "DDoS": 0.3644543729057152
+      },
+      "js_divergence": 0.5988012996249986
+    },
+    "support": {
+      "n_total": 225745,
+      "n_per_class": {
+        "DDoS": 128027,
+        "BENIGN": 97718
+      },
+      "total_samples": 225745,
+      "per_class": {
+        "DDoS": 128027,
+        "BENIGN": 97718
+      }
+    },
+    "provenance": {
+      "source": "tool",
+      "tool": "distribution_analysis",
+      "step": null
+    },
+    "status": "active"
+  }
+}

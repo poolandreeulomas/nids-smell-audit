@@ -1,0 +1,69 @@
+{
+  "batch_id": "phase3a_batch_0306154538_friday-workinghours-afternoon-ddos.pcap_iscx_2a1de9",
+  "round_id": "round-001",
+  "planner_strategies": [
+    {
+      "strategy_id": "strategy_01_hyp_4",
+      "hypothesis_id": "hyp_4_distributional_divergence_destination_port",
+      "strategic_objective": "Assess the stability and generality of the dominant single destination port pattern in DDoS traffic and its impact on model robustness.",
+      "key_checks": [
+        "Measure distributional stability of destination port across temporal and attack scenario subsets",
+        "Evaluate entropy and cardinality of destination port within DDoS class over multiple partitions",
+        "Check for shortcut-like predictive leverage of destination port alone",
+        "Test sensitivity of classification outcomes to perturbations or masking of destination port feature"
+      ],
+      "success_criteria": [
+        "Evidence that destination port dominance is consistent across diverse temporal and scenario slices",
+        "Identification of potential overfitting risk if port usage is narrowly concentrated",
+        "Detection of vulnerability to evasion if port distribution shifts",
+        "Clear characterization of destination port as a representation-sensitive but brittle indicator"
+      ],
+      "router_constraints": [
+        "preserve feature_scope for destination port",
+        "preserve evidence refs e33"
+      ]
+    },
+    {
+      "strategy_id": "strategy_02_hyp_2",
+      "hypothesis_id": "hyp_2_strong_linear_dependencies",
+      "strategic_objective": "Characterize the stability and origin of strong linear dependencies between feature pairs to understand redundancy and potential bias.",
+      "key_checks": [
+        "Analyze correlation stability of identified feature pairs across temporal segments",
+        "Compare dependency profiles before and after preprocessing steps",
+        "Assess whether dependencies align with known protocol relationships or data transformations",
+        "Evaluate impact of dependencies on effective feature dimensionality and model bias potential"
+      ],
+      "success_criteria": [
+        "Confirmation of stable or unstable dependency patterns over time",
+        "Clarification of whether dependencies stem from inherent network behavior or preprocessing",
+        "Identification of redundant features that may bias learning",
+        "Evidence supporting or weakening the hypothesis of structural redundancy"
+      ],
+      "router_constraints": [
+        "preserve feature_scope for all involved feature pairs",
+        "preserve evidence refs e13,e14,e15,e16,e17,e18,e19,e20,e21,e22"
+      ]
+    },
+    {
+      "strategy_id": "strategy_03_hyp_1",
+      "hypothesis_id": "hyp_1_low_diversity_bulk_features",
+      "strategic_objective": "Determine if low diversity in bulk traffic features reflects genuine network behavior or dataset artifact and its effect on discriminative capacity.",
+      "key_checks": [
+        "Quantify cardinality and near-constant behavior of bulk features across dataset partitions",
+        "Investigate temporal consistency of low diversity patterns",
+        "Explore subtle variations within near-constant features for potential signal",
+        "Assess whether low diversity limits or masks relevant attack-related variations"
+      ],
+      "success_criteria": [
+        "Evidence distinguishing genuine network saturation from feature extraction artifacts",
+        "Identification of any subtle but meaningful variations within low diversity features",
+        "Understanding of how low diversity affects feature discriminative power",
+        "Clarification of whether these features contribute stable or unstable signals"
+      ],
+      "router_constraints": [
+        "preserve feature_scope for all bulk-related features",
+        "preserve evidence refs e23,e24,e25,e26,e27,e28,e29,e30,e31,e32"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,32 @@
+{
+  "batch_id": "phase3a_batch_0306143851_friday-workinghours-afternoon-ddos.pcap_iscx_ba9279",
+  "round_id": "round-001",
+  "selected_hypothesis_ids": [
+    "hyp_001_low_diversity_constant_features",
+    "hyp_002_strong_dependency_pairs_redundancy",
+    "hyp_003_class_conditioned_structural_variation"
+  ],
+  "deferred_hypothesis_ids": [
+    "hyp_004_class_distribution_and_feature_divergence",
+    "hyp_005_partition_level_data_redundancy",
+    "hyp_006_packet_length_features_as_structural_anchors",
+    "hyp_007_potential_localized_representation_sensitive_handles",
+    "hyp_008_interplay_between_low_diversity_and_dependency_regions",
+    "hyp_009_effect_of_class_imbalance_on_feature_distributions",
+    "hyp_010_redundancy_and_stability_tradeoffs_in_partition"
+  ],
+  "selection_rationales": [
+    {
+      "hypothesis_id": "hyp_001_low_diversity_constant_features",
+      "reason": "High potential to reveal measurement artifacts or stable network conditions affecting feature utility."
+    },
+    {
+      "hypothesis_id": "hyp_002_strong_dependency_pairs_redundancy",
+      "reason": "Strong dependencies may cause redundancy impacting model robustness and interpretability."
+    },
+    {
+      "hypothesis_id": "hyp_003_class_conditioned_structural_variation",
+      "reason": "Class-conditioned variations likely capture key discriminative patterns critical for understanding class separation."
+    }
+  ]
+}

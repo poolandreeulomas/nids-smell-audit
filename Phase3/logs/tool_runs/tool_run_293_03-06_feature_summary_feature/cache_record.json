@@ -1,0 +1,10 @@
+{
+  "status": "tracked",
+  "events": [
+    {
+      "cache_key": "feature_summary::Average Packet Size",
+      "status": "miss"
+    }
+  ],
+  "event_count": 1
+}

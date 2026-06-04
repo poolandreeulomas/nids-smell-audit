@@ -1,0 +1,66 @@
+```json
+{
+  "batch_id": "runtime-batch-002",
+  "round_id": "round-001",
+  "selected_hypothesis_ids": [
+    "hyp-1",
+    "hyp-2"
+  ],
+  "source_hypothesis_records": [
+    {
+      "hypothesis_id": "hyp-1",
+      "aggregation_run_path": "C:\\Users\\Uni\\AppData\\Local\\Temp\\pytest-of-Uni\\pytest-187\\test_execute_round_waits_for_a0\\aggregation_hyp-1\\component_run.json",
+      "merged_findings": [
+        "merged-hyp-1"
+      ],
+      "evidence_refs": [
+        "evidence-hyp-1"
+      ],
+      "preserved_contradictions": [],
+      "open_gaps": [
+        "gap-hyp-1"
+      ],
+      "limitations": [],
+      "update_focus": "focus-hyp-1",
+      "provenance": {
+        "batch_id": "runtime-batch-002",
+        "round_id": "round-001",
+        "source_order": 0,
+        "source_aggregation_component_run_path": "C:\\Users\\Uni\\AppData\\Local\\Temp\\pytest-of-Uni\\pytest-187\\test_execute_round_waits_for_a0\\aggregation_hyp-1\\component_run.json",
+        "source_worker_result_set_path": "",
+        "source_normalized_inputs_path": "",
+        "source_run_dirs": [],
+        "source_validation_ok": false,
+        "source_status": "ok"
+      }
+    },
+    {
+      "hypothesis_id": "hyp-2",
+      "aggregation_run_path": "C:\\Users\\Uni\\AppData\\Local\\Temp\\pytest-of-Uni\\pytest-187\\test_execute_round_waits_for_a0\\aggregation_hyp-2\\component_run.json",
+      "merged_findings": [
+        "merged-hyp-2"
+      ],
+      "evidence_refs": [
+        "evidence-hyp-2"
+      ],
+      "preserved_contradictions": [],
+      "open_gaps": [
+        "gap-hyp-2"
+      ],
+      "limitations": [],
+      "update_focus": "focus-hyp-2",
+      "provenance": {
+        "batch_id": "runtime-batch-002",
+        "round_id": "round-001",
+        "source_order": 1,
+        "source_aggregation_component_run_path": "C:\\Users\\Uni\\AppData\\Local\\Temp\\pytest-of-Uni\\pytest-187\\test_execute_round_waits_for_a0\\aggregation_hyp-2\\component_run.json",
+        "source_worker_result_set_path": "",
+        "source_normalized_inputs_path": "",
+        "source_run_dirs": [],
+        "source_validation_ok": false,
+        "source_status": "ok"
+      }
+    }
+  ]
+}
+```

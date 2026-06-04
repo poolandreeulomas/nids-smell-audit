@@ -1,0 +1,17 @@
+{
+  "batch_id": "semantic_batch_cli_seed_001",
+  "model_name": "gpt-4.1-mini",
+  "duration_ms": 0.455,
+  "status": "ok",
+  "prompt_chars": 3690,
+  "raw_response_chars": 2074,
+  "evidence_count": 2,
+  "region_count": 1,
+  "weak_signal_count": 1,
+  "contradiction_count": 0,
+  "tension_count": 1,
+  "fresh_execution": true,
+  "replay_of": null,
+  "caller_mode": "cli",
+  "schema_version": "phase3a.semantic_extraction.v1"
+}

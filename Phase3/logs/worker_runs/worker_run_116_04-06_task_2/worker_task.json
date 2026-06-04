@@ -1,0 +1,16 @@
+{
+  "task_id": "task_2",
+  "hypothesis_id": "hyp_7_distributional_divergence_in_destination_port_feature",
+  "task_scope": "Evaluate class imbalance impact on destination port distribution divergence between BENIGN and DDoS classes within evidence e33.",
+  "allowed_actions": [
+    "cardinality_verification",
+    "distribution_verification"
+  ],
+  "local_context_refs": [
+    "e33"
+  ],
+  "stop_conditions": [
+    "class imbalance quantified",
+    "distribution divergence metrics stable"
+  ]
+}

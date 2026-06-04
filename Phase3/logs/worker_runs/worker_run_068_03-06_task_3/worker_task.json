@@ -1,0 +1,26 @@
+{
+  "task_id": "task_3",
+  "hypothesis_id": "hyp_002_strong_linear_dependencies",
+  "task_scope": "Assess redundancy impact of correlated packet length features on effective dataset dimensionality using evidence refs e13 to e22",
+  "allowed_actions": [
+    "cardinality_verification",
+    "duplication_verification",
+    "structural_summary"
+  ],
+  "local_context_refs": [
+    "e13",
+    "e14",
+    "e15",
+    "e16",
+    "e17",
+    "e18",
+    "e19",
+    "e20",
+    "e21",
+    "e22"
+  ],
+  "stop_conditions": [
+    "redundancy quantified",
+    "dimensionality impact assessed"
+  ]
+}

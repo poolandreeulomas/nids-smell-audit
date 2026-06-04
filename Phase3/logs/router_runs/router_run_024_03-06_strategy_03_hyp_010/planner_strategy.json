@@ -1,0 +1,20 @@
+{
+  "strategy_id": "strategy_03_hyp_010",
+  "hypothesis_id": "hyp_010",
+  "strategic_objective": "Investigate how class imbalance and data duplication influence the observed dependency-backed regularities and assess the stability of these regularities across other datasets or partitions.",
+  "key_checks": [
+    "Quantify class imbalance and duplication impact on feature distribution and dependencies",
+    "Compare dependency-backed regularities across dataset partitions or external datasets",
+    "Evaluate variability of low-variability feature clusters under different sampling conditions",
+    "Assess whether regularities persist beyond duplicated or imbalanced data"
+  ],
+  "success_criteria": [
+    "Clear understanding of amplification or distortion effects from imbalance and duplication",
+    "Evidence of stability or dataset-specific nature of dependency-backed regularities",
+    "Bounded epistemic uncertainty regarding these regularities"
+  ],
+  "router_constraints": [
+    "preserve dataset scope for duplication and imbalance context",
+    "preserve evidence refs e23,e24,e25,e26,e27,e29,e30,e31,e32,e1,e2"
+  ]
+}

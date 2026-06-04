@@ -1,0 +1,15 @@
+{
+  "task_id": "task_1",
+  "hypothesis_id": "hyp_4_destination_port_distribution_skew_reflects_attack_targeting",
+  "task_scope": "Measure distributional skew and Jensen-Shannon divergence of destination port feature e33 across multiple attack instances to identify consistent skew patterns.",
+  "allowed_actions": [
+    "distribution_verification"
+  ],
+  "local_context_refs": [
+    "e33"
+  ],
+  "stop_conditions": [
+    "distribution metrics computed for all attack instances",
+    "distributional skew convergence observed"
+  ]
+}

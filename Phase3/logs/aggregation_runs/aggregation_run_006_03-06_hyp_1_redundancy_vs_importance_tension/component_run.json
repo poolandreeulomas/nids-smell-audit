@@ -1,0 +1,27 @@
+{
+  "component": "aggregation",
+  "created_at": "2026-06-03T16:18:22.333012+00:00",
+  "schema_version": "phase3a.aggregation.v1",
+  "batch_id": "phase3a_batch_0306161030_friday-workinghours-afternoon-ddos.pcap_iscx_0595cd",
+  "round_id": "round-001",
+  "hypothesis_id": "hyp_1_redundancy_vs_importance_tension",
+  "status": "ok",
+  "validation_ok": true,
+  "handoff_committed": true,
+  "model_name": "gpt-4.1-mini",
+  "caller_mode": "cli",
+  "replay_of": null,
+  "artifact_paths": {
+    "component_run_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\aggregation_runs\\aggregation_run_006_03-06_hyp_1_redundancy_vs_importance_tension\\component_run.json",
+    "worker_result_set_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\aggregation_runs\\aggregation_run_006_03-06_hyp_1_redundancy_vs_importance_tension\\worker_result_set.json",
+    "normalized_inputs_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\aggregation_runs\\aggregation_run_006_03-06_hyp_1_redundancy_vs_importance_tension\\normalized_inputs.json",
+    "overlap_diagnostics_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\aggregation_runs\\aggregation_run_006_03-06_hyp_1_redundancy_vs_importance_tension\\overlap_diagnostics.json",
+    "rendered_prompt_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\aggregation_runs\\aggregation_run_006_03-06_hyp_1_redundancy_vs_importance_tension\\rendered_prompt.txt",
+    "raw_response_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\aggregation_runs\\aggregation_run_006_03-06_hyp_1_redundancy_vs_importance_tension\\raw_response.txt",
+    "parsed_output_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\aggregation_runs\\aggregation_run_006_03-06_hyp_1_redundancy_vs_importance_tension\\parsed_output.json",
+    "aggregation_handoff_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\aggregation_runs\\aggregation_run_006_03-06_hyp_1_redundancy_vs_importance_tension\\aggregation_handoff.json",
+    "validation_report_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\aggregation_runs\\aggregation_run_006_03-06_hyp_1_redundancy_vs_importance_tension\\validation_report.json",
+    "runtime_metrics_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\aggregation_runs\\aggregation_run_006_03-06_hyp_1_redundancy_vs_importance_tension\\runtime_metrics.json",
+    "replay_metadata_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\aggregation_runs\\aggregation_run_006_03-06_hyp_1_redundancy_vs_importance_tension\\replay_metadata.json"
+  }
+}

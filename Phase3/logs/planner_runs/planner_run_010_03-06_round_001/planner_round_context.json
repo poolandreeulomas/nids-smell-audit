@@ -1,0 +1,29 @@
+{
+  "round_id": "round-001",
+  "related_substrate_refs": [
+    "e3",
+    "e4",
+    "e13",
+    "e16",
+    "e22",
+    "e1",
+    "e2",
+    "e33"
+  ],
+  "tool_capability_refs": [
+    "cardinality_analysis",
+    "dependency_concentration_analysis",
+    "distribution_analysis",
+    "duplication_analysis",
+    "feature_relation",
+    "feature_summary",
+    "neighborhood_consistency_analysis",
+    "shortcut_analysis"
+  ],
+  "round_constraints": [
+    "strategic_only",
+    "no_exact_tool_calls",
+    "preserve_selected_scope",
+    "router_ready_handoff"
+  ]
+}

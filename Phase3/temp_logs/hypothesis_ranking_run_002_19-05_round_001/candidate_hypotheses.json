@@ -1,0 +1,40 @@
+{
+  "analysis_id": "analysis-batch-001",
+  "batch_id": "batch-001",
+  "hypotheses": [
+    {
+      "hypothesis_id": "hyp-1",
+      "summary": "The broad dependency region may reflect a batch-wide regularity that still leaves room for a narrow local interpretation.",
+      "evidence_refs": [
+        "e1",
+        "e2",
+        "e3"
+      ],
+      "open_questions": [
+        "Does the localized dst_port signal survive when the broad dependency-linked flow-size structure is controlled?"
+      ]
+    },
+    {
+      "hypothesis_id": "hyp-2",
+      "summary": "The dst_port signal may remain a distinct representation-sensitive framing with unresolved local scope.",
+      "evidence_refs": [
+        "e3",
+        "e4"
+      ],
+      "open_questions": [
+        "Would nearby representation-sensitive slices preserve this local signal or dissolve it?"
+      ]
+    },
+    {
+      "hypothesis_id": "hyp-3",
+      "summary": "The contradiction between duplication-sensitive and local-separability evidence may warrant direct budget because it could reorganize the interpretive space.",
+      "evidence_refs": [
+        "e3",
+        "e4"
+      ],
+      "open_questions": [
+        "Does contradiction-preserving evidence remain after broader locality pressure is considered?"
+      ]
+    }
+  ]
+}

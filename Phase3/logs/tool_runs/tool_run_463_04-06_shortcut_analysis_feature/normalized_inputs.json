@@ -1,0 +1,19 @@
+{
+  "dataset_path": "C:\\Users\\Uni\\AppData\\Local\\Temp\\pytest-of-Uni\\pytest-195\\test_run_worker_executes_multi0\\worker_fixture.csv",
+  "target_scope": "feature",
+  "input_refs": {
+    "feature_name": "src_bytes"
+  },
+  "preprocessing_profile_ref": "default",
+  "execution_constraints": {
+    "cache_policy": "reuse",
+    "validation_mode": "strict",
+    "save_raw_output": true
+  },
+  "resolved_feature_count": 3,
+  "dataframe_shape": [
+    4,
+    4
+  ],
+  "label_column": "Label"
+}

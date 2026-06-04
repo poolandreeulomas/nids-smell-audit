@@ -1,0 +1,29 @@
+{
+  "round_id": "round-001",
+  "selection_budget": 3,
+  "hypothesis_state_refs": [
+    {
+      "hypothesis_id": "hyp-1",
+      "state_notes": [
+        "No prior effort is committed yet."
+      ]
+    },
+    {
+      "hypothesis_id": "hyp-2",
+      "state_notes": [
+        "Retain narrow local alternatives when they remain unresolved."
+      ]
+    },
+    {
+      "hypothesis_id": "hyp-3",
+      "state_notes": [
+        "Contradiction pressure provides a reason to select."
+      ]
+    }
+  ],
+  "round_constraints": [
+    "selection_budget=3",
+    "allocation_only",
+    "preserve_deferred_hypotheses"
+  ]
+}

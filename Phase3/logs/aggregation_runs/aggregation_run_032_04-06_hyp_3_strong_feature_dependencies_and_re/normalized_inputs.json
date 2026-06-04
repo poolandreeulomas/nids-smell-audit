@@ -1,0 +1,146 @@
+{
+  "batch_id": "phase3a_batch_0406122053_friday-workinghours-afternoon-ddos.pcap_iscx_2ba5ac",
+  "round_id": "round-001",
+  "hypothesis_id": "hyp_3_strong_feature_dependencies_and_redundancy",
+  "worker_result_count": 4,
+  "expected_task_ids": [
+    "task_1",
+    "task_2",
+    "task_3",
+    "task_4"
+  ],
+  "selected_task_ids": [
+    "task_1",
+    "task_2",
+    "task_3",
+    "task_4"
+  ],
+  "missing_task_ids": [],
+  "extra_task_ids": [],
+  "source_run_dirs": [
+    "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\worker_runs\\worker_run_117_04-06_task_4",
+    "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\worker_runs\\worker_run_118_04-06_task_3",
+    "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\worker_runs\\worker_run_121_04-06_task_1",
+    "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\worker_runs\\worker_run_122_04-06_task_2"
+  ],
+  "status_counts": {
+    "completed": 4
+  },
+  "source_evidence_refs": [
+    "task_1_step_03",
+    "task_1_step_05",
+    "task_1_step_07",
+    "task_2_step_03",
+    "task_2_step_05",
+    "task_2_step_07",
+    "task_3_step_03",
+    "task_3_step_05",
+    "task_3_step_07",
+    "task_4_step_03",
+    "task_4_step_05",
+    "task_4_step_07"
+  ],
+  "source_contradictions": [
+    "No direct contradictions observed in local evidence; unresolved tension about duplicated rows remains outside current scope.",
+    "Presence of duplicated rows may complicate interpretation but no direct contradiction to identified strong correlations was found locally.",
+    "Preserved unresolved tension between duplicated rows and structural variation complicates interpretation but does not contradict strong dependencies.",
+    "Unresolved tension between duplicated rows and structural variation in e13 preserved."
+  ],
+  "source_limitations": [
+    "Analysis limited to bounded local evidence and specific feature pairs; broader class-conditioned correlation patterns remain unexamined.",
+    "Analysis limited to local feature pairs; impact on global class-separability metrics post feature removal not directly measured here.",
+    "Duplication verification was only performed on e13; duplication status in other phases remains unverified.",
+    "No explicit class-wise dependency metrics computed; conclusions rely on consistent local dependency cluster presence and relation verification signals.",
+    "Unresolved tension limits full epistemic certainty about feature stability across classes."
+  ],
+  "source_finding_count": 12,
+  "non_success_count": 0,
+  "worker_results": [
+    {
+      "task_id": "task_1",
+      "hypothesis_id": "hyp_3_strong_feature_dependencies_and_redundancy",
+      "status": "completed",
+      "findings": [
+        "Strong feature dependency cluster identified across all local contexts (e13 to e22) with multiple feature pairs exhibiting near-perfect correlation (\u2265 0.9993).",
+        "Relation verification confirmed high redundancy between 'Fwd Packet Length Mean' and 'Avg Fwd Segment Size' as well as between 'Subflow Fwd Bytes' and 'Total Length of Fwd Packets' in both early and late evidence refs.",
+        "No observed class-wise differences in dependency strength between BENIGN and DDoS classes within the examined local evidence.",
+        "Unresolved tension exists due to duplicated rows conflicting with structural variation, but this does not negate the strong dependency and redundancy signals."
+      ],
+      "evidence_refs": [
+        "task_1_step_03",
+        "task_1_step_05",
+        "task_1_step_07"
+      ],
+      "contradictions": [
+        "Preserved unresolved tension between duplicated rows and structural variation complicates interpretation but does not contradict strong dependencies."
+      ],
+      "limitations": [
+        "No explicit class-wise dependency metrics computed; conclusions rely on consistent local dependency cluster presence and relation verification signals.",
+        "Unresolved tension limits full epistemic certainty about feature stability across classes."
+      ]
+    },
+    {
+      "task_id": "task_2",
+      "hypothesis_id": "hyp_3_strong_feature_dependencies_and_redundancy",
+      "status": "completed",
+      "findings": [
+        "Multiple feature pairs within the examined cluster exhibit near-perfect correlation (\u2265 0.9993), indicating strong linear dependencies and potential redundancy.",
+        "Confirmed high redundancy for feature pairs: 'Fwd Header Length' & 'Fwd Header Length.1', 'Packet Length Mean' & 'Average Packet Size', and 'Subflow Fwd Bytes' & 'Total Length of Fwd Packets'."
+      ],
+      "evidence_refs": [
+        "task_2_step_03",
+        "task_2_step_05",
+        "task_2_step_07"
+      ],
+      "contradictions": [
+        "Presence of duplicated rows may complicate interpretation but no direct contradiction to identified strong correlations was found locally."
+      ],
+      "limitations": [
+        "Analysis limited to bounded local evidence and specific feature pairs; broader class-conditioned correlation patterns remain unexamined."
+      ]
+    },
+    {
+      "task_id": "task_3",
+      "hypothesis_id": "hyp_3_strong_feature_dependencies_and_redundancy",
+      "status": "completed",
+      "findings": [
+        "Strong feature dependencies with near-perfect correlations (\u22650.9993) are stable across different attack phases (e13 to e22).",
+        "Distribution profiles of 'Average Packet Size' show consistent high class separation in early and late phases, supporting stable redundancy patterns.",
+        "Presence of duplicated rows in e13 introduces unresolved tension with structural variation but does not undermine observed redundancy stability."
+      ],
+      "evidence_refs": [
+        "task_3_step_03",
+        "task_3_step_05",
+        "task_3_step_07"
+      ],
+      "contradictions": [
+        "Unresolved tension between duplicated rows and structural variation in e13 preserved."
+      ],
+      "limitations": [
+        "Duplication verification was only performed on e13; duplication status in other phases remains unverified."
+      ]
+    },
+    {
+      "task_id": "task_4",
+      "hypothesis_id": "hyp_3_strong_feature_dependencies_and_redundancy",
+      "status": "completed",
+      "findings": [
+        "Strong linear dependencies exist between 'Average Packet Size' and 'Packet Length Mean' with correlation \u2265 0.9993, indicating redundancy.",
+        "'Average Packet Size' and 'Packet Length Mean' both show high class-separability signals individually.",
+        "Removing one of these redundant features is likely to reduce redundancy without substantially degrading class-separability signals."
+      ],
+      "evidence_refs": [
+        "task_4_step_03",
+        "task_4_step_05",
+        "task_4_step_07"
+      ],
+      "contradictions": [
+        "No direct contradictions observed in local evidence; unresolved tension about duplicated rows remains outside current scope."
+      ],
+      "limitations": [
+        "Analysis limited to local feature pairs; impact on global class-separability metrics post feature removal not directly measured here."
+      ]
+    }
+  ],
+  "overlap_diagnostics": []
+}

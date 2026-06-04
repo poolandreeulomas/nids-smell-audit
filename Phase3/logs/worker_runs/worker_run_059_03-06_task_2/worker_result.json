@@ -1,0 +1,22 @@
+{
+  "task_id": "task_2",
+  "hypothesis_id": "hyp_6_class_distribution_difference_destination_port",
+  "status": "completed",
+  "findings": [
+    "The dominant ratio of 1.0 for destination port in the DDoS class is confirmed at the global distribution level.",
+    "Local consistency checks reveal high label neighborhood conflicts and duplicate label conflicts, indicating instability of this ratio across local partitions.",
+    "These conflicts suggest potential sampling artifacts or local irregularities affecting the destination port distribution in the DDoS class."
+  ],
+  "evidence_refs": [
+    "task_2_step_03",
+    "task_2_step_05",
+    "task_2_step_07"
+  ],
+  "contradictions": [
+    "high_label_neighborhood_conflict",
+    "duplicate_label_conflict"
+  ],
+  "limitations": [
+    "Local evidence shows instability and conflicts, limiting confidence in ratio stability across all partitions."
+  ]
+}

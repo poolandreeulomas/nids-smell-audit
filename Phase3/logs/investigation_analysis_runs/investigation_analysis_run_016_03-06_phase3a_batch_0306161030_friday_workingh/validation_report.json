@@ -1,0 +1,73 @@
+{
+  "ok": true,
+  "schema_version": "phase3a.investigation_analysis.v1",
+  "substrate_validation": {
+    "ok": true,
+    "errors": [],
+    "warnings": [
+      {
+        "field": "unresolved_tensions[2].reason_unresolved",
+        "message": "Semantic language flag detected (artifact_family_language)."
+      }
+    ],
+    "stats": {
+      "region_count": 6,
+      "weak_signal_count": 5,
+      "contradiction_count": 0,
+      "tension_count": 3,
+      "grounded_reference_count": 0
+    },
+    "invariants": {
+      "grounded_only": true,
+      "contradictions_preserved": false,
+      "minority_signals_preserved": true,
+      "causal_inference_introduced": false,
+      "context_used_only_for_interpretation": true
+    },
+    "forbidden_language_hits": [
+      {
+        "field": "unresolved_tensions[2].reason_unresolved",
+        "code": "artifact_family_language"
+      }
+    ]
+  },
+  "analysis_context_validation": {
+    "ok": true,
+    "errors": [],
+    "warnings": [],
+    "stats": {
+      "artifact_framing_count": 3
+    }
+  },
+  "analysis_iteration_context_validation": {
+    "ok": true,
+    "errors": [],
+    "warnings": [],
+    "stats": {
+      "mode": "initial"
+    }
+  },
+  "parse_validation": {
+    "ok": true,
+    "errors": [],
+    "warnings": []
+  },
+  "output_validation": {
+    "ok": true,
+    "errors": [],
+    "warnings": [],
+    "stats": {
+      "hypothesis_count": 10,
+      "open_question_count": 20,
+      "distinct_evidence_ref_count": 26,
+      "overlap_pair_count": 12
+    },
+    "invariants": {
+      "bounded_hypothesis_count": true,
+      "grounded_only": true,
+      "open_questions_present": true,
+      "non_empty_hypothesis_space": true
+    },
+    "forbidden_language_hits": []
+  }
+}

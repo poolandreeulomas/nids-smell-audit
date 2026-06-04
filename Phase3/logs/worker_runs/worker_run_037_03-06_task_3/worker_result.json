@@ -1,0 +1,18 @@
+{
+  "task_id": "task_3",
+  "hypothesis_id": "hyp_006",
+  "status": "partial",
+  "findings": [
+    "Destination Port feature exhibits moderate shortcut-like predictive leverage as indicated by deterministic one-feature decision stump analysis.",
+    "Class-conditioned distribution differences with dominant ratio 1.0 and zero entropy for DDoS class support the presence of shortcut signals.",
+    "Moderate entropy and dominant ratio for BENIGN class and high JS divergence further support representation-sensitive shortcut-like patterns."
+  ],
+  "evidence_refs": [
+    "task_3_step_03"
+  ],
+  "contradictions": [],
+  "limitations": [
+    "Shortcut verification limited to one-feature decision stump; more complex interactions not assessed.",
+    "Moderate signal strength leaves some uncertainty about the full extent of shortcut-like leverage."
+  ]
+}

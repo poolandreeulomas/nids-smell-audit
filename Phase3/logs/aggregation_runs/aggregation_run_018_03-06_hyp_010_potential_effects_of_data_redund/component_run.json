@@ -1,0 +1,27 @@
+{
+  "component": "aggregation",
+  "created_at": "2026-06-03T19:29:37.239192+00:00",
+  "schema_version": "phase3a.aggregation.v1",
+  "batch_id": "phase3a_batch_0306192600_friday-workinghours-afternoon-ddos.pcap_iscx_a08c4b",
+  "round_id": "round-001",
+  "hypothesis_id": "hyp_010_potential_effects_of_data_redundancy_on_feature_correlations",
+  "status": "ok",
+  "validation_ok": true,
+  "handoff_committed": true,
+  "model_name": "gpt-4.1-mini",
+  "caller_mode": "cli",
+  "replay_of": null,
+  "artifact_paths": {
+    "component_run_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\aggregation_runs\\aggregation_run_018_03-06_hyp_010_potential_effects_of_data_redund\\component_run.json",
+    "worker_result_set_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\aggregation_runs\\aggregation_run_018_03-06_hyp_010_potential_effects_of_data_redund\\worker_result_set.json",
+    "normalized_inputs_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\aggregation_runs\\aggregation_run_018_03-06_hyp_010_potential_effects_of_data_redund\\normalized_inputs.json",
+    "overlap_diagnostics_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\aggregation_runs\\aggregation_run_018_03-06_hyp_010_potential_effects_of_data_redund\\overlap_diagnostics.json",
+    "rendered_prompt_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\aggregation_runs\\aggregation_run_018_03-06_hyp_010_potential_effects_of_data_redund\\rendered_prompt.txt",
+    "raw_response_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\aggregation_runs\\aggregation_run_018_03-06_hyp_010_potential_effects_of_data_redund\\raw_response.txt",
+    "parsed_output_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\aggregation_runs\\aggregation_run_018_03-06_hyp_010_potential_effects_of_data_redund\\parsed_output.json",
+    "aggregation_handoff_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\aggregation_runs\\aggregation_run_018_03-06_hyp_010_potential_effects_of_data_redund\\aggregation_handoff.json",
+    "validation_report_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\aggregation_runs\\aggregation_run_018_03-06_hyp_010_potential_effects_of_data_redund\\validation_report.json",
+    "runtime_metrics_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\aggregation_runs\\aggregation_run_018_03-06_hyp_010_potential_effects_of_data_redund\\runtime_metrics.json",
+    "replay_metadata_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\aggregation_runs\\aggregation_run_018_03-06_hyp_010_potential_effects_of_data_redund\\replay_metadata.json"
+  }
+}

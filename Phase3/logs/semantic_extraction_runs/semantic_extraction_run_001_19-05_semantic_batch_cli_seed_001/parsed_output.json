@@ -1,0 +1,95 @@
+{
+  "substrate_id": "substrate-semantic-cli-seed-001",
+  "batch_id": "semantic_batch_cli_seed_001",
+  "compressed_regions": [
+    {
+      "region_id": "region-1",
+      "region_kind": "dependency_region",
+      "status": "active",
+      "summary": "Broad dependency structure links src_bytes and dst_bytes at partition scope.",
+      "structural_descriptors": [
+        "paired variation"
+      ],
+      "feature_scope": {
+        "features": [
+          "src_bytes",
+          "dst_bytes"
+        ],
+        "feature_groups": [
+          "flow_size"
+        ],
+        "locality": {
+          "scope_type": "partition_global",
+          "scope_value": "semantic_batch_cli_seed_001",
+          "localized": false,
+          "notes": [
+            "Observed across the overview evidence."
+          ]
+        }
+      },
+      "evidence_refs": [
+        "e1"
+      ],
+      "supporting_patterns": [
+        "paired movement"
+      ],
+      "contextual_modifiers": [
+        "Regularity is expected in this partition, so this region remains descriptive only."
+      ],
+      "uncertainty_notes": [
+        "The region is broad and not yet localized."
+      ],
+      "contradiction_refs": [],
+      "tension_refs": [
+        "tension-1"
+      ]
+    }
+  ],
+  "preserved_weak_signals": [
+    {
+      "weak_signal_id": "weak-1",
+      "descriptor": "dst_port shows low-diversity structure that may remain locally relevant.",
+      "feature_scope": {
+        "features": [
+          "dst_port"
+        ],
+        "locality": {
+          "scope_type": "feature_group",
+          "scope_value": "port_behavior",
+          "localized": true,
+          "notes": [
+            "Signal is narrow and should remain explicit."
+          ]
+        }
+      },
+      "evidence_refs": [
+        "e2"
+      ],
+      "preservation_reason": "Minority but coherent low-diversity structure may matter later.",
+      "contextual_modifiers": [
+        "Low-diversity structure is not treated as validation here."
+      ],
+      "uncertainty_notes": [
+        "The signal remains weaker than the broad dependency region."
+      ]
+    }
+  ],
+  "contradictions": [],
+  "unresolved_tensions": [
+    {
+      "tension_id": "tension-1",
+      "description": "The broad dependency region and the low-diversity dst_port signal may overlap without sharing the same structural handle yet.",
+      "related_region_ids": [
+        "region-1"
+      ],
+      "evidence_refs": [
+        "e1",
+        "e2"
+      ],
+      "context_notes": [
+        "Keep the local signal visible instead of folding it into the broad region."
+      ],
+      "reason_unresolved": "Current overview evidence does not resolve whether the low-diversity signal belongs inside the broad dependency structure."
+    }
+  ]
+}

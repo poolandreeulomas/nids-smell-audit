@@ -1,0 +1,15 @@
+{
+  "task_id": "task_1",
+  "hypothesis_id": "hyp_4_distributional_divergence_destination_port",
+  "task_scope": "Measure distributional stability of destination port across temporal and attack scenario subsets within evidence e33",
+  "allowed_actions": [
+    "distribution_verification"
+  ],
+  "local_context_refs": [
+    "e33"
+  ],
+  "stop_conditions": [
+    "distribution metrics stable across all temporal and scenario partitions",
+    "all relevant subsets analyzed"
+  ]
+}

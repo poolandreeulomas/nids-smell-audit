@@ -1,0 +1,23 @@
+{
+  "batch_id": "phase3a_batch_0306181120_friday-workinghours-afternoon-ddos.pcap_iscx_5e8f98",
+  "round_id": "round-001",
+  "worker_result": {
+    "task_id": "task_3",
+    "hypothesis_id": "hyp_6_class_distribution_difference_destination_port",
+    "status": "completed",
+    "findings": [
+      "Destination Port shows strong class-conditioned distributional differences with dominant ratio 1.0 and zero entropy in DDoS class.",
+      "Shortcut verification indicates a moderate shortcut-like predictive signal from Destination Port.",
+      "Dependency contextualization did not identify narrow structural dependency clusters, suggesting the shortcut signal is not confounded by concentrated dependencies."
+    ],
+    "evidence_refs": [
+      "task_3_step_03",
+      "task_3_step_05"
+    ],
+    "contradictions": [],
+    "limitations": [
+      "Moderate shortcut signal strength limits definitive shortcut risk confirmation.",
+      "Analysis confined to local evidence without global aggregation or cross-feature interaction assessment."
+    ]
+  }
+}

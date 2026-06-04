@@ -1,0 +1,20 @@
+{
+  "strategy_id": "strategy_01_hyp_5",
+  "hypothesis_id": "hyp_5_strong_linear_dependencies",
+  "strategic_objective": "Clarify the nature and impact of near-perfect linear correlations among key features to assess redundancy and implications for model robustness.",
+  "key_checks": [
+    "Quantify linear dependency strength and identify feature pairs with correlations >= 0.9993",
+    "Distinguish dependencies arising from protocol/measurement constraints versus engineered feature overlap",
+    "Evaluate how these dependencies affect feature selection stability and model sensitivity",
+    "Check for potential masking or amplification of signal due to redundant features"
+  ],
+  "success_criteria": [
+    "Clear differentiation between inherent protocol relationships and redundant engineered features",
+    "Evidence of dependency impact on model robustness and feature selection decisions",
+    "Identification of features that can be safely pruned or require preservation for stability"
+  ],
+  "router_constraints": [
+    "preserve feature correlation context",
+    "preserve evidence refs e13 to e22"
+  ]
+}

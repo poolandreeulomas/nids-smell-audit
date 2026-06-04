@@ -1,0 +1,492 @@
+[BATCH] START batch_id=phase3a_batch_0306192600_friday-workinghours-afternoon-ddos.pcap_iscx_a08c4b
+[SEMANTIC_EXTRACTION] START batch_id=phase3a_batch_0306192600_friday-workinghours-afternoon-ddos.pcap_iscx_a08c4b
+[SEMANTIC_EXTRACTION] VALIDATION OK batch_id=phase3a_batch_0306192600_friday-workinghours-afternoon-ddos.pcap_iscx_a08c4b
+[SEMANTIC_EXTRACTION] END (49.8s) batch_id=phase3a_batch_0306192600_friday-workinghours-afternoon-ddos.pcap_iscx_a08c4b
+[SEMANTIC_HYPOTHESIS_GENERATION] START analysis_id=substrate_phase3a_batch_0306192600_friday-workinghours-afternoon-ddos.pcap_iscx_a08c4b batch_id=phase3a_batch_0306192600_friday-workinghours-afternoon-ddos.pcap_iscx_a08c4b
+[SEMANTIC_HYPOTHESIS_GENERATION] VALIDATION OK analysis_id=substrate_phase3a_batch_0306192600_friday-workinghours-afternoon-ddos.pcap_iscx_a08c4b batch_id=phase3a_batch_0306192600_friday-workinghours-afternoon-ddos.pcap_iscx_a08c4b
+[SEMANTIC_HYPOTHESIS_GENERATION] END (21.4s) analysis_id=substrate_phase3a_batch_0306192600_friday-workinghours-afternoon-ddos.pcap_iscx_a08c4b batch_id=phase3a_batch_0306192600_friday-workinghours-afternoon-ddos.pcap_iscx_a08c4b
+[ROUND] START batch_id=phase3a_batch_0306192600_friday-workinghours-afternoon-ddos.pcap_iscx_a08c4b round_id=round-001
+[HYPOTHESIS_RANKING] START batch_id=phase3a_batch_0306192600_friday-workinghours-afternoon-ddos.pcap_iscx_a08c4b round_id=round-001
+[HYPOTHESIS_RANKING] VALIDATION OK analysis_id=analysis_phase3a_0306192600_ddos_001 batch_id=phase3a_batch_0306192600_friday-workinghours-afternoon-ddos.pcap_iscx_a08c4b round_id=round-001
+[HYPOTHESIS_RANKING] END (5.0s) analysis_id=analysis_phase3a_0306192600_ddos_001 batch_id=phase3a_batch_0306192600_friday-workinghours-afternoon-ddos.pcap_iscx_a08c4b round_id=round-001
+[PLANNER] START batch_id=phase3a_batch_0306192600_friday-workinghours-afternoon-ddos.pcap_iscx_a08c4b round_id=round-001
+[PLANNER] VALIDATION OK batch_id=phase3a_batch_0306192600_friday-workinghours-afternoon-ddos.pcap_iscx_a08c4b round_id=round-001
+[PLANNER] END (10.2s) batch_id=phase3a_batch_0306192600_friday-workinghours-afternoon-ddos.pcap_iscx_a08c4b round_id=round-001
+[ROUTER] START batch_id=phase3a_batch_0306192600_friday-workinghours-afternoon-ddos.pcap_iscx_a08c4b hypothesis_id=hyp_010_potential_effects_of_data_redundancy_on_feature_correlations round_id=round-001
+[ROUTER] hypothesis_id=hyp_010_potential_effects_of_data_redundancy_on_feature_correlations GENERATED 4 TASKS
+[ROUTER] VALIDATION OK batch_id=phase3a_batch_0306192600_friday-workinghours-afternoon-ddos.pcap_iscx_a08c4b hypothesis_id=hyp_010_potential_effects_of_data_redundancy_on_feature_correlations round_id=round-001
+[ROUTER] END (12.6s) batch_id=phase3a_batch_0306192600_friday-workinghours-afternoon-ddos.pcap_iscx_a08c4b hypothesis_id=hyp_010_potential_effects_of_data_redundancy_on_feature_correlations round_id=round-001
+[WORKER] START batch_id=phase3a_batch_0306192600_friday-workinghours-afternoon-ddos.pcap_iscx_a08c4b hypothesis_id=hyp_010_potential_effects_of_data_redundancy_on_feature_correlations round_id=round-001 task_id=task_1
+[WORKER] START batch_id=phase3a_batch_0306192600_friday-workinghours-afternoon-ddos.pcap_iscx_a08c4b hypothesis_id=hyp_010_potential_effects_of_data_redundancy_on_feature_correlations round_id=round-001 task_id=task_2
+[WORKER] START batch_id=phase3a_batch_0306192600_friday-workinghours-afternoon-ddos.pcap_iscx_a08c4b hypothesis_id=hyp_010_potential_effects_of_data_redundancy_on_feature_correlations round_id=round-001 task_id=task_3
+[WORKER] START batch_id=phase3a_batch_0306192600_friday-workinghours-afternoon-ddos.pcap_iscx_a08c4b hypothesis_id=hyp_010_potential_effects_of_data_redundancy_on_feature_correlations round_id=round-001 task_id=task_4
+[HYPOTHESIS] hypothesis_id=hyp_010_potential_effects_of_data_redundancy_on_feature_correlations round_id=round-001 WAITING FOR 4 WORKERS
+[ROUTER] START batch_id=phase3a_batch_0306192600_friday-workinghours-afternoon-ddos.pcap_iscx_a08c4b hypothesis_id=hyp_002_strong_dependency_pairs_redundancy round_id=round-001
+[HYPOTHESIS_AGGREGATOR_BARRIER] expected_tasks=4 completed_tasks=0 waiting_for=['task_1', 'task_2', 'task_3', 'task_4'] batch_id=phase3a_batch_0306192600_friday-workinghours-afternoon-ddos.pcap_iscx_a08c4b hypothesis_id=hyp_010_potential_effects_of_data_redundancy_on_feature_correlations round_id=round-001
+[ROUTER] hypothesis_id=hyp_002_strong_dependency_pairs_redundancy GENERATED 4 TASKS
+[ROUTER] VALIDATION OK batch_id=phase3a_batch_0306192600_friday-workinghours-afternoon-ddos.pcap_iscx_a08c4b hypothesis_id=hyp_002_strong_dependency_pairs_redundancy round_id=round-001
+[ROUTER] END (8.6s) batch_id=phase3a_batch_0306192600_friday-workinghours-afternoon-ddos.pcap_iscx_a08c4b hypothesis_id=hyp_002_strong_dependency_pairs_redundancy round_id=round-001
+[WORKER_STEP] task_id=task_3 step=1 mode=reasoning_only attempt=0
+[WORKER_STEP] task_id=task_2 step=1 mode=reasoning_only attempt=0
+[WORKER] START batch_id=phase3a_batch_0306192600_friday-workinghours-afternoon-ddos.pcap_iscx_a08c4b hypothesis_id=hyp_002_strong_dependency_pairs_redundancy round_id=round-001 task_id=task_1
+[WORKER] START batch_id=phase3a_batch_0306192600_friday-workinghours-afternoon-ddos.pcap_iscx_a08c4b hypothesis_id=hyp_002_strong_dependency_pairs_redundancy round_id=round-001 task_id=task_2
+[WORKER] START batch_id=phase3a_batch_0306192600_friday-workinghours-afternoon-ddos.pcap_iscx_a08c4b hypothesis_id=hyp_002_strong_dependency_pairs_redundancy round_id=round-001 task_id=task_3
+[WORKER] START batch_id=phase3a_batch_0306192600_friday-workinghours-afternoon-ddos.pcap_iscx_a08c4b hypothesis_id=hyp_002_strong_dependency_pairs_redundancy round_id=round-001 task_id=task_4
+[HYPOTHESIS] hypothesis_id=hyp_002_strong_dependency_pairs_redundancy round_id=round-001 WAITING FOR 4 WORKERS
+[ROUTER] START batch_id=phase3a_batch_0306192600_friday-workinghours-afternoon-ddos.pcap_iscx_a08c4b hypothesis_id=hyp_003_class_conditioned_variation_backward_packet_lengths round_id=round-001
+[HYPOTHESIS_AGGREGATOR_BARRIER] expected_tasks=4 completed_tasks=0 waiting_for=['task_1', 'task_2', 'task_3', 'task_4'] batch_id=phase3a_batch_0306192600_friday-workinghours-afternoon-ddos.pcap_iscx_a08c4b hypothesis_id=hyp_002_strong_dependency_pairs_redundancy round_id=round-001
+[WORKER_STEP] task_id=task_1 step=1 mode=reasoning_only attempt=0
+[WORKER_STEP] task_id=task_4 step=1 mode=reasoning_only attempt=0
+[WORKER_STEP] task_id=task_2 step=1 mode=reasoning_only attempt=0 decision=continue actions=0
+[WORKER] VALIDATION OK batch_id=phase3a_batch_0306192600_friday-workinghours-afternoon-ddos.pcap_iscx_a08c4b hypothesis_id=hyp_010_potential_effects_of_data_redundancy_on_feature_correlations round_id=round-001 step=1 task_id=task_2
+[WORKER_STEP] task_id=task_2 step=2 mode=reasoning_only attempt=0
+[WORKER_STEP] task_id=task_3 step=1 mode=reasoning_only attempt=0 decision=continue actions=0
+[WORKER] VALIDATION OK batch_id=phase3a_batch_0306192600_friday-workinghours-afternoon-ddos.pcap_iscx_a08c4b hypothesis_id=hyp_010_potential_effects_of_data_redundancy_on_feature_correlations round_id=round-001 step=1 task_id=task_3
+[WORKER_STEP] task_id=task_3 step=2 mode=reasoning_only attempt=0
+[WORKER_STEP] task_id=task_1 step=1 mode=reasoning_only attempt=0 decision=continue actions=0
+[WORKER] VALIDATION OK batch_id=phase3a_batch_0306192600_friday-workinghours-afternoon-ddos.pcap_iscx_a08c4b hypothesis_id=hyp_010_potential_effects_of_data_redundancy_on_feature_correlations round_id=round-001 step=1 task_id=task_1
+[WORKER_STEP] task_id=task_1 step=2 mode=reasoning_only attempt=0
+[WORKER_STEP] task_id=task_4 step=1 mode=reasoning_only attempt=0 decision=continue actions=0
+[WORKER] VALIDATION OK batch_id=phase3a_batch_0306192600_friday-workinghours-afternoon-ddos.pcap_iscx_a08c4b hypothesis_id=hyp_010_potential_effects_of_data_redundancy_on_feature_correlations round_id=round-001 step=1 task_id=task_4
+[WORKER_STEP] task_id=task_4 step=2 mode=reasoning_only attempt=0
+[WORKER_STEP] task_id=task_3 step=2 mode=reasoning_only attempt=0 decision=continue actions=0
+[WORKER_STEP] task_id=task_2 step=2 mode=reasoning_only attempt=0 decision=continue actions=0
+[WORKER] VALIDATION OK batch_id=phase3a_batch_0306192600_friday-workinghours-afternoon-ddos.pcap_iscx_a08c4b hypothesis_id=hyp_010_potential_effects_of_data_redundancy_on_feature_correlations round_id=round-001 step=2 task_id=task_3
+[WORKER] VALIDATION OK batch_id=phase3a_batch_0306192600_friday-workinghours-afternoon-ddos.pcap_iscx_a08c4b hypothesis_id=hyp_010_potential_effects_of_data_redundancy_on_feature_correlations round_id=round-001 step=2 task_id=task_2
+[WORKER_STEP] task_id=task_3 step=3 mode=action_window attempt=0
+[WORKER_STEP] task_id=task_2 step=3 mode=action_window attempt=0
+[WORKER_STEP] task_id=task_2 step=1 mode=reasoning_only attempt=0
+[WORKER_STEP] task_id=task_1 step=2 mode=reasoning_only attempt=0 decision=continue actions=0
+[WORKER] VALIDATION OK batch_id=phase3a_batch_0306192600_friday-workinghours-afternoon-ddos.pcap_iscx_a08c4b hypothesis_id=hyp_010_potential_effects_of_data_redundancy_on_feature_correlations round_id=round-001 step=2 task_id=task_1
+[WORKER_STEP] task_id=task_1 step=3 mode=action_window attempt=0
+[WORKER_STEP] task_id=task_1 step=1 mode=reasoning_only attempt=0
+[WORKER_STEP] task_id=task_4 step=2 mode=reasoning_only attempt=0 decision=continue actions=0
+[WORKER] VALIDATION OK batch_id=phase3a_batch_0306192600_friday-workinghours-afternoon-ddos.pcap_iscx_a08c4b hypothesis_id=hyp_010_potential_effects_of_data_redundancy_on_feature_correlations round_id=round-001 step=2 task_id=task_4
+[WORKER_STEP] task_id=task_4 step=3 mode=action_window attempt=0
+[ROUTER] hypothesis_id=hyp_003_class_conditioned_variation_backward_packet_lengths GENERATED 4 TASKS
+[ROUTER] VALIDATION OK batch_id=phase3a_batch_0306192600_friday-workinghours-afternoon-ddos.pcap_iscx_a08c4b hypothesis_id=hyp_003_class_conditioned_variation_backward_packet_lengths round_id=round-001
+[ROUTER] END (11.2s) batch_id=phase3a_batch_0306192600_friday-workinghours-afternoon-ddos.pcap_iscx_a08c4b hypothesis_id=hyp_003_class_conditioned_variation_backward_packet_lengths round_id=round-001
+[WORKER] START batch_id=phase3a_batch_0306192600_friday-workinghours-afternoon-ddos.pcap_iscx_a08c4b hypothesis_id=hyp_003_class_conditioned_variation_backward_packet_lengths round_id=round-001 task_id=task_1
+[WORKER] START batch_id=phase3a_batch_0306192600_friday-workinghours-afternoon-ddos.pcap_iscx_a08c4b hypothesis_id=hyp_003_class_conditioned_variation_backward_packet_lengths round_id=round-001 task_id=task_2
+[WORKER] START batch_id=phase3a_batch_0306192600_friday-workinghours-afternoon-ddos.pcap_iscx_a08c4b hypothesis_id=hyp_003_class_conditioned_variation_backward_packet_lengths round_id=round-001 task_id=task_3
+[WORKER] START batch_id=phase3a_batch_0306192600_friday-workinghours-afternoon-ddos.pcap_iscx_a08c4b hypothesis_id=hyp_003_class_conditioned_variation_backward_packet_lengths round_id=round-001 task_id=task_4
+[HYPOTHESIS] hypothesis_id=hyp_003_class_conditioned_variation_backward_packet_lengths round_id=round-001 WAITING FOR 4 WORKERS
+[ROUND_BARRIER] expected_tasks=3 completed_tasks=0 waiting_for=['hyp_010_potential_effects_of_data_redundancy_on_feature_correlations', 'hyp_002_strong_dependency_pairs_redundancy', 'hyp_003_class_conditioned_variation_backward_packet_lengths'] batch_id=phase3a_batch_0306192600_friday-workinghours-afternoon-ddos.pcap_iscx_a08c4b round_id=round-001
+[HYPOTHESIS_AGGREGATOR_BARRIER] expected_tasks=4 completed_tasks=0 waiting_for=['task_1', 'task_2', 'task_3', 'task_4'] batch_id=phase3a_batch_0306192600_friday-workinghours-afternoon-ddos.pcap_iscx_a08c4b hypothesis_id=hyp_003_class_conditioned_variation_backward_packet_lengths round_id=round-001
+[ROUND] batch_id=phase3a_batch_0306192600_friday-workinghours-afternoon-ddos.pcap_iscx_a08c4b round_id=round-001 WAITING FOR 3 HYPOTHESIS AGGREGATIONS
+[WORKER_STEP] task_id=task_4 step=1 mode=reasoning_only attempt=0
+[WORKER_STEP] task_id=task_3 step=1 mode=reasoning_only attempt=0
+[WORKER_STEP] task_id=task_3 step=3 mode=action_window attempt=0 decision=action actions=1
+[WORKER] VALIDATION OK batch_id=phase3a_batch_0306192600_friday-workinghours-afternoon-ddos.pcap_iscx_a08c4b hypothesis_id=hyp_010_potential_effects_of_data_redundancy_on_feature_correlations round_id=round-001 step=3 task_id=task_3
+[WORKER_STEP] task_id=task_2 step=3 mode=action_window attempt=0 decision=action actions=1
+[WORKER] VALIDATION OK batch_id=phase3a_batch_0306192600_friday-workinghours-afternoon-ddos.pcap_iscx_a08c4b hypothesis_id=hyp_010_potential_effects_of_data_redundancy_on_feature_correlations round_id=round-001 step=3 task_id=task_2
+[WORKER_STEP] task_id=task_2 step=1 mode=reasoning_only attempt=0 decision=continue actions=0
+[WORKER] VALIDATION OK batch_id=phase3a_batch_0306192600_friday-workinghours-afternoon-ddos.pcap_iscx_a08c4b hypothesis_id=hyp_002_strong_dependency_pairs_redundancy round_id=round-001 step=1 task_id=task_2
+[WORKER_STEP] task_id=task_2 step=2 mode=reasoning_only attempt=0
+[WORKER_STEP] task_id=task_1 step=1 mode=reasoning_only attempt=0 decision=continue actions=0
+[WORKER] VALIDATION OK batch_id=phase3a_batch_0306192600_friday-workinghours-afternoon-ddos.pcap_iscx_a08c4b hypothesis_id=hyp_002_strong_dependency_pairs_redundancy round_id=round-001 step=1 task_id=task_1
+[WORKER_STEP] task_id=task_1 step=2 mode=reasoning_only attempt=0
+[WORKER_STEP] task_id=task_4 step=3 mode=action_window attempt=0 decision=action actions=1
+[WORKER] VALIDATION OK batch_id=phase3a_batch_0306192600_friday-workinghours-afternoon-ddos.pcap_iscx_a08c4b hypothesis_id=hyp_010_potential_effects_of_data_redundancy_on_feature_correlations round_id=round-001 step=3 task_id=task_4
+[WORKER_STEP] task_id=task_1 step=3 mode=action_window attempt=0 decision=action actions=1
+[WORKER] VALIDATION OK batch_id=phase3a_batch_0306192600_friday-workinghours-afternoon-ddos.pcap_iscx_a08c4b hypothesis_id=hyp_010_potential_effects_of_data_redundancy_on_feature_correlations round_id=round-001 step=3 task_id=task_1
+[WORKER_STEP] task_id=task_4 step=1 mode=reasoning_only attempt=0 decision=continue actions=0
+[WORKER] VALIDATION OK batch_id=phase3a_batch_0306192600_friday-workinghours-afternoon-ddos.pcap_iscx_a08c4b hypothesis_id=hyp_002_strong_dependency_pairs_redundancy round_id=round-001 step=1 task_id=task_4
+[WORKER_STEP] task_id=task_4 step=2 mode=reasoning_only attempt=0
+[WORKER_STEP] task_id=task_1 step=2 mode=reasoning_only attempt=0 decision=continue actions=0
+[WORKER] VALIDATION OK batch_id=phase3a_batch_0306192600_friday-workinghours-afternoon-ddos.pcap_iscx_a08c4b hypothesis_id=hyp_002_strong_dependency_pairs_redundancy round_id=round-001 step=2 task_id=task_1
+[WORKER_STEP] task_id=task_1 step=3 mode=action_window attempt=0
+[WORKER_STEP] task_id=task_3 step=1 mode=reasoning_only attempt=0 decision=continue actions=0
+[WORKER] VALIDATION OK batch_id=phase3a_batch_0306192600_friday-workinghours-afternoon-ddos.pcap_iscx_a08c4b hypothesis_id=hyp_002_strong_dependency_pairs_redundancy round_id=round-001 step=1 task_id=task_3
+[WORKER_STEP] task_id=task_2 step=2 mode=reasoning_only attempt=0 decision=continue actions=0
+[WORKER_STEP] task_id=task_3 step=2 mode=reasoning_only attempt=0
+[WORKER] VALIDATION OK batch_id=phase3a_batch_0306192600_friday-workinghours-afternoon-ddos.pcap_iscx_a08c4b hypothesis_id=hyp_002_strong_dependency_pairs_redundancy round_id=round-001 step=2 task_id=task_2
+[WORKER_STEP] task_id=task_2 step=3 mode=action_window attempt=0
+[WORKER_STEP] task_id=task_1 step=3 mode=action_window attempt=0 decision=action actions=1
+[WORKER] VALIDATION OK batch_id=phase3a_batch_0306192600_friday-workinghours-afternoon-ddos.pcap_iscx_a08c4b hypothesis_id=hyp_002_strong_dependency_pairs_redundancy round_id=round-001 step=3 task_id=task_1
+[WORKER_STEP] task_id=task_2 step=3 mode=action_window attempt=0 decision=action actions=1
+[WORKER] VALIDATION OK batch_id=phase3a_batch_0306192600_friday-workinghours-afternoon-ddos.pcap_iscx_a08c4b hypothesis_id=hyp_002_strong_dependency_pairs_redundancy round_id=round-001 step=3 task_id=task_2
+[WORKER_STEP] task_id=task_4 step=2 mode=reasoning_only attempt=0 decision=continue actions=0
+[WORKER] VALIDATION OK batch_id=phase3a_batch_0306192600_friday-workinghours-afternoon-ddos.pcap_iscx_a08c4b hypothesis_id=hyp_002_strong_dependency_pairs_redundancy round_id=round-001 step=2 task_id=task_4
+[WORKER_STEP] task_id=task_4 step=3 mode=action_window attempt=0
+[WORKER_STEP] task_id=task_1 step=4 mode=reasoning_only attempt=0
+[WORKER_STEP] task_id=task_3 step=2 mode=reasoning_only attempt=0 decision=continue actions=0
+[WORKER] VALIDATION OK batch_id=phase3a_batch_0306192600_friday-workinghours-afternoon-ddos.pcap_iscx_a08c4b hypothesis_id=hyp_002_strong_dependency_pairs_redundancy round_id=round-001 step=2 task_id=task_3
+[WORKER_STEP] task_id=task_3 step=3 mode=action_window attempt=0
+[WORKER_STEP] task_id=task_4 step=1 mode=reasoning_only attempt=0
+[WORKER_STEP] task_id=task_1 step=1 mode=reasoning_only attempt=0
+[WORKER_STEP] task_id=task_1 step=4 mode=reasoning_only attempt=0 decision=continue actions=0
+[WORKER] VALIDATION OK batch_id=phase3a_batch_0306192600_friday-workinghours-afternoon-ddos.pcap_iscx_a08c4b hypothesis_id=hyp_002_strong_dependency_pairs_redundancy round_id=round-001 step=4 task_id=task_1
+[WORKER_STEP] task_id=task_1 step=5 mode=action_window attempt=0
+[WORKER_STEP] task_id=task_2 step=4 mode=reasoning_only attempt=0
+[WORKER_STEP] task_id=task_3 step=4 mode=reasoning_only attempt=0
+[WORKER_STEP] task_id=task_1 step=4 mode=reasoning_only attempt=0
+[WORKER_STEP] task_id=task_4 step=1 mode=reasoning_only attempt=0 decision=continue actions=0
+[WORKER_STEP] task_id=task_4 step=3 mode=action_window attempt=0 decision=action actions=1
+[WORKER] VALIDATION OK batch_id=phase3a_batch_0306192600_friday-workinghours-afternoon-ddos.pcap_iscx_a08c4b hypothesis_id=hyp_003_class_conditioned_variation_backward_packet_lengths round_id=round-001 step=1 task_id=task_4
+[WORKER] VALIDATION OK batch_id=phase3a_batch_0306192600_friday-workinghours-afternoon-ddos.pcap_iscx_a08c4b hypothesis_id=hyp_002_strong_dependency_pairs_redundancy round_id=round-001 step=3 task_id=task_4
+[WORKER_STEP] task_id=task_4 step=2 mode=reasoning_only attempt=0
+[WORKER_STEP] task_id=task_3 step=3 mode=action_window attempt=0 decision=action actions=1
+[WORKER] VALIDATION OK batch_id=phase3a_batch_0306192600_friday-workinghours-afternoon-ddos.pcap_iscx_a08c4b hypothesis_id=hyp_002_strong_dependency_pairs_redundancy round_id=round-001 step=3 task_id=task_3
+[WORKER_STEP] task_id=task_3 step=4 mode=reasoning_only attempt=0 decision=continue actions=0
+[WORKER] VALIDATION OK batch_id=phase3a_batch_0306192600_friday-workinghours-afternoon-ddos.pcap_iscx_a08c4b hypothesis_id=hyp_010_potential_effects_of_data_redundancy_on_feature_correlations round_id=round-001 step=4 task_id=task_3
+[WORKER_STEP] task_id=task_3 step=5 mode=action_window attempt=0
+[WORKER_STEP] task_id=task_1 step=5 mode=action_window attempt=0 decision=action actions=1
+[WORKER] VALIDATION OK batch_id=phase3a_batch_0306192600_friday-workinghours-afternoon-ddos.pcap_iscx_a08c4b hypothesis_id=hyp_002_strong_dependency_pairs_redundancy round_id=round-001 step=5 task_id=task_1
+[WORKER_STEP] task_id=task_2 step=4 mode=reasoning_only attempt=0 decision=continue actions=0
+[WORKER] VALIDATION OK batch_id=phase3a_batch_0306192600_friday-workinghours-afternoon-ddos.pcap_iscx_a08c4b hypothesis_id=hyp_010_potential_effects_of_data_redundancy_on_feature_correlations round_id=round-001 step=4 task_id=task_2
+[WORKER_STEP] task_id=task_2 step=5 mode=action_window attempt=0
+[WORKER_STEP] task_id=task_1 step=1 mode=reasoning_only attempt=0 decision=continue actions=0
+[WORKER] VALIDATION OK batch_id=phase3a_batch_0306192600_friday-workinghours-afternoon-ddos.pcap_iscx_a08c4b hypothesis_id=hyp_003_class_conditioned_variation_backward_packet_lengths round_id=round-001 step=1 task_id=task_1
+[WORKER_STEP] task_id=task_1 step=4 mode=reasoning_only attempt=0 decision=continue actions=0
+[WORKER_STEP] task_id=task_1 step=2 mode=reasoning_only attempt=0
+[WORKER] VALIDATION OK batch_id=phase3a_batch_0306192600_friday-workinghours-afternoon-ddos.pcap_iscx_a08c4b hypothesis_id=hyp_010_potential_effects_of_data_redundancy_on_feature_correlations round_id=round-001 step=4 task_id=task_1
+[WORKER_STEP] task_id=task_1 step=5 mode=action_window attempt=0
+[WORKER_STEP] task_id=task_4 step=2 mode=reasoning_only attempt=0 decision=continue actions=0
+[WORKER] VALIDATION OK batch_id=phase3a_batch_0306192600_friday-workinghours-afternoon-ddos.pcap_iscx_a08c4b hypothesis_id=hyp_003_class_conditioned_variation_backward_packet_lengths round_id=round-001 step=2 task_id=task_4
+[WORKER_STEP] task_id=task_4 step=3 mode=action_window attempt=0
+[WORKER_STEP] task_id=task_2 step=1 mode=reasoning_only attempt=0
+[WORKER_STEP] task_id=task_3 step=4 mode=reasoning_only attempt=0
+[WORKER_STEP] task_id=task_3 step=1 mode=reasoning_only attempt=0
+[WORKER_STEP] task_id=task_3 step=5 mode=action_window attempt=0 decision=action actions=1
+[WORKER] VALIDATION OK batch_id=phase3a_batch_0306192600_friday-workinghours-afternoon-ddos.pcap_iscx_a08c4b hypothesis_id=hyp_010_potential_effects_of_data_redundancy_on_feature_correlations round_id=round-001 step=5 task_id=task_3
+[WORKER_STEP] task_id=task_3 step=6 mode=reasoning_only attempt=0
+[WORKER_STEP] task_id=task_4 step=4 mode=reasoning_only attempt=0
+[WORKER_STEP] task_id=task_4 step=3 mode=action_window attempt=0 decision=action actions=1
+[WORKER] VALIDATION OK batch_id=phase3a_batch_0306192600_friday-workinghours-afternoon-ddos.pcap_iscx_a08c4b hypothesis_id=hyp_003_class_conditioned_variation_backward_packet_lengths round_id=round-001 step=3 task_id=task_4
+[WORKER_STEP] task_id=task_2 step=5 mode=action_window attempt=0 decision=action actions=1
+[WORKER] VALIDATION OK batch_id=phase3a_batch_0306192600_friday-workinghours-afternoon-ddos.pcap_iscx_a08c4b hypothesis_id=hyp_010_potential_effects_of_data_redundancy_on_feature_correlations round_id=round-001 step=5 task_id=task_2
+[WORKER_STEP] task_id=task_1 step=2 mode=reasoning_only attempt=0 decision=continue actions=0
+[WORKER] VALIDATION OK batch_id=phase3a_batch_0306192600_friday-workinghours-afternoon-ddos.pcap_iscx_a08c4b hypothesis_id=hyp_003_class_conditioned_variation_backward_packet_lengths round_id=round-001 step=2 task_id=task_1
+[WORKER_STEP] task_id=task_1 step=3 mode=action_window attempt=0
+[WORKER_STEP] task_id=task_2 step=6 mode=reasoning_only attempt=0
+[WORKER_STEP] task_id=task_4 step=4 mode=reasoning_only attempt=0
+[WORKER_STEP] task_id=task_2 step=1 mode=reasoning_only attempt=0 decision=continue actions=0
+[WORKER] VALIDATION OK batch_id=phase3a_batch_0306192600_friday-workinghours-afternoon-ddos.pcap_iscx_a08c4b hypothesis_id=hyp_003_class_conditioned_variation_backward_packet_lengths round_id=round-001 step=1 task_id=task_2
+[WORKER_STEP] task_id=task_2 step=2 mode=reasoning_only attempt=0
+[WORKER_STEP] task_id=task_1 step=5 mode=action_window attempt=0 decision=continue actions=0
+[WORKER] VALIDATION OK batch_id=phase3a_batch_0306192600_friday-workinghours-afternoon-ddos.pcap_iscx_a08c4b hypothesis_id=hyp_010_potential_effects_of_data_redundancy_on_feature_correlations round_id=round-001 step=5 task_id=task_1
+[WORKER_STEP] task_id=task_1 step=6 mode=reasoning_only attempt=0
+[WORKER_STEP] task_id=task_2 step=4 mode=reasoning_only attempt=0
+[WORKER_STEP] task_id=task_3 step=1 mode=reasoning_only attempt=0 decision=continue actions=0
+[WORKER] VALIDATION OK batch_id=phase3a_batch_0306192600_friday-workinghours-afternoon-ddos.pcap_iscx_a08c4b hypothesis_id=hyp_003_class_conditioned_variation_backward_packet_lengths round_id=round-001 step=1 task_id=task_3
+[WORKER_STEP] task_id=task_3 step=2 mode=reasoning_only attempt=0
+[WORKER_STEP] task_id=task_3 step=4 mode=reasoning_only attempt=0 decision=continue actions=0
+[WORKER_STEP] task_id=task_3 step=6 mode=reasoning_only attempt=0 decision=continue actions=0
+[WORKER] VALIDATION OK batch_id=phase3a_batch_0306192600_friday-workinghours-afternoon-ddos.pcap_iscx_a08c4b hypothesis_id=hyp_002_strong_dependency_pairs_redundancy round_id=round-001 step=4 task_id=task_3
+[WORKER] VALIDATION OK batch_id=phase3a_batch_0306192600_friday-workinghours-afternoon-ddos.pcap_iscx_a08c4b hypothesis_id=hyp_010_potential_effects_of_data_redundancy_on_feature_correlations round_id=round-001 step=6 task_id=task_3
+[WORKER_STEP] task_id=task_3 step=5 mode=action_window attempt=0
+[WORKER_STEP] task_id=task_3 step=7 mode=action_window attempt=0
+[WORKER_STEP] task_id=task_4 step=4 mode=reasoning_only attempt=0 decision=continue actions=0
+[WORKER] VALIDATION OK batch_id=phase3a_batch_0306192600_friday-workinghours-afternoon-ddos.pcap_iscx_a08c4b hypothesis_id=hyp_010_potential_effects_of_data_redundancy_on_feature_correlations round_id=round-001 step=4 task_id=task_4
+[WORKER_STEP] task_id=task_4 step=5 mode=action_window attempt=0
+[WORKER_STEP] task_id=task_2 step=2 mode=reasoning_only attempt=0 decision=continue actions=0
+[WORKER_STEP] task_id=task_4 step=4 mode=reasoning_only attempt=0 decision=continue actions=0
+[WORKER] VALIDATION OK batch_id=phase3a_batch_0306192600_friday-workinghours-afternoon-ddos.pcap_iscx_a08c4b hypothesis_id=hyp_003_class_conditioned_variation_backward_packet_lengths round_id=round-001 step=2 task_id=task_2
+[WORKER] VALIDATION OK batch_id=phase3a_batch_0306192600_friday-workinghours-afternoon-ddos.pcap_iscx_a08c4b hypothesis_id=hyp_002_strong_dependency_pairs_redundancy round_id=round-001 step=4 task_id=task_4
+[WORKER_STEP] task_id=task_2 step=3 mode=action_window attempt=0
+[WORKER_STEP] task_id=task_4 step=5 mode=action_window attempt=0
+[WORKER_STEP] task_id=task_2 step=6 mode=reasoning_only attempt=0 decision=continue actions=0
+[WORKER] VALIDATION OK batch_id=phase3a_batch_0306192600_friday-workinghours-afternoon-ddos.pcap_iscx_a08c4b hypothesis_id=hyp_010_potential_effects_of_data_redundancy_on_feature_correlations round_id=round-001 step=6 task_id=task_2
+[WORKER_STEP] task_id=task_2 step=7 mode=action_window attempt=0
+[WORKER_STEP] task_id=task_1 step=3 mode=action_window attempt=0 decision=action actions=1
+[WORKER_STEP] task_id=task_2 step=4 mode=reasoning_only attempt=0 decision=continue actions=0
+[WORKER] VALIDATION OK batch_id=phase3a_batch_0306192600_friday-workinghours-afternoon-ddos.pcap_iscx_a08c4b hypothesis_id=hyp_003_class_conditioned_variation_backward_packet_lengths round_id=round-001 step=3 task_id=task_1
+[WORKER] VALIDATION OK batch_id=phase3a_batch_0306192600_friday-workinghours-afternoon-ddos.pcap_iscx_a08c4b hypothesis_id=hyp_002_strong_dependency_pairs_redundancy round_id=round-001 step=4 task_id=task_2
+[WORKER_STEP] task_id=task_2 step=5 mode=action_window attempt=0
+[WORKER_STEP] task_id=task_3 step=7 mode=action_window attempt=0 decision=action actions=1
+[WORKER] VALIDATION OK batch_id=phase3a_batch_0306192600_friday-workinghours-afternoon-ddos.pcap_iscx_a08c4b hypothesis_id=hyp_010_potential_effects_of_data_redundancy_on_feature_correlations round_id=round-001 step=7 task_id=task_3
+[WORKER_STEP] task_id=task_1 step=4 mode=reasoning_only attempt=0
+[WORKER_STEP] task_id=task_3 step=8 mode=final_synthesis attempt=0
+[WORKER_STEP] task_id=task_3 step=2 mode=reasoning_only attempt=0 decision=continue actions=0
+[WORKER] VALIDATION OK batch_id=phase3a_batch_0306192600_friday-workinghours-afternoon-ddos.pcap_iscx_a08c4b hypothesis_id=hyp_003_class_conditioned_variation_backward_packet_lengths round_id=round-001 step=2 task_id=task_3
+[WORKER_STEP] task_id=task_3 step=3 mode=action_window attempt=0
+[WORKER_STEP] task_id=task_1 step=6 mode=reasoning_only attempt=0 decision=continue actions=0
+[WORKER] VALIDATION OK batch_id=phase3a_batch_0306192600_friday-workinghours-afternoon-ddos.pcap_iscx_a08c4b hypothesis_id=hyp_010_potential_effects_of_data_redundancy_on_feature_correlations round_id=round-001 step=6 task_id=task_1
+[WORKER_STEP] task_id=task_1 step=7 mode=action_window attempt=0
+[WORKER_STEP] task_id=task_1 step=6 mode=reasoning_only attempt=0
+[WORKER_STEP] task_id=task_2 step=3 mode=action_window attempt=0 decision=action actions=1
+[WORKER] VALIDATION OK batch_id=phase3a_batch_0306192600_friday-workinghours-afternoon-ddos.pcap_iscx_a08c4b hypothesis_id=hyp_003_class_conditioned_variation_backward_packet_lengths round_id=round-001 step=3 task_id=task_2
+[WORKER_STEP] task_id=task_2 step=7 mode=action_window attempt=0 decision=action actions=1
+[WORKER] VALIDATION OK batch_id=phase3a_batch_0306192600_friday-workinghours-afternoon-ddos.pcap_iscx_a08c4b hypothesis_id=hyp_010_potential_effects_of_data_redundancy_on_feature_correlations round_id=round-001 step=7 task_id=task_2
+[WORKER_STEP] task_id=task_4 step=5 mode=action_window attempt=0 decision=action actions=1
+[WORKER] VALIDATION OK batch_id=phase3a_batch_0306192600_friday-workinghours-afternoon-ddos.pcap_iscx_a08c4b hypothesis_id=hyp_002_strong_dependency_pairs_redundancy round_id=round-001 step=5 task_id=task_4
+[WORKER_STEP] task_id=task_2 step=8 mode=final_synthesis attempt=0
+[WORKER_STEP] task_id=task_4 step=5 mode=action_window attempt=0 decision=action actions=1
+[WORKER] VALIDATION OK batch_id=phase3a_batch_0306192600_friday-workinghours-afternoon-ddos.pcap_iscx_a08c4b hypothesis_id=hyp_010_potential_effects_of_data_redundancy_on_feature_correlations round_id=round-001 step=5 task_id=task_4
+[WORKER_STEP] task_id=task_3 step=5 mode=action_window attempt=0 decision=action actions=1
+[WORKER_STEP] task_id=task_1 step=4 mode=reasoning_only attempt=0 decision=continue actions=0
+[WORKER] VALIDATION OK batch_id=phase3a_batch_0306192600_friday-workinghours-afternoon-ddos.pcap_iscx_a08c4b hypothesis_id=hyp_002_strong_dependency_pairs_redundancy round_id=round-001 step=5 task_id=task_3
+[WORKER] VALIDATION OK batch_id=phase3a_batch_0306192600_friday-workinghours-afternoon-ddos.pcap_iscx_a08c4b hypothesis_id=hyp_003_class_conditioned_variation_backward_packet_lengths round_id=round-001 step=4 task_id=task_1
+[WORKER_STEP] task_id=task_4 step=6 mode=reasoning_only attempt=0
+[WORKER_STEP] task_id=task_2 step=5 mode=action_window attempt=0 decision=action actions=1
+[WORKER_STEP] task_id=task_1 step=5 mode=action_window attempt=0
+[WORKER] VALIDATION OK batch_id=phase3a_batch_0306192600_friday-workinghours-afternoon-ddos.pcap_iscx_a08c4b hypothesis_id=hyp_002_strong_dependency_pairs_redundancy round_id=round-001 step=5 task_id=task_2
+[WORKER_STEP] task_id=task_4 step=6 mode=reasoning_only attempt=0
+[WORKER_STEP] task_id=task_1 step=7 mode=action_window attempt=0 decision=continue actions=0
+[WORKER_STEP] task_id=task_3 step=6 mode=reasoning_only attempt=0
+[WORKER] VALIDATION OK batch_id=phase3a_batch_0306192600_friday-workinghours-afternoon-ddos.pcap_iscx_a08c4b hypothesis_id=hyp_010_potential_effects_of_data_redundancy_on_feature_correlations round_id=round-001 step=7 task_id=task_1
+[WORKER_STEP] task_id=task_1 step=8 mode=final_synthesis attempt=0
+[WORKER_STEP] task_id=task_1 step=6 mode=reasoning_only attempt=0 decision=continue actions=0
+[WORKER_STEP] task_id=task_2 step=6 mode=reasoning_only attempt=0
+[WORKER] VALIDATION OK batch_id=phase3a_batch_0306192600_friday-workinghours-afternoon-ddos.pcap_iscx_a08c4b hypothesis_id=hyp_002_strong_dependency_pairs_redundancy round_id=round-001 step=6 task_id=task_1
+[WORKER_STEP] task_id=task_1 step=7 mode=action_window attempt=0
+[WORKER_STEP] task_id=task_2 step=4 mode=reasoning_only attempt=0
+[WORKER_STEP] task_id=task_3 step=8 mode=final_synthesis attempt=0 decision=finish actions=0
+[WORKER] VALIDATION OK batch_id=phase3a_batch_0306192600_friday-workinghours-afternoon-ddos.pcap_iscx_a08c4b hypothesis_id=hyp_010_potential_effects_of_data_redundancy_on_feature_correlations round_id=round-001 step=8 task_id=task_3
+[WORKER] VALIDATION OK batch_id=phase3a_batch_0306192600_friday-workinghours-afternoon-ddos.pcap_iscx_a08c4b hypothesis_id=hyp_010_potential_effects_of_data_redundancy_on_feature_correlations round_id=round-001 task_id=task_3
+[WORKER] VALIDATION OK batch_id=phase3a_batch_0306192600_friday-workinghours-afternoon-ddos.pcap_iscx_a08c4b hypothesis_id=hyp_010_potential_effects_of_data_redundancy_on_feature_correlations round_id=round-001 task_id=task_3
+[WORKER] END (76.8s) batch_id=phase3a_batch_0306192600_friday-workinghours-afternoon-ddos.pcap_iscx_a08c4b hypothesis_id=hyp_010_potential_effects_of_data_redundancy_on_feature_correlations round_id=round-001 task_id=task_3
+[WORKER_STEP] task_id=task_3 step=3 mode=action_window attempt=0 decision=action actions=1
+[WORKER] VALIDATION OK batch_id=phase3a_batch_0306192600_friday-workinghours-afternoon-ddos.pcap_iscx_a08c4b hypothesis_id=hyp_003_class_conditioned_variation_backward_packet_lengths round_id=round-001 step=3 task_id=task_3
+[WORKER_STEP] task_id=task_1 step=5 mode=action_window attempt=0 decision=action actions=1
+[WORKER] VALIDATION OK batch_id=phase3a_batch_0306192600_friday-workinghours-afternoon-ddos.pcap_iscx_a08c4b hypothesis_id=hyp_003_class_conditioned_variation_backward_packet_lengths round_id=round-001 step=5 task_id=task_1
+[WORKER_STEP] task_id=task_2 step=8 mode=final_synthesis attempt=0 decision=finish actions=0
+[WORKER] VALIDATION OK batch_id=phase3a_batch_0306192600_friday-workinghours-afternoon-ddos.pcap_iscx_a08c4b hypothesis_id=hyp_010_potential_effects_of_data_redundancy_on_feature_correlations round_id=round-001 step=8 task_id=task_2
+[WORKER] VALIDATION OK batch_id=phase3a_batch_0306192600_friday-workinghours-afternoon-ddos.pcap_iscx_a08c4b hypothesis_id=hyp_010_potential_effects_of_data_redundancy_on_feature_correlations round_id=round-001 task_id=task_2
+[WORKER] VALIDATION OK batch_id=phase3a_batch_0306192600_friday-workinghours-afternoon-ddos.pcap_iscx_a08c4b hypothesis_id=hyp_010_potential_effects_of_data_redundancy_on_feature_correlations round_id=round-001 task_id=task_2
+[WORKER] END (79.9s) batch_id=phase3a_batch_0306192600_friday-workinghours-afternoon-ddos.pcap_iscx_a08c4b hypothesis_id=hyp_010_potential_effects_of_data_redundancy_on_feature_correlations round_id=round-001 task_id=task_2
+[WORKER_STEP] task_id=task_1 step=6 mode=reasoning_only attempt=0
+[WORKER_STEP] task_id=task_1 step=7 mode=action_window attempt=0 decision=action actions=1
+[WORKER] VALIDATION OK batch_id=phase3a_batch_0306192600_friday-workinghours-afternoon-ddos.pcap_iscx_a08c4b hypothesis_id=hyp_002_strong_dependency_pairs_redundancy round_id=round-001 step=7 task_id=task_1
+[WORKER_STEP] task_id=task_1 step=8 mode=final_synthesis attempt=0
+[WORKER_STEP] task_id=task_4 step=6 mode=reasoning_only attempt=0 decision=continue actions=0
+[WORKER] VALIDATION OK batch_id=phase3a_batch_0306192600_friday-workinghours-afternoon-ddos.pcap_iscx_a08c4b hypothesis_id=hyp_010_potential_effects_of_data_redundancy_on_feature_correlations round_id=round-001 step=6 task_id=task_4
+[WORKER_STEP] task_id=task_4 step=7 mode=action_window attempt=0
+[WORKER_STEP] task_id=task_2 step=6 mode=reasoning_only attempt=0 decision=continue actions=0
+[WORKER] VALIDATION OK batch_id=phase3a_batch_0306192600_friday-workinghours-afternoon-ddos.pcap_iscx_a08c4b hypothesis_id=hyp_002_strong_dependency_pairs_redundancy round_id=round-001 step=6 task_id=task_2
+[WORKER_STEP] task_id=task_2 step=7 mode=action_window attempt=0
+[WORKER_STEP] task_id=task_2 step=4 mode=reasoning_only attempt=0 decision=continue actions=0
+[WORKER_STEP] task_id=task_4 step=6 mode=reasoning_only attempt=0 decision=continue actions=0
+[WORKER] VALIDATION OK batch_id=phase3a_batch_0306192600_friday-workinghours-afternoon-ddos.pcap_iscx_a08c4b hypothesis_id=hyp_003_class_conditioned_variation_backward_packet_lengths round_id=round-001 step=4 task_id=task_2
+[WORKER] VALIDATION OK batch_id=phase3a_batch_0306192600_friday-workinghours-afternoon-ddos.pcap_iscx_a08c4b hypothesis_id=hyp_002_strong_dependency_pairs_redundancy round_id=round-001 step=6 task_id=task_4
+[WORKER_STEP] task_id=task_2 step=5 mode=action_window attempt=0
+[WORKER_STEP] task_id=task_4 step=7 mode=action_window attempt=0
+[WORKER_STEP] task_id=task_3 step=6 mode=reasoning_only attempt=0 decision=continue actions=0
+[WORKER] VALIDATION OK batch_id=phase3a_batch_0306192600_friday-workinghours-afternoon-ddos.pcap_iscx_a08c4b hypothesis_id=hyp_002_strong_dependency_pairs_redundancy round_id=round-001 step=6 task_id=task_3
+[WORKER_STEP] task_id=task_3 step=7 mode=action_window attempt=0
+[WORKER_STEP] task_id=task_1 step=8 mode=final_synthesis attempt=0 decision=finish actions=0
+[WORKER] VALIDATION OK batch_id=phase3a_batch_0306192600_friday-workinghours-afternoon-ddos.pcap_iscx_a08c4b hypothesis_id=hyp_010_potential_effects_of_data_redundancy_on_feature_correlations round_id=round-001 step=8 task_id=task_1
+[WORKER] VALIDATION OK batch_id=phase3a_batch_0306192600_friday-workinghours-afternoon-ddos.pcap_iscx_a08c4b hypothesis_id=hyp_010_potential_effects_of_data_redundancy_on_feature_correlations round_id=round-001 task_id=task_1
+[WORKER] VALIDATION OK batch_id=phase3a_batch_0306192600_friday-workinghours-afternoon-ddos.pcap_iscx_a08c4b hypothesis_id=hyp_010_potential_effects_of_data_redundancy_on_feature_correlations round_id=round-001 task_id=task_1
+[WORKER] END (83.9s) batch_id=phase3a_batch_0306192600_friday-workinghours-afternoon-ddos.pcap_iscx_a08c4b hypothesis_id=hyp_010_potential_effects_of_data_redundancy_on_feature_correlations round_id=round-001 task_id=task_1
+[WORKER_STEP] task_id=task_1 step=6 mode=reasoning_only attempt=0 decision=continue actions=0
+[WORKER] VALIDATION OK batch_id=phase3a_batch_0306192600_friday-workinghours-afternoon-ddos.pcap_iscx_a08c4b hypothesis_id=hyp_003_class_conditioned_variation_backward_packet_lengths round_id=round-001 step=6 task_id=task_1
+[WORKER_STEP] task_id=task_1 step=7 mode=action_window attempt=0
+[WORKER_STEP] task_id=task_2 step=7 mode=action_window attempt=0 decision=action actions=1
+[WORKER] VALIDATION OK batch_id=phase3a_batch_0306192600_friday-workinghours-afternoon-ddos.pcap_iscx_a08c4b hypothesis_id=hyp_002_strong_dependency_pairs_redundancy round_id=round-001 step=7 task_id=task_2
+[WORKER_STEP] task_id=task_2 step=8 mode=final_synthesis attempt=0
+[WORKER_STEP] task_id=task_4 step=7 mode=action_window attempt=0 decision=action actions=1
+[WORKER] VALIDATION OK batch_id=phase3a_batch_0306192600_friday-workinghours-afternoon-ddos.pcap_iscx_a08c4b hypothesis_id=hyp_002_strong_dependency_pairs_redundancy round_id=round-001 step=7 task_id=task_4
+[WORKER_STEP] task_id=task_1 step=8 mode=final_synthesis attempt=0 decision=finish actions=0
+[WORKER] VALIDATION OK batch_id=phase3a_batch_0306192600_friday-workinghours-afternoon-ddos.pcap_iscx_a08c4b hypothesis_id=hyp_002_strong_dependency_pairs_redundancy round_id=round-001 step=8 task_id=task_1
+[WORKER] VALIDATION OK batch_id=phase3a_batch_0306192600_friday-workinghours-afternoon-ddos.pcap_iscx_a08c4b hypothesis_id=hyp_002_strong_dependency_pairs_redundancy round_id=round-001 task_id=task_1
+[WORKER] VALIDATION OK batch_id=phase3a_batch_0306192600_friday-workinghours-afternoon-ddos.pcap_iscx_a08c4b hypothesis_id=hyp_002_strong_dependency_pairs_redundancy round_id=round-001 task_id=task_1
+[WORKER] END (78.3s) batch_id=phase3a_batch_0306192600_friday-workinghours-afternoon-ddos.pcap_iscx_a08c4b hypothesis_id=hyp_002_strong_dependency_pairs_redundancy round_id=round-001 task_id=task_1
+[WORKER_STEP] task_id=task_1 step=7 mode=action_window attempt=0 decision=action actions=1
+[WORKER] VALIDATION OK batch_id=phase3a_batch_0306192600_friday-workinghours-afternoon-ddos.pcap_iscx_a08c4b hypothesis_id=hyp_003_class_conditioned_variation_backward_packet_lengths round_id=round-001 step=7 task_id=task_1
+[WORKER_STEP] task_id=task_4 step=7 mode=action_window attempt=0 decision=action actions=1
+[WORKER] VALIDATION OK batch_id=phase3a_batch_0306192600_friday-workinghours-afternoon-ddos.pcap_iscx_a08c4b hypothesis_id=hyp_010_potential_effects_of_data_redundancy_on_feature_correlations round_id=round-001 step=7 task_id=task_4
+[WORKER_STEP] task_id=task_4 step=8 mode=final_synthesis attempt=0
+[WORKER_STEP] task_id=task_1 step=8 mode=final_synthesis attempt=0
+[WORKER_STEP] task_id=task_4 step=8 mode=final_synthesis attempt=0
+[WORKER_STEP] task_id=task_3 step=7 mode=action_window attempt=0 decision=action actions=1
+[WORKER] VALIDATION OK batch_id=phase3a_batch_0306192600_friday-workinghours-afternoon-ddos.pcap_iscx_a08c4b hypothesis_id=hyp_002_strong_dependency_pairs_redundancy round_id=round-001 step=7 task_id=task_3
+[WORKER_STEP] task_id=task_2 step=5 mode=action_window attempt=0 decision=action actions=1
+[WORKER] VALIDATION OK batch_id=phase3a_batch_0306192600_friday-workinghours-afternoon-ddos.pcap_iscx_a08c4b hypothesis_id=hyp_003_class_conditioned_variation_backward_packet_lengths round_id=round-001 step=5 task_id=task_2
+[WORKER_STEP] task_id=task_2 step=8 mode=final_synthesis attempt=0 decision=finish actions=0
+[WORKER] VALIDATION OK batch_id=phase3a_batch_0306192600_friday-workinghours-afternoon-ddos.pcap_iscx_a08c4b hypothesis_id=hyp_002_strong_dependency_pairs_redundancy round_id=round-001 step=8 task_id=task_2
+[WORKER_STEP] task_id=task_2 step=6 mode=reasoning_only attempt=0
+[WORKER] VALIDATION OK batch_id=phase3a_batch_0306192600_friday-workinghours-afternoon-ddos.pcap_iscx_a08c4b hypothesis_id=hyp_002_strong_dependency_pairs_redundancy round_id=round-001 task_id=task_2
+[WORKER] VALIDATION OK batch_id=phase3a_batch_0306192600_friday-workinghours-afternoon-ddos.pcap_iscx_a08c4b hypothesis_id=hyp_002_strong_dependency_pairs_redundancy round_id=round-001 task_id=task_2
+[WORKER] END (82.4s) batch_id=phase3a_batch_0306192600_friday-workinghours-afternoon-ddos.pcap_iscx_a08c4b hypothesis_id=hyp_002_strong_dependency_pairs_redundancy round_id=round-001 task_id=task_2
+[WORKER_STEP] task_id=task_3 step=4 mode=reasoning_only attempt=0
+[WORKER_STEP] task_id=task_1 step=8 mode=final_synthesis attempt=0 decision=finish actions=0
+[WORKER] VALIDATION OK batch_id=phase3a_batch_0306192600_friday-workinghours-afternoon-ddos.pcap_iscx_a08c4b hypothesis_id=hyp_003_class_conditioned_variation_backward_packet_lengths round_id=round-001 step=8 task_id=task_1
+[WORKER] VALIDATION OK batch_id=phase3a_batch_0306192600_friday-workinghours-afternoon-ddos.pcap_iscx_a08c4b hypothesis_id=hyp_003_class_conditioned_variation_backward_packet_lengths round_id=round-001 task_id=task_1
+[WORKER_STEP] task_id=task_2 step=6 mode=reasoning_only attempt=0 decision=continue actions=0
+[WORKER] VALIDATION OK batch_id=phase3a_batch_0306192600_friday-workinghours-afternoon-ddos.pcap_iscx_a08c4b hypothesis_id=hyp_003_class_conditioned_variation_backward_packet_lengths round_id=round-001 step=6 task_id=task_2
+[WORKER_STEP] task_id=task_2 step=7 mode=action_window attempt=0
+[WORKER] VALIDATION OK batch_id=phase3a_batch_0306192600_friday-workinghours-afternoon-ddos.pcap_iscx_a08c4b hypothesis_id=hyp_003_class_conditioned_variation_backward_packet_lengths round_id=round-001 task_id=task_1
+[WORKER] END (74.8s) batch_id=phase3a_batch_0306192600_friday-workinghours-afternoon-ddos.pcap_iscx_a08c4b hypothesis_id=hyp_003_class_conditioned_variation_backward_packet_lengths round_id=round-001 task_id=task_1
+[WORKER_STEP] task_id=task_4 step=8 mode=final_synthesis attempt=0 decision=finish actions=0
+[WORKER] VALIDATION OK batch_id=phase3a_batch_0306192600_friday-workinghours-afternoon-ddos.pcap_iscx_a08c4b hypothesis_id=hyp_002_strong_dependency_pairs_redundancy round_id=round-001 step=8 task_id=task_4
+[WORKER] VALIDATION OK batch_id=phase3a_batch_0306192600_friday-workinghours-afternoon-ddos.pcap_iscx_a08c4b hypothesis_id=hyp_002_strong_dependency_pairs_redundancy round_id=round-001 task_id=task_4
+[WORKER] VALIDATION OK batch_id=phase3a_batch_0306192600_friday-workinghours-afternoon-ddos.pcap_iscx_a08c4b hypothesis_id=hyp_002_strong_dependency_pairs_redundancy round_id=round-001 task_id=task_4
+[WORKER] END (86.9s) batch_id=phase3a_batch_0306192600_friday-workinghours-afternoon-ddos.pcap_iscx_a08c4b hypothesis_id=hyp_002_strong_dependency_pairs_redundancy round_id=round-001 task_id=task_4
+[WORKER_STEP] task_id=task_4 step=8 mode=final_synthesis attempt=0 decision=finish actions=0
+[WORKER] VALIDATION OK batch_id=phase3a_batch_0306192600_friday-workinghours-afternoon-ddos.pcap_iscx_a08c4b hypothesis_id=hyp_010_potential_effects_of_data_redundancy_on_feature_correlations round_id=round-001 step=8 task_id=task_4
+[WORKER] VALIDATION OK batch_id=phase3a_batch_0306192600_friday-workinghours-afternoon-ddos.pcap_iscx_a08c4b hypothesis_id=hyp_010_potential_effects_of_data_redundancy_on_feature_correlations round_id=round-001 task_id=task_4
+[WORKER] VALIDATION OK batch_id=phase3a_batch_0306192600_friday-workinghours-afternoon-ddos.pcap_iscx_a08c4b hypothesis_id=hyp_010_potential_effects_of_data_redundancy_on_feature_correlations round_id=round-001 task_id=task_4
+[WORKER] END (98.3s) batch_id=phase3a_batch_0306192600_friday-workinghours-afternoon-ddos.pcap_iscx_a08c4b hypothesis_id=hyp_010_potential_effects_of_data_redundancy_on_feature_correlations round_id=round-001 task_id=task_4
+[AGGREGATION] START batch_id=phase3a_batch_0306192600_friday-workinghours-afternoon-ddos.pcap_iscx_a08c4b hypothesis_id=hyp_010_potential_effects_of_data_redundancy_on_feature_correlations round_id=round-001
+[WORKER_STEP] task_id=task_3 step=4 mode=reasoning_only attempt=0 decision=continue actions=0
+[WORKER] VALIDATION OK batch_id=phase3a_batch_0306192600_friday-workinghours-afternoon-ddos.pcap_iscx_a08c4b hypothesis_id=hyp_003_class_conditioned_variation_backward_packet_lengths round_id=round-001 step=4 task_id=task_3
+[WORKER_STEP] task_id=task_3 step=5 mode=action_window attempt=0
+[WORKER_STEP] task_id=task_2 step=7 mode=action_window attempt=0 decision=action actions=1
+[WORKER] VALIDATION OK batch_id=phase3a_batch_0306192600_friday-workinghours-afternoon-ddos.pcap_iscx_a08c4b hypothesis_id=hyp_003_class_conditioned_variation_backward_packet_lengths round_id=round-001 step=7 task_id=task_2
+[WORKER_STEP] task_id=task_2 step=8 mode=final_synthesis attempt=0
+[WORKER_STEP] task_id=task_3 step=5 mode=action_window attempt=0 decision=action actions=1
+[WORKER] VALIDATION OK batch_id=phase3a_batch_0306192600_friday-workinghours-afternoon-ddos.pcap_iscx_a08c4b hypothesis_id=hyp_003_class_conditioned_variation_backward_packet_lengths round_id=round-001 step=5 task_id=task_3
+[WORKER_STEP] task_id=task_3 step=6 mode=reasoning_only attempt=0
+[WORKER_STEP] task_id=task_3 step=8 mode=final_synthesis attempt=0
+[WORKER_STEP] task_id=task_2 step=8 mode=final_synthesis attempt=0 decision=finish actions=0
+[WORKER] VALIDATION OK batch_id=phase3a_batch_0306192600_friday-workinghours-afternoon-ddos.pcap_iscx_a08c4b hypothesis_id=hyp_003_class_conditioned_variation_backward_packet_lengths round_id=round-001 step=8 task_id=task_2
+[WORKER] VALIDATION OK batch_id=phase3a_batch_0306192600_friday-workinghours-afternoon-ddos.pcap_iscx_a08c4b hypothesis_id=hyp_003_class_conditioned_variation_backward_packet_lengths round_id=round-001 task_id=task_2
+[WORKER] VALIDATION OK batch_id=phase3a_batch_0306192600_friday-workinghours-afternoon-ddos.pcap_iscx_a08c4b hypothesis_id=hyp_003_class_conditioned_variation_backward_packet_lengths round_id=round-001 task_id=task_2
+[WORKER] END (84.1s) batch_id=phase3a_batch_0306192600_friday-workinghours-afternoon-ddos.pcap_iscx_a08c4b hypothesis_id=hyp_003_class_conditioned_variation_backward_packet_lengths round_id=round-001 task_id=task_2
+[WORKER_STEP] task_id=task_3 step=6 mode=reasoning_only attempt=0 decision=continue actions=0
+[WORKER] VALIDATION OK batch_id=phase3a_batch_0306192600_friday-workinghours-afternoon-ddos.pcap_iscx_a08c4b hypothesis_id=hyp_003_class_conditioned_variation_backward_packet_lengths round_id=round-001 step=6 task_id=task_3
+[WORKER_STEP] task_id=task_3 step=7 mode=action_window attempt=0
+[HYPOTHESIS_BARRIER] expected_tasks=4 completed_tasks=4 waiting_for=[] batch_id=phase3a_batch_0306192600_friday-workinghours-afternoon-ddos.pcap_iscx_a08c4b hypothesis_id=hyp_010_potential_effects_of_data_redundancy_on_feature_correlations round_id=round-001
+[AGGREGATION] VALIDATION OK batch_id=phase3a_batch_0306192600_friday-workinghours-afternoon-ddos.pcap_iscx_a08c4b hypothesis_id=hyp_010_potential_effects_of_data_redundancy_on_feature_correlations round_id=round-001
+[AGGREGATION] END (8.1s) batch_id=phase3a_batch_0306192600_friday-workinghours-afternoon-ddos.pcap_iscx_a08c4b hypothesis_id=hyp_010_potential_effects_of_data_redundancy_on_feature_correlations round_id=round-001
+[HYPOTHESIS] hypothesis_id=hyp_010_potential_effects_of_data_redundancy_on_feature_correlations round_id=round-001 ALL WORKERS COMPLETE
+[WORKER_STEP] task_id=task_3 step=7 mode=action_window attempt=0 decision=action actions=1
+[WORKER] VALIDATION OK batch_id=phase3a_batch_0306192600_friday-workinghours-afternoon-ddos.pcap_iscx_a08c4b hypothesis_id=hyp_003_class_conditioned_variation_backward_packet_lengths round_id=round-001 step=7 task_id=task_3
+[WORKER_STEP] task_id=task_3 step=8 mode=final_synthesis attempt=0 decision=finish actions=0
+[WORKER] VALIDATION OK batch_id=phase3a_batch_0306192600_friday-workinghours-afternoon-ddos.pcap_iscx_a08c4b hypothesis_id=hyp_002_strong_dependency_pairs_redundancy round_id=round-001 step=8 task_id=task_3
+[WORKER_STEP] task_id=task_3 step=8 mode=final_synthesis attempt=0
+[WORKER] VALIDATION OK batch_id=phase3a_batch_0306192600_friday-workinghours-afternoon-ddos.pcap_iscx_a08c4b hypothesis_id=hyp_002_strong_dependency_pairs_redundancy round_id=round-001 task_id=task_3
+[WORKER] VALIDATION OK batch_id=phase3a_batch_0306192600_friday-workinghours-afternoon-ddos.pcap_iscx_a08c4b hypothesis_id=hyp_002_strong_dependency_pairs_redundancy round_id=round-001 task_id=task_3
+[WORKER] END (100.1s) batch_id=phase3a_batch_0306192600_friday-workinghours-afternoon-ddos.pcap_iscx_a08c4b hypothesis_id=hyp_002_strong_dependency_pairs_redundancy round_id=round-001 task_id=task_3
+[AGGREGATION] START batch_id=phase3a_batch_0306192600_friday-workinghours-afternoon-ddos.pcap_iscx_a08c4b hypothesis_id=hyp_002_strong_dependency_pairs_redundancy round_id=round-001
+[WORKER_STEP] task_id=task_3 step=8 mode=final_synthesis attempt=0 decision=finish actions=0
+[WORKER] VALIDATION OK batch_id=phase3a_batch_0306192600_friday-workinghours-afternoon-ddos.pcap_iscx_a08c4b hypothesis_id=hyp_003_class_conditioned_variation_backward_packet_lengths round_id=round-001 step=8 task_id=task_3
+[WORKER] VALIDATION OK batch_id=phase3a_batch_0306192600_friday-workinghours-afternoon-ddos.pcap_iscx_a08c4b hypothesis_id=hyp_003_class_conditioned_variation_backward_packet_lengths round_id=round-001 task_id=task_3
+[WORKER] VALIDATION OK batch_id=phase3a_batch_0306192600_friday-workinghours-afternoon-ddos.pcap_iscx_a08c4b hypothesis_id=hyp_003_class_conditioned_variation_backward_packet_lengths round_id=round-001 task_id=task_3
+[WORKER] END (94.6s) batch_id=phase3a_batch_0306192600_friday-workinghours-afternoon-ddos.pcap_iscx_a08c4b hypothesis_id=hyp_003_class_conditioned_variation_backward_packet_lengths round_id=round-001 task_id=task_3
+[HYPOTHESIS_BARRIER] expected_tasks=4 completed_tasks=4 waiting_for=[] batch_id=phase3a_batch_0306192600_friday-workinghours-afternoon-ddos.pcap_iscx_a08c4b hypothesis_id=hyp_002_strong_dependency_pairs_redundancy round_id=round-001
+[AGGREGATION] VALIDATION FAILED batch_id=phase3a_batch_0306192600_friday-workinghours-afternoon-ddos.pcap_iscx_a08c4b hypothesis_id=hyp_002_strong_dependency_pairs_redundancy round_id=round-001
+{
+  "aggregation_handoff_validation": {
+    "errors": [
+      {
+        "field": "update_focus",
+        "message": "update_focus must stay under 160 characters."
+      }
+    ],
+    "forbidden_language_hits": [],
+    "ok": false,
+    "stats": {
+      "evidence_ref_count": 12,
+      "merged_finding_count": 4,
+      "open_gap_count": 2,
+      "preserved_contradiction_count": 0
+    },
+    "warnings": []
+  },
+  "ok": false,
+  "parse_validation": {
+    "errors": [],
+    "ok": true,
+    "warnings": []
+  },
+  "schema_version": "phase3a.aggregation.v1",
+  "worker_result_set_validation": {
+    "errors": [],
+    "ok": true,
+    "stats": {
+      "contradiction_count": 0,
+      "evidence_ref_count": 12,
+      "limitation_count": 2,
+      "non_success_count": 0,
+      "worker_result_count": 4
+    },
+    "warnings": []
+  }
+}
+[AGGREGATION] END (6.9s) batch_id=phase3a_batch_0306192600_friday-workinghours-afternoon-ddos.pcap_iscx_a08c4b hypothesis_id=hyp_002_strong_dependency_pairs_redundancy round_id=round-001
+[WORKER_STEP] task_id=task_4 step=4 mode=reasoning_only attempt=0
+[WORKER_STEP] task_id=task_4 step=4 mode=reasoning_only attempt=0 decision=continue actions=0
+[WORKER] VALIDATION OK batch_id=phase3a_batch_0306192600_friday-workinghours-afternoon-ddos.pcap_iscx_a08c4b hypothesis_id=hyp_003_class_conditioned_variation_backward_packet_lengths round_id=round-001 step=4 task_id=task_4
+[WORKER_STEP] task_id=task_4 step=5 mode=action_window attempt=0
+[WORKER_STEP] task_id=task_4 step=5 mode=action_window attempt=0 decision=action actions=1
+[WORKER] VALIDATION OK batch_id=phase3a_batch_0306192600_friday-workinghours-afternoon-ddos.pcap_iscx_a08c4b hypothesis_id=hyp_003_class_conditioned_variation_backward_packet_lengths round_id=round-001 step=5 task_id=task_4
+[WORKER_STEP] task_id=task_4 step=6 mode=reasoning_only attempt=0
+[WORKER_STEP] task_id=task_4 step=6 mode=reasoning_only attempt=0 decision=continue actions=0
+[WORKER] VALIDATION OK batch_id=phase3a_batch_0306192600_friday-workinghours-afternoon-ddos.pcap_iscx_a08c4b hypothesis_id=hyp_003_class_conditioned_variation_backward_packet_lengths round_id=round-001 step=6 task_id=task_4
+[WORKER_STEP] task_id=task_4 step=7 mode=action_window attempt=0
+[WORKER_STEP] task_id=task_4 step=7 mode=action_window attempt=0 decision=action actions=1
+[WORKER] VALIDATION OK batch_id=phase3a_batch_0306192600_friday-workinghours-afternoon-ddos.pcap_iscx_a08c4b hypothesis_id=hyp_003_class_conditioned_variation_backward_packet_lengths round_id=round-001 step=7 task_id=task_4
+[WORKER_STEP] task_id=task_4 step=8 mode=final_synthesis attempt=0
+[WORKER_STEP] task_id=task_4 step=8 mode=final_synthesis attempt=0 decision=finish actions=0
+[WORKER] VALIDATION OK batch_id=phase3a_batch_0306192600_friday-workinghours-afternoon-ddos.pcap_iscx_a08c4b hypothesis_id=hyp_003_class_conditioned_variation_backward_packet_lengths round_id=round-001 step=8 task_id=task_4
+[WORKER] VALIDATION OK batch_id=phase3a_batch_0306192600_friday-workinghours-afternoon-ddos.pcap_iscx_a08c4b hypothesis_id=hyp_003_class_conditioned_variation_backward_packet_lengths round_id=round-001 task_id=task_4
+[WORKER] VALIDATION OK batch_id=phase3a_batch_0306192600_friday-workinghours-afternoon-ddos.pcap_iscx_a08c4b hypothesis_id=hyp_003_class_conditioned_variation_backward_packet_lengths round_id=round-001 task_id=task_4
+[WORKER] END (563.9s) batch_id=phase3a_batch_0306192600_friday-workinghours-afternoon-ddos.pcap_iscx_a08c4b hypothesis_id=hyp_003_class_conditioned_variation_backward_packet_lengths round_id=round-001 task_id=task_4
+[AGGREGATION] START batch_id=phase3a_batch_0306192600_friday-workinghours-afternoon-ddos.pcap_iscx_a08c4b hypothesis_id=hyp_003_class_conditioned_variation_backward_packet_lengths round_id=round-001
+[HYPOTHESIS_BARRIER] expected_tasks=4 completed_tasks=4 waiting_for=[] batch_id=phase3a_batch_0306192600_friday-workinghours-afternoon-ddos.pcap_iscx_a08c4b hypothesis_id=hyp_003_class_conditioned_variation_backward_packet_lengths round_id=round-001
+[AGGREGATION] VALIDATION FAILED batch_id=phase3a_batch_0306192600_friday-workinghours-afternoon-ddos.pcap_iscx_a08c4b hypothesis_id=hyp_003_class_conditioned_variation_backward_packet_lengths round_id=round-001
+{
+  "aggregation_handoff_validation": {
+    "errors": [
+      {
+        "field": "update_focus",
+        "message": "update_focus must stay under 160 characters."
+      }
+    ],
+    "forbidden_language_hits": [],
+    "ok": false,
+    "stats": {
+      "evidence_ref_count": 12,
+      "merged_finding_count": 3,
+      "open_gap_count": 3,
+      "preserved_contradiction_count": 1
+    },
+    "warnings": []
+  },
+  "ok": false,
+  "parse_validation": {
+    "errors": [],
+    "ok": true,
+    "warnings": []
+  },
+  "schema_version": "phase3a.aggregation.v1",
+  "worker_result_set_validation": {
+    "errors": [],
+    "ok": true,
+    "stats": {
+      "contradiction_count": 1,
+      "evidence_ref_count": 12,
+      "limitation_count": 4,
+      "non_success_count": 0,
+      "worker_result_count": 4
+    },
+    "warnings": []
+  }
+}
+[AGGREGATION] END (9.6s) batch_id=phase3a_batch_0306192600_friday-workinghours-afternoon-ddos.pcap_iscx_a08c4b hypothesis_id=hyp_003_class_conditioned_variation_backward_packet_lengths round_id=round-001
+[BATCH] EXCEPTION round_id=None hypothesis_id=None task_id=None
+Traceback (most recent call last):
+  File "C:\Users\Uni\Desktop\TFG\nids-smell-audit\phase3\phase3_runtime\orchestrator.py", line 343, in run_phase3a_batch
+    round_result = execute_round(
+        batch_id=normalized_batch_id,
+    ...<20 lines>...
+        analysis_mode=analysis_mode,
+    )
+  File "C:\Users\Uni\Desktop\TFG\nids-smell-audit\phase3\phase3_runtime\round_executor.py", line 616, in execute_round
+    aggregation_result = aggregation_future.result()
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.13_3.13.3568.0_x64__qbz5n2kfra8p0\Lib\concurrent\futures\_base.py", line 456, in result
+    return self.__get_result()
+           ~~~~~~~~~~~~~~~~~^^
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.13_3.13.3568.0_x64__qbz5n2kfra8p0\Lib\concurrent\futures\_base.py", line 401, in __get_result
+    raise self._exception
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.13_3.13.3568.0_x64__qbz5n2kfra8p0\Lib\concurrent\futures\thread.py", line 59, in run
+    result = self.fn(*self.args, **self.kwargs)
+  File "C:\Users\Uni\Desktop\TFG\nids-smell-audit\phase3\phase3_runtime\round_executor.py", line 247, in _await_workers_and_run_aggregation
+    _require_component_ok(
+    ~~~~~~~~~~~~~~~~~~~~~^
+        "aggregation",
+        ^^^^^^^^^^^^^^
+    ...<4 lines>...
+        ),
+        ^^
+    )
+    ^
+  File "C:\Users\Uni\Desktop\TFG\nids-smell-audit\phase3\phase3_runtime\round_executor.py", line 50, in _require_component_ok
+    raise RuntimeError(
+        f"{component_name} returned a non-authoritative bundle.")
+RuntimeError: aggregation returned a non-authoritative bundle.
+[BATCH] batch_id=phase3a_batch_0306192600_friday-workinghours-afternoon-ddos.pcap_iscx_a08c4b error=aggregation returned a non-authoritative bundle. FAILED
+[BATCH] END (706.0s) batch_id=phase3a_batch_0306192600_friday-workinghours-afternoon-ddos.pcap_iscx_a08c4b

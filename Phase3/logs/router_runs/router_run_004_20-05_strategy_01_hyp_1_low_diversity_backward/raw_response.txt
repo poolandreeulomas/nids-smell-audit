@@ -1,0 +1,40 @@
+{
+  "batch_id": "phase3a_batch_2005190226_friday-workinghours-afternoon-ddos.pcap_iscx_01bd74",
+  "round_id": "round-001",
+  "hypothesis_id": "hyp_1_low_diversity_backward_bulk",
+  "planner_strategy_id": "strategy_01_hyp_1_low_diversity_backward_bulk",
+  "worker_tasks": [
+    {
+      "task_id": "task_1",
+      "hypothesis_id": "hyp_1_low_diversity_backward_bulk",
+      "task_scope": "Measure exact unique value counts and cardinality ratios for backward bulk features within evidence refs e23 to e28",
+      "allowed_actions": ["cardinality_verification"],
+      "local_context_refs": ["e23", "e24", "e25", "e26", "e27", "e28"],
+      "stop_conditions": ["cardinality metrics computed for all backward bulk features", "no further unique value changes detected"]
+    },
+    {
+      "task_id": "task_2",
+      "hypothesis_id": "hyp_1_low_diversity_backward_bulk",
+      "task_scope": "Compare distribution profiles of backward bulk features across different time slices and traffic segments in evidence refs e23 to e28",
+      "allowed_actions": ["distribution_verification"],
+      "local_context_refs": ["e23", "e24", "e25", "e26", "e27", "e28"],
+      "stop_conditions": ["distribution comparisons completed for all relevant time slices and segments", "distribution stability or variation patterns identified"]
+    },
+    {
+      "task_id": "task_3",
+      "hypothesis_id": "hyp_1_low_diversity_backward_bulk",
+      "task_scope": "Assess potential preprocessing or data collection steps that could induce uniformity in backward bulk features using evidence refs e23 to e28",
+      "allowed_actions": ["dependency_contextualization", "structural_summary"],
+      "local_context_refs": ["e23", "e24", "e25", "e26", "e27", "e28"],
+      "stop_conditions": ["dependency and structural summaries generated", "indications of preprocessing or collection artifacts identified or ruled out"]
+    },
+    {
+      "task_id": "task_4",
+      "hypothesis_id": "hyp_1_low_diversity_backward_bulk",
+      "task_scope": "Investigate subtle intra-class variations and shortcut-like signals within backward bulk features in evidence refs e23 to e28",
+      "allowed_actions": ["local_consistency_verification", "shortcut_verification"],
+      "local_context_refs": ["e23", "e24", "e25", "e26", "e27", "e28"],
+      "stop_conditions": ["local consistency and shortcut analyses completed", "meaningful sub-patterns or deviations detected or excluded"]
+    }
+  ]
+}

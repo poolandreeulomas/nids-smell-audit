@@ -1,0 +1,20 @@
+{
+  "strategy_id": "strategy_01_hyp_3",
+  "hypothesis_id": "hyp_3_strong_feature_dependencies_and_redundancy",
+  "strategic_objective": "Clarify stability and class-dependence of strong feature correlations and assess redundancy impact on model simplification potential.",
+  "key_checks": [
+    "Compare dependency strength across BENIGN and DDoS classes",
+    "Identify feature pairs with near-perfect correlation within each class",
+    "Evaluate if redundancy patterns persist under different attack phases or time windows",
+    "Assess if removing redundant features affects class-separability signals"
+  ],
+  "success_criteria": [
+    "Evidence of stable or varying dependency profiles by class",
+    "Identification of redundant features that can be removed without loss of key signal",
+    "Characterization of dependency patterns that may simplify feature space without weakening detection"
+  ],
+  "router_constraints": [
+    "preserve feature_scope",
+    "preserve evidence refs e13 to e22"
+  ]
+}

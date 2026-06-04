@@ -1,0 +1,20 @@
+{
+  "strategy_id": "strategy_01_hyp_005",
+  "hypothesis_id": "hyp_005_class_distribution_skew_in_destination_port",
+  "strategic_objective": "Assess the stability and shortcut potential of the dominant destination port distribution in DDoS traffic.",
+  "key_checks": [
+    "Measure class-conditioned distribution stability of Destination Port across time segments",
+    "Evaluate entropy and dominant port ratio variability within DDoS class",
+    "Test shortcut-like predictive leverage of Destination Port feature alone",
+    "Compare port distribution patterns between attack campaigns and benign traffic"
+  ],
+  "success_criteria": [
+    "Evidence of stable dominance of a single port in DDoS class across samples",
+    "Identification of potential shortcut exploitation via port-based heuristics",
+    "Detection of representation-sensitive shifts in port distribution under different conditions"
+  ],
+  "router_constraints": [
+    "preserve feature_scope for Destination Port",
+    "preserve evidence refs e33"
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "task_id": "task_4",
+  "hypothesis_id": "hyp_6_class_distribution_difference_destination_port",
+  "task_scope": "Examine stability of model behavior when excluding or perturbing Destination Port feature based on evidence e33",
+  "allowed_actions": [
+    "dependency_contextualization",
+    "relation_verification"
+  ],
+  "local_context_refs": [
+    "e33"
+  ],
+  "stop_conditions": [
+    "model behavior stability evaluated",
+    "feature exclusion impact documented"
+  ]
+}

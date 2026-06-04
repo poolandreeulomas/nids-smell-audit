@@ -1,0 +1,20 @@
+{
+  "strategy_id": "strategy_03_hyp_7",
+  "hypothesis_id": "hyp_7_heterogeneous_structural_regimes",
+  "strategic_objective": "Investigate the coexistence of near-constant and strongly varying features to characterize heterogeneous structural regimes and their temporal or network segment associations.",
+  "key_checks": [
+    "Identify temporal or segment boundaries correlating with regime shifts",
+    "Compare class-conditioned structural variation patterns across regimes",
+    "Assess model sensitivity to regime heterogeneity",
+    "Evaluate potential for regime-aware modeling or detection strategies"
+  ],
+  "success_criteria": [
+    "Evidence linking heterogeneous regimes to distinct temporal phases or network segments",
+    "Characterization of regime-specific structural patterns and their stability",
+    "Understanding of how heterogeneity influences model behavior"
+  ],
+  "router_constraints": [
+    "preserve feature scope for heterogeneous regime features",
+    "preserve evidence references e8, e9, e10, e23, e24"
+  ]
+}

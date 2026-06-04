@@ -1,0 +1,35 @@
+{
+  "selected_count": 3,
+  "strategy_count": 3,
+  "missing_strategy_hypothesis_ids": [],
+  "unexpected_strategy_hypothesis_ids": [],
+  "strategies": [
+    {
+      "strategy_id": "strategy_01_hyp_8",
+      "hypothesis_id": "hyp_8_low_cardinality_features_as_potential_shortcut_signals",
+      "summary": "The extremely low cardinality and near-constant values of multiple bulk rate and flag features (e23\u2013e32) may act as shortcut-like signals that models could exploit, potentially leading to brittle or overfitted behavior if these features correlate spuriously with class labels.",
+      "strategic_objective": "Assess stability and subtle variability of low cardinality features to understand their potential as brittle shortcut signals.",
+      "key_check_count": 4,
+      "success_criteria_count": 4,
+      "router_constraint_count": 3
+    },
+    {
+      "strategy_id": "strategy_02_hyp_3",
+      "hypothesis_id": "hyp_3_class_conditioned_structural_variation_in_packet_length_features",
+      "summary": "Packet length and size-related features (e8\u2013e12) show substantial structural variation conditioned on class, with differing variance ratios and unique value counts between BENIGN and DDoS classes, indicating these features may capture meaningful behavioral differences relevant to attack detection.",
+      "strategic_objective": "Clarify whether class-conditioned structural differences in packet length features reflect true behavioral signals or sampling biases and their interaction with low cardinality features.",
+      "key_check_count": 4,
+      "success_criteria_count": 4,
+      "router_constraint_count": 3
+    },
+    {
+      "strategy_id": "strategy_03_hyp_4",
+      "hypothesis_id": "hyp_4_destination_port_distribution_skew_reflects_attack_targeting",
+      "summary": "The Destination Port feature (e33) exhibits strong distributional differences between BENIGN and DDoS classes, with a high dominant ratio in the DDoS class and substantial Jensen-Shannon divergence, possibly reflecting targeted attack behavior or protocol-specific exploitation patterns.",
+      "strategic_objective": "Determine consistency and representational leverage of destination port distribution skew as an attack targeting signal.",
+      "key_check_count": 4,
+      "success_criteria_count": 4,
+      "router_constraint_count": 3
+    }
+  ]
+}

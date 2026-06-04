@@ -1,0 +1,15 @@
+{
+  "task_id": "task_3",
+  "hypothesis_id": "hyp_8_class_conditioned_distribution_destination_port",
+  "task_scope": "Evaluate stability of destination port distribution skew across dataset partitions or time slices in evidence e33",
+  "allowed_actions": [
+    "distribution_verification"
+  ],
+  "local_context_refs": [
+    "e33"
+  ],
+  "stop_conditions": [
+    "distribution stability measured",
+    "temporal or partition variance characterized"
+  ]
+}

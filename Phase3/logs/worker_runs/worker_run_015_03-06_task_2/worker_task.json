@@ -1,0 +1,17 @@
+{
+  "task_id": "task_2",
+  "hypothesis_id": "hyp_003_class_conditioned_structural_variation",
+  "task_scope": "Test consistency of class-conditioned distribution differences under varying network conditions using distribution and local consistency verification.",
+  "allowed_actions": [
+    "distribution_verification",
+    "local_consistency_verification"
+  ],
+  "local_context_refs": [
+    "e9",
+    "e10"
+  ],
+  "stop_conditions": [
+    "distribution differences stable across network condition subsets",
+    "local label-topology consistency confirmed"
+  ]
+}

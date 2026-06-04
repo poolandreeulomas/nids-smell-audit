@@ -1,0 +1,66 @@
+{
+  "call_id": "task_3_step_03",
+  "tool_name": "feature_summary",
+  "status": "ok",
+  "observations": {
+    "feature_name": "Average Packet Size",
+    "value": 2.881413899451491,
+    "signals": [],
+    "metrics": {
+      "mean": {
+        "BENIGN": 249.5906253645389,
+        "DDoS": 822.6120019402175
+      },
+      "std": {
+        "BENIGN": 388.13276716680735,
+        "DDoS": 658.844814221136
+      },
+      "variance": {
+        "BENIGN": 150647.0449485631,
+        "DDoS": 434076.4892260832
+      },
+      "coef_variation": {
+        "BENIGN": 1.5550775058154571,
+        "DDoS": 0.8009180666792859
+      },
+      "unique_values": {
+        "BENIGN": 11242,
+        "DDoS": 69
+      },
+      "variance_ratio": 2.881413899451491
+    },
+    "support": {
+      "n_total": 225745,
+      "n_per_class": {
+        "BENIGN": 97718,
+        "DDoS": 128027
+      },
+      "total_samples": 225745,
+      "per_class": {
+        "BENIGN": 97718,
+        "DDoS": 128027
+      }
+    },
+    "provenance": {
+      "source": "tool",
+      "tool": "feature_summary",
+      "step": null
+    },
+    "feature": "Average Packet Size"
+  },
+  "evidence_refs": [
+    {
+      "artifact": "parsed_output",
+      "path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_293_03-06_feature_summary_feature\\parsed_output.json"
+    },
+    {
+      "artifact": "raw_tool_output",
+      "path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_293_03-06_feature_summary_feature\\raw_tool_output.json"
+    },
+    {
+      "artifact": "component_run",
+      "path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_293_03-06_feature_summary_feature\\component_run.json"
+    }
+  ],
+  "limitations": []
+}

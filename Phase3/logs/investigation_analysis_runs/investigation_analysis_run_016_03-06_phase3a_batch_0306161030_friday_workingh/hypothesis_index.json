@@ -1,0 +1,235 @@
+{
+  "hypothesis_count": 10,
+  "evidence_ref_coverage": [
+    "e1",
+    "e10",
+    "e11",
+    "e12",
+    "e13",
+    "e16",
+    "e2",
+    "e22",
+    "e23",
+    "e24",
+    "e25",
+    "e26",
+    "e27",
+    "e28",
+    "e29",
+    "e3",
+    "e30",
+    "e31",
+    "e32",
+    "e33",
+    "e4",
+    "e5",
+    "e6",
+    "e7",
+    "e8",
+    "e9"
+  ],
+  "overlap_pairs": [
+    {
+      "left_hypothesis_id": "hyp_1_redundancy_vs_importance_tension",
+      "right_hypothesis_id": "hyp_9_tension_between_burst_behavior_and_structural_collapse",
+      "shared_evidence_refs": [
+        "e3"
+      ]
+    },
+    {
+      "left_hypothesis_id": "hyp_1_redundancy_vs_importance_tension",
+      "right_hypothesis_id": "hyp_10_potential_overfitting_risk_due_to_redundant_features",
+      "shared_evidence_refs": [
+        "e13",
+        "e16",
+        "e22",
+        "e3",
+        "e4"
+      ]
+    },
+    {
+      "left_hypothesis_id": "hyp_2_low_cardinality_vs_class_variation_tension",
+      "right_hypothesis_id": "hyp_4_backward_packet_length_features_as_structural_variation_indicators",
+      "shared_evidence_refs": [
+        "e10",
+        "e11",
+        "e12",
+        "e9"
+      ]
+    },
+    {
+      "left_hypothesis_id": "hyp_2_low_cardinality_vs_class_variation_tension",
+      "right_hypothesis_id": "hyp_6_low_diversity_bulk_features_as_stable_baseline",
+      "shared_evidence_refs": [
+        "e23",
+        "e24",
+        "e25"
+      ]
+    },
+    {
+      "left_hypothesis_id": "hyp_2_low_cardinality_vs_class_variation_tension",
+      "right_hypothesis_id": "hyp_9_tension_between_burst_behavior_and_structural_collapse",
+      "shared_evidence_refs": [
+        "e23",
+        "e9"
+      ]
+    },
+    {
+      "left_hypothesis_id": "hyp_3_distributional_skew_vs_partition_imbalance",
+      "right_hypothesis_id": "hyp_7_impact_of_partition_level_data_quality_on_structural_patterns",
+      "shared_evidence_refs": [
+        "e1",
+        "e2"
+      ]
+    },
+    {
+      "left_hypothesis_id": "hyp_3_distributional_skew_vs_partition_imbalance",
+      "right_hypothesis_id": "hyp_8_localized_representation_sensitive_signal_in_destination_port",
+      "shared_evidence_refs": [
+        "e33"
+      ]
+    },
+    {
+      "left_hypothesis_id": "hyp_3_distributional_skew_vs_partition_imbalance",
+      "right_hypothesis_id": "hyp_9_tension_between_burst_behavior_and_structural_collapse",
+      "shared_evidence_refs": [
+        "e33"
+      ]
+    },
+    {
+      "left_hypothesis_id": "hyp_4_backward_packet_length_features_as_structural_variation_indicators",
+      "right_hypothesis_id": "hyp_9_tension_between_burst_behavior_and_structural_collapse",
+      "shared_evidence_refs": [
+        "e9"
+      ]
+    },
+    {
+      "left_hypothesis_id": "hyp_6_low_diversity_bulk_features_as_stable_baseline",
+      "right_hypothesis_id": "hyp_9_tension_between_burst_behavior_and_structural_collapse",
+      "shared_evidence_refs": [
+        "e23"
+      ]
+    },
+    {
+      "left_hypothesis_id": "hyp_8_localized_representation_sensitive_signal_in_destination_port",
+      "right_hypothesis_id": "hyp_9_tension_between_burst_behavior_and_structural_collapse",
+      "shared_evidence_refs": [
+        "e33"
+      ]
+    },
+    {
+      "left_hypothesis_id": "hyp_9_tension_between_burst_behavior_and_structural_collapse",
+      "right_hypothesis_id": "hyp_10_potential_overfitting_risk_due_to_redundant_features",
+      "shared_evidence_refs": [
+        "e3"
+      ]
+    }
+  ],
+  "hypotheses": [
+    {
+      "hypothesis_id": "hyp_1_redundancy_vs_importance_tension",
+      "evidence_refs": [
+        "e13",
+        "e16",
+        "e22",
+        "e3",
+        "e4"
+      ],
+      "open_question_count": 2
+    },
+    {
+      "hypothesis_id": "hyp_2_low_cardinality_vs_class_variation_tension",
+      "evidence_refs": [
+        "e10",
+        "e11",
+        "e12",
+        "e23",
+        "e24",
+        "e25",
+        "e9"
+      ],
+      "open_question_count": 2
+    },
+    {
+      "hypothesis_id": "hyp_3_distributional_skew_vs_partition_imbalance",
+      "evidence_refs": [
+        "e1",
+        "e2",
+        "e33"
+      ],
+      "open_question_count": 2
+    },
+    {
+      "hypothesis_id": "hyp_4_backward_packet_length_features_as_structural_variation_indicators",
+      "evidence_refs": [
+        "e10",
+        "e11",
+        "e12",
+        "e5",
+        "e6",
+        "e9"
+      ],
+      "open_question_count": 2
+    },
+    {
+      "hypothesis_id": "hyp_5_average_packet_size_moderate_class_conditioned_variation",
+      "evidence_refs": [
+        "e7",
+        "e8"
+      ],
+      "open_question_count": 2
+    },
+    {
+      "hypothesis_id": "hyp_6_low_diversity_bulk_features_as_stable_baseline",
+      "evidence_refs": [
+        "e23",
+        "e24",
+        "e25",
+        "e26",
+        "e27",
+        "e28",
+        "e29",
+        "e30",
+        "e31",
+        "e32"
+      ],
+      "open_question_count": 2
+    },
+    {
+      "hypothesis_id": "hyp_7_impact_of_partition_level_data_quality_on_structural_patterns",
+      "evidence_refs": [
+        "e1",
+        "e2"
+      ],
+      "open_question_count": 2
+    },
+    {
+      "hypothesis_id": "hyp_8_localized_representation_sensitive_signal_in_destination_port",
+      "evidence_refs": [
+        "e33"
+      ],
+      "open_question_count": 2
+    },
+    {
+      "hypothesis_id": "hyp_9_tension_between_burst_behavior_and_structural_collapse",
+      "evidence_refs": [
+        "e23",
+        "e3",
+        "e33",
+        "e9"
+      ],
+      "open_question_count": 2
+    },
+    {
+      "hypothesis_id": "hyp_10_potential_overfitting_risk_due_to_redundant_features",
+      "evidence_refs": [
+        "e13",
+        "e16",
+        "e22",
+        "e3",
+        "e4"
+      ],
+      "open_question_count": 2
+    }
+  ]
+}

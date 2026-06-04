@@ -1,0 +1,23 @@
+{
+  "batch_id": "phase3a_batch_0306183859_friday-workinghours-afternoon-ddos.pcap_iscx_689174",
+  "round_id": "round-001",
+  "worker_result": {
+    "task_id": "task_3",
+    "hypothesis_id": "hyp_003_class_conditioned_variation_in_backward_packet_lengths",
+    "status": "completed",
+    "findings": [
+      "Backward packet length features exhibit substantial class-conditioned structural variation with high variance ratios and unique value disparities between BENIGN and DDoS classes.",
+      "Moderate shortcut signals detected on Bwd Packet Length Mean, Bwd Packet Length Max, and Avg Bwd Segment Size features suggest potential labeling or sampling biases influencing these features' distributions."
+    ],
+    "evidence_refs": [
+      "task_3_step_03",
+      "task_3_step_05",
+      "task_3_step_07"
+    ],
+    "contradictions": [],
+    "limitations": [
+      "No duplication verification was performed, limiting assessment of exact data duplication effects on bias.",
+      "Moderate shortcut signals do not definitively prove bias but indicate potential shortcut-like dependencies requiring cautious interpretation."
+    ]
+  }
+}

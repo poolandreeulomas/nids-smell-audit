@@ -1,0 +1,140 @@
+ROLE:
+You are Aggregation. Stay inside one hypothesis-local, round-local merge after Worker and before State Manager.
+Do not reroute, replan, mutate canonical state, emit critic feedback, or summarize raw traces.
+Preserve grounded contradictions and unresolved gaps instead of flattening them away.
+
+TASK:
+{
+  "batch_id": "phase3a_batch_0306161030_friday-workinghours-afternoon-ddos.pcap_iscx_0595cd",
+  "round_id": "round-001",
+  "hypothesis_id": "hyp_1_redundancy_vs_importance_tension",
+  "worker_result_count": 4,
+  "expected_task_ids": [
+    "task_1",
+    "task_2",
+    "task_3",
+    "task_4"
+  ],
+  "selected_task_ids": [
+    "task_1",
+    "task_2",
+    "task_3",
+    "task_4"
+  ]
+}
+
+SOURCE_WORKER_RESULTS:
+[
+  {
+    "task_id": "task_1",
+    "hypothesis_id": "hyp_1_redundancy_vs_importance_tension",
+    "status": "completed",
+    "findings": [
+      "Top-ranked feature pairs exhibit perfect or near-perfect correlation indicating strong redundancy.",
+      "High redundancy coexists with top individual feature rankings, confirming the tension between redundancy and apparent importance.",
+      "Relation verification was successfully bounded within the local context, preserving provenance and epistemic caution."
+    ],
+    "evidence_refs": [
+      "task_1_step_05",
+      "task_1_step_07"
+    ],
+    "contradictions": [
+      "Tension between redundancy and top-rank importance remains unresolved but preserved as a local contradiction."
+    ],
+    "limitations": [
+      "Relation verification outside the bounded local context was not possible, limiting cross-context synthesis."
+    ]
+  },
+  {
+    "task_id": "task_2",
+    "hypothesis_id": "hyp_1_redundancy_vs_importance_tension",
+    "status": "completed",
+    "findings": [
+      "Features Bwd Packet Length Mean and Avg Bwd Segment Size are perfectly correlated yet both rank top individually, confirming redundancy versus importance tension.",
+      "Dependency contextualization shows these features cluster tightly in strong correlation pairs, indicating concentrated dependency profiles.",
+      "The presence of perfect or near-perfect correlations in the feature cluster supports structural redundancy despite apparent individual importance."
+    ],
+    "evidence_refs": [
+      "task_2_step_03",
+      "task_2_step_05",
+      "task_2_step_07"
+    ],
+    "contradictions": [
+      "Local contradiction preserved: top-ranked features are also perfectly correlated, challenging straightforward importance interpretation."
+    ],
+    "limitations": [
+      "No direct perturbation-based importance recalculations were performed; conclusions rely on dependency profiling only."
+    ]
+  },
+  {
+    "task_id": "task_3",
+    "hypothesis_id": "hyp_1_redundancy_vs_importance_tension",
+    "status": "completed",
+    "findings": [
+      "Features Bwd Packet Length Mean and Avg Bwd Segment Size exhibit perfect correlation but both show high class separation individually, indicating redundancy coexists with apparent importance.",
+      "Strongly correlated feature pairs form stable dependency clusters across partitions without evidence of unstable dependencies.",
+      "Distributional profiles confirm that correlated features maintain discriminative power across classes, supporting the unresolved tension between redundancy and importance.",
+      "No contradictory or unstable dependency evidence was found in the local context."
+    ],
+    "evidence_refs": [
+      "task_3_step_03_call_01",
+      "task_3_step_03_call_02",
+      "task_3_step_05",
+      "task_3_step_07"
+    ],
+    "contradictions": [],
+    "limitations": [
+      "Analysis limited to locally observed correlated features and available distribution verifications; broader global dependency shifts not assessed."
+    ]
+  },
+  {
+    "task_id": "task_4",
+    "hypothesis_id": "hyp_1_redundancy_vs_importance_tension",
+    "status": "completed",
+    "findings": [
+      "'Bwd Packet Length Mean' exhibits moderate local label conflicts, indicating imperfect local label consistency.",
+      "'Bwd Packet Length Mean' and 'Avg Bwd Segment Size' both show moderate shortcut-like signals, suggesting partial shortcut predictive leverage.",
+      "The perfect correlation between these features creates tension between redundancy and apparent importance that remains unresolved locally."
+    ],
+    "evidence_refs": [
+      "task_4_step_03",
+      "task_4_step_05",
+      "task_4_step_07"
+    ],
+    "contradictions": [
+      "Moderate label neighborhood conflicts and duplicate label conflicts for 'Bwd Packet Length Mean' preserve local contradictions about label consistency."
+    ],
+    "limitations": [
+      "Analysis limited to bounded local neighborhoods and single-feature decision stumps; global aggregation or multi-feature interactions not assessed."
+    ]
+  }
+]
+
+OVERLAP_DIAGNOSTICS:
+[]
+
+OUTPUT_RULES:
+Return exactly one JSON object.
+Only cite evidence_refs that appear in SOURCE_WORKER_RESULTS.
+Only preserve contradictions that already appear in SOURCE_WORKER_RESULTS.
+Keep update_focus short and state-facing, but do not describe state mutation.
+{
+  "aggregation_handoff": {
+    "batch_id": "phase3a_batch_0306161030_friday-workinghours-afternoon-ddos.pcap_iscx_0595cd",
+    "round_id": "round-001",
+    "hypothesis_id": "hyp_1_redundancy_vs_importance_tension",
+    "merged_findings": [
+      "grounded merged finding"
+    ],
+    "evidence_refs": [
+      "source evidence_ref"
+    ],
+    "preserved_contradictions": [
+      "unresolved source contradiction"
+    ],
+    "open_gaps": [
+      "remaining unresolved gap or limitation"
+    ],
+    "update_focus": "short orientation for the touched interpretive area"
+  }
+}

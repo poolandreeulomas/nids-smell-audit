@@ -1,0 +1,76 @@
+{
+  "batch_id": "phase3a_batch_0406073857_friday-workinghours-afternoon-ddos.pcap_iscx_ee0ef0",
+  "round_id": "round-001",
+  "hypothesis_id": "hyp_4_destination_port_distribution_skew_reflects_attack_targeting",
+  "worker_results": [
+    {
+      "task_id": "task_1",
+      "hypothesis_id": "hyp_4_destination_port_distribution_skew_reflects_attack_targeting",
+      "status": "completed",
+      "findings": [
+        "Destination Port feature exhibits strong distributional skew with a dominant port value in DDoS attack instances.",
+        "High Jensen-Shannon divergence and low entropy indicate consistent and stable skew patterns across attack instances.",
+        "Clear class separation in destination port distribution supports the hypothesis of targeted attack behavior."
+      ],
+      "evidence_refs": [
+        "task_1_step_03"
+      ],
+      "contradictions": [],
+      "limitations": []
+    },
+    {
+      "task_id": "task_2",
+      "hypothesis_id": "hyp_4_destination_port_distribution_skew_reflects_attack_targeting",
+      "status": "partial",
+      "findings": [
+        "Destination Port feature shows strong class-conditioned dependency concentration consistent with attack targeting patterns.",
+        "Local label consistency verification revealed high label neighborhood conflicts and duplicate label conflicts, indicating local label inconsistency around Destination Port.",
+        "These conflicts suggest epistemic instability in local label topology despite global distributional skew."
+      ],
+      "evidence_refs": [
+        "task_2_step_03",
+        "task_2_step_05"
+      ],
+      "contradictions": [
+        "local contradiction preserved"
+      ],
+      "limitations": [
+        "local label inconsistency limits representational stability conclusions"
+      ]
+    },
+    {
+      "task_id": "task_3",
+      "hypothesis_id": "hyp_4_destination_port_distribution_skew_reflects_attack_targeting",
+      "status": "completed",
+      "findings": [
+        "Destination Port feature exhibits strong class-dependent distributional skew with moderate shortcut-like predictive leverage.",
+        "This suggests a moderate risk of shortcut exploitation based on destination port distribution differences in this dataset."
+      ],
+      "evidence_refs": [
+        "task_3_step_03"
+      ],
+      "contradictions": [],
+      "limitations": [
+        "Analysis limited to single-feature deterministic decision stump; multifeature interactions not assessed.",
+        "Local evidence only; global aggregation or cross-feature validation not performed."
+      ]
+    },
+    {
+      "task_id": "task_4",
+      "hypothesis_id": "hyp_4_destination_port_distribution_skew_reflects_attack_targeting",
+      "status": "completed",
+      "findings": [
+        "Destination Port distributions show stable, low-entropy, dominant-value patterns with high class separation across temporal and batch-specific subsets.",
+        "No significant temporal or batch-specific variability detected in destination port distribution patterns.",
+        "Observed distributional skew supports the hypothesis of targeted attack behavior reflected in destination port usage."
+      ],
+      "evidence_refs": [
+        "task_4_step_03",
+        "task_4_step_05",
+        "task_4_step_07"
+      ],
+      "contradictions": [],
+      "limitations": []
+    }
+  ]
+}

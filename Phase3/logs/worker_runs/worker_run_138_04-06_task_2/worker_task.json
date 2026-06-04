@@ -1,0 +1,18 @@
+{
+  "task_id": "task_2",
+  "hypothesis_id": "hyp_6_class_conditioned_variation_backward_packet_lengths",
+  "task_scope": "Compare variance ratios and unique value counts of backward packet length features between classes to identify structural differences using evidence refs e10 to e12.",
+  "allowed_actions": [
+    "cardinality_verification",
+    "distribution_verification"
+  ],
+  "local_context_refs": [
+    "e10",
+    "e11",
+    "e12"
+  ],
+  "stop_conditions": [
+    "variance ratios computed for all classes",
+    "unique value counts compared across classes"
+  ]
+}

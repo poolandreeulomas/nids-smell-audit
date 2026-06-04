@@ -1,0 +1,16 @@
+{
+  "task_id": "task_3",
+  "hypothesis_id": "hyp_005_class_distribution_skew_in_destination_port",
+  "status": "completed",
+  "findings": [
+    "Destination Port feature exhibits a moderate shortcut-like predictive signal for DDoS class samples in evidence e33, consistent with strong class-conditioned distributional skew.",
+    "DDoS class samples are dominated by a single destination port with zero entropy, contrasting with higher entropy and lower dominant ratio in BENIGN class samples."
+  ],
+  "evidence_refs": [
+    "task_3_step_03"
+  ],
+  "contradictions": [],
+  "limitations": [
+    "Shortcut verification used a deterministic one-feature decision stump, which may not capture more complex dependencies or interactions."
+  ]
+}

@@ -1,0 +1,30 @@
+{
+  "batch_id": "phase3a_batch_0306173106_friday-workinghours-afternoon-ddos.pcap_iscx_98251a",
+  "round_id": "round-001",
+  "hypothesis_id": "hyp_003",
+  "merged_findings": [
+    "Multiple feature pairs, including Packet Length Mean and Average Packet Size, Avg Bwd Segment Size and Avg Fwd Segment Size, and SYN Flag Count and RST Flag Count, exhibit strong linear dependencies with correlations >=0.9993, indicating high redundancy and potential shortcut risks within the feature cluster.",
+    "These strong, stable linear dependencies are consistent across all examined classes and time windows, forming tightly clustered dependency structures without evidence of temporal or class-based instability.",
+    "No exact feature duplications were found, but high redundancy was confirmed between specific pairs such as 'Fwd Header Length' and 'Fwd Header Length.1', and 'Packet Length Mean' and 'Average Packet Size', which may impact feature prioritization.",
+    "Moderate shortcut-like predictive signals were observed for a subset of tested features within the correlated cluster, though shortcut risk assessment remains incomplete due to limited testing coverage."
+  ],
+  "evidence_refs": [
+    "task_1_step_03",
+    "task_1_step_05",
+    "task_1_step_07",
+    "task_2_step_03",
+    "task_2_step_05",
+    "task_2_step_07",
+    "task_3_step_03",
+    "task_3_step_05",
+    "task_3_step_07",
+    "task_4_step_05",
+    "task_4_step_07"
+  ],
+  "preserved_contradictions": [],
+  "open_gaps": [
+    "Shortcut-like predictive power was tested only on a subset of correlated features; other features in the cluster remain untested for shortcut signals.",
+    "Analyses are limited to local contexts and provided evidence; global dataset variations and cross-cluster dependencies were not assessed."
+  ],
+  "update_focus": "Consolidate understanding of strong linear dependencies and redundancy in feature clusters, highlighting partial shortcut risk assessment and local context limitations."
+}

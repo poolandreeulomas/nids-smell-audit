@@ -1,0 +1,18 @@
+{
+  "batch_id": "semantic_batch_076_friday-workinghours-afternoon-ddos.pcap_iscx",
+  "source_substrate_id": "substrate_semantic_batch_076_friday-workinghours-afternoon-ddos.pcap_iscx",
+  "analysis_id": "",
+  "model_name": "gpt-4.1-mini",
+  "duration_ms": 0.006,
+  "status": "error",
+  "prompt_chars": 0,
+  "raw_response_chars": 0,
+  "hypothesis_count": 0,
+  "overlap_count": 0,
+  "open_question_count": 0,
+  "distinct_evidence_ref_count": 0,
+  "fresh_execution": true,
+  "replay_of": null,
+  "caller_mode": "cli",
+  "schema_version": "phase3a.investigation_analysis.v1"
+}

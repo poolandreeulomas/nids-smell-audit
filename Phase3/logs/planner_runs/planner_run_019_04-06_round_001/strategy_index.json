@@ -1,0 +1,35 @@
+{
+  "selected_count": 3,
+  "strategy_count": 3,
+  "missing_strategy_hypothesis_ids": [],
+  "unexpected_strategy_hypothesis_ids": [],
+  "strategies": [
+    {
+      "strategy_id": "strategy_01_hyp_1",
+      "hypothesis_id": "hyp_1_low_diversity_constant_features",
+      "summary": "The presence of multiple backward and forward bulk-related features with near-constant values and extremely low cardinality suggests a structural regime dominated by uniform or saturated load conditions, potentially reflecting stable traffic patterns or measurement artifacts.",
+      "strategic_objective": "Clarify whether near-constant bulk and flag features reflect true network saturation or measurement artifacts and assess their masking effect on subtle attack-relevant variations.",
+      "key_check_count": 4,
+      "success_criteria_count": 3,
+      "router_constraint_count": 2
+    },
+    {
+      "strategy_id": "strategy_02_hyp_4",
+      "hypothesis_id": "hyp_4_class_distribution_and_port_skew",
+      "summary": "The moderate class imbalance combined with a strong distributional divergence and zero entropy in the Destination Port feature for the DDoS class indicates a representation-sensitive pattern that may reflect attack targeting or dataset collection biases.",
+      "strategic_objective": "Determine if zero entropy in Destination Port for DDoS class indicates a narrow attack vector or dataset artifact and understand implications for model bias and overfitting.",
+      "key_check_count": 4,
+      "success_criteria_count": 3,
+      "router_constraint_count": 2
+    },
+    {
+      "strategy_id": "strategy_03_hyp_7",
+      "hypothesis_id": "hyp_7_heterogeneous_structural_regimes",
+      "summary": "The coexistence of near-constant features with features showing strong class-conditioned structural variation suggests heterogeneous structural regimes within the dataset, possibly reflecting mixed traffic states or layered attack behaviors.",
+      "strategic_objective": "Investigate the coexistence of near-constant and strongly varying features to characterize heterogeneous structural regimes and their temporal or network segment associations.",
+      "key_check_count": 4,
+      "success_criteria_count": 3,
+      "router_constraint_count": 2
+    }
+  ]
+}

@@ -78,7 +78,8 @@ def wasserstein(
             df = dataset_frame
             resolved_valid_numeric_features = list(valid_numeric_features)
 
-        validate_feature_name(feature_name, resolved_valid_numeric_features)
+        feature_name = validate_feature_name(
+            feature_name, resolved_valid_numeric_features)
 
         if not is_numeric_dtype(df[feature_name]):
             return _error_result(

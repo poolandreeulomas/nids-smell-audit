@@ -1,0 +1,15 @@
+{
+  "task_id": "task_3",
+  "hypothesis_id": "hyp_4_distributional_divergence_destination_port",
+  "task_scope": "Check for shortcut-like predictive leverage of destination port feature alone in evidence e33",
+  "allowed_actions": [
+    "shortcut_verification"
+  ],
+  "local_context_refs": [
+    "e33"
+  ],
+  "stop_conditions": [
+    "shortcut predictive score stabilized",
+    "single-feature shortcut effect quantified"
+  ]
+}

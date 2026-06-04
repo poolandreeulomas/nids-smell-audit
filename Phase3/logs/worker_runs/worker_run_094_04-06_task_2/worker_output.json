@@ -1,0 +1,27 @@
+{
+  "batch_id": "phase3a_batch_0406073857_friday-workinghours-afternoon-ddos.pcap_iscx_ee0ef0",
+  "round_id": "round-001",
+  "worker_result": {
+    "task_id": "task_2",
+    "hypothesis_id": "hyp_8_low_cardinality_features_as_potential_shortcut_signals",
+    "status": "completed",
+    "findings": [
+      "Features e23 to e32 show near-constant values with extremely low cardinality across the partition.",
+      "Distribution verification confirms low entropy and dominant values for sampled features (e23, e26).",
+      "Local consistency verification on e23 reveals label neighborhood conflicts despite low feature variability, indicating subtle deviations.",
+      "Tension between near-constant feature values and class-conditioned label variation is preserved but not fully resolved."
+    ],
+    "evidence_refs": [
+      "task_2_step_03",
+      "task_2_step_05",
+      "task_2_step_07"
+    ],
+    "contradictions": [
+      "High label neighborhood conflict in e23 despite near-constant feature values."
+    ],
+    "limitations": [
+      "Analysis limited to partition-global scope without localized subpartition evidence.",
+      "Only a subset of features (e23, e26) underwent distribution and consistency verification due to step budget."
+    ]
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "task_id": "task_4",
+  "hypothesis_id": "hyp_1_low_diversity_constant_features",
+  "task_scope": "Check for measurement or logging constraints causing low diversity in features using evidence refs e32",
+  "allowed_actions": [
+    "shortcut_verification",
+    "duplication_verification"
+  ],
+  "local_context_refs": [
+    "e32"
+  ],
+  "stop_conditions": [
+    "measurement artifacts identified or excluded",
+    "logging constraints characterized"
+  ]
+}

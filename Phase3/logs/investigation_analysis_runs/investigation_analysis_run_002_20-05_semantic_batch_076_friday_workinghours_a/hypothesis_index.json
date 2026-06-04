@@ -1,0 +1,368 @@
+{
+  "hypothesis_count": 10,
+  "evidence_ref_coverage": [
+    "e1",
+    "e10",
+    "e11",
+    "e12",
+    "e13",
+    "e14",
+    "e15",
+    "e16",
+    "e17",
+    "e18",
+    "e19",
+    "e20",
+    "e21",
+    "e22",
+    "e23",
+    "e24",
+    "e25",
+    "e26",
+    "e27",
+    "e28",
+    "e29",
+    "e30",
+    "e31",
+    "e32",
+    "e33",
+    "e4",
+    "e5",
+    "e6",
+    "e7",
+    "e8",
+    "e9"
+  ],
+  "overlap_pairs": [
+    {
+      "left_hypothesis_id": "hyp_01_redundant_packet_size_features",
+      "right_hypothesis_id": "hyp_05_tension_between_redundancy_and_representation",
+      "shared_evidence_refs": [
+        "e13",
+        "e14",
+        "e15",
+        "e16",
+        "e17",
+        "e18",
+        "e19",
+        "e20",
+        "e21",
+        "e22"
+      ]
+    },
+    {
+      "left_hypothesis_id": "hyp_01_redundant_packet_size_features",
+      "right_hypothesis_id": "hyp_06_tension_between_constant_and_variable_features",
+      "shared_evidence_refs": [
+        "e13",
+        "e16"
+      ]
+    },
+    {
+      "left_hypothesis_id": "hyp_01_redundant_packet_size_features",
+      "right_hypothesis_id": "hyp_10_localized_representational_signals_within_redundant_features",
+      "shared_evidence_refs": [
+        "e13",
+        "e14",
+        "e15",
+        "e16",
+        "e17",
+        "e18",
+        "e19",
+        "e20",
+        "e21",
+        "e22"
+      ]
+    },
+    {
+      "left_hypothesis_id": "hyp_02_constant_bulk_rate_and_flag_features",
+      "right_hypothesis_id": "hyp_06_tension_between_constant_and_variable_features",
+      "shared_evidence_refs": [
+        "e23",
+        "e24",
+        "e25",
+        "e26",
+        "e27",
+        "e28",
+        "e29",
+        "e30",
+        "e31",
+        "e32"
+      ]
+    },
+    {
+      "left_hypothesis_id": "hyp_03_class_conditioned_packet_size_and_port_distributions",
+      "right_hypothesis_id": "hyp_05_tension_between_redundancy_and_representation",
+      "shared_evidence_refs": [
+        "e10",
+        "e11",
+        "e12",
+        "e33",
+        "e8",
+        "e9"
+      ]
+    },
+    {
+      "left_hypothesis_id": "hyp_03_class_conditioned_packet_size_and_port_distributions",
+      "right_hypothesis_id": "hyp_06_tension_between_constant_and_variable_features",
+      "shared_evidence_refs": [
+        "e10",
+        "e11",
+        "e12",
+        "e8",
+        "e9"
+      ]
+    },
+    {
+      "left_hypothesis_id": "hyp_03_class_conditioned_packet_size_and_port_distributions",
+      "right_hypothesis_id": "hyp_07_average_packet_size_as_representational_anchor",
+      "shared_evidence_refs": [
+        "e8"
+      ]
+    },
+    {
+      "left_hypothesis_id": "hyp_03_class_conditioned_packet_size_and_port_distributions",
+      "right_hypothesis_id": "hyp_08_destination_port_distribution_as_attack_indicator",
+      "shared_evidence_refs": [
+        "e33"
+      ]
+    },
+    {
+      "left_hypothesis_id": "hyp_03_class_conditioned_packet_size_and_port_distributions",
+      "right_hypothesis_id": "hyp_10_localized_representational_signals_within_redundant_features",
+      "shared_evidence_refs": [
+        "e10",
+        "e11",
+        "e12",
+        "e8",
+        "e9"
+      ]
+    },
+    {
+      "left_hypothesis_id": "hyp_04_duplicate_rows_influence_on_statistics",
+      "right_hypothesis_id": "hyp_09_effect_of_class_imbalance_and_duplicates_on_feature_signals",
+      "shared_evidence_refs": [
+        "e1"
+      ]
+    },
+    {
+      "left_hypothesis_id": "hyp_05_tension_between_redundancy_and_representation",
+      "right_hypothesis_id": "hyp_06_tension_between_constant_and_variable_features",
+      "shared_evidence_refs": [
+        "e10",
+        "e11",
+        "e12",
+        "e13",
+        "e16",
+        "e8",
+        "e9"
+      ]
+    },
+    {
+      "left_hypothesis_id": "hyp_05_tension_between_redundancy_and_representation",
+      "right_hypothesis_id": "hyp_07_average_packet_size_as_representational_anchor",
+      "shared_evidence_refs": [
+        "e8"
+      ]
+    },
+    {
+      "left_hypothesis_id": "hyp_05_tension_between_redundancy_and_representation",
+      "right_hypothesis_id": "hyp_08_destination_port_distribution_as_attack_indicator",
+      "shared_evidence_refs": [
+        "e33"
+      ]
+    },
+    {
+      "left_hypothesis_id": "hyp_05_tension_between_redundancy_and_representation",
+      "right_hypothesis_id": "hyp_10_localized_representational_signals_within_redundant_features",
+      "shared_evidence_refs": [
+        "e10",
+        "e11",
+        "e12",
+        "e13",
+        "e14",
+        "e15",
+        "e16",
+        "e17",
+        "e18",
+        "e19",
+        "e20",
+        "e21",
+        "e22",
+        "e8",
+        "e9"
+      ]
+    },
+    {
+      "left_hypothesis_id": "hyp_06_tension_between_constant_and_variable_features",
+      "right_hypothesis_id": "hyp_07_average_packet_size_as_representational_anchor",
+      "shared_evidence_refs": [
+        "e8"
+      ]
+    },
+    {
+      "left_hypothesis_id": "hyp_06_tension_between_constant_and_variable_features",
+      "right_hypothesis_id": "hyp_10_localized_representational_signals_within_redundant_features",
+      "shared_evidence_refs": [
+        "e10",
+        "e11",
+        "e12",
+        "e13",
+        "e16",
+        "e8",
+        "e9"
+      ]
+    },
+    {
+      "left_hypothesis_id": "hyp_07_average_packet_size_as_representational_anchor",
+      "right_hypothesis_id": "hyp_10_localized_representational_signals_within_redundant_features",
+      "shared_evidence_refs": [
+        "e8"
+      ]
+    }
+  ],
+  "hypotheses": [
+    {
+      "hypothesis_id": "hyp_01_redundant_packet_size_features",
+      "evidence_refs": [
+        "e13",
+        "e14",
+        "e15",
+        "e16",
+        "e17",
+        "e18",
+        "e19",
+        "e20",
+        "e21",
+        "e22"
+      ],
+      "open_question_count": 2
+    },
+    {
+      "hypothesis_id": "hyp_02_constant_bulk_rate_and_flag_features",
+      "evidence_refs": [
+        "e23",
+        "e24",
+        "e25",
+        "e26",
+        "e27",
+        "e28",
+        "e29",
+        "e30",
+        "e31",
+        "e32"
+      ],
+      "open_question_count": 3
+    },
+    {
+      "hypothesis_id": "hyp_03_class_conditioned_packet_size_and_port_distributions",
+      "evidence_refs": [
+        "e10",
+        "e11",
+        "e12",
+        "e33",
+        "e8",
+        "e9"
+      ],
+      "open_question_count": 3
+    },
+    {
+      "hypothesis_id": "hyp_04_duplicate_rows_influence_on_statistics",
+      "evidence_refs": [
+        "e1"
+      ],
+      "open_question_count": 3
+    },
+    {
+      "hypothesis_id": "hyp_05_tension_between_redundancy_and_representation",
+      "evidence_refs": [
+        "e10",
+        "e11",
+        "e12",
+        "e13",
+        "e14",
+        "e15",
+        "e16",
+        "e17",
+        "e18",
+        "e19",
+        "e20",
+        "e21",
+        "e22",
+        "e33",
+        "e8",
+        "e9"
+      ],
+      "open_question_count": 3
+    },
+    {
+      "hypothesis_id": "hyp_06_tension_between_constant_and_variable_features",
+      "evidence_refs": [
+        "e10",
+        "e11",
+        "e12",
+        "e13",
+        "e16",
+        "e23",
+        "e24",
+        "e25",
+        "e26",
+        "e27",
+        "e28",
+        "e29",
+        "e30",
+        "e31",
+        "e32",
+        "e8",
+        "e9"
+      ],
+      "open_question_count": 3
+    },
+    {
+      "hypothesis_id": "hyp_07_average_packet_size_as_representational_anchor",
+      "evidence_refs": [
+        "e7",
+        "e8"
+      ],
+      "open_question_count": 3
+    },
+    {
+      "hypothesis_id": "hyp_08_destination_port_distribution_as_attack_indicator",
+      "evidence_refs": [
+        "e33"
+      ],
+      "open_question_count": 3
+    },
+    {
+      "hypothesis_id": "hyp_09_effect_of_class_imbalance_and_duplicates_on_feature_signals",
+      "evidence_refs": [
+        "e1",
+        "e4",
+        "e5",
+        "e6"
+      ],
+      "open_question_count": 3
+    },
+    {
+      "hypothesis_id": "hyp_10_localized_representational_signals_within_redundant_features",
+      "evidence_refs": [
+        "e10",
+        "e11",
+        "e12",
+        "e13",
+        "e14",
+        "e15",
+        "e16",
+        "e17",
+        "e18",
+        "e19",
+        "e20",
+        "e21",
+        "e22",
+        "e8",
+        "e9"
+      ],
+      "open_question_count": 3
+    }
+  ]
+}

@@ -1,0 +1,108 @@
+{
+  "batch_id": "runtime-batch-001",
+  "round_id": "round-001",
+  "selected_hypothesis_ids": [
+    "hyp-1"
+  ],
+  "source_hypothesis_records": [
+    {
+      "hypothesis_id": "hyp-1",
+      "aggregation_run_path": "C:\\Users\\Uni\\AppData\\Local\\Temp\\pytest-of-Uni\\pytest-188\\test_run_phase3a_batch_refresh0\\aggregation_round-001\\component_run.json",
+      "merged_findings": [
+        "merged-round-001"
+      ],
+      "evidence_refs": [
+        "worker-evidence-round-001"
+      ],
+      "preserved_contradictions": [],
+      "open_gaps": [
+        "gap-round-001"
+      ],
+      "limitations": [],
+      "update_focus": "focus-round-001",
+      "provenance": {
+        "batch_id": "runtime-batch-001",
+        "round_id": "round-001",
+        "source_order": 0,
+        "source_aggregation_component_run_path": "C:\\Users\\Uni\\AppData\\Local\\Temp\\pytest-of-Uni\\pytest-188\\test_run_phase3a_batch_refresh0\\aggregation_round-001\\component_run.json",
+        "source_worker_result_set_path": "",
+        "source_normalized_inputs_path": "",
+        "source_run_dirs": [],
+        "source_validation_ok": false,
+        "source_status": "ok"
+      }
+    }
+  ],
+  "validation_report": {
+    "ok": true,
+    "schema_version": "phase3a.inter_hypothesis_aggregation.v1",
+    "parse_validation": {
+      "ok": true,
+      "errors": [],
+      "warnings": []
+    },
+    "core_validation": {
+      "ok": true,
+      "errors": [],
+      "warnings": [],
+      "stats": {
+        "selected_hypothesis_count": 1,
+        "source_record_count": 1,
+        "source_aggregation_count": 1,
+        "preserved_finding_count": 1,
+        "preserved_contradiction_count": 0,
+        "preserved_open_gap_count": 1,
+        "preserved_limitation_count": 0,
+        "preserved_evidence_ref_count": 1
+      }
+    },
+    "selected_hypothesis_count": 1,
+    "source_record_count": 1,
+    "source_aggregation_count": 1
+  },
+  "component_run": {
+    "component": "inter_hypothesis_aggregation",
+    "created_at": "2026-06-04T09:48:18.753363+00:00",
+    "schema_version": "phase3a.inter_hypothesis_aggregation.v1",
+    "batch_id": "runtime-batch-001",
+    "round_id": "round-001",
+    "status": "ok",
+    "validation_ok": true,
+    "authoritative_status": true,
+    "selected_hypothesis_count": 1,
+    "source_hypothesis_count": 1,
+    "model_name": "gpt-4.1-mini",
+    "temperature": 0.0,
+    "caller_mode": "phase3a_runtime",
+    "replay_of": null
+  },
+  "runtime_metrics": {
+    "batch_id": "runtime-batch-001",
+    "round_id": "round-001",
+    "selected_hypothesis_count": 1,
+    "source_hypothesis_count": 1,
+    "model_name": "gpt-4.1-mini",
+    "temperature": 0.0,
+    "duration_ms": 6199.185,
+    "status": "ok",
+    "fresh_execution": true,
+    "replay_of": null,
+    "caller_mode": "phase3a_runtime",
+    "schema_version": "phase3a.inter_hypothesis_aggregation.v1",
+    "source_aggregation_count": 1,
+    "source_record_count": 1,
+    "preserved_finding_count": 1,
+    "preserved_contradiction_count": 0,
+    "preserved_open_gap_count": 1,
+    "preserved_limitation_count": 0,
+    "preserved_evidence_ref_count": 1
+  },
+  "replay_metadata": {
+    "request_id": "inter_hypothesis_aggregation_1780566499",
+    "prompt_version": "phase3a.inter_hypothesis_aggregation.prompt.v1",
+    "replay_of": null,
+    "fresh_execution": true,
+    "deterministic": false,
+    "source_aggregation_count": 1
+  }
+}

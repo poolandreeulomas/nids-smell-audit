@@ -1,0 +1,20 @@
+{
+  "strategy_id": "strategy_02_hyp_003",
+  "hypothesis_id": "hyp_003",
+  "strategic_objective": "Determine the stability and class/time consistency of near-perfect linear dependencies among packet length, segment size, flag counts, and packet count features, and evaluate their potential as shortcut signals affecting model generalization.",
+  "key_checks": [
+    "Measure linear correlation coefficients across classes and time windows",
+    "Analyze dependency concentration profiles for involved feature pairs",
+    "Test shortcut-like predictive power of individual features in correlated pairs",
+    "Check for redundancy impact on feature prioritization"
+  ],
+  "success_criteria": [
+    "Dependencies are confirmed stable or fluctuating across classes/time",
+    "Shortcut-like signals are identified or ruled out for correlated features",
+    "Implications for feature redundancy and model robustness are clarified"
+  ],
+  "router_constraints": [
+    "preserve feature_pair scope for correlated features",
+    "preserve evidence refs e13,e14,e15,e16,e17,e18,e19,e20,e21,e22"
+  ]
+}

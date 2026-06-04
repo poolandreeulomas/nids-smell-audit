@@ -1,0 +1,40 @@
+{
+  "batch_id": "phase3a_batch_0306192600_friday-workinghours-afternoon-ddos.pcap_iscx_a08c4b",
+  "round_id": "round-001",
+  "hypothesis_id": "hyp_003_class_conditioned_variation_backward_packet_lengths",
+  "planner_strategy_id": "strategy_03_hyp_003",
+  "worker_tasks": [
+    {
+      "task_id": "task_1",
+      "hypothesis_id": "hyp_003_class_conditioned_variation_backward_packet_lengths",
+      "task_scope": "Compare class-conditioned distribution profiles of backward packet length features across multiple dataset partitions preserving class labels and partition metadata.",
+      "allowed_actions": ["distribution_verification"],
+      "local_context_refs": ["e9", "e10", "e11", "e12"],
+      "stop_conditions": ["distribution profiles compared across all partitions", "class label conditioning verified"]
+    },
+    {
+      "task_id": "task_2",
+      "hypothesis_id": "hyp_003_class_conditioned_variation_backward_packet_lengths",
+      "task_scope": "Measure variance ratios and count unique values of backward packet length features controlling for class imbalance within each partition.",
+      "allowed_actions": ["cardinality_verification"],
+      "local_context_refs": ["e9", "e10", "e11", "e12"],
+      "stop_conditions": ["variance ratios computed for all classes", "unique value counts stabilized"]
+    },
+    {
+      "task_id": "task_3",
+      "hypothesis_id": "hyp_003_class_conditioned_variation_backward_packet_lengths",
+      "task_scope": "Assess sensitivity of backward packet length features to sampling bias and dataset partitioning effects under class imbalance constraints.",
+      "allowed_actions": ["dependency_contextualization"],
+      "local_context_refs": ["e9", "e10", "e11", "e12"],
+      "stop_conditions": ["sampling bias impact quantified", "partitioning sensitivity characterized"]
+    },
+    {
+      "task_id": "task_4",
+      "hypothesis_id": "hyp_003_class_conditioned_variation_backward_packet_lengths",
+      "task_scope": "Evaluate local label-topology consistency around backward packet length features within each class to detect structural irregularities.",
+      "allowed_actions": ["local_consistency_verification"],
+      "local_context_refs": ["e9", "e10", "e11", "e12"],
+      "stop_conditions": ["local label-topology consistency assessed for all classes", "structural irregularities identified or ruled out"]
+    }
+  ]
+}

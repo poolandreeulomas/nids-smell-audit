@@ -1,0 +1,96 @@
+"""Prompt assembly for Phase 3A Investigation Analysis."""
+
+from __future__ import annotations
+
+import json
+import re
+from typing import Any
+
+
+_PROMPT_SANITIZE_PATTERNS: tuple[tuple[re.Pattern[str], str], ...] = (
+    (re.compile(r"\bsaturated\b", re.IGNORECASE), "heavily loaded"),
+    (re.compile(r"\bsaturation\b", re.IGNORECASE), "load concentration"),
+    (re.compile(r"\bsaturate\b", re.IGNORECASE), "increase load concentration"),
+)
+
+
+def _sanitize_forbidden_terms(payload: Any) -> Any:
+    if isinstance(payload, dict):
+        return {
+            key: _sanitize_forbidden_terms(value)
+            for key, value in payload.items()
+        }
+    if isinstance(payload, list):
+        return [_sanitize_forbidden_terms(item) for item in payload]
+    if not isinstance(payload, str):
+        return payload
+
+    sanitized = payload
+    for pattern, replacement in _PROMPT_SANITIZE_PATTERNS:
+        sanitized = pattern.sub(replacement, sanitized)
+    return sanitized
+
+
+def _render_json_block(payload: Any) -> str:
+    return json.dumps(payload, indent=2, sort_keys=True, ensure_ascii=True)
+
+
+def build_investigation_analysis_prompt(
+    *,
+    batch_id: str,
+    projected_substrate: dict[str, Any],
+    projected_analysis_context: dict[str, Any],
+    projected_iteration_context: dict[str, Any],
+) -> str:
+    sanitized_analysis_context = _sanitize_forbidden_terms(projected_analysis_context)
+    sanitized_iteration_context = _sanitize_forbidden_terms(projected_iteration_context)
+    sanitized_substrate = _sanitize_forbidden_terms(projected_substrate)
+
+    iteration_block = _render_json_block(sanitized_iteration_context)
+    if not sanitized_iteration_context.get("initial_hypothesis_set_ref", {}).get("analysis_id"):
+        iteration_block = "No prior hypothesis set or committed state refs were provided. Treat this as the first Investigation Analysis pass."
+
+    return "\n".join(
+        [
+            "=== ROLE ===",
+            "You are the Phase 3A Investigation Analysis module.",
+            "You operate after Semantic Extraction and before Hypothesis Ranking.",
+            "You are part of a forensic dataset auditing system focused on identifying structural irregularities, representation-sensitive patterns, shortcut-like signals, unstable dependencies, and epistemically suspicious regularities inside telemetry datasets.",
+            "You are generating investigable interpretations of structural irregularities while preserving competing framings and unresolved tensions.",
+            "Your role is not to declare canonical truth or collapse ambiguity prematurely.",
+            "",
+            "=== OBJECTIVE ===",
+            f"Generate up to 10 bounded investigation hypotheses for batch_id={batch_id}.",
+            "Interpret the structural substrate without collapsing ambiguity or converting interpretation into fact.",
+            "",
+            "=== BOUNDARIES ===",
+            "Use artifact framings as guidance only, never as rigid classification labels.",
+            "Hypotheses may overlap and share evidence when the substrate warrants it.",
+            "Keep summaries inferential and grounded in the provided substrate evidence IDs.",
+            "Do not prioritize, budget, plan, route, execute, or define task packages.",
+            "Do not declare canonical truth, artifact existence, closure, or certainty.",
+            "Prefer neutral structural wording in summaries and open_questions when substrate or context text includes terms like close/closed/closure or saturate/saturated/saturation.",
+            "Those terms may trigger semantic governance flags in logs, but they do not invalidate the output; paraphrase them when practical.",
+            "Open questions should remain unresolved verification-oriented questions, not ordered instructions.",
+            "",
+            "=== OUTPUT RULES ===",
+            "Return valid JSON only.",
+            "Do not use markdown or code fences.",
+            "Return exactly these top-level fields:",
+            "analysis_id, batch_id, hypotheses.",
+            "Each hypothesis must include:",
+            "hypothesis_id, summary, evidence_refs, open_questions.",
+            "Every hypothesis must cite one or more evidence_refs already present in the substrate input.",
+            "Every hypothesis must preserve one or more open_questions.",
+            "At most 10 hypotheses may be returned.",
+            "",
+            "=== ANALYSIS CONTEXT ===",
+            _render_json_block(sanitized_analysis_context),
+            "",
+            "=== ITERATION CONTEXT ===",
+            iteration_block,
+            "",
+            "=== STRUCTURAL SUBSTRATE ===",
+            _render_json_block(sanitized_substrate),
+        ]
+    )

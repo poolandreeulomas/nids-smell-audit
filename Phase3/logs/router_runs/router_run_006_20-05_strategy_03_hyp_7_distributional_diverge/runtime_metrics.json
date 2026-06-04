@@ -1,0 +1,17 @@
+{
+  "batch_id": "phase3a_batch_2005190226_friday-workinghours-afternoon-ddos.pcap_iscx_01bd74",
+  "round_id": "round-001",
+  "hypothesis_id": "hyp_7_distributional_divergence_destination_port",
+  "planner_strategy_id": "strategy_03_hyp_7_distributional_divergence_destination_port",
+  "model_name": "gpt-4.1-mini",
+  "duration_ms": 9961.231,
+  "status": "ok",
+  "prompt_chars": 7965,
+  "raw_response_chars": 2409,
+  "task_count": 4,
+  "allowed_action_class_count": 7,
+  "fresh_execution": true,
+  "replay_of": null,
+  "caller_mode": "cli",
+  "schema_version": "phase3a.router.v1"
+}

@@ -1,0 +1,101 @@
+{
+  "batch_id": "final-audit-batch-001",
+  "state_version": 1,
+  "target_hypothesis": {
+    "hypothesis_id": "hyp-final-1",
+    "summary": "The dependency may indicate a shortcut-compatible dependency framing.",
+    "status": "unresolved",
+    "evidence_refs": [
+      "final-region-e1"
+    ],
+    "open_gaps": [
+      "Need to verify whether the dependency stays local."
+    ],
+    "preserved_contradictions": [],
+    "merged_findings": [],
+    "update_focus": "",
+    "last_updated_round": "",
+    "revision_count": 0
+  },
+  "structural_substrate_ref": {
+    "substrate_id": "final-substrate-001",
+    "batch_id": "final-audit-batch-001",
+    "compressed_regions": [
+      {
+        "region_id": "final-region-1",
+        "region_kind": "dependency_region",
+        "status": "broad_unvalidated",
+        "summary": "src_bytes and dst_bytes remain tightly coupled in the batch slice.",
+        "feature_scope": {
+          "features": [
+            "src_bytes",
+            "dst_bytes"
+          ],
+          "feature_groups": [
+            "flow_size"
+          ],
+          "locality": {
+            "scope_type": "partition_global",
+            "scope_value": "final-audit-batch-001",
+            "localized": false,
+            "notes": [
+              "Global dependency signal."
+            ]
+          }
+        },
+        "evidence_refs": [
+          "final-region-e1"
+        ]
+      }
+    ],
+    "preserved_weak_signals": [],
+    "contradictions": [],
+    "unresolved_tensions": []
+  },
+  "recent_revision_log": [
+    {
+      "revision_type": "initialization",
+      "state_version": 1,
+      "round_id": "",
+      "hypothesis_id": "",
+      "applied_updates": [
+        {
+          "action": "register_structural_substrate",
+          "substrate_id": "final-substrate-001",
+          "region_count": 1,
+          "weak_signal_count": 0,
+          "contradiction_count": 0,
+          "tension_count": 0
+        },
+        {
+          "action": "register_interpretive_hypotheses",
+          "analysis_id": "final-analysis-001",
+          "hypothesis_count": 1
+        }
+      ],
+      "timestamp": "2026-05-20T07:42:05.469604+00:00"
+    }
+  ],
+  "aggregation_handoff": {
+    "batch_id": "final-audit-batch-001",
+    "round_id": "round-001",
+    "hypothesis_id": "hyp-final-1",
+    "merged_findings": [
+      "Finding"
+    ],
+    "evidence_refs": [
+      "final-task-step-01"
+    ],
+    "preserved_contradictions": [
+      "Contradiction"
+    ],
+    "open_gaps": [
+      "Gap"
+    ],
+    "update_focus": "Focus"
+  },
+  "known_evidence_refs": [
+    "final-region-e1",
+    "final-task-step-01"
+  ]
+}

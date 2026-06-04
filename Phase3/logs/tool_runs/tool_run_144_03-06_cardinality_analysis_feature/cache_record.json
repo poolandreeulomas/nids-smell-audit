@@ -1,0 +1,10 @@
+{
+  "status": "tracked",
+  "events": [
+    {
+      "cache_key": "feature_cardinality",
+      "status": "hit"
+    }
+  ],
+  "event_count": 1
+}

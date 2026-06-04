@@ -1,0 +1,32 @@
+{
+  "batch_id": "phase3a_batch_0306192600_friday-workinghours-afternoon-ddos.pcap_iscx_a08c4b",
+  "round_id": "round-001",
+  "selected_hypothesis_ids": [
+    "hyp_010_potential_effects_of_data_redundancy_on_feature_correlations",
+    "hyp_002_strong_dependency_pairs_redundancy",
+    "hyp_003_class_conditioned_variation_backward_packet_lengths"
+  ],
+  "deferred_hypothesis_ids": [
+    "hyp_001_low_diversity_bulk_features",
+    "hyp_004_class_conditioned_variation_average_packet_size",
+    "hyp_005_destination_port_class_distribution_skew",
+    "hyp_006_partition_level_data_skew_and_redundancy",
+    "hyp_007_prominence_of_backward_packet_length_features",
+    "hyp_008_potential_localized_representation_sensitive_handles",
+    "hyp_009_interplay_between_dependency_backed_regularity_and_class_variation"
+  ],
+  "selection_rationales": [
+    {
+      "hypothesis_id": "hyp_010_potential_effects_of_data_redundancy_on_feature_correlations",
+      "reason": "Data redundancy may inflate correlations, biasing analysis and model training, warranting immediate investigation."
+    },
+    {
+      "hypothesis_id": "hyp_002_strong_dependency_pairs_redundancy",
+      "reason": "Strong feature correlations suggest redundancy impacting dimensionality and learning dynamics, critical for dataset structure understanding."
+    },
+    {
+      "hypothesis_id": "hyp_003_class_conditioned_variation_backward_packet_lengths",
+      "reason": "Class-conditioned variation in key features indicates potential discriminative but unstable signals important for model sensitivity."
+    }
+  ]
+}

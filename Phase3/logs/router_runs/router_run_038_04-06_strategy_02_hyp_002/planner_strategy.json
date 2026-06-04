@@ -1,0 +1,19 @@
+{
+  "strategy_id": "strategy_02_hyp_002",
+  "hypothesis_id": "hyp_002_strong_dependency_pairs_redundancy",
+  "strategic_objective": "Determine the stability and origin of strong linear dependencies among feature pairs and their impact on dataset redundancy.",
+  "key_checks": [
+    "Evaluate dependency concentration and correlation stability of key feature pairs across temporal segments",
+    "Distinguish dependencies arising from inherent protocol structure versus preprocessing or feature engineering",
+    "Quantify redundancy impact by measuring effective dimensionality reduction from these dependencies"
+  ],
+  "success_criteria": [
+    "Clear evidence on whether dependencies are stable or transient",
+    "Understanding of dependency sources (protocol vs. preprocessing)",
+    "Assessment of redundancy level and implications for feature representation"
+  ],
+  "router_constraints": [
+    "preserve feature_scope for all involved features (e13-e22)",
+    "preserve evidence refs related to e13 through e22"
+  ]
+}

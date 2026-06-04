@@ -1,0 +1,40 @@
+{
+  "hypothesis_id": "hyp_003",
+  "planner_strategy_id": "strategy_02_hyp_003",
+  "task_count": 4,
+  "action_class_count": 5,
+  "task_summaries": [
+    {
+      "task_id": "task_1",
+      "hypothesis_id": "hyp_003",
+      "task_scope": "Measure linear correlation coefficients for packet length, segment size, flag counts, and packet count features across classes and time windows using evidence refs e13 to e22.",
+      "allowed_action_count": 2,
+      "local_context_ref_count": 10,
+      "stop_condition_count": 2
+    },
+    {
+      "task_id": "task_2",
+      "hypothesis_id": "hyp_003",
+      "task_scope": "Analyze dependency concentration profiles for involved feature pairs to assess stability and class/time consistency using evidence refs e13 to e22.",
+      "allowed_action_count": 1,
+      "local_context_ref_count": 10,
+      "stop_condition_count": 2
+    },
+    {
+      "task_id": "task_3",
+      "hypothesis_id": "hyp_003",
+      "task_scope": "Test shortcut-like predictive power of individual features within correlated pairs to identify potential shortcut signals using evidence refs e13 to e22.",
+      "allowed_action_count": 1,
+      "local_context_ref_count": 10,
+      "stop_condition_count": 2
+    },
+    {
+      "task_id": "task_4",
+      "hypothesis_id": "hyp_003",
+      "task_scope": "Check redundancy impact on feature prioritization by verifying feature relations and duplication effects among correlated features using evidence refs e13 to e22.",
+      "allowed_action_count": 2,
+      "local_context_ref_count": 10,
+      "stop_condition_count": 2
+    }
+  ]
+}

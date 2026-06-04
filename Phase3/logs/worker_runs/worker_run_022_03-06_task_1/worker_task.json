@@ -1,0 +1,24 @@
+{
+  "task_id": "task_1",
+  "hypothesis_id": "hyp_2_strong_linear_dependencies",
+  "task_scope": "Analyze correlation stability of identified feature pairs across multiple temporal segments within the dataset to detect stable or unstable dependency patterns.",
+  "allowed_actions": [
+    "relation_verification"
+  ],
+  "local_context_refs": [
+    "e13",
+    "e14",
+    "e15",
+    "e16",
+    "e17",
+    "e18",
+    "e19",
+    "e20",
+    "e21",
+    "e22"
+  ],
+  "stop_conditions": [
+    "correlation metrics computed for all temporal segments",
+    "stability patterns identified or ruled out"
+  ]
+}

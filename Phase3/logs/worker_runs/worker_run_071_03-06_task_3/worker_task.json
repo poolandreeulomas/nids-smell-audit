@@ -1,0 +1,25 @@
+{
+  "task_id": "task_3",
+  "hypothesis_id": "hyp_010_potential_effects_of_data_redundancy_on_feature_correlations",
+  "task_scope": "Evaluate changes in feature importance or dependency concentration after deduplication within the correlated feature set",
+  "allowed_actions": [
+    "dependency_contextualization",
+    "structural_summary"
+  ],
+  "local_context_refs": [
+    "e13",
+    "e14",
+    "e15",
+    "e16",
+    "e17",
+    "e18",
+    "e19",
+    "e20",
+    "e21",
+    "e22"
+  ],
+  "stop_conditions": [
+    "dependency concentration metrics computed pre- and post-deduplication",
+    "feature importance shifts documented"
+  ]
+}

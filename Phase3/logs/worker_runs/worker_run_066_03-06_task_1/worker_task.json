@@ -1,0 +1,25 @@
+{
+  "task_id": "task_1",
+  "hypothesis_id": "hyp_002_strong_linear_dependencies",
+  "task_scope": "Measure correlation stability of packet length and related feature pairs across benign and DDoS classes using evidence refs e13 to e22",
+  "allowed_actions": [
+    "relation_verification",
+    "distribution_verification"
+  ],
+  "local_context_refs": [
+    "e13",
+    "e14",
+    "e15",
+    "e16",
+    "e17",
+    "e18",
+    "e19",
+    "e20",
+    "e21",
+    "e22"
+  ],
+  "stop_conditions": [
+    "correlation metrics stable across classes",
+    "sample size threshold reached"
+  ]
+}

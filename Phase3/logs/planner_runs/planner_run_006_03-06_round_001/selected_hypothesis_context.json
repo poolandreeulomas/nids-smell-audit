@@ -1,0 +1,58 @@
+{
+  "selected_hypotheses": [
+    {
+      "hypothesis_id": "hyp_4_representation_sensitive_distribution_skew_in_destination_port",
+      "summary": "The Destination Port feature shows strong distributional differences between classes, with the DDoS class dominated by a single port and zero entropy, while the BENIGN class exhibits higher entropy and lower dominant port ratio, indicating representation-sensitive skew.",
+      "evidence_refs": [
+        "e33"
+      ],
+      "open_questions": [
+        "Does the dominance of a single port in the DDoS class reflect a targeted attack vector or a sampling bias?",
+        "How stable is this port distribution difference across other partitions or time frames?"
+      ],
+      "current_status": "unresolved"
+    },
+    {
+      "hypothesis_id": "hyp_2_strong_feature_dependencies_and_redundancy",
+      "summary": "Several packet length, flag count, and subflow features show perfect or near-perfect correlations, indicating strong linear dependencies and potential redundancy that may mask or inflate the importance of certain features.",
+      "evidence_refs": [
+        "e13",
+        "e14",
+        "e15",
+        "e16",
+        "e17",
+        "e18",
+        "e19",
+        "e20",
+        "e21",
+        "e22"
+      ],
+      "open_questions": [
+        "To what extent do these strong dependencies reduce the effective dimensionality of the feature space?",
+        "Are these dependencies stable across classes or do they vary, potentially encoding class-specific structural differences?"
+      ],
+      "current_status": "unresolved"
+    },
+    {
+      "hypothesis_id": "hyp_1_low_diversity_bulk_features",
+      "summary": "Bulk-related backward and forward traffic features exhibit near-constant values with extremely low cardinality, suggesting a structural regularity or saturation effect in bulk traffic representation during the partition.",
+      "evidence_refs": [
+        "e23",
+        "e24",
+        "e25",
+        "e26",
+        "e27",
+        "e28",
+        "e29",
+        "e30",
+        "e31",
+        "e32"
+      ],
+      "open_questions": [
+        "Does the near-constant bulk feature behavior reflect a genuine network traffic pattern or an artifact of feature extraction or aggregation?",
+        "Could this low diversity indicate a saturation or ceiling effect in bulk traffic measurement under DDoS conditions?"
+      ],
+      "current_status": "unresolved"
+    }
+  ]
+}

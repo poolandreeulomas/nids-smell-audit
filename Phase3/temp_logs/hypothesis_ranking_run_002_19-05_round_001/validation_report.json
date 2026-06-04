@@ -1,0 +1,62 @@
+{
+  "ok": false,
+  "schema_version": "phase3a.hypothesis_ranking.v1",
+  "hypothesis_set_validation": {
+    "ok": false,
+    "errors": [
+      {
+        "field": "hypotheses[2].summary",
+        "message": "Forbidden language detected (prioritization_language)."
+      }
+    ],
+    "warnings": [],
+    "stats": {
+      "hypothesis_count": 3,
+      "open_question_count": 3,
+      "distinct_evidence_ref_count": 4,
+      "overlap_pair_count": 3
+    },
+    "invariants": {
+      "bounded_hypothesis_count": true,
+      "grounded_only": true,
+      "open_questions_present": true,
+      "non_empty_hypothesis_space": true
+    },
+    "forbidden_language_hits": [
+      {
+        "field": "hypotheses[2].summary",
+        "code": "prioritization_language"
+      }
+    ]
+  },
+  "ranking_state_validation": {
+    "ok": true,
+    "errors": [],
+    "warnings": [],
+    "stats": {
+      "selection_budget": 3,
+      "hypothesis_state_ref_count": 3,
+      "round_constraint_count": 3
+    }
+  },
+  "parse_validation": {
+    "ok": false,
+    "errors": [
+      {
+        "field": "raw_response",
+        "message": "Model response was not produced."
+      }
+    ],
+    "warnings": []
+  },
+  "output_validation": {
+    "ok": false,
+    "errors": [
+      {
+        "field": "parsed_output",
+        "message": "Parsed ranking decision was not produced."
+      }
+    ],
+    "warnings": []
+  }
+}

@@ -1,0 +1,58 @@
+{
+  "selected_hypotheses": [
+    {
+      "hypothesis_id": "hyp_4_distributional_divergence_destination_port",
+      "summary": "The Destination Port feature shows strong distributional divergence between BENIGN and DDoS classes, with the DDoS class dominated by a single port value and zero entropy, suggesting a representation-sensitive pattern that may act as a narrow but strong class indicator.",
+      "evidence_refs": [
+        "e33"
+      ],
+      "open_questions": [
+        "Is the dominance of a single destination port in DDoS traffic a stable characteristic or an artifact of this dataset's attack scenarios?",
+        "Could reliance on this feature lead to overfitting or vulnerability to evasion if port usage changes?"
+      ],
+      "current_status": "unresolved"
+    },
+    {
+      "hypothesis_id": "hyp_2_strong_linear_dependencies",
+      "summary": "Several feature pairs exhibit near-perfect or perfect correlations, suggesting strong linear dependencies and potential redundancy that may reduce the effective dimensionality of the feature space and bias model learning.",
+      "evidence_refs": [
+        "e13",
+        "e14",
+        "e15",
+        "e16",
+        "e17",
+        "e18",
+        "e19",
+        "e20",
+        "e21",
+        "e22"
+      ],
+      "open_questions": [
+        "Are these strong dependencies stable across different temporal segments or specific to this partition?",
+        "Do these dependencies arise from inherent network protocol relationships or from preprocessing steps?"
+      ],
+      "current_status": "unresolved"
+    },
+    {
+      "hypothesis_id": "hyp_1_low_diversity_bulk_features",
+      "summary": "The near-constant values and extremely low unique value counts in multiple bulk-related backward and forward traffic features may indicate a structural saturation or a constrained representation in these features across the partition, potentially limiting their discriminative power.",
+      "evidence_refs": [
+        "e23",
+        "e24",
+        "e25",
+        "e26",
+        "e27",
+        "e28",
+        "e29",
+        "e30",
+        "e31",
+        "e32"
+      ],
+      "open_questions": [
+        "Does the low diversity in bulk features reflect a genuine network behavior pattern or an artifact of feature extraction or aggregation?",
+        "Could this near-constant behavior mask subtle but important variations relevant for attack detection?"
+      ],
+      "current_status": "unresolved"
+    }
+  ]
+}

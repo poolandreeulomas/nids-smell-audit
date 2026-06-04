@@ -1,0 +1,17 @@
+{
+  "task_id": "task_1",
+  "hypothesis_id": "hyp_003_class_conditioned_structural_variation",
+  "status": "completed",
+  "findings": [
+    "Average Packet Size exhibits high class-conditioned distribution separation with low cardinality.",
+    "Bwd Packet Length Max shows low cardinality and near-constant behavior, indicating stable structural variation.",
+    "No significant variance ratio changes detected across time windows for these features."
+  ],
+  "evidence_refs": [
+    "task_1_step_03",
+    "task_1_step_05",
+    "task_1_step_07"
+  ],
+  "contradictions": [],
+  "limitations": []
+}

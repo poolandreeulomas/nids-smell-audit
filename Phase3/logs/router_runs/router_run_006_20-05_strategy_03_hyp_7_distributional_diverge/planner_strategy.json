@@ -1,0 +1,20 @@
+{
+  "strategy_id": "strategy_03_hyp_7_distributional_divergence_destination_port",
+  "hypothesis_id": "hyp_7_distributional_divergence_destination_port",
+  "strategic_objective": "Clarify the representational skew and its implications in the Destination Port feature distribution",
+  "key_checks": [
+    "analyze class-conditioned distribution profiles and entropy measures for Destination Port",
+    "investigate the prevalence and role of the dominant port in DDoS traffic",
+    "assess potential dataset biases or artifacts influencing port distribution",
+    "consider effects of skew on generalization to other attack types or ports"
+  ],
+  "success_criteria": [
+    "evidence distinguishing targeted attack vector from dataset artifact",
+    "understanding of how skewed port representation affects detection robustness",
+    "identification of conditions under which port distribution may limit generalization"
+  ],
+  "router_constraints": [
+    "preserve Destination Port feature scope",
+    "preserve evidence reference e33"
+  ]
+}

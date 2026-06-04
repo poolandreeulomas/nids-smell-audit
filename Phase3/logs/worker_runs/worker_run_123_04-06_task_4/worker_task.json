@@ -1,0 +1,22 @@
+{
+  "task_id": "task_4",
+  "hypothesis_id": "hyp_9_tension_between_low_diversity_and_class_conditioned_variation",
+  "task_scope": "Evaluate potential trade-offs in model reliance on stable versus variable features using evidence refs e9 to e12 and e23 to e25",
+  "allowed_actions": [
+    "shortcut_verification",
+    "structural_summary"
+  ],
+  "local_context_refs": [
+    "e9",
+    "e10",
+    "e11",
+    "e12",
+    "e23",
+    "e24",
+    "e25"
+  ],
+  "stop_conditions": [
+    "trade-offs in feature reliance identified",
+    "structural implications for model interpretability documented"
+  ]
+}

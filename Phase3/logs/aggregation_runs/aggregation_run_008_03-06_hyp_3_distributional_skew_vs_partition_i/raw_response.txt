@@ -1,0 +1,36 @@
+{
+  "aggregation_handoff": {
+    "batch_id": "phase3a_batch_0306161030_friday-workinghours-afternoon-ddos.pcap_iscx_0595cd",
+    "round_id": "round-001",
+    "hypothesis_id": "hyp_3_distributional_skew_vs_partition_imbalance",
+    "merged_findings": [
+      "Destination Port exhibits a strong, stable, and class-conditioned distributional skew across partitions, dominated by a single port in the DDoS class with near-zero entropy, contrasting with a more diverse BENIGN class distribution.",
+      "Duplicated rows contribute structurally to this skew, yet entropy variation remains bounded and stable despite their presence.",
+      "Moderate class imbalance (ratio ~1.577) coexists with strong distributional divergence (JS divergence=0.7315), highlighting a tension between skew and imbalance that may affect stability and representativeness.",
+      "Local label-topology consistency is unresolved due to persistent conflicts and duplicate label conflicts in bounded neighborhoods around Destination Port, raising concerns about stability and interpretability."
+    ],
+    "evidence_refs": [
+      "task_1_step_03",
+      "task_1_step_07",
+      "task_2_step_03",
+      "task_2_step_05",
+      "task_2_step_07",
+      "task_3_step_03",
+      "task_3_step_05",
+      "task_4_step_03",
+      "task_4_step_05",
+      "task_4_step_07"
+    ],
+    "preserved_contradictions": [
+      "Preserved tension between strong distributional skew and moderate class imbalance at partition level.",
+      "local contradiction preserved"
+    ],
+    "open_gaps": [
+      "Limited analysis scope focused on Destination Port feature; other features and cross-feature interactions remain unevaluated.",
+      "No semantic interpretation or root cause analysis of duplication effects performed.",
+      "Local label-topology consistency remains unverified due to persistent conflicts.",
+      "No temporal stability or global aggregation analyses conducted."
+    ],
+    "update_focus": "Focus on reconciling distributional skew with class imbalance and resolving local label conflicts around Destination Port."
+  }
+}

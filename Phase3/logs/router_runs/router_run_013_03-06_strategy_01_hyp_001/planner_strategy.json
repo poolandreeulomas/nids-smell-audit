@@ -1,0 +1,20 @@
+{
+  "strategy_id": "strategy_01_hyp_001",
+  "hypothesis_id": "hyp_001_low_cardinality_bulk_features",
+  "strategic_objective": "Clarify whether near-constant bulk feature values reflect true network saturation or data artifacts and assess their impact on subtle attack-related variations.",
+  "key_checks": [
+    "Measure temporal stability of low cardinality in bulk features",
+    "Compare bulk feature distributions across attack and benign classes",
+    "Assess sensitivity of bulk features to minor traffic fluctuations",
+    "Check for potential masking of relevant signals by near-constant values"
+  ],
+  "success_criteria": [
+    "Evidence supports bulk features as stable saturation indicators or reveals artifact patterns",
+    "Identification of any subtle but meaningful variations within near-constant bulk features",
+    "Clear differentiation between genuine network behavior and data collection effects"
+  ],
+  "router_constraints": [
+    "preserve bulk feature scope (e23-e32)",
+    "preserve evidence references e23 to e32"
+  ]
+}

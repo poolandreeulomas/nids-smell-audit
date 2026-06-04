@@ -1,0 +1,402 @@
+{
+  "substrate_id": "substrate_076_friday-workinghours-afternoon-ddos",
+  "batch_id": "semantic_batch_076_friday-workinghours-afternoon-ddos.pcap_iscx",
+  "compressed_regions": [
+    {
+      "region_id": "region_1_low_diversity_bulk_features",
+      "region_kind": "low_diversity_region",
+      "status": "active",
+      "summary": "Multiple bulk-related backward and forward features exhibit extremely low unique value counts and cardinality ratios, indicating near-constant values across the partition.",
+      "structural_descriptors": [
+        "near-constant feature values",
+        "low cardinality",
+        "bulk traffic metrics"
+      ],
+      "feature_scope": {
+        "features": [
+          "Bwd Avg Bulk Rate",
+          "Bwd Avg Bytes/Bulk",
+          "Bwd Avg Packets/Bulk",
+          "Bwd PSH Flags",
+          "Bwd URG Flags",
+          "CWE Flag Count",
+          "Fwd Avg Bulk Rate",
+          "Fwd Avg Bytes/Bulk",
+          "Fwd Avg Packets/Bulk",
+          "Fwd URG Flags"
+        ],
+        "feature_groups": [
+          "bulk_features",
+          "flag_features"
+        ],
+        "locality": {
+          "scope_type": "partition_global",
+          "scope_value": "semantic_batch_076_friday-workinghours-afternoon-ddos.pcap_iscx",
+          "localized": false,
+          "notes": [
+            "partition-level observation of low diversity in bulk and flag features"
+          ]
+        }
+      },
+      "evidence_refs": [
+        "e23",
+        "e24",
+        "e25",
+        "e26",
+        "e27",
+        "e28",
+        "e29",
+        "e30",
+        "e31",
+        "e32"
+      ],
+      "supporting_patterns": [
+        "unique_values=1",
+        "cardinality_ratio=1e-05"
+      ],
+      "contextual_modifiers": [
+        "low variability across classes"
+      ],
+      "uncertainty_notes": [
+        "Low cardinality may reflect feature saturation or measurement artifact",
+        "Potentially limits discriminative power of these features"
+      ],
+      "contradiction_refs": [],
+      "tension_refs": []
+    },
+    {
+      "region_id": "region_2_strong_feature_dependencies",
+      "region_kind": "dependency_region",
+      "status": "active",
+      "summary": "Several feature pairs exhibit perfect or near-perfect correlation, indicating strong redundancy and deterministic relationships within forward and backward packet metrics and flags.",
+      "structural_descriptors": [
+        "perfect correlation",
+        "feature redundancy",
+        "deterministic pairs"
+      ],
+      "feature_scope": {
+        "features": [
+          "Bwd Packet Length Mean",
+          "Avg Bwd Segment Size",
+          "Fwd Header Length",
+          "Fwd Header Length.1",
+          "Fwd PSH Flags",
+          "SYN Flag Count",
+          "Fwd Packet Length Mean",
+          "Avg Fwd Segment Size",
+          "RST Flag Count",
+          "ECE Flag Count",
+          "Total Backward Packets",
+          "Subflow Bwd Packets",
+          "Total Fwd Packets",
+          "Subflow Fwd Packets",
+          "Total Length of Bwd Packets",
+          "Subflow Bwd Bytes",
+          "Total Length of Fwd Packets",
+          "Subflow Fwd Bytes",
+          "Packet Length Mean",
+          "Average Packet Size"
+        ],
+        "feature_groups": [
+          "packet_length_features",
+          "flag_features",
+          "subflow_features"
+        ],
+        "locality": {
+          "scope_type": "partition_global",
+          "scope_value": "semantic_batch_076_friday-workinghours-afternoon-ddos.pcap_iscx",
+          "localized": false,
+          "notes": [
+            "partition-wide deterministic dependencies"
+          ]
+        }
+      },
+      "evidence_refs": [
+        "e13",
+        "e14",
+        "e15",
+        "e16",
+        "e17",
+        "e18",
+        "e19",
+        "e20",
+        "e21",
+        "e22"
+      ],
+      "supporting_patterns": [
+        "correlation=1",
+        "correlation=0.9993"
+      ],
+      "contextual_modifiers": [
+        "strong linear relationships",
+        "redundancy across packet and flag metrics"
+      ],
+      "uncertainty_notes": [
+        "Perfect correlations may indicate feature duplication or derived metrics",
+        "Could impact feature selection and model robustness"
+      ],
+      "contradiction_refs": [],
+      "tension_refs": []
+    },
+    {
+      "region_id": "region_3_class_conditioned_structural_variation_packet_lengths",
+      "region_kind": "mixed_structural_region",
+      "status": "active",
+      "summary": "Packet length related features show significant class-conditioned structural variation with high variance ratios and differing unique value counts between BENIGN and DDoS classes.",
+      "structural_descriptors": [
+        "class-conditioned variance",
+        "structural variation",
+        "packet length metrics"
+      ],
+      "feature_scope": {
+        "features": [
+          "Bwd Packet Length Max",
+          "Bwd Packet Length Mean",
+          "Bwd Packet Length Std",
+          "Average Packet Size",
+          "Avg Bwd Segment Size"
+        ],
+        "feature_groups": [
+          "packet_length_features"
+        ],
+        "locality": {
+          "scope_type": "partition_global",
+          "scope_value": "semantic_batch_076_friday-workinghours-afternoon-ddos.pcap_iscx",
+          "localized": false,
+          "notes": [
+            "partition-level class-conditioned structural variation"
+          ]
+        }
+      },
+      "evidence_refs": [
+        "e8",
+        "e9",
+        "e10",
+        "e11",
+        "e12"
+      ],
+      "supporting_patterns": [
+        "variance_ratio > 4",
+        "unique_values_by_class disparity"
+      ],
+      "contextual_modifiers": [
+        "variation concentrated in packet length features",
+        "class imbalance may influence observed variation"
+      ],
+      "uncertainty_notes": [
+        "Variance ratios indicate structural differences but do not confirm discriminative utility",
+        "Unique value disparities may reflect class-specific traffic patterns"
+      ],
+      "contradiction_refs": [],
+      "tension_refs": []
+    },
+    {
+      "region_id": "region_4_destination_port_distribution_divergence",
+      "region_kind": "representation_sensitive_region",
+      "status": "emerging",
+      "summary": "Destination Port feature shows distributional divergence between BENIGN and DDoS classes with high dominant ratio in DDoS and moderate entropy in BENIGN, indicating potential class-specific port usage patterns.",
+      "structural_descriptors": [
+        "distribution divergence",
+        "class-specific port dominance",
+        "entropy variation"
+      ],
+      "feature_scope": {
+        "features": [
+          "Destination Port"
+        ],
+        "feature_groups": [
+          "port_features"
+        ],
+        "locality": {
+          "scope_type": "partition_global",
+          "scope_value": "semantic_batch_076_friday-workinghours-afternoon-ddos.pcap_iscx",
+          "localized": false,
+          "notes": [
+            "partition-level distributional analysis"
+          ]
+        }
+      },
+      "evidence_refs": [
+        "e33"
+      ],
+      "supporting_patterns": [
+        "dominant_ratio=1.0 in DDoS",
+        "js_divergence=0.7315"
+      ],
+      "contextual_modifiers": [
+        "high class separation in port usage"
+      ],
+      "uncertainty_notes": [
+        "Distributional metrics do not confirm causal or predictive relationships",
+        "Potentially influenced by attack-specific port targeting"
+      ],
+      "contradiction_refs": [],
+      "tension_refs": []
+    },
+    {
+      "region_id": "region_5_partition_level_data_quality_and_class_imbalance",
+      "region_kind": "mixed_structural_region",
+      "status": "active",
+      "summary": "Partition overview reveals presence of duplicated rows and moderate class imbalance, which may affect downstream analysis and model training.",
+      "structural_descriptors": [
+        "data duplication",
+        "class imbalance"
+      ],
+      "feature_scope": {
+        "features": [
+          "__dataset__"
+        ],
+        "feature_groups": [],
+        "locality": {
+          "scope_type": "partition_global",
+          "scope_value": "semantic_batch_076_friday-workinghours-afternoon-ddos.pcap_iscx",
+          "localized": false,
+          "notes": [
+            "partition-level data quality and class distribution"
+          ]
+        }
+      },
+      "evidence_refs": [
+        "e1",
+        "e2"
+      ],
+      "supporting_patterns": [
+        "729 duplicated rows",
+        "class imbalance ratio=1.577"
+      ],
+      "contextual_modifiers": [
+        "moderate imbalance may influence feature distributions"
+      ],
+      "uncertainty_notes": [
+        "Impact of duplicates on analysis not quantified",
+        "Class imbalance ratio moderate but non-trivial"
+      ],
+      "contradiction_refs": [],
+      "tension_refs": []
+    }
+  ],
+  "preserved_weak_signals": [
+    {
+      "weak_signal_id": "weak_1_packet_length_mean_top_rank",
+      "descriptor": "Bwd Packet Length Mean is top-ranked feature in partition overview",
+      "feature_scope": {
+        "features": [
+          "Bwd Packet Length Mean"
+        ],
+        "feature_groups": [],
+        "locality": {
+          "scope_type": "partition_global",
+          "scope_value": "semantic_batch_076_friday-workinghours-afternoon-ddos.pcap_iscx",
+          "localized": false,
+          "notes": [
+            "partition-level feature ranking"
+          ]
+        }
+      },
+      "evidence_refs": [
+        "e3"
+      ],
+      "preservation_reason": "Indicates potential importance despite redundancy and class-conditioned variation",
+      "contextual_modifiers": [],
+      "uncertainty_notes": []
+    },
+    {
+      "weak_signal_id": "weak_2_avg_bwd_segment_size_top_rank",
+      "descriptor": "Avg Bwd Segment Size is second top-ranked feature in partition overview",
+      "feature_scope": {
+        "features": [
+          "Avg Bwd Segment Size"
+        ],
+        "feature_groups": [],
+        "locality": {
+          "scope_type": "partition_global",
+          "scope_value": "semantic_batch_076_friday-workinghours-afternoon-ddos.pcap_iscx",
+          "localized": false,
+          "notes": [
+            "partition-level feature ranking"
+          ]
+        }
+      },
+      "evidence_refs": [
+        "e4"
+      ],
+      "preservation_reason": "Supports relevance of packet length related features",
+      "contextual_modifiers": [],
+      "uncertainty_notes": []
+    },
+    {
+      "weak_signal_id": "weak_3_bwd_packet_length_max_top_rank",
+      "descriptor": "Bwd Packet Length Max is third top-ranked feature in partition overview",
+      "feature_scope": {
+        "features": [
+          "Bwd Packet Length Max"
+        ],
+        "feature_groups": [],
+        "locality": {
+          "scope_type": "partition_global",
+          "scope_value": "semantic_batch_076_friday-workinghours-afternoon-ddos.pcap_iscx",
+          "localized": false,
+          "notes": [
+            "partition-level feature ranking"
+          ]
+        }
+      },
+      "evidence_refs": [
+        "e5"
+      ],
+      "preservation_reason": "Corroborates structural variation in packet length metrics",
+      "contextual_modifiers": [],
+      "uncertainty_notes": []
+    },
+    {
+      "weak_signal_id": "weak_4_bwd_packet_length_std_top_rank",
+      "descriptor": "Bwd Packet Length Std is fourth top-ranked feature in partition overview",
+      "feature_scope": {
+        "features": [
+          "Bwd Packet Length Std"
+        ],
+        "feature_groups": [],
+        "locality": {
+          "scope_type": "partition_global",
+          "scope_value": "semantic_batch_076_friday-workinghours-afternoon-ddos.pcap_iscx",
+          "localized": false,
+          "notes": [
+            "partition-level feature ranking"
+          ]
+        }
+      },
+      "evidence_refs": [
+        "e6"
+      ],
+      "preservation_reason": "Supports presence of class-conditioned structural variation",
+      "contextual_modifiers": [],
+      "uncertainty_notes": []
+    },
+    {
+      "weak_signal_id": "weak_5_average_packet_size_top_rank",
+      "descriptor": "Average Packet Size is fifth top-ranked feature in partition overview",
+      "feature_scope": {
+        "features": [
+          "Average Packet Size"
+        ],
+        "feature_groups": [],
+        "locality": {
+          "scope_type": "partition_global",
+          "scope_value": "semantic_batch_076_friday-workinghours-afternoon-ddos.pcap_iscx",
+          "localized": false,
+          "notes": [
+            "partition-level feature ranking"
+          ]
+        }
+      },
+      "evidence_refs": [
+        "e7"
+      ],
+      "preservation_reason": "Indicates relevance of size-related features despite redundancy",
+      "contextual_modifiers": [],
+      "uncertainty_notes": []
+    }
+  ],
+  "contradictions": [],
+  "unresolved_tensions": []
+}

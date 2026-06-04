@@ -1,0 +1,40 @@
+{
+  "batch_id": "phase3a_batch_0306143851_friday-workinghours-afternoon-ddos.pcap_iscx_ba9279",
+  "round_id": "round-001",
+  "hypothesis_id": "hyp_003_class_conditioned_structural_variation",
+  "planner_strategy_id": "strategy_03_hyp_003",
+  "worker_tasks": [
+    {
+      "task_id": "task_1",
+      "hypothesis_id": "hyp_003_class_conditioned_structural_variation",
+      "task_scope": "Compare variance ratios and unique value counts of key features across multiple defined time windows to detect structural variation stability.",
+      "allowed_actions": ["cardinality_verification", "distribution_verification"],
+      "local_context_refs": ["e8", "e9"],
+      "stop_conditions": ["collected variance and unique count metrics for all time windows", "no significant variance ratio changes detected across windows"]
+    },
+    {
+      "task_id": "task_2",
+      "hypothesis_id": "hyp_003_class_conditioned_structural_variation",
+      "task_scope": "Test consistency of class-conditioned distribution differences under varying network conditions using distribution and local consistency verification.",
+      "allowed_actions": ["distribution_verification", "local_consistency_verification"],
+      "local_context_refs": ["e9", "e10"],
+      "stop_conditions": ["distribution differences stable across network condition subsets", "local label-topology consistency confirmed"]
+    },
+    {
+      "task_id": "task_3",
+      "hypothesis_id": "hyp_003_class_conditioned_structural_variation",
+      "task_scope": "Evaluate potential sampling biases by cross-referencing structural variation features with capture metadata and duplication checks.",
+      "allowed_actions": ["duplication_verification", "relation_verification"],
+      "local_context_refs": ["e10", "e11"],
+      "stop_conditions": ["sampling bias indicators identified or excluded", "duplication rates quantified and correlated with metadata"]
+    },
+    {
+      "task_id": "task_4",
+      "hypothesis_id": "hyp_003_class_conditioned_structural_variation",
+      "task_scope": "Assess alignment of observed structural variations with known DDoS behavioral signatures using structural summary and shortcut verification.",
+      "allowed_actions": ["structural_summary", "shortcut_verification"],
+      "local_context_refs": ["e11", "e12"],
+      "stop_conditions": ["structural patterns matched or excluded as DDoS signatures", "shortcut-like predictive signals evaluated"]
+    }
+  ]
+}

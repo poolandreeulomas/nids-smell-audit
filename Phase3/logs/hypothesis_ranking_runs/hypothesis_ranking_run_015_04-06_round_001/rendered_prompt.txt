@@ -1,0 +1,318 @@
+=== ROLE ===
+You are the Phase 3A Hypothesis Ranking module.
+You operate after Investigation Analysis and before the Planner.
+You are part of a forensic dataset auditing system focused on identifying structural irregularities, representation-sensitive patterns, shortcut-like signals, unstable dependencies, and epistemically suspicious regularities inside telemetry datasets.
+You allocate bounded epistemic attention toward hypotheses with high uncertainty-reduction potential or structurally suspicious characteristics.
+
+=== OBJECTIVE ===
+Select up to 3 hypotheses for round_id=round-001 in batch_id=phase3a_batch_0406095248_friday-workinghours-afternoon-ddos.pcap_iscx_f8c2c2.
+Allocate bounded epistemic budget to the hypotheses most worth investigating now.
+
+=== BOUNDARIES ===
+You are allocation-only. Do not design verification strategy, router tasks, or worker actions.
+Do not rewrite hypothesis content or invent new hypotheses.
+Do not drop viable non-selected hypotheses silently; preserve them in deferred_hypothesis_ids.
+Treat uncertainty as compatible with selection when investigative value is high.
+Do not force diversity penalties or certainty-only filtering.
+
+=== OUTPUT RULES ===
+Return valid JSON only.
+Do not use markdown or code fences.
+Return exactly these top-level fields:
+batch_id, round_id, selected_hypothesis_ids, deferred_hypothesis_ids, selection_rationales.
+selected_hypothesis_ids must contain only hypothesis ids from the candidate set.
+deferred_hypothesis_ids must contain every non-selected hypothesis id that remains available later.
+selection_rationales must contain only selected hypotheses and each record must include hypothesis_id and reason.
+Reasons must remain short, allocation-oriented, and non-operational.
+
+=== RANKING STATE ===
+{
+  "hypothesis_state_refs": [
+    {
+      "hypothesis_id": "hyp_001_low_diversity_backward_bulk",
+      "state_notes": [
+        "status=unresolved",
+        "summary=Backward bulk-related features (Bwd Avg Bulk Rate, Bwd Avg Bytes/Bulk, Bwd Avg Packets/Bulk) exhibit near-constant values with unique value counts of 1 and very low cardinality ratios, suggesting a structural uniformity or saturation effect in backward bulk traffic representation.",
+        "revision_count=0",
+        "last_updated_round=initialization",
+        "open_gap=Does the near-constant nature of these backward bulk features reflect a genuine network behavior during the DDoS event or an artifact of feature extraction or aggregation?",
+        "open_gap=Could this low variability mask subtle but meaningful variations relevant for attack detection?"
+      ]
+    },
+    {
+      "hypothesis_id": "hyp_002_low_diversity_backward_flag_features",
+      "state_notes": [
+        "status=unresolved",
+        "summary=Backward TCP flag features (Bwd PSH Flags, Bwd URG Flags) and CWE Flag Count show minimal variability with unique values of 1, indicating a potential structural uniformity or representation insensitivity in backward flag signaling.",
+        "revision_count=0",
+        "last_updated_round=initialization",
+        "open_gap=Is the near-constant flag pattern a result of the attack traffic characteristics or a limitation in flag feature encoding?",
+        "open_gap=Could these features be redundant or uninformative for distinguishing attack from benign traffic?"
+      ]
+    },
+    {
+      "hypothesis_id": "hyp_003_low_diversity_forward_bulk_and_flag_features",
+      "state_notes": [
+        "status=unresolved",
+        "summary=Forward bulk rate and packet/bulk features along with forward URG Flags show near-constant values with unique value counts of 1, suggesting a similar structural uniformity or saturation in forward traffic bulk and flag features.",
+        "revision_count=0",
+        "last_updated_round=initialization",
+        "open_gap=Does the low variability in forward bulk and flag features indicate a stable attack pattern or a loss of discriminative power in these features?",
+        "open_gap=Are these features capturing meaningful forward traffic behavior or are they dominated by a single mode?"
+      ]
+    },
+    {
+      "hypothesis_id": "hyp_004_strong_feature_dependency_pairs",
+      "state_notes": [
+        "status=unresolved",
+        "summary=Multiple feature pairs exhibit perfect or near-perfect correlation (correlation=1 or ~0.9993), indicating strong redundancy and deterministic relationships among packet length, segment size, header length, flag counts, and packet counts in both forward and backward directions.",
+        "revision_count=0",
+        "last_updated_round=initialization",
+        "open_gap=Are these strong dependencies inherent to the network protocol behavior or induced by feature engineering steps?",
+        "open_gap=Could these redundancies be exploited to reduce feature dimensionality without loss of information?",
+        "open_gap=Do these dependencies hold consistently across benign and attack classes or vary with class conditioning?"
+      ]
+    },
+    {
+      "hypothesis_id": "hyp_005_class_conditioned_variation_backward_packet_lengths",
+      "state_notes": [
+        "status=unresolved",
+        "summary=Backward packet length features (Max, Mean, Std) and Avg Bwd Segment Size show significant class-conditioned structural variation with high variance ratios and large differences in unique values between BENIGN and DDoS classes, indicating potential discriminative power.",
+        "revision_count=0",
+        "last_updated_round=initialization",
+        "open_gap=Is the observed class-conditioned variation stable across different time windows or network conditions?",
+        "open_gap=Could these features be sensitive to attack-specific packet size manipulation or fragmentation?",
+        "open_gap=Are there confounding factors influencing these variations such as flow duration or application type?"
+      ]
+    },
+    {
+      "hypothesis_id": "hyp_006_class_conditioned_variation_average_packet_size",
+      "state_notes": [
+        "status=unresolved",
+        "summary=Average Packet Size shows class-conditioned structural variation with moderate variance ratio and skewed unique values between BENIGN and DDoS classes, suggesting partial sensitivity to attack-related traffic changes.",
+        "revision_count=0",
+        "last_updated_round=initialization",
+        "open_gap=Does the moderate variance ratio imply limited discriminative utility or potential for combined feature use?",
+        "open_gap=Is the skew in unique values consistent across different attack intensities or benign traffic subtypes?"
+      ]
+    },
+    {
+      "hypothesis_id": "hyp_007_class_conditioned_distribution_destination_port",
+      "state_notes": [
+        "status=unresolved",
+        "summary=Destination Port feature shows strong distributional differences between BENIGN and DDoS classes, with DDoS having a dominant ratio of 1.0 and zero entropy, while BENIGN has lower dominant ratio and higher entropy, resulting in high Jensen-Shannon divergence, indicating representation sensitivity to class-conditioned shifts.",
+        "revision_count=0",
+        "last_updated_round=initialization",
+        "open_gap=Does the zero entropy in DDoS destination ports reflect a targeted attack on specific ports or a dataset artifact?",
+        "open_gap=Could this feature be exploited as a strong localized representation-sensitive handle for attack detection?",
+        "open_gap=Are there temporal or contextual factors influencing the port distribution shifts?"
+      ]
+    },
+    {
+      "hypothesis_id": "hyp_008_partition_level_data_quality_and_class_imbalance",
+      "state_notes": [
+        "status=unresolved",
+        "summary=The partition overview reports 729 duplicated rows and a class imbalance ratio of 1.577, indicating moderate class skew and presence of duplicate data points that may affect model training and evaluation.",
+        "revision_count=0",
+        "last_updated_round=initialization",
+        "open_gap=Do the duplicated rows represent repeated legitimate flows or artifacts of data collection and preprocessing?",
+        "open_gap=How does the class imbalance impact feature distribution stability and model bias?",
+        "open_gap=Should deduplication or rebalancing be considered to improve dataset representativeness?"
+      ]
+    },
+    {
+      "hypothesis_id": "hyp_009_weak_signal_backward_flag_constantness",
+      "state_notes": [
+        "status=unresolved",
+        "summary=Backward PSH and URG Flags show near-constant values with minimal variability, representing a weak but coherent signal of structural uniformity in backward TCP flag features.",
+        "revision_count=0",
+        "last_updated_round=initialization",
+        "open_gap=Is this weak signal indicative of a stable protocol behavior or a masking of subtle attack-related flag variations?",
+        "open_gap=Could this low variability reduce the utility of these flags in anomaly detection?"
+      ]
+    },
+    {
+      "hypothesis_id": "hyp_010_weak_signal_forward_flag_constantness",
+      "state_notes": [
+        "status=unresolved",
+        "summary=Forward URG Flags show near-constant values with minimal variability, representing a weak but consistent signal of low variability in forward TCP flag features.",
+        "revision_count=0",
+        "last_updated_round=initialization",
+        "open_gap=Does the low variability in forward URG Flags reflect a genuine network characteristic or a limitation in feature capture?",
+        "open_gap=Could this feature be redundant or less informative for distinguishing attack traffic?"
+      ]
+    }
+  ],
+  "round_constraints": [
+    "selection_budget=3",
+    "allocation_only",
+    "preserve_deferred_hypotheses",
+    "round_start_state_version=1"
+  ],
+  "round_id": "round-001",
+  "selection_budget": 3
+}
+
+=== CANDIDATE HYPOTHESIS SPACE ===
+{
+  "analysis_id": "analysis_phase3a_0406095248_01",
+  "batch_id": "phase3a_batch_0406095248_friday-workinghours-afternoon-ddos.pcap_iscx_f8c2c2",
+  "hypotheses": [
+    {
+      "evidence_ref_count": 3,
+      "evidence_refs": [
+        "e23",
+        "e24",
+        "e25"
+      ],
+      "hypothesis_id": "hyp_001_low_diversity_backward_bulk",
+      "open_question_count": 2,
+      "open_questions": [
+        "Does the near-constant nature of these backward bulk features reflect a genuine network behavior during the DDoS event or an artifact of feature extraction or aggregation?",
+        "Could this low variability mask subtle but meaningful variations relevant for attack detection?"
+      ],
+      "summary": "Backward bulk-related features (Bwd Avg Bulk Rate, Bwd Avg Bytes/Bulk, Bwd Avg Packets/Bulk) exhibit near-constant values with unique value counts of 1 and very low cardinality ratios, suggesting a structural uniformity or saturation effect in backward bulk traffic representation."
+    },
+    {
+      "evidence_ref_count": 3,
+      "evidence_refs": [
+        "e26",
+        "e27",
+        "e28"
+      ],
+      "hypothesis_id": "hyp_002_low_diversity_backward_flag_features",
+      "open_question_count": 2,
+      "open_questions": [
+        "Is the near-constant flag pattern a result of the attack traffic characteristics or a limitation in flag feature encoding?",
+        "Could these features be redundant or uninformative for distinguishing attack from benign traffic?"
+      ],
+      "summary": "Backward TCP flag features (Bwd PSH Flags, Bwd URG Flags) and CWE Flag Count show minimal variability with unique values of 1, indicating a potential structural uniformity or representation insensitivity in backward flag signaling."
+    },
+    {
+      "evidence_ref_count": 4,
+      "evidence_refs": [
+        "e29",
+        "e30",
+        "e31",
+        "e32"
+      ],
+      "hypothesis_id": "hyp_003_low_diversity_forward_bulk_and_flag_features",
+      "open_question_count": 2,
+      "open_questions": [
+        "Does the low variability in forward bulk and flag features indicate a stable attack pattern or a loss of discriminative power in these features?",
+        "Are these features capturing meaningful forward traffic behavior or are they dominated by a single mode?"
+      ],
+      "summary": "Forward bulk rate and packet/bulk features along with forward URG Flags show near-constant values with unique value counts of 1, suggesting a similar structural uniformity or saturation in forward traffic bulk and flag features."
+    },
+    {
+      "evidence_ref_count": 10,
+      "evidence_refs": [
+        "e13",
+        "e14",
+        "e15",
+        "e16",
+        "e17",
+        "e18",
+        "e19",
+        "e20",
+        "e21",
+        "e22"
+      ],
+      "hypothesis_id": "hyp_004_strong_feature_dependency_pairs",
+      "open_question_count": 3,
+      "open_questions": [
+        "Are these strong dependencies inherent to the network protocol behavior or induced by feature engineering steps?",
+        "Could these redundancies be exploited to reduce feature dimensionality without loss of information?",
+        "Do these dependencies hold consistently across benign and attack classes or vary with class conditioning?"
+      ],
+      "summary": "Multiple feature pairs exhibit perfect or near-perfect correlation (correlation=1 or ~0.9993), indicating strong redundancy and deterministic relationships among packet length, segment size, header length, flag counts, and packet counts in both forward and backward directions."
+    },
+    {
+      "evidence_ref_count": 4,
+      "evidence_refs": [
+        "e9",
+        "e10",
+        "e11",
+        "e12"
+      ],
+      "hypothesis_id": "hyp_005_class_conditioned_variation_backward_packet_lengths",
+      "open_question_count": 3,
+      "open_questions": [
+        "Is the observed class-conditioned variation stable across different time windows or network conditions?",
+        "Could these features be sensitive to attack-specific packet size manipulation or fragmentation?",
+        "Are there confounding factors influencing these variations such as flow duration or application type?"
+      ],
+      "summary": "Backward packet length features (Max, Mean, Std) and Avg Bwd Segment Size show significant class-conditioned structural variation with high variance ratios and large differences in unique values between BENIGN and DDoS classes, indicating potential discriminative power."
+    },
+    {
+      "evidence_ref_count": 1,
+      "evidence_refs": [
+        "e8"
+      ],
+      "hypothesis_id": "hyp_006_class_conditioned_variation_average_packet_size",
+      "open_question_count": 2,
+      "open_questions": [
+        "Does the moderate variance ratio imply limited discriminative utility or potential for combined feature use?",
+        "Is the skew in unique values consistent across different attack intensities or benign traffic subtypes?"
+      ],
+      "summary": "Average Packet Size shows class-conditioned structural variation with moderate variance ratio and skewed unique values between BENIGN and DDoS classes, suggesting partial sensitivity to attack-related traffic changes."
+    },
+    {
+      "evidence_ref_count": 1,
+      "evidence_refs": [
+        "e33"
+      ],
+      "hypothesis_id": "hyp_007_class_conditioned_distribution_destination_port",
+      "open_question_count": 3,
+      "open_questions": [
+        "Does the zero entropy in DDoS destination ports reflect a targeted attack on specific ports or a dataset artifact?",
+        "Could this feature be exploited as a strong localized representation-sensitive handle for attack detection?",
+        "Are there temporal or contextual factors influencing the port distribution shifts?"
+      ],
+      "summary": "Destination Port feature shows strong distributional differences between BENIGN and DDoS classes, with DDoS having a dominant ratio of 1.0 and zero entropy, while BENIGN has lower dominant ratio and higher entropy, resulting in high Jensen-Shannon divergence, indicating representation sensitivity to class-conditioned shifts."
+    },
+    {
+      "evidence_ref_count": 2,
+      "evidence_refs": [
+        "e1",
+        "e2"
+      ],
+      "hypothesis_id": "hyp_008_partition_level_data_quality_and_class_imbalance",
+      "open_question_count": 3,
+      "open_questions": [
+        "Do the duplicated rows represent repeated legitimate flows or artifacts of data collection and preprocessing?",
+        "How does the class imbalance impact feature distribution stability and model bias?",
+        "Should deduplication or rebalancing be considered to improve dataset representativeness?"
+      ],
+      "summary": "The partition overview reports 729 duplicated rows and a class imbalance ratio of 1.577, indicating moderate class skew and presence of duplicate data points that may affect model training and evaluation."
+    },
+    {
+      "evidence_ref_count": 2,
+      "evidence_refs": [
+        "e26",
+        "e27"
+      ],
+      "hypothesis_id": "hyp_009_weak_signal_backward_flag_constantness",
+      "open_question_count": 2,
+      "open_questions": [
+        "Is this weak signal indicative of a stable protocol behavior or a masking of subtle attack-related flag variations?",
+        "Could this low variability reduce the utility of these flags in anomaly detection?"
+      ],
+      "summary": "Backward PSH and URG Flags show near-constant values with minimal variability, representing a weak but coherent signal of structural uniformity in backward TCP flag features."
+    },
+    {
+      "evidence_ref_count": 1,
+      "evidence_refs": [
+        "e32"
+      ],
+      "hypothesis_id": "hyp_010_weak_signal_forward_flag_constantness",
+      "open_question_count": 2,
+      "open_questions": [
+        "Does the low variability in forward URG Flags reflect a genuine network characteristic or a limitation in feature capture?",
+        "Could this feature be redundant or less informative for distinguishing attack traffic?"
+      ],
+      "summary": "Forward URG Flags show near-constant values with minimal variability, representing a weak but consistent signal of low variability in forward TCP flag features."
+    }
+  ],
+  "hypothesis_count": 10
+}

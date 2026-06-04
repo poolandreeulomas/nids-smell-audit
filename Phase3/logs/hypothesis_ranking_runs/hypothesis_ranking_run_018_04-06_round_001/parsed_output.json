@@ -1,0 +1,32 @@
+{
+  "batch_id": "phase3a_batch_0406132627_friday-workinghours-afternoon-ddos.pcap_iscx_f0e355",
+  "round_id": "round-001",
+  "selected_hypothesis_ids": [
+    "hyp_5_strong_linear_dependencies",
+    "hyp_8_class_conditioned_distribution_destination_port",
+    "hyp_6_class_conditioned_variation_backward_packet_lengths"
+  ],
+  "deferred_hypothesis_ids": [
+    "hyp_1_low_diversity_backward_bulk",
+    "hyp_2_low_diversity_backward_tcp_flags",
+    "hyp_3_low_diversity_forward_bulk",
+    "hyp_4_low_diversity_forward_flags_and_cwe",
+    "hyp_7_class_conditioned_variation_packet_size_features",
+    "hyp_9_partition_level_class_imbalance_and_duplicates",
+    "hyp_10_low_cardinality_forward_flags_dependency"
+  ],
+  "selection_rationales": [
+    {
+      "hypothesis_id": "hyp_5_strong_linear_dependencies",
+      "reason": "Strong near-perfect correlations suggest critical feature redundancies impacting model robustness and feature selection."
+    },
+    {
+      "hypothesis_id": "hyp_8_class_conditioned_distribution_destination_port",
+      "reason": "High class-conditioned distribution skew with strong divergence indicates potential shortcut learning risk."
+    },
+    {
+      "hypothesis_id": "hyp_6_class_conditioned_variation_backward_packet_lengths",
+      "reason": "Significant class-conditioned structural variation offers high uncertainty-reduction potential for class discrimination."
+    }
+  ]
+}

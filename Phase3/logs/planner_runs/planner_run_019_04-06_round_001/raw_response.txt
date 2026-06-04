@@ -1,0 +1,66 @@
+{
+  "batch_id": "phase3a_batch_0406130425_friday-workinghours-afternoon-ddos.pcap_iscx_d272aa",
+  "round_id": "round-001",
+  "planner_strategies": [
+    {
+      "strategy_id": "strategy_01_hyp_1",
+      "hypothesis_id": "hyp_1_low_diversity_constant_features",
+      "strategic_objective": "Clarify whether near-constant bulk and flag features reflect true network saturation or measurement artifacts and assess their masking effect on subtle attack-relevant variations.",
+      "key_checks": [
+        "Compare cardinality and value stability of bulk and flag features across classes",
+        "Assess correlation of near-constant features with known saturation indicators",
+        "Evaluate presence of subtle intra-class variation within these features",
+        "Check for measurement or logging constraints causing low diversity"
+      ],
+      "success_criteria": [
+        "Evidence distinguishes genuine saturation from measurement limitations",
+        "Identification of any masked subtle variations relevant to attack detection",
+        "Characterization of feature stability across temporal or traffic segments"
+      ],
+      "router_constraints": [
+        "preserve feature scope for bulk and flag features",
+        "preserve evidence references e23 to e32"
+      ]
+    },
+    {
+      "strategy_id": "strategy_02_hyp_4",
+      "hypothesis_id": "hyp_4_class_distribution_and_port_skew",
+      "strategic_objective": "Determine if zero entropy in Destination Port for DDoS class indicates a narrow attack vector or dataset artifact and understand implications for model bias and overfitting.",
+      "key_checks": [
+        "Measure class-conditioned distribution concentration of Destination Port",
+        "Analyze port usage diversity within DDoS and non-DDoS classes",
+        "Evaluate impact of port skew on class imbalance and predictive leverage",
+        "Check for dataset collection or labeling biases affecting port distribution"
+      ],
+      "success_criteria": [
+        "Clear differentiation between attack targeting and dataset artifact explanations",
+        "Quantification of potential bias or overfitting risks from port skew",
+        "Insights into how port distribution affects class representation"
+      ],
+      "router_constraints": [
+        "preserve feature scope for Destination Port",
+        "preserve evidence references e2 and e33"
+      ]
+    },
+    {
+      "strategy_id": "strategy_03_hyp_7",
+      "hypothesis_id": "hyp_7_heterogeneous_structural_regimes",
+      "strategic_objective": "Investigate the coexistence of near-constant and strongly varying features to characterize heterogeneous structural regimes and their temporal or network segment associations.",
+      "key_checks": [
+        "Identify temporal or segment boundaries correlating with regime shifts",
+        "Compare class-conditioned structural variation patterns across regimes",
+        "Assess model sensitivity to regime heterogeneity",
+        "Evaluate potential for regime-aware modeling or detection strategies"
+      ],
+      "success_criteria": [
+        "Evidence linking heterogeneous regimes to distinct temporal phases or network segments",
+        "Characterization of regime-specific structural patterns and their stability",
+        "Understanding of how heterogeneity influences model behavior"
+      ],
+      "router_constraints": [
+        "preserve feature scope for heterogeneous regime features",
+        "preserve evidence references e8, e9, e10, e23, e24"
+      ]
+    }
+  ]
+}

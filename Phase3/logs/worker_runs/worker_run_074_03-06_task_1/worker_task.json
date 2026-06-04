@@ -1,0 +1,25 @@
+{
+  "task_id": "task_1",
+  "hypothesis_id": "hyp_002_strong_dependency_pairs_redundancy",
+  "task_scope": "Analyze dependency strength consistency of strong feature pairs across temporal partitions using preserved evidence references.",
+  "allowed_actions": [
+    "dependency_contextualization",
+    "distribution_verification"
+  ],
+  "local_context_refs": [
+    "e13",
+    "e14",
+    "e15",
+    "e16",
+    "e17",
+    "e18",
+    "e19",
+    "e20",
+    "e21",
+    "e22"
+  ],
+  "stop_conditions": [
+    "all temporal partitions analyzed",
+    "dependency strength metrics stabilized"
+  ]
+}

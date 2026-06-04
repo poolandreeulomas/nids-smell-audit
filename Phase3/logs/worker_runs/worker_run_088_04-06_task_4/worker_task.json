@@ -1,0 +1,15 @@
+{
+  "task_id": "task_4",
+  "hypothesis_id": "hyp_4_destination_port_distribution_skew_reflects_attack_targeting",
+  "task_scope": "Check for temporal or batch-specific variability in destination port distribution patterns to characterize stability over time and batches.",
+  "allowed_actions": [
+    "distribution_verification"
+  ],
+  "local_context_refs": [
+    "e33"
+  ],
+  "stop_conditions": [
+    "temporal distribution variability quantified",
+    "batch-specific pattern differences identified or ruled out"
+  ]
+}

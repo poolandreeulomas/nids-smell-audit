@@ -1,0 +1,24 @@
+{
+  "task_id": "task_4",
+  "hypothesis_id": "hyp_8_low_cardinality_features_as_potential_shortcut_signals",
+  "task_scope": "Test shortcut-like predictive leverage of features e23 to e32 individually and in combination",
+  "allowed_actions": [
+    "shortcut_verification"
+  ],
+  "local_context_refs": [
+    "e23",
+    "e24",
+    "e25",
+    "e26",
+    "e27",
+    "e28",
+    "e29",
+    "e30",
+    "e31",
+    "e32"
+  ],
+  "stop_conditions": [
+    "shortcut signal strength assessed for each feature and combinations",
+    "predictive leverage characterized"
+  ]
+}

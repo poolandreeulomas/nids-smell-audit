@@ -1,0 +1,20 @@
+{
+  "strategy_id": "strategy_02_hyp_7",
+  "hypothesis_id": "hyp_7_distributional_divergence_in_destination_port_feature",
+  "strategic_objective": "Determine temporal stability and sampling sensitivity of the dominant port distribution in the DDoS class to assess representation sensitivity.",
+  "key_checks": [
+    "Analyze destination port distribution across multiple time windows",
+    "Check for class imbalance effects on port distribution divergence",
+    "Compare entropy measures of destination port in BENIGN vs DDoS over different subsets",
+    "Investigate if dominant port presence correlates with specific attack campaigns"
+  ],
+  "success_criteria": [
+    "Confirmation of stable or fluctuating dominant port pattern in DDoS class",
+    "Identification of potential sampling or imbalance artifacts influencing distribution",
+    "Clear understanding of representation-sensitive signals linked to destination port"
+  ],
+  "router_constraints": [
+    "preserve feature_scope",
+    "preserve evidence ref e33"
+  ]
+}

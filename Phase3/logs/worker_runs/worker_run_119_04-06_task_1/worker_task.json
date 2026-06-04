@@ -1,0 +1,15 @@
+{
+  "task_id": "task_1",
+  "hypothesis_id": "hyp_7_distributional_divergence_in_destination_port_feature",
+  "task_scope": "Analyze distribution of destination port feature across multiple defined time windows within evidence e33 to assess temporal stability in DDoS class.",
+  "allowed_actions": [
+    "distribution_verification"
+  ],
+  "local_context_refs": [
+    "e33"
+  ],
+  "stop_conditions": [
+    "distribution metrics computed for all time windows",
+    "temporal distribution patterns stabilized"
+  ]
+}

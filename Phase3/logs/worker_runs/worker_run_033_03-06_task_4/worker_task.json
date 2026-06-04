@@ -1,0 +1,20 @@
+{
+  "task_id": "task_4",
+  "hypothesis_id": "hyp_1_redundancy_vs_importance_tension",
+  "task_scope": "Evaluate whether correlated features exhibit shortcut-like behavior or local label consistency within evidence refs e3, e4, e13, e16, e22.",
+  "allowed_actions": [
+    "shortcut_verification",
+    "local_consistency_verification"
+  ],
+  "local_context_refs": [
+    "e3",
+    "e4",
+    "e13",
+    "e16",
+    "e22"
+  ],
+  "stop_conditions": [
+    "shortcut signals identified or ruled out",
+    "local label consistency metrics stable"
+  ]
+}

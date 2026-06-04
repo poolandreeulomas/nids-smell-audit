@@ -1,0 +1,27 @@
+{
+  "component": "router",
+  "created_at": "2026-06-03T18:12:39.417361+00:00",
+  "schema_version": "phase3a.router.v1",
+  "batch_id": "phase3a_batch_0306181120_friday-workinghours-afternoon-ddos.pcap_iscx_5e8f98",
+  "round_id": "round-001",
+  "hypothesis_id": "hyp_6_class_distribution_difference_destination_port",
+  "planner_strategy_id": "strategy_01_hyp_6",
+  "status": "ok",
+  "validation_ok": true,
+  "model_name": "gpt-4.1-mini",
+  "caller_mode": "cli",
+  "replay_of": null,
+  "artifact_paths": {
+    "component_run_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\router_runs\\router_run_025_03-06_strategy_01_hyp_6\\component_run.json",
+    "planner_strategy_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\router_runs\\router_run_025_03-06_strategy_01_hyp_6\\planner_strategy.json",
+    "router_context_min_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\router_runs\\router_run_025_03-06_strategy_01_hyp_6\\router_context_min.json",
+    "reduced_context_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\router_runs\\router_run_025_03-06_strategy_01_hyp_6\\reduced_context.json",
+    "rendered_prompt_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\router_runs\\router_run_025_03-06_strategy_01_hyp_6\\rendered_prompt.txt",
+    "raw_response_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\router_runs\\router_run_025_03-06_strategy_01_hyp_6\\raw_response.txt",
+    "parsed_output_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\router_runs\\router_run_025_03-06_strategy_01_hyp_6\\parsed_output.json",
+    "task_bundle_index_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\router_runs\\router_run_025_03-06_strategy_01_hyp_6\\task_bundle_index.json",
+    "validation_report_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\router_runs\\router_run_025_03-06_strategy_01_hyp_6\\validation_report.json",
+    "runtime_metrics_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\router_runs\\router_run_025_03-06_strategy_01_hyp_6\\runtime_metrics.json",
+    "replay_metadata_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\router_runs\\router_run_025_03-06_strategy_01_hyp_6\\replay_metadata.json"
+  }
+}

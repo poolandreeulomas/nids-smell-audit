@@ -1,0 +1,9 @@
+[
+  {
+    "step_index": 5,
+    "attempt_index": 0,
+    "failure_kind": "tool_execution_error",
+    "message": "related_feature_name 'Protocol' is outside the selected local context.",
+    "call_id": "task_4_step_05"
+  }
+]

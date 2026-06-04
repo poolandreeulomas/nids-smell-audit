@@ -1,0 +1,230 @@
+{
+  "hypothesis_count": 10,
+  "evidence_ref_coverage": [
+    "e1",
+    "e10",
+    "e11",
+    "e12",
+    "e13",
+    "e14",
+    "e15",
+    "e16",
+    "e17",
+    "e18",
+    "e19",
+    "e2",
+    "e20",
+    "e21",
+    "e22",
+    "e23",
+    "e24",
+    "e25",
+    "e26",
+    "e27",
+    "e28",
+    "e29",
+    "e30",
+    "e31",
+    "e32",
+    "e33",
+    "e8",
+    "e9"
+  ],
+  "overlap_pairs": [
+    {
+      "left_hypothesis_id": "hyp_1_low_diversity_backward_bulk",
+      "right_hypothesis_id": "hyp_9_potential_redundancy_between_bulk_and_packet_length_features",
+      "shared_evidence_refs": [
+        "e23",
+        "e24",
+        "e25",
+        "e26",
+        "e27"
+      ]
+    },
+    {
+      "left_hypothesis_id": "hyp_1_low_diversity_backward_bulk",
+      "right_hypothesis_id": "hyp_10_interaction_of_class_conditioned_variation_and_low_diversity_regions",
+      "shared_evidence_refs": [
+        "e23",
+        "e24",
+        "e25",
+        "e26",
+        "e27"
+      ]
+    },
+    {
+      "left_hypothesis_id": "hyp_2_low_diversity_forward_bulk",
+      "right_hypothesis_id": "hyp_10_interaction_of_class_conditioned_variation_and_low_diversity_regions",
+      "shared_evidence_refs": [
+        "e29",
+        "e30",
+        "e31",
+        "e32"
+      ]
+    },
+    {
+      "left_hypothesis_id": "hyp_3_strong_feature_dependencies",
+      "right_hypothesis_id": "hyp_9_potential_redundancy_between_bulk_and_packet_length_features",
+      "shared_evidence_refs": [
+        "e13",
+        "e14",
+        "e15",
+        "e16",
+        "e17",
+        "e18",
+        "e19",
+        "e20",
+        "e21",
+        "e22"
+      ]
+    },
+    {
+      "left_hypothesis_id": "hyp_4_class_conditioned_variation_backward_packet_lengths",
+      "right_hypothesis_id": "hyp_10_interaction_of_class_conditioned_variation_and_low_diversity_regions",
+      "shared_evidence_refs": [
+        "e10",
+        "e11",
+        "e12",
+        "e9"
+      ]
+    },
+    {
+      "left_hypothesis_id": "hyp_5_class_conditioned_variation_average_packet_size",
+      "right_hypothesis_id": "hyp_10_interaction_of_class_conditioned_variation_and_low_diversity_regions",
+      "shared_evidence_refs": [
+        "e8"
+      ]
+    },
+    {
+      "left_hypothesis_id": "hyp_9_potential_redundancy_between_bulk_and_packet_length_features",
+      "right_hypothesis_id": "hyp_10_interaction_of_class_conditioned_variation_and_low_diversity_regions",
+      "shared_evidence_refs": [
+        "e23",
+        "e24",
+        "e25",
+        "e26",
+        "e27"
+      ]
+    }
+  ],
+  "hypotheses": [
+    {
+      "hypothesis_id": "hyp_1_low_diversity_backward_bulk",
+      "evidence_refs": [
+        "e23",
+        "e24",
+        "e25",
+        "e26",
+        "e27"
+      ],
+      "open_question_count": 3
+    },
+    {
+      "hypothesis_id": "hyp_2_low_diversity_forward_bulk",
+      "evidence_refs": [
+        "e29",
+        "e30",
+        "e31",
+        "e32"
+      ],
+      "open_question_count": 3
+    },
+    {
+      "hypothesis_id": "hyp_3_strong_feature_dependencies",
+      "evidence_refs": [
+        "e13",
+        "e14",
+        "e15",
+        "e16",
+        "e17",
+        "e18",
+        "e19",
+        "e20",
+        "e21",
+        "e22"
+      ],
+      "open_question_count": 3
+    },
+    {
+      "hypothesis_id": "hyp_4_class_conditioned_variation_backward_packet_lengths",
+      "evidence_refs": [
+        "e10",
+        "e11",
+        "e12",
+        "e9"
+      ],
+      "open_question_count": 3
+    },
+    {
+      "hypothesis_id": "hyp_5_class_conditioned_variation_average_packet_size",
+      "evidence_refs": [
+        "e8"
+      ],
+      "open_question_count": 3
+    },
+    {
+      "hypothesis_id": "hyp_6_class_distribution_destination_port",
+      "evidence_refs": [
+        "e33"
+      ],
+      "open_question_count": 3
+    },
+    {
+      "hypothesis_id": "hyp_7_partition_level_data_properties",
+      "evidence_refs": [
+        "e1",
+        "e2"
+      ],
+      "open_question_count": 3
+    },
+    {
+      "hypothesis_id": "hyp_8_low_cardinality_flag_features",
+      "evidence_refs": [
+        "e28"
+      ],
+      "open_question_count": 3
+    },
+    {
+      "hypothesis_id": "hyp_9_potential_redundancy_between_bulk_and_packet_length_features",
+      "evidence_refs": [
+        "e13",
+        "e14",
+        "e15",
+        "e16",
+        "e17",
+        "e18",
+        "e19",
+        "e20",
+        "e21",
+        "e22",
+        "e23",
+        "e24",
+        "e25",
+        "e26",
+        "e27"
+      ],
+      "open_question_count": 3
+    },
+    {
+      "hypothesis_id": "hyp_10_interaction_of_class_conditioned_variation_and_low_diversity_regions",
+      "evidence_refs": [
+        "e10",
+        "e11",
+        "e12",
+        "e23",
+        "e24",
+        "e25",
+        "e26",
+        "e27",
+        "e29",
+        "e30",
+        "e31",
+        "e32",
+        "e8",
+        "e9"
+      ],
+      "open_question_count": 3
+    }
+  ]
+}

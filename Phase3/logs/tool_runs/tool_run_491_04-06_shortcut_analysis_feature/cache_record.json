@@ -1,0 +1,10 @@
+{
+  "status": "tracked",
+  "events": [
+    {
+      "cache_key": "shortcut_analysis::Fwd Header Length",
+      "status": "miss"
+    }
+  ],
+  "event_count": 1
+}

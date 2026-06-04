@@ -1,0 +1,19 @@
+{
+  "batch_id": "phase3a_batch_0406095248_friday-workinghours-afternoon-ddos.pcap_iscx_f8c2c2",
+  "round_id": "round-001",
+  "worker_result": {
+    "task_id": "task_2",
+    "hypothesis_id": "hyp_007_class_conditioned_distribution_destination_port",
+    "status": "completed",
+    "findings": [
+      "Destination Port feature shows a strong class-conditioned distributional shift with DDoS traffic dominated by a single port (dominant ratio 1.0, zero entropy) and BENIGN traffic exhibiting higher entropy and lower dominant ratio, resulting in high JS divergence.",
+      "No additional temporal or contextual dependencies were identified locally that would further explain shifts in the destination port distribution within evidence e33."
+    ],
+    "evidence_refs": [
+      "task_2_step_03",
+      "task_2_step_05"
+    ],
+    "contradictions": [],
+    "limitations": []
+  }
+}

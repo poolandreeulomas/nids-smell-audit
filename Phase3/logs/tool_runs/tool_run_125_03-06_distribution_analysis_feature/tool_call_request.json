@@ -1,0 +1,14 @@
+{
+  "call_id": "task_3_step_05",
+  "tool_name": "distribution_analysis",
+  "target_scope": "feature",
+  "input_refs": {
+    "feature_name": "Fwd Header Length.1"
+  },
+  "preprocessing_profile_ref": "default",
+  "execution_constraints": {
+    "cache_policy": "reuse",
+    "validation_mode": "strict",
+    "save_raw_output": true
+  }
+}

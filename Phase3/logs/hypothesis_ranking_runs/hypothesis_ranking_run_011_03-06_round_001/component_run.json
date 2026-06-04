@@ -1,0 +1,27 @@
+{
+  "component": "hypothesis_ranking",
+  "created_at": "2026-06-03T18:40:00.276644+00:00",
+  "schema_version": "phase3a.hypothesis_ranking.v1",
+  "batch_id": "phase3a_batch_0306183859_friday-workinghours-afternoon-ddos.pcap_iscx_689174",
+  "analysis_id": "analysis_phase3a_0306183859_001",
+  "round_id": "round-001",
+  "status": "ok",
+  "validation_ok": true,
+  "model_name": "gpt-4.1-mini",
+  "caller_mode": "cli",
+  "replay_of": null,
+  "artifact_paths": {
+    "component_run_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\hypothesis_ranking_runs\\hypothesis_ranking_run_011_03-06_round_001\\component_run.json",
+    "candidate_hypotheses_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\hypothesis_ranking_runs\\hypothesis_ranking_run_011_03-06_round_001\\candidate_hypotheses.json",
+    "ranking_state_snapshot_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\hypothesis_ranking_runs\\hypothesis_ranking_run_011_03-06_round_001\\ranking_state_snapshot.json",
+    "projected_candidate_context_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\hypothesis_ranking_runs\\hypothesis_ranking_run_011_03-06_round_001\\projected_candidate_context.json",
+    "projected_ranking_state_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\hypothesis_ranking_runs\\hypothesis_ranking_run_011_03-06_round_001\\projected_ranking_state.json",
+    "rendered_prompt_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\hypothesis_ranking_runs\\hypothesis_ranking_run_011_03-06_round_001\\rendered_prompt.txt",
+    "raw_response_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\hypothesis_ranking_runs\\hypothesis_ranking_run_011_03-06_round_001\\raw_response.txt",
+    "parsed_output_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\hypothesis_ranking_runs\\hypothesis_ranking_run_011_03-06_round_001\\parsed_output.json",
+    "selection_index_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\hypothesis_ranking_runs\\hypothesis_ranking_run_011_03-06_round_001\\selection_index.json",
+    "validation_report_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\hypothesis_ranking_runs\\hypothesis_ranking_run_011_03-06_round_001\\validation_report.json",
+    "runtime_metrics_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\hypothesis_ranking_runs\\hypothesis_ranking_run_011_03-06_round_001\\runtime_metrics.json",
+    "replay_metadata_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\hypothesis_ranking_runs\\hypothesis_ranking_run_011_03-06_round_001\\replay_metadata.json"
+  }
+}

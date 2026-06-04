@@ -1,0 +1,20 @@
+{
+  "strategy_id": "strategy_02_hyp_002",
+  "hypothesis_id": "hyp_002_strong_dependency_pairs_redundancy",
+  "strategic_objective": "Determine the consistency and class-specificity of strong feature dependencies and evaluate their influence on dataset redundancy and interpretability.",
+  "key_checks": [
+    "Measure dependency strength separately within BENIGN and DDoS classes",
+    "Analyze whether dependency patterns shift or weaken across classes",
+    "Examine potential redundancy impact by simulating feature removal or combination",
+    "Assess if dependency clusters align with known feature semantics or measurement processes"
+  ],
+  "success_criteria": [
+    "Clear evidence on whether dependencies are class-invariant or class-specific",
+    "Identification of dependency-driven redundancy affecting feature importance",
+    "Insights on whether dependency-based feature reduction could preserve or degrade dataset integrity"
+  ],
+  "router_constraints": [
+    "preserve feature_scope",
+    "preserve evidence refs"
+  ]
+}

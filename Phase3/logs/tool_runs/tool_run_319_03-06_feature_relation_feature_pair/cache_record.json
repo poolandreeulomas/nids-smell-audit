@@ -1,0 +1,10 @@
+{
+  "status": "tracked",
+  "events": [
+    {
+      "cache_key": "feature_relation::corr_matrix",
+      "status": "hit"
+    }
+  ],
+  "event_count": 1
+}

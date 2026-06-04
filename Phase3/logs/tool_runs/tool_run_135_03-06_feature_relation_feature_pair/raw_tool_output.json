@@ -1,0 +1,23 @@
+{
+  "ok": false,
+  "tool": "feature_relation",
+  "feature_name": "Bwd Avg Bulk Rate|CWE Flag Count",
+  "value": null,
+  "error_code": "INSUFFICIENT_VARIANCE",
+  "error_message": "Correlation between selected features is undefined.",
+  "meta": {
+    "error": "INSUFFICIENT_VARIANCE"
+  },
+  "evidence": {
+    "feature": "Bwd Avg Bulk Rate|CWE Flag Count",
+    "signals": [],
+    "metrics": {},
+    "support": {},
+    "provenance": {
+      "source": "tool",
+      "tool": "feature_relation",
+      "step": null
+    },
+    "status": "active"
+  }
+}

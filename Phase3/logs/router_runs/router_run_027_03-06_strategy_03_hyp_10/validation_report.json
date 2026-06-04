@@ -1,0 +1,67 @@
+{
+  "ok": true,
+  "schema_version": "phase3a.router.v1",
+  "planner_strategy_validation": {
+    "ok": true,
+    "errors": [],
+    "warnings": [],
+    "stats": {
+      "selected_count": 1,
+      "strategy_count": 1,
+      "missing_strategy_count": 0
+    },
+    "invariants": {
+      "one_strategy_per_selected_hypothesis": true,
+      "selected_ids_known": true
+    },
+    "forbidden_language_hits": []
+  },
+  "router_context_validation": {
+    "ok": true,
+    "errors": [],
+    "warnings": [],
+    "stats": {
+      "related_substrate_ref_count": 14,
+      "tool_capability_ref_count": 8,
+      "guardrail_count": 6
+    }
+  },
+  "parse_validation": {
+    "ok": true,
+    "errors": [],
+    "warnings": []
+  },
+  "output_validation": {
+    "ok": true,
+    "errors": [],
+    "warnings": [
+      {
+        "field": "worker_tasks",
+        "message": "worker_tasks reached the configured max_tasks budget."
+      },
+      {
+        "field": "worker_tasks[1].local_context_refs",
+        "message": "worker_task reuses an identical local_context_refs slice."
+      },
+      {
+        "field": "worker_tasks[2].local_context_refs",
+        "message": "worker_task reuses an identical local_context_refs slice."
+      },
+      {
+        "field": "worker_tasks[3].local_context_refs",
+        "message": "worker_task reuses an identical local_context_refs slice."
+      }
+    ],
+    "stats": {
+      "task_count": 4,
+      "allowed_action_class_count": 6,
+      "context_ref_count": 14,
+      "max_tasks": 4
+    },
+    "invariants": {
+      "tasks_within_budget": true,
+      "all_tasks_match_hypothesis": true
+    },
+    "forbidden_language_hits": []
+  }
+}

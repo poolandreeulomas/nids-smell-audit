@@ -1,0 +1,21 @@
+{
+  "batch_id": "phase3a_batch_0306154538_friday-workinghours-afternoon-ddos.pcap_iscx_2a1de9",
+  "round_id": "round-001",
+  "worker_result": {
+    "task_id": "task_1",
+    "hypothesis_id": "hyp_2_strong_linear_dependencies",
+    "status": "completed",
+    "findings": [
+      "Strong linear dependencies between 'Bwd Packet Length Mean' and 'Avg Bwd Segment Size' are stable and consistent across multiple temporal segments, indicating persistent high redundancy."
+    ],
+    "evidence_refs": [
+      "task_1_step_03",
+      "task_1_step_05",
+      "task_1_step_07"
+    ],
+    "contradictions": [],
+    "limitations": [
+      "Analysis limited to one feature pair; other pairs not locally verified in this task."
+    ]
+  }
+}

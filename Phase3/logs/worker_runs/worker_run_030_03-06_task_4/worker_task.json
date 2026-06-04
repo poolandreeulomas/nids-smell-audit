@@ -1,0 +1,20 @@
+{
+  "task_id": "task_4",
+  "hypothesis_id": "hyp_10_potential_overfitting_risk_due_to_redundant_features",
+  "task_scope": "Explore bounded scenarios where removing redundancy affects performance indicators to identify mitigation directions",
+  "allowed_actions": [
+    "relation_verification",
+    "structural_summary"
+  ],
+  "local_context_refs": [
+    "e3",
+    "e4",
+    "e13",
+    "e16",
+    "e22"
+  ],
+  "stop_conditions": [
+    "performance impact of redundancy removal quantified",
+    "mitigation directions preliminarily identified"
+  ]
+}

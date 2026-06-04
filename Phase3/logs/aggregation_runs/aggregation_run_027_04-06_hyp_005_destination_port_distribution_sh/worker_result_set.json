@@ -1,0 +1,76 @@
+{
+  "batch_id": "phase3a_batch_0406080944_friday-workinghours-afternoon-ddos.pcap_iscx_618cac",
+  "round_id": "round-001",
+  "hypothesis_id": "hyp_005_destination_port_distribution_shift",
+  "worker_results": [
+    {
+      "task_id": "task_1",
+      "hypothesis_id": "hyp_005_destination_port_distribution_shift",
+      "status": "completed",
+      "findings": [
+        "Destination Port distributions exhibit strong class separation with DDoS class showing a dominant single value and zero entropy.",
+        "High Jensen-Shannon divergence (0.7315) confirms significant distributional shift between BENIGN and DDoS classes.",
+        "No evidence of abrupt temporal shifts or instability within the local evidence scope."
+      ],
+      "evidence_refs": [
+        "task_1_step_03"
+      ],
+      "contradictions": [],
+      "limitations": []
+    },
+    {
+      "task_id": "task_2",
+      "hypothesis_id": "hyp_005_destination_port_distribution_shift",
+      "status": "completed",
+      "findings": [
+        "Destination Port in the DDoS class exhibits near-constant behavior with zero entropy and a dominant single value ratio of 1.0.",
+        "BENIGN class shows higher cardinality and entropy, indicating more variation in Destination Port.",
+        "High Jensen-Shannon divergence (0.7315) confirms a strong distributional shift between classes.",
+        "Structural summary indicates a high variance imbalance consistent with the hypothesis."
+      ],
+      "evidence_refs": [
+        "task_2_step_03",
+        "task_2_step_05"
+      ],
+      "contradictions": [],
+      "limitations": []
+    },
+    {
+      "task_id": "task_3",
+      "hypothesis_id": "hyp_005_destination_port_distribution_shift",
+      "status": "completed",
+      "findings": [
+        "Destination Port feature exhibits a marked distributional shift between BENIGN and DDoS classes with high class separation and low entropy in DDoS.",
+        "Shortcut verification confirms moderate shortcut-like predictive leverage of Destination Port alone for identifying DDoS class within evidence e33."
+      ],
+      "evidence_refs": [
+        "task_3_step_03"
+      ],
+      "contradictions": [],
+      "limitations": [
+        "Analysis limited to single feature Destination Port within localized evidence e33; broader context or multi-feature interactions not assessed."
+      ]
+    },
+    {
+      "task_id": "task_4",
+      "hypothesis_id": "hyp_005_destination_port_distribution_shift",
+      "status": "completed",
+      "findings": [
+        "Strong distributional shift in Destination Port between BENIGN and DDoS classes confirmed by high Jensen-Shannon divergence (0.7315).",
+        "Near-deterministic mapping of Destination Port values to class labels indicated by zero entropy and dominant ratio of 1.0 in DDoS class.",
+        "Local consistency checks show high label neighborhood conflicts and duplicate label conflicts, reinforcing abrupt distributional shifts."
+      ],
+      "evidence_refs": [
+        "task_4_step_03",
+        "task_4_step_05",
+        "task_4_step_07"
+      ],
+      "contradictions": [
+        "None observed in local evidence"
+      ],
+      "limitations": [
+        "Analysis limited to local evidence within e33; no global aggregation performed."
+      ]
+    }
+  ]
+}

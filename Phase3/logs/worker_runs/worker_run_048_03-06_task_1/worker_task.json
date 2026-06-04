@@ -1,0 +1,16 @@
+{
+  "task_id": "task_1",
+  "hypothesis_id": "hyp_6_class_distribution_difference_destination_port",
+  "task_scope": "Verify if zero entropy in DDoS destination ports corresponds to a single or very few targeted ports within evidence e33",
+  "allowed_actions": [
+    "cardinality_verification",
+    "distribution_verification"
+  ],
+  "local_context_refs": [
+    "e33"
+  ],
+  "stop_conditions": [
+    "confirmed port count for zero entropy class",
+    "distribution pattern characterized"
+  ]
+}

@@ -1,0 +1,346 @@
+[
+  {
+    "ok": true,
+    "execution_ok": true,
+    "call_id": "task_3_step_03",
+    "action": {
+      "action_class": "shortcut_verification",
+      "context_ref": "e33",
+      "feature_name": "Destination Port"
+    },
+    "tool_name": "shortcut_analysis",
+    "request": {
+      "call_id": "task_3_step_03",
+      "tool_name": "shortcut_analysis",
+      "target_scope": "feature",
+      "input_refs": {
+        "feature_name": "Destination Port"
+      },
+      "preprocessing_profile_ref": "default",
+      "execution_constraints": {
+        "cache_policy": "reuse",
+        "validation_mode": "strict",
+        "save_raw_output": true
+      }
+    },
+    "request_validation": {
+      "ok": true,
+      "errors": [],
+      "warnings": []
+    },
+    "raw_tool_output": {
+      "ok": true,
+      "tool": "shortcut_analysis",
+      "feature_name": "Destination Port",
+      "value": 0.7879333816290057,
+      "error_code": null,
+      "error_message": null,
+      "meta": {
+        "dataset_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\data\\cic_ids_2017\\Friday-WorkingHours-Afternoon-DDos.pcap_ISCX.csv",
+        "label_column": "Label"
+      },
+      "evidence": {
+        "feature": "Destination Port",
+        "signals": [
+          "moderate_shortcut_signal"
+        ],
+        "metrics": {
+          "cv_balanced_accuracy": 0.7879333816290057,
+          "cv_balanced_accuracy_std": 0.07639703996032016,
+          "train_balanced_accuracy": 0.787934209753454,
+          "generalization_gap": 8.281244482377659e-07,
+          "threshold": 84.0,
+          "fold_count": 5,
+          "attack_rate": 0.5671310549513832,
+          "retained_rows": 225745,
+          "coverage_ratio": 1.0
+        },
+        "support": {
+          "n_total": 225745,
+          "n_per_class": {
+            "DDoS": 128027,
+            "BENIGN": 97718
+          },
+          "total_samples": 225745,
+          "per_class": {
+            "DDoS": 128027,
+            "BENIGN": 97718
+          }
+        },
+        "provenance": {
+          "source": "tool",
+          "tool": "shortcut_analysis",
+          "step": null
+        },
+        "status": "active"
+      }
+    },
+    "tool_result": {
+      "call_id": "task_3_step_03",
+      "tool_name": "shortcut_analysis",
+      "status": "ok",
+      "observations": {
+        "feature_name": "Destination Port",
+        "value": 0.7879333816290057,
+        "signals": [
+          "moderate_shortcut_signal"
+        ],
+        "metrics": {
+          "cv_balanced_accuracy": 0.7879333816290057,
+          "cv_balanced_accuracy_std": 0.07639703996032016,
+          "train_balanced_accuracy": 0.787934209753454,
+          "generalization_gap": 8.281244482377659e-07,
+          "threshold": 84.0,
+          "fold_count": 5,
+          "attack_rate": 0.5671310549513832,
+          "retained_rows": 225745,
+          "coverage_ratio": 1.0
+        },
+        "support": {
+          "n_total": 225745,
+          "n_per_class": {
+            "DDoS": 128027,
+            "BENIGN": 97718
+          },
+          "total_samples": 225745,
+          "per_class": {
+            "DDoS": 128027,
+            "BENIGN": 97718
+          }
+        },
+        "provenance": {
+          "source": "tool",
+          "tool": "shortcut_analysis",
+          "step": null
+        },
+        "feature": "Destination Port"
+      },
+      "evidence_refs": [
+        {
+          "artifact": "parsed_output",
+          "path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_407_04-06_shortcut_analysis_feature\\parsed_output.json"
+        },
+        {
+          "artifact": "raw_tool_output",
+          "path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_407_04-06_shortcut_analysis_feature\\raw_tool_output.json"
+        },
+        {
+          "artifact": "component_run",
+          "path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_407_04-06_shortcut_analysis_feature\\component_run.json"
+        }
+      ],
+      "limitations": []
+    },
+    "result_validation": {
+      "ok": true,
+      "errors": [],
+      "warnings": []
+    },
+    "cache_events": [
+      {
+        "cache_key": "shortcut_analysis::Destination Port",
+        "status": "miss"
+      }
+    ],
+    "artifact_paths": {
+      "component_run_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_407_04-06_shortcut_analysis_feature\\component_run.json",
+      "tool_call_request_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_407_04-06_shortcut_analysis_feature\\tool_call_request.json",
+      "tool_capability_record_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_407_04-06_shortcut_analysis_feature\\tool_capability_record.json",
+      "normalized_inputs_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_407_04-06_shortcut_analysis_feature\\normalized_inputs.json",
+      "raw_tool_output_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_407_04-06_shortcut_analysis_feature\\raw_tool_output.json",
+      "parsed_output_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_407_04-06_shortcut_analysis_feature\\parsed_output.json",
+      "validation_report_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_407_04-06_shortcut_analysis_feature\\validation_report.json",
+      "tool_metrics_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_407_04-06_shortcut_analysis_feature\\tool_metrics.json",
+      "cache_record_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_407_04-06_shortcut_analysis_feature\\cache_record.json"
+    },
+    "tool_metrics": {
+      "tool_name": "shortcut_analysis",
+      "target_scope": "feature",
+      "duration_ms": 959.697,
+      "status": "ok",
+      "cache_status": "tracked",
+      "cache_event_count": 1,
+      "fresh_execution": true,
+      "replay_of": null,
+      "caller_mode": "worker",
+      "schema_version": "phase3a.tools.v1"
+    },
+    "error_message": "",
+    "step_index": 3,
+    "action_index": 1
+  },
+  {
+    "ok": true,
+    "execution_ok": true,
+    "call_id": "task_3_step_05",
+    "action": {
+      "action_class": "local_consistency_verification",
+      "context_ref": "e33",
+      "feature_name": "Destination Port"
+    },
+    "tool_name": "neighborhood_consistency_analysis",
+    "request": {
+      "call_id": "task_3_step_05",
+      "tool_name": "neighborhood_consistency_analysis",
+      "target_scope": "feature",
+      "input_refs": {
+        "feature_name": "Destination Port"
+      },
+      "preprocessing_profile_ref": "default",
+      "execution_constraints": {
+        "cache_policy": "reuse",
+        "validation_mode": "strict",
+        "save_raw_output": true
+      }
+    },
+    "request_validation": {
+      "ok": true,
+      "errors": [],
+      "warnings": []
+    },
+    "raw_tool_output": {
+      "ok": true,
+      "tool": "neighborhood_consistency_analysis",
+      "feature_name": "Destination Port",
+      "value": 0.567141686416089,
+      "error_code": null,
+      "error_message": null,
+      "meta": {
+        "dataset_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\data\\cic_ids_2017\\Friday-WorkingHours-Afternoon-DDos.pcap_ISCX.csv",
+        "label_column": "Label"
+      },
+      "evidence": {
+        "feature": "Destination Port",
+        "signals": [
+          "high_label_neighborhood_conflict",
+          "duplicate_label_conflict"
+        ],
+        "metrics": {
+          "neighbor_count": 5,
+          "retained_rows": 225745,
+          "coverage_ratio": 1.0,
+          "local_consistency_rate": 0.4328583135839111,
+          "inconsistency_rate": 0.567141686416089,
+          "attack_consistency_rate": 3.124340959328892e-06,
+          "benign_consistency_rate": 0.9999713461184225,
+          "boundary_instability_rate": 0.0,
+          "duplicate_conflict_rate": 0.6066801036567809,
+          "duplicate_cluster_rate": 0.9364459899444063
+        },
+        "support": {
+          "n_total": 225745,
+          "n_per_class": {
+            "DDoS": 128027,
+            "BENIGN": 97718
+          },
+          "total_samples": 225745,
+          "per_class": {
+            "DDoS": 128027,
+            "BENIGN": 97718
+          }
+        },
+        "provenance": {
+          "source": "tool",
+          "tool": "neighborhood_consistency_analysis",
+          "step": null
+        },
+        "status": "active"
+      }
+    },
+    "tool_result": {
+      "call_id": "task_3_step_05",
+      "tool_name": "neighborhood_consistency_analysis",
+      "status": "ok",
+      "observations": {
+        "feature_name": "Destination Port",
+        "value": 0.567141686416089,
+        "signals": [
+          "high_label_neighborhood_conflict",
+          "duplicate_label_conflict"
+        ],
+        "metrics": {
+          "neighbor_count": 5,
+          "retained_rows": 225745,
+          "coverage_ratio": 1.0,
+          "local_consistency_rate": 0.4328583135839111,
+          "inconsistency_rate": 0.567141686416089,
+          "attack_consistency_rate": 3.124340959328892e-06,
+          "benign_consistency_rate": 0.9999713461184225,
+          "boundary_instability_rate": 0.0,
+          "duplicate_conflict_rate": 0.6066801036567809,
+          "duplicate_cluster_rate": 0.9364459899444063
+        },
+        "support": {
+          "n_total": 225745,
+          "n_per_class": {
+            "DDoS": 128027,
+            "BENIGN": 97718
+          },
+          "total_samples": 225745,
+          "per_class": {
+            "DDoS": 128027,
+            "BENIGN": 97718
+          }
+        },
+        "provenance": {
+          "source": "tool",
+          "tool": "neighborhood_consistency_analysis",
+          "step": null
+        },
+        "feature": "Destination Port"
+      },
+      "evidence_refs": [
+        {
+          "artifact": "parsed_output",
+          "path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_419_04-06_neighborhood_consistency_analysis_feature\\parsed_output.json"
+        },
+        {
+          "artifact": "raw_tool_output",
+          "path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_419_04-06_neighborhood_consistency_analysis_feature\\raw_tool_output.json"
+        },
+        {
+          "artifact": "component_run",
+          "path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_419_04-06_neighborhood_consistency_analysis_feature\\component_run.json"
+        }
+      ],
+      "limitations": []
+    },
+    "result_validation": {
+      "ok": true,
+      "errors": [],
+      "warnings": []
+    },
+    "cache_events": [
+      {
+        "cache_key": "neighborhood_consistency_analysis::Destination Port",
+        "status": "miss"
+      }
+    ],
+    "artifact_paths": {
+      "component_run_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_419_04-06_neighborhood_consistency_analysis_feature\\component_run.json",
+      "tool_call_request_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_419_04-06_neighborhood_consistency_analysis_feature\\tool_call_request.json",
+      "tool_capability_record_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_419_04-06_neighborhood_consistency_analysis_feature\\tool_capability_record.json",
+      "normalized_inputs_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_419_04-06_neighborhood_consistency_analysis_feature\\normalized_inputs.json",
+      "raw_tool_output_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_419_04-06_neighborhood_consistency_analysis_feature\\raw_tool_output.json",
+      "parsed_output_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_419_04-06_neighborhood_consistency_analysis_feature\\parsed_output.json",
+      "validation_report_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_419_04-06_neighborhood_consistency_analysis_feature\\validation_report.json",
+      "tool_metrics_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_419_04-06_neighborhood_consistency_analysis_feature\\tool_metrics.json",
+      "cache_record_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_419_04-06_neighborhood_consistency_analysis_feature\\cache_record.json"
+    },
+    "tool_metrics": {
+      "tool_name": "neighborhood_consistency_analysis",
+      "target_scope": "feature",
+      "duration_ms": 244117.396,
+      "status": "ok",
+      "cache_status": "tracked",
+      "cache_event_count": 1,
+      "fresh_execution": true,
+      "replay_of": null,
+      "caller_mode": "worker",
+      "schema_version": "phase3a.tools.v1"
+    },
+    "error_message": "",
+    "step_index": 5,
+    "action_index": 1
+  }
+]

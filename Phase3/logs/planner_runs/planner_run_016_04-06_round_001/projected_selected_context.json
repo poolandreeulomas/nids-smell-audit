@@ -1,0 +1,70 @@
+{
+  "selected_count": 3,
+  "selected_hypotheses": [
+    {
+      "hypothesis_id": "hyp_005_destination_port_distribution_shift",
+      "summary": "The Destination Port feature (e33) demonstrates strong class separation with a dominant ratio of 1.0 and zero entropy in the DDoS class, alongside a high Jensen-Shannon divergence (0.7315), indicating a pronounced distributional shift that may serve as a localized representation-sensitive handle or a potential shortcut feature.",
+      "evidence_refs": [
+        "e33"
+      ],
+      "open_questions": [
+        "Does the strong class separation in Destination Port reflect a genuine attack vector targeting specific ports or an artifact of dataset construction?",
+        "Could reliance on this feature lead to overfitting or brittle detection models sensitive to port distribution changes?"
+      ],
+      "current_status": "unresolved",
+      "evidence_ref_count": 1,
+      "open_question_count": 2
+    },
+    {
+      "hypothesis_id": "hyp_002_strong_dependency_pairs_redundancy",
+      "summary": "The presence of perfect or near-perfect correlations (correlation=1 or 0.9993) among several feature pairs (e13-e22) suggests strong linear dependencies that may introduce redundancy, potentially reducing the effective dimensionality of the dataset and indicating that some features may be proxies or transformations of others.",
+      "evidence_refs": [
+        "e13",
+        "e14",
+        "e15",
+        "e16",
+        "e17",
+        "e18",
+        "e19",
+        "e20",
+        "e21",
+        "e22"
+      ],
+      "open_questions": [
+        "Are these strong dependencies stable across different temporal segments or specific to this partition?",
+        "Do these dependencies reflect inherent protocol or flow structure, or are they influenced by preprocessing or feature engineering steps?"
+      ],
+      "current_status": "unresolved",
+      "evidence_ref_count": 10,
+      "open_question_count": 2
+    },
+    {
+      "hypothesis_id": "hyp_010_interplay_between_class_conditioned_variation_and_dependency_structure",
+      "summary": "The coexistence of strong class-conditioned structural variation (e8-e12) and near-perfect feature dependencies (e13-e22) suggests a complex interplay where discriminative signals may be entangled with redundant or dependent features, complicating feature selection and interpretation.",
+      "evidence_refs": [
+        "e8",
+        "e9",
+        "e10",
+        "e11",
+        "e12",
+        "e13",
+        "e14",
+        "e15",
+        "e16",
+        "e17",
+        "e18",
+        "e19",
+        "e20",
+        "e21",
+        "e22"
+      ],
+      "open_questions": [
+        "How can feature selection balance preserving class-conditioned variation while minimizing redundancy from strong dependencies?",
+        "Does this interplay affect model robustness or lead to unstable feature importance rankings?"
+      ],
+      "current_status": "unresolved",
+      "evidence_ref_count": 15,
+      "open_question_count": 2
+    }
+  ]
+}

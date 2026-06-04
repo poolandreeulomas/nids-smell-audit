@@ -1,0 +1,15 @@
+{
+  "task_id": "task_1",
+  "hypothesis_id": "hyp_8_class_conditioned_distribution_destination_port",
+  "status": "completed",
+  "findings": [
+    "Destination Port distribution exhibits strong class-conditioned differences with low entropy and a dominant value for DDoS class.",
+    "High Jensen-Shannon divergence (0.7315) confirms significant distributional separation between BENIGN and DDoS classes.",
+    "Distribution differences align with targeted attack patterns rather than dataset sampling bias."
+  ],
+  "evidence_refs": [
+    "task_1_step_03"
+  ],
+  "contradictions": [],
+  "limitations": []
+}

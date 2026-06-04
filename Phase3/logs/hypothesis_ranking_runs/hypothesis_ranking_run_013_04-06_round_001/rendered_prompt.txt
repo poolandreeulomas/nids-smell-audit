@@ -1,0 +1,333 @@
+=== ROLE ===
+You are the Phase 3A Hypothesis Ranking module.
+You operate after Investigation Analysis and before the Planner.
+You are part of a forensic dataset auditing system focused on identifying structural irregularities, representation-sensitive patterns, shortcut-like signals, unstable dependencies, and epistemically suspicious regularities inside telemetry datasets.
+You allocate bounded epistemic attention toward hypotheses with high uncertainty-reduction potential or structurally suspicious characteristics.
+
+=== OBJECTIVE ===
+Select up to 3 hypotheses for round_id=round-001 in batch_id=phase3a_batch_0406073857_friday-workinghours-afternoon-ddos.pcap_iscx_ee0ef0.
+Allocate bounded epistemic budget to the hypotheses most worth investigating now.
+
+=== BOUNDARIES ===
+You are allocation-only. Do not design verification strategy, router tasks, or worker actions.
+Do not rewrite hypothesis content or invent new hypotheses.
+Do not drop viable non-selected hypotheses silently; preserve them in deferred_hypothesis_ids.
+Treat uncertainty as compatible with selection when investigative value is high.
+Do not force diversity penalties or certainty-only filtering.
+
+=== OUTPUT RULES ===
+Return valid JSON only.
+Do not use markdown or code fences.
+Return exactly these top-level fields:
+batch_id, round_id, selected_hypothesis_ids, deferred_hypothesis_ids, selection_rationales.
+selected_hypothesis_ids must contain only hypothesis ids from the candidate set.
+deferred_hypothesis_ids must contain every non-selected hypothesis id that remains available later.
+selection_rationales must contain only selected hypotheses and each record must include hypothesis_id and reason.
+Reasons must remain short, allocation-oriented, and non-operational.
+
+=== RANKING STATE ===
+{
+  "hypothesis_state_refs": [
+    {
+      "hypothesis_id": "hyp_1_low_cardinality_flags_as_stable_background",
+      "state_notes": [
+        "status=unresolved",
+        "summary=The near-constant values and extremely low cardinality of backward and forward PSH and URG flag features (e26, e27, e32) may represent a stable background signal that is largely invariant across the partition, potentially reflecting baseline protocol behavior or measurement artifacts rather than attack-specific variation.",
+        "revision_count=0",
+        "last_updated_round=initialization",
+        "open_gap=Do these low cardinality flag features contribute meaningful discriminative power for attack detection, or do they act as uninformative constants?",
+        "open_gap=Could these near-constant flags mask or suppress detection of more subtle behavioral variations in the dataset?"
+      ]
+    },
+    {
+      "hypothesis_id": "hyp_2_strong_linear_dependencies_indicate_redundancy",
+      "state_notes": [
+        "status=unresolved",
+        "summary=Several feature pairs exhibit perfect or near-perfect linear correlations (e13\u2013e22), suggesting strong redundancy among packet length, segment size, and packet count features, which may reduce the effective dimensionality of the dataset and influence model learning dynamics.",
+        "revision_count=0",
+        "last_updated_round=initialization",
+        "open_gap=Are these dependencies stable across classes or do they shift in attack versus benign traffic?",
+        "open_gap=Could removing or consolidating redundant features improve model robustness or interpretability?"
+      ]
+    },
+    {
+      "hypothesis_id": "hyp_3_class_conditioned_structural_variation_in_packet_length_features",
+      "state_notes": [
+        "status=unresolved",
+        "summary=Packet length and size-related features (e8\u2013e12) show substantial structural variation conditioned on class, with differing variance ratios and unique value counts between BENIGN and DDoS classes, indicating these features may capture meaningful behavioral differences relevant to attack detection.",
+        "revision_count=0",
+        "last_updated_round=initialization",
+        "open_gap=To what extent do these class-conditioned variations reflect true behavioral differences versus sampling or measurement biases?",
+        "open_gap=How do these variations interact with the low cardinality features that appear stable across classes?"
+      ]
+    },
+    {
+      "hypothesis_id": "hyp_4_destination_port_distribution_skew_reflects_attack_targeting",
+      "state_notes": [
+        "status=unresolved",
+        "summary=The Destination Port feature (e33) exhibits strong distributional differences between BENIGN and DDoS classes, with a high dominant ratio in the DDoS class and substantial Jensen-Shannon divergence, possibly reflecting targeted attack behavior or protocol-specific exploitation patterns.",
+        "revision_count=0",
+        "last_updated_round=initialization",
+        "open_gap=Is the skew in destination port distribution consistent across different attack instances or specific to this batch?",
+        "open_gap=Could this distributional difference be exploited as a localized representation-sensitive handle for attack detection?"
+      ]
+    },
+    {
+      "hypothesis_id": "hyp_5_partition_level_data_quality_issues_influence_feature_distributions",
+      "state_notes": [
+        "status=unresolved",
+        "summary=Moderate class imbalance and presence of duplicated rows reported at the partition level (e1, e2) may influence feature distributions and model behavior, potentially introducing biases or inflating apparent feature stability.",
+        "revision_count=0",
+        "last_updated_round=initialization",
+        "open_gap=How do duplicated rows affect the observed low cardinality and strong dependencies?",
+        "open_gap=Could class imbalance exacerbate or mask structural variations in features?"
+      ]
+    },
+    {
+      "hypothesis_id": "hyp_6_tension_between_low_cardinality_and_class_variation_features",
+      "state_notes": [
+        "status=unresolved",
+        "summary=There is a tension between features exhibiting near-constant values with extremely low cardinality (e23\u2013e25) and other features showing strong class-conditioned structural variation (e8\u2013e12), suggesting coexistence of stable baseline signals alongside class-discriminative variability within the dataset.",
+        "revision_count=0",
+        "last_updated_round=initialization",
+        "open_gap=Does the presence of near-constant features dilute or enhance the signal from class-varying features?",
+        "open_gap=Are these tensions indicative of mixed data generation processes or measurement artifacts?"
+      ]
+    },
+    {
+      "hypothesis_id": "hyp_7_tension_between_feature_redundancy_and_feature_importance",
+      "state_notes": [
+        "status=unresolved",
+        "summary=A tension exists between strong feature dependencies indicating redundancy (e13, e16) and high feature ranking suggesting importance (e3, e4), implying that some structurally redundant features may still hold critical predictive value or represent key behavioral signatures.",
+        "revision_count=0",
+        "last_updated_round=initialization",
+        "open_gap=How should feature selection balance redundancy reduction against preserving important predictive signals?",
+        "open_gap=Could some dependencies be class-specific, thus justifying retention despite redundancy?"
+      ]
+    },
+    {
+      "hypothesis_id": "hyp_8_low_cardinality_features_as_potential_shortcut_signals",
+      "state_notes": [
+        "status=unresolved",
+        "summary=The extremely low cardinality and near-constant values of multiple bulk rate and flag features (e23\u2013e32) may act as shortcut-like signals that models could exploit, potentially leading to brittle or overfitted behavior if these features correlate spuriously with class labels.",
+        "revision_count=0",
+        "last_updated_round=initialization",
+        "open_gap=Are these low cardinality features stable across different data partitions or do they vary in other contexts?",
+        "open_gap=Could these features mask more subtle but meaningful variations in traffic behavior?"
+      ]
+    },
+    {
+      "hypothesis_id": "hyp_9_dependency_backed_regularity_reflects_stable_protocol_behavior",
+      "state_notes": [
+        "status=unresolved",
+        "summary=The strong linear dependencies observed among packet length, segment size, and packet count features (e13\u2013e22) may reflect underlying stable protocol or flow-level regularities rather than attack-specific signals, suggesting a dependency-backed regularity structure in the dataset.",
+        "revision_count=0",
+        "last_updated_round=initialization",
+        "open_gap=Do these dependencies hold consistently across benign and attack classes?",
+        "open_gap=Could these regularities be leveraged to normalize or contextualize other features?"
+      ]
+    },
+    {
+      "hypothesis_id": "hyp_10_localized_representation_sensitive_handles_in_destination_port",
+      "state_notes": [
+        "status=unresolved",
+        "summary=The strong class-dependent distributional skew in the Destination Port feature (e33) may serve as a localized representation-sensitive handle that captures attack-specific targeting behavior, potentially useful for focused detection strategies despite not explaining broader dataset structure.",
+        "revision_count=0",
+        "last_updated_round=initialization",
+        "open_gap=Is the destination port skew stable across different attack campaigns or specific to this batch?",
+        "open_gap=How does this localized signal interact with other global structural patterns in the dataset?"
+      ]
+    }
+  ],
+  "round_constraints": [
+    "selection_budget=3",
+    "allocation_only",
+    "preserve_deferred_hypotheses",
+    "round_start_state_version=1"
+  ],
+  "round_id": "round-001",
+  "selection_budget": 3
+}
+
+=== CANDIDATE HYPOTHESIS SPACE ===
+{
+  "analysis_id": "analysis_phase3a_0406073857_01",
+  "batch_id": "phase3a_batch_0406073857_friday-workinghours-afternoon-ddos.pcap_iscx_ee0ef0",
+  "hypotheses": [
+    {
+      "evidence_ref_count": 3,
+      "evidence_refs": [
+        "e26",
+        "e27",
+        "e32"
+      ],
+      "hypothesis_id": "hyp_1_low_cardinality_flags_as_stable_background",
+      "open_question_count": 2,
+      "open_questions": [
+        "Do these low cardinality flag features contribute meaningful discriminative power for attack detection, or do they act as uninformative constants?",
+        "Could these near-constant flags mask or suppress detection of more subtle behavioral variations in the dataset?"
+      ],
+      "summary": "The near-constant values and extremely low cardinality of backward and forward PSH and URG flag features (e26, e27, e32) may represent a stable background signal that is largely invariant across the partition, potentially reflecting baseline protocol behavior or measurement artifacts rather than attack-specific variation."
+    },
+    {
+      "evidence_ref_count": 10,
+      "evidence_refs": [
+        "e13",
+        "e14",
+        "e15",
+        "e16",
+        "e17",
+        "e18",
+        "e19",
+        "e20",
+        "e21",
+        "e22"
+      ],
+      "hypothesis_id": "hyp_2_strong_linear_dependencies_indicate_redundancy",
+      "open_question_count": 2,
+      "open_questions": [
+        "Are these dependencies stable across classes or do they shift in attack versus benign traffic?",
+        "Could removing or consolidating redundant features improve model robustness or interpretability?"
+      ],
+      "summary": "Several feature pairs exhibit perfect or near-perfect linear correlations (e13\u2013e22), suggesting strong redundancy among packet length, segment size, and packet count features, which may reduce the effective dimensionality of the dataset and influence model learning dynamics."
+    },
+    {
+      "evidence_ref_count": 5,
+      "evidence_refs": [
+        "e8",
+        "e9",
+        "e10",
+        "e11",
+        "e12"
+      ],
+      "hypothesis_id": "hyp_3_class_conditioned_structural_variation_in_packet_length_features",
+      "open_question_count": 2,
+      "open_questions": [
+        "To what extent do these class-conditioned variations reflect true behavioral differences versus sampling or measurement biases?",
+        "How do these variations interact with the low cardinality features that appear stable across classes?"
+      ],
+      "summary": "Packet length and size-related features (e8\u2013e12) show substantial structural variation conditioned on class, with differing variance ratios and unique value counts between BENIGN and DDoS classes, indicating these features may capture meaningful behavioral differences relevant to attack detection."
+    },
+    {
+      "evidence_ref_count": 1,
+      "evidence_refs": [
+        "e33"
+      ],
+      "hypothesis_id": "hyp_4_destination_port_distribution_skew_reflects_attack_targeting",
+      "open_question_count": 2,
+      "open_questions": [
+        "Is the skew in destination port distribution consistent across different attack instances or specific to this batch?",
+        "Could this distributional difference be exploited as a localized representation-sensitive handle for attack detection?"
+      ],
+      "summary": "The Destination Port feature (e33) exhibits strong distributional differences between BENIGN and DDoS classes, with a high dominant ratio in the DDoS class and substantial Jensen-Shannon divergence, possibly reflecting targeted attack behavior or protocol-specific exploitation patterns."
+    },
+    {
+      "evidence_ref_count": 2,
+      "evidence_refs": [
+        "e1",
+        "e2"
+      ],
+      "hypothesis_id": "hyp_5_partition_level_data_quality_issues_influence_feature_distributions",
+      "open_question_count": 2,
+      "open_questions": [
+        "How do duplicated rows affect the observed low cardinality and strong dependencies?",
+        "Could class imbalance exacerbate or mask structural variations in features?"
+      ],
+      "summary": "Moderate class imbalance and presence of duplicated rows reported at the partition level (e1, e2) may influence feature distributions and model behavior, potentially introducing biases or inflating apparent feature stability."
+    },
+    {
+      "evidence_ref_count": 8,
+      "evidence_refs": [
+        "e8",
+        "e9",
+        "e10",
+        "e11",
+        "e12",
+        "e23",
+        "e24",
+        "e25"
+      ],
+      "hypothesis_id": "hyp_6_tension_between_low_cardinality_and_class_variation_features",
+      "open_question_count": 2,
+      "open_questions": [
+        "Does the presence of near-constant features dilute or enhance the signal from class-varying features?",
+        "Are these tensions indicative of mixed data generation processes or measurement artifacts?"
+      ],
+      "summary": "There is a tension between features exhibiting near-constant values with extremely low cardinality (e23\u2013e25) and other features showing strong class-conditioned structural variation (e8\u2013e12), suggesting coexistence of stable baseline signals alongside class-discriminative variability within the dataset."
+    },
+    {
+      "evidence_ref_count": 4,
+      "evidence_refs": [
+        "e3",
+        "e4",
+        "e13",
+        "e16"
+      ],
+      "hypothesis_id": "hyp_7_tension_between_feature_redundancy_and_feature_importance",
+      "open_question_count": 2,
+      "open_questions": [
+        "How should feature selection balance redundancy reduction against preserving important predictive signals?",
+        "Could some dependencies be class-specific, thus justifying retention despite redundancy?"
+      ],
+      "summary": "A tension exists between strong feature dependencies indicating redundancy (e13, e16) and high feature ranking suggesting importance (e3, e4), implying that some structurally redundant features may still hold critical predictive value or represent key behavioral signatures."
+    },
+    {
+      "evidence_ref_count": 10,
+      "evidence_refs": [
+        "e23",
+        "e24",
+        "e25",
+        "e26",
+        "e27",
+        "e28",
+        "e29",
+        "e30",
+        "e31",
+        "e32"
+      ],
+      "hypothesis_id": "hyp_8_low_cardinality_features_as_potential_shortcut_signals",
+      "open_question_count": 2,
+      "open_questions": [
+        "Are these low cardinality features stable across different data partitions or do they vary in other contexts?",
+        "Could these features mask more subtle but meaningful variations in traffic behavior?"
+      ],
+      "summary": "The extremely low cardinality and near-constant values of multiple bulk rate and flag features (e23\u2013e32) may act as shortcut-like signals that models could exploit, potentially leading to brittle or overfitted behavior if these features correlate spuriously with class labels."
+    },
+    {
+      "evidence_ref_count": 10,
+      "evidence_refs": [
+        "e13",
+        "e14",
+        "e15",
+        "e16",
+        "e17",
+        "e18",
+        "e19",
+        "e20",
+        "e21",
+        "e22"
+      ],
+      "hypothesis_id": "hyp_9_dependency_backed_regularity_reflects_stable_protocol_behavior",
+      "open_question_count": 2,
+      "open_questions": [
+        "Do these dependencies hold consistently across benign and attack classes?",
+        "Could these regularities be leveraged to normalize or contextualize other features?"
+      ],
+      "summary": "The strong linear dependencies observed among packet length, segment size, and packet count features (e13\u2013e22) may reflect underlying stable protocol or flow-level regularities rather than attack-specific signals, suggesting a dependency-backed regularity structure in the dataset."
+    },
+    {
+      "evidence_ref_count": 1,
+      "evidence_refs": [
+        "e33"
+      ],
+      "hypothesis_id": "hyp_10_localized_representation_sensitive_handles_in_destination_port",
+      "open_question_count": 2,
+      "open_questions": [
+        "Is the destination port skew stable across different attack campaigns or specific to this batch?",
+        "How does this localized signal interact with other global structural patterns in the dataset?"
+      ],
+      "summary": "The strong class-dependent distributional skew in the Destination Port feature (e33) may serve as a localized representation-sensitive handle that captures attack-specific targeting behavior, potentially useful for focused detection strategies despite not explaining broader dataset structure."
+    }
+  ],
+  "hypothesis_count": 10
+}

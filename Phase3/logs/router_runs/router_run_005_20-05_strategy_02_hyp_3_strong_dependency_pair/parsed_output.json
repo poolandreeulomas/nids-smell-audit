@@ -1,0 +1,106 @@
+{
+  "batch_id": "phase3a_batch_2005190226_friday-workinghours-afternoon-ddos.pcap_iscx_01bd74",
+  "round_id": "round-001",
+  "hypothesis_id": "hyp_3_strong_dependency_pairs",
+  "planner_strategy_id": "strategy_02_hyp_3_strong_dependency_pairs",
+  "worker_tasks": [
+    {
+      "task_id": "task_1",
+      "hypothesis_id": "hyp_3_strong_dependency_pairs",
+      "task_scope": "Quantify dependency concentration and linear correlation strength for each identified strong dependency feature pair using bounded pairwise relation measures.",
+      "allowed_actions": [
+        "relation_verification"
+      ],
+      "local_context_refs": [
+        "e13",
+        "e14",
+        "e15",
+        "e16",
+        "e17",
+        "e18",
+        "e19",
+        "e20",
+        "e21",
+        "e22"
+      ],
+      "stop_conditions": [
+        "all identified feature pairs analyzed",
+        "correlation strength metrics collected"
+      ]
+    },
+    {
+      "task_id": "task_2",
+      "hypothesis_id": "hyp_3_strong_dependency_pairs",
+      "task_scope": "Examine protocol and flow-level semantics relevant to the strong dependency feature pairs to contextualize dependency origins and structural causes.",
+      "allowed_actions": [
+        "dependency_contextualization"
+      ],
+      "local_context_refs": [
+        "e13",
+        "e14",
+        "e15",
+        "e16",
+        "e17",
+        "e18",
+        "e19",
+        "e20",
+        "e21",
+        "e22"
+      ],
+      "stop_conditions": [
+        "protocol semantics mapped to feature pairs",
+        "dependency source hypotheses documented"
+      ]
+    },
+    {
+      "task_id": "task_3",
+      "hypothesis_id": "hyp_3_strong_dependency_pairs",
+      "task_scope": "Explore potential data processing or feature engineering steps contributing to redundancy patterns among the strong dependency pairs using structural summaries and distribution verifications.",
+      "allowed_actions": [
+        "structural_summary",
+        "distribution_verification"
+      ],
+      "local_context_refs": [
+        "e13",
+        "e14",
+        "e15",
+        "e16",
+        "e17",
+        "e18",
+        "e19",
+        "e20",
+        "e21",
+        "e22"
+      ],
+      "stop_conditions": [
+        "redundancy patterns identified",
+        "processing step influences characterized"
+      ]
+    },
+    {
+      "task_id": "task_4",
+      "hypothesis_id": "hyp_3_strong_dependency_pairs",
+      "task_scope": "Evaluate how strong dependencies influence feature selection stability and model sensitivity by verifying local consistency and shortcut-like predictive signals for involved features.",
+      "allowed_actions": [
+        "local_consistency_verification",
+        "shortcut_verification"
+      ],
+      "local_context_refs": [
+        "e13",
+        "e14",
+        "e15",
+        "e16",
+        "e17",
+        "e18",
+        "e19",
+        "e20",
+        "e21",
+        "e22"
+      ],
+      "stop_conditions": [
+        "feature selection impact assessed",
+        "model sensitivity signals measured"
+      ]
+    }
+  ]
+}

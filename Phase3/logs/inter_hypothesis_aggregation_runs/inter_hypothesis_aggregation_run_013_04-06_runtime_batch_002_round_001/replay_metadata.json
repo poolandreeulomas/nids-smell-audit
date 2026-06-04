@@ -1,0 +1,8 @@
+{
+  "request_id": "inter_hypothesis_aggregation_1780566510",
+  "prompt_version": "phase3a.inter_hypothesis_aggregation.prompt.v1",
+  "replay_of": null,
+  "fresh_execution": true,
+  "deterministic": false,
+  "source_aggregation_count": 2
+}

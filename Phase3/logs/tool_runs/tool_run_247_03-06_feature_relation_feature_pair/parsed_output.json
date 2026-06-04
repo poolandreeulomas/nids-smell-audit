@@ -1,0 +1,38 @@
+{
+  "call_id": "task_2_step_05",
+  "tool_name": "feature_relation",
+  "status": "error",
+  "observations": {
+    "feature_name": "Bwd Avg Bulk Rate|Bwd Avg Bytes/Bulk",
+    "value": null,
+    "signals": [],
+    "metrics": {},
+    "support": {},
+    "provenance": {
+      "source": "tool",
+      "tool": "feature_relation",
+      "step": null
+    },
+    "feature": "Bwd Avg Bulk Rate|Bwd Avg Bytes/Bulk"
+  },
+  "evidence_refs": [
+    {
+      "artifact": "parsed_output",
+      "path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_247_03-06_feature_relation_feature_pair\\parsed_output.json"
+    },
+    {
+      "artifact": "raw_tool_output",
+      "path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_247_03-06_feature_relation_feature_pair\\raw_tool_output.json"
+    },
+    {
+      "artifact": "component_run",
+      "path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_247_03-06_feature_relation_feature_pair\\component_run.json"
+    }
+  ],
+  "limitations": [
+    {
+      "code": "INSUFFICIENT_VARIANCE",
+      "message": "Correlation between selected features is undefined."
+    }
+  ]
+}

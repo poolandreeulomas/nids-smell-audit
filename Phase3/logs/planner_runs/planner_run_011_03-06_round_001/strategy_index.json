@@ -1,0 +1,35 @@
+{
+  "selected_count": 3,
+  "strategy_count": 3,
+  "missing_strategy_hypothesis_ids": [],
+  "unexpected_strategy_hypothesis_ids": [],
+  "strategies": [
+    {
+      "strategy_id": "strategy_01_hyp_006",
+      "hypothesis_id": "hyp_006",
+      "summary": "The Destination Port feature exhibits strong class-conditioned distributional differences, with the DDoS class showing a dominant ratio of 1.0 and zero entropy, while the BENIGN class has moderate entropy and dominant ratio, resulting in high Jensen-Shannon divergence, which may reflect representation-sensitive or shortcut-like signals.",
+      "strategic_objective": "Clarify whether the zero entropy and dominant ratio of 1.0 in Destination Port for the DDoS class represent a fixed attack vector or a dataset artifact, and assess how this distributional difference influences model reliance.",
+      "key_check_count": 4,
+      "success_criteria_count": 3,
+      "router_constraint_count": 2
+    },
+    {
+      "strategy_id": "strategy_02_hyp_003",
+      "hypothesis_id": "hyp_003",
+      "summary": "Multiple feature pairs show near-perfect or perfect linear correlations (correlation >= 0.9993), indicating strong dependencies and potential redundancy among packet length, segment size, flag counts, and packet count features, which may affect feature prioritization and model robustness.",
+      "strategic_objective": "Determine the stability and class/time consistency of near-perfect linear dependencies among packet length, segment size, flag counts, and packet count features, and evaluate their potential as shortcut signals affecting model generalization.",
+      "key_check_count": 4,
+      "success_criteria_count": 3,
+      "router_constraint_count": 2
+    },
+    {
+      "strategy_id": "strategy_03_hyp_010",
+      "hypothesis_id": "hyp_010",
+      "summary": "The strong class-conditioned distributional differences and low variability in multiple feature clusters may reflect a dependency-backed regularity rather than isolated narrow signals, but the presence of class imbalance and duplicated data complicates the epistemic certainty of these patterns.",
+      "strategic_objective": "Investigate how class imbalance and data duplication influence the observed dependency-backed regularities and assess the stability of these regularities across other datasets or partitions.",
+      "key_check_count": 4,
+      "success_criteria_count": 3,
+      "router_constraint_count": 2
+    }
+  ]
+}

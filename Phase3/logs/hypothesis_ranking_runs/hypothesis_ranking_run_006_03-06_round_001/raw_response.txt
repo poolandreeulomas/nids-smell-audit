@@ -1,0 +1,32 @@
+{
+  "batch_id": "phase3a_batch_0306153018_friday-workinghours-afternoon-ddos.pcap_iscx_218609",
+  "round_id": "round-001",
+  "selected_hypothesis_ids": [
+    "hyp_001_low_cardinality_bulk_features",
+    "hyp_002_strong_feature_dependencies_indicate_redundancy",
+    "hyp_006_class_distribution_and_destination_port_divergence"
+  ],
+  "deferred_hypothesis_ids": [
+    "hyp_003_class_conditioned_structural_variation_in_packet_features",
+    "hyp_004_tension_between_low_cardinality_and_class_variation",
+    "hyp_005_tension_between_perfect_dependency_and_feature_diversity",
+    "hyp_007_partition_contains_substantial_duplicates",
+    "hyp_008_localized_representation_sensitive_signal_in_destination_port_entropy",
+    "hyp_009_potential_structural_uniformity_masking_subtle_variations",
+    "hyp_010_interplay_of_redundancy_and_class_variation_affects_feature_reliability"
+  ],
+  "selection_rationales": [
+    {
+      "hypothesis_id": "hyp_001_low_cardinality_bulk_features",
+      "reason": "Near-constant bulk features may mask subtle signals or reflect saturation, critical for understanding dataset structure."
+    },
+    {
+      "hypothesis_id": "hyp_002_strong_feature_dependencies_indicate_redundancy",
+      "reason": "Strong feature correlations suggest redundancy impacting dimensionality and model robustness, warranting focused investigation."
+    },
+    {
+      "hypothesis_id": "hyp_006_class_distribution_and_destination_port_divergence",
+      "reason": "Destination Port shows strong class divergence and moderate class imbalance, indicating a key discriminative feature with high investigative value."
+    }
+  ]
+}

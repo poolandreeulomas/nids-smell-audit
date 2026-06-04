@@ -1,0 +1,12 @@
+{
+  "tool_name": "shortcut_analysis",
+  "epistemic_role": "shortcut_verification",
+  "supported_scopes": [
+    "feature"
+  ],
+  "required_inputs": [
+    "feature_name"
+  ],
+  "result_shape": "feature_observation",
+  "boundedness_notes": "Uses a deterministic one-feature decision stump to test shortcut-like predictive leverage."
+}

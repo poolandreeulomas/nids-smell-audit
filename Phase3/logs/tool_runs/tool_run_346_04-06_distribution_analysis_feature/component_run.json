@@ -1,0 +1,23 @@
+{
+  "component": "tools",
+  "created_at": "2026-06-04T07:40:53.054411+00:00",
+  "schema_version": "phase3a.tools.v1",
+  "call_id": "task_2_step_03",
+  "tool_name": "distribution_analysis",
+  "target_scope": "feature",
+  "status": "ok",
+  "validation_ok": true,
+  "caller_mode": "worker",
+  "replay_of": null,
+  "artifact_paths": {
+    "component_run_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_346_04-06_distribution_analysis_feature\\component_run.json",
+    "tool_call_request_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_346_04-06_distribution_analysis_feature\\tool_call_request.json",
+    "tool_capability_record_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_346_04-06_distribution_analysis_feature\\tool_capability_record.json",
+    "normalized_inputs_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_346_04-06_distribution_analysis_feature\\normalized_inputs.json",
+    "raw_tool_output_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_346_04-06_distribution_analysis_feature\\raw_tool_output.json",
+    "parsed_output_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_346_04-06_distribution_analysis_feature\\parsed_output.json",
+    "validation_report_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_346_04-06_distribution_analysis_feature\\validation_report.json",
+    "tool_metrics_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_346_04-06_distribution_analysis_feature\\tool_metrics.json",
+    "cache_record_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_346_04-06_distribution_analysis_feature\\cache_record.json"
+  }
+}

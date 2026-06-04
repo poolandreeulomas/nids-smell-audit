@@ -1,0 +1,20 @@
+{
+  "task_id": "task_2",
+  "hypothesis_id": "hyp_4_destination_port_distribution_skew_reflects_attack_targeting",
+  "status": "partial",
+  "findings": [
+    "Destination Port feature shows strong class-conditioned dependency concentration consistent with attack targeting patterns.",
+    "Local label consistency verification revealed high label neighborhood conflicts and duplicate label conflicts, indicating local label inconsistency around Destination Port.",
+    "These conflicts suggest epistemic instability in local label topology despite global distributional skew."
+  ],
+  "evidence_refs": [
+    "task_2_step_03",
+    "task_2_step_05"
+  ],
+  "contradictions": [
+    "local contradiction preserved"
+  ],
+  "limitations": [
+    "local label inconsistency limits representational stability conclusions"
+  ]
+}

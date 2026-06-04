@@ -1,0 +1,32 @@
+{
+  "batch_id": "phase3a_batch_0406073857_friday-workinghours-afternoon-ddos.pcap_iscx_ee0ef0",
+  "round_id": "round-001",
+  "selected_hypothesis_ids": [
+    "hyp_8_low_cardinality_features_as_potential_shortcut_signals",
+    "hyp_3_class_conditioned_structural_variation_in_packet_length_features",
+    "hyp_4_destination_port_distribution_skew_reflects_attack_targeting"
+  ],
+  "deferred_hypothesis_ids": [
+    "hyp_1_low_cardinality_flags_as_stable_background",
+    "hyp_2_strong_linear_dependencies_indicate_redundancy",
+    "hyp_5_partition_level_data_quality_issues_influence_feature_distributions",
+    "hyp_6_tension_between_low_cardinality_and_class_variation_features",
+    "hyp_7_tension_between_feature_redundancy_and_feature_importance",
+    "hyp_9_dependency_backed_regularity_reflects_stable_protocol_behavior",
+    "hyp_10_localized_representation_sensitive_handles_in_destination_port"
+  ],
+  "selection_rationales": [
+    {
+      "hypothesis_id": "hyp_8_low_cardinality_features_as_potential_shortcut_signals",
+      "reason": "High potential impact on model brittleness and shortcut exploitation due to near-constant features."
+    },
+    {
+      "hypothesis_id": "hyp_3_class_conditioned_structural_variation_in_packet_length_features",
+      "reason": "Captures meaningful class-dependent behavioral differences critical for attack detection."
+    },
+    {
+      "hypothesis_id": "hyp_4_destination_port_distribution_skew_reflects_attack_targeting",
+      "reason": "Strong class-skewed distribution suggests a localized, representation-sensitive attack signal."
+    }
+  ]
+}

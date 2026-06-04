@@ -1,0 +1,16 @@
+{
+  "task_id": "task_4",
+  "hypothesis_id": "hyp_005_destination_port_distribution_shift",
+  "task_scope": "Check for abrupt distributional shifts or near-deterministic mappings in Destination Port values within evidence e33",
+  "allowed_actions": [
+    "local_consistency_verification",
+    "relation_verification"
+  ],
+  "local_context_refs": [
+    "e33"
+  ],
+  "stop_conditions": [
+    "abrupt shifts detected or ruled out",
+    "near-deterministic mappings characterized"
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "batch_id": "semantic_batch_076_friday-workinghours-afternoon-ddos.pcap_iscx",
+  "round_id": "round_077_semantic_batch_076_friday-workinghours-afternoon-ddos.pcap_iscx",
+  "task_id": "task_1",
+  "hypothesis_id": "hyp_05_tension_between_redundancy_and_representation",
+  "model_name": "gpt-4.1-mini",
+  "duration_ms": 30181.725,
+  "status": "ok",
+  "worker_status": "completed",
+  "steps_used": 8,
+  "retries_used": 0,
+  "prompt_count": 8,
+  "tool_event_count": 7,
+  "failure_event_count": 0,
+  "termination_cause": "model_finish",
+  "result_committed": true,
+  "fresh_execution": true,
+  "replay_of": null,
+  "caller_mode": "cli",
+  "schema_version": "phase3a.worker.v1"
+}

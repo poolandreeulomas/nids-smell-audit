@@ -1,0 +1,20 @@
+{
+  "strategy_id": "strategy_01_hyp_001",
+  "hypothesis_id": "hyp_001_low_diversity_constant_features",
+  "strategic_objective": "Clarify whether near-constant features represent stable network conditions or measurement artifacts and assess potential hidden variability at finer temporal scales.",
+  "key_checks": [
+    "Compare feature value stability across time slices within the capture period",
+    "Assess class-conditioned distribution shifts for near-constant features",
+    "Evaluate feature cardinality and detect subtle fluctuations below coarse aggregation",
+    "Check for correlation between near-constant features and known network events or measurement flags"
+  ],
+  "success_criteria": [
+    "Evidence distinguishes stable network behavior from measurement artifact patterns",
+    "Identification of any meaningful sub-temporal variability in low-diversity features",
+    "Clear characterization of the impact of these features on class differentiation potential"
+  ],
+  "router_constraints": [
+    "preserve feature_scope",
+    "preserve evidence refs"
+  ]
+}

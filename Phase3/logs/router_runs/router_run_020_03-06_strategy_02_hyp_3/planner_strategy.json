@@ -1,0 +1,20 @@
+{
+  "strategy_id": "strategy_02_hyp_3",
+  "hypothesis_id": "hyp_3_distributional_skew_vs_partition_imbalance",
+  "strategic_objective": "Determine if the dominant single port in the DDoS class reflects a genuine attack pattern or sampling artifact influenced by duplication and class imbalance.",
+  "key_checks": [
+    "Analyze class-conditioned distribution stability of Destination Port across partitions",
+    "Quantify impact of duplicated rows on port distribution skew and entropy measures",
+    "Examine relationship between class imbalance and distributional divergence in Destination Port",
+    "Check for local consistency and dependency concentration around dominant port values"
+  ],
+  "success_criteria": [
+    "Clear differentiation between genuine attack pattern and dataset artifact in port distribution",
+    "Bounded insight into how duplication and imbalance affect distributional skew",
+    "Identification of stable versus unstable distributional signals in Destination Port"
+  ],
+  "router_constraints": [
+    "preserve Destination Port feature scope",
+    "preserve evidence references e1, e2, e33"
+  ]
+}

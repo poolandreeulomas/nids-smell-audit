@@ -1,0 +1,40 @@
+{
+  "batch_id": "phase3a_batch_0306192600_friday-workinghours-afternoon-ddos.pcap_iscx_a08c4b",
+  "round_id": "round-001",
+  "hypothesis_id": "hyp_002_strong_dependency_pairs_redundancy",
+  "planner_strategy_id": "strategy_02_hyp_002",
+  "worker_tasks": [
+    {
+      "task_id": "task_1",
+      "hypothesis_id": "hyp_002_strong_dependency_pairs_redundancy",
+      "task_scope": "Analyze dependency strength consistency of strong feature pairs across temporal partitions using preserved evidence references.",
+      "allowed_actions": ["dependency_contextualization", "distribution_verification"],
+      "local_context_refs": ["e13", "e14", "e15", "e16", "e17", "e18", "e19", "e20", "e21", "e22"],
+      "stop_conditions": ["all temporal partitions analyzed", "dependency strength metrics stabilized"]
+    },
+    {
+      "task_id": "task_2",
+      "hypothesis_id": "hyp_002_strong_dependency_pairs_redundancy",
+      "task_scope": "Examine alignment of strong correlations with known protocol behaviors and preprocessing steps using preserved feature pairs and evidence.",
+      "allowed_actions": ["relation_verification", "dependency_contextualization"],
+      "local_context_refs": ["e13", "e14", "e15", "e16", "e17", "e18", "e19", "e20", "e21", "e22"],
+      "stop_conditions": ["correlation alignment assessment complete", "protocol behavior patterns identified"]
+    },
+    {
+      "task_id": "task_3",
+      "hypothesis_id": "hyp_002_strong_dependency_pairs_redundancy",
+      "task_scope": "Assess stability of dependency concentration clusters across dataset partitions preserving temporal segmentation metadata and evidence references.",
+      "allowed_actions": ["dependency_contextualization", "distribution_verification"],
+      "local_context_refs": ["e13", "e14", "e15", "e16", "e17", "e18", "e19", "e20", "e21", "e22"],
+      "stop_conditions": ["cluster stability metrics converge", "partition comparison complete"]
+    },
+    {
+      "task_id": "task_4",
+      "hypothesis_id": "hyp_002_strong_dependency_pairs_redundancy",
+      "task_scope": "Evaluate potential confounding effects of redundancy on observed strong feature pair dependencies using duplication and shortcut verification.",
+      "allowed_actions": ["duplication_verification", "shortcut_verification"],
+      "local_context_refs": ["e13", "e14", "e15", "e16", "e17", "e18", "e19", "e20", "e21", "e22"],
+      "stop_conditions": ["redundancy impact quantified", "confounding effects identified or ruled out"]
+    }
+  ]
+}

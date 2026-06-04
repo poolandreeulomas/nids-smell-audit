@@ -1,0 +1,47 @@
+{
+  "ok": false,
+  "request_id": "state_manager_4b70c1476e2d449e9feec6508deab6d1",
+  "prompt_version": "phase3a.state_manager.prompt.v1",
+  "schema_version": "phase3a.state_manager.v1",
+  "state_input_validation": {
+    "ok": true,
+    "errors": [],
+    "warnings": [],
+    "stats": {
+      "state_version": 1,
+      "hypothesis_count": 10,
+      "revision_count": 1
+    }
+  },
+  "handoff_input_validation": {
+    "ok": true,
+    "errors": [],
+    "warnings": [],
+    "stats": {
+      "merged_finding_count": 4,
+      "evidence_ref_count": 9,
+      "preserved_contradiction_count": 2,
+      "open_gap_count": 2
+    }
+  },
+  "parse_validation": {
+    "ok": false,
+    "errors": [
+      {
+        "field": "raw_response",
+        "message": "state manager response must contain exactly batch_id, round_id, hypothesis_id, summary, status, evidence_refs, preserved_contradictions, open_gaps, merged_findings, update_focus, applied_updates"
+      }
+    ],
+    "warnings": []
+  },
+  "state_delta_validation": {
+    "ok": false,
+    "errors": [
+      {
+        "field": "state_delta_record",
+        "message": "state_delta_record was not produced."
+      }
+    ],
+    "warnings": []
+  }
+}

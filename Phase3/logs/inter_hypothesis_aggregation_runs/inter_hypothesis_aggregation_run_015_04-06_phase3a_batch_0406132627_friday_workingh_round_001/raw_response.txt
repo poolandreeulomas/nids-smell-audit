@@ -1,0 +1,163 @@
+```json
+{
+  "batch_id": "phase3a_batch_0406132627_friday-workinghours-afternoon-ddos.pcap_iscx_f0e355",
+  "round_id": "round-001",
+  "selected_hypothesis_ids": [
+    "hyp_5_strong_linear_dependencies",
+    "hyp_8_class_conditioned_distribution_destination_port",
+    "hyp_6_class_conditioned_variation_backward_packet_lengths"
+  ],
+  "source_hypothesis_records": [
+    {
+      "hypothesis_id": "hyp_5_strong_linear_dependencies",
+      "aggregation_run_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\aggregation_runs\\aggregation_run_035_04-06_hyp_5_strong_linear_dependencies\\component_run.json",
+      "merged_findings": [
+        "Multiple feature pairs within the examined feature subset exhibit near-perfect linear correlations (>= 0.9993), indicating strong linear dependencies and potential redundancy rather than exact duplications.",
+        "These strong linear dependencies largely reflect inherent protocol aggregation properties and measurement constraints, especially among packet size, flow byte/packet count, and flag count features.",
+        "Low cardinality features such as 'Fwd PSH Flags' and 'SYN Flag Count' form perfectly correlated pairs but show high local label neighborhood conflicts and duplicate label conflicts, revealing unstable dependencies sensitive to local label topology and contributing to feature selection instability and model sensitivity variations.",
+        "Some features, e.g., 'Average Packet Size' and 'Fwd Header Length', retain discriminative power or moderate shortcut-like predictive signals despite these dependencies.",
+        "No evidence was found for engineered redundancy, narrow structural clusters, masking, or amplification effects beyond the identified strong linear correlations."
+      ],
+      "evidence_refs": [
+        "task_1_step_03",
+        "task_1_step_05",
+        "task_1_step_07",
+        "task_2_step_03",
+        "task_2_step_05",
+        "task_2_step_07",
+        "task_3_step_03",
+        "task_3_step_05",
+        "task_3_step_07",
+        "task_4_step_03",
+        "task_4_step_05",
+        "task_4_step_07"
+      ],
+      "preserved_contradictions": [
+        "High label neighborhood conflicts in perfectly correlated low-cardinality features indicate local contradictions in label topology."
+      ],
+      "open_gaps": [
+        "Analyses are limited to local evidence within a bounded feature subset without global dataset correlation assessment or semantic interpretation beyond correlation and shortcut signals.",
+        "Low cardinality feature correlations were noted but not deeply analyzed for their broader impact on model generalization or stability."
+      ],
+      "limitations": [
+        "Analysis limited to bounded local evidence without global aggregation or cross-feature interaction beyond identified pairs.",
+        "Analysis limited to bounded local evidence without global aggregation or semantic interpretation beyond correlation and shortcut signals.",
+        "Analysis limited to local evidence within e13 to e22; global dataset correlations not assessed.",
+        "Low cardinality features with perfect correlation (e.g., 'Fwd PSH Flags' and 'SYN Flag Count') noted but not further analyzed due to task scope."
+      ],
+      "update_focus": "Focus on resolving the impact of local label topology conflicts on feature stability and exploring global correlation structures beyond the current bounded feature subset to better understand redundancy and discriminative power trade-offs.",
+      "provenance": {
+        "batch_id": "phase3a_batch_0406132627_friday-workinghours-afternoon-ddos.pcap_iscx_f0e355",
+        "round_id": "round-001",
+        "source_order": 0,
+        "source_aggregation_component_run_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\aggregation_runs\\aggregation_run_035_04-06_hyp_5_strong_linear_dependencies\\component_run.json",
+        "source_worker_result_set_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\aggregation_runs\\aggregation_run_035_04-06_hyp_5_strong_linear_dependencies\\worker_result_set.json",
+        "source_normalized_inputs_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\aggregation_runs\\aggregation_run_035_04-06_hyp_5_strong_linear_dependencies\\normalized_inputs.json",
+        "source_run_dirs": [
+          "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\worker_runs\\worker_run_133_04-06_task_2",
+          "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\worker_runs\\worker_run_135_04-06_task_4",
+          "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\worker_runs\\worker_run_136_04-06_task_1",
+          "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\worker_runs\\worker_run_141_04-06_task_3"
+        ],
+        "source_validation_ok": true,
+        "source_status": "ok"
+      }
+    },
+    {
+      "hypothesis_id": "hyp_8_class_conditioned_distribution_destination_port",
+      "aggregation_run_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\aggregation_runs\\aggregation_run_033_04-06_hyp_8_class_conditioned_distribution_des\\component_run.json",
+      "merged_findings": [
+        "The Destination Port feature exhibits strong class-conditioned distribution differences characterized by dominant values and low entropy, particularly a dominant port value ratio of 1.0 for DDoS and 0.346 for BENIGN classes.",
+        "High Jensen-Shannon divergence (0.7315) consistently confirms significant distributional separation between BENIGN and DDoS classes across multiple independent analyses.",
+        "These distribution differences align with targeted attack patterns rather than dataset sampling bias, indicating a meaningful signal rather than artifact.",
+        "Within the local evidence context e33, the Destination Port feature shows moderate shortcut-like predictive leverage, though this assessment is limited to single-feature deterministic decision stumps without multifeature interaction analysis.",
+        "Dependency contextualization did not reveal mitigating structural diversity, suggesting a potential over-reliance risk on this feature's dominant port values in classification models."
+      ],
+      "evidence_refs": [
+        "task_1_step_03",
+        "task_2_step_03",
+        "task_3_step_03",
+        "task_3_step_05",
+        "task_4_step_03"
+      ],
+      "preserved_contradictions": [],
+      "open_gaps": [
+        "Limitations include the lack of multifeature interaction assessment and the narrow local evidence context (e33) restricting broader generalization or model internal validation."
+      ],
+      "limitations": [
+        "Analysis limited to local evidence from e33; broader dataset context or model internals not examined.",
+        "Analysis limited to single-feature deterministic decision stump; multifeature interactions not assessed."
+      ],
+      "update_focus": "Focus on the class-conditioned distributional characteristics of the Destination Port feature, its predictive leverage within local contexts, and the associated risks of over-reliance due to dominant port values, while acknowledging limitations in multifeature and broader contextual analysis.",
+      "provenance": {
+        "batch_id": "phase3a_batch_0406132627_friday-workinghours-afternoon-ddos.pcap_iscx_f0e355",
+        "round_id": "round-001",
+        "source_order": 1,
+        "source_aggregation_component_run_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\aggregation_runs\\aggregation_run_033_04-06_hyp_8_class_conditioned_distribution_des\\component_run.json",
+        "source_worker_result_set_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\aggregation_runs\\aggregation_run_033_04-06_hyp_8_class_conditioned_distribution_des\\worker_result_set.json",
+        "source_normalized_inputs_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\aggregation_runs\\aggregation_run_033_04-06_hyp_8_class_conditioned_distribution_des\\normalized_inputs.json",
+        "source_run_dirs": [
+          "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\worker_runs\\worker_run_130_04-06_task_1",
+          "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\worker_runs\\worker_run_131_04-06_task_2",
+          "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\worker_runs\\worker_run_132_04-06_task_3",
+          "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\worker_runs\\worker_run_134_04-06_task_4"
+        ],
+        "source_validation_ok": true,
+        "source_status": "ok"
+      }
+    },
+    {
+      "hypothesis_id": "hyp_6_class_conditioned_variation_backward_packet_lengths",
+      "aggregation_run_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\aggregation_runs\\aggregation_run_034_04-06_hyp_6_class_conditioned_variation_backwa\\component_run.json",
+      "merged_findings": [
+        "Backward packet length features (Max, Mean, Std) consistently exhibit significant class-conditioned structural variation characterized by high variance ratios and differing unique value counts between BENIGN and DDoS classes, supporting stable class separation signals across examined conditions.",
+        "Among these, Bwd Packet Length Mean shows the strongest class separation and structural differences, while Max and Std features have lower cardinality and exhibit redundancy, indicating overlapping rather than fully independent discriminative information.",
+        "Moderate shortcut-like signals are present in these features, suggesting potential dataset-specific artifacts and a risk of overfitting due to representation-sensitive patterns.",
+        "Dependency analysis reveals dispersed profiles without narrow, robust clusters, limiting the robustness of structural variation signals in 'Bwd Packet Length Max'."
+      ],
+      "evidence_refs": [
+        "task_1_step_03",
+        "task_1_step_05",
+        "task_1_step_07",
+        "task_2_step_03",
+        "task_2_step_05",
+        "task_2_step_07",
+        "task_3_step_03",
+        "task_3_step_05",
+        "task_3_step_07",
+        "task_4_step_03",
+        "task_4_step_05",
+        "task_4_step_07"
+      ],
+      "preserved_contradictions": [],
+      "open_gaps": [
+        "No duplication verification was performed to exclude exact data duplication artifacts that could influence observed shortcut signals.",
+        "Redundancy among backward packet length features limits their independent discriminative power and requires further disentanglement.",
+        "Dispersed dependency profiles reduce confidence in the robustness of structural variation patterns, warranting deeper dependency contextualization."
+      ],
+      "limitations": [
+        "Dependency profiles are dispersed, reducing robustness of structural variation signals.",
+        "No duplication verification was performed to check for exact data duplication artifacts.",
+        "Redundancy among backward packet length features limits independent discriminative power."
+      ],
+      "update_focus": "Focus on disentangling redundancy among backward packet length features and verifying potential data duplication artifacts to clarify the robustness and independence of class-conditioned structural variation signals.",
+      "provenance": {
+        "batch_id": "phase3a_batch_0406132627_friday-workinghours-afternoon-ddos.pcap_iscx_f0e355",
+        "round_id": "round-001",
+        "source_order": 2,
+        "source_aggregation_component_run_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\aggregation_runs\\aggregation_run_034_04-06_hyp_6_class_conditioned_variation_backwa\\component_run.json",
+        "source_worker_result_set_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\aggregation_runs\\aggregation_run_034_04-06_hyp_6_class_conditioned_variation_backwa\\worker_result_set.json",
+        "source_normalized_inputs_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\aggregation_runs\\aggregation_run_034_04-06_hyp_6_class_conditioned_variation_backwa\\normalized_inputs.json",
+        "source_run_dirs": [
+          "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\worker_runs\\worker_run_137_04-06_task_3",
+          "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\worker_runs\\worker_run_138_04-06_task_2",
+          "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\worker_runs\\worker_run_139_04-06_task_4",
+          "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\worker_runs\\worker_run_140_04-06_task_1"
+        ],
+        "source_validation_ok": true,
+        "source_status": "ok"
+      }
+    }
+  ]
+}
+```

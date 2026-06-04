@@ -1,0 +1,485 @@
+{
+  "task_id": "task_1",
+  "action_sequence": [
+    {
+      "step_index": 3,
+      "action_index": 1,
+      "action_class": "cardinality_verification",
+      "context_ref": "e23",
+      "feature_name": "Bwd Avg Bulk Rate",
+      "related_feature_name": null,
+      "call_id": "task_1_step_03",
+      "status": "ok"
+    },
+    {
+      "step_index": 5,
+      "action_index": 1,
+      "action_class": "cardinality_verification",
+      "context_ref": "e23",
+      "feature_name": "Bwd Avg Bytes/Bulk",
+      "related_feature_name": null,
+      "call_id": "task_1_step_05",
+      "status": "ok"
+    },
+    {
+      "step_index": 7,
+      "action_index": 1,
+      "action_class": "duplication_verification",
+      "context_ref": "e1",
+      "feature_name": "",
+      "related_feature_name": null,
+      "call_id": "task_1_step_07",
+      "status": "ok"
+    }
+  ],
+  "tool_events": [
+    {
+      "ok": true,
+      "execution_ok": true,
+      "call_id": "task_1_step_03",
+      "action": {
+        "action_class": "cardinality_verification",
+        "context_ref": "e23",
+        "feature_name": "Bwd Avg Bulk Rate"
+      },
+      "tool_name": "cardinality_analysis",
+      "request": {
+        "call_id": "task_1_step_03",
+        "tool_name": "cardinality_analysis",
+        "target_scope": "feature",
+        "input_refs": {
+          "feature_name": "Bwd Avg Bulk Rate"
+        },
+        "preprocessing_profile_ref": "default",
+        "execution_constraints": {
+          "cache_policy": "reuse",
+          "validation_mode": "strict",
+          "save_raw_output": true
+        }
+      },
+      "request_validation": {
+        "ok": true,
+        "errors": [],
+        "warnings": []
+      },
+      "raw_tool_output": {
+        "ok": true,
+        "tool": "cardinality_analysis",
+        "feature_name": "Bwd Avg Bulk Rate",
+        "value": 4.429776960730027e-06,
+        "error_code": null,
+        "error_message": null,
+        "meta": {
+          "dataset_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\data\\cic_ids_2017\\Friday-WorkingHours-Afternoon-DDos.pcap_ISCX.csv",
+          "label_column": "Label"
+        },
+        "evidence": {
+          "feature": "Bwd Avg Bulk Rate",
+          "signals": [
+            "low_cardinality",
+            "near_constant"
+          ],
+          "metrics": {
+            "unique_values": 1,
+            "cardinality_ratio": 4.429776960730027e-06
+          },
+          "support": {
+            "n_total": 225745,
+            "n_per_class": {
+              "DDoS": 128027,
+              "BENIGN": 97718
+            },
+            "total_samples": 225745,
+            "per_class": {
+              "DDoS": 128027,
+              "BENIGN": 97718
+            }
+          },
+          "provenance": {
+            "source": "tool",
+            "tool": "cardinality_analysis",
+            "step": null
+          },
+          "status": "active"
+        }
+      },
+      "tool_result": {
+        "call_id": "task_1_step_03",
+        "tool_name": "cardinality_analysis",
+        "status": "ok",
+        "observations": {
+          "feature_name": "Bwd Avg Bulk Rate",
+          "value": 4.429776960730027e-06,
+          "signals": [
+            "low_cardinality",
+            "near_constant"
+          ],
+          "metrics": {
+            "unique_values": 1,
+            "cardinality_ratio": 4.429776960730027e-06
+          },
+          "support": {
+            "n_total": 225745,
+            "n_per_class": {
+              "DDoS": 128027,
+              "BENIGN": 97718
+            },
+            "total_samples": 225745,
+            "per_class": {
+              "DDoS": 128027,
+              "BENIGN": 97718
+            }
+          },
+          "provenance": {
+            "source": "tool",
+            "tool": "cardinality_analysis",
+            "step": null
+          },
+          "feature": "Bwd Avg Bulk Rate"
+        },
+        "evidence_refs": [
+          {
+            "artifact": "parsed_output",
+            "path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_226_03-06_cardinality_analysis_feature\\parsed_output.json"
+          },
+          {
+            "artifact": "raw_tool_output",
+            "path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_226_03-06_cardinality_analysis_feature\\raw_tool_output.json"
+          },
+          {
+            "artifact": "component_run",
+            "path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_226_03-06_cardinality_analysis_feature\\component_run.json"
+          }
+        ],
+        "limitations": []
+      },
+      "result_validation": {
+        "ok": true,
+        "errors": [],
+        "warnings": []
+      },
+      "cache_events": [
+        {
+          "cache_key": "feature_cardinality",
+          "status": "miss"
+        }
+      ],
+      "artifact_paths": {
+        "component_run_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_226_03-06_cardinality_analysis_feature\\component_run.json",
+        "tool_call_request_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_226_03-06_cardinality_analysis_feature\\tool_call_request.json",
+        "tool_capability_record_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_226_03-06_cardinality_analysis_feature\\tool_capability_record.json",
+        "normalized_inputs_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_226_03-06_cardinality_analysis_feature\\normalized_inputs.json",
+        "raw_tool_output_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_226_03-06_cardinality_analysis_feature\\raw_tool_output.json",
+        "parsed_output_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_226_03-06_cardinality_analysis_feature\\parsed_output.json",
+        "validation_report_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_226_03-06_cardinality_analysis_feature\\validation_report.json",
+        "tool_metrics_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_226_03-06_cardinality_analysis_feature\\tool_metrics.json",
+        "cache_record_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_226_03-06_cardinality_analysis_feature\\cache_record.json"
+      },
+      "error_message": "",
+      "step_index": 3,
+      "action_index": 1
+    },
+    {
+      "ok": true,
+      "execution_ok": true,
+      "call_id": "task_1_step_05",
+      "action": {
+        "action_class": "cardinality_verification",
+        "context_ref": "e23",
+        "feature_name": "Bwd Avg Bytes/Bulk"
+      },
+      "tool_name": "cardinality_analysis",
+      "request": {
+        "call_id": "task_1_step_05",
+        "tool_name": "cardinality_analysis",
+        "target_scope": "feature",
+        "input_refs": {
+          "feature_name": "Bwd Avg Bytes/Bulk"
+        },
+        "preprocessing_profile_ref": "default",
+        "execution_constraints": {
+          "cache_policy": "reuse",
+          "validation_mode": "strict",
+          "save_raw_output": true
+        }
+      },
+      "request_validation": {
+        "ok": true,
+        "errors": [],
+        "warnings": []
+      },
+      "raw_tool_output": {
+        "ok": true,
+        "tool": "cardinality_analysis",
+        "feature_name": "Bwd Avg Bytes/Bulk",
+        "value": 4.429776960730027e-06,
+        "error_code": null,
+        "error_message": null,
+        "meta": {
+          "dataset_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\data\\cic_ids_2017\\Friday-WorkingHours-Afternoon-DDos.pcap_ISCX.csv",
+          "label_column": "Label"
+        },
+        "evidence": {
+          "feature": "Bwd Avg Bytes/Bulk",
+          "signals": [
+            "low_cardinality",
+            "near_constant"
+          ],
+          "metrics": {
+            "unique_values": 1,
+            "cardinality_ratio": 4.429776960730027e-06
+          },
+          "support": {
+            "n_total": 225745,
+            "n_per_class": {
+              "DDoS": 128027,
+              "BENIGN": 97718
+            },
+            "total_samples": 225745,
+            "per_class": {
+              "DDoS": 128027,
+              "BENIGN": 97718
+            }
+          },
+          "provenance": {
+            "source": "tool",
+            "tool": "cardinality_analysis",
+            "step": null
+          },
+          "status": "active"
+        }
+      },
+      "tool_result": {
+        "call_id": "task_1_step_05",
+        "tool_name": "cardinality_analysis",
+        "status": "ok",
+        "observations": {
+          "feature_name": "Bwd Avg Bytes/Bulk",
+          "value": 4.429776960730027e-06,
+          "signals": [
+            "low_cardinality",
+            "near_constant"
+          ],
+          "metrics": {
+            "unique_values": 1,
+            "cardinality_ratio": 4.429776960730027e-06
+          },
+          "support": {
+            "n_total": 225745,
+            "n_per_class": {
+              "DDoS": 128027,
+              "BENIGN": 97718
+            },
+            "total_samples": 225745,
+            "per_class": {
+              "DDoS": 128027,
+              "BENIGN": 97718
+            }
+          },
+          "provenance": {
+            "source": "tool",
+            "tool": "cardinality_analysis",
+            "step": null
+          },
+          "feature": "Bwd Avg Bytes/Bulk"
+        },
+        "evidence_refs": [
+          {
+            "artifact": "parsed_output",
+            "path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_233_03-06_cardinality_analysis_feature\\parsed_output.json"
+          },
+          {
+            "artifact": "raw_tool_output",
+            "path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_233_03-06_cardinality_analysis_feature\\raw_tool_output.json"
+          },
+          {
+            "artifact": "component_run",
+            "path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_233_03-06_cardinality_analysis_feature\\component_run.json"
+          }
+        ],
+        "limitations": []
+      },
+      "result_validation": {
+        "ok": true,
+        "errors": [],
+        "warnings": []
+      },
+      "cache_events": [
+        {
+          "cache_key": "feature_cardinality",
+          "status": "hit"
+        }
+      ],
+      "artifact_paths": {
+        "component_run_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_233_03-06_cardinality_analysis_feature\\component_run.json",
+        "tool_call_request_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_233_03-06_cardinality_analysis_feature\\tool_call_request.json",
+        "tool_capability_record_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_233_03-06_cardinality_analysis_feature\\tool_capability_record.json",
+        "normalized_inputs_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_233_03-06_cardinality_analysis_feature\\normalized_inputs.json",
+        "raw_tool_output_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_233_03-06_cardinality_analysis_feature\\raw_tool_output.json",
+        "parsed_output_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_233_03-06_cardinality_analysis_feature\\parsed_output.json",
+        "validation_report_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_233_03-06_cardinality_analysis_feature\\validation_report.json",
+        "tool_metrics_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_233_03-06_cardinality_analysis_feature\\tool_metrics.json",
+        "cache_record_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_233_03-06_cardinality_analysis_feature\\cache_record.json"
+      },
+      "error_message": "",
+      "step_index": 5,
+      "action_index": 1
+    },
+    {
+      "ok": true,
+      "execution_ok": true,
+      "call_id": "task_1_step_07",
+      "action": {
+        "action_class": "duplication_verification",
+        "context_ref": "e1",
+        "feature_name": ""
+      },
+      "tool_name": "duplication_analysis",
+      "request": {
+        "call_id": "task_1_step_07",
+        "tool_name": "duplication_analysis",
+        "target_scope": "dataset",
+        "input_refs": {},
+        "preprocessing_profile_ref": "default",
+        "execution_constraints": {
+          "cache_policy": "reuse",
+          "validation_mode": "strict",
+          "save_raw_output": true
+        }
+      },
+      "request_validation": {
+        "ok": true,
+        "errors": [],
+        "warnings": []
+      },
+      "raw_tool_output": {
+        "ok": true,
+        "tool": "duplication_analysis",
+        "feature_name": "__dataset__",
+        "value": 0.011663602737602162,
+        "error_code": null,
+        "error_message": null,
+        "meta": {
+          "dataset_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\data\\cic_ids_2017\\Friday-WorkingHours-Afternoon-DDos.pcap_ISCX.csv",
+          "label_column": "Label"
+        },
+        "evidence": {
+          "feature": "__dataset__",
+          "signals": [],
+          "metrics": {
+            "duplicate_count": 2633,
+            "duplicate_ratio": 0.011663602737602162,
+            "duplicate_count_per_class": {
+              "BENIGN": 2622,
+              "DDoS": 11
+            }
+          },
+          "support": {
+            "n_total": 225745,
+            "n_per_class": {
+              "DDoS": 128027,
+              "BENIGN": 97718
+            },
+            "total_samples": 225745,
+            "per_class": {
+              "DDoS": 128027,
+              "BENIGN": 97718
+            }
+          },
+          "provenance": {
+            "source": "tool",
+            "tool": "duplication_analysis",
+            "step": null
+          },
+          "status": "active"
+        }
+      },
+      "tool_result": {
+        "call_id": "task_1_step_07",
+        "tool_name": "duplication_analysis",
+        "status": "ok",
+        "observations": {
+          "feature_name": "__dataset__",
+          "value": 0.011663602737602162,
+          "signals": [],
+          "metrics": {
+            "duplicate_count": 2633,
+            "duplicate_ratio": 0.011663602737602162,
+            "duplicate_count_per_class": {
+              "BENIGN": 2622,
+              "DDoS": 11
+            }
+          },
+          "support": {
+            "n_total": 225745,
+            "n_per_class": {
+              "DDoS": 128027,
+              "BENIGN": 97718
+            },
+            "total_samples": 225745,
+            "per_class": {
+              "DDoS": 128027,
+              "BENIGN": 97718
+            }
+          },
+          "provenance": {
+            "source": "tool",
+            "tool": "duplication_analysis",
+            "step": null
+          },
+          "feature": "__dataset__"
+        },
+        "evidence_refs": [
+          {
+            "artifact": "parsed_output",
+            "path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_241_03-06_duplication_analysis_dataset\\parsed_output.json"
+          },
+          {
+            "artifact": "raw_tool_output",
+            "path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_241_03-06_duplication_analysis_dataset\\raw_tool_output.json"
+          },
+          {
+            "artifact": "component_run",
+            "path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_241_03-06_duplication_analysis_dataset\\component_run.json"
+          }
+        ],
+        "limitations": []
+      },
+      "result_validation": {
+        "ok": true,
+        "errors": [],
+        "warnings": []
+      },
+      "cache_events": [
+        {
+          "cache_key": "duplication_analysis::mask",
+          "status": "miss"
+        }
+      ],
+      "artifact_paths": {
+        "component_run_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_241_03-06_duplication_analysis_dataset\\component_run.json",
+        "tool_call_request_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_241_03-06_duplication_analysis_dataset\\tool_call_request.json",
+        "tool_capability_record_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_241_03-06_duplication_analysis_dataset\\tool_capability_record.json",
+        "normalized_inputs_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_241_03-06_duplication_analysis_dataset\\normalized_inputs.json",
+        "raw_tool_output_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_241_03-06_duplication_analysis_dataset\\raw_tool_output.json",
+        "parsed_output_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_241_03-06_duplication_analysis_dataset\\parsed_output.json",
+        "validation_report_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_241_03-06_duplication_analysis_dataset\\validation_report.json",
+        "tool_metrics_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_241_03-06_duplication_analysis_dataset\\tool_metrics.json",
+        "cache_record_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_241_03-06_duplication_analysis_dataset\\cache_record.json"
+      },
+      "error_message": "",
+      "step_index": 7,
+      "action_index": 1
+    }
+  ],
+  "retry_events": [],
+  "failure_events": [],
+  "budget_consumption": {
+    "max_steps": 8,
+    "max_retries": 1,
+    "steps_used": 8,
+    "retries_used": 0,
+    "termination_cause": "model_finish",
+    "result_committed": true
+  }
+}

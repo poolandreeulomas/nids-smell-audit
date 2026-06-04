@@ -1,0 +1,133 @@
+ROLE:
+You are Aggregation. Stay inside one hypothesis-local, round-local merge after Worker and before State Manager.
+Do not reroute, replan, mutate canonical state, emit critic feedback, or summarize raw traces.
+Preserve grounded contradictions and unresolved gaps instead of flattening them away.
+
+TASK:
+{
+  "batch_id": "phase3a_batch_0306143851_friday-workinghours-afternoon-ddos.pcap_iscx_ba9279",
+  "round_id": "round-001",
+  "hypothesis_id": "hyp_002_strong_dependency_pairs_redundancy",
+  "worker_result_count": 4,
+  "expected_task_ids": [
+    "task_1",
+    "task_2",
+    "task_3",
+    "task_4"
+  ],
+  "selected_task_ids": [
+    "task_1",
+    "task_2",
+    "task_3",
+    "task_4"
+  ]
+}
+
+SOURCE_WORKER_RESULTS:
+[
+  {
+    "task_id": "task_1",
+    "hypothesis_id": "hyp_002_strong_dependency_pairs_redundancy",
+    "status": "completed",
+    "findings": [
+      "Several feature pairs exhibit perfect or near-perfect correlation (correlation=1 or 0.9993) indicating strong linear dependencies and potential redundancy.",
+      "Class-specific dependency strength metrics were successfully computed for all target pairs within the bounded local scope.",
+      "High redundancy signals were consistently observed across multiple verified feature pairs."
+    ],
+    "evidence_refs": [
+      "task_1_step_03",
+      "task_1_step_05",
+      "task_1_step_07"
+    ],
+    "contradictions": [],
+    "limitations": []
+  },
+  {
+    "task_id": "task_2",
+    "hypothesis_id": "hyp_002_strong_dependency_pairs_redundancy",
+    "status": "completed",
+    "findings": [
+      "Strong pairwise correlations among the feature cluster are stable across BENIGN and DDoS classes, indicating persistent strong linear dependencies and potential redundancy.",
+      "No significant shifts or weakening in dependency patterns were detected locally for the analyzed features.",
+      "Dependency profiles for 'Fwd Packet Length Mean', 'Avg Fwd Segment Size', and 'SYN Flag Count' remain concentrated and consistent, showing no class-dependent changes."
+    ],
+    "evidence_refs": [
+      "task_2_step_03",
+      "task_2_step_05",
+      "task_2_step_07"
+    ],
+    "contradictions": [],
+    "limitations": [
+      "Analysis limited to the selected features and local dependency clusters; broader dataset-wide shifts cannot be ruled out."
+    ]
+  },
+  {
+    "task_id": "task_3",
+    "hypothesis_id": "hyp_002_strong_dependency_pairs_redundancy",
+    "status": "completed",
+    "findings": [
+      "Several feature pairs exhibit perfect or near-perfect correlation, confirming strong linear dependencies and redundancy.",
+      "Distribution verification of selected features within the cluster shows high class separation, indicating individual discriminative power despite redundancy.",
+      "Redundancy effects imply potential for feature removal or combination to reduce dataset complexity without losing class separation signals."
+    ],
+    "evidence_refs": [
+      "task_3_step_03",
+      "task_3_step_05",
+      "task_3_step_07"
+    ],
+    "contradictions": [],
+    "limitations": [
+      "No direct simulation of feature removal or combination impact was performed; conclusions are based on distributional and correlation evidence only."
+    ]
+  },
+  {
+    "task_id": "task_4",
+    "hypothesis_id": "hyp_002_strong_dependency_pairs_redundancy",
+    "status": "completed",
+    "findings": [
+      "Strong pairwise correlations among features indicate redundancy likely due to measurement or protocol semantics.",
+      "Low cardinality and near-constant values in features like Fwd Header Length and Avg Fwd Segment Size support semantic origin of dependencies.",
+      "Local consistency verification revealed label neighborhood conflicts and duplicate label conflicts, indicating some local irregularities in label topology despite strong dependencies."
+    ],
+    "evidence_refs": [
+      "task_4_step_03",
+      "task_4_step_05",
+      "task_4_step_07"
+    ],
+    "contradictions": [
+      "Local label neighborhood conflicts and duplicate label conflicts around Fwd Header Length indicate unresolved local inconsistencies."
+    ],
+    "limitations": [
+      "Analysis limited to local evidence within the dependency cluster; global aggregation or cross-cluster synthesis not performed."
+    ]
+  }
+]
+
+OVERLAP_DIAGNOSTICS:
+[]
+
+OUTPUT_RULES:
+Return exactly one JSON object.
+Only cite evidence_refs that appear in SOURCE_WORKER_RESULTS.
+Only preserve contradictions that already appear in SOURCE_WORKER_RESULTS.
+Keep update_focus short and state-facing, but do not describe state mutation.
+{
+  "aggregation_handoff": {
+    "batch_id": "phase3a_batch_0306143851_friday-workinghours-afternoon-ddos.pcap_iscx_ba9279",
+    "round_id": "round-001",
+    "hypothesis_id": "hyp_002_strong_dependency_pairs_redundancy",
+    "merged_findings": [
+      "grounded merged finding"
+    ],
+    "evidence_refs": [
+      "source evidence_ref"
+    ],
+    "preserved_contradictions": [
+      "unresolved source contradiction"
+    ],
+    "open_gaps": [
+      "remaining unresolved gap or limitation"
+    ],
+    "update_focus": "short orientation for the touched interpretive area"
+  }
+}

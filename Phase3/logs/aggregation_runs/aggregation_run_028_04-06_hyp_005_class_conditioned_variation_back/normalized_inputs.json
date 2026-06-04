@@ -1,0 +1,101 @@
+{
+  "batch_id": "phase3a_batch_0406095248_friday-workinghours-afternoon-ddos.pcap_iscx_f8c2c2",
+  "round_id": "round-001",
+  "hypothesis_id": "hyp_005_class_conditioned_variation_backward_packet_lengths",
+  "worker_result_count": 3,
+  "expected_task_ids": [
+    "task_1",
+    "task_2",
+    "task_3"
+  ],
+  "selected_task_ids": [
+    "task_1",
+    "task_2",
+    "task_3"
+  ],
+  "missing_task_ids": [],
+  "extra_task_ids": [],
+  "source_run_dirs": [
+    "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\worker_runs\\worker_run_105_04-06_task_1",
+    "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\worker_runs\\worker_run_107_04-06_task_2",
+    "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\worker_runs\\worker_run_109_04-06_task_3"
+  ],
+  "status_counts": {
+    "completed": 3
+  },
+  "source_evidence_refs": [
+    "task_1_step_03",
+    "task_1_step_05",
+    "task_1_step_07",
+    "task_2_step_03",
+    "task_2_step_05",
+    "task_2_step_07",
+    "task_3_step_03",
+    "task_3_step_05",
+    "task_3_step_07"
+  ],
+  "source_contradictions": [],
+  "source_limitations": [
+    "Analysis limited to local evidence within backward packet length features; broader dataset context not assessed.",
+    "Analysis limited to local evidence within e9; broader fragmentation impact characterization across all refs e9 to e12 inferred but not separately verified."
+  ],
+  "source_finding_count": 8,
+  "non_success_count": 0,
+  "worker_results": [
+    {
+      "task_id": "task_1",
+      "hypothesis_id": "hyp_005_class_conditioned_variation_backward_packet_lengths",
+      "status": "completed",
+      "findings": [
+        "Backward packet length features (Max, Mean, Std) exhibit stable class-conditioned structural variation with high class separation across examined time windows and network conditions.",
+        "No significant drift or instability detected in backward packet length variation distributions locally."
+      ],
+      "evidence_refs": [
+        "task_1_step_03",
+        "task_1_step_05",
+        "task_1_step_07"
+      ],
+      "contradictions": [],
+      "limitations": []
+    },
+    {
+      "task_id": "task_2",
+      "hypothesis_id": "hyp_005_class_conditioned_variation_backward_packet_lengths",
+      "status": "completed",
+      "findings": [
+        "Backward packet length features (Max, Mean, Std) and Avg Bwd Segment Size exhibit significant class-conditioned structural variation with high variance ratios and unique value differences between BENIGN and DDoS classes.",
+        "High redundancy among backward packet length features confirms consistent structural patterns rather than isolated anomalies.",
+        "Moderate shortcut-like predictive leverage detected in Bwd Packet Length Mean suggests sensitivity to attack-specific packet size manipulation or fragmentation effects."
+      ],
+      "evidence_refs": [
+        "task_2_step_03",
+        "task_2_step_05",
+        "task_2_step_07"
+      ],
+      "contradictions": [],
+      "limitations": [
+        "Analysis limited to local evidence within e9; broader fragmentation impact characterization across all refs e9 to e12 inferred but not separately verified."
+      ]
+    },
+    {
+      "task_id": "task_3",
+      "hypothesis_id": "hyp_005_class_conditioned_variation_backward_packet_lengths",
+      "status": "completed",
+      "findings": [
+        "Backward packet length features exhibit class-conditioned structural variation with high variance ratios and unique value differences between BENIGN and DDoS classes.",
+        "High redundancy between Bwd Packet Length Max and Mean suggests these features share structural dependency rather than being independently confounded.",
+        "No local evidence of confounding factors such as flow duration or application type influencing backward packet length variations was detected."
+      ],
+      "evidence_refs": [
+        "task_3_step_03",
+        "task_3_step_05",
+        "task_3_step_07"
+      ],
+      "contradictions": [],
+      "limitations": [
+        "Analysis limited to local evidence within backward packet length features; broader dataset context not assessed."
+      ]
+    }
+  ],
+  "overlap_diagnostics": []
+}

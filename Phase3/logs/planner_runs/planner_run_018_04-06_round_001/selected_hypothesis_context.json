@@ -1,0 +1,55 @@
+{
+  "selected_hypotheses": [
+    {
+      "hypothesis_id": "hyp_3_strong_feature_dependencies_and_redundancy",
+      "summary": "Multiple feature pairs exhibit near-perfect correlation (\u22650.9993), indicating strong linear dependencies and potential redundancy among packet length, segment size, flag counts, and packet count features, which may reduce effective feature dimensionality.",
+      "evidence_refs": [
+        "e13",
+        "e14",
+        "e15",
+        "e16",
+        "e17",
+        "e18",
+        "e19",
+        "e20",
+        "e21",
+        "e22"
+      ],
+      "open_questions": [
+        "Are these strong dependencies stable across classes or do they vary with attack presence?",
+        "Could these redundancies be exploited to simplify models without loss of detection power?"
+      ],
+      "current_status": "unresolved"
+    },
+    {
+      "hypothesis_id": "hyp_7_distributional_divergence_in_destination_port_feature",
+      "summary": "Destination Port feature shows strong distributional divergence between BENIGN and DDoS classes, with the DDoS class dominated by a single port and zero entropy, suggesting a representation-sensitive signal potentially linked to attack targeting.",
+      "evidence_refs": [
+        "e33"
+      ],
+      "open_questions": [
+        "Is the dominance of a single port in the DDoS class stable across different time windows or attack campaigns?",
+        "Could this strong divergence be an artifact of class imbalance or dataset sampling?"
+      ],
+      "current_status": "unresolved"
+    },
+    {
+      "hypothesis_id": "hyp_9_tension_between_low_diversity_and_class_conditioned_variation",
+      "summary": "Features with near-constant values (low diversity) coexist with features showing strong class-conditioned structural variation, creating tension between stable and variable feature subsets that complicates unified interpretation of dataset structure.",
+      "evidence_refs": [
+        "e9",
+        "e10",
+        "e11",
+        "e12",
+        "e23",
+        "e24",
+        "e25"
+      ],
+      "open_questions": [
+        "What mechanisms or data processing steps could explain the coexistence of these contrasting feature behaviors?",
+        "How should models balance reliance on stable versus variable features given this tension?"
+      ],
+      "current_status": "unresolved"
+    }
+  ]
+}

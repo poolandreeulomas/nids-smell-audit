@@ -1,0 +1,40 @@
+{
+  "batch_id": "phase3a_batch_0406073857_friday-workinghours-afternoon-ddos.pcap_iscx_ee0ef0",
+  "round_id": "round-001",
+  "hypothesis_id": "hyp_4_destination_port_distribution_skew_reflects_attack_targeting",
+  "planner_strategy_id": "strategy_03_hyp_4",
+  "worker_tasks": [
+    {
+      "task_id": "task_1",
+      "hypothesis_id": "hyp_4_destination_port_distribution_skew_reflects_attack_targeting",
+      "task_scope": "Measure distributional skew and Jensen-Shannon divergence of destination port feature e33 across multiple attack instances to identify consistent skew patterns.",
+      "allowed_actions": ["distribution_verification"],
+      "local_context_refs": ["e33"],
+      "stop_conditions": ["distribution metrics computed for all attack instances", "distributional skew convergence observed"]
+    },
+    {
+      "task_id": "task_2",
+      "hypothesis_id": "hyp_4_destination_port_distribution_skew_reflects_attack_targeting",
+      "task_scope": "Assess class-conditioned dependency concentration and local label consistency around destination port feature e33 to evaluate representational stability.",
+      "allowed_actions": ["dependency_contextualization", "local_consistency_verification"],
+      "local_context_refs": ["e33"],
+      "stop_conditions": ["dependency concentration quantified per class", "local label consistency thresholds met or characterized"]
+    },
+    {
+      "task_id": "task_3",
+      "hypothesis_id": "hyp_4_destination_port_distribution_skew_reflects_attack_targeting",
+      "task_scope": "Evaluate potential shortcut-like predictive power of destination port distribution differences to identify risks of shortcut exploitation.",
+      "allowed_actions": ["shortcut_verification"],
+      "local_context_refs": ["e33"],
+      "stop_conditions": ["shortcut signal strength assessed", "shortcut risk characterization completed"]
+    },
+    {
+      "task_id": "task_4",
+      "hypothesis_id": "hyp_4_destination_port_distribution_skew_reflects_attack_targeting",
+      "task_scope": "Check for temporal or batch-specific variability in destination port distribution patterns to characterize stability over time and batches.",
+      "allowed_actions": ["distribution_verification"],
+      "local_context_refs": ["e33"],
+      "stop_conditions": ["temporal distribution variability quantified", "batch-specific pattern differences identified or ruled out"]
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "batch_id": "phase3a_batch_0406095248_friday-workinghours-afternoon-ddos.pcap_iscx_f8c2c2",
+  "round_id": "round-001",
+  "worker_result": {
+    "task_id": "task_1",
+    "hypothesis_id": "hyp_007_class_conditioned_distribution_destination_port",
+    "status": "completed",
+    "findings": [
+      "Zero entropy in destination port distribution for DDoS class is due to a targeted attack pattern with a dominant single port.",
+      "No evidence of dataset duplication artifacts that could explain the zero entropy.",
+      "Benign class shows higher entropy and more diverse destination port usage, confirming class-conditioned distributional difference."
+    ],
+    "evidence_refs": [
+      "task_1_step_03",
+      "task_1_step_05"
+    ],
+    "contradictions": [],
+    "limitations": []
+  }
+}

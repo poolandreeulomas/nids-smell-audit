@@ -1,0 +1,9 @@
+{
+  "batch_id": "phase3a_batch_0306192600_friday-workinghours-afternoon-ddos.pcap_iscx_a08c4b",
+  "round_id": "round-001",
+  "selected_hypothesis_ids": [
+    "hyp_010_potential_effects_of_data_redundancy_on_feature_correlations",
+    "hyp_002_strong_dependency_pairs_redundancy",
+    "hyp_003_class_conditioned_variation_backward_packet_lengths"
+  ]
+}

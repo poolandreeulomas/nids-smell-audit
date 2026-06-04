@@ -1,0 +1,16 @@
+{
+  "task_id": "task_4",
+  "hypothesis_id": "hyp_7_distributional_divergence_in_destination_port_feature",
+  "task_scope": "Investigate correlation between dominant destination port presence and specific DDoS attack campaigns within evidence e33 to detect shortcut-like signals.",
+  "allowed_actions": [
+    "relation_verification",
+    "shortcut_verification"
+  ],
+  "local_context_refs": [
+    "e33"
+  ],
+  "stop_conditions": [
+    "correlation metrics computed",
+    "shortcut-like signal presence assessed"
+  ]
+}

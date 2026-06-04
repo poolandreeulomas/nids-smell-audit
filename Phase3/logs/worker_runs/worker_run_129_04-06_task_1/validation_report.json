@@ -1,0 +1,49 @@
+{
+  "ok": false,
+  "schema_version": "phase3a.worker.v1",
+  "task_validation": {
+    "ok": true,
+    "errors": [],
+    "warnings": [],
+    "stats": {
+      "allowed_action_count": 2,
+      "local_context_ref_count": 2,
+      "stop_condition_count": 2
+    }
+  },
+  "runtime_refs_validation": {
+    "ok": false,
+    "errors": [
+      {
+        "field": "dataset_handles.semantic_substrate",
+        "message": "semantic_substrate is missing local_context_refs: ['e8', 'e9']."
+      }
+    ],
+    "warnings": []
+  },
+  "action_map_validation": {
+    "ok": true,
+    "errors": [],
+    "warnings": []
+  },
+  "worker_result_validation": {
+    "ok": false,
+    "errors": [
+      {
+        "field": "worker_result",
+        "message": "worker_result was not produced."
+      }
+    ],
+    "warnings": []
+  },
+  "worker_output_validation": {
+    "ok": false,
+    "errors": [
+      {
+        "field": "worker_output",
+        "message": "worker_output was not produced."
+      }
+    ],
+    "warnings": []
+  }
+}

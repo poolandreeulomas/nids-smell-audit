@@ -1,0 +1,15 @@
+{
+  "task_id": "task_4",
+  "hypothesis_id": "hyp_8_class_conditioned_distribution_destination_port",
+  "task_scope": "Check for over-reliance risk in classification models due to dominant destination port values using evidence e33",
+  "allowed_actions": [
+    "dependency_contextualization"
+  ],
+  "local_context_refs": [
+    "e33"
+  ],
+  "stop_conditions": [
+    "over-reliance risk identified or ruled out",
+    "dominant port value impact quantified"
+  ]
+}

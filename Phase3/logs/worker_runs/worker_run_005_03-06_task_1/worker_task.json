@@ -1,0 +1,17 @@
+{
+  "task_id": "task_1",
+  "hypothesis_id": "hyp_001_low_diversity_constant_features",
+  "task_scope": "Compare stability of near-constant feature values across multiple time slices within the capture period to detect temporal variability.",
+  "allowed_actions": [
+    "distribution_verification"
+  ],
+  "local_context_refs": [
+    "e23",
+    "e24",
+    "e25"
+  ],
+  "stop_conditions": [
+    "all time slices analyzed for feature stability",
+    "temporal distribution shifts identified or ruled out"
+  ]
+}

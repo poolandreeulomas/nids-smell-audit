@@ -1,0 +1,40 @@
+{
+  "hypothesis_id": "hyp_4_class_distribution_and_port_skew",
+  "planner_strategy_id": "strategy_02_hyp_4",
+  "task_count": 4,
+  "action_class_count": 6,
+  "task_summaries": [
+    {
+      "task_id": "task_1",
+      "hypothesis_id": "hyp_4_class_distribution_and_port_skew",
+      "task_scope": "Measure concentration and entropy of Destination Port distribution conditioned on DDoS and non-DDoS classes using evidence e2 and e33.",
+      "allowed_action_count": 2,
+      "local_context_ref_count": 2,
+      "stop_condition_count": 2
+    },
+    {
+      "task_id": "task_2",
+      "hypothesis_id": "hyp_4_class_distribution_and_port_skew",
+      "task_scope": "Analyze diversity and spread of Destination Port usage within DDoS and non-DDoS classes to identify narrow or broad port targeting patterns.",
+      "allowed_action_count": 2,
+      "local_context_ref_count": 2,
+      "stop_condition_count": 2
+    },
+    {
+      "task_id": "task_3",
+      "hypothesis_id": "hyp_4_class_distribution_and_port_skew",
+      "task_scope": "Evaluate dependency and predictive leverage of Destination Port skew on class imbalance and potential overfitting risks.",
+      "allowed_action_count": 2,
+      "local_context_ref_count": 2,
+      "stop_condition_count": 2
+    },
+    {
+      "task_id": "task_4",
+      "hypothesis_id": "hyp_4_class_distribution_and_port_skew",
+      "task_scope": "Check for dataset collection or labeling biases affecting Destination Port distribution and their impact on class representation using evidence e2 and e33.",
+      "allowed_action_count": 2,
+      "local_context_ref_count": 2,
+      "stop_condition_count": 2
+    }
+  ]
+}

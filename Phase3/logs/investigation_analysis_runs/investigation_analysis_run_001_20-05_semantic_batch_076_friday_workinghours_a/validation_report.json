@@ -1,0 +1,142 @@
+{
+  "ok": false,
+  "schema_version": "phase3a.investigation_analysis.v1",
+  "substrate_validation": {
+    "ok": false,
+    "errors": [
+      {
+        "field": "compressed_regions[0].feature_scope.feature_groups",
+        "message": "feature_groups must be a list."
+      },
+      {
+        "field": "compressed_regions[0].feature_scope.locality",
+        "message": "locality must be an object."
+      },
+      {
+        "field": "compressed_regions[0].uncertainty_notes",
+        "message": "uncertainty_notes must be a list of strings."
+      },
+      {
+        "field": "compressed_regions[1].feature_scope.feature_groups",
+        "message": "feature_groups must be a list."
+      },
+      {
+        "field": "compressed_regions[1].feature_scope.locality",
+        "message": "locality must be an object."
+      },
+      {
+        "field": "compressed_regions[1].uncertainty_notes",
+        "message": "uncertainty_notes must be a list of strings."
+      },
+      {
+        "field": "compressed_regions[2].feature_scope.feature_groups",
+        "message": "feature_groups must be a list."
+      },
+      {
+        "field": "compressed_regions[2].feature_scope.locality",
+        "message": "locality must be an object."
+      },
+      {
+        "field": "compressed_regions[2].uncertainty_notes",
+        "message": "uncertainty_notes must be a list of strings."
+      },
+      {
+        "field": "compressed_regions[3].feature_scope.feature_groups",
+        "message": "feature_groups must be a list."
+      },
+      {
+        "field": "compressed_regions[3].feature_scope.locality",
+        "message": "locality must be an object."
+      },
+      {
+        "field": "compressed_regions[3].uncertainty_notes",
+        "message": "uncertainty_notes must be a list of strings."
+      },
+      {
+        "field": "compressed_regions[4].feature_scope.features",
+        "message": "features must be a non-empty list of strings."
+      },
+      {
+        "field": "compressed_regions[4].feature_scope.feature_groups",
+        "message": "feature_groups must be a list."
+      },
+      {
+        "field": "compressed_regions[4].feature_scope.locality",
+        "message": "locality must be an object."
+      },
+      {
+        "field": "compressed_regions[4].uncertainty_notes",
+        "message": "uncertainty_notes must be a list of strings."
+      },
+      {
+        "field": "preserved_weak_signals[0].feature_scope.locality",
+        "message": "locality must be an object."
+      },
+      {
+        "field": "preserved_weak_signals[0].uncertainty_notes",
+        "message": "uncertainty_notes must be a list of strings."
+      },
+      {
+        "field": "preserved_weak_signals[0].preservation_reason",
+        "message": "Forbidden language detected: causal_language."
+      }
+    ],
+    "warnings": [],
+    "stats": {
+      "region_count": 5,
+      "weak_signal_count": 1,
+      "contradiction_count": 0,
+      "tension_count": 0,
+      "grounded_reference_count": 0
+    },
+    "invariants": {
+      "grounded_only": true,
+      "contradictions_preserved": false,
+      "minority_signals_preserved": true,
+      "causal_inference_introduced": true,
+      "context_used_only_for_interpretation": true
+    },
+    "forbidden_language_hits": [
+      {
+        "field": "preserved_weak_signals[0].preservation_reason",
+        "code": "causal_language"
+      }
+    ]
+  },
+  "analysis_context_validation": {
+    "ok": true,
+    "errors": [],
+    "warnings": [],
+    "stats": {
+      "artifact_framing_count": 3
+    }
+  },
+  "analysis_iteration_context_validation": {
+    "ok": true,
+    "errors": [],
+    "warnings": [],
+    "stats": {
+      "mode": "initial"
+    }
+  },
+  "parse_validation": {
+    "ok": false,
+    "errors": [
+      {
+        "field": "raw_response",
+        "message": "Model response was not produced."
+      }
+    ],
+    "warnings": []
+  },
+  "output_validation": {
+    "ok": false,
+    "errors": [
+      {
+        "field": "parsed_output",
+        "message": "Parsed hypothesis set was not produced."
+      }
+    ],
+    "warnings": []
+  }
+}

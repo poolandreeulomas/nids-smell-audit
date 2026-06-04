@@ -1,0 +1,160 @@
+{
+  "analysis_id": "analysis_001_phase3A_semantic_batch_079",
+  "batch_id": "semantic_batch_079_friday-workinghours-afternoon-ddos.pcap_iscx",
+  "hypotheses": [
+    {
+      "hypothesis_id": "hyp_001_low_diversity_backward_bulk",
+      "summary": "Backward bulk-related features exhibit extremely low unique value counts and cardinality ratios, suggesting near-constant values across the partition that may reflect stable protocol or measurement constraints rather than dynamic behavior.",
+      "evidence_refs": [
+        "e23",
+        "e24",
+        "e25",
+        "e26",
+        "e27",
+        "e28"
+      ],
+      "open_questions": [
+        "Do these near-constant backward bulk feature values represent genuine network stability or artifacts of data aggregation or measurement?",
+        "Could this low diversity obscure meaningful class-conditioned variations in backward bulk traffic?"
+      ]
+    },
+    {
+      "hypothesis_id": "hyp_002_low_diversity_forward_bulk",
+      "summary": "Forward bulk-related features similarly show near-constant values with minimal unique values and cardinality ratios, potentially indicating a parallel stable or constrained behavior pattern in forward traffic.",
+      "evidence_refs": [
+        "e29",
+        "e30",
+        "e31",
+        "e32"
+      ],
+      "open_questions": [
+        "Is the low diversity in forward bulk features a reflection of protocol-level constraints or dataset-specific sampling effects?",
+        "How does this low diversity in forward bulk features interact with the low diversity observed in backward bulk features?"
+      ]
+    },
+    {
+      "hypothesis_id": "hyp_003_strong_dependency_pairs",
+      "summary": "Multiple feature pairs exhibit perfect or near-perfect correlations, indicating strong linear dependencies and potential redundancy among packet length, segment size, flag counts, and packet count features.",
+      "evidence_refs": [
+        "e13",
+        "e14",
+        "e15",
+        "e16",
+        "e17",
+        "e18",
+        "e19",
+        "e20",
+        "e21",
+        "e22"
+      ],
+      "open_questions": [
+        "Are these strong dependencies stable across classes or do they mask class-specific structural variations?",
+        "Could these dependencies be exploited as shortcut signals by models, potentially reducing generalization?"
+      ]
+    },
+    {
+      "hypothesis_id": "hyp_004_class_conditioned_variation_backward_packet_lengths",
+      "summary": "Backward packet length features show substantial class-conditioned structural variation with large variance ratios and differing unique value counts between BENIGN and DDoS classes, indicating potential discriminative information.",
+      "evidence_refs": [
+        "e9",
+        "e10",
+        "e11",
+        "e12"
+      ],
+      "open_questions": [
+        "How does this class-conditioned variation coexist with the near-constant backward bulk features in the same partition?",
+        "Is the observed variation robust or sensitive to sampling and aggregation methods?"
+      ]
+    },
+    {
+      "hypothesis_id": "hyp_005_class_conditioned_variation_average_packet_size",
+      "summary": "Average Packet Size shows moderate class-conditioned structural variation with differences in variance and unique value counts between BENIGN and DDoS classes, suggesting partial representation sensitivity.",
+      "evidence_refs": [
+        "e8"
+      ],
+      "open_questions": [
+        "Does this moderate variation in Average Packet Size contribute meaningfully to class separation or is it overshadowed by other features?",
+        "Is this variation consistent across different temporal segments or network conditions?"
+      ]
+    },
+    {
+      "hypothesis_id": "hyp_006_destination_port_distribution_divergence",
+      "summary": "Destination Port feature shows strong distributional divergence between BENIGN and DDoS classes, with the DDoS class concentrated on a single port (dominant ratio 1.0, zero entropy), indicating a representation-sensitive pattern.",
+      "evidence_refs": [
+        "e33"
+      ],
+      "open_questions": [
+        "Does the concentration on a single destination port reflect a targeted attack vector or a dataset artifact?",
+        "How stable is this port concentration across different DDoS instances or time windows?"
+      ]
+    },
+    {
+      "hypothesis_id": "hyp_007_partition_level_data_quality_and_class_imbalance",
+      "summary": "Partition-level observations indicate duplicated rows and moderate class imbalance, which may influence structural patterns, feature distributions, and potentially bias model learning.",
+      "evidence_refs": [
+        "e1",
+        "e2"
+      ],
+      "open_questions": [
+        "To what extent do duplicated rows affect feature distribution stability and dependency observations?",
+        "How does class imbalance impact the interpretability of class-conditioned structural variations?"
+      ]
+    },
+    {
+      "hypothesis_id": "hyp_008_tension_low_diversity_vs_class_variation",
+      "summary": "There is a tension between features exhibiting near-constant values across the partition (e.g., backward bulk features) and other features showing strong class-conditioned structural variation (e.g., backward packet lengths), suggesting overlapping but partially incompatible structural regimes.",
+      "evidence_refs": [
+        "e23",
+        "e24",
+        "e25",
+        "e26",
+        "e27",
+        "e28",
+        "e9",
+        "e10",
+        "e11",
+        "e12"
+      ],
+      "open_questions": [
+        "Can these opposing patterns be reconciled as different facets of the same underlying process or do they indicate mixed data generation mechanisms?",
+        "Does this tension affect the reliability of using bulk features for class discrimination?"
+      ]
+    },
+    {
+      "hypothesis_id": "hyp_009_tension_perfect_dependency_vs_class_variation",
+      "summary": "A tension exists between strong perfect correlations among many features and observed class-conditioned structural variation in related features, indicating that perfect dependencies may mask or interact complexly with class-specific differences.",
+      "evidence_refs": [
+        "e13",
+        "e14",
+        "e15",
+        "e16",
+        "e17",
+        "e18",
+        "e19",
+        "e20",
+        "e21",
+        "e22",
+        "e9",
+        "e10",
+        "e11",
+        "e12"
+      ],
+      "open_questions": [
+        "Do perfect dependencies hold uniformly across classes or do they break down in certain conditions?",
+        "Could these dependencies lead to unstable model behavior when class-conditioned variation is present?"
+      ]
+    },
+    {
+      "hypothesis_id": "hyp_010_low_unique_values_forward_flags",
+      "summary": "Forward PSH Flags and Forward URG Flags show extremely low unique values and cardinality ratios, similar to backward flag features, possibly reflecting stable protocol behavior or measurement constraints rather than dynamic attack signals.",
+      "evidence_refs": [
+        "e26",
+        "e32"
+      ],
+      "open_questions": [
+        "Are these low diversity flag features indicative of protocol-level invariants or dataset-specific limitations?",
+        "Could these features still carry subtle class-discriminative information despite low variability?"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "task_id": "task_2",
+  "action_sequence": [],
+  "tool_events": [],
+  "retry_events": [],
+  "failure_events": [],
+  "budget_consumption": {
+    "max_steps": 8,
+    "max_retries": 1,
+    "steps_used": 0,
+    "retries_used": 0,
+    "termination_cause": "validation_failed",
+    "result_committed": false
+  },
+  "execution_trace_summary": []
+}

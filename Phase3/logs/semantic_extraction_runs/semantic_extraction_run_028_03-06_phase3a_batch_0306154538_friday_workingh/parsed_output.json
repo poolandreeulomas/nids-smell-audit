@@ -1,0 +1,303 @@
+{
+  "substrate_id": "substrate_phase3a_batch_0306154538_friday-workinghours-afternoon-ddos.pcap_iscx_2a1de9",
+  "batch_id": "phase3a_batch_0306154538_friday-workinghours-afternoon-ddos.pcap_iscx_2a1de9",
+  "compressed_regions": [
+    {
+      "region_id": "region_1_low_diversity_bulk_features",
+      "region_kind": "low_diversity_region",
+      "status": "active",
+      "summary": "Multiple bulk-related backward and forward traffic features exhibit extremely low unique value counts and cardinality ratios near zero, indicating near-constant values across the partition.",
+      "structural_descriptors": [
+        "near-constant feature values",
+        "extreme cardinality skew"
+      ],
+      "feature_scope": {
+        "features": [
+          "Bwd Avg Bulk Rate",
+          "Bwd Avg Bytes/Bulk",
+          "Bwd Avg Packets/Bulk",
+          "Bwd PSH Flags",
+          "Bwd URG Flags",
+          "CWE Flag Count",
+          "Fwd Avg Bulk Rate",
+          "Fwd Avg Bytes/Bulk",
+          "Fwd Avg Packets/Bulk",
+          "Fwd URG Flags"
+        ],
+        "feature_groups": [],
+        "locality": {
+          "scope_type": "partition_global",
+          "scope_value": "phase3a_batch_0306154538_friday-workinghours-afternoon-ddos.pcap_iscx_2a1de9",
+          "localized": false,
+          "notes": [
+            "partition-level observation of low diversity features"
+          ]
+        }
+      },
+      "evidence_refs": [
+        "e23",
+        "e24",
+        "e25",
+        "e26",
+        "e27",
+        "e28",
+        "e29",
+        "e30",
+        "e31",
+        "e32"
+      ],
+      "supporting_patterns": [
+        "unique_values=1",
+        "cardinality_ratio=1e-05"
+      ],
+      "contextual_modifiers": [
+        "low cardinality may limit discriminative power",
+        "features likely constant or near-constant in this partition"
+      ],
+      "uncertainty_notes": [
+        "Low diversity may reflect measurement or aggregation effects",
+        "Potentially stable but may mask subtle variations"
+      ],
+      "contradiction_refs": [],
+      "tension_refs": []
+    },
+    {
+      "region_id": "region_2_strong_dependency_pairs",
+      "region_kind": "dependency_region",
+      "status": "active",
+      "summary": "Several feature pairs exhibit near-perfect or perfect correlation (correlation >= 0.9993), indicating strong linear dependencies and potential redundancy.",
+      "structural_descriptors": [
+        "perfect correlation pairs",
+        "redundant feature pairs"
+      ],
+      "feature_scope": {
+        "features": [
+          "Bwd Packet Length Mean",
+          "Avg Bwd Segment Size",
+          "Fwd Header Length",
+          "Fwd Header Length.1",
+          "Fwd PSH Flags",
+          "SYN Flag Count",
+          "Fwd Packet Length Mean",
+          "Avg Fwd Segment Size",
+          "RST Flag Count",
+          "ECE Flag Count",
+          "Total Backward Packets",
+          "Subflow Bwd Packets",
+          "Total Fwd Packets",
+          "Subflow Fwd Packets",
+          "Total Length of Bwd Packets",
+          "Subflow Bwd Bytes",
+          "Total Length of Fwd Packets",
+          "Subflow Fwd Bytes",
+          "Packet Length Mean",
+          "Average Packet Size"
+        ],
+        "feature_groups": [],
+        "locality": {
+          "scope_type": "dependency_cluster",
+          "scope_value": "Bwd Packet Length Mean|Avg Bwd Segment Size|Fwd Header Length|Fwd Header Length.1|Fwd PSH Flags|SYN Flag Count|Fwd Packet Length Mean|Avg Fwd Segment Size|RST Flag Count|ECE Flag Count|Total Backward Packets|Subflow Bwd Packets|Total Fwd Packets|Subflow Fwd Packets|Total Length of Bwd Packets|Subflow Bwd Bytes|Total Length of Fwd Packets|Subflow Fwd Bytes|Packet Length Mean|Average Packet Size",
+          "localized": true,
+          "notes": [
+            "strong linear dependencies observed"
+          ]
+        }
+      },
+      "evidence_refs": [
+        "e13",
+        "e14",
+        "e15",
+        "e16",
+        "e17",
+        "e18",
+        "e19",
+        "e20",
+        "e21",
+        "e22"
+      ],
+      "supporting_patterns": [
+        "correlation=1",
+        "correlation=0.9993"
+      ],
+      "contextual_modifiers": [
+        "redundancy may affect feature independence assumptions",
+        "dependencies may reflect feature construction or aggregation"
+      ],
+      "uncertainty_notes": [
+        "Perfect correlations may indicate duplicated or derived features",
+        "Potential instability if one feature is missing or corrupted"
+      ],
+      "contradiction_refs": [],
+      "tension_refs": []
+    },
+    {
+      "region_id": "region_3_class_conditioned_structural_variation",
+      "region_kind": "mixed_structural_region",
+      "status": "active",
+      "summary": "Several packet length and size features show substantial class-conditioned structural variation, with variance ratios ranging from ~4.5 to >54 and differing unique value counts between BENIGN and DDoS classes.",
+      "structural_descriptors": [
+        "class-conditioned variance differences",
+        "skewed unique value distributions"
+      ],
+      "feature_scope": {
+        "features": [
+          "Bwd Packet Length Max",
+          "Bwd Packet Length Mean",
+          "Bwd Packet Length Std",
+          "Average Packet Size",
+          "Avg Bwd Segment Size"
+        ],
+        "feature_groups": [],
+        "locality": {
+          "scope_type": "feature_group",
+          "scope_value": "packet_length_and_size_features",
+          "localized": true,
+          "notes": [
+            "features related to packet length and segment size"
+          ]
+        }
+      },
+      "evidence_refs": [
+        "e8",
+        "e9",
+        "e10",
+        "e11",
+        "e12"
+      ],
+      "supporting_patterns": [
+        "variance_ratio > 4",
+        "unique_values_by_class skewed"
+      ],
+      "contextual_modifiers": [
+        "structural variation may support class discrimination",
+        "variation magnitude differs substantially between classes"
+      ],
+      "uncertainty_notes": [
+        "Variance ratios indicate potential heteroscedasticity",
+        "Unique value count disparity may reflect class imbalance or feature resolution"
+      ],
+      "contradiction_refs": [],
+      "tension_refs": []
+    },
+    {
+      "region_id": "region_4_distributional_divergence_destination_port",
+      "region_kind": "representation_sensitive_region",
+      "status": "active",
+      "summary": "Destination Port feature shows strong distributional divergence between BENIGN and DDoS classes, with DDoS class having a dominant ratio of 1.0 and zero entropy, while BENIGN class has moderate entropy and lower dominant ratio.",
+      "structural_descriptors": [
+        "class-conditioned distribution divergence",
+        "high js_divergence"
+      ],
+      "feature_scope": {
+        "features": [
+          "Destination Port"
+        ],
+        "feature_groups": [],
+        "locality": {
+          "scope_type": "feature_group",
+          "scope_value": "Destination Port",
+          "localized": true,
+          "notes": [
+            "feature sensitive to class representation"
+          ]
+        }
+      },
+      "evidence_refs": [
+        "e33"
+      ],
+      "supporting_patterns": [
+        "dominant_ratio BENIGN=0.346",
+        "dominant_ratio DDoS=1.0",
+        "js_divergence=0.7315"
+      ],
+      "contextual_modifiers": [
+        "distributional skew may reflect attack targeting or port usage patterns"
+      ],
+      "uncertainty_notes": [
+        "High divergence suggests representation sensitivity",
+        "Potential for shortcut-like signals if port strongly associates with class"
+      ],
+      "contradiction_refs": [],
+      "tension_refs": []
+    },
+    {
+      "region_id": "region_5_partition_level_data_quality",
+      "region_kind": "mixed_structural_region",
+      "status": "broad_unvalidated",
+      "summary": "Partition overview reports moderate class imbalance (ratio 1.577) and presence of 729 duplicated rows, indicating potential data quality and representational skew concerns.",
+      "structural_descriptors": [
+        "class imbalance",
+        "data duplication"
+      ],
+      "feature_scope": {
+        "features": [
+          "__dataset__"
+        ],
+        "feature_groups": [],
+        "locality": {
+          "scope_type": "partition_global",
+          "scope_value": "phase3a_batch_0306154538_friday-workinghours-afternoon-ddos.pcap_iscx_2a1de9",
+          "localized": false,
+          "notes": [
+            "partition-level data quality indicators"
+          ]
+        }
+      },
+      "evidence_refs": [
+        "e1",
+        "e2"
+      ],
+      "supporting_patterns": [
+        "729 duplicated rows",
+        "class imbalance ratio=1.577"
+      ],
+      "contextual_modifiers": [
+        "duplication may affect feature distributions and dependencies",
+        "class imbalance may influence structural variation"
+      ],
+      "uncertainty_notes": [
+        "Impact of duplication on downstream analysis is uncertain",
+        "Class imbalance magnitude moderate but non-negligible"
+      ],
+      "contradiction_refs": [],
+      "tension_refs": []
+    }
+  ],
+  "preserved_weak_signals": [
+    {
+      "weak_signal_id": "weak_1_top_ranked_features",
+      "descriptor": "Top ranked features by partition overview include Bwd Packet Length Mean, Avg Bwd Segment Size, Bwd Packet Length Max, Bwd Packet Length Std, and Average Packet Size.",
+      "feature_scope": {
+        "features": [
+          "Bwd Packet Length Mean"
+        ],
+        "feature_groups": [],
+        "locality": {
+          "scope_type": "partition_global",
+          "scope_value": "phase3a_batch_0306154538_friday-workinghours-afternoon-ddos.pcap_iscx_2a1de9",
+          "localized": false,
+          "notes": [
+            "partition-level feature ranking"
+          ]
+        }
+      },
+      "evidence_refs": [
+        "e3",
+        "e4",
+        "e5",
+        "e6",
+        "e7"
+      ],
+      "preservation_reason": "Preserved due to consistent top ranking across multiple related features, indicating potential importance despite redundancy and low diversity in other features.",
+      "contextual_modifiers": [
+        "ranking may reflect feature variance and class-conditioned structure"
+      ],
+      "uncertainty_notes": [
+        "Ranking does not guarantee independent predictive value",
+        "May be influenced by redundancy and class imbalance"
+      ]
+    }
+  ],
+  "contradictions": [],
+  "unresolved_tensions": []
+}

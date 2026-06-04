@@ -1,0 +1,131 @@
+ROLE:
+You are Aggregation. Stay inside one hypothesis-local, round-local merge after Worker and before State Manager.
+Do not reroute, replan, mutate canonical state, emit critic feedback, or summarize raw traces.
+Preserve grounded contradictions and unresolved gaps instead of flattening them away.
+
+TASK:
+{
+  "batch_id": "phase3a_batch_0306181120_friday-workinghours-afternoon-ddos.pcap_iscx_5e8f98",
+  "round_id": "round-001",
+  "hypothesis_id": "hyp_10_interplay_between_redundancy_and_class_conditioned_variation",
+  "worker_result_count": 4,
+  "expected_task_ids": [
+    "task_1",
+    "task_2",
+    "task_3",
+    "task_4"
+  ],
+  "selected_task_ids": [
+    "task_1",
+    "task_2",
+    "task_3",
+    "task_4"
+  ]
+}
+
+SOURCE_WORKER_RESULTS:
+[
+  {
+    "task_id": "task_1",
+    "hypothesis_id": "hyp_10_interplay_between_redundancy_and_class_conditioned_variation",
+    "status": "completed",
+    "findings": [
+      "Backward packet length features (Bwd Packet Length Max, Mean) exhibit high redundancy and tightly clustered dependency profiles.",
+      "Avg Bwd Segment Size shows strong redundancy with Bwd Packet Length Mean, indicating interplay between segment size and packet length features.",
+      "Class-conditioned structural variation is evident in backward packet length and segment size features, supporting the hypothesis of interplay between redundancy and class-conditioned variation."
+    ],
+    "evidence_refs": [
+      "task_1_step_03",
+      "task_1_step_05",
+      "task_1_step_07"
+    ],
+    "contradictions": [],
+    "limitations": []
+  },
+  {
+    "task_id": "task_2",
+    "hypothesis_id": "hyp_10_interplay_between_redundancy_and_class_conditioned_variation",
+    "status": "completed",
+    "findings": [
+      "Backward packet length features exhibit strong class-conditioned structural variation with high class separation.",
+      "Strong feature redundancy clusters indicate deterministic relationships that likely preserve or clarify class-specific signals when redundancies are disentangled.",
+      "No local contradictions or unresolved tensions remain regarding the impact of redundancy disentanglement on class-specific packet length signals."
+    ],
+    "evidence_refs": [
+      "task_2_step_03",
+      "task_2_step_05",
+      "task_2_step_07"
+    ],
+    "contradictions": [],
+    "limitations": []
+  },
+  {
+    "task_id": "task_3",
+    "hypothesis_id": "hyp_10_interplay_between_redundancy_and_class_conditioned_variation",
+    "status": "completed",
+    "findings": [
+      "Strong redundancy and near-deterministic correlations exist among packet length and size features, including 'Bwd Packet Length Mean'.",
+      "Local label-topology consistency checks reveal moderate conflicts and duplicate label conflicts around 'Bwd Packet Length Mean' and 'Avg Bwd Segment Size', indicating unstable dependencies.",
+      "These unstable dependencies likely mask or distort class-conditioned variation in packet length and size features."
+    ],
+    "evidence_refs": [
+      "task_3_step_03",
+      "task_3_step_05",
+      "task_3_step_07"
+    ],
+    "contradictions": [
+      "Moderate label neighborhood conflicts and duplicate label conflicts represent preserved local contradictions."
+    ],
+    "limitations": [
+      "Analysis limited to local neighborhoods and specific features; global dependency effects remain unassessed."
+    ]
+  },
+  {
+    "task_id": "task_4",
+    "hypothesis_id": "hyp_10_interplay_between_redundancy_and_class_conditioned_variation",
+    "status": "completed",
+    "findings": [
+      "Strong redundancy exists between Bwd Packet Length Mean and Bwd Packet Length Std, and between Bwd Packet Length Mean and Avg Bwd Segment Size, confirmed by high redundancy signals.",
+      "Forward PSH Flags and SYN Flag Count exhibit perfect correlation and low cardinality, indicating redundancy that may obscure class pattern detection.",
+      "Backward packet length features show significant class-conditioned structural variation, suggesting that redundancy disentanglement can enhance interpretability and class pattern detection in these features."
+    ],
+    "evidence_refs": [
+      "task_4_step_03",
+      "task_4_step_05",
+      "task_4_step_07"
+    ],
+    "contradictions": [],
+    "limitations": [
+      "Analysis limited to pairwise relations within bounded feature groups; global impact on interpretability and detection not directly measured."
+    ]
+  }
+]
+
+OVERLAP_DIAGNOSTICS:
+[]
+
+OUTPUT_RULES:
+Return exactly one JSON object.
+Only cite evidence_refs that appear in SOURCE_WORKER_RESULTS.
+Only preserve contradictions that already appear in SOURCE_WORKER_RESULTS.
+Keep update_focus short and state-facing, but do not describe state mutation.
+{
+  "aggregation_handoff": {
+    "batch_id": "phase3a_batch_0306181120_friday-workinghours-afternoon-ddos.pcap_iscx_5e8f98",
+    "round_id": "round-001",
+    "hypothesis_id": "hyp_10_interplay_between_redundancy_and_class_conditioned_variation",
+    "merged_findings": [
+      "grounded merged finding"
+    ],
+    "evidence_refs": [
+      "source evidence_ref"
+    ],
+    "preserved_contradictions": [
+      "unresolved source contradiction"
+    ],
+    "open_gaps": [
+      "remaining unresolved gap or limitation"
+    ],
+    "update_focus": "short orientation for the touched interpretive area"
+  }
+}

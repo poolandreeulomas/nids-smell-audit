@@ -1,0 +1,40 @@
+{
+  "batch_id": "phase3a_batch_0406130425_friday-workinghours-afternoon-ddos.pcap_iscx_d272aa",
+  "round_id": "round-001",
+  "hypothesis_id": "hyp_7_heterogeneous_structural_regimes",
+  "planner_strategy_id": "strategy_03_hyp_7",
+  "worker_tasks": [
+    {
+      "task_id": "task_1",
+      "hypothesis_id": "hyp_7_heterogeneous_structural_regimes",
+      "task_scope": "Identify temporal or network segment boundaries that correlate with shifts in structural regimes using evidence e8 and e9.",
+      "allowed_actions": ["distribution_verification", "structural_summary"],
+      "local_context_refs": ["e8", "e9"],
+      "stop_conditions": ["detected stable temporal or segment boundaries", "no new regime shifts found in evidence"]
+    },
+    {
+      "task_id": "task_2",
+      "hypothesis_id": "hyp_7_heterogeneous_structural_regimes",
+      "task_scope": "Compare class-conditioned structural variation patterns across identified regimes using evidence e10 and e23.",
+      "allowed_actions": ["structural_summary", "relation_verification"],
+      "local_context_refs": ["e10", "e23"],
+      "stop_conditions": ["class-conditioned patterns characterized for all regimes", "variation patterns stabilized"]
+    },
+    {
+      "task_id": "task_3",
+      "hypothesis_id": "hyp_7_heterogeneous_structural_regimes",
+      "task_scope": "Assess model sensitivity to regime heterogeneity focusing on feature dependencies and shortcut-like signals using evidence e24.",
+      "allowed_actions": ["dependency_contextualization", "shortcut_verification"],
+      "local_context_refs": ["e24"],
+      "stop_conditions": ["sensitivity patterns identified", "no further unstable dependencies detected"]
+    },
+    {
+      "task_id": "task_4",
+      "hypothesis_id": "hyp_7_heterogeneous_structural_regimes",
+      "task_scope": "Evaluate potential for regime-aware modeling or detection strategies by verifying local consistency and cardinality of heterogeneous regime features using evidence e8 and e23.",
+      "allowed_actions": ["local_consistency_verification", "cardinality_verification"],
+      "local_context_refs": ["e8", "e23"],
+      "stop_conditions": ["regime-aware feature sets validated", "no inconsistencies in feature cardinality found"]
+    }
+  ]
+}

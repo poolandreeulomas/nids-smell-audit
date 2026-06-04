@@ -1,0 +1,55 @@
+{
+  "call_id": "task_1_step_05",
+  "tool_name": "dependency_concentration_analysis",
+  "status": "ok",
+  "observations": {
+    "feature_name": "Fwd Packet Length Mean",
+    "value": 0.0751194861686647,
+    "signals": [],
+    "metrics": {
+      "partner_count": 67,
+      "strong_partner_count": 5,
+      "top_partner": "Avg Fwd Segment Size",
+      "top_partner_correlation": 1.0,
+      "top_partner_share": 0.1315205578614762,
+      "top3_share": 0.35919800473774344,
+      "concentration_index": 0.0751194861686647,
+      "effective_partner_count": 13.312125135610144,
+      "mean_abs_correlation": 0.2223804516735508,
+      "median_abs_correlation": 0.16742980195406307
+    },
+    "support": {
+      "n_total": 225745,
+      "n_per_class": {
+        "DDoS": 128027,
+        "BENIGN": 97718
+      },
+      "total_samples": 225745,
+      "per_class": {
+        "DDoS": 128027,
+        "BENIGN": 97718
+      }
+    },
+    "provenance": {
+      "source": "tool",
+      "tool": "dependency_concentration_analysis",
+      "step": null
+    },
+    "feature": "Fwd Packet Length Mean"
+  },
+  "evidence_refs": [
+    {
+      "artifact": "parsed_output",
+      "path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_324_03-06_dependency_concentration_analysis_feature\\parsed_output.json"
+    },
+    {
+      "artifact": "raw_tool_output",
+      "path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_324_03-06_dependency_concentration_analysis_feature\\raw_tool_output.json"
+    },
+    {
+      "artifact": "component_run",
+      "path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_324_03-06_dependency_concentration_analysis_feature\\component_run.json"
+    }
+  ],
+  "limitations": []
+}

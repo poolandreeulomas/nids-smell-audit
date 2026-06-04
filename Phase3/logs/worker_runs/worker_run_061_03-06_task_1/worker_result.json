@@ -1,0 +1,15 @@
+{
+  "task_id": "task_1",
+  "hypothesis_id": "hyp_005_class_distribution_skew_in_destination_port",
+  "status": "completed",
+  "findings": [
+    "Destination Port distribution shows strong class-conditioned skew with DDoS class dominated by a single port and zero entropy.",
+    "BENIGN class exhibits higher entropy and more diverse port distribution.",
+    "Distribution metrics are stable across time segments within evidence e33."
+  ],
+  "evidence_refs": [
+    "task_1_step_03"
+  ],
+  "contradictions": [],
+  "limitations": []
+}

@@ -1,0 +1,261 @@
+{
+  "hypothesis_count": 10,
+  "evidence_ref_coverage": [
+    "e1",
+    "e10",
+    "e11",
+    "e12",
+    "e13",
+    "e14",
+    "e15",
+    "e16",
+    "e17",
+    "e18",
+    "e19",
+    "e2",
+    "e20",
+    "e21",
+    "e22",
+    "e23",
+    "e24",
+    "e25",
+    "e26",
+    "e27",
+    "e28",
+    "e29",
+    "e3",
+    "e30",
+    "e31",
+    "e32",
+    "e33",
+    "e4",
+    "e8",
+    "e9"
+  ],
+  "overlap_pairs": [
+    {
+      "left_hypothesis_id": "hyp_1_low_diversity_constant_features",
+      "right_hypothesis_id": "hyp_7_heterogeneous_structural_regimes",
+      "shared_evidence_refs": [
+        "e23",
+        "e24"
+      ]
+    },
+    {
+      "left_hypothesis_id": "hyp_1_low_diversity_constant_features",
+      "right_hypothesis_id": "hyp_10_potential_measurement_or_labeling_artifacts",
+      "shared_evidence_refs": [
+        "e23"
+      ]
+    },
+    {
+      "left_hypothesis_id": "hyp_2_strong_dependency_pairs_indicate_redundancy",
+      "right_hypothesis_id": "hyp_6_tension_between_top_rank_and_dependency",
+      "shared_evidence_refs": [
+        "e13",
+        "e16",
+        "e22"
+      ]
+    },
+    {
+      "left_hypothesis_id": "hyp_2_strong_dependency_pairs_indicate_redundancy",
+      "right_hypothesis_id": "hyp_10_potential_measurement_or_labeling_artifacts",
+      "shared_evidence_refs": [
+        "e13"
+      ]
+    },
+    {
+      "left_hypothesis_id": "hyp_3_class_conditioned_structural_variation",
+      "right_hypothesis_id": "hyp_7_heterogeneous_structural_regimes",
+      "shared_evidence_refs": [
+        "e10",
+        "e8",
+        "e9"
+      ]
+    },
+    {
+      "left_hypothesis_id": "hyp_3_class_conditioned_structural_variation",
+      "right_hypothesis_id": "hyp_8_class_distribution_vs_variance_pattern_tension",
+      "shared_evidence_refs": [
+        "e8"
+      ]
+    },
+    {
+      "left_hypothesis_id": "hyp_3_class_conditioned_structural_variation",
+      "right_hypothesis_id": "hyp_9_localized_representation_sensitive_handles_in_packet_features",
+      "shared_evidence_refs": [
+        "e8",
+        "e9"
+      ]
+    },
+    {
+      "left_hypothesis_id": "hyp_4_class_distribution_and_port_skew",
+      "right_hypothesis_id": "hyp_8_class_distribution_vs_variance_pattern_tension",
+      "shared_evidence_refs": [
+        "e2",
+        "e33"
+      ]
+    },
+    {
+      "left_hypothesis_id": "hyp_5_partition_level_duplicates_indicate_redundancy",
+      "right_hypothesis_id": "hyp_10_potential_measurement_or_labeling_artifacts",
+      "shared_evidence_refs": [
+        "e1"
+      ]
+    },
+    {
+      "left_hypothesis_id": "hyp_6_tension_between_top_rank_and_dependency",
+      "right_hypothesis_id": "hyp_9_localized_representation_sensitive_handles_in_packet_features",
+      "shared_evidence_refs": [
+        "e3",
+        "e4"
+      ]
+    },
+    {
+      "left_hypothesis_id": "hyp_6_tension_between_top_rank_and_dependency",
+      "right_hypothesis_id": "hyp_10_potential_measurement_or_labeling_artifacts",
+      "shared_evidence_refs": [
+        "e13"
+      ]
+    },
+    {
+      "left_hypothesis_id": "hyp_7_heterogeneous_structural_regimes",
+      "right_hypothesis_id": "hyp_8_class_distribution_vs_variance_pattern_tension",
+      "shared_evidence_refs": [
+        "e8"
+      ]
+    },
+    {
+      "left_hypothesis_id": "hyp_7_heterogeneous_structural_regimes",
+      "right_hypothesis_id": "hyp_9_localized_representation_sensitive_handles_in_packet_features",
+      "shared_evidence_refs": [
+        "e8",
+        "e9"
+      ]
+    },
+    {
+      "left_hypothesis_id": "hyp_7_heterogeneous_structural_regimes",
+      "right_hypothesis_id": "hyp_10_potential_measurement_or_labeling_artifacts",
+      "shared_evidence_refs": [
+        "e23"
+      ]
+    },
+    {
+      "left_hypothesis_id": "hyp_8_class_distribution_vs_variance_pattern_tension",
+      "right_hypothesis_id": "hyp_9_localized_representation_sensitive_handles_in_packet_features",
+      "shared_evidence_refs": [
+        "e8"
+      ]
+    }
+  ],
+  "hypotheses": [
+    {
+      "hypothesis_id": "hyp_1_low_diversity_constant_features",
+      "evidence_refs": [
+        "e23",
+        "e24",
+        "e25",
+        "e26",
+        "e27",
+        "e28",
+        "e29",
+        "e30",
+        "e31",
+        "e32"
+      ],
+      "open_question_count": 2
+    },
+    {
+      "hypothesis_id": "hyp_2_strong_dependency_pairs_indicate_redundancy",
+      "evidence_refs": [
+        "e13",
+        "e14",
+        "e15",
+        "e16",
+        "e17",
+        "e18",
+        "e19",
+        "e20",
+        "e21",
+        "e22"
+      ],
+      "open_question_count": 2
+    },
+    {
+      "hypothesis_id": "hyp_3_class_conditioned_structural_variation",
+      "evidence_refs": [
+        "e10",
+        "e11",
+        "e12",
+        "e8",
+        "e9"
+      ],
+      "open_question_count": 2
+    },
+    {
+      "hypothesis_id": "hyp_4_class_distribution_and_port_skew",
+      "evidence_refs": [
+        "e2",
+        "e33"
+      ],
+      "open_question_count": 2
+    },
+    {
+      "hypothesis_id": "hyp_5_partition_level_duplicates_indicate_redundancy",
+      "evidence_refs": [
+        "e1"
+      ],
+      "open_question_count": 2
+    },
+    {
+      "hypothesis_id": "hyp_6_tension_between_top_rank_and_dependency",
+      "evidence_refs": [
+        "e13",
+        "e16",
+        "e22",
+        "e3",
+        "e4"
+      ],
+      "open_question_count": 2
+    },
+    {
+      "hypothesis_id": "hyp_7_heterogeneous_structural_regimes",
+      "evidence_refs": [
+        "e10",
+        "e23",
+        "e24",
+        "e8",
+        "e9"
+      ],
+      "open_question_count": 2
+    },
+    {
+      "hypothesis_id": "hyp_8_class_distribution_vs_variance_pattern_tension",
+      "evidence_refs": [
+        "e2",
+        "e33",
+        "e8"
+      ],
+      "open_question_count": 2
+    },
+    {
+      "hypothesis_id": "hyp_9_localized_representation_sensitive_handles_in_packet_features",
+      "evidence_refs": [
+        "e3",
+        "e4",
+        "e8",
+        "e9"
+      ],
+      "open_question_count": 2
+    },
+    {
+      "hypothesis_id": "hyp_10_potential_measurement_or_labeling_artifacts",
+      "evidence_refs": [
+        "e1",
+        "e13",
+        "e23"
+      ],
+      "open_question_count": 2
+    }
+  ]
+}

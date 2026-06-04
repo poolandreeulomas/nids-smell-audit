@@ -1,0 +1,17 @@
+{
+  "task_id": "task_2",
+  "hypothesis_id": "hyp_4_class_distribution_and_port_skew",
+  "task_scope": "Analyze diversity and spread of Destination Port usage within DDoS and non-DDoS classes to identify narrow or broad port targeting patterns.",
+  "allowed_actions": [
+    "cardinality_verification",
+    "distribution_verification"
+  ],
+  "local_context_refs": [
+    "e2",
+    "e33"
+  ],
+  "stop_conditions": [
+    "port usage diversity quantified",
+    "class-conditioned port spread characterized"
+  ]
+}

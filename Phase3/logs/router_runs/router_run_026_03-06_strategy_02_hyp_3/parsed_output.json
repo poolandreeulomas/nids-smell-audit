@@ -1,0 +1,92 @@
+{
+  "batch_id": "phase3a_batch_0306181120_friday-workinghours-afternoon-ddos.pcap_iscx_5e8f98",
+  "round_id": "round-001",
+  "hypothesis_id": "hyp_3_strong_feature_redundancy_pairs",
+  "planner_strategy_id": "strategy_02_hyp_3",
+  "worker_tasks": [
+    {
+      "task_id": "task_1",
+      "hypothesis_id": "hyp_3_strong_feature_redundancy_pairs",
+      "task_scope": "Determine if perfect correlations among feature pairs arise from inherent network traffic properties or preprocessing steps using correlation and redundancy evidence.",
+      "allowed_actions": [
+        "relation_verification",
+        "duplication_verification"
+      ],
+      "local_context_refs": [
+        "e13",
+        "e14",
+        "e15",
+        "e16",
+        "e17"
+      ],
+      "stop_conditions": [
+        "correlation origin classified as natural or preprocessing-induced",
+        "all key feature pairs analyzed"
+      ]
+    },
+    {
+      "task_id": "task_2",
+      "hypothesis_id": "hyp_3_strong_feature_redundancy_pairs",
+      "task_scope": "Identify which feature pairs contribute to shortcut-like signals due to redundancy using shortcut and dependency analyses.",
+      "allowed_actions": [
+        "shortcut_verification",
+        "dependency_contextualization"
+      ],
+      "local_context_refs": [
+        "e18",
+        "e19",
+        "e20"
+      ],
+      "stop_conditions": [
+        "shortcut-like signals identified and quantified",
+        "redundant feature pairs mapped to shortcut risks"
+      ]
+    },
+    {
+      "task_id": "task_3",
+      "hypothesis_id": "hyp_3_strong_feature_redundancy_pairs",
+      "task_scope": "Assess how redundancies affect effective feature dimensionality and dependency stability within the dataset.",
+      "allowed_actions": [
+        "cardinality_verification",
+        "dependency_contextualization",
+        "local_consistency_verification"
+      ],
+      "local_context_refs": [
+        "e21",
+        "e22"
+      ],
+      "stop_conditions": [
+        "dimensionality impact quantified",
+        "dependency stability assessed",
+        "redundancy effects documented"
+      ]
+    },
+    {
+      "task_id": "task_4",
+      "hypothesis_id": "hyp_3_strong_feature_redundancy_pairs",
+      "task_scope": "Explore if removing or consolidating redundant features alters class-conditioned patterns and distributional properties.",
+      "allowed_actions": [
+        "distribution_verification",
+        "duplication_verification",
+        "relation_verification"
+      ],
+      "local_context_refs": [
+        "e13",
+        "e14",
+        "e15",
+        "e16",
+        "e17",
+        "e18",
+        "e19",
+        "e20",
+        "e21",
+        "e22"
+      ],
+      "stop_conditions": [
+        "class-conditioned pattern changes measured",
+        "distribution shifts detected",
+        "redundant feature removal effects evaluated"
+      ]
+    }
+  ]
+}

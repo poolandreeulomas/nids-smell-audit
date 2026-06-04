@@ -1,0 +1,30 @@
+{
+  "aggregation_handoff": {
+    "batch_id": "phase3a_batch_0306173106_friday-workinghours-afternoon-ddos.pcap_iscx_98251a",
+    "round_id": "round-001",
+    "hypothesis_id": "hyp_006",
+    "merged_findings": [
+      "Destination Port distribution in the DDoS class is highly concentrated and stable, characterized by zero entropy and a dominant ratio of 1.0, indicating a narrow structural pattern with strong class-conditioned separation from the BENIGN class.",
+      "BENIGN class shows moderate entropy and dominant ratio, reflecting more variability in Destination Port usage.",
+      "High Jensen-Shannon divergence between DDoS and BENIGN classes confirms strong class separation in Destination Port distribution.",
+      "Destination Port exhibits stable, low-entropy dominant values with consistent class-conditioned separation across time segments.",
+      "Moderate shortcut-like predictive leverage of Destination Port is indicated by one-feature decision stump analysis, supporting the presence of representation-sensitive shortcut signals, though the full extent remains uncertain due to limited analysis complexity.",
+      "No local evidence of correlation or dependency between Destination Port and other features in the DDoS class was found within the bounded context of evidence e33."
+    ],
+    "evidence_refs": [
+      "task_1_step_03",
+      "task_2_step_03",
+      "task_2_step_05",
+      "task_3_step_03",
+      "task_4_step_03",
+      "task_4_step_07"
+    ],
+    "preserved_contradictions": [],
+    "open_gaps": [
+      "Shortcut verification limited to one-feature decision stump; more complex feature interactions and broader dependencies remain unexamined.",
+      "Analysis limited to local evidence e33 and bounded actions; potential correlations outside this scope are unresolved.",
+      "Moderate signal strength leaves some uncertainty about the full extent of shortcut-like leverage."
+    ],
+    "update_focus": "Destination Port distribution stability and shortcut-like predictive leverage within DDoS class under bounded local evidence"
+  }
+}

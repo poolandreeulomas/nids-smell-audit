@@ -1,0 +1,68 @@
+{
+  "call_id": "task_2_step_05",
+  "tool_name": "feature_summary",
+  "status": "ok",
+  "observations": {
+    "feature_name": "Destination Port",
+    "value": 9329.588719951502,
+    "signals": [
+      "high_variance_imbalance"
+    ],
+    "metrics": {
+      "mean": {
+        "BENIGN": 20406.99151640435,
+        "DDoS": 81.22738172416756
+      },
+      "std": {
+        "BENIGN": 25829.064113695793,
+        "DDoS": 267.4098625704181
+      },
+      "variance": {
+        "BENIGN": 667140552.9894079,
+        "DDoS": 71508.03459992992
+      },
+      "coef_variation": {
+        "BENIGN": 1.2656968124347414,
+        "DDoS": 3.2921147634487364
+      },
+      "unique_values": {
+        "BENIGN": 23949,
+        "DDoS": 4
+      },
+      "variance_ratio": 9329.588719951502
+    },
+    "support": {
+      "n_total": 225745,
+      "n_per_class": {
+        "BENIGN": 97718,
+        "DDoS": 128027
+      },
+      "total_samples": 225745,
+      "per_class": {
+        "BENIGN": 97718,
+        "DDoS": 128027
+      }
+    },
+    "provenance": {
+      "source": "tool",
+      "tool": "feature_summary",
+      "step": null
+    },
+    "feature": "Destination Port"
+  },
+  "evidence_refs": [
+    {
+      "artifact": "parsed_output",
+      "path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_150_03-06_feature_summary_feature\\parsed_output.json"
+    },
+    {
+      "artifact": "raw_tool_output",
+      "path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_150_03-06_feature_summary_feature\\raw_tool_output.json"
+    },
+    {
+      "artifact": "component_run",
+      "path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_150_03-06_feature_summary_feature\\component_run.json"
+    }
+  ],
+  "limitations": []
+}

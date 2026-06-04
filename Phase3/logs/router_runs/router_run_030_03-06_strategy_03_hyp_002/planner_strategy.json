@@ -1,0 +1,20 @@
+{
+  "strategy_id": "strategy_03_hyp_002",
+  "hypothesis_id": "hyp_002_strong_linear_dependencies",
+  "strategic_objective": "Evaluate the stability and shortcut risk of strong linear dependencies among packet length and related features.",
+  "key_checks": [
+    "Measure correlation stability of feature pairs across classes and attack conditions",
+    "Analyze shortcut-like predictive leverage arising from these dependencies",
+    "Assess redundancy impact on effective dataset dimensionality",
+    "Compare dependency patterns between benign and DDoS classes"
+  ],
+  "success_criteria": [
+    "Confirmation of stable or shifting linear dependencies under different conditions",
+    "Identification of shortcut signals linked to these dependencies",
+    "Understanding of redundancy effects on model reliance and dataset structure"
+  ],
+  "router_constraints": [
+    "preserve feature_scope for correlated feature pairs",
+    "preserve evidence refs e13 e14 e15 e16 e17 e18 e19 e20 e21 e22"
+  ]
+}

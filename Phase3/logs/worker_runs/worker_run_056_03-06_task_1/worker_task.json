@@ -1,0 +1,29 @@
+{
+  "task_id": "task_1",
+  "hypothesis_id": "hyp_10_interplay_between_redundancy_and_class_conditioned_variation",
+  "task_scope": "Analyze dependency structures linking redundant features with class-conditioned packet length and size variations within evidence refs e9 to e22",
+  "allowed_actions": [
+    "dependency_contextualization",
+    "relation_verification"
+  ],
+  "local_context_refs": [
+    "e9",
+    "e10",
+    "e11",
+    "e12",
+    "e13",
+    "e14",
+    "e15",
+    "e16",
+    "e17",
+    "e18",
+    "e19",
+    "e20",
+    "e21",
+    "e22"
+  ],
+  "stop_conditions": [
+    "dependency patterns fully mapped",
+    "redundant feature links identified"
+  ]
+}

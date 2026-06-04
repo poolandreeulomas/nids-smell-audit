@@ -1,0 +1,79 @@
+{
+  "batch_id": "phase3a_batch_0306192600_friday-workinghours-afternoon-ddos.pcap_iscx_a08c4b",
+  "round_id": "round-001",
+  "hypothesis_id": "hyp_002_strong_dependency_pairs_redundancy",
+  "worker_results": [
+    {
+      "task_id": "task_1",
+      "hypothesis_id": "hyp_002_strong_dependency_pairs_redundancy",
+      "status": "completed",
+      "findings": [
+        "Strong feature pairs exhibit stable and near-perfect linear dependencies across temporal partitions, indicating redundancy.",
+        "Distribution of 'Average Packet Size' shows high class separation, supporting consistent dependency strength.",
+        "Dependency contextualization for key features confirms concentrated dependency profiles without instability."
+      ],
+      "evidence_refs": [
+        "task_1_step_03",
+        "task_1_step_05",
+        "task_1_step_07"
+      ],
+      "contradictions": [],
+      "limitations": [
+        "Analysis limited to provided temporal partitions and selected features; broader dataset coverage not assessed."
+      ]
+    },
+    {
+      "task_id": "task_2",
+      "hypothesis_id": "hyp_002_strong_dependency_pairs_redundancy",
+      "status": "completed",
+      "findings": [
+        "Multiple feature pairs exhibit perfect or near-perfect correlation, indicating strong linear dependencies and potential redundancy.",
+        "Relation verifications confirmed high redundancy between key feature pairs such as Fwd Header Length and Fwd Header Length.1, Average Packet Size and Packet Length Mean, and Subflow Fwd Bytes and Total Length of Fwd Packets.",
+        "The strong correlations align with expected protocol behavior and preprocessing steps, reflecting structural dependencies rather than spurious signals."
+      ],
+      "evidence_refs": [
+        "task_2_step_03",
+        "task_2_step_05",
+        "task_2_step_07"
+      ],
+      "contradictions": [],
+      "limitations": []
+    },
+    {
+      "task_id": "task_3",
+      "hypothesis_id": "hyp_002_strong_dependency_pairs_redundancy",
+      "status": "completed",
+      "findings": [
+        "Strong dependency pairs form a stable and concentrated cluster across dataset partitions with near-perfect correlations.",
+        "Feature 'Average Packet Size' exhibits consistent high class separation in multiple partitions, supporting stable distribution profiles.",
+        "No contradictory evidence found against the presence of strong linear dependencies and potential redundancy in the identified feature cluster."
+      ],
+      "evidence_refs": [
+        "task_3_step_03",
+        "task_3_step_05",
+        "task_3_step_07"
+      ],
+      "contradictions": [],
+      "limitations": []
+    },
+    {
+      "task_id": "task_4",
+      "hypothesis_id": "hyp_002_strong_dependency_pairs_redundancy",
+      "status": "completed",
+      "findings": [
+        "No exact duplication detected at dataset scope, excluding trivial redundancy.",
+        "Strong linear dependencies (correlations near 1) among multiple feature pairs indicate structural redundancy.",
+        "Moderate shortcut signals found for features 'Average Packet Size' and 'Fwd Header Length', indicating potential confounding shortcut effects on dependency interpretation."
+      ],
+      "evidence_refs": [
+        "task_4_step_03",
+        "task_4_step_05",
+        "task_4_step_07"
+      ],
+      "contradictions": [],
+      "limitations": [
+        "Shortcut verification limited to two features; broader shortcut effects remain untested locally."
+      ]
+    }
+  ]
+}

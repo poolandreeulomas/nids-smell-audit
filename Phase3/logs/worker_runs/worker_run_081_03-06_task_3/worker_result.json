@@ -1,0 +1,19 @@
+{
+  "task_id": "task_3",
+  "hypothesis_id": "hyp_003_class_conditioned_variation_backward_packet_lengths",
+  "status": "completed",
+  "findings": [
+    "Backward packet length features show high sensitivity to class-conditioned structural variation, indicated by variance ratios > 15 and skewed unique value counts between BENIGN and DDoS classes.",
+    "Dependency profiles of these features are concentrated within a narrow structural cluster, reinforcing their representation-sensitive nature under class imbalance.",
+    "No local contradictions or instability signals were detected in the dependency contextualization steps."
+  ],
+  "evidence_refs": [
+    "task_3_step_03",
+    "task_3_step_05",
+    "task_3_step_07"
+  ],
+  "contradictions": [],
+  "limitations": [
+    "Analysis limited to local evidence within backward packet length features; cross-feature or global dataset effects remain unassessed."
+  ]
+}

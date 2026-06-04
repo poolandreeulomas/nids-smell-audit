@@ -1,0 +1,292 @@
+{
+  "substrate_id": "substrate_semantic_batch_076_friday-workinghours-afternoon-ddos.pcap_iscx",
+  "batch_id": "semantic_batch_076_friday-workinghours-afternoon-ddos.pcap_iscx",
+  "compressed_regions": [
+    {
+      "region_id": "region_1_low_diversity_flags",
+      "region_kind": "low_diversity_region",
+      "status": "active",
+      "summary": "Multiple backward and forward flag features exhibit extremely low cardinality with unique values equal to 1 and very low cardinality ratios, indicating near-constant values across the partition.",
+      "structural_descriptors": [
+        "Bwd Avg Bulk Rate",
+        "Bwd Avg Bytes/Bulk",
+        "Bwd Avg Packets/Bulk",
+        "Bwd PSH Flags",
+        "Bwd URG Flags",
+        "CWE Flag Count",
+        "Fwd Avg Bulk Rate",
+        "Fwd Avg Bytes/Bulk",
+        "Fwd Avg Packets/Bulk",
+        "Fwd URG Flags"
+      ],
+      "feature_scope": {
+        "scope_type": "feature_group",
+        "features": [
+          "Bwd Avg Bulk Rate",
+          "Bwd Avg Bytes/Bulk",
+          "Bwd Avg Packets/Bulk",
+          "Bwd PSH Flags",
+          "Bwd URG Flags",
+          "CWE Flag Count",
+          "Fwd Avg Bulk Rate",
+          "Fwd Avg Bytes/Bulk",
+          "Fwd Avg Packets/Bulk",
+          "Fwd URG Flags"
+        ]
+      },
+      "evidence_refs": [
+        "e23",
+        "e24",
+        "e25",
+        "e26",
+        "e27",
+        "e28",
+        "e29",
+        "e30",
+        "e31",
+        "e32"
+      ],
+      "supporting_patterns": [
+        "unique_values=1",
+        "cardinality_ratio=1e-05"
+      ],
+      "contextual_modifiers": [
+        "Low cardinality features may indicate saturation or constant signaling in the partition."
+      ],
+      "uncertainty_notes": "The near-constant values could reflect either true invariance or measurement artifacts; no validation from partition context.",
+      "contradiction_refs": [],
+      "tension_refs": []
+    },
+    {
+      "region_id": "region_2_strong_feature_dependencies",
+      "region_kind": "dependency_region",
+      "status": "active",
+      "summary": "Several feature pairs exhibit perfect or near-perfect correlation (correlation=1 or 0.9993), indicating strong redundancy or deterministic relationships between features.",
+      "structural_descriptors": [
+        "Bwd Packet Length Mean & Avg Bwd Segment Size",
+        "Fwd Header Length & Fwd Header Length.1",
+        "Fwd PSH Flags & SYN Flag Count",
+        "Fwd Packet Length Mean & Avg Fwd Segment Size",
+        "RST Flag Count & ECE Flag Count",
+        "Total Backward Packets & Subflow Bwd Packets",
+        "Total Fwd Packets & Subflow Fwd Packets",
+        "Total Length of Bwd Packets & Subflow Bwd Bytes",
+        "Total Length of Fwd Packets & Subflow Fwd Bytes",
+        "Packet Length Mean & Average Packet Size"
+      ],
+      "feature_scope": {
+        "scope_type": "dependency_cluster",
+        "features": [
+          "Bwd Packet Length Mean",
+          "Avg Bwd Segment Size",
+          "Fwd Header Length",
+          "Fwd Header Length.1",
+          "Fwd PSH Flags",
+          "SYN Flag Count",
+          "Fwd Packet Length Mean",
+          "Avg Fwd Segment Size",
+          "RST Flag Count",
+          "ECE Flag Count",
+          "Total Backward Packets",
+          "Subflow Bwd Packets",
+          "Total Fwd Packets",
+          "Subflow Fwd Packets",
+          "Total Length of Bwd Packets",
+          "Subflow Bwd Bytes",
+          "Total Length of Fwd Packets",
+          "Subflow Fwd Bytes",
+          "Packet Length Mean",
+          "Average Packet Size"
+        ]
+      },
+      "evidence_refs": [
+        "e13",
+        "e14",
+        "e15",
+        "e16",
+        "e17",
+        "e18",
+        "e19",
+        "e20",
+        "e21",
+        "e22"
+      ],
+      "supporting_patterns": [
+        "correlation=1",
+        "correlation=0.9993"
+      ],
+      "contextual_modifiers": [
+        "Strong dependencies suggest feature redundancy and potential deterministic relationships."
+      ],
+      "uncertainty_notes": "Perfect correlations may indicate feature duplication or derived features; no causal inference applied.",
+      "contradiction_refs": [],
+      "tension_refs": []
+    },
+    {
+      "region_id": "region_3_class_conditioned_structural_variation",
+      "region_kind": "mixed_structural_region",
+      "status": "active",
+      "summary": "Several packet length and segment size features show significant class-conditioned structural variation with high variance ratios and differing unique value counts between BENIGN and DDoS classes.",
+      "structural_descriptors": [
+        "Bwd Packet Length Max",
+        "Bwd Packet Length Mean",
+        "Bwd Packet Length Std",
+        "Average Packet Size",
+        "Avg Bwd Segment Size"
+      ],
+      "feature_scope": {
+        "scope_type": "feature_group",
+        "features": [
+          "Bwd Packet Length Max",
+          "Bwd Packet Length Mean",
+          "Bwd Packet Length Std",
+          "Average Packet Size",
+          "Avg Bwd Segment Size"
+        ]
+      },
+      "evidence_refs": [
+        "e8",
+        "e9",
+        "e10",
+        "e11",
+        "e12"
+      ],
+      "supporting_patterns": [
+        "variance_ratio > 4.5",
+        "unique_values_by_class differ significantly"
+      ],
+      "contextual_modifiers": [
+        "Class-conditioned variation indicates structural differences in feature distributions between BENIGN and DDoS classes."
+      ],
+      "uncertainty_notes": "Variation patterns are descriptive; no validation of class labels or feature causality.",
+      "contradiction_refs": [],
+      "tension_refs": []
+    },
+    {
+      "region_id": "region_4_destination_port_distribution",
+      "region_kind": "representation_sensitive_region",
+      "status": "active",
+      "summary": "Destination Port feature shows strong distributional divergence between BENIGN and DDoS classes, with DDoS traffic concentrated on a single port and BENIGN traffic more diverse.",
+      "structural_descriptors": [
+        "Dominant ratio BENIGN=0.346",
+        "Entropy BENIGN=5.037",
+        "Dominant ratio DDoS=1.0",
+        "Entropy DDoS=0.0",
+        "Jensen-Shannon divergence=0.7315"
+      ],
+      "feature_scope": {
+        "scope_type": "feature_group",
+        "features": [
+          "Destination Port"
+        ]
+      },
+      "evidence_refs": [
+        "e33"
+      ],
+      "supporting_patterns": [
+        "Distribution metrics",
+        "High js_divergence"
+      ],
+      "contextual_modifiers": [
+        "Distributional concentration in DDoS class suggests port-based targeting or saturation."
+      ],
+      "uncertainty_notes": "Distributional metrics do not confirm attack validity; only descriptive divergence.",
+      "contradiction_refs": [],
+      "tension_refs": []
+    },
+    {
+      "region_id": "region_5_partition_level_summary",
+      "region_kind": "mixed_structural_region",
+      "status": "broad_unvalidated",
+      "summary": "Partition overview reports moderate class imbalance, presence of duplicated rows, and top-ranked features dominated by backward packet length and segment size metrics.",
+      "structural_descriptors": [
+        "Class imbalance ratio=1.577",
+        "729 duplicated rows",
+        "Top features: Bwd Packet Length Mean (rank 1), Avg Bwd Segment Size (rank 2), Bwd Packet Length Max (rank 3), Bwd Packet Length Std (rank 4), Average Packet Size (rank 5)"
+      ],
+      "feature_scope": {
+        "scope_type": "partition_global",
+        "features": [
+          "Bwd Packet Length Mean",
+          "Avg Bwd Segment Size",
+          "Bwd Packet Length Max",
+          "Bwd Packet Length Std",
+          "Average Packet Size"
+        ]
+      },
+      "evidence_refs": [
+        "e1",
+        "e2",
+        "e3",
+        "e4",
+        "e5",
+        "e6",
+        "e7"
+      ],
+      "supporting_patterns": [
+        "Duplication observation",
+        "Class imbalance metric",
+        "Top feature ranks"
+      ],
+      "contextual_modifiers": [
+        "Duplicated rows may affect feature distribution and redundancy analysis.",
+        "Class imbalance is moderate but not extreme."
+      ],
+      "uncertainty_notes": "No validation of duplication impact or imbalance effect on downstream analysis.",
+      "contradiction_refs": [],
+      "tension_refs": []
+    }
+  ],
+  "preserved_weak_signals": [
+    {
+      "weak_signal_id": "weak_1_low_cardinality_flags",
+      "descriptor": "Extremely low cardinality in multiple flag and bulk rate features",
+      "feature_scope": {
+        "scope_type": "feature_group",
+        "features": [
+          "Bwd PSH Flags",
+          "Bwd URG Flags",
+          "CWE Flag Count",
+          "Fwd PSH Flags",
+          "Fwd URG Flags"
+        ]
+      },
+      "evidence_refs": [
+        "e26",
+        "e27",
+        "e28",
+        "e15",
+        "e32"
+      ],
+      "preservation_reason": "Low cardinality features may indicate saturation or constant signaling patterns relevant to structural analysis.",
+      "contextual_modifiers": [
+        "Use partition context cautiously; low cardinality may be artifact or true signal."
+      ],
+      "uncertainty_notes": "No direct validation of feature behavior; preservation for potential structural relevance."
+    },
+    {
+      "weak_signal_id": "weak_2_perfect_correlations",
+      "descriptor": "Perfect correlations between certain feature pairs",
+      "feature_scope": {
+        "scope_type": "dependency_cluster",
+        "features": [
+          "Fwd PSH Flags",
+          "SYN Flag Count",
+          "RST Flag Count",
+          "ECE Flag Count"
+        ]
+      },
+      "evidence_refs": [
+        "e15",
+        "e17"
+      ],
+      "preservation_reason": "Perfect correlations may reveal deterministic or derived feature relationships important for redundancy understanding.",
+      "contextual_modifiers": [
+        "Correlation does not imply causation; preserve for structural redundancy mapping."
+      ],
+      "uncertainty_notes": "No hypothesis on feature derivation or causal linkage."
+    }
+  ],
+  "contradictions": [],
+  "unresolved_tensions": []
+}

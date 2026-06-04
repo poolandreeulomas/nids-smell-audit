@@ -1,0 +1,20 @@
+{
+  "strategy_id": "strategy_01_hyp_1",
+  "hypothesis_id": "hyp_1_redundancy_vs_importance_tension",
+  "strategic_objective": "Clarify the unique versus redundant informational contribution of strongly correlated features with high relative importance.",
+  "key_checks": [
+    "Measure pairwise correlation strength and overlap in predictive signal among top-ranked features",
+    "Assess feature importance stability under perturbations that remove or combine correlated features",
+    "Compare distributional and dependency profiles of correlated features across classes and partitions",
+    "Evaluate whether correlated features exhibit shortcut-like behavior or local label consistency"
+  ],
+  "success_criteria": [
+    "Evidence distinguishes whether correlated features provide complementary or redundant signals",
+    "Identification of any evaluation artifacts inflating importance of correlated features",
+    "Bounded understanding of how redundancy impacts feature importance rankings"
+  ],
+  "router_constraints": [
+    "preserve correlated feature pairs scope",
+    "preserve evidence references e3, e4, e13, e16, e22"
+  ]
+}

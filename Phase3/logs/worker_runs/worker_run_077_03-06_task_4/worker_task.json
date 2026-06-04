@@ -1,0 +1,25 @@
+{
+  "task_id": "task_4",
+  "hypothesis_id": "hyp_002_strong_dependency_pairs_redundancy",
+  "task_scope": "Evaluate potential confounding effects of redundancy on observed strong feature pair dependencies using duplication and shortcut verification.",
+  "allowed_actions": [
+    "duplication_verification",
+    "shortcut_verification"
+  ],
+  "local_context_refs": [
+    "e13",
+    "e14",
+    "e15",
+    "e16",
+    "e17",
+    "e18",
+    "e19",
+    "e20",
+    "e21",
+    "e22"
+  ],
+  "stop_conditions": [
+    "redundancy impact quantified",
+    "confounding effects identified or ruled out"
+  ]
+}

@@ -1,0 +1,59 @@
+{
+  "selected_hypotheses": [
+    {
+      "hypothesis_id": "hyp_001_low_cardinality_bulk_features",
+      "summary": "The extremely low cardinality and near-constant values observed in multiple bulk-related backward and forward features (e23-e32) may indicate a structural uniformity or load concentration effect in the dataset, potentially reflecting a stable traffic pattern or saturation in these metrics.",
+      "evidence_refs": [
+        "e23",
+        "e24",
+        "e25",
+        "e26",
+        "e27",
+        "e28",
+        "e29",
+        "e30",
+        "e31",
+        "e32"
+      ],
+      "open_questions": [
+        "Does this near-constant behavior reflect a genuine network saturation or a data collection artifact?",
+        "Could these features be masking subtle variations relevant to attack detection?"
+      ],
+      "current_status": "unresolved"
+    },
+    {
+      "hypothesis_id": "hyp_002_strong_feature_dependencies_indicate_redundancy",
+      "summary": "The presence of perfect or near-perfect correlations (correlation=1 or 0.9993) among many feature pairs (e13-e22) suggests strong linear dependencies that may introduce redundancy, potentially reducing the effective dimensionality of the dataset.",
+      "evidence_refs": [
+        "e13",
+        "e14",
+        "e15",
+        "e16",
+        "e17",
+        "e18",
+        "e19",
+        "e20",
+        "e21",
+        "e22"
+      ],
+      "open_questions": [
+        "Are these dependencies stable across different classes or do they vary with attack presence?",
+        "Could these dependencies obscure meaningful independent signals?"
+      ],
+      "current_status": "unresolved"
+    },
+    {
+      "hypothesis_id": "hyp_006_class_distribution_and_destination_port_divergence",
+      "summary": "The partition exhibits a moderate class imbalance ratio (1.577) and the Destination Port feature shows strong distributional divergence between BENIGN and DDoS classes, including high Jensen-Shannon divergence and entropy differences (e2, e33), suggesting that Destination Port may be a key discriminative feature.",
+      "evidence_refs": [
+        "e2",
+        "e33"
+      ],
+      "open_questions": [
+        "Is the zero entropy in DDoS Destination Port indicative of a targeted attack vector or a dataset artifact?",
+        "How stable is this distributional divergence across time or other partitions?"
+      ],
+      "current_status": "unresolved"
+    }
+  ]
+}

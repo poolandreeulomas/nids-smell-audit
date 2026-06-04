@@ -1,0 +1,17 @@
+{
+  "batch_id": "semantic_batch_076_friday-workinghours-afternoon-ddos.pcap_iscx",
+  "model_name": "gpt-5-mini",
+  "duration_ms": 86811.581,
+  "status": "ok",
+  "prompt_chars": 21765,
+  "raw_response_chars": 14468,
+  "evidence_count": 33,
+  "region_count": 4,
+  "weak_signal_count": 3,
+  "contradiction_count": 0,
+  "tension_count": 2,
+  "fresh_execution": true,
+  "replay_of": null,
+  "caller_mode": "cli",
+  "schema_version": "phase3a.semantic_extraction.v1"
+}

@@ -1,0 +1,40 @@
+{
+  "hypothesis_id": "hyp_9_tension_between_low_diversity_and_class_conditioned_variation",
+  "planner_strategy_id": "strategy_03_hyp_9",
+  "task_count": 4,
+  "action_class_count": 8,
+  "task_summaries": [
+    {
+      "task_id": "task_1",
+      "hypothesis_id": "hyp_9_tension_between_low_diversity_and_class_conditioned_variation",
+      "task_scope": "Characterize feature subsets by measuring diversity and class-conditioned variation within features from evidence refs e9 to e12 and e23 to e25",
+      "allowed_action_count": 2,
+      "local_context_ref_count": 7,
+      "stop_condition_count": 2
+    },
+    {
+      "task_id": "task_2",
+      "hypothesis_id": "hyp_9_tension_between_low_diversity_and_class_conditioned_variation",
+      "task_scope": "Investigate data processing or measurement steps that could produce low diversity features using evidence refs e9 to e12 and e23 to e25",
+      "allowed_action_count": 2,
+      "local_context_ref_count": 7,
+      "stop_condition_count": 2
+    },
+    {
+      "task_id": "task_3",
+      "hypothesis_id": "hyp_9_tension_between_low_diversity_and_class_conditioned_variation",
+      "task_scope": "Assess how stable and variable features contribute to class discrimination focusing on evidence refs e9 to e12 and e23 to e25",
+      "allowed_action_count": 2,
+      "local_context_ref_count": 7,
+      "stop_condition_count": 2
+    },
+    {
+      "task_id": "task_4",
+      "hypothesis_id": "hyp_9_tension_between_low_diversity_and_class_conditioned_variation",
+      "task_scope": "Evaluate potential trade-offs in model reliance on stable versus variable features using evidence refs e9 to e12 and e23 to e25",
+      "allowed_action_count": 2,
+      "local_context_ref_count": 7,
+      "stop_condition_count": 2
+    }
+  ]
+}

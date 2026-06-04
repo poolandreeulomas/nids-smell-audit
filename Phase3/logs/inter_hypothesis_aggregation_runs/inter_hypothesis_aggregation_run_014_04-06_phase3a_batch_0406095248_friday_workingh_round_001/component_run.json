@@ -1,0 +1,25 @@
+{
+  "component": "inter_hypothesis_aggregation",
+  "created_at": "2026-06-04T10:00:03.055516+00:00",
+  "schema_version": "phase3a.inter_hypothesis_aggregation.v1",
+  "batch_id": "phase3a_batch_0406095248_friday-workinghours-afternoon-ddos.pcap_iscx_f8c2c2",
+  "round_id": "round-001",
+  "status": "ok",
+  "validation_ok": true,
+  "authoritative_status": true,
+  "selected_hypothesis_count": 3,
+  "source_hypothesis_count": 3,
+  "model_name": "gpt-4.1-mini",
+  "temperature": 0.0,
+  "caller_mode": "cli",
+  "replay_of": null,
+  "artifact_paths": {
+    "component_run_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\inter_hypothesis_aggregation_runs\\inter_hypothesis_aggregation_run_014_04-06_phase3a_batch_0406095248_friday_workingh_round_001\\component_run.json",
+    "rendered_prompt_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\inter_hypothesis_aggregation_runs\\inter_hypothesis_aggregation_run_014_04-06_phase3a_batch_0406095248_friday_workingh_round_001\\rendered_prompt.txt",
+    "raw_response_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\inter_hypothesis_aggregation_runs\\inter_hypothesis_aggregation_run_014_04-06_phase3a_batch_0406095248_friday_workingh_round_001\\raw_response.txt",
+    "parsed_output_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\inter_hypothesis_aggregation_runs\\inter_hypothesis_aggregation_run_014_04-06_phase3a_batch_0406095248_friday_workingh_round_001\\parsed_output.json",
+    "validation_report_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\inter_hypothesis_aggregation_runs\\inter_hypothesis_aggregation_run_014_04-06_phase3a_batch_0406095248_friday_workingh_round_001\\validation_report.json",
+    "runtime_metrics_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\inter_hypothesis_aggregation_runs\\inter_hypothesis_aggregation_run_014_04-06_phase3a_batch_0406095248_friday_workingh_round_001\\runtime_metrics.json",
+    "replay_metadata_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\inter_hypothesis_aggregation_runs\\inter_hypothesis_aggregation_run_014_04-06_phase3a_batch_0406095248_friday_workingh_round_001\\replay_metadata.json"
+  }
+}

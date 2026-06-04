@@ -1,4 +1,10 @@
-from utils.openai_response import build_responses_create_kwargs, extract_response_text
+import os
+
+from utils.openai_response import (
+    build_responses_create_kwargs,
+    extract_response_text,
+    load_local_dotenv,
+)
 
 
 class _DummyText:
@@ -92,3 +98,27 @@ def test_build_responses_create_kwargs_omits_temperature_for_gpt55():
         "model": "gpt-5.5",
         "input": "hello",
     }
+
+
+def test_load_local_dotenv_loads_nearest_env_file(tmp_path, monkeypatch):
+    repo_root = tmp_path / "repo"
+    nested_dir = repo_root / "phase3" / "utils"
+    nested_dir.mkdir(parents=True)
+    env_path = repo_root / ".env"
+    env_path.write_text("PHASE3_TEST_DOTENV=loaded\n", encoding="utf-8")
+    monkeypatch.delenv("PHASE3_TEST_DOTENV", raising=False)
+
+    loaded_path = load_local_dotenv(nested_dir / "openai_response.py")
+
+    assert loaded_path == env_path
+    assert os.environ["PHASE3_TEST_DOTENV"] == "loaded"
+
+
+def test_load_local_dotenv_returns_none_when_not_found(tmp_path, monkeypatch):
+    nested_dir = tmp_path / "phase3" / "utils"
+    nested_dir.mkdir(parents=True)
+    monkeypatch.delenv("PHASE3_TEST_DOTENV", raising=False)
+
+    loaded_path = load_local_dotenv(nested_dir / "openai_response.py")
+
+    assert loaded_path is None

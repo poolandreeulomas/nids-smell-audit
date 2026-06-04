@@ -1,0 +1,40 @@
+{
+  "hypothesis_id": "hyp_7_distributional_divergence_in_destination_port_feature",
+  "planner_strategy_id": "strategy_02_hyp_7",
+  "task_count": 4,
+  "action_class_count": 5,
+  "task_summaries": [
+    {
+      "task_id": "task_1",
+      "hypothesis_id": "hyp_7_distributional_divergence_in_destination_port_feature",
+      "task_scope": "Analyze distribution of destination port feature across multiple defined time windows within evidence e33 to assess temporal stability in DDoS class.",
+      "allowed_action_count": 1,
+      "local_context_ref_count": 1,
+      "stop_condition_count": 2
+    },
+    {
+      "task_id": "task_2",
+      "hypothesis_id": "hyp_7_distributional_divergence_in_destination_port_feature",
+      "task_scope": "Evaluate class imbalance impact on destination port distribution divergence between BENIGN and DDoS classes within evidence e33.",
+      "allowed_action_count": 2,
+      "local_context_ref_count": 1,
+      "stop_condition_count": 2
+    },
+    {
+      "task_id": "task_3",
+      "hypothesis_id": "hyp_7_distributional_divergence_in_destination_port_feature",
+      "task_scope": "Compare entropy measures of destination port feature in BENIGN versus DDoS subsets within evidence e33 to identify representation-sensitive signals.",
+      "allowed_action_count": 2,
+      "local_context_ref_count": 1,
+      "stop_condition_count": 2
+    },
+    {
+      "task_id": "task_4",
+      "hypothesis_id": "hyp_7_distributional_divergence_in_destination_port_feature",
+      "task_scope": "Investigate correlation between dominant destination port presence and specific DDoS attack campaigns within evidence e33 to detect shortcut-like signals.",
+      "allowed_action_count": 2,
+      "local_context_ref_count": 1,
+      "stop_condition_count": 2
+    }
+  ]
+}

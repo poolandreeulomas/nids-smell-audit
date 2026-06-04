@@ -1,0 +1,16 @@
+{
+  "task_id": "task_2",
+  "hypothesis_id": "hyp_4_destination_port_distribution_skew_reflects_attack_targeting",
+  "task_scope": "Assess class-conditioned dependency concentration and local label consistency around destination port feature e33 to evaluate representational stability.",
+  "allowed_actions": [
+    "dependency_contextualization",
+    "local_consistency_verification"
+  ],
+  "local_context_refs": [
+    "e33"
+  ],
+  "stop_conditions": [
+    "dependency concentration quantified per class",
+    "local label consistency thresholds met or characterized"
+  ]
+}

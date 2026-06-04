@@ -1,0 +1,19 @@
+{
+  "batch_id": "phase3a_batch_0406132627_friday-workinghours-afternoon-ddos.pcap_iscx_f0e355",
+  "round_id": "round-001",
+  "worker_result": {
+    "task_id": "task_1",
+    "hypothesis_id": "hyp_6_class_conditioned_variation_backward_packet_lengths",
+    "status": "completed",
+    "findings": [
+      "Backward packet length features (Max, Mean, Std) exhibit stable and significant class-conditioned distribution shifts with high class separation across the examined time windows and network conditions."
+    ],
+    "evidence_refs": [
+      "task_1_step_03",
+      "task_1_step_05",
+      "task_1_step_07"
+    ],
+    "contradictions": [],
+    "limitations": []
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "batch_id": "phase3a_batch_0306181120_friday-workinghours-afternoon-ddos.pcap_iscx_5e8f98",
+  "round_id": "round-001",
+  "selected_hypothesis_ids": [
+    "hyp_6_class_distribution_difference_destination_port",
+    "hyp_3_strong_feature_redundancy_pairs",
+    "hyp_10_interplay_between_redundancy_and_class_conditioned_variation"
+  ],
+  "deferred_hypothesis_ids": [
+    "hyp_1_low_diversity_backward_bulk",
+    "hyp_2_low_diversity_forward_bulk",
+    "hyp_4_class_conditioned_variation_backward_packet_lengths",
+    "hyp_5_class_conditioned_variation_average_packet_size",
+    "hyp_7_partition_level_data_quality_and_class_imbalance",
+    "hyp_8_low_cardinality_forward_psh_syn_flags_dependency",
+    "hyp_9_potential_structural_saturation_in_bulk_features"
+  ],
+  "selection_rationales": [
+    {
+      "hypothesis_id": "hyp_6_class_distribution_difference_destination_port",
+      "reason": "Strong class-conditioned distribution skew with zero entropy and dominant ratio indicates a high-value shortcut-like feature worth immediate investigation."
+    },
+    {
+      "hypothesis_id": "hyp_3_strong_feature_redundancy_pairs",
+      "reason": "Perfect or near-perfect feature correlations suggest critical structural redundancies that may bias downstream analysis and merit prioritized attention."
+    },
+    {
+      "hypothesis_id": "hyp_10_interplay_between_redundancy_and_class_conditioned_variation",
+      "reason": "Complex interplay between redundancies and class-conditioned variations may mask or amplify signals, offering high epistemic value for understanding dataset structure."
+    }
+  ]
+}

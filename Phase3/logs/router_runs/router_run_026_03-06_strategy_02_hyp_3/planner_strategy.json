@@ -1,0 +1,20 @@
+{
+  "strategy_id": "strategy_02_hyp_3",
+  "hypothesis_id": "hyp_3_strong_feature_redundancy_pairs",
+  "strategic_objective": "Investigate the origin and implications of perfect or near-perfect correlations among feature pairs.",
+  "key_checks": [
+    "Determine if perfect correlations arise from inherent network traffic properties or preprocessing steps",
+    "Identify which feature pairs contribute to shortcut-like signals due to redundancy",
+    "Assess how these redundancies affect effective feature dimensionality and dependency stability",
+    "Explore if removing or consolidating redundant features alters class-conditioned patterns"
+  ],
+  "success_criteria": [
+    "Clear distinction between natural and preprocessing-induced redundancies",
+    "Quantification of shortcut-like risks from redundant feature pairs",
+    "Insights on how redundancy influences downstream analysis stability and interpretability"
+  ],
+  "router_constraints": [
+    "preserve feature pair scope for correlated features",
+    "preserve evidence refs covering correlation and redundancy (e13 to e22)"
+  ]
+}

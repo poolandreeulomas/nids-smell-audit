@@ -1,0 +1,21 @@
+{
+  "task_id": "task_3",
+  "hypothesis_id": "hyp_004_strong_feature_dependency_pairs",
+  "status": "completed",
+  "findings": [
+    "Strong feature dependency pairs exhibit near-perfect correlations consistently across contexts e13 to e22, indicating structural redundancy.",
+    "Local consistency verifications reveal moderate label neighborhood conflicts and duplicate label conflicts around key features, indicating instability in dependency-label relationships.",
+    "Dependencies are not fully stable or consistent over time and varying network conditions within the examined evidence."
+  ],
+  "evidence_refs": [
+    "task_3_step_03",
+    "task_3_step_05",
+    "task_3_step_07"
+  ],
+  "contradictions": [
+    "Moderate label neighborhood conflicts and duplicate label conflicts indicate local contradictions in dependency stability."
+  ],
+  "limitations": [
+    "Analysis limited to bounded local contexts and features; global aggregation or cross-context synthesis not performed."
+  ]
+}

@@ -1,0 +1,156 @@
+GLOBAL_MISSION:
+Preserve one evidence-grounded canonical batch state for the active batch.
+The grounded structural substrate is stable. Only the targeted interpretive hypothesis may change here.
+
+LOCAL_ROLE:
+You are State Manager. Apply one conservative, evidence-referenced, hypothesis-local update after Aggregation and before Critic or the next planning round.
+Do not rewrite the structural substrate, re-aggregate worker results, reroute work, replan strategy, or emit critic feedback.
+
+ARCHITECTURAL_BOUNDARIES:
+Prefer patch-style updates over whole-state reconstruction.
+Carry forward contradictions, open gaps, and traceable evidence unless the current inputs explicitly justify a bounded shift.
+Only emit the resulting state delta record for the targeted hypothesis.
+
+TASK:
+{
+  "batch_id": "final-audit-batch-001",
+  "round_id": "round-001",
+  "hypothesis_id": "hyp-final-1",
+  "previous_state_version": 1
+}
+
+CURRENT_TARGET_STATE:
+{
+  "hypothesis_id": "hyp-final-1",
+  "summary": "The dependency may indicate a shortcut-compatible dependency framing.",
+  "status": "unresolved",
+  "evidence_refs": [
+    "final-region-e1"
+  ],
+  "open_gaps": [
+    "Need to verify whether the dependency stays local."
+  ],
+  "preserved_contradictions": [],
+  "merged_findings": [],
+  "update_focus": "",
+  "last_updated_round": "",
+  "revision_count": 0
+}
+
+STRUCTURAL_SUBSTRATE_REFERENCE:
+{
+  "substrate_id": "final-substrate-001",
+  "batch_id": "final-audit-batch-001",
+  "compressed_regions": [
+    {
+      "region_id": "final-region-1",
+      "region_kind": "dependency_region",
+      "status": "broad_unvalidated",
+      "summary": "src_bytes and dst_bytes remain tightly coupled in the batch slice.",
+      "feature_scope": {
+        "features": [
+          "src_bytes",
+          "dst_bytes"
+        ],
+        "feature_groups": [
+          "flow_size"
+        ],
+        "locality": {
+          "scope_type": "partition_global",
+          "scope_value": "final-audit-batch-001",
+          "localized": false,
+          "notes": [
+            "Global dependency signal."
+          ]
+        }
+      },
+      "evidence_refs": [
+        "final-region-e1"
+      ]
+    }
+  ],
+  "preserved_weak_signals": [],
+  "contradictions": [],
+  "unresolved_tensions": []
+}
+
+RECENT_REVISION_CONTEXT:
+[
+  {
+    "revision_type": "initialization",
+    "state_version": 1,
+    "round_id": "",
+    "hypothesis_id": "",
+    "applied_updates": [
+      {
+        "action": "register_structural_substrate",
+        "substrate_id": "final-substrate-001",
+        "region_count": 1,
+        "weak_signal_count": 0,
+        "contradiction_count": 0,
+        "tension_count": 0
+      },
+      {
+        "action": "register_interpretive_hypotheses",
+        "analysis_id": "final-analysis-001",
+        "hypothesis_count": 1
+      }
+    ],
+    "timestamp": "2026-05-20T07:42:05.469604+00:00"
+  }
+]
+
+AGGREGATION_HANDOFF:
+{
+  "batch_id": "final-audit-batch-001",
+  "round_id": "round-001",
+  "hypothesis_id": "hyp-final-1",
+  "merged_findings": [
+    "Finding"
+  ],
+  "evidence_refs": [
+    "final-task-step-01"
+  ],
+  "preserved_contradictions": [
+    "Contradiction"
+  ],
+  "open_gaps": [
+    "Gap"
+  ],
+  "update_focus": "Focus"
+}
+
+OUTPUT_RULES:
+Return exactly one JSON object.
+The output lists must represent the resulting target-hypothesis state after this round, not only the newly introduced items.
+Preserve all current and newly supplied evidence_refs, preserved_contradictions, open_gaps, and merged_findings unless a field is genuinely unchanged and already present.
+Use only these status values: ['active', 'dormant', 'emerging', 'merged', 'partially_absorbed', 'reopened', 'uncertain', 'unresolved', 'weakened'].
+Do not mention planning, worker execution, routing, critic supervision, or canonical-state commit mechanics in the content fields.
+{
+  "state_delta_record": {
+    "batch_id": "final-audit-batch-001",
+    "round_id": "round-001",
+    "hypothesis_id": "hyp-final-1",
+    "summary": "updated concise interpretive summary for the target hypothesis",
+    "status": "active",
+    "evidence_refs": [
+      "carried-forward evidence_ref"
+    ],
+    "preserved_contradictions": [
+      "explicit unresolved contradiction"
+    ],
+    "open_gaps": [
+      "remaining unresolved verification gap"
+    ],
+    "merged_findings": [
+      "resulting evidence-grounded finding carried in state"
+    ],
+    "update_focus": "short orientation for the touched interpretive area",
+    "applied_updates": [
+      {
+        "field": "summary",
+        "reason": "why this bounded change is justified by the aggregation handoff and current state"
+      }
+    ]
+  }
+}

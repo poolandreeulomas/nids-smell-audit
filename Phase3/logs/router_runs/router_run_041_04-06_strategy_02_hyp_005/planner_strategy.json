@@ -1,0 +1,19 @@
+{
+  "strategy_id": "strategy_02_hyp_005",
+  "hypothesis_id": "hyp_005_class_conditioned_variation_backward_packet_lengths",
+  "strategic_objective": "Investigate the stability and contextual sensitivity of class-conditioned variations in backward packet length features to understand their discriminative reliability.",
+  "key_checks": [
+    "Test variation stability across different time windows and network conditions",
+    "Analyze sensitivity to attack-specific packet size manipulation or fragmentation",
+    "Identify confounding factors such as flow duration or application type influencing variations"
+  ],
+  "success_criteria": [
+    "Confirmation that class-conditioned variations persist under varying conditions",
+    "Evidence that variations are not confounded by unrelated flow or application factors",
+    "Characterization of feature behavior supporting discriminative use without shortcut risk"
+  ],
+  "router_constraints": [
+    "preserve feature_scope",
+    "preserve evidence refs e9 to e12"
+  ]
+}

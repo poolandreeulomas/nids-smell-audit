@@ -1,0 +1,106 @@
+ROLE:
+You are Aggregation. Stay inside one hypothesis-local, round-local merge after Worker and before State Manager.
+Do not reroute, replan, mutate canonical state, emit critic feedback, or summarize raw traces.
+Preserve grounded contradictions and unresolved gaps instead of flattening them away.
+
+TASK:
+{
+  "batch_id": "phase3a_batch_0406095248_friday-workinghours-afternoon-ddos.pcap_iscx_f8c2c2",
+  "round_id": "round-001",
+  "hypothesis_id": "hyp_007_class_conditioned_distribution_destination_port",
+  "worker_result_count": 3,
+  "expected_task_ids": [
+    "task_1",
+    "task_2",
+    "task_3"
+  ],
+  "selected_task_ids": [
+    "task_1",
+    "task_2",
+    "task_3"
+  ]
+}
+
+SOURCE_WORKER_RESULTS:
+[
+  {
+    "task_id": "task_1",
+    "hypothesis_id": "hyp_007_class_conditioned_distribution_destination_port",
+    "status": "completed",
+    "findings": [
+      "Zero entropy in destination port distribution for DDoS class is due to a targeted attack pattern with a dominant single port.",
+      "No evidence of dataset duplication artifacts that could explain the zero entropy.",
+      "Benign class shows higher entropy and more diverse destination port usage, confirming class-conditioned distributional difference."
+    ],
+    "evidence_refs": [
+      "task_1_step_03",
+      "task_1_step_05"
+    ],
+    "contradictions": [],
+    "limitations": []
+  },
+  {
+    "task_id": "task_2",
+    "hypothesis_id": "hyp_007_class_conditioned_distribution_destination_port",
+    "status": "completed",
+    "findings": [
+      "Destination Port feature shows a strong class-conditioned distributional shift with DDoS traffic dominated by a single port (dominant ratio 1.0, zero entropy) and BENIGN traffic exhibiting higher entropy and lower dominant ratio, resulting in high JS divergence.",
+      "No additional temporal or contextual dependencies were identified locally that would further explain shifts in the destination port distribution within evidence e33."
+    ],
+    "evidence_refs": [
+      "task_2_step_03",
+      "task_2_step_05"
+    ],
+    "contradictions": [],
+    "limitations": []
+  },
+  {
+    "task_id": "task_3",
+    "hypothesis_id": "hyp_007_class_conditioned_distribution_destination_port",
+    "status": "completed",
+    "findings": [
+      "Destination Port shows strong class-conditioned distributional shifts with dominant port ratio 1.0 and zero entropy in DDoS class.",
+      "Moderate shortcut signal detected, indicating potential shortcut risk.",
+      "High local label neighborhood conflicts and duplicate label conflicts reveal unstable dependencies and local contradictions."
+    ],
+    "evidence_refs": [
+      "task_3_step_03",
+      "task_3_step_05"
+    ],
+    "contradictions": [
+      "High label neighborhood conflict and duplicate label conflict indicate local contradictions in label topology."
+    ],
+    "limitations": [
+      "Analysis limited to local evidence within e33; no global aggregation performed."
+    ]
+  }
+]
+
+OVERLAP_DIAGNOSTICS:
+[]
+
+OUTPUT_RULES:
+Return exactly one JSON object.
+Only cite evidence_refs that appear in SOURCE_WORKER_RESULTS.
+Only preserve contradictions that already appear in SOURCE_WORKER_RESULTS.
+Keep update_focus state-facing and grounded, but do not describe state mutation.
+{
+  "aggregation_handoff": {
+    "batch_id": "phase3a_batch_0406095248_friday-workinghours-afternoon-ddos.pcap_iscx_f8c2c2",
+    "round_id": "round-001",
+    "hypothesis_id": "hyp_007_class_conditioned_distribution_destination_port",
+    "merged_findings": [
+      "grounded merged finding"
+    ],
+    "evidence_refs": [
+      "source evidence_ref"
+    ],
+    "preserved_contradictions": [
+      "unresolved source contradiction"
+    ],
+    "open_gaps": [
+      "remaining unresolved gap or limitation"
+    ],
+    "update_focus": "orientation for the touched interpretive area"
+  }
+}

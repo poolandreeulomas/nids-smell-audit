@@ -1,0 +1,32 @@
+{
+  "batch_id": "phase3a_batch_0406130425_friday-workinghours-afternoon-ddos.pcap_iscx_d272aa",
+  "round_id": "round-001",
+  "selected_hypothesis_ids": [
+    "hyp_1_low_diversity_constant_features",
+    "hyp_4_class_distribution_and_port_skew",
+    "hyp_7_heterogeneous_structural_regimes"
+  ],
+  "deferred_hypothesis_ids": [
+    "hyp_2_strong_dependency_pairs_indicate_redundancy",
+    "hyp_3_class_conditioned_structural_variation",
+    "hyp_5_partition_level_duplicates_indicate_redundancy",
+    "hyp_6_tension_between_top_rank_and_dependency",
+    "hyp_8_class_distribution_vs_variance_pattern_tension",
+    "hyp_9_localized_representation_sensitive_handles_in_packet_features",
+    "hyp_10_potential_measurement_or_labeling_artifacts"
+  ],
+  "selection_rationales": [
+    {
+      "hypothesis_id": "hyp_1_low_diversity_constant_features",
+      "reason": "High potential to clarify if uniform feature regimes reflect true network states or measurement artifacts, impacting foundational data interpretation."
+    },
+    {
+      "hypothesis_id": "hyp_4_class_distribution_and_port_skew",
+      "reason": "Critical representation-sensitive pattern with direct implications for model bias and attack vector understanding."
+    },
+    {
+      "hypothesis_id": "hyp_7_heterogeneous_structural_regimes",
+      "reason": "Addresses coexistence of contrasting structural patterns, key for understanding dataset complexity and model adaptation."
+    }
+  ]
+}

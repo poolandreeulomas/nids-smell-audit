@@ -1,0 +1,52 @@
+{
+  "round_id": "round_077_semantic_batch_076_friday-workinghours-afternoon-ddos.pcap_iscx",
+  "selection_budget": 3,
+  "hypothesis_state_refs": [
+    {
+      "hypothesis_id": "hyp_01_redundant_packet_size_features",
+      "state_notes": []
+    },
+    {
+      "hypothesis_id": "hyp_02_constant_bulk_rate_and_flag_features",
+      "state_notes": []
+    },
+    {
+      "hypothesis_id": "hyp_03_class_conditioned_packet_size_and_port_distributions",
+      "state_notes": []
+    },
+    {
+      "hypothesis_id": "hyp_04_duplicate_rows_influence_on_statistics",
+      "state_notes": []
+    },
+    {
+      "hypothesis_id": "hyp_05_tension_between_redundancy_and_representation",
+      "state_notes": []
+    },
+    {
+      "hypothesis_id": "hyp_06_tension_between_constant_and_variable_features",
+      "state_notes": []
+    },
+    {
+      "hypothesis_id": "hyp_07_average_packet_size_as_representational_anchor",
+      "state_notes": []
+    },
+    {
+      "hypothesis_id": "hyp_08_destination_port_distribution_as_attack_indicator",
+      "state_notes": []
+    },
+    {
+      "hypothesis_id": "hyp_09_effect_of_class_imbalance_and_duplicates_on_feature_signals",
+      "state_notes": []
+    },
+    {
+      "hypothesis_id": "hyp_10_localized_representational_signals_within_redundant_features",
+      "state_notes": []
+    }
+  ],
+  "round_constraints": [
+    "selection_budget=3",
+    "allocation_only",
+    "preserve_deferred_hypotheses",
+    "no_committed_round_state_available_yet"
+  ]
+}

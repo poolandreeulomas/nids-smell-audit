@@ -1,0 +1,26 @@
+{
+  "batch_id": "phase3a_batch_0406073857_friday-workinghours-afternoon-ddos.pcap_iscx_ee0ef0",
+  "round_id": "round-001",
+  "worker_result": {
+    "task_id": "task_2",
+    "hypothesis_id": "hyp_3_class_conditioned_structural_variation_in_packet_length_features",
+    "status": "partial",
+    "findings": [
+      "Dependency concentration for Bwd Packet Length Max was established but local consistency checks for Bwd Packet Length Max and Bwd Packet Length Mean revealed moderate label neighborhood conflicts and duplicate label conflicts.",
+      "These conflicts indicate structural irregularities and unstable dependencies within the packet length features, consistent with unresolved tension between low cardinality and class-conditioned variation."
+    ],
+    "evidence_refs": [
+      "task_2_step_03",
+      "task_2_step_05",
+      "task_2_step_07"
+    ],
+    "contradictions": [
+      "moderate_label_neighborhood_conflict",
+      "duplicate_label_conflict"
+    ],
+    "limitations": [
+      "Local evidence acquisition was limited to two features for local consistency verification; other features in the group remain unexamined.",
+      "The tension between near-constant values and strong class-conditioned variation remains unresolved at this local scope."
+    ]
+  }
+}

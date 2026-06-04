@@ -1,0 +1,25 @@
+{
+  "component": "inter_hypothesis_aggregation",
+  "created_at": "2026-06-04T09:44:36.981591+00:00",
+  "schema_version": "phase3a.inter_hypothesis_aggregation.v1",
+  "batch_id": "runtime-batch-002",
+  "round_id": "round-001",
+  "status": "ok",
+  "validation_ok": true,
+  "authoritative_status": true,
+  "selected_hypothesis_count": 2,
+  "source_hypothesis_count": 2,
+  "model_name": "gpt-4.1-mini",
+  "temperature": 0.0,
+  "caller_mode": "phase3a_runtime",
+  "replay_of": null,
+  "artifact_paths": {
+    "component_run_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\inter_hypothesis_aggregation_runs\\inter_hypothesis_aggregation_run_006_04-06_runtime_batch_002_round_001\\component_run.json",
+    "rendered_prompt_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\inter_hypothesis_aggregation_runs\\inter_hypothesis_aggregation_run_006_04-06_runtime_batch_002_round_001\\rendered_prompt.txt",
+    "raw_response_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\inter_hypothesis_aggregation_runs\\inter_hypothesis_aggregation_run_006_04-06_runtime_batch_002_round_001\\raw_response.txt",
+    "parsed_output_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\inter_hypothesis_aggregation_runs\\inter_hypothesis_aggregation_run_006_04-06_runtime_batch_002_round_001\\parsed_output.json",
+    "validation_report_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\inter_hypothesis_aggregation_runs\\inter_hypothesis_aggregation_run_006_04-06_runtime_batch_002_round_001\\validation_report.json",
+    "runtime_metrics_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\inter_hypothesis_aggregation_runs\\inter_hypothesis_aggregation_run_006_04-06_runtime_batch_002_round_001\\runtime_metrics.json",
+    "replay_metadata_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\inter_hypothesis_aggregation_runs\\inter_hypothesis_aggregation_run_006_04-06_runtime_batch_002_round_001\\replay_metadata.json"
+  }
+}

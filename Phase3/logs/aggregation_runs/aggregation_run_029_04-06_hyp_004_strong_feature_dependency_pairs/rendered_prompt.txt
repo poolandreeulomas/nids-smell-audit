@@ -1,0 +1,115 @@
+ROLE:
+You are Aggregation. Stay inside one hypothesis-local, round-local merge after Worker and before State Manager.
+Do not reroute, replan, mutate canonical state, emit critic feedback, or summarize raw traces.
+Preserve grounded contradictions and unresolved gaps instead of flattening them away.
+
+TASK:
+{
+  "batch_id": "phase3a_batch_0406095248_friday-workinghours-afternoon-ddos.pcap_iscx_f8c2c2",
+  "round_id": "round-001",
+  "hypothesis_id": "hyp_004_strong_feature_dependency_pairs",
+  "worker_result_count": 3,
+  "expected_task_ids": [
+    "task_1",
+    "task_2",
+    "task_3"
+  ],
+  "selected_task_ids": [
+    "task_1",
+    "task_2",
+    "task_3"
+  ]
+}
+
+SOURCE_WORKER_RESULTS:
+[
+  {
+    "task_id": "task_1",
+    "hypothesis_id": "hyp_004_strong_feature_dependency_pairs",
+    "status": "partial",
+    "findings": [
+      "Multiple feature pairs exhibit perfect or near-perfect correlation indicating strong redundancy and deterministic relationships.",
+      "Relation verification confirmed high redundancy in key feature pairs within the local scope.",
+      "No conclusive evidence of class-conditioned dependency strength differences was obtained within the bounded local context."
+    ],
+    "evidence_refs": [
+      "task_1_step_03",
+      "task_1_step_05",
+      "task_1_step_07"
+    ],
+    "contradictions": [],
+    "limitations": [
+      "Class-conditioned dependency strength metrics were not computed locally, limiting conclusions on class-conditioned variations."
+    ]
+  },
+  {
+    "task_id": "task_2",
+    "hypothesis_id": "hyp_004_strong_feature_dependency_pairs",
+    "status": "completed",
+    "findings": [
+      "Multiple feature pairs exhibit perfect or near-perfect correlation (correlation=1 or ~0.9993), indicating strong redundancy and deterministic relationships.",
+      "Relation verifications confirm high redundancy between key feature pairs such as 'Average Packet Size' and 'Packet Length Mean', and 'Fwd Header Length' and 'Fwd Header Length.1'.",
+      "The strong dependencies are consistent with feature engineering artifacts rather than inherent protocol behavior.",
+      "No local contradictory evidence was observed to challenge this classification."
+    ],
+    "evidence_refs": [
+      "task_2_step_03",
+      "task_2_step_05",
+      "task_2_step_07"
+    ],
+    "contradictions": [],
+    "limitations": [
+      "Analysis limited to local evidence within the given context references; no global aggregation or external validation performed."
+    ]
+  },
+  {
+    "task_id": "task_3",
+    "hypothesis_id": "hyp_004_strong_feature_dependency_pairs",
+    "status": "completed",
+    "findings": [
+      "Strong feature dependency pairs exhibit near-perfect correlations consistently across contexts e13 to e22, indicating structural redundancy.",
+      "Local consistency verifications reveal moderate label neighborhood conflicts and duplicate label conflicts around key features, indicating instability in dependency-label relationships.",
+      "Dependencies are not fully stable or consistent over time and varying network conditions within the examined evidence."
+    ],
+    "evidence_refs": [
+      "task_3_step_03",
+      "task_3_step_05",
+      "task_3_step_07"
+    ],
+    "contradictions": [
+      "Moderate label neighborhood conflicts and duplicate label conflicts indicate local contradictions in dependency stability."
+    ],
+    "limitations": [
+      "Analysis limited to bounded local contexts and features; global aggregation or cross-context synthesis not performed."
+    ]
+  }
+]
+
+OVERLAP_DIAGNOSTICS:
+[]
+
+OUTPUT_RULES:
+Return exactly one JSON object.
+Only cite evidence_refs that appear in SOURCE_WORKER_RESULTS.
+Only preserve contradictions that already appear in SOURCE_WORKER_RESULTS.
+Keep update_focus state-facing and grounded, but do not describe state mutation.
+{
+  "aggregation_handoff": {
+    "batch_id": "phase3a_batch_0406095248_friday-workinghours-afternoon-ddos.pcap_iscx_f8c2c2",
+    "round_id": "round-001",
+    "hypothesis_id": "hyp_004_strong_feature_dependency_pairs",
+    "merged_findings": [
+      "grounded merged finding"
+    ],
+    "evidence_refs": [
+      "source evidence_ref"
+    ],
+    "preserved_contradictions": [
+      "unresolved source contradiction"
+    ],
+    "open_gaps": [
+      "remaining unresolved gap or limitation"
+    ],
+    "update_focus": "orientation for the touched interpretive area"
+  }
+}

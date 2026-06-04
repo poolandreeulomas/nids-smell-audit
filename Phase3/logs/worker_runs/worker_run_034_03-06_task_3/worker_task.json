@@ -1,0 +1,20 @@
+{
+  "task_id": "task_3",
+  "hypothesis_id": "hyp_10_potential_overfitting_risk_due_to_redundant_features",
+  "task_scope": "Examine local label consistency and distributional overlap within redundant feature clusters to assess label noise and overlap",
+  "allowed_actions": [
+    "local_consistency_verification",
+    "distribution_verification"
+  ],
+  "local_context_refs": [
+    "e3",
+    "e4",
+    "e13",
+    "e16",
+    "e22"
+  ],
+  "stop_conditions": [
+    "label consistency metrics stable",
+    "distribution overlap thresholds evaluated"
+  ]
+}

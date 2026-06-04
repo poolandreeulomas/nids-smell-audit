@@ -1,0 +1,20 @@
+{
+  "task_id": "task_4",
+  "hypothesis_id": "hyp_3_class_conditioned_structural_variation_in_packet_length_features",
+  "task_scope": "Evaluate stability of class-conditioned structural variations in packet length features e8-e12 across multiple data partitions to confirm robustness.",
+  "allowed_actions": [
+    "distribution_verification",
+    "local_consistency_verification"
+  ],
+  "local_context_refs": [
+    "e8",
+    "e9",
+    "e10",
+    "e11",
+    "e12"
+  ],
+  "stop_conditions": [
+    "structural variation stable across partitions",
+    "no significant drift detected"
+  ]
+}

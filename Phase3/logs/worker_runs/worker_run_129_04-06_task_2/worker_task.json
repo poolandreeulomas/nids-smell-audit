@@ -1,0 +1,17 @@
+{
+  "task_id": "task_2",
+  "hypothesis_id": "hyp_7_heterogeneous_structural_regimes",
+  "task_scope": "Compare class-conditioned structural variation patterns across identified regimes using evidence e10 and e23.",
+  "allowed_actions": [
+    "structural_summary",
+    "relation_verification"
+  ],
+  "local_context_refs": [
+    "e10",
+    "e23"
+  ],
+  "stop_conditions": [
+    "class-conditioned patterns characterized for all regimes",
+    "variation patterns stabilized"
+  ]
+}

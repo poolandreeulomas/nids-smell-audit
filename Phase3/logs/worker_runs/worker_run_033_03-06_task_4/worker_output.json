@@ -1,0 +1,25 @@
+{
+  "batch_id": "phase3a_batch_0306161030_friday-workinghours-afternoon-ddos.pcap_iscx_0595cd",
+  "round_id": "round-001",
+  "worker_result": {
+    "task_id": "task_4",
+    "hypothesis_id": "hyp_1_redundancy_vs_importance_tension",
+    "status": "completed",
+    "findings": [
+      "'Bwd Packet Length Mean' exhibits moderate local label conflicts, indicating imperfect local label consistency.",
+      "'Bwd Packet Length Mean' and 'Avg Bwd Segment Size' both show moderate shortcut-like signals, suggesting partial shortcut predictive leverage.",
+      "The perfect correlation between these features creates tension between redundancy and apparent importance that remains unresolved locally."
+    ],
+    "evidence_refs": [
+      "task_4_step_03",
+      "task_4_step_05",
+      "task_4_step_07"
+    ],
+    "contradictions": [
+      "Moderate label neighborhood conflicts and duplicate label conflicts for 'Bwd Packet Length Mean' preserve local contradictions about label consistency."
+    ],
+    "limitations": [
+      "Analysis limited to bounded local neighborhoods and single-feature decision stumps; global aggregation or multi-feature interactions not assessed."
+    ]
+  }
+}

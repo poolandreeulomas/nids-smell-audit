@@ -1,0 +1,569 @@
+{
+  "task_id": "task_4",
+  "action_sequence": [
+    {
+      "step_index": 3,
+      "action_index": 1,
+      "action_class": "shortcut_verification",
+      "context_ref": "e11",
+      "feature_name": "Average Packet Size",
+      "related_feature_name": null,
+      "call_id": "task_4_step_03",
+      "status": "ok"
+    },
+    {
+      "step_index": 5,
+      "action_index": 1,
+      "action_class": "structural_summary",
+      "context_ref": "e11",
+      "feature_name": "Bwd Packet Length Max",
+      "related_feature_name": null,
+      "call_id": "task_4_step_05",
+      "status": "ok"
+    },
+    {
+      "step_index": 7,
+      "action_index": 1,
+      "action_class": "structural_summary",
+      "context_ref": "e11",
+      "feature_name": "Bwd Packet Length Mean",
+      "related_feature_name": null,
+      "call_id": "task_4_step_07",
+      "status": "ok"
+    }
+  ],
+  "tool_events": [
+    {
+      "ok": true,
+      "execution_ok": true,
+      "call_id": "task_4_step_03",
+      "action": {
+        "action_class": "shortcut_verification",
+        "context_ref": "e11",
+        "feature_name": "Average Packet Size"
+      },
+      "tool_name": "shortcut_analysis",
+      "request": {
+        "call_id": "task_4_step_03",
+        "tool_name": "shortcut_analysis",
+        "target_scope": "feature",
+        "input_refs": {
+          "feature_name": "Average Packet Size"
+        },
+        "preprocessing_profile_ref": "default",
+        "execution_constraints": {
+          "cache_policy": "reuse",
+          "validation_mode": "strict",
+          "save_raw_output": true
+        }
+      },
+      "request_validation": {
+        "ok": true,
+        "errors": [],
+        "warnings": []
+      },
+      "raw_tool_output": {
+        "ok": true,
+        "tool": "shortcut_analysis",
+        "feature_name": "Average Packet Size",
+        "value": 0.7621406957295633,
+        "error_code": null,
+        "error_message": null,
+        "meta": {
+          "dataset_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\data\\cic_ids_2017\\Friday-WorkingHours-Afternoon-DDos.pcap_ISCX.csv",
+          "label_column": "Label"
+        },
+        "evidence": {
+          "feature": "Average Packet Size",
+          "signals": [
+            "moderate_shortcut_signal"
+          ],
+          "metrics": {
+            "cv_balanced_accuracy": 0.7621406957295633,
+            "cv_balanced_accuracy_std": 0.04026079333115027,
+            "train_balanced_accuracy": 0.7621452133977846,
+            "generalization_gap": 4.517668221293292e-06,
+            "threshold": 832.6285705566406,
+            "fold_count": 5,
+            "attack_rate": 0.5671310549513832,
+            "retained_rows": 225745,
+            "coverage_ratio": 1.0
+          },
+          "support": {
+            "n_total": 225745,
+            "n_per_class": {
+              "DDoS": 128027,
+              "BENIGN": 97718
+            },
+            "total_samples": 225745,
+            "per_class": {
+              "DDoS": 128027,
+              "BENIGN": 97718
+            }
+          },
+          "provenance": {
+            "source": "tool",
+            "tool": "shortcut_analysis",
+            "step": null
+          },
+          "status": "active"
+        }
+      },
+      "tool_result": {
+        "call_id": "task_4_step_03",
+        "tool_name": "shortcut_analysis",
+        "status": "ok",
+        "observations": {
+          "feature_name": "Average Packet Size",
+          "value": 0.7621406957295633,
+          "signals": [
+            "moderate_shortcut_signal"
+          ],
+          "metrics": {
+            "cv_balanced_accuracy": 0.7621406957295633,
+            "cv_balanced_accuracy_std": 0.04026079333115027,
+            "train_balanced_accuracy": 0.7621452133977846,
+            "generalization_gap": 4.517668221293292e-06,
+            "threshold": 832.6285705566406,
+            "fold_count": 5,
+            "attack_rate": 0.5671310549513832,
+            "retained_rows": 225745,
+            "coverage_ratio": 1.0
+          },
+          "support": {
+            "n_total": 225745,
+            "n_per_class": {
+              "DDoS": 128027,
+              "BENIGN": 97718
+            },
+            "total_samples": 225745,
+            "per_class": {
+              "DDoS": 128027,
+              "BENIGN": 97718
+            }
+          },
+          "provenance": {
+            "source": "tool",
+            "tool": "shortcut_analysis",
+            "step": null
+          },
+          "feature": "Average Packet Size"
+        },
+        "evidence_refs": [
+          {
+            "artifact": "parsed_output",
+            "path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_123_03-06_shortcut_analysis_feature\\parsed_output.json"
+          },
+          {
+            "artifact": "raw_tool_output",
+            "path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_123_03-06_shortcut_analysis_feature\\raw_tool_output.json"
+          },
+          {
+            "artifact": "component_run",
+            "path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_123_03-06_shortcut_analysis_feature\\component_run.json"
+          }
+        ],
+        "limitations": []
+      },
+      "result_validation": {
+        "ok": true,
+        "errors": [],
+        "warnings": []
+      },
+      "cache_events": [
+        {
+          "cache_key": "shortcut_analysis::Average Packet Size",
+          "status": "miss"
+        }
+      ],
+      "artifact_paths": {
+        "component_run_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_123_03-06_shortcut_analysis_feature\\component_run.json",
+        "tool_call_request_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_123_03-06_shortcut_analysis_feature\\tool_call_request.json",
+        "tool_capability_record_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_123_03-06_shortcut_analysis_feature\\tool_capability_record.json",
+        "normalized_inputs_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_123_03-06_shortcut_analysis_feature\\normalized_inputs.json",
+        "raw_tool_output_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_123_03-06_shortcut_analysis_feature\\raw_tool_output.json",
+        "parsed_output_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_123_03-06_shortcut_analysis_feature\\parsed_output.json",
+        "validation_report_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_123_03-06_shortcut_analysis_feature\\validation_report.json",
+        "tool_metrics_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_123_03-06_shortcut_analysis_feature\\tool_metrics.json",
+        "cache_record_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_123_03-06_shortcut_analysis_feature\\cache_record.json"
+      },
+      "error_message": "",
+      "step_index": 3,
+      "action_index": 1
+    },
+    {
+      "ok": true,
+      "execution_ok": true,
+      "call_id": "task_4_step_05",
+      "action": {
+        "action_class": "structural_summary",
+        "context_ref": "e11",
+        "feature_name": "Bwd Packet Length Max"
+      },
+      "tool_name": "feature_summary",
+      "request": {
+        "call_id": "task_4_step_05",
+        "tool_name": "feature_summary",
+        "target_scope": "feature",
+        "input_refs": {
+          "feature_name": "Bwd Packet Length Max"
+        },
+        "preprocessing_profile_ref": "default",
+        "execution_constraints": {
+          "cache_policy": "reuse",
+          "validation_mode": "strict",
+          "save_raw_output": true
+        }
+      },
+      "request_validation": {
+        "ok": true,
+        "errors": [],
+        "warnings": []
+      },
+      "raw_tool_output": {
+        "ok": true,
+        "tool": "feature_summary",
+        "feature_name": "Bwd Packet Length Max",
+        "value": 29.558449401422497,
+        "error_code": null,
+        "error_message": null,
+        "meta": {
+          "dataset_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\data\\cic_ids_2017\\Friday-WorkingHours-Afternoon-DDos.pcap_ISCX.csv",
+          "label_column": "Label"
+        },
+        "evidence": {
+          "feature": "Bwd Packet Length Max",
+          "signals": [
+            "high_variance_imbalance"
+          ],
+          "metrics": {
+            "mean": {
+              "BENIGN": 287.173396917661,
+              "DDoS": 4604.362040819515
+            },
+            "std": {
+              "BENIGN": 729.5403368724351,
+              "DDoS": 3966.3417672527457
+            },
+            "variance": {
+              "BENIGN": 532229.103123946,
+              "DDoS": 15731867.014653634
+            },
+            "coef_variation": {
+              "BENIGN": 2.5404175480837123,
+              "DDoS": 0.8614313409956768
+            },
+            "unique_values": {
+              "BENIGN": 1938,
+              "DDoS": 16
+            },
+            "variance_ratio": 29.558449401422497
+          },
+          "support": {
+            "n_total": 225745,
+            "n_per_class": {
+              "BENIGN": 97718,
+              "DDoS": 128027
+            },
+            "total_samples": 225745,
+            "per_class": {
+              "BENIGN": 97718,
+              "DDoS": 128027
+            }
+          },
+          "provenance": {
+            "source": "tool",
+            "tool": "feature_summary",
+            "step": null
+          },
+          "status": "active"
+        }
+      },
+      "tool_result": {
+        "call_id": "task_4_step_05",
+        "tool_name": "feature_summary",
+        "status": "ok",
+        "observations": {
+          "feature_name": "Bwd Packet Length Max",
+          "value": 29.558449401422497,
+          "signals": [
+            "high_variance_imbalance"
+          ],
+          "metrics": {
+            "mean": {
+              "BENIGN": 287.173396917661,
+              "DDoS": 4604.362040819515
+            },
+            "std": {
+              "BENIGN": 729.5403368724351,
+              "DDoS": 3966.3417672527457
+            },
+            "variance": {
+              "BENIGN": 532229.103123946,
+              "DDoS": 15731867.014653634
+            },
+            "coef_variation": {
+              "BENIGN": 2.5404175480837123,
+              "DDoS": 0.8614313409956768
+            },
+            "unique_values": {
+              "BENIGN": 1938,
+              "DDoS": 16
+            },
+            "variance_ratio": 29.558449401422497
+          },
+          "support": {
+            "n_total": 225745,
+            "n_per_class": {
+              "BENIGN": 97718,
+              "DDoS": 128027
+            },
+            "total_samples": 225745,
+            "per_class": {
+              "BENIGN": 97718,
+              "DDoS": 128027
+            }
+          },
+          "provenance": {
+            "source": "tool",
+            "tool": "feature_summary",
+            "step": null
+          },
+          "feature": "Bwd Packet Length Max"
+        },
+        "evidence_refs": [
+          {
+            "artifact": "parsed_output",
+            "path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_128_03-06_feature_summary_feature\\parsed_output.json"
+          },
+          {
+            "artifact": "raw_tool_output",
+            "path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_128_03-06_feature_summary_feature\\raw_tool_output.json"
+          },
+          {
+            "artifact": "component_run",
+            "path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_128_03-06_feature_summary_feature\\component_run.json"
+          }
+        ],
+        "limitations": []
+      },
+      "result_validation": {
+        "ok": true,
+        "errors": [],
+        "warnings": []
+      },
+      "cache_events": [
+        {
+          "cache_key": "feature_summary::Bwd Packet Length Max",
+          "status": "miss"
+        }
+      ],
+      "artifact_paths": {
+        "component_run_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_128_03-06_feature_summary_feature\\component_run.json",
+        "tool_call_request_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_128_03-06_feature_summary_feature\\tool_call_request.json",
+        "tool_capability_record_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_128_03-06_feature_summary_feature\\tool_capability_record.json",
+        "normalized_inputs_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_128_03-06_feature_summary_feature\\normalized_inputs.json",
+        "raw_tool_output_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_128_03-06_feature_summary_feature\\raw_tool_output.json",
+        "parsed_output_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_128_03-06_feature_summary_feature\\parsed_output.json",
+        "validation_report_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_128_03-06_feature_summary_feature\\validation_report.json",
+        "tool_metrics_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_128_03-06_feature_summary_feature\\tool_metrics.json",
+        "cache_record_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_128_03-06_feature_summary_feature\\cache_record.json"
+      },
+      "error_message": "",
+      "step_index": 5,
+      "action_index": 1
+    },
+    {
+      "ok": true,
+      "execution_ok": true,
+      "call_id": "task_4_step_07",
+      "action": {
+        "action_class": "structural_summary",
+        "context_ref": "e11",
+        "feature_name": "Bwd Packet Length Mean"
+      },
+      "tool_name": "feature_summary",
+      "request": {
+        "call_id": "task_4_step_07",
+        "tool_name": "feature_summary",
+        "target_scope": "feature",
+        "input_refs": {
+          "feature_name": "Bwd Packet Length Mean"
+        },
+        "preprocessing_profile_ref": "default",
+        "execution_constraints": {
+          "cache_policy": "reuse",
+          "validation_mode": "strict",
+          "save_raw_output": true
+        }
+      },
+      "request_validation": {
+        "ok": true,
+        "errors": [],
+        "warnings": []
+      },
+      "raw_tool_output": {
+        "ok": true,
+        "tool": "feature_summary",
+        "feature_name": "Bwd Packet Length Mean",
+        "value": 20.433875509874728,
+        "error_code": null,
+        "error_message": null,
+        "meta": {
+          "dataset_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\data\\cic_ids_2017\\Friday-WorkingHours-Afternoon-DDos.pcap_ISCX.csv",
+          "label_column": "Label"
+        },
+        "evidence": {
+          "feature": "Bwd Packet Length Mean",
+          "signals": [
+            "high_variance_imbalance"
+          ],
+          "metrics": {
+            "mean": {
+              "BENIGN": 116.89619457877653,
+              "DDoS": 1481.0264915886573
+            },
+            "std": {
+              "BENIGN": 257.69338146001024,
+              "DDoS": 1164.8731525405974
+            },
+            "variance": {
+              "BENIGN": 66405.87884829435,
+              "DDoS": 1356929.4615098701
+            },
+            "coef_variation": {
+              "BENIGN": 2.2044633906910485,
+              "DDoS": 0.786530935912611
+            },
+            "unique_values": {
+              "BENIGN": 8639,
+              "DDoS": 20
+            },
+            "variance_ratio": 20.433875509874728
+          },
+          "support": {
+            "n_total": 225745,
+            "n_per_class": {
+              "BENIGN": 97718,
+              "DDoS": 128027
+            },
+            "total_samples": 225745,
+            "per_class": {
+              "BENIGN": 97718,
+              "DDoS": 128027
+            }
+          },
+          "provenance": {
+            "source": "tool",
+            "tool": "feature_summary",
+            "step": null
+          },
+          "status": "active"
+        }
+      },
+      "tool_result": {
+        "call_id": "task_4_step_07",
+        "tool_name": "feature_summary",
+        "status": "ok",
+        "observations": {
+          "feature_name": "Bwd Packet Length Mean",
+          "value": 20.433875509874728,
+          "signals": [
+            "high_variance_imbalance"
+          ],
+          "metrics": {
+            "mean": {
+              "BENIGN": 116.89619457877653,
+              "DDoS": 1481.0264915886573
+            },
+            "std": {
+              "BENIGN": 257.69338146001024,
+              "DDoS": 1164.8731525405974
+            },
+            "variance": {
+              "BENIGN": 66405.87884829435,
+              "DDoS": 1356929.4615098701
+            },
+            "coef_variation": {
+              "BENIGN": 2.2044633906910485,
+              "DDoS": 0.786530935912611
+            },
+            "unique_values": {
+              "BENIGN": 8639,
+              "DDoS": 20
+            },
+            "variance_ratio": 20.433875509874728
+          },
+          "support": {
+            "n_total": 225745,
+            "n_per_class": {
+              "BENIGN": 97718,
+              "DDoS": 128027
+            },
+            "total_samples": 225745,
+            "per_class": {
+              "BENIGN": 97718,
+              "DDoS": 128027
+            }
+          },
+          "provenance": {
+            "source": "tool",
+            "tool": "feature_summary",
+            "step": null
+          },
+          "feature": "Bwd Packet Length Mean"
+        },
+        "evidence_refs": [
+          {
+            "artifact": "parsed_output",
+            "path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_134_03-06_feature_summary_feature\\parsed_output.json"
+          },
+          {
+            "artifact": "raw_tool_output",
+            "path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_134_03-06_feature_summary_feature\\raw_tool_output.json"
+          },
+          {
+            "artifact": "component_run",
+            "path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_134_03-06_feature_summary_feature\\component_run.json"
+          }
+        ],
+        "limitations": []
+      },
+      "result_validation": {
+        "ok": true,
+        "errors": [],
+        "warnings": []
+      },
+      "cache_events": [
+        {
+          "cache_key": "feature_summary::Bwd Packet Length Mean",
+          "status": "miss"
+        }
+      ],
+      "artifact_paths": {
+        "component_run_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_134_03-06_feature_summary_feature\\component_run.json",
+        "tool_call_request_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_134_03-06_feature_summary_feature\\tool_call_request.json",
+        "tool_capability_record_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_134_03-06_feature_summary_feature\\tool_capability_record.json",
+        "normalized_inputs_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_134_03-06_feature_summary_feature\\normalized_inputs.json",
+        "raw_tool_output_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_134_03-06_feature_summary_feature\\raw_tool_output.json",
+        "parsed_output_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_134_03-06_feature_summary_feature\\parsed_output.json",
+        "validation_report_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_134_03-06_feature_summary_feature\\validation_report.json",
+        "tool_metrics_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_134_03-06_feature_summary_feature\\tool_metrics.json",
+        "cache_record_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_134_03-06_feature_summary_feature\\cache_record.json"
+      },
+      "error_message": "",
+      "step_index": 7,
+      "action_index": 1
+    }
+  ],
+  "retry_events": [],
+  "failure_events": [],
+  "budget_consumption": {
+    "max_steps": 8,
+    "max_retries": 1,
+    "steps_used": 8,
+    "retries_used": 0,
+    "termination_cause": "model_finish",
+    "result_committed": true
+  }
+}

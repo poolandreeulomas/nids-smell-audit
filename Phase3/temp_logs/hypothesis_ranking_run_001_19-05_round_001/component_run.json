@@ -1,0 +1,27 @@
+{
+  "component": "hypothesis_ranking",
+  "created_at": "2026-05-19T17:56:16.515085+00:00",
+  "schema_version": "phase3a.hypothesis_ranking.v1",
+  "batch_id": "batch-001",
+  "analysis_id": "analysis-batch-001",
+  "round_id": "round-001",
+  "status": "error",
+  "validation_ok": false,
+  "model_name": "gpt-4.1-mini",
+  "caller_mode": "cli",
+  "replay_of": null,
+  "artifact_paths": {
+    "component_run_path": "temp_logs\\hypothesis_ranking_run_001_19-05_round_001\\component_run.json",
+    "candidate_hypotheses_path": "temp_logs\\hypothesis_ranking_run_001_19-05_round_001\\candidate_hypotheses.json",
+    "ranking_state_snapshot_path": "temp_logs\\hypothesis_ranking_run_001_19-05_round_001\\ranking_state_snapshot.json",
+    "projected_candidate_context_path": "temp_logs\\hypothesis_ranking_run_001_19-05_round_001\\projected_candidate_context.json",
+    "projected_ranking_state_path": "temp_logs\\hypothesis_ranking_run_001_19-05_round_001\\projected_ranking_state.json",
+    "rendered_prompt_path": "temp_logs\\hypothesis_ranking_run_001_19-05_round_001\\rendered_prompt.txt",
+    "raw_response_path": "temp_logs\\hypothesis_ranking_run_001_19-05_round_001\\raw_response.txt",
+    "parsed_output_path": "temp_logs\\hypothesis_ranking_run_001_19-05_round_001\\parsed_output.json",
+    "selection_index_path": "temp_logs\\hypothesis_ranking_run_001_19-05_round_001\\selection_index.json",
+    "validation_report_path": "temp_logs\\hypothesis_ranking_run_001_19-05_round_001\\validation_report.json",
+    "runtime_metrics_path": "temp_logs\\hypothesis_ranking_run_001_19-05_round_001\\runtime_metrics.json",
+    "replay_metadata_path": "temp_logs\\hypothesis_ranking_run_001_19-05_round_001\\replay_metadata.json"
+  }
+}

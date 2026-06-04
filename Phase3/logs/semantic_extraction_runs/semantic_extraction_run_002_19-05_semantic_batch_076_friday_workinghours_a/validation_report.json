@@ -1,0 +1,116 @@
+{
+  "ok": false,
+  "schema_version": "phase3a.semantic_extraction.v1",
+  "overview_validation": {
+    "ok": true,
+    "errors": [],
+    "warnings": []
+  },
+  "partition_context_validation": {
+    "ok": true,
+    "errors": [],
+    "warnings": []
+  },
+  "parse_validation": {
+    "ok": true,
+    "errors": [],
+    "warnings": []
+  },
+  "output_validation": {
+    "ok": false,
+    "errors": [
+      {
+        "field": "compressed_regions[0].feature_scope.feature_groups",
+        "message": "feature_groups must be a list."
+      },
+      {
+        "field": "compressed_regions[0].feature_scope.locality",
+        "message": "locality must be an object."
+      },
+      {
+        "field": "compressed_regions[0].uncertainty_notes",
+        "message": "uncertainty_notes must be a list of strings."
+      },
+      {
+        "field": "compressed_regions[1].feature_scope.feature_groups",
+        "message": "feature_groups must be a list."
+      },
+      {
+        "field": "compressed_regions[1].feature_scope.locality",
+        "message": "locality must be an object."
+      },
+      {
+        "field": "compressed_regions[1].uncertainty_notes",
+        "message": "uncertainty_notes must be a list of strings."
+      },
+      {
+        "field": "compressed_regions[2].feature_scope.feature_groups",
+        "message": "feature_groups must be a list."
+      },
+      {
+        "field": "compressed_regions[2].feature_scope.locality",
+        "message": "locality must be an object."
+      },
+      {
+        "field": "compressed_regions[2].uncertainty_notes",
+        "message": "uncertainty_notes must be a list of strings."
+      },
+      {
+        "field": "compressed_regions[3].feature_scope.feature_groups",
+        "message": "feature_groups must be a list."
+      },
+      {
+        "field": "compressed_regions[3].feature_scope.locality",
+        "message": "locality must be an object."
+      },
+      {
+        "field": "compressed_regions[3].uncertainty_notes",
+        "message": "uncertainty_notes must be a list of strings."
+      },
+      {
+        "field": "compressed_regions[4].feature_scope.feature_groups",
+        "message": "feature_groups must be a list."
+      },
+      {
+        "field": "compressed_regions[4].feature_scope.locality",
+        "message": "locality must be an object."
+      },
+      {
+        "field": "compressed_regions[4].uncertainty_notes",
+        "message": "uncertainty_notes must be a list of strings."
+      },
+      {
+        "field": "preserved_weak_signals[0].feature_scope.locality",
+        "message": "locality must be an object."
+      },
+      {
+        "field": "preserved_weak_signals[0].uncertainty_notes",
+        "message": "uncertainty_notes must be a list of strings."
+      },
+      {
+        "field": "preserved_weak_signals[1].feature_scope.locality",
+        "message": "locality must be an object."
+      },
+      {
+        "field": "preserved_weak_signals[1].uncertainty_notes",
+        "message": "uncertainty_notes must be a list of strings."
+      }
+    ],
+    "warnings": [],
+    "stats": {
+      "region_count": 5,
+      "weak_signal_count": 2,
+      "contradiction_count": 0,
+      "tension_count": 0,
+      "grounded_reference_count": 33
+    },
+    "invariants": {
+      "grounded_only": true,
+      "contradictions_preserved": false,
+      "minority_signals_preserved": true,
+      "causal_inference_introduced": false,
+      "context_used_only_for_interpretation": true
+    },
+    "forbidden_language_hits": []
+  }
+}

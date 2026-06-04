@@ -1,0 +1,19 @@
+{
+  "strategy_id": "strategy_01_hyp_004",
+  "hypothesis_id": "hyp_004_strong_feature_dependency_pairs",
+  "strategic_objective": "Clarify the nature, stability, and class-conditioning of strong feature dependencies to assess redundancy and dimensionality reduction potential.",
+  "key_checks": [
+    "Compare dependency strength across benign and attack classes",
+    "Assess if dependencies arise from protocol behavior or feature engineering",
+    "Evaluate consistency of dependencies over time and network conditions"
+  ],
+  "success_criteria": [
+    "Evidence that dependencies are stable or vary with class conditioning",
+    "Identification of dependencies inherent to protocol vs engineered artifacts",
+    "Determination of redundancy exploitable for feature reduction without information loss"
+  ],
+  "router_constraints": [
+    "preserve feature_scope",
+    "preserve evidence refs e13 to e22"
+  ]
+}

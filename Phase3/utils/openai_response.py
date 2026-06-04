@@ -2,11 +2,37 @@
 
 from __future__ import annotations
 
+from pathlib import Path
 from typing import Any
 
 
+def load_local_dotenv(start_path: str | Path | None = None) -> Path | None:
+    """Load the nearest repo-local .env file without overriding shell vars."""
+    try:
+        from dotenv import load_dotenv
+    except ImportError:
+        return None
+
+    anchor = Path(start_path or __file__).resolve()
+    search_root = anchor if anchor.is_dir() else anchor.parent
+
+    for candidate_dir in (search_root, *search_root.parents):
+        candidate = candidate_dir / ".env"
+        if candidate.is_file():
+            load_dotenv(candidate, override=False)
+            return candidate
+    return None
+
+
+_LOADED_DOTENV_PATH = load_local_dotenv()
+
+
 _RESPONSES_MODELS_WITHOUT_TEMPERATURE_PREFIXES = (
-    "gpt-5.5",
+    # Exclude all GPT-5 family models from receiving the `temperature`
+    # parameter since newer GPT-5 variants may reject it at the transport
+    # layer. Matching on the prefix `gpt-5` covers `gpt-5-mini`,
+    # `gpt-5.5`, and other GPT-5 variants.
+    "gpt-5",
 )
 
 

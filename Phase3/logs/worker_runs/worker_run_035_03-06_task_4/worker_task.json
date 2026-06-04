@@ -1,0 +1,18 @@
+{
+  "task_id": "task_4",
+  "hypothesis_id": "hyp_3_distributional_skew_vs_partition_imbalance",
+  "task_scope": "Check for local consistency and dependency concentration around dominant Destination Port values to detect stable or unstable signals.",
+  "allowed_actions": [
+    "local_consistency_verification",
+    "dependency_contextualization"
+  ],
+  "local_context_refs": [
+    "e1",
+    "e2",
+    "e33"
+  ],
+  "stop_conditions": [
+    "dependency concentration metrics stable",
+    "local consistency verified"
+  ]
+}

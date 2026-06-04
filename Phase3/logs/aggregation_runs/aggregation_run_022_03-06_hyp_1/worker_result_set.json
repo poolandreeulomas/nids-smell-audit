@@ -1,0 +1,33 @@
+{
+  "batch_id": "batch-001",
+  "round_id": "round-001",
+  "hypothesis_id": "hyp-1",
+  "worker_results": [
+    {
+      "task_id": "task-hyp-1-1",
+      "hypothesis_id": "hyp-1",
+      "status": "completed",
+      "findings": [
+        "finding-1"
+      ],
+      "evidence_refs": [
+        "e1"
+      ],
+      "contradictions": [],
+      "limitations": []
+    },
+    {
+      "task_id": "task-hyp-1-2",
+      "hypothesis_id": "hyp-1",
+      "status": "completed",
+      "findings": [
+        "finding-2"
+      ],
+      "evidence_refs": [
+        "e2"
+      ],
+      "contradictions": [],
+      "limitations": []
+    }
+  ]
+}

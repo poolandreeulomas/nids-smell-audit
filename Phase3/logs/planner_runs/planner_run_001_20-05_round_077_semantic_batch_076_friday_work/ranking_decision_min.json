@@ -1,0 +1,9 @@
+{
+  "batch_id": "semantic_batch_076_friday-workinghours-afternoon-ddos.pcap_iscx",
+  "round_id": "round_077_semantic_batch_076_friday-workinghours-afternoon-ddos.pcap_iscx",
+  "selected_hypothesis_ids": [
+    "hyp_05_tension_between_redundancy_and_representation",
+    "hyp_06_tension_between_constant_and_variable_features",
+    "hyp_03_class_conditioned_packet_size_and_port_distributions"
+  ]
+}

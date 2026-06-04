@@ -1,0 +1,20 @@
+{
+  "task_id": "task_2",
+  "hypothesis_id": "hyp_3_class_conditioned_structural_variation_in_packet_length_features",
+  "task_scope": "Assess dependency concentration and local consistency within features e8-e12 to distinguish behavioral signals from sampling bias.",
+  "allowed_actions": [
+    "dependency_contextualization",
+    "local_consistency_verification"
+  ],
+  "local_context_refs": [
+    "e8",
+    "e9",
+    "e10",
+    "e11",
+    "e12"
+  ],
+  "stop_conditions": [
+    "dependency concentration metrics stable",
+    "local consistency verified across data segments"
+  ]
+}

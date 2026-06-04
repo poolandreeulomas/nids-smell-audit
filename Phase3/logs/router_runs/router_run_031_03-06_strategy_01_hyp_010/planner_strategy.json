@@ -1,0 +1,21 @@
+{
+  "strategy_id": "strategy_01_hyp_010",
+  "hypothesis_id": "hyp_010_potential_effects_of_data_redundancy_on_feature_correlations",
+  "strategic_objective": "Assess the impact of duplicated rows on feature correlation strength and dependency inflation to understand redundancy effects on dataset structure.",
+  "key_checks": [
+    "Quantify the proportion and distribution of duplicated rows in the dataset",
+    "Compare feature correlation matrices before and after deduplication",
+    "Evaluate changes in feature importance or dependency concentration post-deduplication",
+    "Check for persistence or attenuation of near-perfect correlations after removing duplicates"
+  ],
+  "success_criteria": [
+    "Clear evidence that deduplication reduces inflated correlations and dependency measures",
+    "Identification of features whose dependency profiles are robust versus sensitive to redundancy",
+    "Bounded understanding of how redundancy biases downstream structural interpretations"
+  ],
+  "router_constraints": [
+    "preserve evidence refs e1,e2,e13,e14,e15,e16,e17,e18,e19,e20,e21,e22",
+    "preserve feature_scope related to correlated features",
+    "preserve dataset scope for duplication context"
+  ]
+}

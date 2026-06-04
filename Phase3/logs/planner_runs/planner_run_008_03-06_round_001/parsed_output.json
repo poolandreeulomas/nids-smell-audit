@@ -1,0 +1,66 @@
+{
+  "batch_id": "phase3a_batch_0306153018_friday-workinghours-afternoon-ddos.pcap_iscx_218609",
+  "round_id": "round-001",
+  "planner_strategies": [
+    {
+      "strategy_id": "strategy_01_hyp_001",
+      "hypothesis_id": "hyp_001_low_cardinality_bulk_features",
+      "strategic_objective": "Clarify whether near-constant bulk feature values reflect true network saturation or data artifacts and assess their impact on subtle attack-related variations.",
+      "key_checks": [
+        "Measure temporal stability of low cardinality in bulk features",
+        "Compare bulk feature distributions across attack and benign classes",
+        "Assess sensitivity of bulk features to minor traffic fluctuations",
+        "Check for potential masking of relevant signals by near-constant values"
+      ],
+      "success_criteria": [
+        "Evidence supports bulk features as stable saturation indicators or reveals artifact patterns",
+        "Identification of any subtle but meaningful variations within near-constant bulk features",
+        "Clear differentiation between genuine network behavior and data collection effects"
+      ],
+      "router_constraints": [
+        "preserve bulk feature scope (e23-e32)",
+        "preserve evidence references e23 to e32"
+      ]
+    },
+    {
+      "strategy_id": "strategy_02_hyp_002",
+      "hypothesis_id": "hyp_002_strong_feature_dependencies_indicate_redundancy",
+      "strategic_objective": "Determine stability and class-dependence of strong feature correlations and evaluate their effect on independent signal representation.",
+      "key_checks": [
+        "Analyze correlation consistency across BENIGN and DDoS classes",
+        "Identify any class-specific shifts in dependency strength",
+        "Evaluate whether dependencies obscure or preserve independent predictive signals",
+        "Examine redundancy impact on effective feature dimensionality"
+      ],
+      "success_criteria": [
+        "Dependencies confirmed stable or varying with class presence",
+        "Clarification of redundancy extent and its influence on signal diversity",
+        "Evidence of whether dependencies mask or maintain meaningful independent features"
+      ],
+      "router_constraints": [
+        "preserve feature pairs scope (e13-e22)",
+        "preserve evidence references e13 to e22"
+      ]
+    },
+    {
+      "strategy_id": "strategy_03_hyp_006",
+      "hypothesis_id": "hyp_006_class_distribution_and_destination_port_divergence",
+      "strategic_objective": "Investigate the nature and temporal stability of the zero entropy and distributional divergence in Destination Port between classes to understand its discriminative role.",
+      "key_checks": [
+        "Verify zero entropy presence in Destination Port for DDoS class over time",
+        "Assess Jensen-Shannon divergence stability across dataset partitions",
+        "Compare Destination Port distribution shifts with class imbalance fluctuations",
+        "Evaluate if distributional patterns reflect targeted attack vectors or dataset artifacts"
+      ],
+      "success_criteria": [
+        "Consistent zero entropy and divergence patterns supporting targeted attack interpretation or artifact identification",
+        "Demonstrated stability or variability of distributional divergence over time or partitions",
+        "Clear understanding of Destination Port\u2019s discriminative reliability"
+      ],
+      "router_constraints": [
+        "preserve Destination Port feature scope",
+        "preserve evidence references e2 and e33"
+      ]
+    }
+  ]
+}

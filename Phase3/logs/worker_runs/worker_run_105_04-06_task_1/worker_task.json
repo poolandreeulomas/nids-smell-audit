@@ -1,0 +1,19 @@
+{
+  "task_id": "task_1",
+  "hypothesis_id": "hyp_005_class_conditioned_variation_backward_packet_lengths",
+  "task_scope": "Verify stability of backward packet length variations across different time windows and network conditions using evidence refs e9 to e12.",
+  "allowed_actions": [
+    "distribution_verification",
+    "local_consistency_verification"
+  ],
+  "local_context_refs": [
+    "e9",
+    "e10",
+    "e11",
+    "e12"
+  ],
+  "stop_conditions": [
+    "variation distribution stable across time windows",
+    "no significant drift under network condition changes"
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "strategy_id": "strategy_01_hyp_4",
+  "hypothesis_id": "hyp_4_representation_sensitive_distribution_skew_in_destination_port",
+  "strategic_objective": "Clarify the nature and stability of the dominant destination port distribution difference between DDoS and BENIGN classes to assess representation sensitivity and potential sampling bias.",
+  "key_checks": [
+    "Compare destination port distribution across multiple time frames and data partitions",
+    "Measure entropy and dominant port ratio stability within each class over time",
+    "Assess whether the dominant port in DDoS is consistent or varies with attack instances"
+  ],
+  "success_criteria": [
+    "Identification of consistent port dominance patterns supporting targeted attack vector hypothesis",
+    "Detection of significant variation suggesting sampling or temporal bias",
+    "Quantification of distribution stability to bound representation sensitivity"
+  ],
+  "router_constraints": [
+    "preserve destination port feature scope",
+    "preserve class-conditioned distribution evidence references"
+  ]
+}

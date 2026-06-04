@@ -1,0 +1,17 @@
+{
+  "batch_id": "semantic_batch_076_friday-workinghours-afternoon-ddos.pcap_iscx",
+  "round_id": "round_077_semantic_batch_076_friday-workinghours-afternoon-ddos.pcap_iscx",
+  "hypothesis_id": "hyp_05_tension_between_redundancy_and_representation",
+  "planner_strategy_id": "strategy_01_hyp_05",
+  "model_name": "gpt-4.1-mini",
+  "duration_ms": 11200.176,
+  "status": "error",
+  "prompt_chars": 6159,
+  "raw_response_chars": 2162,
+  "task_count": 3,
+  "allowed_action_class_count": 6,
+  "fresh_execution": true,
+  "replay_of": null,
+  "caller_mode": "cli",
+  "schema_version": "phase3a.router.v1"
+}

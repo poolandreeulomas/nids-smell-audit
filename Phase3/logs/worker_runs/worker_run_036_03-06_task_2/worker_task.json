@@ -1,0 +1,14 @@
+{
+  "task_id": "task_2",
+  "hypothesis_id": "hyp_006",
+  "task_scope": "Assess stability of Destination Port distribution over defined time segments within evidence e33",
+  "allowed_actions": [
+    "distribution_verification"
+  ],
+  "local_context_refs": [
+    "e33"
+  ],
+  "stop_conditions": [
+    "distribution metrics stable or variable patterns identified across time segments"
+  ]
+}

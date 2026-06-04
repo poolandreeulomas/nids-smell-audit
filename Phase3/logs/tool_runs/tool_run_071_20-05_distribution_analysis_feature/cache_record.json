@@ -1,0 +1,10 @@
+{
+  "status": "tracked",
+  "events": [
+    {
+      "cache_key": "distribution_analysis::Avg Bwd Segment Size",
+      "status": "hit"
+    }
+  ],
+  "event_count": 1
+}

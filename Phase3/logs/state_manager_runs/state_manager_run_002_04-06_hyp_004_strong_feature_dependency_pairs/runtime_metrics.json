@@ -1,0 +1,23 @@
+{
+  "request_id": "state_manager_af04c6471a214ddca81dc4d5337c030e",
+  "batch_id": "phase3a_batch_0406095248_friday-workinghours-afternoon-ddos.pcap_iscx_f8c2c2",
+  "round_id": "round-001",
+  "hypothesis_id": "hyp_004_strong_feature_dependency_pairs",
+  "prompt_version": "phase3a.state_manager.prompt.v1",
+  "model_name": "gpt-4.1-mini",
+  "temperature": 0.0,
+  "duration_ms": 3.83,
+  "status": "error",
+  "previous_state_version": 1,
+  "new_state_version": null,
+  "applied_update_count": 0,
+  "remaining_open_gap_count": 0,
+  "state_committed": false,
+  "prior_state_origin": "phase3a_runtime_round",
+  "prompt_chars": 0,
+  "raw_response_chars": 0,
+  "fresh_execution": true,
+  "replay_of": null,
+  "caller_mode": "cli",
+  "schema_version": "phase3a.state_manager.v1"
+}

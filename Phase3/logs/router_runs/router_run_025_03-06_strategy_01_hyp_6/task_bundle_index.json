@@ -1,0 +1,40 @@
+{
+  "hypothesis_id": "hyp_6_class_distribution_difference_destination_port",
+  "planner_strategy_id": "strategy_01_hyp_6",
+  "task_count": 4,
+  "action_class_count": 6,
+  "task_summaries": [
+    {
+      "task_id": "task_1",
+      "hypothesis_id": "hyp_6_class_distribution_difference_destination_port",
+      "task_scope": "Verify if zero entropy in DDoS destination ports corresponds to a single or very few targeted ports within evidence e33",
+      "allowed_action_count": 2,
+      "local_context_ref_count": 1,
+      "stop_condition_count": 2
+    },
+    {
+      "task_id": "task_2",
+      "hypothesis_id": "hyp_6_class_distribution_difference_destination_port",
+      "task_scope": "Assess if the dominant ratio of 1.0 for destination port in DDoS class is consistent across data partitions in evidence e33",
+      "allowed_action_count": 2,
+      "local_context_ref_count": 1,
+      "stop_condition_count": 2
+    },
+    {
+      "task_id": "task_3",
+      "hypothesis_id": "hyp_6_class_distribution_difference_destination_port",
+      "task_scope": "Evaluate potential shortcut-like predictive leverage of Destination Port for DDoS class using evidence e33",
+      "allowed_action_count": 2,
+      "local_context_ref_count": 1,
+      "stop_condition_count": 2
+    },
+    {
+      "task_id": "task_4",
+      "hypothesis_id": "hyp_6_class_distribution_difference_destination_port",
+      "task_scope": "Examine stability of model behavior when excluding or perturbing Destination Port feature based on evidence e33",
+      "allowed_action_count": 2,
+      "local_context_ref_count": 1,
+      "stop_condition_count": 2
+    }
+  ]
+}

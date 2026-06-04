@@ -1,0 +1,108 @@
+{
+  "batch_id": "phase3a_batch_0406132627_friday-workinghours-afternoon-ddos.pcap_iscx_f0e355",
+  "round_id": "round-001",
+  "hypothesis_id": "hyp_5_strong_linear_dependencies",
+  "planner_strategy_id": "strategy_01_hyp_5",
+  "worker_tasks": [
+    {
+      "task_id": "task_1",
+      "hypothesis_id": "hyp_5_strong_linear_dependencies",
+      "task_scope": "Quantify linear dependency strength and identify feature pairs with correlations >= 0.9993 within evidence refs e13 to e22",
+      "allowed_actions": [
+        "dependency_contextualization",
+        "relation_verification"
+      ],
+      "local_context_refs": [
+        "e13",
+        "e14",
+        "e15",
+        "e16",
+        "e17",
+        "e18",
+        "e19",
+        "e20",
+        "e21",
+        "e22"
+      ],
+      "stop_conditions": [
+        "all feature pairs with correlation >= 0.9993 identified",
+        "correlation metrics stable across samples"
+      ]
+    },
+    {
+      "task_id": "task_2",
+      "hypothesis_id": "hyp_5_strong_linear_dependencies",
+      "task_scope": "Distinguish dependencies arising from protocol or measurement constraints versus engineered feature overlap in evidence refs e13 to e22",
+      "allowed_actions": [
+        "dependency_contextualization",
+        "structural_summary"
+      ],
+      "local_context_refs": [
+        "e13",
+        "e14",
+        "e15",
+        "e16",
+        "e17",
+        "e18",
+        "e19",
+        "e20",
+        "e21",
+        "e22"
+      ],
+      "stop_conditions": [
+        "dependency origins classified as protocol-based or engineered",
+        "no unresolved dependency sources remain"
+      ]
+    },
+    {
+      "task_id": "task_3",
+      "hypothesis_id": "hyp_5_strong_linear_dependencies",
+      "task_scope": "Evaluate impact of identified linear dependencies on feature selection stability and model sensitivity using evidence refs e13 to e22",
+      "allowed_actions": [
+        "distribution_verification",
+        "local_consistency_verification"
+      ],
+      "local_context_refs": [
+        "e13",
+        "e14",
+        "e15",
+        "e16",
+        "e17",
+        "e18",
+        "e19",
+        "e20",
+        "e21",
+        "e22"
+      ],
+      "stop_conditions": [
+        "feature selection stability metrics computed",
+        "model sensitivity variations documented"
+      ]
+    },
+    {
+      "task_id": "task_4",
+      "hypothesis_id": "hyp_5_strong_linear_dependencies",
+      "task_scope": "Check for potential masking or amplification of signal due to redundant features within evidence refs e13 to e22",
+      "allowed_actions": [
+        "shortcut_verification",
+        "duplication_verification"
+      ],
+      "local_context_refs": [
+        "e13",
+        "e14",
+        "e15",
+        "e16",
+        "e17",
+        "e18",
+        "e19",
+        "e20",
+        "e21",
+        "e22"
+      ],
+      "stop_conditions": [
+        "redundant features identified and their signal impact assessed",
+        "no further masking or amplification effects detected"
+      ]
+    }
+  ]
+}

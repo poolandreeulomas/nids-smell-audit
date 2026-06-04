@@ -1,0 +1,18 @@
+{
+  "batch_id": "phase3a_batch_0306173106_friday-workinghours-afternoon-ddos.pcap_iscx_98251a",
+  "round_id": "round-001",
+  "worker_result": {
+    "task_id": "task_2",
+    "hypothesis_id": "hyp_006",
+    "status": "completed",
+    "findings": [
+      "Destination Port distribution exhibits stable, low-entropy dominant values with high class-conditioned separation across time segments in evidence e33."
+    ],
+    "evidence_refs": [
+      "task_2_step_03",
+      "task_2_step_05"
+    ],
+    "contradictions": [],
+    "limitations": []
+  }
+}

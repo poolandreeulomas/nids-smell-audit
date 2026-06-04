@@ -1,0 +1,388 @@
+[
+  {
+    "ok": true,
+    "execution_ok": false,
+    "call_id": "task_3_step_03",
+    "action": {
+      "action_class": "dependency_contextualization",
+      "context_ref": "e23",
+      "feature_name": "Bwd Avg Bulk Rate"
+    },
+    "tool_name": "dependency_concentration_analysis",
+    "request": {
+      "call_id": "task_3_step_03",
+      "tool_name": "dependency_concentration_analysis",
+      "target_scope": "feature",
+      "input_refs": {
+        "feature_name": "Bwd Avg Bulk Rate"
+      },
+      "preprocessing_profile_ref": "default",
+      "execution_constraints": {
+        "cache_policy": "reuse",
+        "validation_mode": "strict",
+        "save_raw_output": true
+      }
+    },
+    "request_validation": {
+      "ok": true,
+      "errors": [],
+      "warnings": []
+    },
+    "raw_tool_output": {
+      "ok": false,
+      "tool": "dependency_concentration_analysis",
+      "feature_name": "Bwd Avg Bulk Rate",
+      "value": null,
+      "error_code": "DATASET_VALIDATION_ERROR",
+      "error_message": "Dependency concentration analysis requires at least one finite pairwise dependency.",
+      "meta": {
+        "error": "DATASET_VALIDATION_ERROR"
+      },
+      "evidence": {
+        "feature": "Bwd Avg Bulk Rate",
+        "signals": [],
+        "metrics": {},
+        "support": {},
+        "provenance": {
+          "source": "tool",
+          "tool": "dependency_concentration_analysis",
+          "step": null
+        },
+        "status": "active"
+      }
+    },
+    "tool_result": {
+      "call_id": "task_3_step_03",
+      "tool_name": "dependency_concentration_analysis",
+      "status": "error",
+      "observations": {
+        "feature_name": "Bwd Avg Bulk Rate",
+        "value": null,
+        "signals": [],
+        "metrics": {},
+        "support": {},
+        "provenance": {
+          "source": "tool",
+          "tool": "dependency_concentration_analysis",
+          "step": null
+        },
+        "feature": "Bwd Avg Bulk Rate"
+      },
+      "evidence_refs": [
+        {
+          "artifact": "parsed_output",
+          "path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_350_04-06_dependency_concentration_analysis_feature\\parsed_output.json"
+        },
+        {
+          "artifact": "raw_tool_output",
+          "path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_350_04-06_dependency_concentration_analysis_feature\\raw_tool_output.json"
+        },
+        {
+          "artifact": "component_run",
+          "path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_350_04-06_dependency_concentration_analysis_feature\\component_run.json"
+        }
+      ],
+      "limitations": [
+        {
+          "code": "DATASET_VALIDATION_ERROR",
+          "message": "Dependency concentration analysis requires at least one finite pairwise dependency."
+        }
+      ]
+    },
+    "result_validation": {
+      "ok": true,
+      "errors": [],
+      "warnings": []
+    },
+    "cache_events": [
+      {
+        "cache_key": "dependency_concentration_analysis::corr_matrix",
+        "status": "miss"
+      }
+    ],
+    "artifact_paths": {
+      "component_run_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_350_04-06_dependency_concentration_analysis_feature\\component_run.json",
+      "tool_call_request_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_350_04-06_dependency_concentration_analysis_feature\\tool_call_request.json",
+      "tool_capability_record_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_350_04-06_dependency_concentration_analysis_feature\\tool_capability_record.json",
+      "normalized_inputs_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_350_04-06_dependency_concentration_analysis_feature\\normalized_inputs.json",
+      "raw_tool_output_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_350_04-06_dependency_concentration_analysis_feature\\raw_tool_output.json",
+      "parsed_output_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_350_04-06_dependency_concentration_analysis_feature\\parsed_output.json",
+      "validation_report_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_350_04-06_dependency_concentration_analysis_feature\\validation_report.json",
+      "tool_metrics_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_350_04-06_dependency_concentration_analysis_feature\\tool_metrics.json",
+      "cache_record_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_350_04-06_dependency_concentration_analysis_feature\\cache_record.json"
+    },
+    "tool_metrics": {
+      "tool_name": "dependency_concentration_analysis",
+      "target_scope": "feature",
+      "duration_ms": 16787.144,
+      "status": "error",
+      "cache_status": "tracked",
+      "cache_event_count": 1,
+      "fresh_execution": true,
+      "replay_of": null,
+      "caller_mode": "worker",
+      "schema_version": "phase3a.tools.v1"
+    },
+    "error_message": "Dependency concentration analysis requires at least one finite pairwise dependency.",
+    "step_index": 3,
+    "action_index": 1
+  },
+  {
+    "ok": true,
+    "execution_ok": false,
+    "call_id": "task_3_step_05",
+    "action": {
+      "action_class": "dependency_contextualization",
+      "context_ref": "e26",
+      "feature_name": "Bwd PSH Flags"
+    },
+    "tool_name": "dependency_concentration_analysis",
+    "request": {
+      "call_id": "task_3_step_05",
+      "tool_name": "dependency_concentration_analysis",
+      "target_scope": "feature",
+      "input_refs": {
+        "feature_name": "Bwd PSH Flags"
+      },
+      "preprocessing_profile_ref": "default",
+      "execution_constraints": {
+        "cache_policy": "reuse",
+        "validation_mode": "strict",
+        "save_raw_output": true
+      }
+    },
+    "request_validation": {
+      "ok": true,
+      "errors": [],
+      "warnings": []
+    },
+    "raw_tool_output": {
+      "ok": false,
+      "tool": "dependency_concentration_analysis",
+      "feature_name": "Bwd PSH Flags",
+      "value": null,
+      "error_code": "DATASET_VALIDATION_ERROR",
+      "error_message": "Dependency concentration analysis requires at least one finite pairwise dependency.",
+      "meta": {
+        "error": "DATASET_VALIDATION_ERROR"
+      },
+      "evidence": {
+        "feature": "Bwd PSH Flags",
+        "signals": [],
+        "metrics": {},
+        "support": {},
+        "provenance": {
+          "source": "tool",
+          "tool": "dependency_concentration_analysis",
+          "step": null
+        },
+        "status": "active"
+      }
+    },
+    "tool_result": {
+      "call_id": "task_3_step_05",
+      "tool_name": "dependency_concentration_analysis",
+      "status": "error",
+      "observations": {
+        "feature_name": "Bwd PSH Flags",
+        "value": null,
+        "signals": [],
+        "metrics": {},
+        "support": {},
+        "provenance": {
+          "source": "tool",
+          "tool": "dependency_concentration_analysis",
+          "step": null
+        },
+        "feature": "Bwd PSH Flags"
+      },
+      "evidence_refs": [
+        {
+          "artifact": "parsed_output",
+          "path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_353_04-06_dependency_concentration_analysis_feature\\parsed_output.json"
+        },
+        {
+          "artifact": "raw_tool_output",
+          "path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_353_04-06_dependency_concentration_analysis_feature\\raw_tool_output.json"
+        },
+        {
+          "artifact": "component_run",
+          "path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_353_04-06_dependency_concentration_analysis_feature\\component_run.json"
+        }
+      ],
+      "limitations": [
+        {
+          "code": "DATASET_VALIDATION_ERROR",
+          "message": "Dependency concentration analysis requires at least one finite pairwise dependency."
+        }
+      ]
+    },
+    "result_validation": {
+      "ok": true,
+      "errors": [],
+      "warnings": []
+    },
+    "cache_events": [
+      {
+        "cache_key": "dependency_concentration_analysis::corr_matrix",
+        "status": "hit"
+      }
+    ],
+    "artifact_paths": {
+      "component_run_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_353_04-06_dependency_concentration_analysis_feature\\component_run.json",
+      "tool_call_request_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_353_04-06_dependency_concentration_analysis_feature\\tool_call_request.json",
+      "tool_capability_record_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_353_04-06_dependency_concentration_analysis_feature\\tool_capability_record.json",
+      "normalized_inputs_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_353_04-06_dependency_concentration_analysis_feature\\normalized_inputs.json",
+      "raw_tool_output_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_353_04-06_dependency_concentration_analysis_feature\\raw_tool_output.json",
+      "parsed_output_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_353_04-06_dependency_concentration_analysis_feature\\parsed_output.json",
+      "validation_report_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_353_04-06_dependency_concentration_analysis_feature\\validation_report.json",
+      "tool_metrics_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_353_04-06_dependency_concentration_analysis_feature\\tool_metrics.json",
+      "cache_record_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_353_04-06_dependency_concentration_analysis_feature\\cache_record.json"
+    },
+    "tool_metrics": {
+      "tool_name": "dependency_concentration_analysis",
+      "target_scope": "feature",
+      "duration_ms": 7.631,
+      "status": "error",
+      "cache_status": "tracked",
+      "cache_event_count": 1,
+      "fresh_execution": true,
+      "replay_of": null,
+      "caller_mode": "worker",
+      "schema_version": "phase3a.tools.v1"
+    },
+    "error_message": "Dependency concentration analysis requires at least one finite pairwise dependency.",
+    "step_index": 5,
+    "action_index": 1
+  },
+  {
+    "ok": true,
+    "execution_ok": false,
+    "call_id": "task_3_step_07",
+    "action": {
+      "action_class": "relation_verification",
+      "context_ref": "e26",
+      "feature_name": "Bwd PSH Flags",
+      "related_feature_name": "Bwd URG Flags"
+    },
+    "tool_name": "feature_relation",
+    "request": {
+      "call_id": "task_3_step_07",
+      "tool_name": "feature_relation",
+      "target_scope": "feature_pair",
+      "input_refs": {
+        "feature_name": "Bwd PSH Flags",
+        "related_feature_name": "Bwd URG Flags"
+      },
+      "preprocessing_profile_ref": "default",
+      "execution_constraints": {
+        "cache_policy": "reuse",
+        "validation_mode": "strict",
+        "save_raw_output": true
+      }
+    },
+    "request_validation": {
+      "ok": true,
+      "errors": [],
+      "warnings": []
+    },
+    "raw_tool_output": {
+      "ok": false,
+      "tool": "feature_relation",
+      "feature_name": "Bwd PSH Flags|Bwd URG Flags",
+      "value": null,
+      "error_code": "INSUFFICIENT_VARIANCE",
+      "error_message": "Correlation between selected features is undefined.",
+      "meta": {
+        "error": "INSUFFICIENT_VARIANCE"
+      },
+      "evidence": {
+        "feature": "Bwd PSH Flags|Bwd URG Flags",
+        "signals": [],
+        "metrics": {},
+        "support": {},
+        "provenance": {
+          "source": "tool",
+          "tool": "feature_relation",
+          "step": null
+        },
+        "status": "active"
+      }
+    },
+    "tool_result": {
+      "call_id": "task_3_step_07",
+      "tool_name": "feature_relation",
+      "status": "error",
+      "observations": {
+        "feature_name": "Bwd PSH Flags|Bwd URG Flags",
+        "value": null,
+        "signals": [],
+        "metrics": {},
+        "support": {},
+        "provenance": {
+          "source": "tool",
+          "tool": "feature_relation",
+          "step": null
+        },
+        "feature": "Bwd PSH Flags|Bwd URG Flags"
+      },
+      "evidence_refs": [
+        {
+          "artifact": "parsed_output",
+          "path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_366_04-06_feature_relation_feature_pair\\parsed_output.json"
+        },
+        {
+          "artifact": "raw_tool_output",
+          "path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_366_04-06_feature_relation_feature_pair\\raw_tool_output.json"
+        },
+        {
+          "artifact": "component_run",
+          "path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_366_04-06_feature_relation_feature_pair\\component_run.json"
+        }
+      ],
+      "limitations": [
+        {
+          "code": "INSUFFICIENT_VARIANCE",
+          "message": "Correlation between selected features is undefined."
+        }
+      ]
+    },
+    "result_validation": {
+      "ok": true,
+      "errors": [],
+      "warnings": []
+    },
+    "cache_events": [
+      {
+        "cache_key": "feature_relation::corr_matrix",
+        "status": "miss"
+      }
+    ],
+    "artifact_paths": {
+      "component_run_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_366_04-06_feature_relation_feature_pair\\component_run.json",
+      "tool_call_request_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_366_04-06_feature_relation_feature_pair\\tool_call_request.json",
+      "tool_capability_record_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_366_04-06_feature_relation_feature_pair\\tool_capability_record.json",
+      "normalized_inputs_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_366_04-06_feature_relation_feature_pair\\normalized_inputs.json",
+      "raw_tool_output_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_366_04-06_feature_relation_feature_pair\\raw_tool_output.json",
+      "parsed_output_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_366_04-06_feature_relation_feature_pair\\parsed_output.json",
+      "validation_report_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_366_04-06_feature_relation_feature_pair\\validation_report.json",
+      "tool_metrics_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_366_04-06_feature_relation_feature_pair\\tool_metrics.json",
+      "cache_record_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_366_04-06_feature_relation_feature_pair\\cache_record.json"
+    },
+    "tool_metrics": {
+      "tool_name": "feature_relation",
+      "target_scope": "feature_pair",
+      "duration_ms": 12254.749,
+      "status": "error",
+      "cache_status": "tracked",
+      "cache_event_count": 1,
+      "fresh_execution": true,
+      "replay_of": null,
+      "caller_mode": "worker",
+      "schema_version": "phase3a.tools.v1"
+    },
+    "error_message": "Correlation between selected features is undefined.",
+    "step_index": 7,
+    "action_index": 1
+  }
+]

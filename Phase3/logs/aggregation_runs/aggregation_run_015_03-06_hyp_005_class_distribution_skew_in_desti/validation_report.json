@@ -1,0 +1,38 @@
+{
+  "ok": false,
+  "schema_version": "phase3a.aggregation.v1",
+  "worker_result_set_validation": {
+    "ok": true,
+    "errors": [],
+    "warnings": [],
+    "stats": {
+      "worker_result_count": 4,
+      "evidence_ref_count": 5,
+      "contradiction_count": 0,
+      "limitation_count": 1,
+      "non_success_count": 0
+    }
+  },
+  "parse_validation": {
+    "ok": true,
+    "errors": [],
+    "warnings": []
+  },
+  "aggregation_handoff_validation": {
+    "ok": false,
+    "errors": [
+      {
+        "field": "update_focus",
+        "message": "update_focus must stay under 160 characters."
+      }
+    ],
+    "warnings": [],
+    "stats": {
+      "merged_finding_count": 4,
+      "evidence_ref_count": 5,
+      "preserved_contradiction_count": 0,
+      "open_gap_count": 1
+    },
+    "forbidden_language_hits": []
+  }
+}

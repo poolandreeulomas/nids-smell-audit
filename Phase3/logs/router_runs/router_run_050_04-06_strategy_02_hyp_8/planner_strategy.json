@@ -1,0 +1,20 @@
+{
+  "strategy_id": "strategy_02_hyp_8",
+  "hypothesis_id": "hyp_8_class_conditioned_distribution_destination_port",
+  "strategic_objective": "Investigate the class-conditioned distribution skew in Destination Port to understand its origin and potential shortcut risk.",
+  "key_checks": [
+    "Assess whether distribution differences reflect targeted attack patterns or dataset sampling bias",
+    "Measure the extent of shortcut-like predictive leverage from Destination Port",
+    "Evaluate stability of distributional skew across dataset partitions or time slices",
+    "Check for over-reliance risk in classification models due to dominant port values"
+  ],
+  "success_criteria": [
+    "Evidence supporting or refuting targeted attack vector versus sampling artifact",
+    "Quantified shortcut potential and its impact on model decision boundaries",
+    "Understanding of distribution stability to inform generalization risk"
+  ],
+  "router_constraints": [
+    "preserve feature distribution context",
+    "preserve evidence ref e33"
+  ]
+}

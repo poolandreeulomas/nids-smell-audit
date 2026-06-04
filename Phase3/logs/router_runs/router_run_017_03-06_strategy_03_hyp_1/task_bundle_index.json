@@ -1,0 +1,40 @@
+{
+  "hypothesis_id": "hyp_1_low_diversity_bulk_features",
+  "planner_strategy_id": "strategy_03_hyp_1",
+  "task_count": 4,
+  "action_class_count": 6,
+  "task_summaries": [
+    {
+      "task_id": "task_1",
+      "hypothesis_id": "hyp_1_low_diversity_bulk_features",
+      "task_scope": "Quantify cardinality and identify near-constant behavior of bulk features across dataset partitions using evidence refs e23 to e32",
+      "allowed_action_count": 2,
+      "local_context_ref_count": 10,
+      "stop_condition_count": 2
+    },
+    {
+      "task_id": "task_2",
+      "hypothesis_id": "hyp_1_low_diversity_bulk_features",
+      "task_scope": "Investigate temporal consistency of low diversity patterns in bulk features across time slices within evidence refs e23 to e32",
+      "allowed_action_count": 2,
+      "local_context_ref_count": 10,
+      "stop_condition_count": 2
+    },
+    {
+      "task_id": "task_3",
+      "hypothesis_id": "hyp_1_low_diversity_bulk_features",
+      "task_scope": "Explore subtle variations within near-constant bulk features to detect any meaningful signal using evidence refs e23 to e32",
+      "allowed_action_count": 2,
+      "local_context_ref_count": 10,
+      "stop_condition_count": 2
+    },
+    {
+      "task_id": "task_4",
+      "hypothesis_id": "hyp_1_low_diversity_bulk_features",
+      "task_scope": "Assess whether low diversity in bulk features limits or masks relevant attack-related variations and affects discriminative power using evidence refs e23 to e32",
+      "allowed_action_count": 3,
+      "local_context_ref_count": 10,
+      "stop_condition_count": 2
+    }
+  ]
+}

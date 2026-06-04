@@ -1,0 +1,70 @@
+{
+  "selected_count": 3,
+  "selected_hypotheses": [
+    {
+      "hypothesis_id": "hyp_010_potential_effects_of_data_redundancy_on_feature_correlations",
+      "summary": "The presence of duplicated rows combined with near-perfect feature correlations may indicate that data redundancy inflates observed dependencies, potentially biasing downstream analysis and model training.",
+      "evidence_refs": [
+        "e1",
+        "e2",
+        "e13",
+        "e14",
+        "e15",
+        "e16",
+        "e17",
+        "e18",
+        "e19",
+        "e20",
+        "e21",
+        "e22"
+      ],
+      "open_questions": [
+        "To what extent do duplicated rows contribute to the observed strong correlations?",
+        "Would deduplication materially alter the dependency structure and feature importance?"
+      ],
+      "current_status": "unresolved",
+      "evidence_ref_count": 12,
+      "open_question_count": 2
+    },
+    {
+      "hypothesis_id": "hyp_002_strong_dependency_pairs_redundancy",
+      "summary": "The presence of perfect or near-perfect correlations among several feature pairs suggests strong linear dependencies that may introduce redundancy, potentially reducing the effective dimensionality of the dataset and influencing model learning dynamics.",
+      "evidence_refs": [
+        "e13",
+        "e14",
+        "e15",
+        "e16",
+        "e17",
+        "e18",
+        "e19",
+        "e20",
+        "e21",
+        "e22"
+      ],
+      "open_questions": [
+        "Are these dependencies stable across different temporal segments or specific to this partition?",
+        "Do these strong correlations reflect inherent protocol behaviors or dataset preprocessing artifacts?"
+      ],
+      "current_status": "unresolved",
+      "evidence_ref_count": 10,
+      "open_question_count": 2
+    },
+    {
+      "hypothesis_id": "hyp_003_class_conditioned_variation_backward_packet_lengths",
+      "summary": "Backward packet length features exhibit substantial class-conditioned structural variation, with high variance ratios and skewed unique value counts between BENIGN and DDoS classes, indicating these features may carry discriminative but potentially unstable signals sensitive to class representation.",
+      "evidence_refs": [
+        "e9",
+        "e10",
+        "e11",
+        "e12"
+      ],
+      "open_questions": [
+        "To what extent does this class-conditioned variation generalize beyond this partition?",
+        "Could the observed variation be influenced by sampling bias or class imbalance effects?"
+      ],
+      "current_status": "unresolved",
+      "evidence_ref_count": 4,
+      "open_question_count": 2
+    }
+  ]
+}

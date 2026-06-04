@@ -1,0 +1,10 @@
+{
+  "status": "tracked",
+  "events": [
+    {
+      "cache_key": "shortcut_analysis::Destination Port",
+      "status": "hit"
+    }
+  ],
+  "event_count": 1
+}

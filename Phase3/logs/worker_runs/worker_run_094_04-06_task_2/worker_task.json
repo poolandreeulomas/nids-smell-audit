@@ -1,0 +1,25 @@
+{
+  "task_id": "task_2",
+  "hypothesis_id": "hyp_8_low_cardinality_features_as_potential_shortcut_signals",
+  "task_scope": "Evaluate class-conditioned variability and detect subtle deviations within near-constant features e23 to e32",
+  "allowed_actions": [
+    "distribution_verification",
+    "local_consistency_verification"
+  ],
+  "local_context_refs": [
+    "e23",
+    "e24",
+    "e25",
+    "e26",
+    "e27",
+    "e28",
+    "e29",
+    "e30",
+    "e31",
+    "e32"
+  ],
+  "stop_conditions": [
+    "class-conditioned variability quantified",
+    "subtle deviations identified or ruled out"
+  ]
+}

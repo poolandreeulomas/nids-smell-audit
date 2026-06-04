@@ -1,0 +1,25 @@
+{
+  "task_id": "task_2",
+  "hypothesis_id": "hyp_010_potential_effects_of_data_redundancy_on_feature_correlations",
+  "task_scope": "Compare feature correlation matrices before and after removing duplicated rows focusing on correlated features",
+  "allowed_actions": [
+    "relation_verification",
+    "distribution_verification"
+  ],
+  "local_context_refs": [
+    "e13",
+    "e14",
+    "e15",
+    "e16",
+    "e17",
+    "e18",
+    "e19",
+    "e20",
+    "e21",
+    "e22"
+  ],
+  "stop_conditions": [
+    "correlation matrices computed pre- and post-deduplication",
+    "differences in correlations identified"
+  ]
+}

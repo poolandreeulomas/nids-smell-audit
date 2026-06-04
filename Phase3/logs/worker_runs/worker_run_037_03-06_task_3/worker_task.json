@@ -1,0 +1,14 @@
+{
+  "task_id": "task_3",
+  "hypothesis_id": "hyp_006",
+  "task_scope": "Evaluate shortcut-like predictive leverage of Destination Port feature in isolation within evidence e33",
+  "allowed_actions": [
+    "shortcut_verification"
+  ],
+  "local_context_refs": [
+    "e33"
+  ],
+  "stop_conditions": [
+    "shortcut-like predictive signals quantified or ruled out"
+  ]
+}

@@ -1,0 +1,147 @@
+{
+  "batch_id": "phase3a_batch_0306181120_friday-workinghours-afternoon-ddos.pcap_iscx_5e8f98",
+  "state_version": 1,
+  "target_hypothesis": {
+    "hypothesis_id": "hyp_6_class_distribution_difference_destination_port",
+    "summary": "Destination Port feature exhibits strong distributional differences between BENIGN and DDoS classes, with a dominant ratio of 1.0 and zero entropy in DDoS, alongside a high Jensen-Shannon divergence of 0.7315, indicating a highly representation-sensitive and potentially shortcut-like feature.",
+    "status": "unresolved",
+    "evidence_refs": [
+      "e33"
+    ],
+    "open_gaps": [
+      "Is the zero entropy and dominant ratio in DDoS destination ports indicative of a single targeted port or a data collection artifact?",
+      "Could this strong class-conditioned distribution skew lead to overfitting or unstable model behavior?"
+    ],
+    "preserved_contradictions": [],
+    "merged_findings": [],
+    "update_focus": "",
+    "last_updated_round": "",
+    "revision_count": 0
+  },
+  "structural_substrate_ref": {
+    "substrate_id": "substrate_phase3a_batch_0306181120_friday-workinghours-afternoon-ddos.pcap_iscx_5e8f98",
+    "batch_id": "phase3a_batch_0306181120_friday-workinghours-afternoon-ddos.pcap_iscx_5e8f98",
+    "compressed_regions": [
+      {
+        "region_id": "region_6_class_distribution_and_js_divergence_destination_port",
+        "region_kind": "representation_sensitive_region",
+        "status": "active",
+        "summary": "Destination Port feature shows strong distributional differences between BENIGN and DDoS classes, with dominant ratio 1.0 and zero entropy in DDoS, and a high Jensen-Shannon divergence of 0.7315.",
+        "feature_scope": {
+          "features": [
+            "Destination Port"
+          ],
+          "feature_groups": [],
+          "locality": {
+            "scope_type": "feature_group",
+            "scope_value": "Destination Port",
+            "localized": true,
+            "notes": [
+              "Feature with class-conditioned distributional differences"
+            ]
+          }
+        },
+        "evidence_refs": [
+          "e33"
+        ]
+      }
+    ],
+    "preserved_weak_signals": [],
+    "contradictions": [],
+    "unresolved_tensions": []
+  },
+  "recent_revision_log": [
+    {
+      "revision_type": "initialization",
+      "state_version": 1,
+      "round_id": "",
+      "hypothesis_id": "",
+      "applied_updates": [
+        {
+          "action": "register_structural_substrate",
+          "substrate_id": "substrate_phase3a_batch_0306181120_friday-workinghours-afternoon-ddos.pcap_iscx_5e8f98",
+          "region_count": 7,
+          "weak_signal_count": 1,
+          "contradiction_count": 0,
+          "tension_count": 0
+        },
+        {
+          "action": "register_interpretive_hypotheses",
+          "analysis_id": "analysis_phase3a_0306181120_1",
+          "hypothesis_count": 10
+        }
+      ],
+      "timestamp": "2026-06-03T18:12:16.885090+00:00"
+    }
+  ],
+  "aggregation_handoff": {
+    "batch_id": "phase3a_batch_0306181120_friday-workinghours-afternoon-ddos.pcap_iscx_5e8f98",
+    "round_id": "round-001",
+    "hypothesis_id": "hyp_6_class_distribution_difference_destination_port",
+    "merged_findings": [
+      "Destination Port in the DDoS class exhibits a dominant single value with zero entropy, indicating strong class-conditioned distributional difference and a potential shortcut-like predictive signal.",
+      "Global distribution confirms a dominant ratio of 1.0 for this port in DDoS, but local partition analyses reveal label neighborhood and duplicate label conflicts, suggesting instability and possible sampling artifacts affecting this distribution.",
+      "Dependency and relation verifications show no narrow or unstable structural dependencies confounding the signal, supporting the feature's strong discriminative role.",
+      "Perturbation or exclusion of Destination Port is expected to significantly impact model behavior due to its concentrated and discriminative nature."
+    ],
+    "evidence_refs": [
+      "task_1_step_03",
+      "task_1_step_05",
+      "task_2_step_03",
+      "task_2_step_05",
+      "task_2_step_07",
+      "task_3_step_03",
+      "task_3_step_05",
+      "task_4_step_03",
+      "task_4_step_05"
+    ],
+    "preserved_contradictions": [
+      "high_label_neighborhood_conflict",
+      "duplicate_label_conflict"
+    ],
+    "open_gaps": [
+      "Instability and conflicts in local evidence limit confidence in the global stability of the dominant destination port ratio across all partitions.",
+      "Moderate shortcut signal strength and limited cross-feature interaction analysis prevent definitive shortcut risk confirmation."
+    ],
+    "update_focus": "Consolidate understanding of Destination Port's strong but locally unstable discriminative distribution and its implications for shortcut risk."
+  },
+  "known_evidence_refs": [
+    "e1",
+    "e10",
+    "e11",
+    "e12",
+    "e13",
+    "e14",
+    "e15",
+    "e16",
+    "e17",
+    "e18",
+    "e19",
+    "e2",
+    "e20",
+    "e21",
+    "e22",
+    "e23",
+    "e24",
+    "e25",
+    "e26",
+    "e27",
+    "e28",
+    "e29",
+    "e30",
+    "e31",
+    "e32",
+    "e33",
+    "e8",
+    "e9",
+    "task_1_step_03",
+    "task_1_step_05",
+    "task_2_step_03",
+    "task_2_step_05",
+    "task_2_step_07",
+    "task_3_step_03",
+    "task_3_step_05",
+    "task_4_step_03",
+    "task_4_step_05"
+  ]
+}

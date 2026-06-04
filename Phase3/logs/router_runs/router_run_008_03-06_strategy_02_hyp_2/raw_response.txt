@@ -1,0 +1,32 @@
+{
+  "batch_id": "phase3a_batch_0306133856_friday-workinghours-afternoon-ddos.pcap_iscx_163504",
+  "round_id": "round-001",
+  "hypothesis_id": "hyp_2_strong_feature_dependencies_and_redundancy",
+  "planner_strategy_id": "strategy_02_hyp_2",
+  "worker_tasks": [
+    {
+      "task_id": "task_1",
+      "hypothesis_id": "hyp_2_strong_feature_dependencies_and_redundancy",
+      "task_scope": "Quantify linear dependency strength and correlation patterns among packet length, flag count, and subflow features across all classes.",
+      "allowed_actions": ["relation_verification", "dependency_contextualization"],
+      "local_context_refs": ["e13", "e14", "e15", "e16"],
+      "stop_conditions": ["dependency strength metrics computed for all feature pairs", "correlation patterns stable across sampled data"]
+    },
+    {
+      "task_id": "task_2",
+      "hypothesis_id": "hyp_2_strong_feature_dependencies_and_redundancy",
+      "task_scope": "Evaluate stability and class-specific differences of feature dependencies between DDoS and BENIGN classes.",
+      "allowed_actions": ["distribution_verification", "relation_verification"],
+      "local_context_refs": ["e17", "e18", "e19", "e20"],
+      "stop_conditions": ["dependency stability metrics computed per class", "class-conditioned dependency differences quantified"]
+    },
+    {
+      "task_id": "task_3",
+      "hypothesis_id": "hyp_2_strong_feature_dependencies_and_redundancy",
+      "task_scope": "Estimate effective feature dimensionality reduction by identifying redundancy among packet length, flag count, and subflow features.",
+      "allowed_actions": ["structural_summary", "cardinality_verification"],
+      "local_context_refs": ["e21", "e22"],
+      "stop_conditions": ["redundancy impact on feature space complexity quantified", "effective dimensionality estimate stabilized"]
+    }
+  ]
+}

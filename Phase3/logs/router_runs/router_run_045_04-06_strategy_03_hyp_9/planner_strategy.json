@@ -1,0 +1,20 @@
+{
+  "strategy_id": "strategy_03_hyp_9",
+  "hypothesis_id": "hyp_9_tension_between_low_diversity_and_class_conditioned_variation",
+  "strategic_objective": "Explore mechanisms behind coexistence of near-constant and strongly class-variable features and implications for model reliance balancing.",
+  "key_checks": [
+    "Characterize feature subsets by diversity and class-conditioned variation",
+    "Investigate data processing or measurement steps that could produce low diversity features",
+    "Assess how stable and variable features contribute to class discrimination",
+    "Evaluate potential trade-offs in model reliance on stable vs variable features"
+  ],
+  "success_criteria": [
+    "Identification of plausible data or processing origins for contrasting feature behaviors",
+    "Evidence-based guidance on balancing feature reliance in modeling",
+    "Improved interpretability of dataset structure considering feature tension"
+  ],
+  "router_constraints": [
+    "preserve feature_scope",
+    "preserve evidence refs e9 to e12 and e23 to e25"
+  ]
+}

@@ -1,0 +1,40 @@
+{
+  "batch_id": "phase3a_batch_0306173106_friday-workinghours-afternoon-ddos.pcap_iscx_98251a",
+  "round_id": "round-001",
+  "hypothesis_id": "hyp_003",
+  "planner_strategy_id": "strategy_02_hyp_003",
+  "worker_tasks": [
+    {
+      "task_id": "task_1",
+      "hypothesis_id": "hyp_003",
+      "task_scope": "Measure linear correlation coefficients for packet length, segment size, flag counts, and packet count features across classes and time windows using evidence refs e13 to e22.",
+      "allowed_actions": ["relation_verification", "distribution_verification"],
+      "local_context_refs": ["e13", "e14", "e15", "e16", "e17", "e18", "e19", "e20", "e21", "e22"],
+      "stop_conditions": ["correlation coefficients computed for all feature pairs", "results cover all classes and time windows"]
+    },
+    {
+      "task_id": "task_2",
+      "hypothesis_id": "hyp_003",
+      "task_scope": "Analyze dependency concentration profiles for involved feature pairs to assess stability and class/time consistency using evidence refs e13 to e22.",
+      "allowed_actions": ["dependency_contextualization"],
+      "local_context_refs": ["e13", "e14", "e15", "e16", "e17", "e18", "e19", "e20", "e21", "e22"],
+      "stop_conditions": ["dependency concentration profiles generated for all feature pairs", "profiles cover all classes and time windows"]
+    },
+    {
+      "task_id": "task_3",
+      "hypothesis_id": "hyp_003",
+      "task_scope": "Test shortcut-like predictive power of individual features within correlated pairs to identify potential shortcut signals using evidence refs e13 to e22.",
+      "allowed_actions": ["shortcut_verification"],
+      "local_context_refs": ["e13", "e14", "e15", "e16", "e17", "e18", "e19", "e20", "e21", "e22"],
+      "stop_conditions": ["shortcut-like signals tested for all correlated features", "predictive power results documented"]
+    },
+    {
+      "task_id": "task_4",
+      "hypothesis_id": "hyp_003",
+      "task_scope": "Check redundancy impact on feature prioritization by verifying feature relations and duplication effects among correlated features using evidence refs e13 to e22.",
+      "allowed_actions": ["duplication_verification", "relation_verification"],
+      "local_context_refs": ["e13", "e14", "e15", "e16", "e17", "e18", "e19", "e20", "e21", "e22"],
+      "stop_conditions": ["redundancy impact assessed for all correlated features", "feature prioritization implications clarified"]
+    }
+  ]
+}

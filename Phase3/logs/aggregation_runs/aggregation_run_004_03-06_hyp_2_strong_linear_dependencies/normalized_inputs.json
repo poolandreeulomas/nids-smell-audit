@@ -1,0 +1,120 @@
+{
+  "batch_id": "phase3a_batch_0306154538_friday-workinghours-afternoon-ddos.pcap_iscx_2a1de9",
+  "round_id": "round-001",
+  "hypothesis_id": "hyp_2_strong_linear_dependencies",
+  "worker_result_count": 4,
+  "expected_task_ids": [
+    "task_1",
+    "task_2",
+    "task_3",
+    "task_4"
+  ],
+  "selected_task_ids": [
+    "task_1",
+    "task_2",
+    "task_3",
+    "task_4"
+  ],
+  "missing_task_ids": [],
+  "extra_task_ids": [],
+  "source_run_dirs": [
+    "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\worker_runs\\worker_run_019_03-06_task_4",
+    "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\worker_runs\\worker_run_020_03-06_task_3",
+    "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\worker_runs\\worker_run_021_03-06_task_2",
+    "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\worker_runs\\worker_run_022_03-06_task_1"
+  ],
+  "status_counts": {
+    "completed": 4
+  },
+  "source_evidence_refs": [
+    "task_1_step_03",
+    "task_1_step_05",
+    "task_1_step_07",
+    "task_2_step_03",
+    "task_2_step_05",
+    "task_2_step_07",
+    "task_3_step_03",
+    "task_3_step_05",
+    "task_3_step_07",
+    "task_4_step_03",
+    "task_4_step_05",
+    "task_4_step_07"
+  ],
+  "source_contradictions": [],
+  "source_limitations": [
+    "Analysis limited to one feature pair; other pairs not locally verified in this task."
+  ],
+  "source_finding_count": 10,
+  "non_success_count": 0,
+  "worker_results": [
+    {
+      "task_id": "task_1",
+      "hypothesis_id": "hyp_2_strong_linear_dependencies",
+      "status": "completed",
+      "findings": [
+        "Strong linear dependencies between 'Bwd Packet Length Mean' and 'Avg Bwd Segment Size' are stable and consistent across multiple temporal segments, indicating persistent high redundancy."
+      ],
+      "evidence_refs": [
+        "task_1_step_03",
+        "task_1_step_05",
+        "task_1_step_07"
+      ],
+      "contradictions": [],
+      "limitations": [
+        "Analysis limited to one feature pair; other pairs not locally verified in this task."
+      ]
+    },
+    {
+      "task_id": "task_2",
+      "hypothesis_id": "hyp_2_strong_linear_dependencies",
+      "status": "completed",
+      "findings": [
+        "Strong linear dependencies between multiple feature pairs are inherent to the raw data and persist after preprocessing.",
+        "High redundancy is confirmed between features such as Average Packet Size and Packet Length Mean, and between Fwd Header Length and Fwd Header Length.1.",
+        "No evidence suggests that preprocessing introduced or removed these strong linear dependencies."
+      ],
+      "evidence_refs": [
+        "task_2_step_03",
+        "task_2_step_05",
+        "task_2_step_07"
+      ],
+      "contradictions": [],
+      "limitations": []
+    },
+    {
+      "task_id": "task_3",
+      "hypothesis_id": "hyp_2_strong_linear_dependencies",
+      "status": "completed",
+      "findings": [
+        "Strong linear dependencies (correlation >= 0.9993) exist among features representing packet lengths, segment sizes, header lengths, flag counts, and packet counts.",
+        "These dependencies correspond to known protocol relationships and data aggregation transformations in network telemetry data.",
+        "No local contradictions or irregularities were found that would challenge the alignment of dependency patterns with domain knowledge."
+      ],
+      "evidence_refs": [
+        "task_3_step_03",
+        "task_3_step_05",
+        "task_3_step_07"
+      ],
+      "contradictions": [],
+      "limitations": []
+    },
+    {
+      "task_id": "task_4",
+      "hypothesis_id": "hyp_2_strong_linear_dependencies",
+      "status": "completed",
+      "findings": [
+        "Strong linear dependencies confirmed among the feature cluster with near-perfect correlations.",
+        "'Fwd Header Length' exhibits low cardinality and near-constant behavior, indicating redundancy.",
+        "'Fwd Header Length' and 'Fwd Header Length.1' show moderate shortcut-like predictive leverage, suggesting potential model bias risks."
+      ],
+      "evidence_refs": [
+        "task_4_step_03",
+        "task_4_step_05",
+        "task_4_step_07"
+      ],
+      "contradictions": [],
+      "limitations": []
+    }
+  ],
+  "overlap_diagnostics": []
+}

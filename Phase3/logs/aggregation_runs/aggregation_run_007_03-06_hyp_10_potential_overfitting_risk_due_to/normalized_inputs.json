@@ -1,0 +1,142 @@
+{
+  "batch_id": "phase3a_batch_0306161030_friday-workinghours-afternoon-ddos.pcap_iscx_0595cd",
+  "round_id": "round-001",
+  "hypothesis_id": "hyp_10_potential_overfitting_risk_due_to_redundant_features",
+  "worker_result_count": 4,
+  "expected_task_ids": [
+    "task_1",
+    "task_2",
+    "task_3",
+    "task_4"
+  ],
+  "selected_task_ids": [
+    "task_1",
+    "task_2",
+    "task_3",
+    "task_4"
+  ],
+  "missing_task_ids": [],
+  "extra_task_ids": [],
+  "source_run_dirs": [
+    "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\worker_runs\\worker_run_029_03-06_task_2",
+    "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\worker_runs\\worker_run_030_03-06_task_4",
+    "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\worker_runs\\worker_run_032_03-06_task_1",
+    "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\worker_runs\\worker_run_034_03-06_task_3"
+  ],
+  "status_counts": {
+    "completed": 4
+  },
+  "source_evidence_refs": [
+    "task_1_step_03",
+    "task_1_step_05",
+    "task_1_step_07",
+    "task_2_step_03",
+    "task_2_step_05",
+    "task_2_step_07",
+    "task_3_step_03",
+    "task_3_step_05",
+    "task_3_step_07",
+    "task_4_step_05",
+    "task_4_step_07"
+  ],
+  "source_contradictions": [
+    "Features with perfect correlation pairs are also top-ranked individually, preserving the tension between redundancy and importance.",
+    "Tension between redundancy and top-rank importance preserved as unresolved local contradiction.",
+    "Tension between redundancy and top-rank importance remains unresolved locally.",
+    "tension_1_redundancy_vs_top_rank_importance"
+  ],
+  "source_limitations": [
+    "Analysis limited to local dependency and duplication evidence without global aggregation or re-ranking.",
+    "Distributional overlap verification was not performed due to budget constraints, limiting full assessment of distributional overlap thresholds.",
+    "Mitigation directions remain preliminary due to unresolved tension.",
+    "No direct performance impact quantification of redundancy removal was possible within bounded local evidence.",
+    "Shortcut verification limited to a subset of redundant features; broader feature set not exhaustively tested."
+  ],
+  "source_finding_count": 10,
+  "non_success_count": 0,
+  "worker_results": [
+    {
+      "task_id": "task_1",
+      "hypothesis_id": "hyp_10_potential_overfitting_risk_due_to_redundant_features",
+      "status": "completed",
+      "findings": [
+        "Top-ranked features Bwd Packet Length Mean and Avg Bwd Segment Size exhibit perfect correlation and concentrated dependency profiles, indicating strong redundancy.",
+        "Dataset-level duplication verification confirms exact or near-exact redundancy among strongly correlated feature pairs.",
+        "Tension persists between redundancy and individual feature importance, highlighting potential overfitting risk due to redundant features."
+      ],
+      "evidence_refs": [
+        "task_1_step_03",
+        "task_1_step_05",
+        "task_1_step_07"
+      ],
+      "contradictions": [
+        "Tension between redundancy and top-rank importance preserved as unresolved local contradiction."
+      ],
+      "limitations": [
+        "Analysis limited to local dependency and duplication evidence without global aggregation or re-ranking."
+      ]
+    },
+    {
+      "task_id": "task_2",
+      "hypothesis_id": "hyp_10_potential_overfitting_risk_due_to_redundant_features",
+      "status": "completed",
+      "findings": [
+        "Individual redundant features exhibit moderate shortcut-like predictive leverage, indicating spurious signal contributors.",
+        "Top-ranked features with perfect correlation pairs maintain shortcut signals, confirming unresolved tension between redundancy and importance."
+      ],
+      "evidence_refs": [
+        "task_2_step_03",
+        "task_2_step_05",
+        "task_2_step_07"
+      ],
+      "contradictions": [
+        "Tension between redundancy and top-rank importance remains unresolved locally."
+      ],
+      "limitations": [
+        "Shortcut verification limited to a subset of redundant features; broader feature set not exhaustively tested."
+      ]
+    },
+    {
+      "task_id": "task_3",
+      "hypothesis_id": "hyp_10_potential_overfitting_risk_due_to_redundant_features",
+      "status": "completed",
+      "findings": [
+        "Moderate label neighborhood conflicts and duplicate label conflicts detected around redundant feature clusters (Bwd Packet Length Mean, Avg Bwd Segment Size, Average Packet Size), indicating local label noise and distributional overlap.",
+        "Strong linear dependencies among feature pairs create unresolved tension between redundancy and individual feature importance, preserved as a local contradiction."
+      ],
+      "evidence_refs": [
+        "task_3_step_03",
+        "task_3_step_05",
+        "task_3_step_07"
+      ],
+      "contradictions": [
+        "tension_1_redundancy_vs_top_rank_importance"
+      ],
+      "limitations": [
+        "Distributional overlap verification was not performed due to budget constraints, limiting full assessment of distributional overlap thresholds."
+      ]
+    },
+    {
+      "task_id": "task_4",
+      "hypothesis_id": "hyp_10_potential_overfitting_risk_due_to_redundant_features",
+      "status": "completed",
+      "findings": [
+        "Strong linear dependencies with perfect or near-perfect correlation exist between 'Bwd Packet Length Mean' and 'Avg Bwd Segment Size', and between 'Fwd Header Length' and 'Fwd Header Length.1', indicating redundancy.",
+        "These redundant feature pairs are also individually top-ranked, creating tension between redundancy and apparent importance.",
+        "Redundancy removal impact on performance is implied but not directly quantified in this bounded local context."
+      ],
+      "evidence_refs": [
+        "task_4_step_05",
+        "task_4_step_07"
+      ],
+      "contradictions": [
+        "Features with perfect correlation pairs are also top-ranked individually, preserving the tension between redundancy and importance."
+      ],
+      "limitations": [
+        "No direct performance impact quantification of redundancy removal was possible within bounded local evidence.",
+        "Mitigation directions remain preliminary due to unresolved tension."
+      ]
+    }
+  ],
+  "overlap_diagnostics": []
+}

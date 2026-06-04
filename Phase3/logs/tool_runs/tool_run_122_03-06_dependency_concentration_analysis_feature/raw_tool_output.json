@@ -1,0 +1,23 @@
+{
+  "ok": false,
+  "tool": "dependency_concentration_analysis",
+  "feature_name": "Bwd Avg Bulk Rate",
+  "value": null,
+  "error_code": "DATASET_VALIDATION_ERROR",
+  "error_message": "Dependency concentration analysis requires at least one finite pairwise dependency.",
+  "meta": {
+    "error": "DATASET_VALIDATION_ERROR"
+  },
+  "evidence": {
+    "feature": "Bwd Avg Bulk Rate",
+    "signals": [],
+    "metrics": {},
+    "support": {},
+    "provenance": {
+      "source": "tool",
+      "tool": "dependency_concentration_analysis",
+      "step": null
+    },
+    "status": "active"
+  }
+}

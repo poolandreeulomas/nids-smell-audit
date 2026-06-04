@@ -1,0 +1,251 @@
+{
+  "hypothesis_count": 10,
+  "evidence_ref_coverage": [
+    "e1",
+    "e10",
+    "e11",
+    "e12",
+    "e13",
+    "e14",
+    "e15",
+    "e16",
+    "e17",
+    "e18",
+    "e19",
+    "e2",
+    "e20",
+    "e21",
+    "e22",
+    "e23",
+    "e24",
+    "e25",
+    "e26",
+    "e27",
+    "e28",
+    "e29",
+    "e3",
+    "e30",
+    "e31",
+    "e32",
+    "e33",
+    "e4",
+    "e5",
+    "e6",
+    "e7",
+    "e8",
+    "e9"
+  ],
+  "overlap_pairs": [
+    {
+      "left_hypothesis_id": "hyp_1_low_diversity_bulk_features",
+      "right_hypothesis_id": "hyp_7_potential_saturation_or_ceiling_effect_in_bulk_features",
+      "shared_evidence_refs": [
+        "e23",
+        "e24",
+        "e25",
+        "e26",
+        "e27",
+        "e28",
+        "e29",
+        "e30",
+        "e31",
+        "e32"
+      ]
+    },
+    {
+      "left_hypothesis_id": "hyp_2_strong_feature_dependencies_and_redundancy",
+      "right_hypothesis_id": "hyp_8_interplay_between_strong_dependencies_and_class_conditioned_variation",
+      "shared_evidence_refs": [
+        "e13",
+        "e14",
+        "e15",
+        "e16",
+        "e17",
+        "e18",
+        "e19",
+        "e20",
+        "e21",
+        "e22"
+      ]
+    },
+    {
+      "left_hypothesis_id": "hyp_2_strong_feature_dependencies_and_redundancy",
+      "right_hypothesis_id": "hyp_9_localized_representation_sensitive_handles_in_packet_length_and_flag_features",
+      "shared_evidence_refs": [
+        "e13",
+        "e14"
+      ]
+    },
+    {
+      "left_hypothesis_id": "hyp_3_class_conditioned_structural_variation_in_packet_lengths",
+      "right_hypothesis_id": "hyp_8_interplay_between_strong_dependencies_and_class_conditioned_variation",
+      "shared_evidence_refs": [
+        "e8",
+        "e9"
+      ]
+    },
+    {
+      "left_hypothesis_id": "hyp_3_class_conditioned_structural_variation_in_packet_lengths",
+      "right_hypothesis_id": "hyp_9_localized_representation_sensitive_handles_in_packet_length_and_flag_features",
+      "shared_evidence_refs": [
+        "e10",
+        "e11",
+        "e12",
+        "e8",
+        "e9"
+      ]
+    },
+    {
+      "left_hypothesis_id": "hyp_4_representation_sensitive_distribution_skew_in_destination_port",
+      "right_hypothesis_id": "hyp_10_effect_of_class_distribution_skew_on_feature_entropy_and_variance",
+      "shared_evidence_refs": [
+        "e33"
+      ]
+    },
+    {
+      "left_hypothesis_id": "hyp_5_partition_level_data_quality_and_class_imbalance_effects",
+      "right_hypothesis_id": "hyp_10_effect_of_class_distribution_skew_on_feature_entropy_and_variance",
+      "shared_evidence_refs": [
+        "e1",
+        "e2"
+      ]
+    },
+    {
+      "left_hypothesis_id": "hyp_8_interplay_between_strong_dependencies_and_class_conditioned_variation",
+      "right_hypothesis_id": "hyp_9_localized_representation_sensitive_handles_in_packet_length_and_flag_features",
+      "shared_evidence_refs": [
+        "e13",
+        "e14",
+        "e8",
+        "e9"
+      ]
+    }
+  ],
+  "hypotheses": [
+    {
+      "hypothesis_id": "hyp_1_low_diversity_bulk_features",
+      "evidence_refs": [
+        "e23",
+        "e24",
+        "e25",
+        "e26",
+        "e27",
+        "e28",
+        "e29",
+        "e30",
+        "e31",
+        "e32"
+      ],
+      "open_question_count": 2
+    },
+    {
+      "hypothesis_id": "hyp_2_strong_feature_dependencies_and_redundancy",
+      "evidence_refs": [
+        "e13",
+        "e14",
+        "e15",
+        "e16",
+        "e17",
+        "e18",
+        "e19",
+        "e20",
+        "e21",
+        "e22"
+      ],
+      "open_question_count": 2
+    },
+    {
+      "hypothesis_id": "hyp_3_class_conditioned_structural_variation_in_packet_lengths",
+      "evidence_refs": [
+        "e10",
+        "e11",
+        "e12",
+        "e8",
+        "e9"
+      ],
+      "open_question_count": 2
+    },
+    {
+      "hypothesis_id": "hyp_4_representation_sensitive_distribution_skew_in_destination_port",
+      "evidence_refs": [
+        "e33"
+      ],
+      "open_question_count": 2
+    },
+    {
+      "hypothesis_id": "hyp_5_partition_level_data_quality_and_class_imbalance_effects",
+      "evidence_refs": [
+        "e1",
+        "e2"
+      ],
+      "open_question_count": 2
+    },
+    {
+      "hypothesis_id": "hyp_6_preserved_weak_signals_in_packet_length_features",
+      "evidence_refs": [
+        "e3",
+        "e4",
+        "e5",
+        "e6",
+        "e7"
+      ],
+      "open_question_count": 2
+    },
+    {
+      "hypothesis_id": "hyp_7_potential_saturation_or_ceiling_effect_in_bulk_features",
+      "evidence_refs": [
+        "e23",
+        "e24",
+        "e25",
+        "e26",
+        "e27",
+        "e28",
+        "e29",
+        "e30",
+        "e31",
+        "e32"
+      ],
+      "open_question_count": 2
+    },
+    {
+      "hypothesis_id": "hyp_8_interplay_between_strong_dependencies_and_class_conditioned_variation",
+      "evidence_refs": [
+        "e13",
+        "e14",
+        "e15",
+        "e16",
+        "e17",
+        "e18",
+        "e19",
+        "e20",
+        "e21",
+        "e22",
+        "e8",
+        "e9"
+      ],
+      "open_question_count": 2
+    },
+    {
+      "hypothesis_id": "hyp_9_localized_representation_sensitive_handles_in_packet_length_and_flag_features",
+      "evidence_refs": [
+        "e10",
+        "e11",
+        "e12",
+        "e13",
+        "e14",
+        "e8",
+        "e9"
+      ],
+      "open_question_count": 2
+    },
+    {
+      "hypothesis_id": "hyp_10_effect_of_class_distribution_skew_on_feature_entropy_and_variance",
+      "evidence_refs": [
+        "e1",
+        "e2",
+        "e33"
+      ],
+      "open_question_count": 2
+    }
+  ]
+}

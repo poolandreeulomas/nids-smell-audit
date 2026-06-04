@@ -1,0 +1,20 @@
+{
+  "dataset_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\data\\cic_ids_2017\\Friday-WorkingHours-Afternoon-DDos.pcap_ISCX.csv",
+  "target_scope": "feature_pair",
+  "input_refs": {
+    "feature_name": "SYN Flag Count",
+    "related_feature_name": "RST Flag Count"
+  },
+  "preprocessing_profile_ref": "default",
+  "execution_constraints": {
+    "cache_policy": "reuse",
+    "validation_mode": "strict",
+    "save_raw_output": true
+  },
+  "resolved_feature_count": 78,
+  "dataframe_shape": [
+    225745,
+    79
+  ],
+  "label_column": "Label"
+}

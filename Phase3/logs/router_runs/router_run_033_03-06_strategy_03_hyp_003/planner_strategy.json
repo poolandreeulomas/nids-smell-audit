@@ -1,0 +1,21 @@
+{
+  "strategy_id": "strategy_03_hyp_003",
+  "hypothesis_id": "hyp_003_class_conditioned_variation_backward_packet_lengths",
+  "strategic_objective": "Characterize the generalizability and stability of class-conditioned variation in backward packet length features under class imbalance and sampling biases.",
+  "key_checks": [
+    "Compare class-conditioned distribution profiles of backward packet length features across multiple partitions",
+    "Measure variance ratios and unique value counts controlling for class imbalance",
+    "Assess sensitivity of these features to sampling bias or dataset partitioning",
+    "Evaluate local label-topology consistency around these features within each class"
+  ],
+  "success_criteria": [
+    "Evidence that class-conditioned variation is consistent beyond the current partition",
+    "Identification of features with stable versus unstable discriminative signals",
+    "Bounded understanding of how class imbalance and sampling affect feature structural profiles"
+  ],
+  "router_constraints": [
+    "preserve evidence refs e9,e10,e11,e12",
+    "preserve feature scope for backward packet length features",
+    "preserve class label information and partition metadata"
+  ]
+}

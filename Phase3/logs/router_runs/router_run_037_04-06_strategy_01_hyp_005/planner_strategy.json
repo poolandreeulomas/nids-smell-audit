@@ -1,0 +1,20 @@
+{
+  "strategy_id": "strategy_01_hyp_005",
+  "hypothesis_id": "hyp_005_destination_port_distribution_shift",
+  "strategic_objective": "Clarify whether the strong class separation in Destination Port is a stable, genuine attack signal or a dataset artifact and assess its risk as a shortcut feature.",
+  "key_checks": [
+    "Verify class-conditioned distribution stability of Destination Port across temporal and data partitions",
+    "Measure cardinality and entropy of Destination Port within each class to detect near-constant or low-variation patterns",
+    "Assess shortcut-like predictive leverage of Destination Port alone for DDoS class",
+    "Check for abrupt distributional shifts or near-deterministic mappings in Destination Port values"
+  ],
+  "success_criteria": [
+    "Evidence that Destination Port distributional shift is consistent and not an artifact",
+    "Identification of potential brittleness or overfitting risk due to reliance on Destination Port",
+    "Characterization of Destination Port as a localized representation-sensitive feature or shortcut"
+  ],
+  "router_constraints": [
+    "preserve feature_scope for Destination Port",
+    "preserve evidence refs related to e33"
+  ]
+}

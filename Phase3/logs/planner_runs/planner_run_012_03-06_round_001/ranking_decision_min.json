@@ -1,0 +1,9 @@
+{
+  "batch_id": "phase3a_batch_0306181120_friday-workinghours-afternoon-ddos.pcap_iscx_5e8f98",
+  "round_id": "round-001",
+  "selected_hypothesis_ids": [
+    "hyp_6_class_distribution_difference_destination_port",
+    "hyp_3_strong_feature_redundancy_pairs",
+    "hyp_10_interplay_between_redundancy_and_class_conditioned_variation"
+  ]
+}

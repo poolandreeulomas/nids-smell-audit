@@ -1,0 +1,129 @@
+{
+  "batch_id": "phase3a_batch_0306173106_friday-workinghours-afternoon-ddos.pcap_iscx_98251a",
+  "round_id": "round-001",
+  "hypothesis_id": "hyp_003",
+  "worker_result_count": 4,
+  "expected_task_ids": [
+    "task_1",
+    "task_2",
+    "task_3",
+    "task_4"
+  ],
+  "selected_task_ids": [
+    "task_1",
+    "task_2",
+    "task_3",
+    "task_4"
+  ],
+  "missing_task_ids": [],
+  "extra_task_ids": [],
+  "source_run_dirs": [
+    "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\worker_runs\\worker_run_038_03-06_task_2",
+    "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\worker_runs\\worker_run_039_03-06_task_3",
+    "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\worker_runs\\worker_run_041_03-06_task_1",
+    "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\worker_runs\\worker_run_045_03-06_task_4"
+  ],
+  "status_counts": {
+    "completed": 3,
+    "partial": 1
+  },
+  "source_evidence_refs": [
+    "task_1_step_03",
+    "task_1_step_05",
+    "task_1_step_07",
+    "task_2_step_03",
+    "task_2_step_05",
+    "task_2_step_07",
+    "task_3_step_03",
+    "task_3_step_05",
+    "task_3_step_07",
+    "task_4_step_05",
+    "task_4_step_07"
+  ],
+  "source_contradictions": [],
+  "source_limitations": [
+    "Analysis limited to provided evidence refs and bounded local context; global dataset variations not assessed.",
+    "Analysis limited to the provided local context and dependency clusters; no cross-cluster or global dependency assessment performed.",
+    "Findings are local to the tested features and do not generalize to all correlated features in the cluster.",
+    "Shortcut-like predictive power was tested only on a subset of correlated features due to step budget constraints."
+  ],
+  "source_finding_count": 12,
+  "non_success_count": 0,
+  "worker_results": [
+    {
+      "task_id": "task_1",
+      "hypothesis_id": "hyp_003",
+      "status": "completed",
+      "findings": [
+        "Multiple feature pairs including Packet Length Mean and Average Packet Size, Avg Bwd Segment Size and Avg Fwd Segment Size, and SYN Flag Count and RST Flag Count exhibit perfect or near-perfect linear correlations (>=0.9993), indicating strong linear dependencies and potential redundancy.",
+        "These strong correlations are consistent across all examined classes and time windows in the provided evidence refs e13 to e22."
+      ],
+      "evidence_refs": [
+        "task_1_step_03",
+        "task_1_step_05",
+        "task_1_step_07"
+      ],
+      "contradictions": [],
+      "limitations": [
+        "Analysis limited to provided evidence refs and bounded local context; global dataset variations not assessed."
+      ]
+    },
+    {
+      "task_id": "task_2",
+      "hypothesis_id": "hyp_003",
+      "status": "completed",
+      "findings": [
+        "Dependency concentration profiles for the analyzed feature pairs show strong, stable linear dependencies with correlation values >=0.9993 across all classes and time windows.",
+        "The involved features form a tightly clustered dependency structure indicating potential redundancy and stable dependency patterns.",
+        "No evidence of unstable dependencies, class inconsistency, or temporal variation in dependency concentration was found in the local evidence."
+      ],
+      "evidence_refs": [
+        "task_2_step_03",
+        "task_2_step_05",
+        "task_2_step_07"
+      ],
+      "contradictions": [],
+      "limitations": [
+        "Analysis limited to the provided local context and dependency clusters; no cross-cluster or global dependency assessment performed."
+      ]
+    },
+    {
+      "task_id": "task_3",
+      "hypothesis_id": "hyp_003",
+      "status": "partial",
+      "findings": [
+        "Moderate shortcut-like predictive signals were observed for tested features Average Packet Size, Packet Length Mean, and Avg Bwd Segment Size within a cluster of strongly correlated features.",
+        "Strong linear dependencies (correlation >=0.9993) among many features indicate potential redundancy and shortcut risk in this feature cluster.",
+        "Evidence is limited to tested features; other correlated features remain untested for shortcut signals."
+      ],
+      "evidence_refs": [
+        "task_3_step_03",
+        "task_3_step_05",
+        "task_3_step_07"
+      ],
+      "contradictions": [],
+      "limitations": [
+        "Shortcut-like predictive power was tested only on a subset of correlated features due to step budget constraints.",
+        "Findings are local to the tested features and do not generalize to all correlated features in the cluster."
+      ]
+    },
+    {
+      "task_id": "task_4",
+      "hypothesis_id": "hyp_003",
+      "status": "completed",
+      "findings": [
+        "No exact feature duplications detected in the cluster.",
+        "High redundancy confirmed between 'Fwd Header Length' and 'Fwd Header Length.1'.",
+        "High redundancy confirmed between 'Packet Length Mean' and 'Average Packet Size'.",
+        "Strong linear dependencies (correlation >=0.9993) exist among multiple feature pairs, indicating potential redundancy impacting feature prioritization."
+      ],
+      "evidence_refs": [
+        "task_4_step_05",
+        "task_4_step_07"
+      ],
+      "contradictions": [],
+      "limitations": []
+    }
+  ],
+  "overlap_diagnostics": []
+}

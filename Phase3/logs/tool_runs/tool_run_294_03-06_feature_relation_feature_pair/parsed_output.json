@@ -1,0 +1,48 @@
+{
+  "call_id": "task_4_step_03",
+  "tool_name": "feature_relation",
+  "status": "ok",
+  "observations": {
+    "feature_name": "Average Packet Size|Packet Length Mean",
+    "value": 0.9993574671326869,
+    "signals": [
+      "high_redundancy"
+    ],
+    "metrics": {
+      "correlation": 0.9993574671326869
+    },
+    "support": {
+      "n_total": 225745,
+      "n_per_class": {
+        "DDoS": 128027,
+        "BENIGN": 97718
+      },
+      "total_samples": 225745,
+      "per_class": {
+        "DDoS": 128027,
+        "BENIGN": 97718
+      }
+    },
+    "provenance": {
+      "source": "tool",
+      "tool": "feature_relation",
+      "step": null
+    },
+    "feature": "Average Packet Size|Packet Length Mean"
+  },
+  "evidence_refs": [
+    {
+      "artifact": "parsed_output",
+      "path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_294_03-06_feature_relation_feature_pair\\parsed_output.json"
+    },
+    {
+      "artifact": "raw_tool_output",
+      "path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_294_03-06_feature_relation_feature_pair\\raw_tool_output.json"
+    },
+    {
+      "artifact": "component_run",
+      "path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_294_03-06_feature_relation_feature_pair\\component_run.json"
+    }
+  ],
+  "limitations": []
+}

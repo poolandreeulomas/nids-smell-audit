@@ -1,0 +1,40 @@
+{
+  "hypothesis_id": "hyp_003_class_conditioned_structural_variation",
+  "planner_strategy_id": "strategy_03_hyp_003",
+  "task_count": 4,
+  "action_class_count": 7,
+  "task_summaries": [
+    {
+      "task_id": "task_1",
+      "hypothesis_id": "hyp_003_class_conditioned_structural_variation",
+      "task_scope": "Compare variance ratios and unique value counts of key features across multiple defined time windows to detect structural variation stability.",
+      "allowed_action_count": 2,
+      "local_context_ref_count": 2,
+      "stop_condition_count": 2
+    },
+    {
+      "task_id": "task_2",
+      "hypothesis_id": "hyp_003_class_conditioned_structural_variation",
+      "task_scope": "Test consistency of class-conditioned distribution differences under varying network conditions using distribution and local consistency verification.",
+      "allowed_action_count": 2,
+      "local_context_ref_count": 2,
+      "stop_condition_count": 2
+    },
+    {
+      "task_id": "task_3",
+      "hypothesis_id": "hyp_003_class_conditioned_structural_variation",
+      "task_scope": "Evaluate potential sampling biases by cross-referencing structural variation features with capture metadata and duplication checks.",
+      "allowed_action_count": 2,
+      "local_context_ref_count": 2,
+      "stop_condition_count": 2
+    },
+    {
+      "task_id": "task_4",
+      "hypothesis_id": "hyp_003_class_conditioned_structural_variation",
+      "task_scope": "Assess alignment of observed structural variations with known DDoS behavioral signatures using structural summary and shortcut verification.",
+      "allowed_action_count": 2,
+      "local_context_ref_count": 2,
+      "stop_condition_count": 2
+    }
+  ]
+}

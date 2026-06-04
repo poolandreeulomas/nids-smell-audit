@@ -1,0 +1,20 @@
+{
+  "strategy_id": "strategy_03_hyp_10",
+  "hypothesis_id": "hyp_10_potential_overfitting_risk_due_to_redundant_features",
+  "strategic_objective": "Assess the extent to which redundancy among high-salience features may artificially inflate model performance and identify mitigation directions.",
+  "key_checks": [
+    "Evaluate dependency concentration and redundancy patterns among top-ranked features",
+    "Test shortcut-like predictive leverage of redundant features individually",
+    "Examine local label consistency and distributional overlap in redundant feature clusters",
+    "Explore bounded scenarios where removing redundancy affects performance indicators"
+  ],
+  "success_criteria": [
+    "Evidence bounds the risk of overfitting due to redundant features",
+    "Identification of features or clusters that disproportionately contribute to spurious signals",
+    "Preliminary directions for mitigating redundancy-driven overfitting risks"
+  ],
+  "router_constraints": [
+    "preserve redundant feature clusters scope",
+    "preserve evidence references e3, e4, e13, e16, e22"
+  ]
+}

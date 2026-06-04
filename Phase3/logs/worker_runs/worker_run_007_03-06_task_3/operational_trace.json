@@ -1,0 +1,521 @@
+{
+  "task_id": "task_3",
+  "action_sequence": [
+    {
+      "step_index": 3,
+      "action_index": 1,
+      "action_class": "distribution_verification",
+      "context_ref": "e19",
+      "feature_name": "Fwd Header Length",
+      "related_feature_name": null,
+      "call_id": "task_3_step_03",
+      "status": "ok"
+    },
+    {
+      "step_index": 5,
+      "action_index": 1,
+      "action_class": "distribution_verification",
+      "context_ref": "e19",
+      "feature_name": "Fwd Header Length.1",
+      "related_feature_name": null,
+      "call_id": "task_3_step_05",
+      "status": "ok"
+    },
+    {
+      "step_index": 7,
+      "action_index": 1,
+      "action_class": "distribution_verification",
+      "context_ref": "e19",
+      "feature_name": "Avg Fwd Segment Size",
+      "related_feature_name": null,
+      "call_id": "task_3_step_07",
+      "status": "ok"
+    }
+  ],
+  "tool_events": [
+    {
+      "ok": true,
+      "execution_ok": true,
+      "call_id": "task_3_step_03",
+      "action": {
+        "action_class": "distribution_verification",
+        "context_ref": "e19",
+        "feature_name": "Fwd Header Length"
+      },
+      "tool_name": "distribution_analysis",
+      "request": {
+        "call_id": "task_3_step_03",
+        "tool_name": "distribution_analysis",
+        "target_scope": "feature",
+        "input_refs": {
+          "feature_name": "Fwd Header Length"
+        },
+        "preprocessing_profile_ref": "default",
+        "execution_constraints": {
+          "cache_policy": "reuse",
+          "validation_mode": "strict",
+          "save_raw_output": true
+        }
+      },
+      "request_validation": {
+        "ok": true,
+        "errors": [],
+        "warnings": []
+      },
+      "raw_tool_output": {
+        "ok": true,
+        "tool": "distribution_analysis",
+        "feature_name": "Fwd Header Length",
+        "value": 0.7354408295420013,
+        "error_code": null,
+        "error_message": null,
+        "meta": {
+          "dataset_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\data\\cic_ids_2017\\Friday-WorkingHours-Afternoon-DDos.pcap_ISCX.csv",
+          "label_column": "Label"
+        },
+        "evidence": {
+          "feature": "Fwd Header Length",
+          "signals": [
+            "high_class_separation"
+          ],
+          "metrics": {
+            "entropy": {
+              "BENIGN": 3.010935446433934,
+              "DDoS": 1.517788535031685
+            },
+            "dominant_ratio": {
+              "BENIGN": 0.25296260668454124,
+              "DDoS": 0.44233638216938614
+            },
+            "js_divergence": 0.7354408295420013
+          },
+          "support": {
+            "n_total": 225745,
+            "n_per_class": {
+              "DDoS": 128027,
+              "BENIGN": 97718
+            },
+            "total_samples": 225745,
+            "per_class": {
+              "DDoS": 128027,
+              "BENIGN": 97718
+            }
+          },
+          "provenance": {
+            "source": "tool",
+            "tool": "distribution_analysis",
+            "step": null
+          },
+          "status": "active"
+        }
+      },
+      "tool_result": {
+        "call_id": "task_3_step_03",
+        "tool_name": "distribution_analysis",
+        "status": "ok",
+        "observations": {
+          "feature_name": "Fwd Header Length",
+          "value": 0.7354408295420013,
+          "signals": [
+            "high_class_separation"
+          ],
+          "metrics": {
+            "entropy": {
+              "BENIGN": 3.010935446433934,
+              "DDoS": 1.517788535031685
+            },
+            "dominant_ratio": {
+              "BENIGN": 0.25296260668454124,
+              "DDoS": 0.44233638216938614
+            },
+            "js_divergence": 0.7354408295420013
+          },
+          "support": {
+            "n_total": 225745,
+            "n_per_class": {
+              "DDoS": 128027,
+              "BENIGN": 97718
+            },
+            "total_samples": 225745,
+            "per_class": {
+              "DDoS": 128027,
+              "BENIGN": 97718
+            }
+          },
+          "provenance": {
+            "source": "tool",
+            "tool": "distribution_analysis",
+            "step": null
+          },
+          "feature": "Fwd Header Length"
+        },
+        "evidence_refs": [
+          {
+            "artifact": "parsed_output",
+            "path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_117_03-06_distribution_analysis_feature\\parsed_output.json"
+          },
+          {
+            "artifact": "raw_tool_output",
+            "path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_117_03-06_distribution_analysis_feature\\raw_tool_output.json"
+          },
+          {
+            "artifact": "component_run",
+            "path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_117_03-06_distribution_analysis_feature\\component_run.json"
+          }
+        ],
+        "limitations": []
+      },
+      "result_validation": {
+        "ok": true,
+        "errors": [],
+        "warnings": []
+      },
+      "cache_events": [
+        {
+          "cache_key": "distribution_analysis::Fwd Header Length",
+          "status": "miss"
+        }
+      ],
+      "artifact_paths": {
+        "component_run_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_117_03-06_distribution_analysis_feature\\component_run.json",
+        "tool_call_request_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_117_03-06_distribution_analysis_feature\\tool_call_request.json",
+        "tool_capability_record_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_117_03-06_distribution_analysis_feature\\tool_capability_record.json",
+        "normalized_inputs_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_117_03-06_distribution_analysis_feature\\normalized_inputs.json",
+        "raw_tool_output_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_117_03-06_distribution_analysis_feature\\raw_tool_output.json",
+        "parsed_output_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_117_03-06_distribution_analysis_feature\\parsed_output.json",
+        "validation_report_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_117_03-06_distribution_analysis_feature\\validation_report.json",
+        "tool_metrics_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_117_03-06_distribution_analysis_feature\\tool_metrics.json",
+        "cache_record_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_117_03-06_distribution_analysis_feature\\cache_record.json"
+      },
+      "error_message": "",
+      "step_index": 3,
+      "action_index": 1
+    },
+    {
+      "ok": true,
+      "execution_ok": true,
+      "call_id": "task_3_step_05",
+      "action": {
+        "action_class": "distribution_verification",
+        "context_ref": "e19",
+        "feature_name": "Fwd Header Length.1"
+      },
+      "tool_name": "distribution_analysis",
+      "request": {
+        "call_id": "task_3_step_05",
+        "tool_name": "distribution_analysis",
+        "target_scope": "feature",
+        "input_refs": {
+          "feature_name": "Fwd Header Length.1"
+        },
+        "preprocessing_profile_ref": "default",
+        "execution_constraints": {
+          "cache_policy": "reuse",
+          "validation_mode": "strict",
+          "save_raw_output": true
+        }
+      },
+      "request_validation": {
+        "ok": true,
+        "errors": [],
+        "warnings": []
+      },
+      "raw_tool_output": {
+        "ok": true,
+        "tool": "distribution_analysis",
+        "feature_name": "Fwd Header Length.1",
+        "value": 0.7354408295420013,
+        "error_code": null,
+        "error_message": null,
+        "meta": {
+          "dataset_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\data\\cic_ids_2017\\Friday-WorkingHours-Afternoon-DDos.pcap_ISCX.csv",
+          "label_column": "Label"
+        },
+        "evidence": {
+          "feature": "Fwd Header Length.1",
+          "signals": [
+            "high_class_separation"
+          ],
+          "metrics": {
+            "entropy": {
+              "BENIGN": 3.010935446433934,
+              "DDoS": 1.517788535031685
+            },
+            "dominant_ratio": {
+              "BENIGN": 0.25296260668454124,
+              "DDoS": 0.44233638216938614
+            },
+            "js_divergence": 0.7354408295420013
+          },
+          "support": {
+            "n_total": 225745,
+            "n_per_class": {
+              "DDoS": 128027,
+              "BENIGN": 97718
+            },
+            "total_samples": 225745,
+            "per_class": {
+              "DDoS": 128027,
+              "BENIGN": 97718
+            }
+          },
+          "provenance": {
+            "source": "tool",
+            "tool": "distribution_analysis",
+            "step": null
+          },
+          "status": "active"
+        }
+      },
+      "tool_result": {
+        "call_id": "task_3_step_05",
+        "tool_name": "distribution_analysis",
+        "status": "ok",
+        "observations": {
+          "feature_name": "Fwd Header Length.1",
+          "value": 0.7354408295420013,
+          "signals": [
+            "high_class_separation"
+          ],
+          "metrics": {
+            "entropy": {
+              "BENIGN": 3.010935446433934,
+              "DDoS": 1.517788535031685
+            },
+            "dominant_ratio": {
+              "BENIGN": 0.25296260668454124,
+              "DDoS": 0.44233638216938614
+            },
+            "js_divergence": 0.7354408295420013
+          },
+          "support": {
+            "n_total": 225745,
+            "n_per_class": {
+              "DDoS": 128027,
+              "BENIGN": 97718
+            },
+            "total_samples": 225745,
+            "per_class": {
+              "DDoS": 128027,
+              "BENIGN": 97718
+            }
+          },
+          "provenance": {
+            "source": "tool",
+            "tool": "distribution_analysis",
+            "step": null
+          },
+          "feature": "Fwd Header Length.1"
+        },
+        "evidence_refs": [
+          {
+            "artifact": "parsed_output",
+            "path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_125_03-06_distribution_analysis_feature\\parsed_output.json"
+          },
+          {
+            "artifact": "raw_tool_output",
+            "path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_125_03-06_distribution_analysis_feature\\raw_tool_output.json"
+          },
+          {
+            "artifact": "component_run",
+            "path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_125_03-06_distribution_analysis_feature\\component_run.json"
+          }
+        ],
+        "limitations": []
+      },
+      "result_validation": {
+        "ok": true,
+        "errors": [],
+        "warnings": []
+      },
+      "cache_events": [
+        {
+          "cache_key": "distribution_analysis::Fwd Header Length.1",
+          "status": "miss"
+        }
+      ],
+      "artifact_paths": {
+        "component_run_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_125_03-06_distribution_analysis_feature\\component_run.json",
+        "tool_call_request_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_125_03-06_distribution_analysis_feature\\tool_call_request.json",
+        "tool_capability_record_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_125_03-06_distribution_analysis_feature\\tool_capability_record.json",
+        "normalized_inputs_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_125_03-06_distribution_analysis_feature\\normalized_inputs.json",
+        "raw_tool_output_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_125_03-06_distribution_analysis_feature\\raw_tool_output.json",
+        "parsed_output_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_125_03-06_distribution_analysis_feature\\parsed_output.json",
+        "validation_report_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_125_03-06_distribution_analysis_feature\\validation_report.json",
+        "tool_metrics_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_125_03-06_distribution_analysis_feature\\tool_metrics.json",
+        "cache_record_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_125_03-06_distribution_analysis_feature\\cache_record.json"
+      },
+      "error_message": "",
+      "step_index": 5,
+      "action_index": 1
+    },
+    {
+      "ok": true,
+      "execution_ok": true,
+      "call_id": "task_3_step_07",
+      "action": {
+        "action_class": "distribution_verification",
+        "context_ref": "e19",
+        "feature_name": "Avg Fwd Segment Size"
+      },
+      "tool_name": "distribution_analysis",
+      "request": {
+        "call_id": "task_3_step_07",
+        "tool_name": "distribution_analysis",
+        "target_scope": "feature",
+        "input_refs": {
+          "feature_name": "Avg Fwd Segment Size"
+        },
+        "preprocessing_profile_ref": "default",
+        "execution_constraints": {
+          "cache_policy": "reuse",
+          "validation_mode": "strict",
+          "save_raw_output": true
+        }
+      },
+      "request_validation": {
+        "ok": true,
+        "errors": [],
+        "warnings": []
+      },
+      "raw_tool_output": {
+        "ok": true,
+        "tool": "distribution_analysis",
+        "feature_name": "Avg Fwd Segment Size",
+        "value": 0.7023959153209863,
+        "error_code": null,
+        "error_message": null,
+        "meta": {
+          "dataset_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\data\\cic_ids_2017\\Friday-WorkingHours-Afternoon-DDos.pcap_ISCX.csv",
+          "label_column": "Label"
+        },
+        "evidence": {
+          "feature": "Avg Fwd Segment Size",
+          "signals": [
+            "high_class_separation"
+          ],
+          "metrics": {
+            "entropy": {
+              "BENIGN": 4.6160564804534125,
+              "DDoS": 1.2192604916068774
+            },
+            "dominant_ratio": {
+              "BENIGN": 0.23079678257844,
+              "DDoS": 0.4422426519406063
+            },
+            "js_divergence": 0.7023959153209863
+          },
+          "support": {
+            "n_total": 225745,
+            "n_per_class": {
+              "DDoS": 128027,
+              "BENIGN": 97718
+            },
+            "total_samples": 225745,
+            "per_class": {
+              "DDoS": 128027,
+              "BENIGN": 97718
+            }
+          },
+          "provenance": {
+            "source": "tool",
+            "tool": "distribution_analysis",
+            "step": null
+          },
+          "status": "active"
+        }
+      },
+      "tool_result": {
+        "call_id": "task_3_step_07",
+        "tool_name": "distribution_analysis",
+        "status": "ok",
+        "observations": {
+          "feature_name": "Avg Fwd Segment Size",
+          "value": 0.7023959153209863,
+          "signals": [
+            "high_class_separation"
+          ],
+          "metrics": {
+            "entropy": {
+              "BENIGN": 4.6160564804534125,
+              "DDoS": 1.2192604916068774
+            },
+            "dominant_ratio": {
+              "BENIGN": 0.23079678257844,
+              "DDoS": 0.4422426519406063
+            },
+            "js_divergence": 0.7023959153209863
+          },
+          "support": {
+            "n_total": 225745,
+            "n_per_class": {
+              "DDoS": 128027,
+              "BENIGN": 97718
+            },
+            "total_samples": 225745,
+            "per_class": {
+              "DDoS": 128027,
+              "BENIGN": 97718
+            }
+          },
+          "provenance": {
+            "source": "tool",
+            "tool": "distribution_analysis",
+            "step": null
+          },
+          "feature": "Avg Fwd Segment Size"
+        },
+        "evidence_refs": [
+          {
+            "artifact": "parsed_output",
+            "path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_131_03-06_distribution_analysis_feature\\parsed_output.json"
+          },
+          {
+            "artifact": "raw_tool_output",
+            "path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_131_03-06_distribution_analysis_feature\\raw_tool_output.json"
+          },
+          {
+            "artifact": "component_run",
+            "path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_131_03-06_distribution_analysis_feature\\component_run.json"
+          }
+        ],
+        "limitations": []
+      },
+      "result_validation": {
+        "ok": true,
+        "errors": [],
+        "warnings": []
+      },
+      "cache_events": [
+        {
+          "cache_key": "distribution_analysis::Avg Fwd Segment Size",
+          "status": "miss"
+        }
+      ],
+      "artifact_paths": {
+        "component_run_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_131_03-06_distribution_analysis_feature\\component_run.json",
+        "tool_call_request_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_131_03-06_distribution_analysis_feature\\tool_call_request.json",
+        "tool_capability_record_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_131_03-06_distribution_analysis_feature\\tool_capability_record.json",
+        "normalized_inputs_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_131_03-06_distribution_analysis_feature\\normalized_inputs.json",
+        "raw_tool_output_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_131_03-06_distribution_analysis_feature\\raw_tool_output.json",
+        "parsed_output_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_131_03-06_distribution_analysis_feature\\parsed_output.json",
+        "validation_report_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_131_03-06_distribution_analysis_feature\\validation_report.json",
+        "tool_metrics_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_131_03-06_distribution_analysis_feature\\tool_metrics.json",
+        "cache_record_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_131_03-06_distribution_analysis_feature\\cache_record.json"
+      },
+      "error_message": "",
+      "step_index": 7,
+      "action_index": 1
+    }
+  ],
+  "retry_events": [],
+  "failure_events": [],
+  "budget_consumption": {
+    "max_steps": 8,
+    "max_retries": 1,
+    "steps_used": 8,
+    "retries_used": 0,
+    "termination_cause": "model_finish",
+    "result_committed": true
+  }
+}

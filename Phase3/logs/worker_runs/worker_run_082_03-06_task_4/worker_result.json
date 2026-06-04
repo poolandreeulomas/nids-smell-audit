@@ -1,0 +1,21 @@
+{
+  "task_id": "task_4",
+  "hypothesis_id": "hyp_003_class_conditioned_variation_backward_packet_lengths",
+  "status": "partial",
+  "findings": [
+    "Moderate label neighborhood conflicts detected around 'Bwd Packet Length Mean', 'Bwd Packet Length Std', and 'Avg Bwd Segment Size' features.",
+    "Duplicate label conflicts observed, indicating local label-topology inconsistencies within backward packet length features.",
+    "Structural irregularities are consistent with class-conditioned variation and unique value skew between BENIGN and DDoS classes."
+  ],
+  "evidence_refs": [
+    "task_4_step_03",
+    "task_4_step_05",
+    "task_4_step_07"
+  ],
+  "contradictions": [
+    "Local label neighborhood conflicts and duplicate label conflicts remain unresolved."
+  ],
+  "limitations": [
+    "Analysis limited to bounded local neighborhoods and available backward packet length features; global aggregation or rerouting not performed."
+  ]
+}

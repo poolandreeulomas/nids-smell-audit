@@ -1,0 +1,273 @@
+{
+  "hypothesis_count": 10,
+  "evidence_ref_coverage": [
+    "e1",
+    "e10",
+    "e11",
+    "e12",
+    "e13",
+    "e14",
+    "e15",
+    "e16",
+    "e17",
+    "e18",
+    "e19",
+    "e2",
+    "e20",
+    "e21",
+    "e22",
+    "e23",
+    "e24",
+    "e25",
+    "e26",
+    "e27",
+    "e28",
+    "e29",
+    "e3",
+    "e30",
+    "e31",
+    "e32",
+    "e33",
+    "e4",
+    "e5",
+    "e6",
+    "e7",
+    "e8",
+    "e9"
+  ],
+  "overlap_pairs": [
+    {
+      "left_hypothesis_id": "hyp_01_low_diversity_bulk_features",
+      "right_hypothesis_id": "hyp_07_potential_overfitting_to_low_variability_features",
+      "shared_evidence_refs": [
+        "e23",
+        "e24"
+      ]
+    },
+    {
+      "left_hypothesis_id": "hyp_01_low_diversity_bulk_features",
+      "right_hypothesis_id": "hyp_10_potential_for_multiple_partially_compatible_explanations",
+      "shared_evidence_refs": [
+        "e23"
+      ]
+    },
+    {
+      "left_hypothesis_id": "hyp_02_strong_dependency_pairs_redundancy",
+      "right_hypothesis_id": "hyp_07_potential_overfitting_to_low_variability_features",
+      "shared_evidence_refs": [
+        "e13",
+        "e14"
+      ]
+    },
+    {
+      "left_hypothesis_id": "hyp_02_strong_dependency_pairs_redundancy",
+      "right_hypothesis_id": "hyp_08_interaction_between_class_imbalance_and_feature_distribution",
+      "shared_evidence_refs": [
+        "e13",
+        "e14"
+      ]
+    },
+    {
+      "left_hypothesis_id": "hyp_02_strong_dependency_pairs_redundancy",
+      "right_hypothesis_id": "hyp_10_potential_for_multiple_partially_compatible_explanations",
+      "shared_evidence_refs": [
+        "e13"
+      ]
+    },
+    {
+      "left_hypothesis_id": "hyp_03_class_conditioned_packet_length_variation",
+      "right_hypothesis_id": "hyp_10_potential_for_multiple_partially_compatible_explanations",
+      "shared_evidence_refs": [
+        "e8"
+      ]
+    },
+    {
+      "left_hypothesis_id": "hyp_04_class_imbalance_and_duplicate_rows_effects",
+      "right_hypothesis_id": "hyp_08_interaction_between_class_imbalance_and_feature_distribution",
+      "shared_evidence_refs": [
+        "e1",
+        "e2"
+      ]
+    },
+    {
+      "left_hypothesis_id": "hyp_04_class_imbalance_and_duplicate_rows_effects",
+      "right_hypothesis_id": "hyp_10_potential_for_multiple_partially_compatible_explanations",
+      "shared_evidence_refs": [
+        "e1"
+      ]
+    },
+    {
+      "left_hypothesis_id": "hyp_05_destination_port_distribution_divergence",
+      "right_hypothesis_id": "hyp_09_localized_representation_sensitive_signals_in_destination_port",
+      "shared_evidence_refs": [
+        "e33"
+      ]
+    },
+    {
+      "left_hypothesis_id": "hyp_05_destination_port_distribution_divergence",
+      "right_hypothesis_id": "hyp_10_potential_for_multiple_partially_compatible_explanations",
+      "shared_evidence_refs": [
+        "e33"
+      ]
+    },
+    {
+      "left_hypothesis_id": "hyp_06_top_ranked_packet_length_features_redundancy_and_stability",
+      "right_hypothesis_id": "hyp_07_potential_overfitting_to_low_variability_features",
+      "shared_evidence_refs": [
+        "e3",
+        "e4"
+      ]
+    },
+    {
+      "left_hypothesis_id": "hyp_06_top_ranked_packet_length_features_redundancy_and_stability",
+      "right_hypothesis_id": "hyp_08_interaction_between_class_imbalance_and_feature_distribution",
+      "shared_evidence_refs": [
+        "e3"
+      ]
+    },
+    {
+      "left_hypothesis_id": "hyp_07_potential_overfitting_to_low_variability_features",
+      "right_hypothesis_id": "hyp_08_interaction_between_class_imbalance_and_feature_distribution",
+      "shared_evidence_refs": [
+        "e13",
+        "e14",
+        "e3"
+      ]
+    },
+    {
+      "left_hypothesis_id": "hyp_07_potential_overfitting_to_low_variability_features",
+      "right_hypothesis_id": "hyp_10_potential_for_multiple_partially_compatible_explanations",
+      "shared_evidence_refs": [
+        "e13",
+        "e23"
+      ]
+    },
+    {
+      "left_hypothesis_id": "hyp_08_interaction_between_class_imbalance_and_feature_distribution",
+      "right_hypothesis_id": "hyp_10_potential_for_multiple_partially_compatible_explanations",
+      "shared_evidence_refs": [
+        "e1",
+        "e13"
+      ]
+    },
+    {
+      "left_hypothesis_id": "hyp_09_localized_representation_sensitive_signals_in_destination_port",
+      "right_hypothesis_id": "hyp_10_potential_for_multiple_partially_compatible_explanations",
+      "shared_evidence_refs": [
+        "e33"
+      ]
+    }
+  ],
+  "hypotheses": [
+    {
+      "hypothesis_id": "hyp_01_low_diversity_bulk_features",
+      "evidence_refs": [
+        "e23",
+        "e24",
+        "e25",
+        "e26",
+        "e27",
+        "e28",
+        "e29",
+        "e30",
+        "e31",
+        "e32"
+      ],
+      "open_question_count": 2
+    },
+    {
+      "hypothesis_id": "hyp_02_strong_dependency_pairs_redundancy",
+      "evidence_refs": [
+        "e13",
+        "e14",
+        "e15",
+        "e16",
+        "e17",
+        "e18",
+        "e19",
+        "e20",
+        "e21",
+        "e22"
+      ],
+      "open_question_count": 2
+    },
+    {
+      "hypothesis_id": "hyp_03_class_conditioned_packet_length_variation",
+      "evidence_refs": [
+        "e10",
+        "e11",
+        "e12",
+        "e8",
+        "e9"
+      ],
+      "open_question_count": 2
+    },
+    {
+      "hypothesis_id": "hyp_04_class_imbalance_and_duplicate_rows_effects",
+      "evidence_refs": [
+        "e1",
+        "e2"
+      ],
+      "open_question_count": 2
+    },
+    {
+      "hypothesis_id": "hyp_05_destination_port_distribution_divergence",
+      "evidence_refs": [
+        "e33"
+      ],
+      "open_question_count": 2
+    },
+    {
+      "hypothesis_id": "hyp_06_top_ranked_packet_length_features_redundancy_and_stability",
+      "evidence_refs": [
+        "e3",
+        "e4",
+        "e5",
+        "e6",
+        "e7"
+      ],
+      "open_question_count": 2
+    },
+    {
+      "hypothesis_id": "hyp_07_potential_overfitting_to_low_variability_features",
+      "evidence_refs": [
+        "e13",
+        "e14",
+        "e23",
+        "e24",
+        "e3",
+        "e4"
+      ],
+      "open_question_count": 2
+    },
+    {
+      "hypothesis_id": "hyp_08_interaction_between_class_imbalance_and_feature_distribution",
+      "evidence_refs": [
+        "e1",
+        "e13",
+        "e14",
+        "e2",
+        "e3"
+      ],
+      "open_question_count": 2
+    },
+    {
+      "hypothesis_id": "hyp_09_localized_representation_sensitive_signals_in_destination_port",
+      "evidence_refs": [
+        "e33"
+      ],
+      "open_question_count": 2
+    },
+    {
+      "hypothesis_id": "hyp_10_potential_for_multiple_partially_compatible_explanations",
+      "evidence_refs": [
+        "e1",
+        "e13",
+        "e23",
+        "e33",
+        "e8"
+      ],
+      "open_question_count": 2
+    }
+  ]
+}

@@ -1,0 +1,9 @@
+{
+  "batch_id": "phase3a_batch_0306183859_friday-workinghours-afternoon-ddos.pcap_iscx_689174",
+  "round_id": "round-001",
+  "selected_hypothesis_ids": [
+    "hyp_005_class_distribution_skew_in_destination_port",
+    "hyp_003_class_conditioned_variation_in_backward_packet_lengths",
+    "hyp_002_strong_linear_dependencies"
+  ]
+}

@@ -1,0 +1,24 @@
+{
+  "batch_id": "phase3a_batch_0406132627_friday-workinghours-afternoon-ddos.pcap_iscx_f0e355",
+  "round_id": "round-001",
+  "worker_result": {
+    "task_id": "task_4",
+    "hypothesis_id": "hyp_5_strong_linear_dependencies",
+    "status": "completed",
+    "findings": [
+      "Multiple feature pairs exhibit near-perfect linear correlations (>=0.9993), indicating strong linear dependencies and potential redundancy within the feature set.",
+      "No exact feature duplications were found, confirming redundancy arises from strong linear relationships rather than exact duplicates.",
+      "A moderate shortcut-like predictive signal was detected for 'Fwd Header Length', indicating some features may individually amplify signal.",
+      "No evidence of masking or further amplification effects beyond identified strong linear dependencies was found."
+    ],
+    "evidence_refs": [
+      "task_4_step_03",
+      "task_4_step_05",
+      "task_4_step_07"
+    ],
+    "contradictions": [],
+    "limitations": [
+      "Analysis limited to bounded local evidence without global aggregation or semantic interpretation beyond correlation and shortcut signals."
+    ]
+  }
+}

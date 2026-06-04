@@ -1,0 +1,20 @@
+{
+  "strategy_id": "strategy_01_hyp_6",
+  "hypothesis_id": "hyp_6_class_distribution_difference_destination_port",
+  "strategic_objective": "Clarify the nature and impact of the extreme class-conditioned distribution skew in the Destination Port feature.",
+  "key_checks": [
+    "Verify if zero entropy in DDoS destination ports corresponds to a single or very few targeted ports",
+    "Assess if the dominant ratio of 1.0 is consistent across data partitions or a sampling artifact",
+    "Evaluate potential shortcut-like predictive leverage of Destination Port for DDoS class",
+    "Examine stability of model behavior when excluding or perturbing Destination Port feature"
+  ],
+  "success_criteria": [
+    "Evidence supports whether the distribution skew is a genuine network pattern or data artifact",
+    "Identification of any shortcut-like risk posed by Destination Port feature",
+    "Clear understanding of how this feature\u2019s distribution affects model robustness and generalization"
+  ],
+  "router_constraints": [
+    "preserve feature scope on Destination Port",
+    "preserve evidence refs related to distribution and entropy (e33)"
+  ]
+}

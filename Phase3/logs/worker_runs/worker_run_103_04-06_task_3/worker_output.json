@@ -1,0 +1,23 @@
+{
+  "batch_id": "phase3a_batch_0406080944_friday-workinghours-afternoon-ddos.pcap_iscx_618cac",
+  "round_id": "round-001",
+  "worker_result": {
+    "task_id": "task_3",
+    "hypothesis_id": "hyp_010_interplay_between_class_conditioned_variation_and_dependency_structure",
+    "status": "completed",
+    "findings": [
+      "Moderate label neighborhood conflicts and duplicate label conflicts detected in backward packet length features indicate unstable feature importance.",
+      "Moderate shortcut signal found in Bwd Packet Length Max suggests shortcut-like predictive leverage.",
+      "Strong linear dependencies among features e8 through e22 reveal entanglement between class-conditioned variation and redundancy, contributing to selection bias."
+    ],
+    "evidence_refs": [
+      "task_3_step_03",
+      "task_3_step_05",
+      "task_3_step_07"
+    ],
+    "contradictions": [],
+    "limitations": [
+      "Analysis limited to local neighborhoods and single-feature shortcuts without global aggregation."
+    ]
+  }
+}

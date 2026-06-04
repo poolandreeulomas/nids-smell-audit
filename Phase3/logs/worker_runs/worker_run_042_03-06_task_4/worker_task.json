@@ -1,0 +1,28 @@
+{
+  "task_id": "task_4",
+  "hypothesis_id": "hyp_010",
+  "task_scope": "Assess persistence of dependency-backed regularities beyond duplicated or imbalanced data segments",
+  "allowed_actions": [
+    "duplication_verification",
+    "dependency_contextualization",
+    "distribution_verification"
+  ],
+  "local_context_refs": [
+    "e23",
+    "e24",
+    "e25",
+    "e26",
+    "e27",
+    "e29",
+    "e30",
+    "e31",
+    "e32",
+    "e1",
+    "e2"
+  ],
+  "stop_conditions": [
+    "regularities measured excluding duplicated data",
+    "regularities measured excluding imbalanced class segments",
+    "persistence or disappearance of regularities confirmed"
+  ]
+}

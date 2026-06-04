@@ -1,0 +1,49 @@
+{
+  "ok": true,
+  "tool": "neighborhood_consistency_analysis",
+  "feature_name": "Fwd Header Length",
+  "value": 0.5682039469312721,
+  "error_code": null,
+  "error_message": null,
+  "meta": {
+    "dataset_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\data\\cic_ids_2017\\Friday-WorkingHours-Afternoon-DDos.pcap_ISCX.csv",
+    "label_column": "Label"
+  },
+  "evidence": {
+    "feature": "Fwd Header Length",
+    "signals": [
+      "high_label_neighborhood_conflict",
+      "duplicate_label_conflict"
+    ],
+    "metrics": {
+      "neighbor_count": 5,
+      "retained_rows": 225745,
+      "coverage_ratio": 1.0,
+      "local_consistency_rate": 0.4317960530687279,
+      "inconsistency_rate": 0.5682039469312721,
+      "attack_consistency_rate": 3.124340959328892e-06,
+      "benign_consistency_rate": 0.9975173458318836,
+      "boundary_instability_rate": 0.0,
+      "duplicate_conflict_rate": 0.8737956543888016,
+      "duplicate_cluster_rate": 0.9986179095882523
+    },
+    "support": {
+      "n_total": 225745,
+      "n_per_class": {
+        "DDoS": 128027,
+        "BENIGN": 97718
+      },
+      "total_samples": 225745,
+      "per_class": {
+        "DDoS": 128027,
+        "BENIGN": 97718
+      }
+    },
+    "provenance": {
+      "source": "tool",
+      "tool": "neighborhood_consistency_analysis",
+      "step": null
+    },
+    "status": "active"
+  }
+}

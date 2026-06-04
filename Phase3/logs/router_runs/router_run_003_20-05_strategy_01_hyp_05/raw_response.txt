@@ -1,0 +1,75 @@
+{
+  "batch_id": "semantic_batch_076_friday-workinghours-afternoon-ddos.pcap_iscx",
+  "round_id": "round_077_semantic_batch_076_friday-workinghours-afternoon-ddos.pcap_iscx",
+  "hypothesis_id": "hyp_05_tension_between_redundancy_and_representation",
+  "planner_strategy_id": "strategy_01_hyp_05",
+  "worker_tasks": [
+    {
+      "task_id": "task_1",
+      "hypothesis_id": "hyp_05_tension_between_redundancy_and_representation",
+      "task_scope": "Identify features exhibiting high redundancy and analyze their class-conditioned distribution differences to detect distinct representational patterns.",
+      "allowed_actions": [
+        "duplication_verification",
+        "distribution_verification",
+        "relation_verification"
+      ],
+      "local_context_refs": [
+        "e8",
+        "e9",
+        "e10",
+        "e11",
+        "e12",
+        "e13"
+      ],
+      "stop_conditions": [
+        "identified features with redundancy and class-conditioned distribution differences",
+        "collected distribution profiles for redundant features",
+        "verified pairwise redundancy relations within feature subsets"
+      ]
+    },
+    {
+      "task_id": "task_2",
+      "hypothesis_id": "hyp_05_tension_between_redundancy_and_representation",
+      "task_scope": "Assess redundancy patterns both within individual classes and across different classes to understand their structural and dependency contexts.",
+      "allowed_actions": [
+        "dependency_contextualization",
+        "relation_verification",
+        "structural_summary"
+      ],
+      "local_context_refs": [
+        "e14",
+        "e15",
+        "e16",
+        "e17",
+        "e18",
+        "e19"
+      ],
+      "stop_conditions": [
+        "mapped redundancy patterns within and across classes",
+        "characterized dependency contexts of redundant features",
+        "summarized structural properties related to redundancy"
+      ]
+    },
+    {
+      "task_id": "task_3",
+      "hypothesis_id": "hyp_05_tension_between_redundancy_and_representation",
+      "task_scope": "Examine subsets of features for differential representational strength by class, focusing on local consistency and shortcut predictive leverage to evaluate robustness impact.",
+      "allowed_actions": [
+        "local_consistency_verification",
+        "shortcut_verification",
+        "cardinality_verification"
+      ],
+      "local_context_refs": [
+        "e20",
+        "e21",
+        "e22",
+        "e33"
+      ],
+      "stop_conditions": [
+        "evaluated representational strength differences by class",
+        "measured local label consistency around features",
+        "assessed shortcut-like predictive leverage in feature subsets"
+      ]
+    }
+  ]
+}

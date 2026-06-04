@@ -1,0 +1,22 @@
+{
+  "batch_id": "phase3a_batch_0306143851_friday-workinghours-afternoon-ddos.pcap_iscx_ba9279",
+  "round_id": "round-001",
+  "worker_result": {
+    "task_id": "task_3",
+    "hypothesis_id": "hyp_003_class_conditioned_structural_variation",
+    "status": "completed",
+    "findings": [
+      "No dataset-level duplication detected, excluding duplication-driven sampling bias.",
+      "High redundancy observed between 'Bwd Packet Length Mean' and 'Avg Bwd Segment Size' suggests overlapping feature information.",
+      "Class-conditioned structural variation in packet length and size features confirmed without confounding duplication or metadata correlation."
+    ],
+    "evidence_refs": [
+      "task_3_step_03",
+      "task_3_step_07"
+    ],
+    "contradictions": [],
+    "limitations": [
+      "Analysis limited to bounded feature pairs and dataset-level duplication without deeper metadata linkage."
+    ]
+  }
+}

@@ -1,0 +1,56 @@
+{
+  "call_id": "task_3_step_07",
+  "tool_name": "distribution_analysis",
+  "status": "ok",
+  "observations": {
+    "feature_name": "Avg Fwd Segment Size",
+    "value": 0.7023959153209863,
+    "signals": [
+      "high_class_separation"
+    ],
+    "metrics": {
+      "entropy": {
+        "BENIGN": 4.6160564804534125,
+        "DDoS": 1.2192604916068774
+      },
+      "dominant_ratio": {
+        "BENIGN": 0.23079678257844,
+        "DDoS": 0.4422426519406063
+      },
+      "js_divergence": 0.7023959153209863
+    },
+    "support": {
+      "n_total": 225745,
+      "n_per_class": {
+        "DDoS": 128027,
+        "BENIGN": 97718
+      },
+      "total_samples": 225745,
+      "per_class": {
+        "DDoS": 128027,
+        "BENIGN": 97718
+      }
+    },
+    "provenance": {
+      "source": "tool",
+      "tool": "distribution_analysis",
+      "step": null
+    },
+    "feature": "Avg Fwd Segment Size"
+  },
+  "evidence_refs": [
+    {
+      "artifact": "parsed_output",
+      "path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_131_03-06_distribution_analysis_feature\\parsed_output.json"
+    },
+    {
+      "artifact": "raw_tool_output",
+      "path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_131_03-06_distribution_analysis_feature\\raw_tool_output.json"
+    },
+    {
+      "artifact": "component_run",
+      "path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_131_03-06_distribution_analysis_feature\\component_run.json"
+    }
+  ],
+  "limitations": []
+}

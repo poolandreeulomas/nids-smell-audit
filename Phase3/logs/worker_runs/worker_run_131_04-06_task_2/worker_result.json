@@ -1,0 +1,15 @@
+{
+  "task_id": "task_2",
+  "hypothesis_id": "hyp_8_class_conditioned_distribution_destination_port",
+  "status": "completed",
+  "findings": [
+    "Destination Port feature exhibits moderate shortcut-like predictive leverage within the local evidence context e33, supported by class-conditioned distribution differences and a high Jensen-Shannon divergence."
+  ],
+  "evidence_refs": [
+    "task_2_step_03"
+  ],
+  "contradictions": [],
+  "limitations": [
+    "Analysis limited to single-feature deterministic decision stump; multifeature interactions not assessed."
+  ]
+}

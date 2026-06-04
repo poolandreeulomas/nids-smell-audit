@@ -1,0 +1,139 @@
+ROLE:
+You are Aggregation. Stay inside one hypothesis-local, round-local merge after Worker and before State Manager.
+Do not reroute, replan, mutate canonical state, emit critic feedback, or summarize raw traces.
+Preserve grounded contradictions and unresolved gaps instead of flattening them away.
+
+TASK:
+{
+  "batch_id": "phase3a_batch_0406132627_friday-workinghours-afternoon-ddos.pcap_iscx_f0e355",
+  "round_id": "round-001",
+  "hypothesis_id": "hyp_5_strong_linear_dependencies",
+  "worker_result_count": 4,
+  "expected_task_ids": [
+    "task_1",
+    "task_2",
+    "task_3",
+    "task_4"
+  ],
+  "selected_task_ids": [
+    "task_1",
+    "task_2",
+    "task_3",
+    "task_4"
+  ]
+}
+
+SOURCE_WORKER_RESULTS:
+[
+  {
+    "task_id": "task_1",
+    "hypothesis_id": "hyp_5_strong_linear_dependencies",
+    "status": "completed",
+    "findings": [
+      "Multiple feature pairs within e13 to e22 exhibit near-perfect linear correlations (>= 0.9993), indicating strong linear dependencies and potential redundancy.",
+      "Confirmed strong linear dependency between 'Fwd Header Length' and 'Fwd Header Length.1' (correlation ~1).",
+      "Confirmed strong linear dependency between 'Fwd Packet Length Mean' and 'Packet Length Mean'.",
+      "Confirmed strong linear dependency between 'Subflow Fwd Bytes' and 'Subflow Fwd Packets'.",
+      "No evidence of instability or contradictory correlation metrics across samples."
+    ],
+    "evidence_refs": [
+      "task_1_step_03",
+      "task_1_step_05",
+      "task_1_step_07"
+    ],
+    "contradictions": [],
+    "limitations": [
+      "Analysis limited to local evidence within e13 to e22; global dataset correlations not assessed.",
+      "Low cardinality features with perfect correlation (e.g., 'Fwd PSH Flags' and 'SYN Flag Count') noted but not further analyzed due to task scope."
+    ]
+  },
+  {
+    "task_id": "task_2",
+    "hypothesis_id": "hyp_5_strong_linear_dependencies",
+    "status": "completed",
+    "findings": [
+      "Multiple feature pairs exhibit near-perfect linear dependencies consistent with protocol or measurement constraints rather than engineered feature overlap.",
+      "Strong correlations among packet size and flow byte/packet count features reflect inherent protocol aggregation properties.",
+      "Low cardinality and perfect correlation in flag count features indicate protocol-driven dependencies.",
+      "No evidence of narrow structural clusters or engineered redundancy was found in the localized dependency contextualizations."
+    ],
+    "evidence_refs": [
+      "task_2_step_03",
+      "task_2_step_05",
+      "task_2_step_07"
+    ],
+    "contradictions": [],
+    "limitations": []
+  },
+  {
+    "task_id": "task_3",
+    "hypothesis_id": "hyp_5_strong_linear_dependencies",
+    "status": "completed",
+    "findings": [
+      "Multiple feature pairs exhibit near-perfect linear dependencies (correlation >= 0.9993), indicating strong redundancy.",
+      "'Average Packet Size' shows high class separation despite dependencies, suggesting some features retain discriminative power.",
+      "'Fwd PSH Flags' and 'SYN Flag Count' form a perfect correlation pair but have extremely low cardinality and show high local label neighborhood conflicts and duplicate label conflicts, indicating unstable dependencies and sensitivity to local label topology.",
+      "Strong linear dependencies contribute to feature selection instability and model sensitivity variations as evidenced by local conflicts and redundancy."
+    ],
+    "evidence_refs": [
+      "task_3_step_03",
+      "task_3_step_05",
+      "task_3_step_07"
+    ],
+    "contradictions": [
+      "High label neighborhood conflicts in perfectly correlated low-cardinality features indicate local contradictions in label topology."
+    ],
+    "limitations": [
+      "Analysis limited to bounded local evidence without global aggregation or cross-feature interaction beyond identified pairs."
+    ]
+  },
+  {
+    "task_id": "task_4",
+    "hypothesis_id": "hyp_5_strong_linear_dependencies",
+    "status": "completed",
+    "findings": [
+      "Multiple feature pairs exhibit near-perfect linear correlations (>=0.9993), indicating strong linear dependencies and potential redundancy within the feature set.",
+      "No exact feature duplications were found, confirming redundancy arises from strong linear relationships rather than exact duplicates.",
+      "A moderate shortcut-like predictive signal was detected for 'Fwd Header Length', indicating some features may individually amplify signal.",
+      "No evidence of masking or further amplification effects beyond identified strong linear dependencies was found."
+    ],
+    "evidence_refs": [
+      "task_4_step_03",
+      "task_4_step_05",
+      "task_4_step_07"
+    ],
+    "contradictions": [],
+    "limitations": [
+      "Analysis limited to bounded local evidence without global aggregation or semantic interpretation beyond correlation and shortcut signals."
+    ]
+  }
+]
+
+OVERLAP_DIAGNOSTICS:
+[]
+
+OUTPUT_RULES:
+Return exactly one JSON object.
+Only cite evidence_refs that appear in SOURCE_WORKER_RESULTS.
+Only preserve contradictions that already appear in SOURCE_WORKER_RESULTS.
+Keep update_focus state-facing and grounded, but do not describe state mutation.
+{
+  "aggregation_handoff": {
+    "batch_id": "phase3a_batch_0406132627_friday-workinghours-afternoon-ddos.pcap_iscx_f0e355",
+    "round_id": "round-001",
+    "hypothesis_id": "hyp_5_strong_linear_dependencies",
+    "merged_findings": [
+      "grounded merged finding"
+    ],
+    "evidence_refs": [
+      "source evidence_ref"
+    ],
+    "preserved_contradictions": [
+      "unresolved source contradiction"
+    ],
+    "open_gaps": [
+      "remaining unresolved gap or limitation"
+    ],
+    "update_focus": "orientation for the touched interpretive area"
+  }
+}

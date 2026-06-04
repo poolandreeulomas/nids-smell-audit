@@ -1,0 +1,20 @@
+{
+  "task_id": "task_1",
+  "hypothesis_id": "hyp_1_redundancy_vs_importance_tension",
+  "task_scope": "Measure pairwise correlation strength and overlap in predictive signal among top-ranked correlated feature pairs using evidence refs e3, e4, e13, e16, e22.",
+  "allowed_actions": [
+    "relation_verification",
+    "dependency_contextualization"
+  ],
+  "local_context_refs": [
+    "e3",
+    "e4",
+    "e13",
+    "e16",
+    "e22"
+  ],
+  "stop_conditions": [
+    "all top-ranked correlated feature pairs analyzed",
+    "correlation metrics stabilized"
+  ]
+}

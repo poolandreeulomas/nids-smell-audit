@@ -1,0 +1,110 @@
+{
+  "batch_id": "phase3a_batch_0306192600_friday-workinghours-afternoon-ddos.pcap_iscx_a08c4b",
+  "round_id": "round-001",
+  "hypothesis_id": "hyp_010_potential_effects_of_data_redundancy_on_feature_correlations",
+  "planner_strategy_id": "strategy_01_hyp_010",
+  "worker_tasks": [
+    {
+      "task_id": "task_1",
+      "hypothesis_id": "hyp_010_potential_effects_of_data_redundancy_on_feature_correlations",
+      "task_scope": "Quantify the proportion and distribution of duplicated rows in the dataset within the preserved evidence scope",
+      "allowed_actions": [
+        "duplication_verification",
+        "cardinality_verification"
+      ],
+      "local_context_refs": [
+        "e1",
+        "e2",
+        "e13",
+        "e14",
+        "e15",
+        "e16",
+        "e17",
+        "e18",
+        "e19",
+        "e20",
+        "e21",
+        "e22"
+      ],
+      "stop_conditions": [
+        "duplication proportion quantified",
+        "duplication distribution characterized"
+      ]
+    },
+    {
+      "task_id": "task_2",
+      "hypothesis_id": "hyp_010_potential_effects_of_data_redundancy_on_feature_correlations",
+      "task_scope": "Compare feature correlation matrices before and after removing duplicated rows focusing on correlated features",
+      "allowed_actions": [
+        "relation_verification",
+        "distribution_verification"
+      ],
+      "local_context_refs": [
+        "e13",
+        "e14",
+        "e15",
+        "e16",
+        "e17",
+        "e18",
+        "e19",
+        "e20",
+        "e21",
+        "e22"
+      ],
+      "stop_conditions": [
+        "correlation matrices computed pre- and post-deduplication",
+        "differences in correlations identified"
+      ]
+    },
+    {
+      "task_id": "task_3",
+      "hypothesis_id": "hyp_010_potential_effects_of_data_redundancy_on_feature_correlations",
+      "task_scope": "Evaluate changes in feature importance or dependency concentration after deduplication within the correlated feature set",
+      "allowed_actions": [
+        "dependency_contextualization",
+        "structural_summary"
+      ],
+      "local_context_refs": [
+        "e13",
+        "e14",
+        "e15",
+        "e16",
+        "e17",
+        "e18",
+        "e19",
+        "e20",
+        "e21",
+        "e22"
+      ],
+      "stop_conditions": [
+        "dependency concentration metrics computed pre- and post-deduplication",
+        "feature importance shifts documented"
+      ]
+    },
+    {
+      "task_id": "task_4",
+      "hypothesis_id": "hyp_010_potential_effects_of_data_redundancy_on_feature_correlations",
+      "task_scope": "Check for persistence or attenuation of near-perfect correlations after removing duplicates in the dataset",
+      "allowed_actions": [
+        "relation_verification",
+        "local_consistency_verification"
+      ],
+      "local_context_refs": [
+        "e13",
+        "e14",
+        "e15",
+        "e16",
+        "e17",
+        "e18",
+        "e19",
+        "e20",
+        "e21",
+        "e22"
+      ],
+      "stop_conditions": [
+        "near-perfect correlations identified pre-deduplication",
+        "persistence or attenuation confirmed post-deduplication"
+      ]
+    }
+  ]
+}

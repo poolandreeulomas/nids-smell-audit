@@ -1,0 +1,66 @@
+{
+  "batch_id": "phase3a_batch_0306161030_friday-workinghours-afternoon-ddos.pcap_iscx_0595cd",
+  "round_id": "round-001",
+  "planner_strategies": [
+    {
+      "strategy_id": "strategy_01_hyp_1",
+      "hypothesis_id": "hyp_1_redundancy_vs_importance_tension",
+      "strategic_objective": "Clarify the unique versus redundant informational contribution of strongly correlated features with high relative importance.",
+      "key_checks": [
+        "Measure pairwise correlation strength and overlap in predictive signal among top-ranked features",
+        "Assess feature importance stability under perturbations that remove or combine correlated features",
+        "Compare distributional and dependency profiles of correlated features across classes and partitions",
+        "Evaluate whether correlated features exhibit shortcut-like behavior or local label consistency"
+      ],
+      "success_criteria": [
+        "Evidence distinguishes whether correlated features provide complementary or redundant signals",
+        "Identification of any evaluation artifacts inflating importance of correlated features",
+        "Bounded understanding of how redundancy impacts feature importance rankings"
+      ],
+      "router_constraints": [
+        "preserve correlated feature pairs scope",
+        "preserve evidence references e3, e4, e13, e16, e22"
+      ]
+    },
+    {
+      "strategy_id": "strategy_02_hyp_3",
+      "hypothesis_id": "hyp_3_distributional_skew_vs_partition_imbalance",
+      "strategic_objective": "Determine if the dominant single port in the DDoS class reflects a genuine attack pattern or sampling artifact influenced by duplication and class imbalance.",
+      "key_checks": [
+        "Analyze class-conditioned distribution stability of Destination Port across partitions",
+        "Quantify impact of duplicated rows on port distribution skew and entropy measures",
+        "Examine relationship between class imbalance and distributional divergence in Destination Port",
+        "Check for local consistency and dependency concentration around dominant port values"
+      ],
+      "success_criteria": [
+        "Clear differentiation between genuine attack pattern and dataset artifact in port distribution",
+        "Bounded insight into how duplication and imbalance affect distributional skew",
+        "Identification of stable versus unstable distributional signals in Destination Port"
+      ],
+      "router_constraints": [
+        "preserve Destination Port feature scope",
+        "preserve evidence references e1, e2, e33"
+      ]
+    },
+    {
+      "strategy_id": "strategy_03_hyp_10",
+      "hypothesis_id": "hyp_10_potential_overfitting_risk_due_to_redundant_features",
+      "strategic_objective": "Assess the extent to which redundancy among high-salience features may artificially inflate model performance and identify mitigation directions.",
+      "key_checks": [
+        "Evaluate dependency concentration and redundancy patterns among top-ranked features",
+        "Test shortcut-like predictive leverage of redundant features individually",
+        "Examine local label consistency and distributional overlap in redundant feature clusters",
+        "Explore bounded scenarios where removing redundancy affects performance indicators"
+      ],
+      "success_criteria": [
+        "Evidence bounds the risk of overfitting due to redundant features",
+        "Identification of features or clusters that disproportionately contribute to spurious signals",
+        "Preliminary directions for mitigating redundancy-driven overfitting risks"
+      ],
+      "router_constraints": [
+        "preserve redundant feature clusters scope",
+        "preserve evidence references e3, e4, e13, e16, e22"
+      ]
+    }
+  ]
+}

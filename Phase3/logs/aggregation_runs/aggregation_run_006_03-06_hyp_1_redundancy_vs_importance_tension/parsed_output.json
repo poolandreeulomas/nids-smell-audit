@@ -1,0 +1,37 @@
+{
+  "batch_id": "phase3a_batch_0306161030_friday-workinghours-afternoon-ddos.pcap_iscx_0595cd",
+  "round_id": "round-001",
+  "hypothesis_id": "hyp_1_redundancy_vs_importance_tension",
+  "merged_findings": [
+    "Top-ranked feature pairs, specifically 'Bwd Packet Length Mean' and 'Avg Bwd Segment Size', exhibit perfect or near-perfect correlation indicating strong redundancy while both maintain high individual importance and class separation, confirming a persistent tension between redundancy and apparent importance.",
+    "These features cluster tightly in stable dependency groups with consistent distributional profiles across partitions, supporting structural redundancy coexisting with discriminative power.",
+    "'Bwd Packet Length Mean' shows moderate local label conflicts and shortcut-like predictive signals, adding complexity to the redundancy versus importance interpretation.",
+    "Relation verification and dependency profiling were successfully bounded within the local context, preserving provenance and epistemic caution."
+  ],
+  "evidence_refs": [
+    "task_1_step_05",
+    "task_1_step_07",
+    "task_2_step_03",
+    "task_2_step_05",
+    "task_2_step_07",
+    "task_3_step_03_call_01",
+    "task_3_step_03_call_02",
+    "task_3_step_05",
+    "task_3_step_07",
+    "task_4_step_03",
+    "task_4_step_05",
+    "task_4_step_07"
+  ],
+  "preserved_contradictions": [
+    "Tension between redundancy and top-rank importance remains unresolved but preserved as a local contradiction.",
+    "Local contradiction preserved: top-ranked features are also perfectly correlated, challenging straightforward importance interpretation.",
+    "Moderate label neighborhood conflicts and duplicate label conflicts for 'Bwd Packet Length Mean' preserve local contradictions about label consistency."
+  ],
+  "open_gaps": [
+    "Relation verification outside the bounded local context was not possible, limiting cross-context synthesis.",
+    "No direct perturbation-based importance recalculations were performed; conclusions rely on dependency profiling only.",
+    "Analysis limited to locally observed correlated features and available distribution verifications; broader global dependency shifts not assessed.",
+    "Analysis limited to bounded local neighborhoods and single-feature decision stumps; global aggregation or multi-feature interactions not assessed."
+  ],
+  "update_focus": "Maintain focus on local redundancy versus importance tension with bounded dependency and label conflict context."
+}

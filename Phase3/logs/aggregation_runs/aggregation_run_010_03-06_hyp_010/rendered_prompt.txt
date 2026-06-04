@@ -1,0 +1,135 @@
+ROLE:
+You are Aggregation. Stay inside one hypothesis-local, round-local merge after Worker and before State Manager.
+Do not reroute, replan, mutate canonical state, emit critic feedback, or summarize raw traces.
+Preserve grounded contradictions and unresolved gaps instead of flattening them away.
+
+TASK:
+{
+  "batch_id": "phase3a_batch_0306173106_friday-workinghours-afternoon-ddos.pcap_iscx_98251a",
+  "round_id": "round-001",
+  "hypothesis_id": "hyp_010",
+  "worker_result_count": 4,
+  "expected_task_ids": [
+    "task_1",
+    "task_2",
+    "task_3",
+    "task_4"
+  ],
+  "selected_task_ids": [
+    "task_1",
+    "task_2",
+    "task_3",
+    "task_4"
+  ]
+}
+
+SOURCE_WORKER_RESULTS:
+[
+  {
+    "task_id": "task_1",
+    "hypothesis_id": "hyp_010",
+    "status": "completed",
+    "findings": [
+      "Multiple backward bulk-related features exhibit extremely low cardinality and near-constant values, indicating minimal variability within this cluster.",
+      "Forward bulk-related features similarly show extremely low cardinality and near-constant values, mirroring backward bulk feature behavior.",
+      "Dataset-level duplication verification confirms presence of duplicated rows, which may impact feature distributions and dependencies.",
+      "Partition-level observations indicate moderate class imbalance, potentially influencing structural patterns and feature distributions."
+    ],
+    "evidence_refs": [
+      "task_1_step_03",
+      "task_1_step_05",
+      "task_1_step_07"
+    ],
+    "contradictions": [],
+    "limitations": [
+      "Dependency contextualization was not explicitly performed on individual features but inferred from clustered low variability."
+    ]
+  },
+  {
+    "task_id": "task_2",
+    "hypothesis_id": "hyp_010",
+    "status": "inconclusive",
+    "findings": [
+      "Backward and forward bulk-related features form localized clusters with near-constant values and extremely low cardinality across partitions.",
+      "Pairwise dependency relations among these features are undefined, preventing dependency concentration or stability assessment.",
+      "Partition-level data quality issues such as duplicated rows and class imbalance may influence structural patterns and dependency signals."
+    ],
+    "evidence_refs": [
+      "task_2_step_03",
+      "task_2_step_05",
+      "task_2_step_07"
+    ],
+    "contradictions": [],
+    "limitations": [
+      "Dependency analysis limited by near-constant feature values and undefined correlations.",
+      "No external dataset comparison possible due to lack of finite dependency signals."
+    ]
+  },
+  {
+    "task_id": "task_3",
+    "hypothesis_id": "hyp_010",
+    "status": "completed",
+    "findings": [
+      "The backward bulk and flag feature cluster exhibits extremely low variability, confirmed by low entropy and dominant value signals in multiple distribution verifications.",
+      "The low-variability cluster is stable under the sampled conditions observed in the local evidence.",
+      "No contradictory evidence or instability signals were found within the bounded local context."
+    ],
+    "evidence_refs": [
+      "task_3_step_03",
+      "task_3_step_05",
+      "task_3_step_07"
+    ],
+    "contradictions": [],
+    "limitations": [
+      "Variability under different sampling conditions beyond those locally observed remains unverified due to bounded evidence scope and step budget exhaustion."
+    ]
+  },
+  {
+    "task_id": "task_4",
+    "hypothesis_id": "hyp_010",
+    "status": "partial",
+    "findings": [
+      "Dataset contains duplicated rows and moderate class imbalance affecting structural patterns.",
+      "Backward bulk-related features exhibit near-constant values with low entropy and dominant values.",
+      "Dependency concentration analysis was inconclusive due to insufficient finite pairwise dependencies."
+    ],
+    "evidence_refs": [
+      "task_4_step_03",
+      "task_4_step_05",
+      "task_4_step_07"
+    ],
+    "contradictions": [],
+    "limitations": [
+      "Dependency contextualization failed due to lack of finite pairwise dependencies, limiting structural dependency insight."
+    ]
+  }
+]
+
+OVERLAP_DIAGNOSTICS:
+[]
+
+OUTPUT_RULES:
+Return exactly one JSON object.
+Only cite evidence_refs that appear in SOURCE_WORKER_RESULTS.
+Only preserve contradictions that already appear in SOURCE_WORKER_RESULTS.
+Keep update_focus short and state-facing, but do not describe state mutation.
+{
+  "aggregation_handoff": {
+    "batch_id": "phase3a_batch_0306173106_friday-workinghours-afternoon-ddos.pcap_iscx_98251a",
+    "round_id": "round-001",
+    "hypothesis_id": "hyp_010",
+    "merged_findings": [
+      "grounded merged finding"
+    ],
+    "evidence_refs": [
+      "source evidence_ref"
+    ],
+    "preserved_contradictions": [
+      "unresolved source contradiction"
+    ],
+    "open_gaps": [
+      "remaining unresolved gap or limitation"
+    ],
+    "update_focus": "short orientation for the touched interpretive area"
+  }
+}

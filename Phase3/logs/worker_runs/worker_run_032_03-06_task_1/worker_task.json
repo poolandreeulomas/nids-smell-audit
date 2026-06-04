@@ -1,0 +1,20 @@
+{
+  "task_id": "task_1",
+  "hypothesis_id": "hyp_10_potential_overfitting_risk_due_to_redundant_features",
+  "task_scope": "Evaluate dependency concentration and redundancy patterns among top-ranked features within redundant feature clusters",
+  "allowed_actions": [
+    "dependency_contextualization",
+    "duplication_verification"
+  ],
+  "local_context_refs": [
+    "e3",
+    "e4",
+    "e13",
+    "e16",
+    "e22"
+  ],
+  "stop_conditions": [
+    "dependency metrics stabilized",
+    "redundancy patterns fully characterized"
+  ]
+}

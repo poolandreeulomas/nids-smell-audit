@@ -1,0 +1,24 @@
+{
+  "batch_id": "phase3a_batch_0306192600_friday-workinghours-afternoon-ddos.pcap_iscx_a08c4b",
+  "round_id": "round-001",
+  "worker_result": {
+    "task_id": "task_2",
+    "hypothesis_id": "hyp_003_class_conditioned_variation_backward_packet_lengths",
+    "status": "partial",
+    "findings": [
+      "Backward packet length features show low cardinality and near-constant behavior in some cases, consistent with class-conditioned structural variation but indicating limited feature variability.",
+      "Unique value counts have stabilized, supporting the reliability of the observed variance ratio signals.",
+      "Evidence supports the presence of representation-sensitive patterns and structural irregularities in backward packet length features."
+    ],
+    "evidence_refs": [
+      "task_2_step_03",
+      "task_2_step_05",
+      "task_2_step_07"
+    ],
+    "contradictions": [],
+    "limitations": [
+      "Low cardinality and near-constant signals limit the granularity of variance ratio interpretation.",
+      "No direct variance ratio values computed locally, only inferred from cardinality signals."
+    ]
+  }
+}

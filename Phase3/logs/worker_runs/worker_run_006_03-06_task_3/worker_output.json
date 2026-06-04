@@ -1,0 +1,20 @@
+{
+  "batch_id": "phase3a_batch_0306143851_friday-workinghours-afternoon-ddos.pcap_iscx_ba9279",
+  "round_id": "round-001",
+  "worker_result": {
+    "task_id": "task_3",
+    "hypothesis_id": "hyp_001_low_diversity_constant_features",
+    "status": "completed",
+    "findings": [
+      "Features 'Bwd Avg Bulk Rate', 'Bwd Avg Bytes/Bulk', and 'Bwd Avg Packets/Bulk' exhibit extremely low cardinality with unique values equal to 1, confirming near-constant values across the partition.",
+      "No subtle fluctuations or hidden variability detected in these features below coarse aggregation levels."
+    ],
+    "evidence_refs": [
+      "task_3_step_03",
+      "task_3_step_05",
+      "task_3_step_07"
+    ],
+    "contradictions": [],
+    "limitations": []
+  }
+}

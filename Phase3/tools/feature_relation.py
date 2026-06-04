@@ -42,7 +42,8 @@ def feature_relation(
         cfg, df, resolved_valid_features = resolve_tool_inputs(
             dataset_path, config, dataset_frame, valid_numeric_features
         )
-        validate_feature_name(feature_name, resolved_valid_features)
+        feature_name = validate_feature_name(
+            feature_name, resolved_valid_features)
 
         corr_matrix = get_or_cache(
             df,
@@ -52,7 +53,7 @@ def feature_relation(
 
         partner = related_feature_name
         if partner is not None:
-            validate_feature_name(partner, resolved_valid_features)
+            partner = validate_feature_name(partner, resolved_valid_features)
         else:
             candidates = []
             for other_feature in resolved_valid_features:

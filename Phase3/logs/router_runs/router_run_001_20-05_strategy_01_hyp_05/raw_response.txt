@@ -1,0 +1,60 @@
+{
+  "batch_id": "semantic_batch_076_friday-workinghours-afternoon-ddos.pcap_iscx",
+  "round_id": "round_077_semantic_batch_076_friday-workinghours-afternoon-ddos.pcap_iscx",
+  "hypothesis_id": "hyp_05_tension_between_redundancy_and_representation",
+  "planner_strategy_id": "strategy_01_hyp_05",
+  "worker_tasks": [
+    {
+      "task_id": "task_01_hyp_05",
+      "hypothesis_id": "hyp_05_tension_between_redundancy_and_representation",
+      "task_scope": "Identify features with high redundancy but distinct class-conditioned distributions using feature-level distribution and duplication checks",
+      "allowed_actions": [
+        "distribution_verification",
+        "duplication_verification"
+      ],
+      "local_context_refs": [
+        "e8",
+        "e9",
+        "e10",
+        "e11",
+        "e12"
+      ],
+      "stop_conditions": "Stop after confirming features with redundant yet class-distinct distributions"
+    },
+    {
+      "task_id": "task_02_hyp_05",
+      "hypothesis_id": "hyp_05_tension_between_redundancy_and_representation",
+      "task_scope": "Assess redundancy patterns within and across classes by verifying feature pair relations and dependency concentration",
+      "allowed_actions": [
+        "relation_verification",
+        "dependency_contextualization"
+      ],
+      "local_context_refs": [
+        "e13",
+        "e14",
+        "e15",
+        "e16",
+        "e17"
+      ],
+      "stop_conditions": "Stop after characterizing redundancy patterns and dependency clusters"
+    },
+    {
+      "task_id": "task_03_hyp_05",
+      "hypothesis_id": "hyp_05_tension_between_redundancy_and_representation",
+      "task_scope": "Examine feature subsets for differential representational strength by class using structural summaries and local consistency verification",
+      "allowed_actions": [
+        "structural_summary",
+        "local_consistency_verification"
+      ],
+      "local_context_refs": [
+        "e18",
+        "e19",
+        "e20",
+        "e21",
+        "e22",
+        "e33"
+      ],
+      "stop_conditions": "Stop after identifying features with strong class-conditioned representational differences"
+    }
+  ]
+}

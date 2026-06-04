@@ -1,0 +1,19 @@
+{
+  "strategy_id": "strategy_02_hyp_2",
+  "hypothesis_id": "hyp_2_strong_feature_dependencies_and_redundancy",
+  "strategic_objective": "Characterize the extent, class stability, and structural impact of strong linear dependencies among packet length, flag count, and subflow features to understand redundancy and effective dimensionality.",
+  "key_checks": [
+    "Quantify dependency strength and linear correlation patterns within and across classes",
+    "Evaluate stability of dependencies between DDoS and BENIGN classes",
+    "Estimate effective feature dimensionality reduction due to redundancy"
+  ],
+  "success_criteria": [
+    "Clear delineation of stable versus class-specific dependency patterns",
+    "Evidence bounding the degree of redundancy affecting feature space complexity",
+    "Insights into whether dependencies mask or inflate feature importance"
+  ],
+  "router_constraints": [
+    "preserve feature dependency structure",
+    "preserve evidence references related to correlation and redundancy"
+  ]
+}

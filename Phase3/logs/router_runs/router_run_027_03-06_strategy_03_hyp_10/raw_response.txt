@@ -1,0 +1,40 @@
+{
+  "batch_id": "phase3a_batch_0306181120_friday-workinghours-afternoon-ddos.pcap_iscx_5e8f98",
+  "round_id": "round-001",
+  "hypothesis_id": "hyp_10_interplay_between_redundancy_and_class_conditioned_variation",
+  "planner_strategy_id": "strategy_03_hyp_10",
+  "worker_tasks": [
+    {
+      "task_id": "task_1",
+      "hypothesis_id": "hyp_10_interplay_between_redundancy_and_class_conditioned_variation",
+      "task_scope": "Analyze dependency structures linking redundant features with class-conditioned packet length and size variations within evidence refs e9 to e22",
+      "allowed_actions": ["dependency_contextualization", "relation_verification"],
+      "local_context_refs": ["e9", "e10", "e11", "e12", "e13", "e14", "e15", "e16", "e17", "e18", "e19", "e20", "e21", "e22"],
+      "stop_conditions": ["dependency patterns fully mapped", "redundant feature links identified"]
+    },
+    {
+      "task_id": "task_2",
+      "hypothesis_id": "hyp_10_interplay_between_redundancy_and_class_conditioned_variation",
+      "task_scope": "Evaluate if disentangling redundancies clarifies or amplifies meaningful class-specific packet length and size signals in the preserved feature scope",
+      "allowed_actions": ["distribution_verification", "duplication_verification"],
+      "local_context_refs": ["e9", "e10", "e11", "e12", "e13", "e14", "e15", "e16", "e17", "e18", "e19", "e20", "e21", "e22"],
+      "stop_conditions": ["class-specific signal clarity assessed", "redundancy impact quantified"]
+    },
+    {
+      "task_id": "task_3",
+      "hypothesis_id": "hyp_10_interplay_between_redundancy_and_class_conditioned_variation",
+      "task_scope": "Check for unstable dependencies that may mask or distort class-conditioned variation in packet length and size features",
+      "allowed_actions": ["local_consistency_verification", "dependency_contextualization"],
+      "local_context_refs": ["e9", "e10", "e11", "e12", "e13", "e14", "e15", "e16", "e17", "e18", "e19", "e20", "e21", "e22"],
+      "stop_conditions": ["unstable dependencies identified", "masking effects documented"]
+    },
+    {
+      "task_id": "task_4",
+      "hypothesis_id": "hyp_10_interplay_between_redundancy_and_class_conditioned_variation",
+      "task_scope": "Assess impact of redundancy disentanglement on interpretability and detection of class patterns in packet length and size features",
+      "allowed_actions": ["structural_summary", "relation_verification"],
+      "local_context_refs": ["e9", "e10", "e11", "e12", "e13", "e14", "e15", "e16", "e17", "e18", "e19", "e20", "e21", "e22"],
+      "stop_conditions": ["interpretability changes measured", "class pattern detection impact evaluated"]
+    }
+  ]
+}

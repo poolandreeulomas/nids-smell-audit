@@ -1,0 +1,32 @@
+{
+  "batch_id": "phase3a_batch_0306154538_friday-workinghours-afternoon-ddos.pcap_iscx_2a1de9",
+  "round_id": "round-001",
+  "selected_hypothesis_ids": [
+    "hyp_4_distributional_divergence_destination_port",
+    "hyp_2_strong_linear_dependencies",
+    "hyp_1_low_diversity_bulk_features"
+  ],
+  "deferred_hypothesis_ids": [
+    "hyp_3_class_conditioned_structural_variation_packet_length",
+    "hyp_5_partition_level_data_quality_and_skew",
+    "hyp_6_top_ranked_packet_length_features_as_key_signals",
+    "hyp_7_potential_overlap_of_dependency_and_representation_sensitive_patterns",
+    "hyp_8_risk_of_trivial_confirmation_due_to_feature_saturation",
+    "hyp_9_burst_behavior_vs_structural_collapse_in_feature_patterns",
+    "hyp_10_effect_of_data_quality_issues_on_feature_dependency_and_variation"
+  ],
+  "selection_rationales": [
+    {
+      "hypothesis_id": "hyp_4_distributional_divergence_destination_port",
+      "reason": "Strong class-distinctive pattern with potential overfitting risk; high value for understanding narrow but powerful indicators."
+    },
+    {
+      "hypothesis_id": "hyp_2_strong_linear_dependencies",
+      "reason": "Key structural redundancy affecting feature space dimensionality and model bias; critical to clarify stability and origin."
+    },
+    {
+      "hypothesis_id": "hyp_1_low_diversity_bulk_features",
+      "reason": "Potential structural saturation or artifact limiting feature discriminative power; important to distinguish genuine behavior from extraction issues."
+    }
+  ]
+}

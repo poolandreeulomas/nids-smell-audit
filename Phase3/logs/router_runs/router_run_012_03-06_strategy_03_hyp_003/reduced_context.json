@@ -1,0 +1,117 @@
+{
+  "related_substrate_refs": [
+    "e8",
+    "e9",
+    "e10",
+    "e11",
+    "e12"
+  ],
+  "tool_capability_refs": [
+    "cardinality_analysis",
+    "dependency_concentration_analysis",
+    "distribution_analysis",
+    "duplication_analysis",
+    "feature_relation",
+    "feature_summary",
+    "neighborhood_consistency_analysis",
+    "shortcut_analysis"
+  ],
+  "tool_capabilities": [
+    {
+      "tool_name": "cardinality_analysis",
+      "epistemic_role": "cardinality_verification",
+      "supported_scopes": [
+        "feature"
+      ],
+      "result_shape": "feature_observation",
+      "boundedness_notes": "Checks low-cardinality and near-constant behavior for one feature."
+    },
+    {
+      "tool_name": "dependency_concentration_analysis",
+      "epistemic_role": "dependency_contextualization",
+      "supported_scopes": [
+        "feature"
+      ],
+      "result_shape": "feature_observation",
+      "boundedness_notes": "Measures whether one feature's dependency profile is concentrated into a narrow structural cluster."
+    },
+    {
+      "tool_name": "distribution_analysis",
+      "epistemic_role": "distribution_verification",
+      "supported_scopes": [
+        "feature"
+      ],
+      "result_shape": "feature_observation",
+      "boundedness_notes": "Analyzes one numeric feature's class-conditioned distribution profile."
+    },
+    {
+      "tool_name": "duplication_analysis",
+      "epistemic_role": "duplication_verification",
+      "supported_scopes": [
+        "dataset"
+      ],
+      "result_shape": "dataset_observation",
+      "boundedness_notes": "Checks exact duplication at dataset scope without semantic interpretation."
+    },
+    {
+      "tool_name": "feature_relation",
+      "epistemic_role": "relation_verification",
+      "supported_scopes": [
+        "feature",
+        "feature_pair"
+      ],
+      "result_shape": "pair_observation",
+      "boundedness_notes": "Measures one bounded pairwise relation and never expands beyond two features."
+    },
+    {
+      "tool_name": "feature_summary",
+      "epistemic_role": "structural_summary",
+      "supported_scopes": [
+        "feature"
+      ],
+      "result_shape": "feature_observation",
+      "boundedness_notes": "Summarizes one numeric feature under class-conditioned evidence."
+    },
+    {
+      "tool_name": "neighborhood_consistency_analysis",
+      "epistemic_role": "local_consistency_verification",
+      "supported_scopes": [
+        "feature"
+      ],
+      "result_shape": "feature_observation",
+      "boundedness_notes": "Measures local label-topology consistency around one feature with bounded deterministic neighborhoods."
+    },
+    {
+      "tool_name": "shortcut_analysis",
+      "epistemic_role": "shortcut_verification",
+      "supported_scopes": [
+        "feature"
+      ],
+      "result_shape": "feature_observation",
+      "boundedness_notes": "Uses a deterministic one-feature decision stump to test shortcut-like predictive leverage."
+    }
+  ],
+  "available_action_classes": [
+    "cardinality_verification",
+    "dependency_contextualization",
+    "distribution_verification",
+    "duplication_verification",
+    "relation_verification",
+    "structural_summary",
+    "local_consistency_verification",
+    "shortcut_verification"
+  ],
+  "execution_budget": {
+    "max_worker_steps": 8,
+    "max_tasks": 4,
+    "max_retries": 1
+  },
+  "guardrails": [
+    "bounded_local_scope",
+    "no_exact_tool_calls",
+    "no_hidden_replanning",
+    "strategic_only",
+    "preserve_selected_scope",
+    "router_ready_handoff"
+  ]
+}

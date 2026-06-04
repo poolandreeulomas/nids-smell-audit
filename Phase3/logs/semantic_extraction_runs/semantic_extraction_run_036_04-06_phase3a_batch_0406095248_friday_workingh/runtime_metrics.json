@@ -1,0 +1,17 @@
+{
+  "batch_id": "phase3a_batch_0406095248_friday-workinghours-afternoon-ddos.pcap_iscx_f8c2c2",
+  "model_name": "gpt-4.1-mini",
+  "duration_ms": 43347.359,
+  "status": "ok",
+  "prompt_chars": 23431,
+  "raw_response_chars": 14878,
+  "evidence_count": 33,
+  "region_count": 8,
+  "weak_signal_count": 2,
+  "contradiction_count": 0,
+  "tension_count": 0,
+  "fresh_execution": true,
+  "replay_of": null,
+  "caller_mode": "cli",
+  "schema_version": "phase3a.semantic_extraction.v1"
+}

@@ -1,0 +1,79 @@
+ROLE:
+You are Aggregation. Stay inside one hypothesis-local, round-local merge after Worker and before State Manager.
+Do not reroute, replan, mutate canonical state, emit critic feedback, or summarize raw traces.
+Preserve grounded contradictions and unresolved gaps instead of flattening them away.
+
+TASK:
+{
+  "batch_id": "batch-001",
+  "round_id": "round-001",
+  "hypothesis_id": "hyp-1",
+  "worker_result_count": 2,
+  "expected_task_ids": [
+    "task-hyp-1-1",
+    "task-hyp-1-2"
+  ],
+  "selected_task_ids": [
+    "task-hyp-1-1",
+    "task-hyp-1-2"
+  ]
+}
+
+SOURCE_WORKER_RESULTS:
+[
+  {
+    "task_id": "task-hyp-1-1",
+    "hypothesis_id": "hyp-1",
+    "status": "completed",
+    "findings": [
+      "finding-1"
+    ],
+    "evidence_refs": [
+      "e1"
+    ],
+    "contradictions": [],
+    "limitations": []
+  },
+  {
+    "task_id": "task-hyp-1-2",
+    "hypothesis_id": "hyp-1",
+    "status": "completed",
+    "findings": [
+      "finding-2"
+    ],
+    "evidence_refs": [
+      "e2"
+    ],
+    "contradictions": [],
+    "limitations": []
+  }
+]
+
+OVERLAP_DIAGNOSTICS:
+[]
+
+OUTPUT_RULES:
+Return exactly one JSON object.
+Only cite evidence_refs that appear in SOURCE_WORKER_RESULTS.
+Only preserve contradictions that already appear in SOURCE_WORKER_RESULTS.
+Keep update_focus state-facing and grounded, but do not describe state mutation.
+{
+  "aggregation_handoff": {
+    "batch_id": "batch-001",
+    "round_id": "round-001",
+    "hypothesis_id": "hyp-1",
+    "merged_findings": [
+      "grounded merged finding"
+    ],
+    "evidence_refs": [
+      "source evidence_ref"
+    ],
+    "preserved_contradictions": [
+      "unresolved source contradiction"
+    ],
+    "open_gaps": [
+      "remaining unresolved gap or limitation"
+    ],
+    "update_focus": "orientation for the touched interpretive area"
+  }
+}

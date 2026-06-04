@@ -1,0 +1,26 @@
+{
+  "batch_id": "phase3a_batch_0406095248_friday-workinghours-afternoon-ddos.pcap_iscx_f8c2c2",
+  "round_id": "round-001",
+  "hypothesis_id": "hyp_007_class_conditioned_distribution_destination_port",
+  "merged_findings": [
+    "The Destination Port feature exhibits a strong class-conditioned distributional shift, with the DDoS class showing zero entropy and a dominant port ratio of 1.0, indicating a targeted attack pattern focused on a single port.",
+    "The BENIGN class contrasts with higher entropy and more diverse destination port usage, confirming the distributional difference conditioned on class.",
+    "No evidence of dataset duplication artifacts or additional temporal/contextual dependencies was found to explain the zero entropy or distributional shifts beyond the class-conditioned pattern.",
+    "However, moderate shortcut signals and high local label neighborhood conflicts, including duplicate label conflicts, reveal unstable dependencies and local contradictions in the label topology."
+  ],
+  "evidence_refs": [
+    "task_1_step_03",
+    "task_1_step_05",
+    "task_2_step_03",
+    "task_2_step_05",
+    "task_3_step_03",
+    "task_3_step_05"
+  ],
+  "preserved_contradictions": [
+    "High label neighborhood conflict and duplicate label conflict indicate local contradictions in label topology."
+  ],
+  "open_gaps": [
+    "Analysis is limited to local evidence within e33; no global aggregation or broader contextual analysis has been performed to resolve label conflicts or shortcut risks."
+  ],
+  "update_focus": "Focus on resolving local label topology contradictions and assessing the impact of shortcut signals on the reliability of the class-conditioned distributional shift in destination port."
+}

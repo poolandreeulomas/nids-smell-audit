@@ -1,0 +1,16 @@
+{
+  "task_id": "task_2",
+  "hypothesis_id": "hyp_005_class_distribution_skew_in_destination_port",
+  "task_scope": "Evaluate entropy and dominant port ratio variability within the DDoS class using evidence e33",
+  "allowed_actions": [
+    "distribution_verification",
+    "cardinality_verification"
+  ],
+  "local_context_refs": [
+    "e33"
+  ],
+  "stop_conditions": [
+    "entropy and dominant port ratio metrics converge",
+    "minimum data coverage achieved"
+  ]
+}

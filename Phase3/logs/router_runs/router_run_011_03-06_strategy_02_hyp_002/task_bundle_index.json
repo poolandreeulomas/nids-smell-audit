@@ -1,0 +1,40 @@
+{
+  "hypothesis_id": "hyp_002_strong_dependency_pairs_redundancy",
+  "planner_strategy_id": "strategy_02_hyp_002",
+  "task_count": 4,
+  "action_class_count": 6,
+  "task_summaries": [
+    {
+      "task_id": "task_1",
+      "hypothesis_id": "hyp_002_strong_dependency_pairs_redundancy",
+      "task_scope": "Measure dependency strength of identified feature pairs separately within BENIGN and DDoS classes to detect class-specific dependency patterns.",
+      "allowed_action_count": 1,
+      "local_context_ref_count": 3,
+      "stop_condition_count": 2
+    },
+    {
+      "task_id": "task_2",
+      "hypothesis_id": "hyp_002_strong_dependency_pairs_redundancy",
+      "task_scope": "Analyze shifts or weakening in dependency patterns of feature pairs when comparing BENIGN versus DDoS classes to identify class-dependent changes.",
+      "allowed_action_count": 1,
+      "local_context_ref_count": 3,
+      "stop_condition_count": 2
+    },
+    {
+      "task_id": "task_3",
+      "hypothesis_id": "hyp_002_strong_dependency_pairs_redundancy",
+      "task_scope": "Simulate removal or combination of strongly dependent feature pairs to assess impact on dataset redundancy and feature importance.",
+      "allowed_action_count": 2,
+      "local_context_ref_count": 2,
+      "stop_condition_count": 2
+    },
+    {
+      "task_id": "task_4",
+      "hypothesis_id": "hyp_002_strong_dependency_pairs_redundancy",
+      "task_scope": "Evaluate if dependency clusters correspond to known feature semantics or measurement processes to interpret redundancy and dependency origins.",
+      "allowed_action_count": 2,
+      "local_context_ref_count": 2,
+      "stop_condition_count": 2
+    }
+  ]
+}

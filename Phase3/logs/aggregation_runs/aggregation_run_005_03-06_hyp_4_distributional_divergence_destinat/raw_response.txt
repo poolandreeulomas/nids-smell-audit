@@ -1,0 +1,32 @@
+{
+  "aggregation_handoff": {
+    "batch_id": "phase3a_batch_0306154538_friday-workinghours-afternoon-ddos.pcap_iscx_2a1de9",
+    "round_id": "round-001",
+    "hypothesis_id": "hyp_4_distributional_divergence_destination_port",
+    "merged_findings": [
+      "Destination Port feature exhibits strong and stable distributional divergence between BENIGN and DDoS classes, with the DDoS class showing zero entropy and a dominant value ratio of 1.0, indicating near-constant behavior and low cardinality.",
+      "BENIGN class shows moderate entropy and less dominance, reflecting higher variability in Destination Port distribution.",
+      "Structural summaries confirm high variance imbalance consistent with class-conditioned distributional differences.",
+      "Local consistency analysis reveals high label neighborhood and duplicate label conflicts around Destination Port, indicating unstable local label topology despite stable global distributional patterns.",
+      "Dependency analysis finds no narrow structural dependency clusters for Destination Port, suggesting a diffuse dependency profile.",
+      "Perturbation impact on classification sensitivity is stable within local evidence bounds.",
+      "Moderate shortcut-like predictive leverage is observed for Destination Port in evidence e33, though shortcut verification is limited to a single deterministic one-feature decision stump."
+    ],
+    "evidence_refs": [
+      "task_1_step_03",
+      "task_2_step_03",
+      "task_2_step_05",
+      "task_3_step_03",
+      "task_4_step_03",
+      "task_4_step_05"
+    ],
+    "preserved_contradictions": [
+      "local contradiction preserved"
+    ],
+    "open_gaps": [
+      "Shortcut verification limited to a single deterministic one-feature decision stump; more complex interactions not assessed.",
+      "Analysis limited to local evidence within e33; global dependency or aggregation effects not assessed."
+    ],
+    "update_focus": "Consolidate distributional divergence evidence with local label topology instability and limited shortcut verification within local evidence bounds."
+  }
+}

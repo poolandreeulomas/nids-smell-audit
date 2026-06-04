@@ -1,0 +1,40 @@
+{
+  "batch_id": "phase3a_batch_0306183859_friday-workinghours-afternoon-ddos.pcap_iscx_689174",
+  "round_id": "round-001",
+  "hypothesis_id": "hyp_005_class_distribution_skew_in_destination_port",
+  "planner_strategy_id": "strategy_01_hyp_005",
+  "worker_tasks": [
+    {
+      "task_id": "task_1",
+      "hypothesis_id": "hyp_005_class_distribution_skew_in_destination_port",
+      "task_scope": "Measure class-conditioned distribution stability of Destination Port across defined time segments within evidence e33",
+      "allowed_actions": ["distribution_verification"],
+      "local_context_refs": ["e33"],
+      "stop_conditions": ["distribution metrics stable across all time segments", "sample size threshold reached"]
+    },
+    {
+      "task_id": "task_2",
+      "hypothesis_id": "hyp_005_class_distribution_skew_in_destination_port",
+      "task_scope": "Evaluate entropy and dominant port ratio variability within the DDoS class using evidence e33",
+      "allowed_actions": ["distribution_verification", "cardinality_verification"],
+      "local_context_refs": ["e33"],
+      "stop_conditions": ["entropy and dominant port ratio metrics converge", "minimum data coverage achieved"]
+    },
+    {
+      "task_id": "task_3",
+      "hypothesis_id": "hyp_005_class_distribution_skew_in_destination_port",
+      "task_scope": "Test shortcut-like predictive leverage of Destination Port feature alone on DDoS class samples in evidence e33",
+      "allowed_actions": ["shortcut_verification"],
+      "local_context_refs": ["e33"],
+      "stop_conditions": ["predictive leverage quantified", "no further improvement in shortcut signal"]
+    },
+    {
+      "task_id": "task_4",
+      "hypothesis_id": "hyp_005_class_distribution_skew_in_destination_port",
+      "task_scope": "Compare port distribution patterns between attack campaigns and benign traffic within evidence e33",
+      "allowed_actions": ["distribution_verification", "relation_verification"],
+      "local_context_refs": ["e33"],
+      "stop_conditions": ["distribution differences identified or ruled out", "statistical significance threshold met"]
+    }
+  ]
+}

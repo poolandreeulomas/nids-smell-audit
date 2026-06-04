@@ -1,0 +1,68 @@
+{
+  "call_id": "task_4_step_07",
+  "tool_name": "feature_summary",
+  "status": "ok",
+  "observations": {
+    "feature_name": "Bwd Packet Length Mean",
+    "value": 20.433875509874728,
+    "signals": [
+      "high_variance_imbalance"
+    ],
+    "metrics": {
+      "mean": {
+        "BENIGN": 116.89619457877653,
+        "DDoS": 1481.0264915886573
+      },
+      "std": {
+        "BENIGN": 257.69338146001024,
+        "DDoS": 1164.8731525405974
+      },
+      "variance": {
+        "BENIGN": 66405.87884829435,
+        "DDoS": 1356929.4615098701
+      },
+      "coef_variation": {
+        "BENIGN": 2.2044633906910485,
+        "DDoS": 0.786530935912611
+      },
+      "unique_values": {
+        "BENIGN": 8639,
+        "DDoS": 20
+      },
+      "variance_ratio": 20.433875509874728
+    },
+    "support": {
+      "n_total": 225745,
+      "n_per_class": {
+        "BENIGN": 97718,
+        "DDoS": 128027
+      },
+      "total_samples": 225745,
+      "per_class": {
+        "BENIGN": 97718,
+        "DDoS": 128027
+      }
+    },
+    "provenance": {
+      "source": "tool",
+      "tool": "feature_summary",
+      "step": null
+    },
+    "feature": "Bwd Packet Length Mean"
+  },
+  "evidence_refs": [
+    {
+      "artifact": "parsed_output",
+      "path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_134_03-06_feature_summary_feature\\parsed_output.json"
+    },
+    {
+      "artifact": "raw_tool_output",
+      "path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_134_03-06_feature_summary_feature\\raw_tool_output.json"
+    },
+    {
+      "artifact": "component_run",
+      "path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_134_03-06_feature_summary_feature\\component_run.json"
+    }
+  ],
+  "limitations": []
+}

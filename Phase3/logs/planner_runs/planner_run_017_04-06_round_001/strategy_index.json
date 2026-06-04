@@ -1,0 +1,35 @@
+{
+  "selected_count": 3,
+  "strategy_count": 3,
+  "missing_strategy_hypothesis_ids": [],
+  "unexpected_strategy_hypothesis_ids": [],
+  "strategies": [
+    {
+      "strategy_id": "strategy_01_hyp_004",
+      "hypothesis_id": "hyp_004_strong_feature_dependency_pairs",
+      "summary": "Multiple feature pairs exhibit perfect or near-perfect correlation (correlation=1 or ~0.9993), indicating strong redundancy and deterministic relationships among packet length, segment size, header length, flag counts, and packet counts in both forward and backward directions.",
+      "strategic_objective": "Clarify the nature, stability, and class-conditioning of strong feature dependencies to assess redundancy and dimensionality reduction potential.",
+      "key_check_count": 3,
+      "success_criteria_count": 3,
+      "router_constraint_count": 2
+    },
+    {
+      "strategy_id": "strategy_02_hyp_005",
+      "hypothesis_id": "hyp_005_class_conditioned_variation_backward_packet_lengths",
+      "summary": "Backward packet length features (Max, Mean, Std) and Avg Bwd Segment Size show significant class-conditioned structural variation with high variance ratios and large differences in unique values between BENIGN and DDoS classes, indicating potential discriminative power.",
+      "strategic_objective": "Investigate the stability and contextual sensitivity of class-conditioned variations in backward packet length features to understand their discriminative reliability.",
+      "key_check_count": 3,
+      "success_criteria_count": 3,
+      "router_constraint_count": 2
+    },
+    {
+      "strategy_id": "strategy_03_hyp_007",
+      "hypothesis_id": "hyp_007_class_conditioned_distribution_destination_port",
+      "summary": "Destination Port feature shows strong distributional differences between BENIGN and DDoS classes, with DDoS having a dominant ratio of 1.0 and zero entropy, while BENIGN has lower dominant ratio and higher entropy, resulting in high Jensen-Shannon divergence, indicating representation sensitivity to class-conditioned shifts.",
+      "strategic_objective": "Elucidate the causes and stability of the zero entropy distribution in DDoS destination ports and its potential as a representation-sensitive detection signal.",
+      "key_check_count": 3,
+      "success_criteria_count": 3,
+      "router_constraint_count": 2
+    }
+  ]
+}

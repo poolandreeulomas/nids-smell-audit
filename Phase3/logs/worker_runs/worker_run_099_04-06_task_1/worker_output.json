@@ -1,0 +1,22 @@
+{
+  "batch_id": "phase3a_batch_0406080944_friday-workinghours-afternoon-ddos.pcap_iscx_618cac",
+  "round_id": "round-001",
+  "worker_result": {
+    "task_id": "task_1",
+    "hypothesis_id": "hyp_010_interplay_between_class_conditioned_variation_and_dependency_structure",
+    "status": "completed",
+    "findings": [
+      "Average Packet Size (e8) shows moderate variance ratio and unique value disparity with high class separation between BENIGN and DDoS classes.",
+      "Backward packet length features (e9 through e12) exhibit strong class-conditioned structural variation with high variance ratios and significantly higher unique values in BENIGN compared to DDoS, confirmed by high class separation signals in verified features."
+    ],
+    "evidence_refs": [
+      "task_1_step_03",
+      "task_1_step_05",
+      "task_1_step_07"
+    ],
+    "contradictions": [],
+    "limitations": [
+      "Direct distribution verification for features e11 and e12 was not performed due to step budget exhaustion, though strong locality and shared group context support inferred similarity."
+    ]
+  }
+}

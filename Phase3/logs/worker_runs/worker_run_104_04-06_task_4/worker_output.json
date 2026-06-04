@@ -1,0 +1,25 @@
+{
+  "batch_id": "phase3a_batch_0406080944_friday-workinghours-afternoon-ddos.pcap_iscx_618cac",
+  "round_id": "round-001",
+  "worker_result": {
+    "task_id": "task_4",
+    "hypothesis_id": "hyp_005_destination_port_distribution_shift",
+    "status": "completed",
+    "findings": [
+      "Strong distributional shift in Destination Port between BENIGN and DDoS classes confirmed by high Jensen-Shannon divergence (0.7315).",
+      "Near-deterministic mapping of Destination Port values to class labels indicated by zero entropy and dominant ratio of 1.0 in DDoS class.",
+      "Local consistency checks show high label neighborhood conflicts and duplicate label conflicts, reinforcing abrupt distributional shifts."
+    ],
+    "evidence_refs": [
+      "task_4_step_03",
+      "task_4_step_05",
+      "task_4_step_07"
+    ],
+    "contradictions": [
+      "None observed in local evidence"
+    ],
+    "limitations": [
+      "Analysis limited to local evidence within e33; no global aggregation performed."
+    ]
+  }
+}

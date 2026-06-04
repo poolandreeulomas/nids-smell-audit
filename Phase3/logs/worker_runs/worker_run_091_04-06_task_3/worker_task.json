@@ -1,0 +1,25 @@
+{
+  "task_id": "task_3",
+  "hypothesis_id": "hyp_8_low_cardinality_features_as_potential_shortcut_signals",
+  "task_scope": "Compare dependency concentration profiles of features e23 to e32 to detect tight clustering with class labels",
+  "allowed_actions": [
+    "dependency_contextualization",
+    "relation_verification"
+  ],
+  "local_context_refs": [
+    "e23",
+    "e24",
+    "e25",
+    "e26",
+    "e27",
+    "e28",
+    "e29",
+    "e30",
+    "e31",
+    "e32"
+  ],
+  "stop_conditions": [
+    "dependency concentration profiles generated",
+    "tight clustering with class labels confirmed or refuted"
+  ]
+}

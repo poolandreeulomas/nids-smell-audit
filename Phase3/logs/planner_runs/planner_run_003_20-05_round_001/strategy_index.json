@@ -1,0 +1,35 @@
+{
+  "selected_count": 3,
+  "strategy_count": 3,
+  "missing_strategy_hypothesis_ids": [],
+  "unexpected_strategy_hypothesis_ids": [],
+  "strategies": [
+    {
+      "strategy_id": "strategy_01_hyp_1_low_diversity_backward_bulk",
+      "hypothesis_id": "hyp_1_low_diversity_backward_bulk",
+      "summary": "The backward bulk traffic features exhibit near-constant values with extremely low unique value counts and cardinality ratios, suggesting a structural uniformity or constrained variability in backward bulk traffic patterns across the partition.",
+      "strategic_objective": "Characterize the nature and implications of near-constant backward bulk traffic features",
+      "key_check_count": 4,
+      "success_criteria_count": 3,
+      "router_constraint_count": 2
+    },
+    {
+      "strategy_id": "strategy_02_hyp_3_strong_dependency_pairs",
+      "hypothesis_id": "hyp_3_strong_dependency_pairs",
+      "summary": "Multiple feature pairs demonstrate near-perfect linear correlations (>= 0.9993), indicating strong dependencies and potential redundancy among packet length, segment size, flag counts, and packet counts features.",
+      "strategic_objective": "Delineate the origins and impacts of near-perfect linear correlations among key feature pairs",
+      "key_check_count": 4,
+      "success_criteria_count": 3,
+      "router_constraint_count": 2
+    },
+    {
+      "strategy_id": "strategy_03_hyp_7_distributional_divergence_destination_port",
+      "hypothesis_id": "hyp_7_distributional_divergence_destination_port",
+      "summary": "The Destination Port feature shows strong distributional divergence between BENIGN and DDoS classes, with the DDoS class dominated by a single port and exhibiting zero entropy, indicating a highly skewed representation.",
+      "strategic_objective": "Clarify the representational skew and its implications in the Destination Port feature distribution",
+      "key_check_count": 4,
+      "success_criteria_count": 3,
+      "router_constraint_count": 2
+    }
+  ]
+}

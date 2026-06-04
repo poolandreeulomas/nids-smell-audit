@@ -1,0 +1,76 @@
+{
+  "batch_id": "phase3a_batch_0406130425_friday-workinghours-afternoon-ddos.pcap_iscx_d272aa",
+  "round_id": "round-001",
+  "hypothesis_id": "hyp_4_class_distribution_and_port_skew",
+  "planner_strategy_id": "strategy_02_hyp_4",
+  "worker_tasks": [
+    {
+      "task_id": "task_1",
+      "hypothesis_id": "hyp_4_class_distribution_and_port_skew",
+      "task_scope": "Measure concentration and entropy of Destination Port distribution conditioned on DDoS and non-DDoS classes using evidence e2 and e33.",
+      "allowed_actions": [
+        "distribution_verification",
+        "cardinality_verification"
+      ],
+      "local_context_refs": [
+        "e2",
+        "e33"
+      ],
+      "stop_conditions": [
+        "distribution concentration metrics computed",
+        "entropy values stabilized"
+      ]
+    },
+    {
+      "task_id": "task_2",
+      "hypothesis_id": "hyp_4_class_distribution_and_port_skew",
+      "task_scope": "Analyze diversity and spread of Destination Port usage within DDoS and non-DDoS classes to identify narrow or broad port targeting patterns.",
+      "allowed_actions": [
+        "cardinality_verification",
+        "distribution_verification"
+      ],
+      "local_context_refs": [
+        "e2",
+        "e33"
+      ],
+      "stop_conditions": [
+        "port usage diversity quantified",
+        "class-conditioned port spread characterized"
+      ]
+    },
+    {
+      "task_id": "task_3",
+      "hypothesis_id": "hyp_4_class_distribution_and_port_skew",
+      "task_scope": "Evaluate dependency and predictive leverage of Destination Port skew on class imbalance and potential overfitting risks.",
+      "allowed_actions": [
+        "dependency_contextualization",
+        "shortcut_verification"
+      ],
+      "local_context_refs": [
+        "e2",
+        "e33"
+      ],
+      "stop_conditions": [
+        "dependency strength assessed",
+        "shortcut signals identified or ruled out"
+      ]
+    },
+    {
+      "task_id": "task_4",
+      "hypothesis_id": "hyp_4_class_distribution_and_port_skew",
+      "task_scope": "Check for dataset collection or labeling biases affecting Destination Port distribution and their impact on class representation using evidence e2 and e33.",
+      "allowed_actions": [
+        "relation_verification",
+        "local_consistency_verification"
+      ],
+      "local_context_refs": [
+        "e2",
+        "e33"
+      ],
+      "stop_conditions": [
+        "bias indicators detected or excluded",
+        "class-port distribution consistency verified"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,333 @@
+=== ROLE ===
+You are the Phase 3A Hypothesis Ranking module.
+You operate after Investigation Analysis and before the Planner.
+You are part of a forensic dataset auditing system focused on identifying structural irregularities, representation-sensitive patterns, shortcut-like signals, unstable dependencies, and epistemically suspicious regularities inside telemetry datasets.
+You allocate bounded epistemic attention toward hypotheses with high uncertainty-reduction potential or structurally suspicious characteristics.
+
+=== OBJECTIVE ===
+Select up to 3 hypotheses for round_id=round-001 in batch_id=phase3a_batch_0306173106_friday-workinghours-afternoon-ddos.pcap_iscx_98251a.
+Allocate bounded epistemic budget to the hypotheses most worth investigating now.
+
+=== BOUNDARIES ===
+You are allocation-only. Do not design verification strategy, router tasks, or worker actions.
+Do not rewrite hypothesis content or invent new hypotheses.
+Do not drop viable non-selected hypotheses silently; preserve them in deferred_hypothesis_ids.
+Treat uncertainty as compatible with selection when investigative value is high.
+Do not force diversity penalties or certainty-only filtering.
+
+=== OUTPUT RULES ===
+Return valid JSON only.
+Do not use markdown or code fences.
+Return exactly these top-level fields:
+batch_id, round_id, selected_hypothesis_ids, deferred_hypothesis_ids, selection_rationales.
+selected_hypothesis_ids must contain only hypothesis ids from the candidate set.
+deferred_hypothesis_ids must contain every non-selected hypothesis id that remains available later.
+selection_rationales must contain only selected hypotheses and each record must include hypothesis_id and reason.
+Reasons must remain short, allocation-oriented, and non-operational.
+
+=== RANKING STATE ===
+{
+  "hypothesis_state_refs": [
+    {
+      "hypothesis_id": "hyp_001",
+      "state_notes": [
+        "status=unresolved",
+        "summary=The extremely low cardinality and near-constant values observed in backward bulk-related features (Bwd Avg Bulk Rate, Bwd Avg Bytes/Bulk, Bwd Avg Packets/Bulk, Bwd PSH Flags, Bwd URG Flags) may indicate a structural uniformity or saturation effect in the backward traffic direction across the partition.",
+        "revision_count=0",
+        "last_updated_round=initialization",
+        "open_gap=Does the near-constant behavior in backward bulk features reflect a genuine network characteristic or an artifact of data collection or preprocessing?",
+        "open_gap=Could this low variability mask meaningful sub-patterns or anomalies within the backward traffic?"
+      ]
+    },
+    {
+      "hypothesis_id": "hyp_002",
+      "state_notes": [
+        "status=unresolved",
+        "summary=Forward bulk-related features (Fwd Avg Bulk Rate, Fwd Avg Bytes/Bulk, Fwd Avg Packets/Bulk, Fwd URG Flags) exhibit a similar pattern of extremely low cardinality and minimal variability, potentially mirroring the backward bulk feature behavior and suggesting a dependency-backed regularity in bulk traffic features.",
+        "revision_count=0",
+        "last_updated_round=initialization",
+        "open_gap=Is the mirrored low variability in forward bulk features indicative of a systemic network behavior or a dataset artifact?",
+        "open_gap=How do these forward bulk feature patterns interact with backward bulk features in terms of temporal or causal dependencies?"
+      ]
+    },
+    {
+      "hypothesis_id": "hyp_003",
+      "state_notes": [
+        "status=unresolved",
+        "summary=Multiple feature pairs show near-perfect or perfect linear correlations (correlation >= 0.9993), indicating strong dependencies and potential redundancy among packet length, segment size, flag counts, and packet count features, which may affect feature prioritization and model robustness.",
+        "revision_count=0",
+        "last_updated_round=initialization",
+        "open_gap=Are these strong linear dependencies stable across different classes and time windows, or do they fluctuate?",
+        "open_gap=Could these dependencies be exploited as shortcut signals by models, potentially reducing generalization?"
+      ]
+    },
+    {
+      "hypothesis_id": "hyp_004",
+      "state_notes": [
+        "status=unresolved",
+        "summary=Backward packet length and segment size features demonstrate significant class-conditioned structural variation, with differing variance ratios and unique value counts between BENIGN and DDoS classes, suggesting these features may carry discriminative information sensitive to class representation.",
+        "revision_count=0",
+        "last_updated_round=initialization",
+        "open_gap=To what extent does the class-conditioned variation in backward packet lengths reflect true behavioral differences versus sampling bias?",
+        "open_gap=Are these variations consistent across other related features or isolated to this group?"
+      ]
+    },
+    {
+      "hypothesis_id": "hyp_005",
+      "state_notes": [
+        "status=unresolved",
+        "summary=Average Packet Size shows moderate class-conditioned structural variation, with differences in variance ratio and unique value counts between BENIGN and DDoS classes, indicating potential representation-sensitive behavior that may influence detection performance.",
+        "revision_count=0",
+        "last_updated_round=initialization",
+        "open_gap=Is the observed variation in Average Packet Size stable across different temporal segments or network conditions?",
+        "open_gap=Could this feature be sensitive to class imbalance or data duplication effects?"
+      ]
+    },
+    {
+      "hypothesis_id": "hyp_006",
+      "state_notes": [
+        "status=unresolved",
+        "summary=The Destination Port feature exhibits strong class-conditioned distributional differences, with the DDoS class showing a dominant ratio of 1.0 and zero entropy, while the BENIGN class has moderate entropy and dominant ratio, resulting in high Jensen-Shannon divergence, which may reflect representation-sensitive or shortcut-like signals.",
+        "revision_count=0",
+        "last_updated_round=initialization",
+        "open_gap=Does the zero entropy and dominant ratio in the DDoS class for Destination Port indicate a fixed attack vector or a dataset artifact?",
+        "open_gap=How does this distributional difference impact model reliance on this feature for classification?"
+      ]
+    },
+    {
+      "hypothesis_id": "hyp_007",
+      "state_notes": [
+        "status=unresolved",
+        "summary=Partition-level data quality issues, including duplicated rows and moderate class imbalance, may influence observed structural patterns and feature distributions, potentially confounding interpretation of class-conditioned variations and dependencies.",
+        "revision_count=0",
+        "last_updated_round=initialization",
+        "open_gap=What is the extent and nature of duplicated rows, and how do they affect feature statistics and model training?",
+        "open_gap=How does the class imbalance ratio interact with feature distribution stability and representation?"
+      ]
+    },
+    {
+      "hypothesis_id": "hyp_008",
+      "state_notes": [
+        "status=unresolved",
+        "summary=Several flag count features (CWE Flag Count) share the extremely low cardinality pattern observed in bulk rate features, suggesting a broader structural uniformity in flag-related features that may reflect either network protocol constraints or dataset representation biases.",
+        "revision_count=0",
+        "last_updated_round=initialization",
+        "open_gap=Are these low cardinality flag count features stable across different classes and time periods?",
+        "open_gap=Could this uniformity limit the discriminative power of flag-related features or introduce shortcut-like signals?"
+      ]
+    },
+    {
+      "hypothesis_id": "hyp_009",
+      "state_notes": [
+        "status=unresolved",
+        "summary=The coexistence of near-constant bulk features and strongly dependent packet length and flag count features suggests overlapping but distinct structural regimes within the dataset, which may require multiple partially compatible interpretative framings to fully capture the substrate complexity.",
+        "revision_count=0",
+        "last_updated_round=initialization",
+        "open_gap=How do these overlapping structural regimes interact temporally and across classes?",
+        "open_gap=Can models disentangle these regimes or do they risk conflating distinct phenomena?"
+      ]
+    },
+    {
+      "hypothesis_id": "hyp_010",
+      "state_notes": [
+        "status=unresolved",
+        "summary=The strong class-conditioned distributional differences and low variability in multiple feature clusters may reflect a dependency-backed regularity rather than isolated narrow signals, but the presence of class imbalance and duplicated data complicates the epistemic certainty of these patterns.",
+        "revision_count=0",
+        "last_updated_round=initialization",
+        "open_gap=To what degree do class imbalance and data duplication amplify or distort these dependency-backed regularities?",
+        "open_gap=Are these regularities stable across other datasets or specific to this partition?"
+      ]
+    }
+  ],
+  "round_constraints": [
+    "selection_budget=3",
+    "allocation_only",
+    "preserve_deferred_hypotheses",
+    "round_start_state_version=1"
+  ],
+  "round_id": "round-001",
+  "selection_budget": 3
+}
+
+=== CANDIDATE HYPOTHESIS SPACE ===
+{
+  "analysis_id": "analysis_phase3a_0306173106_01",
+  "batch_id": "phase3a_batch_0306173106_friday-workinghours-afternoon-ddos.pcap_iscx_98251a",
+  "hypotheses": [
+    {
+      "evidence_ref_count": 5,
+      "evidence_refs": [
+        "e23",
+        "e24",
+        "e25",
+        "e26",
+        "e27"
+      ],
+      "hypothesis_id": "hyp_001",
+      "open_question_count": 2,
+      "open_questions": [
+        "Does the near-constant behavior in backward bulk features reflect a genuine network characteristic or an artifact of data collection or preprocessing?",
+        "Could this low variability mask meaningful sub-patterns or anomalies within the backward traffic?"
+      ],
+      "summary": "The extremely low cardinality and near-constant values observed in backward bulk-related features (Bwd Avg Bulk Rate, Bwd Avg Bytes/Bulk, Bwd Avg Packets/Bulk, Bwd PSH Flags, Bwd URG Flags) may indicate a structural uniformity or saturation effect in the backward traffic direction across the partition."
+    },
+    {
+      "evidence_ref_count": 4,
+      "evidence_refs": [
+        "e29",
+        "e30",
+        "e31",
+        "e32"
+      ],
+      "hypothesis_id": "hyp_002",
+      "open_question_count": 2,
+      "open_questions": [
+        "Is the mirrored low variability in forward bulk features indicative of a systemic network behavior or a dataset artifact?",
+        "How do these forward bulk feature patterns interact with backward bulk features in terms of temporal or causal dependencies?"
+      ],
+      "summary": "Forward bulk-related features (Fwd Avg Bulk Rate, Fwd Avg Bytes/Bulk, Fwd Avg Packets/Bulk, Fwd URG Flags) exhibit a similar pattern of extremely low cardinality and minimal variability, potentially mirroring the backward bulk feature behavior and suggesting a dependency-backed regularity in bulk traffic features."
+    },
+    {
+      "evidence_ref_count": 10,
+      "evidence_refs": [
+        "e13",
+        "e14",
+        "e15",
+        "e16",
+        "e17",
+        "e18",
+        "e19",
+        "e20",
+        "e21",
+        "e22"
+      ],
+      "hypothesis_id": "hyp_003",
+      "open_question_count": 2,
+      "open_questions": [
+        "Are these strong linear dependencies stable across different classes and time windows, or do they fluctuate?",
+        "Could these dependencies be exploited as shortcut signals by models, potentially reducing generalization?"
+      ],
+      "summary": "Multiple feature pairs show near-perfect or perfect linear correlations (correlation >= 0.9993), indicating strong dependencies and potential redundancy among packet length, segment size, flag counts, and packet count features, which may affect feature prioritization and model robustness."
+    },
+    {
+      "evidence_ref_count": 4,
+      "evidence_refs": [
+        "e9",
+        "e10",
+        "e11",
+        "e12"
+      ],
+      "hypothesis_id": "hyp_004",
+      "open_question_count": 2,
+      "open_questions": [
+        "To what extent does the class-conditioned variation in backward packet lengths reflect true behavioral differences versus sampling bias?",
+        "Are these variations consistent across other related features or isolated to this group?"
+      ],
+      "summary": "Backward packet length and segment size features demonstrate significant class-conditioned structural variation, with differing variance ratios and unique value counts between BENIGN and DDoS classes, suggesting these features may carry discriminative information sensitive to class representation."
+    },
+    {
+      "evidence_ref_count": 1,
+      "evidence_refs": [
+        "e8"
+      ],
+      "hypothesis_id": "hyp_005",
+      "open_question_count": 2,
+      "open_questions": [
+        "Is the observed variation in Average Packet Size stable across different temporal segments or network conditions?",
+        "Could this feature be sensitive to class imbalance or data duplication effects?"
+      ],
+      "summary": "Average Packet Size shows moderate class-conditioned structural variation, with differences in variance ratio and unique value counts between BENIGN and DDoS classes, indicating potential representation-sensitive behavior that may influence detection performance."
+    },
+    {
+      "evidence_ref_count": 1,
+      "evidence_refs": [
+        "e33"
+      ],
+      "hypothesis_id": "hyp_006",
+      "open_question_count": 2,
+      "open_questions": [
+        "Does the zero entropy and dominant ratio in the DDoS class for Destination Port indicate a fixed attack vector or a dataset artifact?",
+        "How does this distributional difference impact model reliance on this feature for classification?"
+      ],
+      "summary": "The Destination Port feature exhibits strong class-conditioned distributional differences, with the DDoS class showing a dominant ratio of 1.0 and zero entropy, while the BENIGN class has moderate entropy and dominant ratio, resulting in high Jensen-Shannon divergence, which may reflect representation-sensitive or shortcut-like signals."
+    },
+    {
+      "evidence_ref_count": 2,
+      "evidence_refs": [
+        "e1",
+        "e2"
+      ],
+      "hypothesis_id": "hyp_007",
+      "open_question_count": 2,
+      "open_questions": [
+        "What is the extent and nature of duplicated rows, and how do they affect feature statistics and model training?",
+        "How does the class imbalance ratio interact with feature distribution stability and representation?"
+      ],
+      "summary": "Partition-level data quality issues, including duplicated rows and moderate class imbalance, may influence observed structural patterns and feature distributions, potentially confounding interpretation of class-conditioned variations and dependencies."
+    },
+    {
+      "evidence_ref_count": 1,
+      "evidence_refs": [
+        "e28"
+      ],
+      "hypothesis_id": "hyp_008",
+      "open_question_count": 2,
+      "open_questions": [
+        "Are these low cardinality flag count features stable across different classes and time periods?",
+        "Could this uniformity limit the discriminative power of flag-related features or introduce shortcut-like signals?"
+      ],
+      "summary": "Several flag count features (CWE Flag Count) share the extremely low cardinality pattern observed in bulk rate features, suggesting a broader structural uniformity in flag-related features that may reflect either network protocol constraints or dataset representation biases."
+    },
+    {
+      "evidence_ref_count": 15,
+      "evidence_refs": [
+        "e23",
+        "e24",
+        "e25",
+        "e26",
+        "e27",
+        "e13",
+        "e14",
+        "e15",
+        "e16",
+        "e17",
+        "e18",
+        "e19",
+        "e20",
+        "e21",
+        "e22"
+      ],
+      "hypothesis_id": "hyp_009",
+      "open_question_count": 2,
+      "open_questions": [
+        "How do these overlapping structural regimes interact temporally and across classes?",
+        "Can models disentangle these regimes or do they risk conflating distinct phenomena?"
+      ],
+      "summary": "The coexistence of near-constant bulk features and strongly dependent packet length and flag count features suggests overlapping but distinct structural regimes within the dataset, which may require multiple partially compatible interpretative framings to fully capture the substrate complexity."
+    },
+    {
+      "evidence_ref_count": 11,
+      "evidence_refs": [
+        "e23",
+        "e24",
+        "e25",
+        "e26",
+        "e27",
+        "e29",
+        "e30",
+        "e31",
+        "e32",
+        "e1",
+        "e2"
+      ],
+      "hypothesis_id": "hyp_010",
+      "open_question_count": 2,
+      "open_questions": [
+        "To what degree do class imbalance and data duplication amplify or distort these dependency-backed regularities?",
+        "Are these regularities stable across other datasets or specific to this partition?"
+      ],
+      "summary": "The strong class-conditioned distributional differences and low variability in multiple feature clusters may reflect a dependency-backed regularity rather than isolated narrow signals, but the presence of class imbalance and duplicated data complicates the epistemic certainty of these patterns."
+    }
+  ],
+  "hypothesis_count": 10
+}

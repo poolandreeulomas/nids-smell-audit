@@ -1,0 +1,22 @@
+{
+  "strategy_id": "strategy_01_hyp_8",
+  "hypothesis_id": "hyp_8_low_cardinality_features_as_potential_shortcut_signals",
+  "strategic_objective": "Assess stability and subtle variability of low cardinality features to understand their potential as brittle shortcut signals.",
+  "key_checks": [
+    "Measure cardinality and value distribution stability of features e23-e32 across multiple data partitions",
+    "Evaluate class-conditioned variability and subtle deviations within these near-constant features",
+    "Compare dependency concentration profiles to detect if these features cluster tightly with class labels",
+    "Test shortcut-like predictive leverage of these features individually and in combination"
+  ],
+  "success_criteria": [
+    "Identification of consistent low cardinality patterns that persist across partitions",
+    "Evidence of subtle but meaningful variation that may mitigate pure shortcut risk",
+    "Detection of strong shortcut signals that could induce brittle model behavior",
+    "Clear characterization of features that warrant exclusion or special handling"
+  ],
+  "router_constraints": [
+    "preserve feature scope for e23-e32",
+    "preserve evidence references e23-e32",
+    "maintain focus on cardinality and shortcut-related checks"
+  ]
+}

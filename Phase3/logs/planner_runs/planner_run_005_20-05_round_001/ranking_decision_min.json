@@ -1,0 +1,9 @@
+{
+  "batch_id": "phase3a_batch_2005190739_friday-workinghours-afternoon-ddos.pcap_iscx_dea76f",
+  "round_id": "round-001",
+  "selected_hypothesis_ids": [
+    "hyp_01_low_diversity_bulk_features",
+    "hyp_05_destination_port_distribution_divergence",
+    "hyp_06_top_ranked_packet_length_features_redundancy_and_stability"
+  ]
+}

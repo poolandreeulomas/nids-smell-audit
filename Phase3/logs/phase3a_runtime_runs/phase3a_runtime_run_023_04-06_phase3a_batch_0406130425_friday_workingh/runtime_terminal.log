@@ -1,0 +1,691 @@
+[BATCH] START batch_id=phase3a_batch_0406130425_friday-workinghours-afternoon-ddos.pcap_iscx_d272aa
+[SEMANTIC_EXTRACTION] START batch_id=phase3a_batch_0406130425_friday-workinghours-afternoon-ddos.pcap_iscx_d272aa
+[SEMANTIC_EXTRACTION] VALIDATION OK batch_id=phase3a_batch_0406130425_friday-workinghours-afternoon-ddos.pcap_iscx_d272aa
+[SEMANTIC_EXTRACTION] END (59.3s) batch_id=phase3a_batch_0406130425_friday-workinghours-afternoon-ddos.pcap_iscx_d272aa
+[SEMANTIC_HYPOTHESIS_GENERATION] START analysis_id=substrate_phase3a_batch_0406130425_friday-workinghours-afternoon-ddos.pcap_iscx_d272aa batch_id=phase3a_batch_0406130425_friday-workinghours-afternoon-ddos.pcap_iscx_d272aa
+[SEMANTIC_HYPOTHESIS_GENERATION] VALIDATION OK analysis_id=substrate_phase3a_batch_0406130425_friday-workinghours-afternoon-ddos.pcap_iscx_d272aa batch_id=phase3a_batch_0406130425_friday-workinghours-afternoon-ddos.pcap_iscx_d272aa
+[SEMANTIC_HYPOTHESIS_GENERATION] END (17.1s) analysis_id=substrate_phase3a_batch_0406130425_friday-workinghours-afternoon-ddos.pcap_iscx_d272aa batch_id=phase3a_batch_0406130425_friday-workinghours-afternoon-ddos.pcap_iscx_d272aa
+[ROUND] START batch_id=phase3a_batch_0406130425_friday-workinghours-afternoon-ddos.pcap_iscx_d272aa round_id=round-001
+[HYPOTHESIS_RANKING] START batch_id=phase3a_batch_0406130425_friday-workinghours-afternoon-ddos.pcap_iscx_d272aa round_id=round-001
+[HYPOTHESIS_RANKING] VALIDATION OK analysis_id=analysis_phase3a_0406130425_01 batch_id=phase3a_batch_0406130425_friday-workinghours-afternoon-ddos.pcap_iscx_d272aa round_id=round-001
+[HYPOTHESIS_RANKING] END (6.9s) analysis_id=analysis_phase3a_0406130425_01 batch_id=phase3a_batch_0406130425_friday-workinghours-afternoon-ddos.pcap_iscx_d272aa round_id=round-001
+[PLANNER] START batch_id=phase3a_batch_0406130425_friday-workinghours-afternoon-ddos.pcap_iscx_d272aa round_id=round-001
+[PLANNER] VALIDATION OK batch_id=phase3a_batch_0406130425_friday-workinghours-afternoon-ddos.pcap_iscx_d272aa round_id=round-001
+[PLANNER] END (23.8s) batch_id=phase3a_batch_0406130425_friday-workinghours-afternoon-ddos.pcap_iscx_d272aa round_id=round-001
+[ROUTER] START batch_id=phase3a_batch_0406130425_friday-workinghours-afternoon-ddos.pcap_iscx_d272aa hypothesis_id=hyp_1_low_diversity_constant_features round_id=round-001
+[ROUTER] hypothesis_id=hyp_1_low_diversity_constant_features GENERATED 4 TASKS
+[ROUTER] VALIDATION OK batch_id=phase3a_batch_0406130425_friday-workinghours-afternoon-ddos.pcap_iscx_d272aa hypothesis_id=hyp_1_low_diversity_constant_features round_id=round-001
+[ROUTER] END (7.8s) batch_id=phase3a_batch_0406130425_friday-workinghours-afternoon-ddos.pcap_iscx_d272aa hypothesis_id=hyp_1_low_diversity_constant_features round_id=round-001
+[WORKER] START batch_id=phase3a_batch_0406130425_friday-workinghours-afternoon-ddos.pcap_iscx_d272aa hypothesis_id=hyp_1_low_diversity_constant_features round_id=round-001 task_id=task_1
+[WORKER] START batch_id=phase3a_batch_0406130425_friday-workinghours-afternoon-ddos.pcap_iscx_d272aa hypothesis_id=hyp_1_low_diversity_constant_features round_id=round-001 task_id=task_2
+[WORKER] START batch_id=phase3a_batch_0406130425_friday-workinghours-afternoon-ddos.pcap_iscx_d272aa hypothesis_id=hyp_1_low_diversity_constant_features round_id=round-001 task_id=task_3
+[WORKER] START batch_id=phase3a_batch_0406130425_friday-workinghours-afternoon-ddos.pcap_iscx_d272aa hypothesis_id=hyp_1_low_diversity_constant_features round_id=round-001 task_id=task_4
+[HYPOTHESIS] hypothesis_id=hyp_1_low_diversity_constant_features round_id=round-001 WAITING FOR 4 WORKERS
+[ROUTER] START batch_id=phase3a_batch_0406130425_friday-workinghours-afternoon-ddos.pcap_iscx_d272aa hypothesis_id=hyp_4_class_distribution_and_port_skew round_id=round-001
+[HYPOTHESIS_AGGREGATOR_BARRIER] expected_tasks=4 completed_tasks=0 waiting_for=['task_1', 'task_2', 'task_3', 'task_4'] batch_id=phase3a_batch_0406130425_friday-workinghours-afternoon-ddos.pcap_iscx_d272aa hypothesis_id=hyp_1_low_diversity_constant_features round_id=round-001
+[WORKER] VALIDATION FAILED batch_id=phase3a_batch_0406130425_friday-workinghours-afternoon-ddos.pcap_iscx_d272aa hypothesis_id=hyp_1_low_diversity_constant_features round_id=round-001 task_id=task_3
+{
+  "action_map_validation": {
+    "errors": [],
+    "ok": true,
+    "warnings": []
+  },
+  "ok": false,
+  "runtime_refs_validation": {
+    "errors": [
+      {
+        "field": "dataset_handles.semantic_substrate",
+        "message": "semantic_substrate is missing local_context_refs: ['e30', 'e31']."
+      }
+    ],
+    "ok": false,
+    "warnings": []
+  },
+  "schema_version": "phase3a.worker.v1",
+  "task_validation": {
+    "errors": [],
+    "ok": true,
+    "stats": {
+      "allowed_action_count": 2,
+      "local_context_ref_count": 2,
+      "stop_condition_count": 2
+    },
+    "warnings": []
+  },
+  "worker_output_validation": {
+    "errors": [
+      {
+        "field": "worker_output",
+        "message": "worker_output was not produced."
+      }
+    ],
+    "ok": false,
+    "warnings": []
+  },
+  "worker_result_validation": {
+    "errors": [
+      {
+        "field": "worker_result",
+        "message": "worker_result was not produced."
+      }
+    ],
+    "ok": false,
+    "warnings": []
+  }
+}
+[WORKER] VALIDATION FAILED batch_id=phase3a_batch_0406130425_friday-workinghours-afternoon-ddos.pcap_iscx_d272aa hypothesis_id=hyp_1_low_diversity_constant_features round_id=round-001 task_id=task_2
+{
+  "action_map_validation": {
+    "errors": [],
+    "ok": true,
+    "warnings": []
+  },
+  "ok": false,
+  "runtime_refs_validation": {
+    "errors": [
+      {
+        "field": "dataset_handles.semantic_substrate",
+        "message": "semantic_substrate is missing local_context_refs: ['e27', 'e28', 'e29']."
+      }
+    ],
+    "ok": false,
+    "warnings": []
+  },
+  "schema_version": "phase3a.worker.v1",
+  "task_validation": {
+    "errors": [],
+    "ok": true,
+    "stats": {
+      "allowed_action_count": 2,
+      "local_context_ref_count": 3,
+      "stop_condition_count": 2
+    },
+    "warnings": []
+  },
+  "worker_output_validation": {
+    "errors": [
+      {
+        "field": "worker_output",
+        "message": "worker_output was not produced."
+      }
+    ],
+    "ok": false,
+    "warnings": []
+  },
+  "worker_result_validation": {
+    "errors": [
+      {
+        "field": "worker_result",
+        "message": "worker_result was not produced."
+      }
+    ],
+    "ok": false,
+    "warnings": []
+  }
+}
+[WORKER] VALIDATION FAILED batch_id=phase3a_batch_0406130425_friday-workinghours-afternoon-ddos.pcap_iscx_d272aa hypothesis_id=hyp_1_low_diversity_constant_features round_id=round-001 task_id=task_4
+{
+  "action_map_validation": {
+    "errors": [],
+    "ok": true,
+    "warnings": []
+  },
+  "ok": false,
+  "runtime_refs_validation": {
+    "errors": [
+      {
+        "field": "dataset_handles.semantic_substrate",
+        "message": "semantic_substrate is missing local_context_refs: ['e32']."
+      }
+    ],
+    "ok": false,
+    "warnings": []
+  },
+  "schema_version": "phase3a.worker.v1",
+  "task_validation": {
+    "errors": [],
+    "ok": true,
+    "stats": {
+      "allowed_action_count": 2,
+      "local_context_ref_count": 1,
+      "stop_condition_count": 2
+    },
+    "warnings": []
+  },
+  "worker_output_validation": {
+    "errors": [
+      {
+        "field": "worker_output",
+        "message": "worker_output was not produced."
+      }
+    ],
+    "ok": false,
+    "warnings": []
+  },
+  "worker_result_validation": {
+    "errors": [
+      {
+        "field": "worker_result",
+        "message": "worker_result was not produced."
+      }
+    ],
+    "ok": false,
+    "warnings": []
+  }
+}
+[WORKER] END (0.0s) batch_id=phase3a_batch_0406130425_friday-workinghours-afternoon-ddos.pcap_iscx_d272aa hypothesis_id=hyp_1_low_diversity_constant_features round_id=round-001 task_id=task_3
+[WORKER] VALIDATION FAILED batch_id=phase3a_batch_0406130425_friday-workinghours-afternoon-ddos.pcap_iscx_d272aa hypothesis_id=hyp_1_low_diversity_constant_features round_id=round-001 task_id=task_1
+{
+  "action_map_validation": {
+    "errors": [],
+    "ok": true,
+    "warnings": []
+  },
+  "ok": false,
+  "runtime_refs_validation": {
+    "errors": [
+      {
+        "field": "dataset_handles.semantic_substrate",
+        "message": "semantic_substrate is missing local_context_refs: ['e23', 'e24', 'e25', 'e26']."
+      }
+    ],
+    "ok": false,
+    "warnings": []
+  },
+  "schema_version": "phase3a.worker.v1",
+  "task_validation": {
+    "errors": [],
+    "ok": true,
+    "stats": {
+      "allowed_action_count": 2,
+      "local_context_ref_count": 4,
+      "stop_condition_count": 2
+    },
+    "warnings": []
+  },
+  "worker_output_validation": {
+    "errors": [
+      {
+        "field": "worker_output",
+        "message": "worker_output was not produced."
+      }
+    ],
+    "ok": false,
+    "warnings": []
+  },
+  "worker_result_validation": {
+    "errors": [
+      {
+        "field": "worker_result",
+        "message": "worker_result was not produced."
+      }
+    ],
+    "ok": false,
+    "warnings": []
+  }
+}
+[WORKER] END (0.0s) batch_id=phase3a_batch_0406130425_friday-workinghours-afternoon-ddos.pcap_iscx_d272aa hypothesis_id=hyp_1_low_diversity_constant_features round_id=round-001 task_id=task_2
+[WORKER] END (0.0s) batch_id=phase3a_batch_0406130425_friday-workinghours-afternoon-ddos.pcap_iscx_d272aa hypothesis_id=hyp_1_low_diversity_constant_features round_id=round-001 task_id=task_4
+[WORKER] END (0.0s) batch_id=phase3a_batch_0406130425_friday-workinghours-afternoon-ddos.pcap_iscx_d272aa hypothesis_id=hyp_1_low_diversity_constant_features round_id=round-001 task_id=task_1
+[ROUTER] hypothesis_id=hyp_4_class_distribution_and_port_skew GENERATED 4 TASKS
+[ROUTER] VALIDATION OK batch_id=phase3a_batch_0406130425_friday-workinghours-afternoon-ddos.pcap_iscx_d272aa hypothesis_id=hyp_4_class_distribution_and_port_skew round_id=round-001
+[ROUTER] END (8.8s) batch_id=phase3a_batch_0406130425_friday-workinghours-afternoon-ddos.pcap_iscx_d272aa hypothesis_id=hyp_4_class_distribution_and_port_skew round_id=round-001
+[ROUTER] START batch_id=phase3a_batch_0406130425_friday-workinghours-afternoon-ddos.pcap_iscx_d272aa hypothesis_id=hyp_7_heterogeneous_structural_regimes round_id=round-001
+[WORKER] START batch_id=phase3a_batch_0406130425_friday-workinghours-afternoon-ddos.pcap_iscx_d272aa hypothesis_id=hyp_4_class_distribution_and_port_skew round_id=round-001 task_id=task_1
+[WORKER] START batch_id=phase3a_batch_0406130425_friday-workinghours-afternoon-ddos.pcap_iscx_d272aa hypothesis_id=hyp_4_class_distribution_and_port_skew round_id=round-001 task_id=task_4
+[WORKER] START batch_id=phase3a_batch_0406130425_friday-workinghours-afternoon-ddos.pcap_iscx_d272aa hypothesis_id=hyp_4_class_distribution_and_port_skew round_id=round-001 task_id=task_2
+[HYPOTHESIS] hypothesis_id=hyp_4_class_distribution_and_port_skew round_id=round-001 WAITING FOR 4 WORKERS
+[WORKER] START batch_id=phase3a_batch_0406130425_friday-workinghours-afternoon-ddos.pcap_iscx_d272aa hypothesis_id=hyp_4_class_distribution_and_port_skew round_id=round-001 task_id=task_3
+[HYPOTHESIS_AGGREGATOR_BARRIER] expected_tasks=4 completed_tasks=0 waiting_for=['task_1', 'task_2', 'task_3', 'task_4'] batch_id=phase3a_batch_0406130425_friday-workinghours-afternoon-ddos.pcap_iscx_d272aa hypothesis_id=hyp_4_class_distribution_and_port_skew round_id=round-001
+[WORKER] VALIDATION FAILED batch_id=phase3a_batch_0406130425_friday-workinghours-afternoon-ddos.pcap_iscx_d272aa hypothesis_id=hyp_4_class_distribution_and_port_skew round_id=round-001 task_id=task_1
+{
+  "action_map_validation": {
+    "errors": [],
+    "ok": true,
+    "warnings": []
+  },
+  "ok": false,
+  "runtime_refs_validation": {
+    "errors": [
+      {
+        "field": "dataset_handles.semantic_substrate",
+        "message": "semantic_substrate is missing local_context_refs: ['e2', 'e33']."
+      }
+    ],
+    "ok": false,
+    "warnings": []
+  },
+  "schema_version": "phase3a.worker.v1",
+  "task_validation": {
+    "errors": [],
+    "ok": true,
+    "stats": {
+      "allowed_action_count": 2,
+      "local_context_ref_count": 2,
+      "stop_condition_count": 2
+    },
+    "warnings": []
+  },
+  "worker_output_validation": {
+    "errors": [
+      {
+        "field": "worker_output",
+        "message": "worker_output was not produced."
+      }
+    ],
+    "ok": false,
+    "warnings": []
+  },
+  "worker_result_validation": {
+    "errors": [
+      {
+        "field": "worker_result",
+        "message": "worker_result was not produced."
+      }
+    ],
+    "ok": false,
+    "warnings": []
+  }
+}
+[WORKER] END (0.0s) batch_id=phase3a_batch_0406130425_friday-workinghours-afternoon-ddos.pcap_iscx_d272aa hypothesis_id=hyp_4_class_distribution_and_port_skew round_id=round-001 task_id=task_1
+[WORKER] VALIDATION FAILED batch_id=phase3a_batch_0406130425_friday-workinghours-afternoon-ddos.pcap_iscx_d272aa hypothesis_id=hyp_4_class_distribution_and_port_skew round_id=round-001 task_id=task_2
+{
+  "action_map_validation": {
+    "errors": [],
+    "ok": true,
+    "warnings": []
+  },
+  "ok": false,
+  "runtime_refs_validation": {
+    "errors": [
+      {
+        "field": "dataset_handles.semantic_substrate",
+        "message": "semantic_substrate is missing local_context_refs: ['e2', 'e33']."
+      }
+    ],
+    "ok": false,
+    "warnings": []
+  },
+  "schema_version": "phase3a.worker.v1",
+  "task_validation": {
+    "errors": [],
+    "ok": true,
+    "stats": {
+      "allowed_action_count": 2,
+      "local_context_ref_count": 2,
+      "stop_condition_count": 2
+    },
+    "warnings": []
+  },
+  "worker_output_validation": {
+    "errors": [
+      {
+        "field": "worker_output",
+        "message": "worker_output was not produced."
+      }
+    ],
+    "ok": false,
+    "warnings": []
+  },
+  "worker_result_validation": {
+    "errors": [
+      {
+        "field": "worker_result",
+        "message": "worker_result was not produced."
+      }
+    ],
+    "ok": false,
+    "warnings": []
+  }
+}
+[WORKER] VALIDATION FAILED batch_id=phase3a_batch_0406130425_friday-workinghours-afternoon-ddos.pcap_iscx_d272aa hypothesis_id=hyp_4_class_distribution_and_port_skew round_id=round-001 task_id=task_4
+{
+  "action_map_validation": {
+    "errors": [],
+    "ok": true,
+    "warnings": []
+  },
+  "ok": false,
+  "runtime_refs_validation": {
+    "errors": [
+      {
+        "field": "dataset_handles.semantic_substrate",
+        "message": "semantic_substrate is missing local_context_refs: ['e2', 'e33']."
+      }
+    ],
+    "ok": false,
+    "warnings": []
+  },
+  "schema_version": "phase3a.worker.v1",
+  "task_validation": {
+    "errors": [],
+    "ok": true,
+    "stats": {
+      "allowed_action_count": 2,
+      "local_context_ref_count": 2,
+      "stop_condition_count": 2
+    },
+    "warnings": []
+  },
+  "worker_output_validation": {
+    "errors": [
+      {
+        "field": "worker_output",
+        "message": "worker_output was not produced."
+      }
+    ],
+    "ok": false,
+    "warnings": []
+  },
+  "worker_result_validation": {
+    "errors": [
+      {
+        "field": "worker_result",
+        "message": "worker_result was not produced."
+      }
+    ],
+    "ok": false,
+    "warnings": []
+  }
+}
+[WORKER] VALIDATION FAILED batch_id=phase3a_batch_0406130425_friday-workinghours-afternoon-ddos.pcap_iscx_d272aa hypothesis_id=hyp_4_class_distribution_and_port_skew round_id=round-001 task_id=task_3
+{
+  "action_map_validation": {
+    "errors": [],
+    "ok": true,
+    "warnings": []
+  },
+  "ok": false,
+  "runtime_refs_validation": {
+    "errors": [
+      {
+        "field": "dataset_handles.semantic_substrate",
+        "message": "semantic_substrate is missing local_context_refs: ['e2', 'e33']."
+      }
+    ],
+    "ok": false,
+    "warnings": []
+  },
+  "schema_version": "phase3a.worker.v1",
+  "task_validation": {
+    "errors": [],
+    "ok": true,
+    "stats": {
+      "allowed_action_count": 2,
+      "local_context_ref_count": 2,
+      "stop_condition_count": 2
+    },
+    "warnings": []
+  },
+  "worker_output_validation": {
+    "errors": [
+      {
+        "field": "worker_output",
+        "message": "worker_output was not produced."
+      }
+    ],
+    "ok": false,
+    "warnings": []
+  },
+  "worker_result_validation": {
+    "errors": [
+      {
+        "field": "worker_result",
+        "message": "worker_result was not produced."
+      }
+    ],
+    "ok": false,
+    "warnings": []
+  }
+}
+[WORKER] END (0.1s) batch_id=phase3a_batch_0406130425_friday-workinghours-afternoon-ddos.pcap_iscx_d272aa hypothesis_id=hyp_4_class_distribution_and_port_skew round_id=round-001 task_id=task_2
+[WORKER] END (0.0s) batch_id=phase3a_batch_0406130425_friday-workinghours-afternoon-ddos.pcap_iscx_d272aa hypothesis_id=hyp_4_class_distribution_and_port_skew round_id=round-001 task_id=task_4
+[WORKER] END (0.1s) batch_id=phase3a_batch_0406130425_friday-workinghours-afternoon-ddos.pcap_iscx_d272aa hypothesis_id=hyp_4_class_distribution_and_port_skew round_id=round-001 task_id=task_3
+[ROUTER] hypothesis_id=hyp_7_heterogeneous_structural_regimes GENERATED 4 TASKS
+[ROUTER] VALIDATION OK batch_id=phase3a_batch_0406130425_friday-workinghours-afternoon-ddos.pcap_iscx_d272aa hypothesis_id=hyp_7_heterogeneous_structural_regimes round_id=round-001
+[ROUTER] END (7.5s) batch_id=phase3a_batch_0406130425_friday-workinghours-afternoon-ddos.pcap_iscx_d272aa hypothesis_id=hyp_7_heterogeneous_structural_regimes round_id=round-001
+[ROUND_BARRIER] expected_tasks=3 completed_tasks=0 waiting_for=['hyp_1_low_diversity_constant_features', 'hyp_4_class_distribution_and_port_skew', 'hyp_7_heterogeneous_structural_regimes'] batch_id=phase3a_batch_0406130425_friday-workinghours-afternoon-ddos.pcap_iscx_d272aa round_id=round-001
+[WORKER] START batch_id=phase3a_batch_0406130425_friday-workinghours-afternoon-ddos.pcap_iscx_d272aa hypothesis_id=hyp_7_heterogeneous_structural_regimes round_id=round-001 task_id=task_2
+[WORKER] START batch_id=phase3a_batch_0406130425_friday-workinghours-afternoon-ddos.pcap_iscx_d272aa hypothesis_id=hyp_7_heterogeneous_structural_regimes round_id=round-001 task_id=task_4
+[WORKER] START batch_id=phase3a_batch_0406130425_friday-workinghours-afternoon-ddos.pcap_iscx_d272aa hypothesis_id=hyp_7_heterogeneous_structural_regimes round_id=round-001 task_id=task_1
+[HYPOTHESIS] hypothesis_id=hyp_7_heterogeneous_structural_regimes round_id=round-001 WAITING FOR 4 WORKERS
+[WORKER] START batch_id=phase3a_batch_0406130425_friday-workinghours-afternoon-ddos.pcap_iscx_d272aa hypothesis_id=hyp_7_heterogeneous_structural_regimes round_id=round-001 task_id=task_3
+[ROUND] batch_id=phase3a_batch_0406130425_friday-workinghours-afternoon-ddos.pcap_iscx_d272aa round_id=round-001 WAITING FOR 3 HYPOTHESIS AGGREGATIONS
+[HYPOTHESIS_AGGREGATOR_BARRIER] expected_tasks=4 completed_tasks=0 waiting_for=['task_1', 'task_2', 'task_3', 'task_4'] batch_id=phase3a_batch_0406130425_friday-workinghours-afternoon-ddos.pcap_iscx_d272aa hypothesis_id=hyp_7_heterogeneous_structural_regimes round_id=round-001
+[WORKER] VALIDATION FAILED batch_id=phase3a_batch_0406130425_friday-workinghours-afternoon-ddos.pcap_iscx_d272aa hypothesis_id=hyp_7_heterogeneous_structural_regimes round_id=round-001 task_id=task_4
+{
+  "action_map_validation": {
+    "errors": [],
+    "ok": true,
+    "warnings": []
+  },
+  "ok": false,
+  "runtime_refs_validation": {
+    "errors": [
+      {
+        "field": "dataset_handles.semantic_substrate",
+        "message": "semantic_substrate is missing local_context_refs: ['e23', 'e8']."
+      }
+    ],
+    "ok": false,
+    "warnings": []
+  },
+  "schema_version": "phase3a.worker.v1",
+  "task_validation": {
+    "errors": [],
+    "ok": true,
+    "stats": {
+      "allowed_action_count": 2,
+      "local_context_ref_count": 2,
+      "stop_condition_count": 2
+    },
+    "warnings": []
+  },
+  "worker_output_validation": {
+    "errors": [
+      {
+        "field": "worker_output",
+        "message": "worker_output was not produced."
+      }
+    ],
+    "ok": false,
+    "warnings": []
+  },
+  "worker_result_validation": {
+    "errors": [
+      {
+        "field": "worker_result",
+        "message": "worker_result was not produced."
+      }
+    ],
+    "ok": false,
+    "warnings": []
+  }
+}
+[WORKER] END (0.0s) batch_id=phase3a_batch_0406130425_friday-workinghours-afternoon-ddos.pcap_iscx_d272aa hypothesis_id=hyp_7_heterogeneous_structural_regimes round_id=round-001 task_id=task_4
+[WORKER] VALIDATION FAILED batch_id=phase3a_batch_0406130425_friday-workinghours-afternoon-ddos.pcap_iscx_d272aa hypothesis_id=hyp_7_heterogeneous_structural_regimes round_id=round-001 task_id=task_3
+{
+  "action_map_validation": {
+    "errors": [],
+    "ok": true,
+    "warnings": []
+  },
+  "ok": false,
+  "runtime_refs_validation": {
+    "errors": [
+      {
+        "field": "dataset_handles.semantic_substrate",
+        "message": "semantic_substrate is missing local_context_refs: ['e24']."
+      }
+    ],
+    "ok": false,
+    "warnings": []
+  },
+  "schema_version": "phase3a.worker.v1",
+  "task_validation": {
+    "errors": [],
+    "ok": true,
+    "stats": {
+      "allowed_action_count": 2,
+      "local_context_ref_count": 1,
+      "stop_condition_count": 2
+    },
+    "warnings": []
+  },
+  "worker_output_validation": {
+    "errors": [
+      {
+        "field": "worker_output",
+        "message": "worker_output was not produced."
+      }
+    ],
+    "ok": false,
+    "warnings": []
+  },
+  "worker_result_validation": {
+    "errors": [
+      {
+        "field": "worker_result",
+        "message": "worker_result was not produced."
+      }
+    ],
+    "ok": false,
+    "warnings": []
+  }
+}
+[WORKER] VALIDATION FAILED batch_id=phase3a_batch_0406130425_friday-workinghours-afternoon-ddos.pcap_iscx_d272aa hypothesis_id=hyp_7_heterogeneous_structural_regimes round_id=round-001 task_id=task_2
+{
+  "action_map_validation": {
+    "errors": [],
+    "ok": true,
+    "warnings": []
+  },
+  "ok": false,
+  "runtime_refs_validation": {
+    "errors": [
+      {
+        "field": "dataset_handles.semantic_substrate",
+        "message": "semantic_substrate is missing local_context_refs: ['e10', 'e23']."
+      }
+    ],
+    "ok": false,
+    "warnings": []
+  },
+  "schema_version": "phase3a.worker.v1",
+  "task_validation": {
+    "errors": [],
+    "ok": true,
+    "stats": {
+      "allowed_action_count": 2,
+      "local_context_ref_count": 2,
+      "stop_condition_count": 2
+    },
+    "warnings": []
+  },
+  "worker_output_validation": {
+    "errors": [
+      {
+        "field": "worker_output",
+        "message": "worker_output was not produced."
+      }
+    ],
+    "ok": false,
+    "warnings": []
+  },
+  "worker_result_validation": {
+    "errors": [
+      {
+        "field": "worker_result",
+        "message": "worker_result was not produced."
+      }
+    ],
+    "ok": false,
+    "warnings": []
+  }
+}
+[WORKER] VALIDATION FAILED batch_id=phase3a_batch_0406130425_friday-workinghours-afternoon-ddos.pcap_iscx_d272aa hypothesis_id=hyp_7_heterogeneous_structural_regimes round_id=round-001 task_id=task_1
+{
+  "action_map_validation": {
+    "errors": [],
+    "ok": true,
+    "warnings": []
+  },
+  "ok": false,
+  "runtime_refs_validation": {
+    "errors": [
+      {
+        "field": "dataset_handles.semantic_substrate",
+        "message": "semantic_substrate is missing local_context_refs: ['e8', 'e9']."
+      }
+    ],
+    "ok": false,
+    "warnings": []
+  },
+  "schema_version": "phase3a.worker.v1",
+  "task_validation": {
+    "errors": [],
+    "ok": true,
+    "stats": {
+      "allowed_action_count": 2,
+      "local_context_ref_count": 2,
+      "stop_condition_count": 2
+    },
+    "warnings": []
+  },
+  "worker_output_validation": {
+    "errors": [
+      {
+        "field": "worker_output",
+        "message": "worker_output was not produced."
+      }
+    ],
+    "ok": false,
+    "warnings": []
+  },
+  "worker_result_validation": {
+    "errors": [
+      {
+        "field": "worker_result",
+        "message": "worker_result was not produced."
+      }
+    ],
+    "ok": false,
+    "warnings": []
+  }
+}
+[WORKER] END (0.0s) batch_id=phase3a_batch_0406130425_friday-workinghours-afternoon-ddos.pcap_iscx_d272aa hypothesis_id=hyp_7_heterogeneous_structural_regimes round_id=round-001 task_id=task_3
+[WORKER] END (0.0s) batch_id=phase3a_batch_0406130425_friday-workinghours-afternoon-ddos.pcap_iscx_d272aa hypothesis_id=hyp_7_heterogeneous_structural_regimes round_id=round-001 task_id=task_2
+[WORKER] END (0.0s) batch_id=phase3a_batch_0406130425_friday-workinghours-afternoon-ddos.pcap_iscx_d272aa hypothesis_id=hyp_7_heterogeneous_structural_regimes round_id=round-001 task_id=task_1
+[BATCH] EXCEPTION round_id=None hypothesis_id=None task_id=None
+Traceback (most recent call last):
+  File "C:\Users\Uni\Desktop\TFG\nids-smell-audit\phase3\phase3_runtime\orchestrator.py", line 343, in run_phase3a_batch
+    round_result = execute_round(
+        batch_id=normalized_batch_id,
+    ...<20 lines>...
+        analysis_mode=analysis_mode,
+    )
+  File "C:\Users\Uni\Desktop\TFG\nids-smell-audit\phase3\phase3_runtime\round_executor.py", line 618, in execute_round
+    aggregation_result = aggregation_future.result()
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.13_3.13.3568.0_x64__qbz5n2kfra8p0\Lib\concurrent\futures\_base.py", line 449, in result
+    return self.__get_result()
+           ~~~~~~~~~~~~~~~~~^^
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.13_3.13.3568.0_x64__qbz5n2kfra8p0\Lib\concurrent\futures\_base.py", line 401, in __get_result
+    raise self._exception
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.13_3.13.3568.0_x64__qbz5n2kfra8p0\Lib\concurrent\futures\thread.py", line 59, in run
+    result = self.fn(*self.args, **self.kwargs)
+  File "C:\Users\Uni\Desktop\TFG\nids-smell-audit\phase3\phase3_runtime\round_executor.py", line 219, in _await_workers_and_run_aggregation
+    _require_component_ok(
+    ~~~~~~~~~~~~~~~~~~~~~^
+        "worker",
+        ^^^^^^^^^
+    ...<4 lines>...
+        ),
+        ^^
+    )
+    ^
+  File "C:\Users\Uni\Desktop\TFG\nids-smell-audit\phase3\phase3_runtime\round_executor.py", line 52, in _require_component_ok
+    raise RuntimeError(
+        f"{component_name} returned a non-authoritative bundle.")
+RuntimeError: worker returned a non-authoritative bundle.
+[BATCH] batch_id=phase3a_batch_0406130425_friday-workinghours-afternoon-ddos.pcap_iscx_d272aa error=worker returned a non-authoritative bundle. FAILED
+[BATCH] END (148.3s) batch_id=phase3a_batch_0406130425_friday-workinghours-afternoon-ddos.pcap_iscx_d272aa

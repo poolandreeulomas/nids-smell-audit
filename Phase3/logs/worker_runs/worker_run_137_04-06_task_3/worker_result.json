@@ -1,0 +1,19 @@
+{
+  "task_id": "task_3",
+  "hypothesis_id": "hyp_6_class_conditioned_variation_backward_packet_lengths",
+  "status": "completed",
+  "findings": [
+    "Backward packet length features (Max, Mean, Std) exhibit moderate shortcut-like signals indicating class-conditioned structural variation.",
+    "These features show high variance ratios and differing unique value counts between BENIGN and DDoS classes, supporting the presence of dataset-specific artifacts.",
+    "The moderate shortcut signals suggest a risk of overfitting due to representation-sensitive patterns in backward packet length features."
+  ],
+  "evidence_refs": [
+    "task_3_step_03",
+    "task_3_step_05",
+    "task_3_step_07"
+  ],
+  "contradictions": [],
+  "limitations": [
+    "No duplication verification was performed to check for exact data duplication artifacts."
+  ]
+}

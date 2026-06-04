@@ -1,0 +1,251 @@
+{
+  "hypothesis_count": 10,
+  "evidence_ref_coverage": [
+    "e1",
+    "e10",
+    "e11",
+    "e12",
+    "e13",
+    "e14",
+    "e15",
+    "e16",
+    "e17",
+    "e18",
+    "e19",
+    "e2",
+    "e20",
+    "e21",
+    "e22",
+    "e23",
+    "e24",
+    "e25",
+    "e26",
+    "e27",
+    "e28",
+    "e29",
+    "e3",
+    "e30",
+    "e31",
+    "e32",
+    "e33",
+    "e4",
+    "e5",
+    "e6",
+    "e7",
+    "e8",
+    "e9"
+  ],
+  "overlap_pairs": [
+    {
+      "left_hypothesis_id": "hyp_001_low_diversity_bulk_features",
+      "right_hypothesis_id": "hyp_009_potential_for_localized_representation_sensitive_handles",
+      "shared_evidence_refs": [
+        "e23",
+        "e24",
+        "e25",
+        "e26",
+        "e27",
+        "e28",
+        "e29",
+        "e30",
+        "e31",
+        "e32"
+      ]
+    },
+    {
+      "left_hypothesis_id": "hyp_001_low_diversity_bulk_features",
+      "right_hypothesis_id": "hyp_010_overlapping_structural_patterns_support_multiple_interpretations",
+      "shared_evidence_refs": [
+        "e23",
+        "e24",
+        "e25",
+        "e26",
+        "e27",
+        "e28",
+        "e29",
+        "e30",
+        "e31",
+        "e32"
+      ]
+    },
+    {
+      "left_hypothesis_id": "hyp_002_strong_linear_dependencies",
+      "right_hypothesis_id": "hyp_010_overlapping_structural_patterns_support_multiple_interpretations",
+      "shared_evidence_refs": [
+        "e13",
+        "e14",
+        "e15",
+        "e16",
+        "e17",
+        "e18",
+        "e19",
+        "e20",
+        "e21",
+        "e22"
+      ]
+    },
+    {
+      "left_hypothesis_id": "hyp_003_class_conditioned_variation_in_backward_packet_lengths",
+      "right_hypothesis_id": "hyp_010_overlapping_structural_patterns_support_multiple_interpretations",
+      "shared_evidence_refs": [
+        "e10",
+        "e11",
+        "e12",
+        "e9"
+      ]
+    },
+    {
+      "left_hypothesis_id": "hyp_005_class_distribution_skew_in_destination_port",
+      "right_hypothesis_id": "hyp_010_overlapping_structural_patterns_support_multiple_interpretations",
+      "shared_evidence_refs": [
+        "e33"
+      ]
+    },
+    {
+      "left_hypothesis_id": "hyp_009_potential_for_localized_representation_sensitive_handles",
+      "right_hypothesis_id": "hyp_010_overlapping_structural_patterns_support_multiple_interpretations",
+      "shared_evidence_refs": [
+        "e23",
+        "e24",
+        "e25",
+        "e26",
+        "e27",
+        "e28",
+        "e29",
+        "e30",
+        "e31",
+        "e32"
+      ]
+    }
+  ],
+  "hypotheses": [
+    {
+      "hypothesis_id": "hyp_001_low_diversity_bulk_features",
+      "evidence_refs": [
+        "e23",
+        "e24",
+        "e25",
+        "e26",
+        "e27",
+        "e28",
+        "e29",
+        "e30",
+        "e31",
+        "e32"
+      ],
+      "open_question_count": 2
+    },
+    {
+      "hypothesis_id": "hyp_002_strong_linear_dependencies",
+      "evidence_refs": [
+        "e13",
+        "e14",
+        "e15",
+        "e16",
+        "e17",
+        "e18",
+        "e19",
+        "e20",
+        "e21",
+        "e22"
+      ],
+      "open_question_count": 2
+    },
+    {
+      "hypothesis_id": "hyp_003_class_conditioned_variation_in_backward_packet_lengths",
+      "evidence_refs": [
+        "e10",
+        "e11",
+        "e12",
+        "e9"
+      ],
+      "open_question_count": 2
+    },
+    {
+      "hypothesis_id": "hyp_004_class_conditioned_variation_in_average_packet_size",
+      "evidence_refs": [
+        "e8"
+      ],
+      "open_question_count": 2
+    },
+    {
+      "hypothesis_id": "hyp_005_class_distribution_skew_in_destination_port",
+      "evidence_refs": [
+        "e33"
+      ],
+      "open_question_count": 2
+    },
+    {
+      "hypothesis_id": "hyp_006_partition_level_class_imbalance_and_duplication_effects",
+      "evidence_refs": [
+        "e1",
+        "e2"
+      ],
+      "open_question_count": 2
+    },
+    {
+      "hypothesis_id": "hyp_007_high_ranked_backward_packet_length_features_with_structural_variation",
+      "evidence_refs": [
+        "e3",
+        "e4",
+        "e5",
+        "e6"
+      ],
+      "open_question_count": 2
+    },
+    {
+      "hypothesis_id": "hyp_008_average_packet_size_as_moderate_ranked_feature_with_variation",
+      "evidence_refs": [
+        "e7"
+      ],
+      "open_question_count": 2
+    },
+    {
+      "hypothesis_id": "hyp_009_potential_for_localized_representation_sensitive_handles",
+      "evidence_refs": [
+        "e23",
+        "e24",
+        "e25",
+        "e26",
+        "e27",
+        "e28",
+        "e29",
+        "e30",
+        "e31",
+        "e32"
+      ],
+      "open_question_count": 2
+    },
+    {
+      "hypothesis_id": "hyp_010_overlapping_structural_patterns_support_multiple_interpretations",
+      "evidence_refs": [
+        "e10",
+        "e11",
+        "e12",
+        "e13",
+        "e14",
+        "e15",
+        "e16",
+        "e17",
+        "e18",
+        "e19",
+        "e20",
+        "e21",
+        "e22",
+        "e23",
+        "e24",
+        "e25",
+        "e26",
+        "e27",
+        "e28",
+        "e29",
+        "e30",
+        "e31",
+        "e32",
+        "e33",
+        "e9"
+      ],
+      "open_question_count": 2
+    }
+  ]
+}

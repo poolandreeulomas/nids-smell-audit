@@ -1,0 +1,28 @@
+{
+  "batch_id": "phase3a_batch_0406095248_friday-workinghours-afternoon-ddos.pcap_iscx_f8c2c2",
+  "round_id": "round-001",
+  "hypothesis_id": "hyp_005_class_conditioned_variation_backward_packet_lengths",
+  "merged_findings": [
+    "Backward packet length features (Max, Mean, Std) consistently exhibit stable, class-conditioned structural variation with high class separation between BENIGN and DDoS traffic across examined time windows and network conditions.",
+    "These features show high redundancy and structural dependency, particularly between Bwd Packet Length Max and Mean, indicating consistent patterns rather than isolated anomalies or independent confounding.",
+    "Avg Bwd Segment Size also demonstrates significant class-conditioned variation with high variance ratios and unique value differences, reinforcing the structural pattern findings.",
+    "Moderate shortcut-like predictive leverage in Bwd Packet Length Mean suggests sensitivity to attack-specific packet size manipulation or fragmentation effects.",
+    "No local evidence was found for confounding factors such as flow duration or application type influencing backward packet length variations."
+  ],
+  "evidence_refs": [
+    "task_1_step_03",
+    "task_1_step_05",
+    "task_1_step_07",
+    "task_2_step_03",
+    "task_2_step_05",
+    "task_2_step_07",
+    "task_3_step_03",
+    "task_3_step_05",
+    "task_3_step_07"
+  ],
+  "preserved_contradictions": [],
+  "open_gaps": [
+    "Limitations remain due to analyses being restricted to local evidence within specific backward packet length features and limited network segments; broader fragmentation impact and dataset-wide context have not been separately verified or assessed."
+  ],
+  "update_focus": "Maintain focus on class-conditioned structural variation and redundancy in backward packet length features, while addressing the need for broader contextual validation beyond local evidence and isolated network segments."
+}

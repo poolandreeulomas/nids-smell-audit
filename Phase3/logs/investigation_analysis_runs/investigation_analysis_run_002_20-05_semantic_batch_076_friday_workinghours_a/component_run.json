@@ -1,0 +1,28 @@
+{
+  "component": "investigation_analysis",
+  "created_at": "2026-05-20T14:59:17.007910+00:00",
+  "schema_version": "phase3a.investigation_analysis.v1",
+  "batch_id": "semantic_batch_076_friday-workinghours-afternoon-ddos.pcap_iscx",
+  "source_substrate_id": "substrate_semantic_batch_076_init",
+  "status": "ok",
+  "validation_ok": true,
+  "model_name": "gpt-4.1-mini",
+  "caller_mode": "cli",
+  "replay_of": null,
+  "artifact_paths": {
+    "component_run_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\investigation_analysis_runs\\investigation_analysis_run_002_20-05_semantic_batch_076_friday_workinghours_a\\component_run.json",
+    "semantic_substrate_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\investigation_analysis_runs\\investigation_analysis_run_002_20-05_semantic_batch_076_friday_workinghours_a\\semantic_substrate.json",
+    "analysis_context_min_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\investigation_analysis_runs\\investigation_analysis_run_002_20-05_semantic_batch_076_friday_workinghours_a\\analysis_context_min.json",
+    "analysis_iteration_context_min_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\investigation_analysis_runs\\investigation_analysis_run_002_20-05_semantic_batch_076_friday_workinghours_a\\analysis_iteration_context_min.json",
+    "projected_substrate_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\investigation_analysis_runs\\investigation_analysis_run_002_20-05_semantic_batch_076_friday_workinghours_a\\projected_substrate.json",
+    "projected_analysis_context_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\investigation_analysis_runs\\investigation_analysis_run_002_20-05_semantic_batch_076_friday_workinghours_a\\projected_analysis_context.json",
+    "projected_iteration_context_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\investigation_analysis_runs\\investigation_analysis_run_002_20-05_semantic_batch_076_friday_workinghours_a\\projected_iteration_context.json",
+    "rendered_prompt_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\investigation_analysis_runs\\investigation_analysis_run_002_20-05_semantic_batch_076_friday_workinghours_a\\rendered_prompt.txt",
+    "raw_response_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\investigation_analysis_runs\\investigation_analysis_run_002_20-05_semantic_batch_076_friday_workinghours_a\\raw_response.txt",
+    "parsed_output_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\investigation_analysis_runs\\investigation_analysis_run_002_20-05_semantic_batch_076_friday_workinghours_a\\parsed_output.json",
+    "hypothesis_index_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\investigation_analysis_runs\\investigation_analysis_run_002_20-05_semantic_batch_076_friday_workinghours_a\\hypothesis_index.json",
+    "validation_report_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\investigation_analysis_runs\\investigation_analysis_run_002_20-05_semantic_batch_076_friday_workinghours_a\\validation_report.json",
+    "runtime_metrics_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\investigation_analysis_runs\\investigation_analysis_run_002_20-05_semantic_batch_076_friday_workinghours_a\\runtime_metrics.json",
+    "replay_metadata_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\investigation_analysis_runs\\investigation_analysis_run_002_20-05_semantic_batch_076_friday_workinghours_a\\replay_metadata.json"
+  }
+}

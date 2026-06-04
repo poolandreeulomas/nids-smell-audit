@@ -1,0 +1,32 @@
+{
+  "hypothesis_id": "hyp_010_interplay_between_class_conditioned_variation_and_dependency_structure",
+  "planner_strategy_id": "strategy_03_hyp_010",
+  "task_count": 3,
+  "action_class_count": 5,
+  "task_summaries": [
+    {
+      "task_id": "task_1",
+      "hypothesis_id": "hyp_010_interplay_between_class_conditioned_variation_and_dependency_structure",
+      "task_scope": "Analyze class-conditioned distribution profiles of features e8 through e12 to identify variation patterns across classes.",
+      "allowed_action_count": 1,
+      "local_context_ref_count": 5,
+      "stop_condition_count": 2
+    },
+    {
+      "task_id": "task_2",
+      "hypothesis_id": "hyp_010_interplay_between_class_conditioned_variation_and_dependency_structure",
+      "task_scope": "Examine dependency concentration among features e13 through e22 and relate dependency patterns to class-conditioned variation observed in e8-e12.",
+      "allowed_action_count": 2,
+      "local_context_ref_count": 15,
+      "stop_condition_count": 2
+    },
+    {
+      "task_id": "task_3",
+      "hypothesis_id": "hyp_010_interplay_between_class_conditioned_variation_and_dependency_structure",
+      "task_scope": "Investigate unstable feature importance or selection bias caused by entangled class-conditioned variation and redundancy among features e8 through e22.",
+      "allowed_action_count": 2,
+      "local_context_ref_count": 15,
+      "stop_condition_count": 2
+    }
+  ]
+}

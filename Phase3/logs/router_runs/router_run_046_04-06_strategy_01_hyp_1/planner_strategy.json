@@ -1,0 +1,20 @@
+{
+  "strategy_id": "strategy_01_hyp_1",
+  "hypothesis_id": "hyp_1_low_diversity_constant_features",
+  "strategic_objective": "Clarify whether near-constant bulk and flag features reflect true network saturation or measurement artifacts and assess their masking effect on subtle attack-relevant variations.",
+  "key_checks": [
+    "Compare cardinality and value stability of bulk and flag features across classes",
+    "Assess correlation of near-constant features with known saturation indicators",
+    "Evaluate presence of subtle intra-class variation within these features",
+    "Check for measurement or logging constraints causing low diversity"
+  ],
+  "success_criteria": [
+    "Evidence distinguishes genuine saturation from measurement limitations",
+    "Identification of any masked subtle variations relevant to attack detection",
+    "Characterization of feature stability across temporal or traffic segments"
+  ],
+  "router_constraints": [
+    "preserve feature scope for bulk and flag features",
+    "preserve evidence references e23 to e32"
+  ]
+}

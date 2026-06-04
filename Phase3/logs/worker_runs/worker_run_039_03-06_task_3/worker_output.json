@@ -1,0 +1,24 @@
+{
+  "batch_id": "phase3a_batch_0306173106_friday-workinghours-afternoon-ddos.pcap_iscx_98251a",
+  "round_id": "round-001",
+  "worker_result": {
+    "task_id": "task_3",
+    "hypothesis_id": "hyp_003",
+    "status": "partial",
+    "findings": [
+      "Moderate shortcut-like predictive signals were observed for tested features Average Packet Size, Packet Length Mean, and Avg Bwd Segment Size within a cluster of strongly correlated features.",
+      "Strong linear dependencies (correlation >=0.9993) among many features indicate potential redundancy and shortcut risk in this feature cluster.",
+      "Evidence is limited to tested features; other correlated features remain untested for shortcut signals."
+    ],
+    "evidence_refs": [
+      "task_3_step_03",
+      "task_3_step_05",
+      "task_3_step_07"
+    ],
+    "contradictions": [],
+    "limitations": [
+      "Shortcut-like predictive power was tested only on a subset of correlated features due to step budget constraints.",
+      "Findings are local to the tested features and do not generalize to all correlated features in the cluster."
+    ]
+  }
+}

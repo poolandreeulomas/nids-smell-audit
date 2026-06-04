@@ -1,0 +1,17 @@
+{
+  "task_id": "task_4",
+  "hypothesis_id": "hyp_4_destination_port_distribution_skew_reflects_attack_targeting",
+  "status": "completed",
+  "findings": [
+    "Destination Port distributions show stable, low-entropy, dominant-value patterns with high class separation across temporal and batch-specific subsets.",
+    "No significant temporal or batch-specific variability detected in destination port distribution patterns.",
+    "Observed distributional skew supports the hypothesis of targeted attack behavior reflected in destination port usage."
+  ],
+  "evidence_refs": [
+    "task_4_step_03",
+    "task_4_step_05",
+    "task_4_step_07"
+  ],
+  "contradictions": [],
+  "limitations": []
+}

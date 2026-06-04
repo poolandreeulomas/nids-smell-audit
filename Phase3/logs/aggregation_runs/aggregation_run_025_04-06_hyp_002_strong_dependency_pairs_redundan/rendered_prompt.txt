@@ -1,0 +1,111 @@
+ROLE:
+You are Aggregation. Stay inside one hypothesis-local, round-local merge after Worker and before State Manager.
+Do not reroute, replan, mutate canonical state, emit critic feedback, or summarize raw traces.
+Preserve grounded contradictions and unresolved gaps instead of flattening them away.
+
+TASK:
+{
+  "batch_id": "phase3a_batch_0406080944_friday-workinghours-afternoon-ddos.pcap_iscx_618cac",
+  "round_id": "round-001",
+  "hypothesis_id": "hyp_002_strong_dependency_pairs_redundancy",
+  "worker_result_count": 3,
+  "expected_task_ids": [
+    "task_1",
+    "task_2",
+    "task_3"
+  ],
+  "selected_task_ids": [
+    "task_1",
+    "task_2",
+    "task_3"
+  ]
+}
+
+SOURCE_WORKER_RESULTS:
+[
+  {
+    "task_id": "task_1",
+    "hypothesis_id": "hyp_002_strong_dependency_pairs_redundancy",
+    "status": "completed",
+    "findings": [
+      "Strong linear dependencies with correlation near or equal to 1 observed consistently across features e13 to e22.",
+      "Dependency profiles are concentrated into narrow structural clusters indicating redundancy among these feature pairs.",
+      "No evidence of instability or temporal variation in dependency metrics was found in the localized context."
+    ],
+    "evidence_refs": [
+      "task_1_step_03",
+      "task_1_step_05",
+      "task_1_step_07"
+    ],
+    "contradictions": [],
+    "limitations": [
+      "Analysis limited to local dependency clusters without cross-segment aggregation.",
+      "No direct distribution verification performed due to bounded step budget."
+    ]
+  },
+  {
+    "task_id": "task_2",
+    "hypothesis_id": "hyp_002_strong_dependency_pairs_redundancy",
+    "status": "completed",
+    "findings": [
+      "Several feature pairs (e.g., Average Packet Size and Packet Length Mean; Fwd Header Length and Fwd Header Length.1) exhibit near-perfect linear correlation indicating redundancy.",
+      "Strong dependencies are attributable to preprocessing or feature engineering rather than inherent protocol structure.",
+      "Local consistency verification revealed moderate label conflicts but did not undermine redundancy classification."
+    ],
+    "evidence_refs": [
+      "task_2_step_03",
+      "task_2_step_05",
+      "task_2_step_07"
+    ],
+    "contradictions": [],
+    "limitations": []
+  },
+  {
+    "task_id": "task_3",
+    "hypothesis_id": "hyp_002_strong_dependency_pairs_redundancy",
+    "status": "completed",
+    "findings": [
+      "Features e13 to e22 exhibit strong linear dependencies with correlation values near or equal to 1, indicating significant redundancy.",
+      "Cardinality verification on sampled features confirms low cardinality consistent with near-constant or highly dependent behavior.",
+      "Effective dimensionality reduction is supported by the presence of these strong dependencies, reducing the independent feature space within this cluster."
+    ],
+    "evidence_refs": [
+      "task_3_step_03",
+      "task_3_step_05",
+      "task_3_step_07"
+    ],
+    "contradictions": [],
+    "limitations": [
+      "Cardinality verification was performed on a subset of features (e13, e14, e15) as representative evidence; full feature set cardinality was not exhaustively verified."
+    ]
+  }
+]
+
+OVERLAP_DIAGNOSTICS:
+[]
+
+OUTPUT_RULES:
+Return exactly one JSON object.
+Only cite evidence_refs that appear in SOURCE_WORKER_RESULTS.
+Only preserve contradictions that already appear in SOURCE_WORKER_RESULTS.
+Keep update_focus state-facing and grounded, but do not describe state mutation.
+{
+  "aggregation_handoff": {
+    "batch_id": "phase3a_batch_0406080944_friday-workinghours-afternoon-ddos.pcap_iscx_618cac",
+    "round_id": "round-001",
+    "hypothesis_id": "hyp_002_strong_dependency_pairs_redundancy",
+    "merged_findings": [
+      "grounded merged finding"
+    ],
+    "evidence_refs": [
+      "source evidence_ref"
+    ],
+    "preserved_contradictions": [
+      "unresolved source contradiction"
+    ],
+    "open_gaps": [
+      "remaining unresolved gap or limitation"
+    ],
+    "update_focus": "orientation for the touched interpretive area"
+  }
+}

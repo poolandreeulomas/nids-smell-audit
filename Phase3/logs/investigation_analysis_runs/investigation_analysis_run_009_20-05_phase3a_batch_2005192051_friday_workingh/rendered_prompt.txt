@@ -1,0 +1,396 @@
+=== ROLE ===
+You are the Phase 3A Investigation Analysis module.
+You operate after Semantic Extraction and before Hypothesis Ranking.
+You are part of a forensic dataset auditing system focused on identifying structural irregularities, representation-sensitive patterns, shortcut-like signals, unstable dependencies, and epistemically suspicious regularities inside telemetry datasets.
+You are generating investigable interpretations of structural irregularities while preserving competing framings and unresolved tensions.
+Your role is not to declare canonical truth or collapse ambiguity prematurely.
+
+=== OBJECTIVE ===
+Generate up to 10 bounded investigation hypotheses for batch_id=phase3a_batch_2005192051_friday-workinghours-afternoon-ddos.pcap_iscx_b26f30.
+Interpret the structural substrate without collapsing ambiguity or converting interpretation into fact.
+
+=== BOUNDARIES ===
+Use artifact framings as guidance only, never as rigid classification labels.
+Hypotheses may overlap and share evidence when the substrate warrants it.
+Keep summaries inferential and grounded in the provided substrate evidence IDs.
+Do not prioritize, budget, plan, route, execute, or define task packages.
+Do not declare canonical truth, artifact existence, closure, or certainty.
+Avoid forbidden wording in summaries and open_questions: close/closed/closure and saturate/saturated/saturation.
+If substrate or context text uses forbidden wording, paraphrase it into neutral structural language without those terms.
+Open questions should remain unresolved verification-oriented questions, not ordered instructions.
+
+=== OUTPUT RULES ===
+Return valid JSON only.
+Do not use markdown or code fences.
+Return exactly these top-level fields:
+analysis_id, batch_id, hypotheses.
+Each hypothesis must include:
+hypothesis_id, summary, evidence_refs, open_questions.
+Every hypothesis must cite one or more evidence_refs already present in the substrate input.
+Every hypothesis must preserve one or more open_questions.
+At most 10 hypotheses may be returned.
+
+=== ANALYSIS CONTEXT ===
+{
+  "artifact_framing_refs": [
+    {
+      "description": "Broad paired or dependency-backed structure may reflect a stable regularity rather than a single narrow handle.",
+      "framing_id": "dependency_backed_regularity",
+      "label": "dependency-backed regularity"
+    },
+    {
+      "description": "A narrow or representation-sensitive signal may remain locally meaningful even when it does not explain the full substrate.",
+      "framing_id": "localized_representation_sensitive_handle",
+      "label": "localized representation-sensitive handle"
+    },
+    {
+      "description": "Contradictions and tensions may justify multiple partially compatible hypotheses that should remain alive together.",
+      "framing_id": "overlap_preserving_competing_framings",
+      "label": "overlap-preserving competing framing"
+    }
+  ],
+  "partition_context_ref": {
+    "epistemic_warnings": [
+      "Use this context only to interpret behavior, not to validate it. Do not assume patterns are valid because they match the attack type, and do not reward obvious confirmations."
+    ],
+    "expected_properties": [
+      "Extreme dominance, near-perfect relationships between features, or overly stable counters may require deeper inspection. Skew is expected, but not perfect structure."
+    ],
+    "investigation_guidance": [
+      "Focus on feature prioritization, avoidance of trivial confirmations, detection of meaningful artifacts, hypothesis revision quality, and step efficiency. Evaluate reasoning, not just signals, using only the JIF and this context.",
+      "The agent should distinguish burst behavior from structural collapse and analyze redundancy across counters and rate-based features."
+    ],
+    "semantics": [
+      "CICIDS2017 is a network-flow IDS benchmark with benign and attack traffic across days. Evaluate agent reasoning behavior relative to the phenomenon modeled in the partition.",
+      "This partition models load concentration, spikes, and load."
+    ]
+  }
+}
+
+=== ITERATION CONTEXT ===
+No prior hypothesis set or committed state refs were provided. Treat this as the first Investigation Analysis pass.
+
+=== STRUCTURAL SUBSTRATE ===
+{
+  "batch_id": "phase3a_batch_2005192051_friday-workinghours-afternoon-ddos.pcap_iscx_b26f30",
+  "compressed_regions": [
+    {
+      "contradiction_refs": [],
+      "evidence_refs": [
+        "e23",
+        "e24",
+        "e25",
+        "e26",
+        "e27"
+      ],
+      "feature_scope": {
+        "feature_groups": [
+          "backward_bulk_features"
+        ],
+        "features": [
+          "Bwd Avg Bulk Rate",
+          "Bwd Avg Bytes/Bulk",
+          "Bwd Avg Packets/Bulk",
+          "Bwd PSH Flags",
+          "Bwd URG Flags"
+        ],
+        "locality": {
+          "localized": true,
+          "notes": [
+            "features related to backward bulk traffic"
+          ],
+          "scope_type": "feature_group",
+          "scope_value": "backward_bulk_features"
+        }
+      },
+      "region_id": "region_1_low_diversity_backward_bulk_features",
+      "region_kind": "low_diversity_region",
+      "status": "active",
+      "summary": "Multiple backward bulk-related features exhibit extremely low unique value counts and cardinality ratios, indicating near-constant values across the partition.",
+      "tension_refs": []
+    },
+    {
+      "contradiction_refs": [],
+      "evidence_refs": [
+        "e29",
+        "e30",
+        "e31",
+        "e32"
+      ],
+      "feature_scope": {
+        "feature_groups": [
+          "forward_bulk_features"
+        ],
+        "features": [
+          "Fwd Avg Bulk Rate",
+          "Fwd Avg Bytes/Bulk",
+          "Fwd Avg Packets/Bulk",
+          "Fwd URG Flags"
+        ],
+        "locality": {
+          "localized": true,
+          "notes": [
+            "features related to forward bulk traffic"
+          ],
+          "scope_type": "feature_group",
+          "scope_value": "forward_bulk_features"
+        }
+      },
+      "region_id": "region_2_low_diversity_forward_bulk_features",
+      "region_kind": "low_diversity_region",
+      "status": "active",
+      "summary": "Forward bulk-related features also show extremely low unique value counts and cardinality ratios, mirroring backward bulk features.",
+      "tension_refs": []
+    },
+    {
+      "contradiction_refs": [],
+      "evidence_refs": [
+        "e13",
+        "e14",
+        "e15",
+        "e16",
+        "e17",
+        "e18",
+        "e19",
+        "e20",
+        "e21",
+        "e22"
+      ],
+      "feature_scope": {
+        "feature_groups": [
+          "strong_dependency_pairs"
+        ],
+        "features": [
+          "Bwd Packet Length Mean",
+          "Avg Bwd Segment Size",
+          "Fwd Header Length",
+          "Fwd Header Length.1",
+          "Fwd PSH Flags",
+          "SYN Flag Count",
+          "Fwd Packet Length Mean",
+          "Avg Fwd Segment Size",
+          "RST Flag Count",
+          "ECE Flag Count",
+          "Total Backward Packets",
+          "Subflow Bwd Packets",
+          "Total Fwd Packets",
+          "Subflow Fwd Packets",
+          "Total Length of Bwd Packets",
+          "Subflow Bwd Bytes",
+          "Total Length of Fwd Packets",
+          "Subflow Fwd Bytes",
+          "Packet Length Mean",
+          "Average Packet Size"
+        ],
+        "locality": {
+          "localized": true,
+          "notes": [
+            "pairs with correlation >= 0.9993"
+          ],
+          "scope_type": "dependency_cluster",
+          "scope_value": "strong_dependency_pairs"
+        }
+      },
+      "region_id": "region_3_strong_feature_dependencies_pairs",
+      "region_kind": "dependency_region",
+      "status": "active",
+      "summary": "Multiple feature pairs exhibit near-perfect or perfect correlation, indicating strong linear dependencies and potential redundancy.",
+      "tension_refs": []
+    },
+    {
+      "contradiction_refs": [],
+      "evidence_refs": [
+        "e8",
+        "e9",
+        "e10",
+        "e11",
+        "e12"
+      ],
+      "feature_scope": {
+        "feature_groups": [
+          "packet_length_features"
+        ],
+        "features": [
+          "Bwd Packet Length Max",
+          "Bwd Packet Length Mean",
+          "Bwd Packet Length Std",
+          "Average Packet Size",
+          "Avg Bwd Segment Size"
+        ],
+        "locality": {
+          "localized": true,
+          "notes": [
+            "features related to packet length statistics"
+          ],
+          "scope_type": "feature_group",
+          "scope_value": "packet_length_features"
+        }
+      },
+      "region_id": "region_4_class_conditioned_structural_variation_packet_length_features",
+      "region_kind": "mixed_structural_region",
+      "status": "active",
+      "summary": "Packet length related features show substantial class-conditioned structural variation with large variance ratios and differing unique value counts between BENIGN and DDoS classes.",
+      "tension_refs": []
+    },
+    {
+      "contradiction_refs": [],
+      "evidence_refs": [
+        "e1",
+        "e2"
+      ],
+      "feature_scope": {
+        "feature_groups": [],
+        "features": [
+          "__dataset__"
+        ],
+        "locality": {
+          "localized": false,
+          "notes": [
+            "partition-level observation"
+          ],
+          "scope_type": "partition_global",
+          "scope_value": "phase3a_batch_2005192051_friday-workinghours-afternoon-ddos.pcap_iscx_b26f30"
+        }
+      },
+      "region_id": "region_5_class_imbalance_and_duplication",
+      "region_kind": "mixed_structural_region",
+      "status": "broad_unvalidated",
+      "summary": "Partition exhibits moderate class imbalance and a substantial number of duplicated rows, which may influence structural patterns and feature distributions.",
+      "tension_refs": []
+    },
+    {
+      "contradiction_refs": [],
+      "evidence_refs": [
+        "e33"
+      ],
+      "feature_scope": {
+        "feature_groups": [],
+        "features": [
+          "Destination Port"
+        ],
+        "locality": {
+          "localized": true,
+          "notes": [
+            "feature sensitive to class representation"
+          ],
+          "scope_type": "feature_group",
+          "scope_value": "Destination Port"
+        }
+      },
+      "region_id": "region_6_distributional_divergence_destination_port",
+      "region_kind": "representation_sensitive_region",
+      "status": "emerging",
+      "summary": "Destination Port feature shows strong distributional divergence between BENIGN and DDoS classes, with perfect dominance in DDoS and high entropy in BENIGN.",
+      "tension_refs": []
+    }
+  ],
+  "contradiction_count": 0,
+  "contradictions": [],
+  "preserved_weak_signals": [
+    {
+      "descriptor": "Bwd Packet Length Mean is the top-ranked feature in the partition overview.",
+      "evidence_refs": [
+        "e3"
+      ],
+      "feature_scope": {
+        "feature_groups": [],
+        "features": [
+          "Bwd Packet Length Mean"
+        ],
+        "locality": {
+          "localized": true,
+          "notes": [],
+          "scope_type": "feature_group",
+          "scope_value": "Bwd Packet Length Mean"
+        }
+      },
+      "preservation_reason": "Top feature rank suggests structural prominence despite potential redundancy.",
+      "weak_signal_id": "weak_1_packet_length_mean_top_rank"
+    },
+    {
+      "descriptor": "Avg Bwd Segment Size is the second top-ranked feature in the partition overview.",
+      "evidence_refs": [
+        "e4"
+      ],
+      "feature_scope": {
+        "feature_groups": [],
+        "features": [
+          "Avg Bwd Segment Size"
+        ],
+        "locality": {
+          "localized": true,
+          "notes": [],
+          "scope_type": "feature_group",
+          "scope_value": "Avg Bwd Segment Size"
+        }
+      },
+      "preservation_reason": "High rank indicates structural relevance despite strong dependency with Bwd Packet Length Mean.",
+      "weak_signal_id": "weak_2_avg_bwd_segment_size_top_rank"
+    },
+    {
+      "descriptor": "Bwd Packet Length Max is the third top-ranked feature in the partition overview.",
+      "evidence_refs": [
+        "e5"
+      ],
+      "feature_scope": {
+        "feature_groups": [],
+        "features": [
+          "Bwd Packet Length Max"
+        ],
+        "locality": {
+          "localized": true,
+          "notes": [],
+          "scope_type": "feature_group",
+          "scope_value": "Bwd Packet Length Max"
+        }
+      },
+      "preservation_reason": "Top rank suggests structural importance with class-conditioned variation.",
+      "weak_signal_id": "weak_3_bwd_packet_length_max_top_rank"
+    },
+    {
+      "descriptor": "Bwd Packet Length Std is the fourth top-ranked feature in the partition overview.",
+      "evidence_refs": [
+        "e6"
+      ],
+      "feature_scope": {
+        "feature_groups": [],
+        "features": [
+          "Bwd Packet Length Std"
+        ],
+        "locality": {
+          "localized": true,
+          "notes": [],
+          "scope_type": "feature_group",
+          "scope_value": "Bwd Packet Length Std"
+        }
+      },
+      "preservation_reason": "High rank despite class-conditioned structural variation.",
+      "weak_signal_id": "weak_4_bwd_packet_length_std_top_rank"
+    },
+    {
+      "descriptor": "Average Packet Size is the fifth top-ranked feature in the partition overview.",
+      "evidence_refs": [
+        "e7"
+      ],
+      "feature_scope": {
+        "feature_groups": [],
+        "features": [
+          "Average Packet Size"
+        ],
+        "locality": {
+          "localized": true,
+          "notes": [],
+          "scope_type": "feature_group",
+          "scope_value": "Average Packet Size"
+        }
+      },
+      "preservation_reason": "Top rank indicates structural prominence with class-conditioned variation.",
+      "weak_signal_id": "weak_5_average_packet_size_top_rank"
+    }
+  ],
+  "region_count": 6,
+  "substrate_id": "substrate_phase3a_batch_2005192051_friday-workinghours-afternoon-ddos.pcap_iscx_b26f30",
+  "tension_count": 0,
+  "unresolved_tensions": [],
+  "weak_signal_count": 5
+}

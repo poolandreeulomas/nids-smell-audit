@@ -1,0 +1,32 @@
+{
+  "batch_id": "phase3a_batch_0306133856_friday-workinghours-afternoon-ddos.pcap_iscx_163504",
+  "round_id": "round-001",
+  "hypothesis_id": "hyp_4_representation_sensitive_distribution_skew_in_destination_port",
+  "planner_strategy_id": "strategy_01_hyp_4",
+  "worker_tasks": [
+    {
+      "task_id": "task_1",
+      "hypothesis_id": "hyp_4_representation_sensitive_distribution_skew_in_destination_port",
+      "task_scope": "Compare destination port distribution across multiple time frames and data partitions within DDoS and BENIGN classes to detect distribution shifts or skew.",
+      "allowed_actions": ["distribution_verification"],
+      "local_context_refs": ["e33"],
+      "stop_conditions": ["analyzed all defined time frames", "distribution comparison metrics stabilized"]
+    },
+    {
+      "task_id": "task_2",
+      "hypothesis_id": "hyp_4_representation_sensitive_distribution_skew_in_destination_port",
+      "task_scope": "Measure entropy and dominant port ratio stability within each class over time to assess representation sensitivity and temporal consistency.",
+      "allowed_actions": ["structural_summary"],
+      "local_context_refs": ["e33"],
+      "stop_conditions": ["entropy and dominant port ratio metrics converge", "sufficient temporal samples processed"]
+    },
+    {
+      "task_id": "task_3",
+      "hypothesis_id": "hyp_4_representation_sensitive_distribution_skew_in_destination_port",
+      "task_scope": "Assess whether the dominant destination port in DDoS class is consistent or varies across attack instances to identify potential sampling bias or targeted attack vectors.",
+      "allowed_actions": ["distribution_verification", "shortcut_verification"],
+      "local_context_refs": ["e33"],
+      "stop_conditions": ["dominant port consistency quantified", "shortcut-like predictive leverage evaluated"]
+    }
+  ]
+}

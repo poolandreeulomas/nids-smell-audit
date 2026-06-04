@@ -1,0 +1,35 @@
+{
+  "selected_count": 3,
+  "strategy_count": 3,
+  "missing_strategy_hypothesis_ids": [],
+  "unexpected_strategy_hypothesis_ids": [],
+  "strategies": [
+    {
+      "strategy_id": "strategy_01_hyp_001",
+      "hypothesis_id": "hyp_001_low_diversity_constant_features",
+      "summary": "The presence of multiple features with near-constant values across the partition suggests a structural substrate where certain metrics may not contribute to class differentiation or may reflect invariant network conditions during the capture period.",
+      "strategic_objective": "Clarify whether near-constant features represent stable network conditions or measurement artifacts and assess potential hidden variability at finer temporal scales.",
+      "key_check_count": 4,
+      "success_criteria_count": 3,
+      "router_constraint_count": 2
+    },
+    {
+      "strategy_id": "strategy_02_hyp_002",
+      "hypothesis_id": "hyp_002_strong_dependency_pairs_redundancy",
+      "summary": "Several feature pairs exhibit near-perfect linear correlations, indicating strong dependencies that may introduce redundancy in the dataset and affect feature importance assessments.",
+      "strategic_objective": "Determine the consistency and class-specificity of strong feature dependencies and evaluate their influence on dataset redundancy and interpretability.",
+      "key_check_count": 4,
+      "success_criteria_count": 3,
+      "router_constraint_count": 2
+    },
+    {
+      "strategy_id": "strategy_03_hyp_003",
+      "hypothesis_id": "hyp_003_class_conditioned_structural_variation",
+      "summary": "Key packet length and size features show significant structural variation conditioned on class labels, with differing variance ratios and unique value counts between BENIGN and DDoS classes, suggesting these features capture meaningful class-distinguishing patterns.",
+      "strategic_objective": "Quantify the stability and origin of class-conditioned structural variations to distinguish true behavioral differences from sampling or measurement biases.",
+      "key_check_count": 4,
+      "success_criteria_count": 3,
+      "router_constraint_count": 2
+    }
+  ]
+}

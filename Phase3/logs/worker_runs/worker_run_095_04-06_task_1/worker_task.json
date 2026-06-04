@@ -1,0 +1,15 @@
+{
+  "task_id": "task_1",
+  "hypothesis_id": "hyp_005_destination_port_distribution_shift",
+  "task_scope": "Verify class-conditioned distribution stability of Destination Port across temporal and data partitions within evidence e33",
+  "allowed_actions": [
+    "distribution_verification"
+  ],
+  "local_context_refs": [
+    "e33"
+  ],
+  "stop_conditions": [
+    "distribution metrics stable across partitions",
+    "no abrupt temporal shifts detected"
+  ]
+}

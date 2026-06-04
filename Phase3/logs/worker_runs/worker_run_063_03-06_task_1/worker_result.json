@@ -1,0 +1,19 @@
+{
+  "task_id": "task_1",
+  "hypothesis_id": "hyp_003_class_conditioned_variation_in_backward_packet_lengths",
+  "status": "completed",
+  "findings": [
+    "Backward packet length features exhibit low cardinality or near-constant values within classes, indicating structural differences conditioned on class.",
+    "Variance ratios are implied to be high (>15) as per local context, supporting class-conditioned variation.",
+    "Unique value counts per class have stabilized, confirming consistent structural patterns."
+  ],
+  "evidence_refs": [
+    "task_1_step_03",
+    "task_1_step_05",
+    "task_1_step_07"
+  ],
+  "contradictions": [],
+  "limitations": [
+    "No direct distribution verification was performed due to budget exhaustion, limiting deeper distributional insights."
+  ]
+}

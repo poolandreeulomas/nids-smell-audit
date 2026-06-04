@@ -1,0 +1,16 @@
+{
+  "task_id": "task_3",
+  "hypothesis_id": "hyp_001_low_diversity_constant_features",
+  "task_scope": "Evaluate feature cardinality and detect subtle fluctuations below coarse aggregation levels to identify hidden variability in near-constant features.",
+  "allowed_actions": [
+    "cardinality_verification"
+  ],
+  "local_context_refs": [
+    "e28",
+    "e29"
+  ],
+  "stop_conditions": [
+    "cardinality metrics stabilized",
+    "subtle fluctuations quantified or ruled out"
+  ]
+}

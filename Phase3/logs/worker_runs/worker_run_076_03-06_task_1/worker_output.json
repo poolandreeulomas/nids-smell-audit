@@ -1,0 +1,21 @@
+{
+  "batch_id": "phase3a_batch_0306192600_friday-workinghours-afternoon-ddos.pcap_iscx_a08c4b",
+  "round_id": "round-001",
+  "worker_result": {
+    "task_id": "task_1",
+    "hypothesis_id": "hyp_003_class_conditioned_variation_backward_packet_lengths",
+    "status": "completed",
+    "findings": [
+      "Backward packet length features exhibit substantial class-conditioned structural variation with high variance ratios and unique value count skews between BENIGN and DDoS classes.",
+      "Distribution verification of Bwd Packet Length Max, Avg Bwd Segment Size, and Bwd Packet Length Mean confirmed high class separation signals.",
+      "Class label conditioning is verified locally with consistent evidence across multiple partitions."
+    ],
+    "evidence_refs": [
+      "task_1_step_03",
+      "task_1_step_05",
+      "task_1_step_07"
+    ],
+    "contradictions": [],
+    "limitations": []
+  }
+}

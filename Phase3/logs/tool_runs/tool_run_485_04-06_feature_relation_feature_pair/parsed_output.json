@@ -1,0 +1,46 @@
+{
+  "call_id": "task_1_step_05",
+  "tool_name": "feature_relation",
+  "status": "ok",
+  "observations": {
+    "feature_name": "Fwd Packet Length Mean|Packet Length Mean",
+    "value": 0.1753652225752458,
+    "signals": [],
+    "metrics": {
+      "correlation": 0.1753652225752458
+    },
+    "support": {
+      "n_total": 225745,
+      "n_per_class": {
+        "DDoS": 128027,
+        "BENIGN": 97718
+      },
+      "total_samples": 225745,
+      "per_class": {
+        "DDoS": 128027,
+        "BENIGN": 97718
+      }
+    },
+    "provenance": {
+      "source": "tool",
+      "tool": "feature_relation",
+      "step": null
+    },
+    "feature": "Fwd Packet Length Mean|Packet Length Mean"
+  },
+  "evidence_refs": [
+    {
+      "artifact": "parsed_output",
+      "path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_485_04-06_feature_relation_feature_pair\\parsed_output.json"
+    },
+    {
+      "artifact": "raw_tool_output",
+      "path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_485_04-06_feature_relation_feature_pair\\raw_tool_output.json"
+    },
+    {
+      "artifact": "component_run",
+      "path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_485_04-06_feature_relation_feature_pair\\component_run.json"
+    }
+  ],
+  "limitations": []
+}

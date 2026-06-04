@@ -1,0 +1,120 @@
+{
+  "batch_id": "phase3a_batch_0306173106_friday-workinghours-afternoon-ddos.pcap_iscx_98251a",
+  "round_id": "round-001",
+  "hypothesis_id": "hyp_010",
+  "planner_strategy_id": "strategy_03_hyp_010",
+  "worker_tasks": [
+    {
+      "task_id": "task_1",
+      "hypothesis_id": "hyp_010",
+      "task_scope": "Quantify class imbalance and duplication impact on feature distribution and dependency patterns within the dataset scope",
+      "allowed_actions": [
+        "cardinality_verification",
+        "duplication_verification",
+        "distribution_verification",
+        "dependency_contextualization"
+      ],
+      "local_context_refs": [
+        "e23",
+        "e24",
+        "e25",
+        "e26",
+        "e27",
+        "e29",
+        "e30",
+        "e31",
+        "e32",
+        "e1",
+        "e2"
+      ],
+      "stop_conditions": [
+        "class imbalance metrics computed for all classes",
+        "duplication rates quantified for key features",
+        "dependency changes correlated with imbalance and duplication",
+        "feature distribution shifts identified"
+      ]
+    },
+    {
+      "task_id": "task_2",
+      "hypothesis_id": "hyp_010",
+      "task_scope": "Compare dependency-backed regularities across dataset partitions and with external datasets to assess stability",
+      "allowed_actions": [
+        "dependency_contextualization",
+        "relation_verification"
+      ],
+      "local_context_refs": [
+        "e23",
+        "e24",
+        "e25",
+        "e26",
+        "e27",
+        "e29",
+        "e30",
+        "e31",
+        "e32",
+        "e1",
+        "e2"
+      ],
+      "stop_conditions": [
+        "dependency patterns compared across partitions",
+        "external dataset regularities contrasted",
+        "stability or dataset-specific nature of dependencies established"
+      ]
+    },
+    {
+      "task_id": "task_3",
+      "hypothesis_id": "hyp_010",
+      "task_scope": "Evaluate variability of low-variability feature clusters under different sampling conditions within the dataset",
+      "allowed_actions": [
+        "distribution_verification",
+        "local_consistency_verification"
+      ],
+      "local_context_refs": [
+        "e23",
+        "e24",
+        "e25",
+        "e26",
+        "e27",
+        "e29",
+        "e30",
+        "e31",
+        "e32",
+        "e1",
+        "e2"
+      ],
+      "stop_conditions": [
+        "low-variability clusters identified",
+        "variability measured under multiple sampling conditions",
+        "stability or instability of clusters documented"
+      ]
+    },
+    {
+      "task_id": "task_4",
+      "hypothesis_id": "hyp_010",
+      "task_scope": "Assess persistence of dependency-backed regularities beyond duplicated or imbalanced data segments",
+      "allowed_actions": [
+        "duplication_verification",
+        "dependency_contextualization",
+        "distribution_verification"
+      ],
+      "local_context_refs": [
+        "e23",
+        "e24",
+        "e25",
+        "e26",
+        "e27",
+        "e29",
+        "e30",
+        "e31",
+        "e32",
+        "e1",
+        "e2"
+      ],
+      "stop_conditions": [
+        "regularities measured excluding duplicated data",
+        "regularities measured excluding imbalanced class segments",
+        "persistence or disappearance of regularities confirmed"
+      ]
+    }
+  ]
+}

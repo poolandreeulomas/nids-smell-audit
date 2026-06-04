@@ -1,0 +1,54 @@
+{
+  "ok": true,
+  "schema_version": "phase3a.planner.v1",
+  "ranking_decision_validation": {
+    "ok": true,
+    "errors": [],
+    "warnings": [],
+    "stats": {
+      "selected_count": 3
+    }
+  },
+  "selected_context_validation": {
+    "ok": true,
+    "errors": [],
+    "warnings": [],
+    "stats": {
+      "selected_count": 3,
+      "expected_selected_count": 3
+    },
+    "invariants": {
+      "selected_ids_match": true
+    }
+  },
+  "planner_round_context_validation": {
+    "ok": true,
+    "errors": [],
+    "warnings": [],
+    "stats": {
+      "related_substrate_ref_count": 14,
+      "tool_capability_ref_count": 8,
+      "round_constraint_count": 4
+    }
+  },
+  "parse_validation": {
+    "ok": true,
+    "errors": [],
+    "warnings": []
+  },
+  "output_validation": {
+    "ok": true,
+    "errors": [],
+    "warnings": [],
+    "stats": {
+      "selected_count": 3,
+      "strategy_count": 3,
+      "missing_strategy_count": 0
+    },
+    "invariants": {
+      "one_strategy_per_selected_hypothesis": true,
+      "selected_ids_known": true
+    },
+    "forbidden_language_hits": []
+  }
+}
