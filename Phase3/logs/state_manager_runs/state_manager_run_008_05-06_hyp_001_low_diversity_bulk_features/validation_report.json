@@ -1,0 +1,55 @@
+{
+  "ok": true,
+  "request_id": "state_manager_2ba82c5a503a464ca39696c131e3297b",
+  "prompt_version": "phase3a.state_manager.prompt.v1",
+  "schema_version": "phase3a.state_manager.v1",
+  "state_input_validation": {
+    "ok": true,
+    "errors": [],
+    "warnings": [],
+    "stats": {
+      "state_version": 1,
+      "hypothesis_count": 10,
+      "revision_count": 1
+    }
+  },
+  "handoff_input_validation": {
+    "ok": true,
+    "errors": [],
+    "warnings": [
+      {
+        "field": "update_focus",
+        "message": "update_focus exceeds the recommended 160 characters; continuing."
+      }
+    ],
+    "stats": {
+      "merged_finding_count": 3,
+      "evidence_ref_count": 9,
+      "preserved_contradiction_count": 0,
+      "open_gap_count": 1
+    }
+  },
+  "parse_validation": {
+    "ok": true,
+    "errors": [],
+    "warnings": []
+  },
+  "state_delta_validation": {
+    "ok": true,
+    "errors": [],
+    "warnings": [
+      {
+        "field": "update_focus",
+        "message": "update_focus exceeds the recommended 160 characters; continuing."
+      }
+    ],
+    "stats": {
+      "applied_update_count": 1,
+      "evidence_ref_count": 19,
+      "preserved_contradiction_count": 0,
+      "open_gap_count": 3,
+      "merged_finding_count": 4
+    },
+    "forbidden_language_hits": []
+  }
+}

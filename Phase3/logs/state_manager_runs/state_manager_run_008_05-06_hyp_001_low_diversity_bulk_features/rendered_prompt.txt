@@ -1,0 +1,214 @@
+GLOBAL_MISSION:
+Preserve one evidence-grounded canonical batch state for the active batch.
+The grounded structural substrate is stable. Only the targeted interpretive hypothesis may change here.
+
+LOCAL_ROLE:
+You are State Manager. Apply one conservative, evidence-referenced, hypothesis-local update after Aggregation and before Critic or the next planning round.
+Do not rewrite the structural substrate, re-aggregate worker results, reroute work, replan strategy, or emit critic feedback.
+
+ARCHITECTURAL_BOUNDARIES:
+Prefer patch-style updates over whole-state reconstruction.
+Carry forward contradictions, open gaps, and traceable evidence unless the current inputs explicitly justify a bounded shift.
+Only emit the resulting state delta record for the targeted hypothesis.
+
+TASK:
+{
+  "batch_id": "phase3a_batch_0506083346_friday-workinghours-afternoon-ddos.pcap_iscx_67ce11",
+  "round_id": "round-001",
+  "hypothesis_id": "hyp_001_low_diversity_bulk_features",
+  "previous_state_version": 1
+}
+
+CURRENT_TARGET_STATE:
+{
+  "hypothesis_id": "hyp_001_low_diversity_bulk_features",
+  "summary": "The extremely low cardinality and near-constant values of multiple bulk-related backward and forward traffic features (e23-e32) may indicate a structural saturation or collapse in these features, potentially reflecting a stable but narrow traffic pattern or a measurement artifact.",
+  "status": "unresolved",
+  "evidence_refs": [
+    "e23",
+    "e24",
+    "e25",
+    "e26",
+    "e27",
+    "e28",
+    "e29",
+    "e30",
+    "e31",
+    "e32"
+  ],
+  "open_gaps": [
+    "Does the low diversity in bulk features reflect a genuine network behavior pattern or a data collection or preprocessing artifact?",
+    "Could this near-constant behavior mask meaningful intra-class variation or temporal dynamics?"
+  ],
+  "preserved_contradictions": [],
+  "merged_findings": [],
+  "update_focus": "",
+  "last_updated_round": "",
+  "revision_count": 0
+}
+
+STRUCTURAL_SUBSTRATE_REFERENCE:
+{
+  "substrate_id": "substrate_phase3a_batch_0506083346_friday-workinghours-afternoon-ddos.pcap_iscx_67ce11",
+  "batch_id": "phase3a_batch_0506083346_friday-workinghours-afternoon-ddos.pcap_iscx_67ce11",
+  "compressed_regions": [
+    {
+      "region_id": "region_1_low_diversity_bulk_features",
+      "region_kind": "low_diversity_region",
+      "status": "active",
+      "summary": "Multiple bulk-related backward and forward traffic features exhibit extremely low cardinality with unique values=1 and cardinality ratios near zero, indicating near-constant values across the partition.",
+      "feature_scope": {
+        "features": [
+          "Bwd Avg Bulk Rate",
+          "Bwd Avg Bytes/Bulk",
+          "Bwd Avg Packets/Bulk",
+          "Bwd PSH Flags",
+          "Bwd URG Flags",
+          "CWE Flag Count",
+          "Fwd Avg Bulk Rate",
+          "Fwd Avg Bytes/Bulk",
+          "Fwd Avg Packets/Bulk",
+          "Fwd URG Flags"
+        ],
+        "feature_groups": [],
+        "locality": {
+          "scope_type": "partition_global",
+          "scope_value": "phase3a_batch_0506083346_friday-workinghours-afternoon-ddos.pcap_iscx_67ce11",
+          "localized": false,
+          "notes": [
+            "partition-level observation of low cardinality features"
+          ]
+        }
+      },
+      "evidence_refs": [
+        "e23",
+        "e24",
+        "e25",
+        "e26",
+        "e27",
+        "e28",
+        "e29",
+        "e30",
+        "e31",
+        "e32"
+      ]
+    }
+  ],
+  "preserved_weak_signals": [],
+  "contradictions": [],
+  "unresolved_tensions": []
+}
+
+RECENT_REVISION_CONTEXT:
+[
+  {
+    "revision_type": "initialization",
+    "state_version": 1,
+    "round_id": "",
+    "hypothesis_id": "",
+    "applied_updates": [
+      {
+        "action": "register_structural_substrate",
+        "substrate_id": "substrate_phase3a_batch_0506083346_friday-workinghours-afternoon-ddos.pcap_iscx_67ce11",
+        "region_count": 5,
+        "weak_signal_count": 5,
+        "contradiction_count": 0,
+        "tension_count": 0
+      },
+      {
+        "action": "register_interpretive_hypotheses",
+        "analysis_id": "analysis_phase3a_0506083346_01",
+        "hypothesis_count": 10
+      }
+    ],
+    "timestamp": "2026-06-05T09:35:44.449064+00:00"
+  }
+]
+
+AGGREGATION_HANDOFF:
+{
+  "batch_id": "phase3a_batch_0506083346_friday-workinghours-afternoon-ddos.pcap_iscx_67ce11",
+  "round_id": "round-001",
+  "hypothesis_id": "hyp_001_low_diversity_bulk_features",
+  "merged_findings": [
+    "Bulk traffic features, including 'Bwd Avg Bulk Rate' and 'Fwd Avg Bulk Rate', consistently exhibit extremely low cardinality and near-constant values across the analyzed partition, indicating stable, low-entropy distributions without unexpected shifts.",
+    "Local and partition-global analyses confirm structural stability and lack of temporal or intra-class variation in these bulk features within bounded neighborhoods and the partition scope.",
+    "The low diversity and near-constant nature of these features may be influenced by data collection or preprocessing artifacts, but no strong shortcut signals or exact duplications were detected within the examined scope."
+  ],
+  "evidence_refs": [
+    "task_1_step_03",
+    "task_1_step_05",
+    "task_1_step_07",
+    "task_2_step_03",
+    "task_2_step_05",
+    "task_2_step_07",
+    "task_3_step_03",
+    "task_3_step_05",
+    "task_3_step_07"
+  ],
+  "preserved_contradictions": [],
+  "open_gaps": [
+    "Verification and analysis were limited to selected bulk features and bounded local neighborhoods or partition scope; broader temporal dynamics, other bulk features, and deeper semantic or cross-partition analyses remain unassessed."
+  ],
+  "update_focus": "Maintain focus on the stability and low diversity of bulk traffic features within the partition, while addressing the limitations related to feature coverage and temporal or cross-partition variability in future analyses."
+}
+
+OPEN_GAP_PERSISTENCE_RULES:
+open_gaps are persistent state, not transient handoff data.
+Start from CURRENT_TARGET_STATE.open_gaps.
+Treat newly observed open gaps from the handoff as additions to the existing state.
+Do NOT replace the existing open_gaps list with the handoff list.
+A previously existing open gap may only disappear if it is explicitly resolved.
+Any resolved open gap must be documented in applied_updates.
+Removing an existing open gap without an explicit resolution is invalid.
+
+CONTRADICTION_PERSISTENCE_RULES:
+Start from CURRENT_TARGET_STATE.preserved_contradictions.
+Treat newly observed contradictions from the handoff as additive.
+Do not remove prior contradictions unless explicitly resolved and documented in applied_updates.
+
+MERGED_FINDINGS_PERSISTENCE_RULES:
+Start from CURRENT_TARGET_STATE.merged_findings.
+Merge newly supported findings from the handoff.
+Do not silently remove previously accepted findings.
+
+STATE UPDATE MODEL:
+result_open_gaps = prior_open_gaps + newly_discovered_open_gaps + explicitly_resolved_open_gaps
+result_contradictions = prior_contradictions + newly_preserved_contradictions + explicitly_resolved_contradictions
+result_merged_findings = prior_findings + newly_supported_findings + explicitly_retracted_findings
+
+OUTPUT_RULES:
+Return exactly one JSON object.
+The output lists must represent the resulting target-hypothesis state after this round, not only the newly introduced items.
+Preserve all current and newly supplied evidence_refs, preserved_contradictions, open_gaps, and merged_findings unless a field is genuinely unchanged and already present.
+If any open_gaps remain unresolved, keep them explicit; if one is resolved, state that resolution in applied_updates.
+Use only these status values: ['active', 'dormant', 'emerging', 'merged', 'partially_absorbed', 'reopened', 'uncertain', 'unresolved', 'weakened'].
+Do not mention planning, worker execution, routing, critic supervision, or canonical-state commit mechanics in the content fields.
+{
+  "state_delta_record": {
+    "batch_id": "phase3a_batch_0506083346_friday-workinghours-afternoon-ddos.pcap_iscx_67ce11",
+    "round_id": "round-001",
+    "hypothesis_id": "hyp_001_low_diversity_bulk_features",
+    "summary": "updated concise interpretive summary for the target hypothesis",
+    "status": "active",
+    "evidence_refs": [
+      "carried-forward evidence_ref"
+    ],
+    "preserved_contradictions": [
+      "explicit unresolved contradiction"
+    ],
+    "open_gaps": [
+      "remaining unresolved verification gap"
+    ],
+    "merged_findings": [
+      "resulting evidence-grounded finding carried in state"
+    ],
+    "update_focus": "short orientation for the touched interpretive area",
+    "applied_updates": [
+      {
+        "field": "summary",
+        "reason": "why this bounded change is justified by the aggregation handoff and current state"
+      }
+    ]
+  }
+}

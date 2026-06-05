@@ -1,0 +1,174 @@
+{
+  "batch_id": "phase3a_batch_0506083346_friday-workinghours-afternoon-ddos.pcap_iscx_67ce11",
+  "state_version": 1,
+  "target_hypothesis": {
+    "hypothesis_id": "hyp_001_low_diversity_bulk_features",
+    "summary": "The extremely low cardinality and near-constant values of multiple bulk-related backward and forward traffic features (e23-e32) may indicate a structural saturation or collapse in these features, potentially reflecting a stable but narrow traffic pattern or a measurement artifact.",
+    "status": "unresolved",
+    "evidence_refs": [
+      "e23",
+      "e24",
+      "e25",
+      "e26",
+      "e27",
+      "e28",
+      "e29",
+      "e30",
+      "e31",
+      "e32"
+    ],
+    "open_gaps": [
+      "Does the low diversity in bulk features reflect a genuine network behavior pattern or a data collection or preprocessing artifact?",
+      "Could this near-constant behavior mask meaningful intra-class variation or temporal dynamics?"
+    ],
+    "preserved_contradictions": [],
+    "merged_findings": [],
+    "update_focus": "",
+    "last_updated_round": "",
+    "revision_count": 0
+  },
+  "structural_substrate_ref": {
+    "substrate_id": "substrate_phase3a_batch_0506083346_friday-workinghours-afternoon-ddos.pcap_iscx_67ce11",
+    "batch_id": "phase3a_batch_0506083346_friday-workinghours-afternoon-ddos.pcap_iscx_67ce11",
+    "compressed_regions": [
+      {
+        "region_id": "region_1_low_diversity_bulk_features",
+        "region_kind": "low_diversity_region",
+        "status": "active",
+        "summary": "Multiple bulk-related backward and forward traffic features exhibit extremely low cardinality with unique values=1 and cardinality ratios near zero, indicating near-constant values across the partition.",
+        "feature_scope": {
+          "features": [
+            "Bwd Avg Bulk Rate",
+            "Bwd Avg Bytes/Bulk",
+            "Bwd Avg Packets/Bulk",
+            "Bwd PSH Flags",
+            "Bwd URG Flags",
+            "CWE Flag Count",
+            "Fwd Avg Bulk Rate",
+            "Fwd Avg Bytes/Bulk",
+            "Fwd Avg Packets/Bulk",
+            "Fwd URG Flags"
+          ],
+          "feature_groups": [],
+          "locality": {
+            "scope_type": "partition_global",
+            "scope_value": "phase3a_batch_0506083346_friday-workinghours-afternoon-ddos.pcap_iscx_67ce11",
+            "localized": false,
+            "notes": [
+              "partition-level observation of low cardinality features"
+            ]
+          }
+        },
+        "evidence_refs": [
+          "e23",
+          "e24",
+          "e25",
+          "e26",
+          "e27",
+          "e28",
+          "e29",
+          "e30",
+          "e31",
+          "e32"
+        ]
+      }
+    ],
+    "preserved_weak_signals": [],
+    "contradictions": [],
+    "unresolved_tensions": []
+  },
+  "recent_revision_log": [
+    {
+      "revision_type": "initialization",
+      "state_version": 1,
+      "round_id": "",
+      "hypothesis_id": "",
+      "applied_updates": [
+        {
+          "action": "register_structural_substrate",
+          "substrate_id": "substrate_phase3a_batch_0506083346_friday-workinghours-afternoon-ddos.pcap_iscx_67ce11",
+          "region_count": 5,
+          "weak_signal_count": 5,
+          "contradiction_count": 0,
+          "tension_count": 0
+        },
+        {
+          "action": "register_interpretive_hypotheses",
+          "analysis_id": "analysis_phase3a_0506083346_01",
+          "hypothesis_count": 10
+        }
+      ],
+      "timestamp": "2026-06-05T09:35:44.449064+00:00"
+    }
+  ],
+  "aggregation_handoff": {
+    "batch_id": "phase3a_batch_0506083346_friday-workinghours-afternoon-ddos.pcap_iscx_67ce11",
+    "round_id": "round-001",
+    "hypothesis_id": "hyp_001_low_diversity_bulk_features",
+    "merged_findings": [
+      "Bulk traffic features, including 'Bwd Avg Bulk Rate' and 'Fwd Avg Bulk Rate', consistently exhibit extremely low cardinality and near-constant values across the analyzed partition, indicating stable, low-entropy distributions without unexpected shifts.",
+      "Local and partition-global analyses confirm structural stability and lack of temporal or intra-class variation in these bulk features within bounded neighborhoods and the partition scope.",
+      "The low diversity and near-constant nature of these features may be influenced by data collection or preprocessing artifacts, but no strong shortcut signals or exact duplications were detected within the examined scope."
+    ],
+    "evidence_refs": [
+      "task_1_step_03",
+      "task_1_step_05",
+      "task_1_step_07",
+      "task_2_step_03",
+      "task_2_step_05",
+      "task_2_step_07",
+      "task_3_step_03",
+      "task_3_step_05",
+      "task_3_step_07"
+    ],
+    "preserved_contradictions": [],
+    "open_gaps": [
+      "Verification and analysis were limited to selected bulk features and bounded local neighborhoods or partition scope; broader temporal dynamics, other bulk features, and deeper semantic or cross-partition analyses remain unassessed."
+    ],
+    "update_focus": "Maintain focus on the stability and low diversity of bulk traffic features within the partition, while addressing the limitations related to feature coverage and temporal or cross-partition variability in future analyses."
+  },
+  "known_evidence_refs": [
+    "e1",
+    "e10",
+    "e11",
+    "e12",
+    "e13",
+    "e14",
+    "e15",
+    "e16",
+    "e17",
+    "e18",
+    "e19",
+    "e2",
+    "e20",
+    "e21",
+    "e22",
+    "e23",
+    "e24",
+    "e25",
+    "e26",
+    "e27",
+    "e28",
+    "e29",
+    "e3",
+    "e30",
+    "e31",
+    "e32",
+    "e33",
+    "e4",
+    "e5",
+    "e6",
+    "e7",
+    "e8",
+    "e9",
+    "task_1_step_03",
+    "task_1_step_05",
+    "task_1_step_07",
+    "task_2_step_03",
+    "task_2_step_05",
+    "task_2_step_07",
+    "task_3_step_03",
+    "task_3_step_05",
+    "task_3_step_07"
+  ]
+}
