@@ -1,0 +1,39 @@
+{
+  "state_delta_record": {
+    "batch_id": "phase3a_batch_0506083346_friday-workinghours-afternoon-ddos.pcap_iscx_67ce11",
+    "round_id": "round-001",
+    "hypothesis_id": "hyp_004_destination_port_distribution_shift",
+    "summary": "The Destination Port feature exhibits a strong and consistent class-conditioned distributional shift between BENIGN and DDoS classes, with dominant ratios and a high Jensen-Shannon divergence (0.7315). This shift is moderately predictive as a shortcut signal but shows distribution instability across attack campaigns. No local evidence indicates confounding with other network context features within bounded scope.",
+    "status": "active",
+    "evidence_refs": [
+      "e33",
+      "task_1_step_03",
+      "task_2_step_03",
+      "task_2_step_05",
+      "task_2_step_07",
+      "task_3_step_03"
+    ],
+    "preserved_contradictions": [],
+    "open_gaps": [
+      "Is the port distribution shift stable across different time windows or attack campaigns?",
+      "Could this shift be exploited as a shortcut signal that risks overfitting to specific port usage patterns?",
+      "Does this feature correlate with other network context features that might confound interpretation?",
+      "Potential confounding factors outside the bounded local evidence e33 remain unexamined.",
+      "Broader multifeature interactions beyond the single-feature deterministic decision stump analysis have not been assessed."
+    ],
+    "merged_findings": [
+      "The Destination Port distribution exhibits a strong and consistent class-conditioned shift between BENIGN and DDoS classes, characterized by dominant values and high divergence metrics (e.g., Jensen-Shannon divergence of 0.7315), indicating distribution instability across attack campaigns.",
+      "This feature shows a moderate shortcut signal with predictive leverage for distinguishing BENIGN from DDoS traffic.",
+      "No local evidence within bounded scope e33 indicates correlation or confounding factors between Destination Port and other network context features."
+    ],
+    "update_focus": "Focus on further exploration of potential confounding factors beyond local evidence scope and assessment of multifeature interactions to better understand the role and stability of Destination Port distribution shifts as a shortcut signal.",
+    "applied_updates": [
+      {
+        "field": "summary",
+        "reason": "Incorporated aggregated findings confirming the strong, consistent class-conditioned shift and moderate shortcut signal, while noting distribution instability and lack of local confounding evidence, aligning with the current state and aggregation handoff."
+      }
+    ],
+    "last_updated_round": "round-001",
+    "revision_count": 1
+  }
+}

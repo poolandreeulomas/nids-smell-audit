@@ -1,0 +1,35 @@
+{
+  "selected_count": 3,
+  "strategy_count": 3,
+  "missing_strategy_hypothesis_ids": [],
+  "unexpected_strategy_hypothesis_ids": [],
+  "strategies": [
+    {
+      "strategy_id": "strategy_01_hyp_004",
+      "hypothesis_id": "hyp_004_destination_port_distribution_shift",
+      "summary": "The Destination Port feature (e33) exhibits a strong distributional shift between BENIGN and DDoS classes, with dominant ratio 0.346 for BENIGN and 1.0 for DDoS and a high Jensen-Shannon divergence of 0.7315, suggesting a representation-sensitive signal that may act as a narrow but locally meaningful handle for class discrimination.",
+      "strategic_objective": "Assess stability and contextual dependencies of the destination port distribution shift to understand its reliability and potential shortcut nature.",
+      "key_check_count": 3,
+      "success_criteria_count": 3,
+      "router_constraint_count": 2
+    },
+    {
+      "strategy_id": "strategy_02_hyp_002",
+      "hypothesis_id": "hyp_002_strong_linear_dependencies_and_redundancy",
+      "summary": "Several feature pairs exhibit perfect or near-perfect correlation (correlation=1 or 0.9993) among packet counts, lengths, and flags (e13-e22), suggesting strong linear dependencies and potential redundancy that may reduce effective feature dimensionality.",
+      "strategic_objective": "Characterize the stability and origin of strong linear dependencies among packet and flag features to clarify redundancy and its impact on feature dimensionality.",
+      "key_check_count": 3,
+      "success_criteria_count": 3,
+      "router_constraint_count": 2
+    },
+    {
+      "strategy_id": "strategy_03_hyp_001",
+      "hypothesis_id": "hyp_001_low_diversity_bulk_features",
+      "summary": "The extremely low cardinality and near-constant values of multiple bulk-related backward and forward traffic features (e23-e32) may indicate a structural saturation or collapse in these features, potentially reflecting a stable but narrow traffic pattern or a measurement artifact.",
+      "strategic_objective": "Investigate the nature and implications of low diversity and near-constant behavior in bulk traffic features to discern genuine patterns from artifacts.",
+      "key_check_count": 3,
+      "success_criteria_count": 3,
+      "router_constraint_count": 2
+    }
+  ]
+}

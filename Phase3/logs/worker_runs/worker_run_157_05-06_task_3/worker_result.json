@@ -1,0 +1,19 @@
+{
+  "task_id": "task_3",
+  "hypothesis_id": "hyp_001_low_diversity_bulk_features",
+  "status": "completed",
+  "findings": [
+    "Multiple bulk-related backward and forward traffic features exhibit near-constant values with extremely low variance and cardinality, consistent with data collection or preprocessing artifacts.",
+    "Shortcut verification on 'Bwd Avg Bulk Rate' shows only weak shortcut evidence, suggesting these features do not strongly encode shortcut signals despite low diversity.",
+    "No local evidence of exact duplication or other structural irregularities was found within the bounded scope."
+  ],
+  "evidence_refs": [
+    "task_3_step_03",
+    "task_3_step_05",
+    "task_3_step_07"
+  ],
+  "contradictions": [],
+  "limitations": [
+    "Analysis limited to partition-global scope and features explicitly referenced; no deeper semantic or cross-partition analysis performed."
+  ]
+}

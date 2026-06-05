@@ -1,0 +1,23 @@
+{
+  "batch_id": "phase3a_batch_0406154632_friday-workinghours-afternoon-ddos.pcap_iscx_92d6c1",
+  "round_id": "round-001",
+  "worker_result": {
+    "task_id": "task_2",
+    "hypothesis_id": "hyp_8_tension_low_cardinality_vs_class_variation",
+    "status": "partial",
+    "findings": [
+      "Backward packet length features (Max, Mean, Std) exhibit strong class-conditioned structural variation with high variance ratios and high class separation signals.",
+      "Average Packet Size shows class-conditioned structural variation with moderate variance ratio and differing unique value counts between classes as per local context, though direct distribution verification was not performed.",
+      "A local unresolved tension exists between features with near-constant values and those with strong class-conditioned variation."
+    ],
+    "evidence_refs": [
+      "task_2_step_03",
+      "task_2_step_05",
+      "task_2_step_07"
+    ],
+    "contradictions": [],
+    "limitations": [
+      "No direct distribution verification was performed on Average Packet Size within this task scope."
+    ]
+  }
+}

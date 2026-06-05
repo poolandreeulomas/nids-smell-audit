@@ -1,0 +1,54 @@
+{
+  "batch_id": "phase3a_batch_0506083346_friday-workinghours-afternoon-ddos.pcap_iscx_67ce11",
+  "round_id": "round-001",
+  "hypothesis_id": "hyp_004_destination_port_distribution_shift",
+  "planner_strategy_id": "strategy_01_hyp_004",
+  "worker_tasks": [
+    {
+      "task_id": "task_1",
+      "hypothesis_id": "hyp_004_destination_port_distribution_shift",
+      "task_scope": "Verify distribution stability of destination port across multiple time windows and attack campaigns using evidence e33",
+      "allowed_actions": [
+        "distribution_verification"
+      ],
+      "local_context_refs": [
+        "e33"
+      ],
+      "stop_conditions": [
+        "distribution metrics stable across all time windows",
+        "all attack campaigns analyzed"
+      ]
+    },
+    {
+      "task_id": "task_2",
+      "hypothesis_id": "hyp_004_destination_port_distribution_shift",
+      "task_scope": "Evaluate correlation of destination port with other network context features to identify potential confounding factors using evidence e33",
+      "allowed_actions": [
+        "dependency_contextualization",
+        "relation_verification"
+      ],
+      "local_context_refs": [
+        "e33"
+      ],
+      "stop_conditions": [
+        "correlation coefficients computed for all relevant features",
+        "confounding factors identified or ruled out"
+      ]
+    },
+    {
+      "task_id": "task_3",
+      "hypothesis_id": "hyp_004_destination_port_distribution_shift",
+      "task_scope": "Test if destination port alone acts as a shortcut signal with high predictive leverage using evidence e33",
+      "allowed_actions": [
+        "shortcut_verification"
+      ],
+      "local_context_refs": [
+        "e33"
+      ],
+      "stop_conditions": [
+        "predictive leverage quantified",
+        "shortcut signal presence confirmed or rejected"
+      ]
+    }
+  ]
+}

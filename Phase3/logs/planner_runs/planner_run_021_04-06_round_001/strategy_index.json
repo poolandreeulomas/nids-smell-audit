@@ -1,0 +1,35 @@
+{
+  "selected_count": 3,
+  "strategy_count": 3,
+  "missing_strategy_hypothesis_ids": [],
+  "unexpected_strategy_hypothesis_ids": [],
+  "strategies": [
+    {
+      "strategy_id": "strategy_01_hyp_4",
+      "hypothesis_id": "hyp_4_strong_dependency_pairs_indicate_redundancy",
+      "summary": "Multiple feature pairs exhibit near-perfect or perfect correlations (correlation=1 or ~0.9993), indicating strong linear dependencies and potential redundancy among features related to packet lengths, segment sizes, flags, and packet counts.",
+      "strategic_objective": "Clarify the nature and impact of near-perfect feature correlations on dataset structure and model robustness.",
+      "key_check_count": 4,
+      "success_criteria_count": 3,
+      "router_constraint_count": 2
+    },
+    {
+      "strategy_id": "strategy_02_hyp_7",
+      "hypothesis_id": "hyp_7_class_conditioned_distribution_destination_port",
+      "summary": "Destination Port feature shows strong distributional differences between BENIGN and DDoS classes, with the DDoS class concentrated on a single port (dominant ratio=1.0, zero entropy), indicating a representation-sensitive pattern likely related to attack targeting.",
+      "strategic_objective": "Understand the implications of destination port distribution concentration on attack representation and model generalizability.",
+      "key_check_count": 3,
+      "success_criteria_count": 3,
+      "router_constraint_count": 2
+    },
+    {
+      "strategy_id": "strategy_03_hyp_8",
+      "hypothesis_id": "hyp_8_tension_low_cardinality_vs_class_variation",
+      "summary": "There is a tension between features exhibiting near-constant values (low cardinality) such as bulk and flag features, and other features showing strong class-conditioned structural variation and distributional shifts, suggesting heterogeneous feature behavior within the dataset.",
+      "strategic_objective": "Explore the coexistence of near-constant and highly variable features to characterize dataset heterogeneity and measurement effects.",
+      "key_check_count": 4,
+      "success_criteria_count": 3,
+      "router_constraint_count": 2
+    }
+  ]
+}

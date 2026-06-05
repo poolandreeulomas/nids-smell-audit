@@ -197,6 +197,7 @@ class SessionConfig:
     judge_model_name: str = "gpt-4.1"
     dataset_name: str | None = None
     trace_enabled: bool = False
+    enable_neighborhood_consistency_analysis: bool = True
     max_steps: int = MAX_STEPS
     evaluation_window: int = 5
 
@@ -1397,6 +1398,19 @@ class NidsAgentCli:
                 continue
             return raw_value
 
+    def _prompt_yes_no(self, prompt: str, *, default: bool = False) -> bool:
+        suffix = "[Y/n]" if default else "[y/N]"
+        print(f"{prompt} {suffix}")
+        while True:
+            raw_value = input("> ").strip().lower()
+            if not raw_value:
+                return default
+            if raw_value in {"y", "yes"}:
+                return True
+            if raw_value in {"n", "no"}:
+                return False
+            print("Enter y or n.")
+
     def _read_menu_choice(self, valid_choices: set[str]) -> str:
         while True:
             raw_value = input("> ").strip().upper()
@@ -2045,6 +2059,18 @@ class NidsAgentCli:
         component_model_names = self._build_phase3a_component_model_names()
         max_rounds = 3 if execution_mode == "full_batch" else 1
         enable_critic = execution_mode in {"full_round", "full_batch"}
+        disable_neighborhood_consistency_analysis = self._prompt_yes_no(
+            "Disable neighborhood consistency analysis?",
+            default=False,
+        )
+        enable_neighborhood_consistency_analysis = not disable_neighborhood_consistency_analysis
+        previous_neighborhood_consistency_analysis = os.environ.get(
+            "PHASE3A_ENABLE_NEIGHBORHOOD_CONSISTENCY_ANALYSIS"
+        )
+        self.session_config.enable_neighborhood_consistency_analysis = enable_neighborhood_consistency_analysis
+        os.environ[
+            "PHASE3A_ENABLE_NEIGHBORHOOD_CONSISTENCY_ANALYSIS"
+        ] = "1" if enable_neighborhood_consistency_analysis else "0"
 
         try:
             bundle = run_phase3a_batch(
@@ -2066,6 +2092,11 @@ class NidsAgentCli:
                 f"{PHASE3A_RUNTIME_MODE_LABELS.get(execution_mode, 'Phase 3A Runtime')} failed: {exc}"
             )
             return "phase3a_runtime"
+        finally:
+            self._restore_env_var(
+                "PHASE3A_ENABLE_NEIGHBORHOOD_CONSISTENCY_ANALYSIS",
+                previous_neighborhood_consistency_analysis,
+            )
 
         run_context = self._build_phase3a_runtime_run_context(bundle)
         component_run_path = str(

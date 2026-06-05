@@ -1,0 +1,249 @@
+GLOBAL_MISSION:
+Preserve one evidence-grounded canonical batch state for the active batch.
+The grounded structural substrate is stable. Only the targeted interpretive hypothesis may change here.
+
+LOCAL_ROLE:
+You are State Manager. Apply one conservative, evidence-referenced, hypothesis-local update after Aggregation and before Critic or the next planning round.
+Do not rewrite the structural substrate, re-aggregate worker results, reroute work, replan strategy, or emit critic feedback.
+
+ARCHITECTURAL_BOUNDARIES:
+Prefer patch-style updates over whole-state reconstruction.
+Carry forward contradictions, open gaps, and traceable evidence unless the current inputs explicitly justify a bounded shift.
+Only emit the resulting state delta record for the targeted hypothesis.
+
+TASK:
+{
+  "batch_id": "phase3a_batch_0406154632_friday-workinghours-afternoon-ddos.pcap_iscx_92d6c1",
+  "round_id": "round-001",
+  "hypothesis_id": "hyp_4_strong_dependency_pairs_indicate_redundancy",
+  "previous_state_version": 1
+}
+
+CURRENT_TARGET_STATE:
+{
+  "hypothesis_id": "hyp_4_strong_dependency_pairs_indicate_redundancy",
+  "summary": "Multiple feature pairs exhibit near-perfect or perfect correlations (correlation=1 or ~0.9993), indicating strong linear dependencies and potential redundancy among features related to packet lengths, segment sizes, flags, and packet counts.",
+  "status": "unresolved",
+  "evidence_refs": [
+    "e13",
+    "e14",
+    "e15",
+    "e16",
+    "e17",
+    "e18",
+    "e19",
+    "e20",
+    "e21",
+    "e22"
+  ],
+  "open_gaps": [
+    "Are these perfect correlations a natural consequence of feature definitions or do they reflect duplicated or derived data points?",
+    "How might these dependencies affect model robustness and feature selection strategies?"
+  ],
+  "preserved_contradictions": [],
+  "merged_findings": [],
+  "update_focus": "",
+  "last_updated_round": "",
+  "revision_count": 0
+}
+
+STRUCTURAL_SUBSTRATE_REFERENCE:
+{
+  "substrate_id": "substrate_phase3a_batch_0406154632_friday-workinghours-afternoon-ddos.pcap_iscx_92d6c1",
+  "batch_id": "phase3a_batch_0406154632_friday-workinghours-afternoon-ddos.pcap_iscx_92d6c1",
+  "compressed_regions": [
+    {
+      "region_id": "region_4_strong_dependency_pairs",
+      "region_kind": "dependency_region",
+      "status": "active",
+      "summary": "Multiple feature pairs exhibit near-perfect or perfect correlation (correlation=1 or ~0.9993), indicating strong linear dependencies and potential redundancy.",
+      "feature_scope": {
+        "features": [
+          "Bwd Packet Length Mean",
+          "Avg Bwd Segment Size",
+          "Fwd Header Length",
+          "Fwd Header Length.1",
+          "Fwd PSH Flags",
+          "SYN Flag Count",
+          "Fwd Packet Length Mean",
+          "Avg Fwd Segment Size",
+          "RST Flag Count",
+          "ECE Flag Count",
+          "Total Backward Packets",
+          "Subflow Bwd Packets",
+          "Total Fwd Packets",
+          "Subflow Fwd Packets",
+          "Total Length of Bwd Packets",
+          "Subflow Bwd Bytes",
+          "Total Length of Fwd Packets",
+          "Subflow Fwd Bytes",
+          "Packet Length Mean",
+          "Average Packet Size"
+        ],
+        "feature_groups": [],
+        "locality": {
+          "scope_type": "dependency_cluster",
+          "scope_value": "Bwd Packet Length Mean|Avg Bwd Segment Size|Fwd Header Length|Fwd Header Length.1|Fwd PSH Flags|SYN Flag Count|Fwd Packet Length Mean|Avg Fwd Segment Size|RST Flag Count|ECE Flag Count|Total Backward Packets|Subflow Bwd Packets|Total Fwd Packets|Subflow Fwd Packets|Total Length of Bwd Packets|Subflow Bwd Bytes|Total Length of Fwd Packets|Subflow Fwd Bytes|Packet Length Mean|Average Packet Size",
+          "localized": true,
+          "notes": [
+            "cluster of strongly correlated feature pairs indicating redundancy"
+          ]
+        }
+      },
+      "evidence_refs": [
+        "e13",
+        "e14",
+        "e15",
+        "e16",
+        "e17",
+        "e18",
+        "e19",
+        "e20",
+        "e21",
+        "e22"
+      ]
+    }
+  ],
+  "preserved_weak_signals": [
+    {
+      "weak_signal_id": "weak_1_low_cardinality_forward_psh_syn_flags",
+      "descriptor": "Fwd PSH Flags and SYN Flag Count form a perfect correlation pair but individually have low cardinality with unique values=1 and cardinality ratio=1e-05",
+      "feature_scope": {
+        "features": [
+          "Fwd PSH Flags",
+          "SYN Flag Count"
+        ],
+        "feature_groups": [],
+        "locality": {
+          "scope_type": "dependency_cluster",
+          "scope_value": "Fwd PSH Flags|SYN Flag Count",
+          "localized": true,
+          "notes": [
+            "dependency pair with low cardinality features"
+          ]
+        }
+      },
+      "evidence_refs": [
+        "e15",
+        "e26"
+      ]
+    }
+  ],
+  "contradictions": [],
+  "unresolved_tensions": [
+    {
+      "tension_id": "tension_2_perfect_correlation_and_data_duplication",
+      "description": "Tension between observed perfect correlations among many feature pairs and the presence of duplicated rows in the partition data.",
+      "evidence_refs": [
+        "e1",
+        "e13",
+        "e14",
+        "e15",
+        "e16",
+        "e17",
+        "e18",
+        "e19",
+        "e20",
+        "e21",
+        "e22"
+      ]
+    }
+  ]
+}
+
+RECENT_REVISION_CONTEXT:
+[
+  {
+    "revision_type": "initialization",
+    "state_version": 1,
+    "round_id": "",
+    "hypothesis_id": "",
+    "applied_updates": [
+      {
+        "action": "register_structural_substrate",
+        "substrate_id": "substrate_phase3a_batch_0406154632_friday-workinghours-afternoon-ddos.pcap_iscx_92d6c1",
+        "region_count": 8,
+        "weak_signal_count": 1,
+        "contradiction_count": 0,
+        "tension_count": 2
+      },
+      {
+        "action": "register_interpretive_hypotheses",
+        "analysis_id": "analysis_phase3a_0406154632",
+        "hypothesis_count": 10
+      }
+    ],
+    "timestamp": "2026-06-04T15:47:47.831408+00:00"
+  }
+]
+
+AGGREGATION_HANDOFF:
+{
+  "batch_id": "phase3a_batch_0406154632_friday-workinghours-afternoon-ddos.pcap_iscx_92d6c1",
+  "round_id": "round-001",
+  "hypothesis_id": "hyp_4_strong_dependency_pairs_indicate_redundancy",
+  "merged_findings": [
+    "Strongly correlated feature pairs such as 'Fwd Header Length' and 'Fwd Header Length.1', as well as 'Average Packet Size' and 'Packet Length Mean', consistently demonstrate high redundancy across multiple local analyses.",
+    "These feature pairs form tightly localized dependency clusters indicative of redundancy rather than independent feature definitions.",
+    "Dataset-level duplication verification and local consistency checks reveal duplicated rows contributing to perfect or near-perfect correlations, which introduce unresolved tension in interpreting dependency origins.",
+    "Low entropy and dominant value distributions in features like 'Fwd PSH Flags' and 'SYN Flag Count' further limit variability and contribute to shortcut-like predictive leverage linked to redundancy.",
+    "Despite the presence of duplicated rows creating tension, the redundancy hypothesis remains supported locally without contradiction."
+  ],
+  "evidence_refs": [
+    "task_1_step_03",
+    "task_1_step_05",
+    "task_1_step_07",
+    "task_2_step_03",
+    "task_2_step_05",
+    "task_2_step_07",
+    "task_3_step_03",
+    "task_3_step_05",
+    "task_3_step_07",
+    "task_4_step_03",
+    "task_4_step_05",
+    "task_4_step_07"
+  ],
+  "preserved_contradictions": [
+    "Tension between perfect correlations and duplicated rows in the partition data remains unresolved locally."
+  ],
+  "open_gaps": [
+    "Local evidence does not resolve the origin of duplicated rows or their full impact on the dependency structure and shortcut signals.",
+    "Unable to fully disentangle the effect of duplicated rows on class-conditioned correlation stability and predictive shortcut leverage."
+  ],
+  "update_focus": "Maintain focus on the interplay between strong feature dependencies and data duplication effects, emphasizing the unresolved tension and the need for further investigation beyond local context."
+}
+
+OUTPUT_RULES:
+Return exactly one JSON object.
+The output lists must represent the resulting target-hypothesis state after this round, not only the newly introduced items.
+Preserve all current and newly supplied evidence_refs, preserved_contradictions, open_gaps, and merged_findings unless a field is genuinely unchanged and already present.
+Use only these status values: ['active', 'dormant', 'emerging', 'merged', 'partially_absorbed', 'reopened', 'uncertain', 'unresolved', 'weakened'].
+Do not mention planning, worker execution, routing, critic supervision, or canonical-state commit mechanics in the content fields.
+{
+  "state_delta_record": {
+    "batch_id": "phase3a_batch_0406154632_friday-workinghours-afternoon-ddos.pcap_iscx_92d6c1",
+    "round_id": "round-001",
+    "hypothesis_id": "hyp_4_strong_dependency_pairs_indicate_redundancy",
+    "summary": "updated concise interpretive summary for the target hypothesis",
+    "status": "active",
+    "evidence_refs": [
+      "carried-forward evidence_ref"
+    ],
+    "preserved_contradictions": [
+      "explicit unresolved contradiction"
+    ],
+    "open_gaps": [
+      "remaining unresolved verification gap"
+    ],
+    "merged_findings": [
+      "resulting evidence-grounded finding carried in state"
+    ],
+    "update_focus": "short orientation for the touched interpretive area",
+    "applied_updates": [
+      {
+        "field": "summary",
+        "reason": "why this bounded change is justified by the aggregation handoff and current state"
+      }
+    ]
+  }
+}

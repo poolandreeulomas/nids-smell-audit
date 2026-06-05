@@ -1,0 +1,52 @@
+{
+  "related_substrate_refs": [
+    "e8",
+    "e9",
+    "e10",
+    "e11",
+    "e12",
+    "e23",
+    "e24",
+    "e25",
+    "e26",
+    "e27",
+    "e29",
+    "e30",
+    "e31",
+    "e32",
+    "e33"
+  ],
+  "tool_capability_refs": [
+    "cardinality_analysis",
+    "dependency_concentration_analysis",
+    "distribution_analysis",
+    "duplication_analysis",
+    "feature_relation",
+    "feature_summary",
+    "neighborhood_consistency_analysis",
+    "shortcut_analysis"
+  ],
+  "available_action_classes": [
+    "cardinality_verification",
+    "dependency_contextualization",
+    "distribution_verification",
+    "duplication_verification",
+    "relation_verification",
+    "structural_summary",
+    "local_consistency_verification",
+    "shortcut_verification"
+  ],
+  "execution_budget": {
+    "max_worker_steps": 8,
+    "max_tasks": 4,
+    "max_retries": 1
+  },
+  "guardrails": [
+    "bounded_local_scope",
+    "no_exact_tool_calls",
+    "no_hidden_replanning",
+    "strategic_only",
+    "preserve_selected_scope",
+    "router_ready_handoff"
+  ]
+}

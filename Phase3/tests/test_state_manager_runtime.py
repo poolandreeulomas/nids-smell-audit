@@ -52,13 +52,15 @@ def _build_hypothesis_set() -> dict[str, object]:
                 hypothesis_id="hyp-1",
                 summary="The dependency may reflect a shortcut-compatible framing.",
                 evidence_refs=["region-e1"],
-                open_questions=["Need to verify whether the dependency stays local."],
+                open_questions=[
+                    "Need to verify whether the dependency stays local."],
             ),
             build_hypothesis(
                 hypothesis_id="hyp-2",
                 summary="The dependency may still hide a representation-sensitive effect.",
                 evidence_refs=["region-e1"],
-                open_questions=["Need to compare the signal across partitions."],
+                open_questions=[
+                    "Need to compare the signal across partitions."],
             ),
         ],
     )
@@ -147,7 +149,8 @@ def test_run_state_manager_returns_valid_bundle_and_artifacts(tmp_path: Path):
     assert bundle["component_run"]["request_id"].startswith("state_manager_")
     assert bundle["component_run"]["prompt_version"] == "phase3a.state_manager.prompt.v1"
 
-    loaded = load_state_manager_bundle(Path(bundle["artifact_paths"]["component_run_path"]).parent)
+    loaded = load_state_manager_bundle(
+        Path(bundle["artifact_paths"]["component_run_path"]).parent)
     assert loaded["state_update_result"]["new_state_version"] == 2
     assert loaded["updated_batch_state"]["batch_id"] == "batch-001"
     assert loaded["runtime_metrics"]["applied_update_count"] == 2

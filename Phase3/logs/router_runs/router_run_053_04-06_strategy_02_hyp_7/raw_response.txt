@@ -1,0 +1,32 @@
+{
+  "batch_id": "phase3a_batch_0406154632_friday-workinghours-afternoon-ddos.pcap_iscx_92d6c1",
+  "round_id": "round-001",
+  "hypothesis_id": "hyp_7_class_conditioned_distribution_destination_port",
+  "planner_strategy_id": "strategy_02_hyp_7",
+  "worker_tasks": [
+    {
+      "task_id": "task_1",
+      "hypothesis_id": "hyp_7_class_conditioned_distribution_destination_port",
+      "task_scope": "Verify zero entropy and dominant ratio metrics for destination port feature within the DDoS class using evidence e33",
+      "allowed_actions": ["distribution_verification", "cardinality_verification"],
+      "local_context_refs": ["e33"],
+      "stop_conditions": ["metrics computed for destination port in DDoS class", "dominant ratio and entropy values stabilized"]
+    },
+    {
+      "task_id": "task_2",
+      "hypothesis_id": "hyp_7_class_conditioned_distribution_destination_port",
+      "task_scope": "Check for dataset artifacts versus genuine attack targeting signals in the destination port distribution using evidence e33",
+      "allowed_actions": ["shortcut_verification", "local_consistency_verification"],
+      "local_context_refs": ["e33"],
+      "stop_conditions": ["artifact signals distinguished from genuine attack signals", "no further artifact patterns detected"]
+    },
+    {
+      "task_id": "task_3",
+      "hypothesis_id": "hyp_7_class_conditioned_distribution_destination_port",
+      "task_scope": "Analyze distributional divergence impact on class separability and potential overfitting risks for destination port using evidence e33",
+      "allowed_actions": ["dependency_contextualization", "relation_verification"],
+      "local_context_refs": ["e33"],
+      "stop_conditions": ["distribution divergence quantified", "overfitting risk indicators identified or ruled out"]
+    }
+  ]
+}

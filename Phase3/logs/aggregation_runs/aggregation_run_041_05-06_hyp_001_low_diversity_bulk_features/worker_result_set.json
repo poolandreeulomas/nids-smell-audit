@@ -1,0 +1,64 @@
+{
+  "batch_id": "phase3a_batch_0506083346_friday-workinghours-afternoon-ddos.pcap_iscx_67ce11",
+  "round_id": "round-001",
+  "hypothesis_id": "hyp_001_low_diversity_bulk_features",
+  "worker_results": [
+    {
+      "task_id": "task_1",
+      "hypothesis_id": "hyp_001_low_diversity_bulk_features",
+      "status": "completed",
+      "findings": [
+        "Bulk traffic features such as 'Bwd Avg Bulk Rate' and 'Fwd Avg Bulk Rate' exhibit extremely low cardinality and near-constant values across the partition.",
+        "'Bwd Avg Bulk Rate' shows a stable, low-entropy distribution with a dominant value, indicating no unexpected distributional shifts.",
+        "Local evidence supports the hypothesis of low diversity and stable value distributions in bulk traffic features over time and classes."
+      ],
+      "evidence_refs": [
+        "task_1_step_03",
+        "task_1_step_05",
+        "task_1_step_07"
+      ],
+      "contradictions": [],
+      "limitations": [
+        "Verification limited to features 'Bwd Avg Bulk Rate' and 'Fwd Avg Bulk Rate'; other bulk features not explicitly verified due to budget constraints."
+      ]
+    },
+    {
+      "task_id": "task_2",
+      "hypothesis_id": "hyp_001_low_diversity_bulk_features",
+      "status": "completed",
+      "findings": [
+        "Multiple bulk-related backward and forward traffic features exhibit extremely low cardinality with unique values=1 and cardinality ratios near zero, indicating near-constant values across the partition.",
+        "Local consistency verification on selected features found no evidence of intra-class variation or temporal dynamics within the bounded neighborhoods.",
+        "The low diversity bulk features are structurally stable and lack temporal variation within the analyzed partition."
+      ],
+      "evidence_refs": [
+        "task_2_step_03",
+        "task_2_step_05",
+        "task_2_step_07"
+      ],
+      "contradictions": [],
+      "limitations": [
+        "Analysis limited to bounded local neighborhoods and selected features; broader temporal dynamics outside partition scope not assessed."
+      ]
+    },
+    {
+      "task_id": "task_3",
+      "hypothesis_id": "hyp_001_low_diversity_bulk_features",
+      "status": "completed",
+      "findings": [
+        "Multiple bulk-related backward and forward traffic features exhibit near-constant values with extremely low variance and cardinality, consistent with data collection or preprocessing artifacts.",
+        "Shortcut verification on 'Bwd Avg Bulk Rate' shows only weak shortcut evidence, suggesting these features do not strongly encode shortcut signals despite low diversity.",
+        "No local evidence of exact duplication or other structural irregularities was found within the bounded scope."
+      ],
+      "evidence_refs": [
+        "task_3_step_03",
+        "task_3_step_05",
+        "task_3_step_07"
+      ],
+      "contradictions": [],
+      "limitations": [
+        "Analysis limited to partition-global scope and features explicitly referenced; no deeper semantic or cross-partition analysis performed."
+      ]
+    }
+  ]
+}

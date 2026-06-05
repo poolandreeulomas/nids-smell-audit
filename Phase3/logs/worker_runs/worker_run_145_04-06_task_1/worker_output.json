@@ -1,0 +1,20 @@
+{
+  "batch_id": "phase3a_batch_0406154632_friday-workinghours-afternoon-ddos.pcap_iscx_92d6c1",
+  "round_id": "round-001",
+  "worker_result": {
+    "task_id": "task_1",
+    "hypothesis_id": "hyp_7_class_conditioned_distribution_destination_port",
+    "status": "completed",
+    "findings": [
+      "Destination Port feature in the DDoS class exhibits zero entropy and a dominant ratio of 1.0, indicating concentration on a single port.",
+      "Low cardinality verification supports near-constant behavior of the destination port within the DDoS class.",
+      "Distribution verification confirms strong class-conditioned separation and stable metrics."
+    ],
+    "evidence_refs": [
+      "task_1_step_03",
+      "task_1_step_05"
+    ],
+    "contradictions": [],
+    "limitations": []
+  }
+}

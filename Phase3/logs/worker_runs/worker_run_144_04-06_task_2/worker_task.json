@@ -1,0 +1,24 @@
+{
+  "task_id": "task_2",
+  "hypothesis_id": "hyp_4_strong_dependency_pairs_indicate_redundancy",
+  "task_scope": "Evaluate dependency concentration profiles of strong correlation pairs in evidence e13 to e22 to distinguish natural definitions from redundancy",
+  "allowed_actions": [
+    "dependency_contextualization"
+  ],
+  "local_context_refs": [
+    "e13",
+    "e14",
+    "e15",
+    "e16",
+    "e17",
+    "e18",
+    "e19",
+    "e20",
+    "e21",
+    "e22"
+  ],
+  "stop_conditions": [
+    "dependency concentration profiles fully characterized",
+    "profiles classified as natural or redundant"
+  ]
+}

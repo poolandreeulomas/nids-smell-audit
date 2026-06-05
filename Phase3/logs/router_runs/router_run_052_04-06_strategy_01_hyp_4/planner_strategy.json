@@ -1,0 +1,20 @@
+{
+  "strategy_id": "strategy_01_hyp_4",
+  "hypothesis_id": "hyp_4_strong_dependency_pairs_indicate_redundancy",
+  "strategic_objective": "Clarify the nature and impact of near-perfect feature correlations on dataset structure and model robustness.",
+  "key_checks": [
+    "Assess if correlated features are exact duplicates or derived from common base features",
+    "Evaluate dependency concentration profiles to distinguish natural definitions from redundancy",
+    "Examine class-conditioned stability of these correlations to detect conditional artifacts",
+    "Investigate potential shortcut-like predictive leverage from redundant pairs"
+  ],
+  "success_criteria": [
+    "Identification of whether strong dependencies arise from feature construction or data duplication",
+    "Evidence of how redundancy influences feature selection and model sensitivity",
+    "Detection of any weakening or strengthening of correlations across classes"
+  ],
+  "router_constraints": [
+    "preserve feature pairs with strong correlations",
+    "preserve evidence references e13 to e22"
+  ]
+}

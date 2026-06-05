@@ -1,0 +1,345 @@
+GLOBAL_MISSION:
+Preserve one evidence-grounded canonical batch state for the active batch.
+The grounded structural substrate is stable. Only the targeted interpretive hypothesis may change here.
+
+LOCAL_ROLE:
+You are State Manager. Apply one conservative, evidence-referenced, hypothesis-local update after Aggregation and before Critic or the next planning round.
+Do not rewrite the structural substrate, re-aggregate worker results, reroute work, replan strategy, or emit critic feedback.
+
+ARCHITECTURAL_BOUNDARIES:
+Prefer patch-style updates over whole-state reconstruction.
+Carry forward contradictions, open gaps, and traceable evidence unless the current inputs explicitly justify a bounded shift.
+Only emit the resulting state delta record for the targeted hypothesis.
+
+TASK:
+{
+  "batch_id": "phase3a_batch_0406154632_friday-workinghours-afternoon-ddos.pcap_iscx_92d6c1",
+  "round_id": "round-001",
+  "hypothesis_id": "hyp_8_tension_low_cardinality_vs_class_variation",
+  "previous_state_version": 1
+}
+
+CURRENT_TARGET_STATE:
+{
+  "hypothesis_id": "hyp_8_tension_low_cardinality_vs_class_variation",
+  "summary": "There is a tension between features exhibiting near-constant values (low cardinality) such as bulk and flag features, and other features showing strong class-conditioned structural variation and distributional shifts, suggesting heterogeneous feature behavior within the dataset.",
+  "status": "unresolved",
+  "evidence_refs": [
+    "e8",
+    "e9",
+    "e10",
+    "e11",
+    "e12",
+    "e23",
+    "e24",
+    "e25",
+    "e26",
+    "e27",
+    "e29",
+    "e30",
+    "e31",
+    "e32",
+    "e33"
+  ],
+  "open_gaps": [
+    "How should models reconcile or leverage the coexistence of near-constant and highly variable features?",
+    "Could the low cardinality features represent saturation or measurement limits that obscure meaningful variation?"
+  ],
+  "preserved_contradictions": [],
+  "merged_findings": [],
+  "update_focus": "",
+  "last_updated_round": "",
+  "revision_count": 0
+}
+
+STRUCTURAL_SUBSTRATE_REFERENCE:
+{
+  "substrate_id": "substrate_phase3a_batch_0406154632_friday-workinghours-afternoon-ddos.pcap_iscx_92d6c1",
+  "batch_id": "phase3a_batch_0406154632_friday-workinghours-afternoon-ddos.pcap_iscx_92d6c1",
+  "compressed_regions": [
+    {
+      "region_id": "region_1_low_diversity_backward_bulk_features",
+      "region_kind": "low_diversity_region",
+      "status": "active",
+      "summary": "Multiple backward bulk-related features exhibit extremely low cardinality with unique values equal to 1 and very low cardinality ratios, indicating near-constant values across the partition.",
+      "feature_scope": {
+        "features": [
+          "Bwd Avg Bulk Rate",
+          "Bwd Avg Bytes/Bulk",
+          "Bwd Avg Packets/Bulk",
+          "Bwd PSH Flags",
+          "Bwd URG Flags"
+        ],
+        "feature_groups": [],
+        "locality": {
+          "scope_type": "dependency_cluster",
+          "scope_value": "Bwd Avg Bulk Rate|Bwd Avg Bytes/Bulk|Bwd Avg Packets/Bulk|Bwd PSH Flags|Bwd URG Flags",
+          "localized": true,
+          "notes": [
+            "cluster of backward bulk and flag features with minimal variability"
+          ]
+        }
+      },
+      "evidence_refs": [
+        "e23",
+        "e24",
+        "e25",
+        "e26",
+        "e27"
+      ]
+    },
+    {
+      "region_id": "region_2_low_diversity_forward_bulk_features",
+      "region_kind": "low_diversity_region",
+      "status": "active",
+      "summary": "Forward bulk-related features similarly show extremely low cardinality with unique values equal to 1 and very low cardinality ratios, mirroring backward bulk features' behavior.",
+      "feature_scope": {
+        "features": [
+          "Fwd Avg Bulk Rate",
+          "Fwd Avg Bytes/Bulk",
+          "Fwd Avg Packets/Bulk",
+          "Fwd URG Flags"
+        ],
+        "feature_groups": [],
+        "locality": {
+          "scope_type": "dependency_cluster",
+          "scope_value": "Fwd Avg Bulk Rate|Fwd Avg Bytes/Bulk|Fwd Avg Packets/Bulk|Fwd URG Flags",
+          "localized": true,
+          "notes": [
+            "cluster of forward bulk and flag features with minimal variability"
+          ]
+        }
+      },
+      "evidence_refs": [
+        "e29",
+        "e30",
+        "e31",
+        "e32"
+      ]
+    },
+    {
+      "region_id": "region_5_class_conditioned_structural_variation_backward_packet_lengths",
+      "region_kind": "mixed_structural_region",
+      "status": "active",
+      "summary": "Backward packet length features show substantial class-conditioned structural variation with high variance ratios and differing unique value counts between BENIGN and DDoS classes.",
+      "feature_scope": {
+        "features": [
+          "Bwd Packet Length Max",
+          "Bwd Packet Length Mean",
+          "Bwd Packet Length Std",
+          "Avg Bwd Segment Size"
+        ],
+        "feature_groups": [],
+        "locality": {
+          "scope_type": "feature_group",
+          "scope_value": "Bwd Packet Length Max|Bwd Packet Length Mean|Bwd Packet Length Std|Avg Bwd Segment Size",
+          "localized": true,
+          "notes": [
+            "group of backward packet length and segment size features with class-conditioned variation"
+          ]
+        }
+      },
+      "evidence_refs": [
+        "e9",
+        "e10",
+        "e11",
+        "e12"
+      ]
+    },
+    {
+      "region_id": "region_6_class_conditioned_structural_variation_average_packet_size",
+      "region_kind": "mixed_structural_region",
+      "status": "active",
+      "summary": "Average Packet Size shows class-conditioned structural variation with moderate variance ratio and differing unique value counts between BENIGN and DDoS classes.",
+      "feature_scope": {
+        "features": [
+          "Average Packet Size"
+        ],
+        "feature_groups": [],
+        "locality": {
+          "scope_type": "feature_group",
+          "scope_value": "Average Packet Size",
+          "localized": true,
+          "notes": [
+            "single feature with class-conditioned variation"
+          ]
+        }
+      },
+      "evidence_refs": [
+        "e8"
+      ]
+    },
+    {
+      "region_id": "region_7_class_conditioned_distribution_destination_port",
+      "region_kind": "representation_sensitive_region",
+      "status": "active",
+      "summary": "Destination Port feature shows strong distributional differences between BENIGN and DDoS classes, with DDoS class having a dominant ratio of 1.0 and zero entropy, indicating concentration on a single port.",
+      "feature_scope": {
+        "features": [
+          "Destination Port"
+        ],
+        "feature_groups": [],
+        "locality": {
+          "scope_type": "feature_group",
+          "scope_value": "Destination Port",
+          "localized": true,
+          "notes": [
+            "single feature with class-conditioned distributional divergence"
+          ]
+        }
+      },
+      "evidence_refs": [
+        "e33"
+      ]
+    }
+  ],
+  "preserved_weak_signals": [
+    {
+      "weak_signal_id": "weak_1_low_cardinality_forward_psh_syn_flags",
+      "descriptor": "Fwd PSH Flags and SYN Flag Count form a perfect correlation pair but individually have low cardinality with unique values=1 and cardinality ratio=1e-05",
+      "feature_scope": {
+        "features": [
+          "Fwd PSH Flags",
+          "SYN Flag Count"
+        ],
+        "feature_groups": [],
+        "locality": {
+          "scope_type": "dependency_cluster",
+          "scope_value": "Fwd PSH Flags|SYN Flag Count",
+          "localized": true,
+          "notes": [
+            "dependency pair with low cardinality features"
+          ]
+        }
+      },
+      "evidence_refs": [
+        "e15",
+        "e26"
+      ]
+    }
+  ],
+  "contradictions": [],
+  "unresolved_tensions": [
+    {
+      "tension_id": "tension_1_low_cardinality_vs_class_variation",
+      "description": "Tension between features with near-constant values (low cardinality) and other features showing strong class-conditioned structural variation and distributional shifts.",
+      "evidence_refs": [
+        "e8",
+        "e9",
+        "e10",
+        "e11",
+        "e12",
+        "e23",
+        "e24",
+        "e25",
+        "e26",
+        "e27",
+        "e29",
+        "e30",
+        "e31",
+        "e32",
+        "e33"
+      ]
+    }
+  ]
+}
+
+RECENT_REVISION_CONTEXT:
+[
+  {
+    "revision_type": "initialization",
+    "state_version": 1,
+    "round_id": "",
+    "hypothesis_id": "",
+    "applied_updates": [
+      {
+        "action": "register_structural_substrate",
+        "substrate_id": "substrate_phase3a_batch_0406154632_friday-workinghours-afternoon-ddos.pcap_iscx_92d6c1",
+        "region_count": 8,
+        "weak_signal_count": 1,
+        "contradiction_count": 0,
+        "tension_count": 2
+      },
+      {
+        "action": "register_interpretive_hypotheses",
+        "analysis_id": "analysis_phase3a_0406154632",
+        "hypothesis_count": 10
+      }
+    ],
+    "timestamp": "2026-06-04T16:38:13.102205+00:00"
+  }
+]
+
+AGGREGATION_HANDOFF:
+{
+  "batch_id": "phase3a_batch_0406154632_friday-workinghours-afternoon-ddos.pcap_iscx_92d6c1",
+  "round_id": "round-001",
+  "hypothesis_id": "hyp_8_tension_low_cardinality_vs_class_variation",
+  "merged_findings": [
+    "Average Packet Size and backward packet length features exhibit a tension between low cardinality near-constant behavior and strong class-conditioned structural variation, with some features showing high variance ratios and class separation signals.",
+    "Backward bulk-related features with near-constant values show high local label conflicts, suggesting saturation or measurement limits rather than meaningful class variation.",
+    "Clusters of features (e8 to e12, e33) demonstrate strong class-conditioned distributional shifts, while others (e23 to e32) form stable, low-cardinality groups lacking finite pairwise dependencies.",
+    "Dependency contextualization confirms concentrated dependency patterns for high-variation features like 'Bwd Packet Length Max' but fails for low-cardinality features due to their near-constant nature.",
+    "The tension between low-cardinality stable features and high-variation features is preserved and characterized locally without cross-cluster relation verification."
+  ],
+  "evidence_refs": [
+    "task_1_step_03",
+    "task_1_step_05",
+    "task_1_step_07",
+    "task_2_step_03",
+    "task_2_step_05",
+    "task_2_step_07",
+    "task_3_step_03",
+    "task_3_step_05",
+    "task_3_step_07",
+    "task_4_step_07"
+  ],
+  "preserved_contradictions": [
+    "No local contradictions detected; tension between low cardinality and class variation remains unresolved but preserved.",
+    "local contradiction preserved",
+    "Tension between low-cardinality near-constant features and features with strong class-conditioned variation remains unresolved but preserved."
+  ],
+  "open_gaps": [
+    "Distribution verification for Average Packet Size and other features was not performed due to budget and scope constraints, limiting full quantification of distribution shifts.",
+    "Relation verification between heterogeneous feature clusters was not performed due to bounded local context constraints.",
+    "Dependency contextualization for low-cardinality features was not possible due to absence of finite pairwise dependencies.",
+    "Analysis limited to backward bulk features in some tasks; forward bulk and other features remain unverified locally."
+  ],
+  "update_focus": "Maintain focus on the preserved tension between low-cardinality near-constant features and features exhibiting strong class-conditioned structural variation, emphasizing local characterization and dependency contextualization within bounded contexts while acknowledging unresolved distributional and relational gaps."
+}
+
+OUTPUT_RULES:
+Return exactly one JSON object.
+The output lists must represent the resulting target-hypothesis state after this round, not only the newly introduced items.
+Preserve all current and newly supplied evidence_refs, preserved_contradictions, open_gaps, and merged_findings unless a field is genuinely unchanged and already present.
+If any open_gaps remain unresolved, keep them explicit; if one is resolved, state that resolution in applied_updates.
+Use only these status values: ['active', 'dormant', 'emerging', 'merged', 'partially_absorbed', 'reopened', 'uncertain', 'unresolved', 'weakened'].
+Do not mention planning, worker execution, routing, critic supervision, or canonical-state commit mechanics in the content fields.
+{
+  "state_delta_record": {
+    "batch_id": "phase3a_batch_0406154632_friday-workinghours-afternoon-ddos.pcap_iscx_92d6c1",
+    "round_id": "round-001",
+    "hypothesis_id": "hyp_8_tension_low_cardinality_vs_class_variation",
+    "summary": "updated concise interpretive summary for the target hypothesis",
+    "status": "active",
+    "evidence_refs": [
+      "carried-forward evidence_ref"
+    ],
+    "preserved_contradictions": [
+      "explicit unresolved contradiction"
+    ],
+    "open_gaps": [
+      "remaining unresolved verification gap"
+    ],
+    "merged_findings": [
+      "resulting evidence-grounded finding carried in state"
+    ],
+    "update_focus": "short orientation for the touched interpretive area",
+    "applied_updates": [
+      {
+        "field": "summary",
+        "reason": "why this bounded change is justified by the aggregation handoff and current state"
+      }
+    ]
+  }
+}

@@ -1,0 +1,141 @@
+{
+  "batch_id": "phase3a_batch_0506083346_friday-workinghours-afternoon-ddos.pcap_iscx_67ce11",
+  "state_version": 1,
+  "target_hypothesis": {
+    "hypothesis_id": "hyp_004_destination_port_distribution_shift",
+    "summary": "The Destination Port feature (e33) exhibits a strong distributional shift between BENIGN and DDoS classes, with dominant ratio 0.346 for BENIGN and 1.0 for DDoS and a high Jensen-Shannon divergence of 0.7315, suggesting a representation-sensitive signal that may act as a narrow but locally meaningful handle for class discrimination.",
+    "status": "unresolved",
+    "evidence_refs": [
+      "e33"
+    ],
+    "open_gaps": [
+      "Is the port distribution shift stable across different time windows or attack campaigns?",
+      "Could this shift be exploited as a shortcut signal that risks overfitting to specific port usage patterns?",
+      "Does this feature correlate with other network context features that might confound interpretation?"
+    ],
+    "preserved_contradictions": [],
+    "merged_findings": [],
+    "update_focus": "",
+    "last_updated_round": "",
+    "revision_count": 0
+  },
+  "structural_substrate_ref": {
+    "substrate_id": "substrate_phase3a_batch_0506083346_friday-workinghours-afternoon-ddos.pcap_iscx_67ce11",
+    "batch_id": "phase3a_batch_0506083346_friday-workinghours-afternoon-ddos.pcap_iscx_67ce11",
+    "compressed_regions": [
+      {
+        "region_id": "region_4_destination_port_distribution_shift",
+        "region_kind": "representation_sensitive_region",
+        "status": "emerging",
+        "summary": "Destination Port feature shows a strong distributional shift between BENIGN and DDoS classes with dominant ratio 0.346 for BENIGN and 1.0 for DDoS, and a high Jensen-Shannon divergence of 0.7315.",
+        "feature_scope": {
+          "features": [
+            "Destination Port"
+          ],
+          "feature_groups": [],
+          "locality": {
+            "scope_type": "feature_group",
+            "scope_value": "Destination Port",
+            "localized": true,
+            "notes": [
+              "feature distribution sensitive to class label"
+            ]
+          }
+        },
+        "evidence_refs": [
+          "e33"
+        ]
+      }
+    ],
+    "preserved_weak_signals": [],
+    "contradictions": [],
+    "unresolved_tensions": []
+  },
+  "recent_revision_log": [
+    {
+      "revision_type": "initialization",
+      "state_version": 1,
+      "round_id": "",
+      "hypothesis_id": "",
+      "applied_updates": [
+        {
+          "action": "register_structural_substrate",
+          "substrate_id": "substrate_phase3a_batch_0506083346_friday-workinghours-afternoon-ddos.pcap_iscx_67ce11",
+          "region_count": 5,
+          "weak_signal_count": 5,
+          "contradiction_count": 0,
+          "tension_count": 0
+        },
+        {
+          "action": "register_interpretive_hypotheses",
+          "analysis_id": "analysis_phase3a_0506083346_01",
+          "hypothesis_count": 10
+        }
+      ],
+      "timestamp": "2026-06-05T08:35:25.088303+00:00"
+    }
+  ],
+  "aggregation_handoff": {
+    "batch_id": "phase3a_batch_0506083346_friday-workinghours-afternoon-ddos.pcap_iscx_67ce11",
+    "round_id": "round-001",
+    "hypothesis_id": "hyp_004_destination_port_distribution_shift",
+    "merged_findings": [
+      "Destination Port distribution exhibits a strong and consistent class-conditioned shift between BENIGN and DDoS classes, characterized by dominant values and high divergence metrics (e.g., Jensen-Shannon divergence of 0.7315), indicating distribution instability across attack campaigns.",
+      "This feature shows a moderate shortcut signal with predictive leverage for distinguishing BENIGN from DDoS traffic.",
+      "No local evidence within bounded scope e33 indicates correlation or confounding factors between Destination Port and other network context features."
+    ],
+    "evidence_refs": [
+      "task_1_step_03",
+      "task_2_step_03",
+      "task_2_step_05",
+      "task_2_step_07",
+      "task_3_step_03"
+    ],
+    "preserved_contradictions": [],
+    "open_gaps": [
+      "Potential confounding factors outside the bounded local evidence e33 remain unexamined.",
+      "Broader multifeature interactions beyond the single-feature deterministic decision stump analysis have not been assessed."
+    ],
+    "update_focus": "Focus on further exploration of potential confounding factors beyond local evidence scope and assessment of multifeature interactions to better understand the role and stability of Destination Port distribution shifts as a shortcut signal."
+  },
+  "known_evidence_refs": [
+    "e1",
+    "e10",
+    "e11",
+    "e12",
+    "e13",
+    "e14",
+    "e15",
+    "e16",
+    "e17",
+    "e18",
+    "e19",
+    "e2",
+    "e20",
+    "e21",
+    "e22",
+    "e23",
+    "e24",
+    "e25",
+    "e26",
+    "e27",
+    "e28",
+    "e29",
+    "e3",
+    "e30",
+    "e31",
+    "e32",
+    "e33",
+    "e4",
+    "e5",
+    "e6",
+    "e7",
+    "e8",
+    "e9",
+    "task_1_step_03",
+    "task_2_step_03",
+    "task_2_step_05",
+    "task_2_step_07",
+    "task_3_step_03"
+  ]
+}

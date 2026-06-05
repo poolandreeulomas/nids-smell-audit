@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import os
 from pathlib import Path
 from typing import Any
 
@@ -25,6 +26,16 @@ from tools.common import (
     get_or_cache,
     resolve_tool_inputs,
 )
+
+
+_ENABLE_ENV_VAR = "PHASE3A_ENABLE_NEIGHBORHOOD_CONSISTENCY_ANALYSIS"
+
+
+def _neighborhood_analysis_enabled() -> bool:
+    raw_value = os.environ.get(_ENABLE_ENV_VAR)
+    if raw_value is None:
+        return True
+    return raw_value.strip().lower() not in {"0", "false", "no", "off"}
 
 
 def _compute_neighborhood_metrics(
@@ -117,6 +128,20 @@ def neighborhood_consistency_analysis(
     step: Any | None = None,
 ) -> dict[str, Any]:
     """Measure local label-topology consistency along one numeric feature."""
+    if not _neighborhood_analysis_enabled():
+        return {
+            "ok": True,
+            "tool": "neighborhood_consistency_analysis",
+            "feature_name": feature_name,
+            "value": None,
+            "skipped": True,
+            "reason": "disabled_by_runtime_config",
+            "meta": {
+                "runtime_config_env_var": _ENABLE_ENV_VAR,
+                "runtime_config_value": os.environ.get(_ENABLE_ENV_VAR),
+            },
+        }
+
     try:
         cfg, df, resolved_valid_features = resolve_tool_inputs(
             dataset_path, config, dataset_frame, valid_numeric_features

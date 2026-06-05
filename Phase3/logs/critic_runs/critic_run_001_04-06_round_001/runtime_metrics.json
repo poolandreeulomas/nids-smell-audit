@@ -1,0 +1,17 @@
+{
+  "request_id": "critic_1581cff8c951483ea098b6ca0853df7d",
+  "batch_id": "phase3a_batch_0406154632_friday-workinghours-afternoon-ddos.pcap_iscx_92d6c1",
+  "round_id": "round-001",
+  "prompt_version": "phase3a.critic.prompt.v1",
+  "model_name": "gpt-4.1-mini",
+  "temperature": 0.0,
+  "duration_ms": 11238.239,
+  "status": "ok",
+  "final_round_gate_status": "allowed_non_final_round",
+  "module_feedback_count": 4,
+  "feedback_committed": true,
+  "fresh_execution": true,
+  "replay_of": null,
+  "caller_mode": "cli",
+  "schema_version": "phase3a.critic.v1"
+}

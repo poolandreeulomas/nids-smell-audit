@@ -1,0 +1,25 @@
+{
+  "task_id": "task_2",
+  "hypothesis_id": "hyp_002_strong_linear_dependencies_and_redundancy",
+  "task_scope": "Distinguish whether observed linear dependencies among packet and flag features arise from inherent protocol constraints or dataset-specific artifacts using evidence refs e13-e22.",
+  "allowed_actions": [
+    "relation_verification",
+    "structural_summary"
+  ],
+  "local_context_refs": [
+    "e13",
+    "e14",
+    "e15",
+    "e16",
+    "e17",
+    "e18",
+    "e19",
+    "e20",
+    "e21",
+    "e22"
+  ],
+  "stop_conditions": [
+    "origin of dependencies classified as protocol or artifact",
+    "structural patterns documented"
+  ]
+}

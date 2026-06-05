@@ -1,0 +1,55 @@
+{
+  "call_id": "task_4_step_07",
+  "tool_name": "dependency_concentration_analysis",
+  "status": "ok",
+  "observations": {
+    "feature_name": "Bwd Packet Length Max",
+    "value": 0.08176129717726066,
+    "signals": [],
+    "metrics": {
+      "partner_count": 67,
+      "strong_partner_count": 8,
+      "top_partner": "Bwd Packet Length Std",
+      "top_partner_correlation": 0.9926832254543985,
+      "top_partner_share": 0.11932903524705232,
+      "top3_share": 0.34320165416087256,
+      "concentration_index": 0.08176129717726066,
+      "effective_partner_count": 12.230725716496076,
+      "mean_abs_correlation": 0.22946350088337136,
+      "median_abs_correlation": 0.14476477437090796
+    },
+    "support": {
+      "n_total": 225745,
+      "n_per_class": {
+        "DDoS": 128027,
+        "BENIGN": 97718
+      },
+      "total_samples": 225745,
+      "per_class": {
+        "DDoS": 128027,
+        "BENIGN": 97718
+      }
+    },
+    "provenance": {
+      "source": "tool",
+      "tool": "dependency_concentration_analysis",
+      "step": null
+    },
+    "feature": "Bwd Packet Length Max"
+  },
+  "evidence_refs": [
+    {
+      "artifact": "parsed_output",
+      "path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_517_04-06_dependency_concentration_analysis_feature\\parsed_output.json"
+    },
+    {
+      "artifact": "raw_tool_output",
+      "path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_517_04-06_dependency_concentration_analysis_feature\\raw_tool_output.json"
+    },
+    {
+      "artifact": "component_run",
+      "path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_517_04-06_dependency_concentration_analysis_feature\\component_run.json"
+    }
+  ],
+  "limitations": []
+}

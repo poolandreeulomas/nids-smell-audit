@@ -1,0 +1,32 @@
+{
+  "hypothesis_id": "hyp_7_class_conditioned_distribution_destination_port",
+  "planner_strategy_id": "strategy_02_hyp_7",
+  "task_count": 3,
+  "action_class_count": 6,
+  "task_summaries": [
+    {
+      "task_id": "task_1",
+      "hypothesis_id": "hyp_7_class_conditioned_distribution_destination_port",
+      "task_scope": "Verify zero entropy and dominant ratio metrics for destination port feature within the DDoS class using evidence e33",
+      "allowed_action_count": 2,
+      "local_context_ref_count": 1,
+      "stop_condition_count": 2
+    },
+    {
+      "task_id": "task_2",
+      "hypothesis_id": "hyp_7_class_conditioned_distribution_destination_port",
+      "task_scope": "Check for dataset artifacts versus genuine attack targeting signals in the destination port distribution using evidence e33",
+      "allowed_action_count": 2,
+      "local_context_ref_count": 1,
+      "stop_condition_count": 2
+    },
+    {
+      "task_id": "task_3",
+      "hypothesis_id": "hyp_7_class_conditioned_distribution_destination_port",
+      "task_scope": "Analyze distributional divergence impact on class separability and potential overfitting risks for destination port using evidence e33",
+      "allowed_action_count": 2,
+      "local_context_ref_count": 1,
+      "stop_condition_count": 2
+    }
+  ]
+}

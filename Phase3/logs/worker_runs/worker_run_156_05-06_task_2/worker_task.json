@@ -1,0 +1,16 @@
+{
+  "task_id": "task_2",
+  "hypothesis_id": "hyp_004_destination_port_distribution_shift",
+  "task_scope": "Evaluate correlation of destination port with other network context features to identify potential confounding factors using evidence e33",
+  "allowed_actions": [
+    "dependency_contextualization",
+    "relation_verification"
+  ],
+  "local_context_refs": [
+    "e33"
+  ],
+  "stop_conditions": [
+    "correlation coefficients computed for all relevant features",
+    "confounding factors identified or ruled out"
+  ]
+}

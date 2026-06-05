@@ -1,0 +1,759 @@
+{
+  "batch_id": "phase3a_batch_0406154632_friday-workinghours-afternoon-ddos.pcap_iscx_92d6c1",
+  "state_version": 2,
+  "structural_substrate": {
+    "substrate_id": "substrate_phase3a_batch_0406154632_friday-workinghours-afternoon-ddos.pcap_iscx_92d6c1",
+    "batch_id": "phase3a_batch_0406154632_friday-workinghours-afternoon-ddos.pcap_iscx_92d6c1",
+    "compressed_regions": [
+      {
+        "region_id": "region_1_low_diversity_backward_bulk_features",
+        "region_kind": "low_diversity_region",
+        "status": "active",
+        "summary": "Multiple backward bulk-related features exhibit extremely low cardinality with unique values equal to 1 and very low cardinality ratios, indicating near-constant values across the partition.",
+        "structural_descriptors": [
+          "near-constant feature values",
+          "extreme cardinality reduction"
+        ],
+        "feature_scope": {
+          "features": [
+            "Bwd Avg Bulk Rate",
+            "Bwd Avg Bytes/Bulk",
+            "Bwd Avg Packets/Bulk",
+            "Bwd PSH Flags",
+            "Bwd URG Flags"
+          ],
+          "feature_groups": [],
+          "locality": {
+            "scope_type": "dependency_cluster",
+            "scope_value": "Bwd Avg Bulk Rate|Bwd Avg Bytes/Bulk|Bwd Avg Packets/Bulk|Bwd PSH Flags|Bwd URG Flags",
+            "localized": true,
+            "notes": [
+              "cluster of backward bulk and flag features with minimal variability"
+            ]
+          }
+        },
+        "evidence_refs": [
+          "e23",
+          "e24",
+          "e25",
+          "e26",
+          "e27"
+        ],
+        "supporting_patterns": [
+          "unique_values=1",
+          "cardinality_ratio=1e-05"
+        ],
+        "contextual_modifiers": [
+          "partition-wide low diversity",
+          "potentially uninformative for class differentiation"
+        ],
+        "uncertainty_notes": [
+          "Low cardinality may reflect saturation or measurement floor effects",
+          "Uncertainty whether these features contribute meaningful signal or represent structural collapse"
+        ],
+        "contradiction_refs": [],
+        "tension_refs": []
+      },
+      {
+        "region_id": "region_2_low_diversity_forward_bulk_features",
+        "region_kind": "low_diversity_region",
+        "status": "active",
+        "summary": "Forward bulk-related features similarly show extremely low cardinality with unique values equal to 1 and very low cardinality ratios, mirroring backward bulk features' behavior.",
+        "structural_descriptors": [
+          "near-constant feature values",
+          "extreme cardinality reduction"
+        ],
+        "feature_scope": {
+          "features": [
+            "Fwd Avg Bulk Rate",
+            "Fwd Avg Bytes/Bulk",
+            "Fwd Avg Packets/Bulk",
+            "Fwd URG Flags"
+          ],
+          "feature_groups": [],
+          "locality": {
+            "scope_type": "dependency_cluster",
+            "scope_value": "Fwd Avg Bulk Rate|Fwd Avg Bytes/Bulk|Fwd Avg Packets/Bulk|Fwd URG Flags",
+            "localized": true,
+            "notes": [
+              "cluster of forward bulk and flag features with minimal variability"
+            ]
+          }
+        },
+        "evidence_refs": [
+          "e29",
+          "e30",
+          "e31",
+          "e32"
+        ],
+        "supporting_patterns": [
+          "unique_values=1",
+          "cardinality_ratio=1e-05"
+        ],
+        "contextual_modifiers": [
+          "partition-wide low diversity",
+          "potentially uninformative for class differentiation"
+        ],
+        "uncertainty_notes": [
+          "Low cardinality may reflect saturation or measurement floor effects",
+          "Uncertainty whether these features contribute meaningful signal or represent structural collapse"
+        ],
+        "contradiction_refs": [],
+        "tension_refs": []
+      },
+      {
+        "region_id": "region_3_low_diversity_flag_count_feature",
+        "region_kind": "low_diversity_region",
+        "status": "active",
+        "summary": "CWE Flag Count shows extremely low cardinality with unique values equal to 1 and very low cardinality ratio, indicating near-constant values.",
+        "structural_descriptors": [
+          "near-constant feature value",
+          "extreme cardinality reduction"
+        ],
+        "feature_scope": {
+          "features": [
+            "CWE Flag Count"
+          ],
+          "feature_groups": [],
+          "locality": {
+            "scope_type": "feature_group",
+            "scope_value": "CWE Flag Count",
+            "localized": true,
+            "notes": [
+              "single feature with minimal variability"
+            ]
+          }
+        },
+        "evidence_refs": [
+          "e28"
+        ],
+        "supporting_patterns": [
+          "unique_values=1",
+          "cardinality_ratio=1e-05"
+        ],
+        "contextual_modifiers": [
+          "partition-wide low diversity",
+          "potentially uninformative for class differentiation"
+        ],
+        "uncertainty_notes": [
+          "Low cardinality may reflect saturation or measurement floor effects",
+          "Uncertainty whether this feature contributes meaningful signal or represents structural collapse"
+        ],
+        "contradiction_refs": [],
+        "tension_refs": []
+      },
+      {
+        "region_id": "region_4_strong_dependency_pairs",
+        "region_kind": "dependency_region",
+        "status": "active",
+        "summary": "Multiple feature pairs exhibit near-perfect or perfect correlation (correlation=1 or ~0.9993), indicating strong linear dependencies and potential redundancy.",
+        "structural_descriptors": [
+          "perfect correlation",
+          "strong linear dependency",
+          "feature redundancy"
+        ],
+        "feature_scope": {
+          "features": [
+            "Bwd Packet Length Mean",
+            "Avg Bwd Segment Size",
+            "Fwd Header Length",
+            "Fwd Header Length.1",
+            "Fwd PSH Flags",
+            "SYN Flag Count",
+            "Fwd Packet Length Mean",
+            "Avg Fwd Segment Size",
+            "RST Flag Count",
+            "ECE Flag Count",
+            "Total Backward Packets",
+            "Subflow Bwd Packets",
+            "Total Fwd Packets",
+            "Subflow Fwd Packets",
+            "Total Length of Bwd Packets",
+            "Subflow Bwd Bytes",
+            "Total Length of Fwd Packets",
+            "Subflow Fwd Bytes",
+            "Packet Length Mean",
+            "Average Packet Size"
+          ],
+          "feature_groups": [],
+          "locality": {
+            "scope_type": "dependency_cluster",
+            "scope_value": "Bwd Packet Length Mean|Avg Bwd Segment Size|Fwd Header Length|Fwd Header Length.1|Fwd PSH Flags|SYN Flag Count|Fwd Packet Length Mean|Avg Fwd Segment Size|RST Flag Count|ECE Flag Count|Total Backward Packets|Subflow Bwd Packets|Total Fwd Packets|Subflow Fwd Packets|Total Length of Bwd Packets|Subflow Bwd Bytes|Total Length of Fwd Packets|Subflow Fwd Bytes|Packet Length Mean|Average Packet Size",
+            "localized": true,
+            "notes": [
+              "cluster of strongly correlated feature pairs indicating redundancy"
+            ]
+          }
+        },
+        "evidence_refs": [
+          "e13",
+          "e14",
+          "e15",
+          "e16",
+          "e17",
+          "e18",
+          "e19",
+          "e20",
+          "e21",
+          "e22"
+        ],
+        "supporting_patterns": [
+          "correlation=1",
+          "correlation=0.9993"
+        ],
+        "contextual_modifiers": [
+          "strong linear dependencies",
+          "potential redundancy in feature representation"
+        ],
+        "uncertainty_notes": [
+          "Perfect correlations may reflect deterministic relationships or duplicated measurements",
+          "Uncertainty whether these dependencies reflect meaningful structure or trivial redundancy"
+        ],
+        "contradiction_refs": [],
+        "tension_refs": []
+      },
+      {
+        "region_id": "region_5_class_conditioned_structural_variation_backward_packet_lengths",
+        "region_kind": "mixed_structural_region",
+        "status": "active",
+        "summary": "Backward packet length features show substantial class-conditioned structural variation with high variance ratios and differing unique value counts between BENIGN and DDoS classes.",
+        "structural_descriptors": [
+          "class-conditioned variance",
+          "structural heterogeneity",
+          "feature value distribution shift"
+        ],
+        "feature_scope": {
+          "features": [
+            "Bwd Packet Length Max",
+            "Bwd Packet Length Mean",
+            "Bwd Packet Length Std",
+            "Avg Bwd Segment Size"
+          ],
+          "feature_groups": [],
+          "locality": {
+            "scope_type": "feature_group",
+            "scope_value": "Bwd Packet Length Max|Bwd Packet Length Mean|Bwd Packet Length Std|Avg Bwd Segment Size",
+            "localized": true,
+            "notes": [
+              "group of backward packet length and segment size features with class-conditioned variation"
+            ]
+          }
+        },
+        "evidence_refs": [
+          "e9",
+          "e10",
+          "e11",
+          "e12"
+        ],
+        "supporting_patterns": [
+          "variance_ratio > 15 for most features",
+          "unique_values_by_class differ substantially"
+        ],
+        "contextual_modifiers": [
+          "class-conditioned structural variation",
+          "potentially informative for class differentiation"
+        ],
+        "uncertainty_notes": [
+          "Variance ratios indicate strong class-conditioned heterogeneity but do not guarantee stable predictive signal",
+          "Uncertainty remains about the stability of these features across other partitions"
+        ],
+        "contradiction_refs": [],
+        "tension_refs": []
+      },
+      {
+        "region_id": "region_6_class_conditioned_structural_variation_average_packet_size",
+        "region_kind": "mixed_structural_region",
+        "status": "active",
+        "summary": "Average Packet Size shows class-conditioned structural variation with moderate variance ratio and differing unique value counts between BENIGN and DDoS classes.",
+        "structural_descriptors": [
+          "class-conditioned variance",
+          "structural heterogeneity"
+        ],
+        "feature_scope": {
+          "features": [
+            "Average Packet Size"
+          ],
+          "feature_groups": [],
+          "locality": {
+            "scope_type": "feature_group",
+            "scope_value": "Average Packet Size",
+            "localized": true,
+            "notes": [
+              "single feature with class-conditioned variation"
+            ]
+          }
+        },
+        "evidence_refs": [
+          "e8"
+        ],
+        "supporting_patterns": [
+          "variance_ratio=4.5368",
+          "unique_values_by_class differ"
+        ],
+        "contextual_modifiers": [
+          "class-conditioned structural variation",
+          "potentially informative for class differentiation"
+        ],
+        "uncertainty_notes": [
+          "Moderate variance ratio suggests some class-conditioned heterogeneity",
+          "Uncertainty about stability and generalizability of this signal"
+        ],
+        "contradiction_refs": [],
+        "tension_refs": []
+      },
+      {
+        "region_id": "region_7_class_conditioned_distribution_destination_port",
+        "region_kind": "representation_sensitive_region",
+        "status": "active",
+        "summary": "Destination Port feature shows strong distributional differences between BENIGN and DDoS classes, with DDoS class having a dominant ratio of 1.0 and zero entropy, indicating concentration on a single port.",
+        "structural_descriptors": [
+          "class-conditioned distribution shift",
+          "high js_divergence",
+          "representation sensitivity"
+        ],
+        "feature_scope": {
+          "features": [
+            "Destination Port"
+          ],
+          "feature_groups": [],
+          "locality": {
+            "scope_type": "feature_group",
+            "scope_value": "Destination Port",
+            "localized": true,
+            "notes": [
+              "single feature with class-conditioned distributional divergence"
+            ]
+          }
+        },
+        "evidence_refs": [
+          "e33"
+        ],
+        "supporting_patterns": [
+          "dominant_ratio BENIGN=0.3461",
+          "dominant_ratio DDoS=1.0",
+          "js_divergence=0.7315"
+        ],
+        "contextual_modifiers": [
+          "strong class-conditioned distributional difference",
+          "potentially representation-sensitive feature"
+        ],
+        "uncertainty_notes": [
+          "High divergence may reflect class-specific port targeting or scanning",
+          "Uncertainty about stability of this pattern across other partitions or attack types"
+        ],
+        "contradiction_refs": [],
+        "tension_refs": []
+      },
+      {
+        "region_id": "region_8_partition_level_data_quality_and_class_imbalance",
+        "region_kind": "mixed_structural_region",
+        "status": "broad_unvalidated",
+        "summary": "Partition overview reports 729 duplicated rows and a class imbalance ratio of 1.577, indicating moderate class skew and presence of duplicated data points.",
+        "structural_descriptors": [
+          "data duplication",
+          "class imbalance"
+        ],
+        "feature_scope": {
+          "features": [
+            "__dataset__"
+          ],
+          "feature_groups": [],
+          "locality": {
+            "scope_type": "partition_global",
+            "scope_value": "phase3a_batch_0406154632_friday-workinghours-afternoon-ddos.pcap_iscx_92d6c1",
+            "localized": false,
+            "notes": [
+              "partition-level observation"
+            ]
+          }
+        },
+        "evidence_refs": [
+          "e1",
+          "e2"
+        ],
+        "supporting_patterns": [
+          "729 duplicated rows",
+          "class imbalance ratio=1.577"
+        ],
+        "contextual_modifiers": [
+          "partition-wide data quality and class distribution characteristics"
+        ],
+        "uncertainty_notes": [
+          "Duplicated rows may affect feature dependencies and redundancy",
+          "Class imbalance ratio indicates moderate skew but not extreme"
+        ],
+        "contradiction_refs": [],
+        "tension_refs": []
+      }
+    ],
+    "preserved_weak_signals": [
+      {
+        "weak_signal_id": "weak_1_low_cardinality_forward_psh_syn_flags",
+        "descriptor": "Fwd PSH Flags and SYN Flag Count form a perfect correlation pair but individually have low cardinality with unique values=1 and cardinality ratio=1e-05",
+        "feature_scope": {
+          "features": [
+            "Fwd PSH Flags",
+            "SYN Flag Count"
+          ],
+          "feature_groups": [],
+          "locality": {
+            "scope_type": "dependency_cluster",
+            "scope_value": "Fwd PSH Flags|SYN Flag Count",
+            "localized": true,
+            "notes": [
+              "dependency pair with low cardinality features"
+            ]
+          }
+        },
+        "evidence_refs": [
+          "e15",
+          "e26"
+        ],
+        "preservation_reason": "Preserved due to combined evidence of perfect correlation and low cardinality, indicating a potentially trivial but structurally concentrated signal.",
+        "contextual_modifiers": [],
+        "uncertainty_notes": [
+          "Uncertainty whether this pair reflects meaningful signal or trivial redundancy with minimal variability"
+        ]
+      }
+    ],
+    "contradictions": [],
+    "unresolved_tensions": [
+      {
+        "tension_id": "tension_1_low_cardinality_vs_class_variation",
+        "description": "Tension between features with near-constant values (low cardinality) and other features showing strong class-conditioned structural variation and distributional shifts.",
+        "related_region_ids": [
+          "region_1_low_diversity_backward_bulk_features",
+          "region_2_low_diversity_forward_bulk_features",
+          "region_5_class_conditioned_structural_variation_backward_packet_lengths",
+          "region_6_class_conditioned_structural_variation_average_packet_size",
+          "region_7_class_conditioned_distribution_destination_port"
+        ],
+        "evidence_refs": [
+          "e8",
+          "e9",
+          "e10",
+          "e11",
+          "e12",
+          "e23",
+          "e24",
+          "e25",
+          "e26",
+          "e27",
+          "e29",
+          "e30",
+          "e31",
+          "e32",
+          "e33"
+        ],
+        "context_notes": [
+          "Some features show minimal variability while others show strong class-conditioned heterogeneity",
+          "This tension complicates interpretation of feature informativeness and stability"
+        ],
+        "reason_unresolved": "Insufficient evidence to determine whether low cardinality features represent saturation or trivial signals and how they interact with class-conditioned variation in other features."
+      },
+      {
+        "tension_id": "tension_2_perfect_correlation_and_data_duplication",
+        "description": "Tension between observed perfect correlations among many feature pairs and the presence of duplicated rows in the partition data.",
+        "related_region_ids": [
+          "region_4_strong_dependency_pairs",
+          "region_8_partition_level_data_quality_and_class_imbalance"
+        ],
+        "evidence_refs": [
+          "e1",
+          "e13",
+          "e14",
+          "e15",
+          "e16",
+          "e17",
+          "e18",
+          "e19",
+          "e20",
+          "e21",
+          "e22"
+        ],
+        "context_notes": [
+          "Duplicated rows may inflate correlation estimates or induce artificial dependencies",
+          "Perfect correlations may reflect deterministic relationships or data quality issues"
+        ],
+        "reason_unresolved": "Lack of detailed temporal or causal evidence to separate genuine feature dependencies from duplication-induced correlations."
+      }
+    ]
+  },
+  "interpretive_hypotheses": [
+    {
+      "hypothesis_id": "hyp_1_low_cardinality_backward_bulk_features",
+      "summary": "Backward bulk-related features (Bwd Avg Bulk Rate, Bwd Avg Bytes/Bulk, Bwd Avg Packets/Bulk, Bwd PSH Flags, Bwd URG Flags) exhibit near-constant values with unique value counts equal to 1 and very low cardinality ratios, suggesting a structural uniformity or saturation effect in backward traffic bulk characteristics.",
+      "status": "unresolved",
+      "evidence_refs": [
+        "e23",
+        "e24",
+        "e25",
+        "e26",
+        "e27"
+      ],
+      "open_gaps": [
+        "Does the near-constant nature of these backward bulk features reflect a genuine network behavior during the DDoS event or an artifact of feature extraction or aggregation?",
+        "Could this low variability mask subtle but meaningful variations relevant for attack detection?"
+      ],
+      "preserved_contradictions": [],
+      "merged_findings": [],
+      "update_focus": "",
+      "last_updated_round": "",
+      "revision_count": 0
+    },
+    {
+      "hypothesis_id": "hyp_2_low_cardinality_forward_bulk_features",
+      "summary": "Forward bulk-related features (Fwd Avg Bulk Rate, Fwd Avg Bytes/Bulk, Fwd Avg Packets/Bulk, Fwd URG Flags) mirror the backward bulk features in showing extremely low cardinality and unique values equal to 1, indicating a similar structural uniformity or saturation in forward traffic bulk metrics.",
+      "status": "unresolved",
+      "evidence_refs": [
+        "e29",
+        "e30",
+        "e31",
+        "e32"
+      ],
+      "open_gaps": [
+        "Is the low variability in forward bulk features a consequence of the same underlying process affecting backward bulk features, or does it arise from different mechanisms?",
+        "How does this uniformity impact the interpretability and discriminative power of these features?"
+      ],
+      "preserved_contradictions": [],
+      "merged_findings": [],
+      "update_focus": "",
+      "last_updated_round": "",
+      "revision_count": 0
+    },
+    {
+      "hypothesis_id": "hyp_3_low_cardinality_cwe_flag_count",
+      "summary": "The CWE Flag Count feature shows near-constant values with unique value count equal to 1 and very low cardinality ratio, suggesting minimal variation in this flag count across the dataset partition.",
+      "status": "unresolved",
+      "evidence_refs": [
+        "e28"
+      ],
+      "open_gaps": [
+        "Does the near-constant CWE Flag Count indicate a lack of meaningful variation in this feature for distinguishing traffic classes?",
+        "Could this feature be redundant or uninformative in the context of this dataset?"
+      ],
+      "preserved_contradictions": [],
+      "merged_findings": [],
+      "update_focus": "",
+      "last_updated_round": "",
+      "revision_count": 0
+    },
+    {
+      "hypothesis_id": "hyp_4_strong_dependency_pairs_indicate_redundancy",
+      "summary": "Multiple feature pairs exhibit near-perfect or perfect correlations (correlation=1 or ~0.9993), indicating strong linear dependencies and potential redundancy among features related to packet lengths, segment sizes, flags, and packet counts.",
+      "status": "unresolved",
+      "evidence_refs": [
+        "e13",
+        "e14",
+        "e15",
+        "e16",
+        "e17",
+        "e18",
+        "e19",
+        "e20",
+        "e21",
+        "e22"
+      ],
+      "open_gaps": [
+        "Are these perfect correlations a natural consequence of feature definitions or do they reflect duplicated or derived data points?",
+        "How might these dependencies affect model robustness and feature selection strategies?"
+      ],
+      "preserved_contradictions": [],
+      "merged_findings": [],
+      "update_focus": "",
+      "last_updated_round": "",
+      "revision_count": 0
+    },
+    {
+      "hypothesis_id": "hyp_5_class_conditioned_variation_in_backward_packet_lengths",
+      "summary": "Backward packet length features (Bwd Packet Length Max, Mean, Std, Avg Bwd Segment Size) show substantial class-conditioned structural variation, with differing unique value counts and variance ratios between BENIGN and DDoS classes, indicating these features may capture meaningful class-distinguishing information.",
+      "status": "unresolved",
+      "evidence_refs": [
+        "e9",
+        "e10",
+        "e11",
+        "e12"
+      ],
+      "open_gaps": [
+        "To what extent does the class-conditioned variation in backward packet lengths contribute to distinguishing attack from benign traffic?",
+        "Could this variation be confounded by other factors such as traffic volume or session characteristics?"
+      ],
+      "preserved_contradictions": [],
+      "merged_findings": [],
+      "update_focus": "",
+      "last_updated_round": "",
+      "revision_count": 0
+    },
+    {
+      "hypothesis_id": "hyp_6_class_conditioned_variation_average_packet_size",
+      "summary": "Average Packet Size exhibits class-conditioned structural variation with moderate variance ratio and differing unique value counts between BENIGN and DDoS classes, suggesting this feature may reflect behavioral differences between classes.",
+      "status": "unresolved",
+      "evidence_refs": [
+        "e8"
+      ],
+      "open_gaps": [
+        "Is the observed variation in Average Packet Size sufficient to serve as a reliable indicator of attack behavior?",
+        "How stable is this variation across different time windows or network conditions?"
+      ],
+      "preserved_contradictions": [],
+      "merged_findings": [],
+      "update_focus": "",
+      "last_updated_round": "",
+      "revision_count": 0
+    },
+    {
+      "hypothesis_id": "hyp_7_class_conditioned_distribution_destination_port",
+      "summary": "Destination Port feature shows strong distributional differences between BENIGN and DDoS classes, with the DDoS class concentrated on a single port (dominant ratio=1.0, zero entropy), indicating a representation-sensitive pattern likely related to attack targeting.",
+      "status": "unresolved",
+      "evidence_refs": [
+        "e33"
+      ],
+      "open_gaps": [
+        "Does the concentration on a single destination port reflect a targeted attack vector or a dataset artifact?",
+        "How does this distributional divergence impact the generalizability of models trained on this feature?"
+      ],
+      "preserved_contradictions": [],
+      "merged_findings": [],
+      "update_focus": "",
+      "last_updated_round": "",
+      "revision_count": 0
+    },
+    {
+      "hypothesis_id": "hyp_8_tension_low_cardinality_vs_class_variation",
+      "summary": "The tension between near-constant low-cardinality features (notably backward and forward bulk and flag features) and features exhibiting strong class-conditioned structural variation (such as backward packet lengths, average packet size, and destination port) is locally characterized and preserved. Dependency contextualization confirms concentrated dependency patterns for high-variation features but fails for low-cardinality features due to their near-constant nature. This heterogeneous feature behavior suggests potential saturation or measurement limits in low-cardinality features, while high-variation features provide clearer class separation signals.",
+      "status": "active",
+      "evidence_refs": [
+        "e8",
+        "e9",
+        "e10",
+        "e11",
+        "e12",
+        "e23",
+        "e24",
+        "e25",
+        "e26",
+        "e27",
+        "e29",
+        "e30",
+        "e31",
+        "e32",
+        "e33",
+        "task_1_step_03",
+        "task_1_step_05",
+        "task_1_step_07",
+        "task_2_step_03",
+        "task_2_step_05",
+        "task_2_step_07",
+        "task_3_step_03",
+        "task_3_step_05",
+        "task_3_step_07",
+        "task_4_step_07"
+      ],
+      "open_gaps": [
+        "How should models reconcile or leverage the coexistence of near-constant and highly variable features?",
+        "Could the low cardinality features represent saturation or measurement limits that obscure meaningful variation?",
+        "Distribution verification for Average Packet Size and other features was not performed due to budget and scope constraints, limiting full quantification of distribution shifts.",
+        "Relation verification between heterogeneous feature clusters was not performed due to bounded local context constraints.",
+        "Dependency contextualization for low-cardinality features was not possible due to absence of finite pairwise dependencies.",
+        "Analysis limited to backward bulk features in some tasks; forward bulk and other features remain unverified locally."
+      ],
+      "preserved_contradictions": [
+        "No local contradictions detected; tension between low cardinality and class variation remains unresolved but preserved.",
+        "local contradiction preserved",
+        "Tension between low-cardinality near-constant features and features with strong class-conditioned variation remains unresolved but preserved."
+      ],
+      "merged_findings": [
+        "Average Packet Size and backward packet length features exhibit a tension between low cardinality near-constant behavior and strong class-conditioned structural variation, with some features showing high variance ratios and class separation signals.",
+        "Backward bulk-related features with near-constant values show high local label conflicts, suggesting saturation or measurement limits rather than meaningful class variation.",
+        "Clusters of features (e8 to e12, e33) demonstrate strong class-conditioned distributional shifts, while others (e23 to e32) form stable, low-cardinality groups lacking finite pairwise dependencies.",
+        "Dependency contextualization confirms concentrated dependency patterns for high-variation features like 'Bwd Packet Length Max' but fails for low-cardinality features due to their near-constant nature.",
+        "The tension between low-cardinality stable features and high-variation features is preserved and characterized locally without cross-cluster relation verification."
+      ],
+      "update_focus": "Maintain focus on the preserved tension between low-cardinality near-constant features and features exhibiting strong class-conditioned structural variation, emphasizing local characterization and dependency contextualization within bounded contexts while acknowledging unresolved distributional and relational gaps.",
+      "last_updated_round": "round-001",
+      "revision_count": 1
+    },
+    {
+      "hypothesis_id": "hyp_9_tension_perfect_correlation_and_data_duplication",
+      "summary": "A tension exists between the observed perfect correlations among many feature pairs and the presence of duplicated rows in the partition data, raising questions about data quality and feature independence.",
+      "status": "unresolved",
+      "evidence_refs": [
+        "e1",
+        "e13",
+        "e14",
+        "e15",
+        "e16",
+        "e17",
+        "e18",
+        "e19",
+        "e20",
+        "e21",
+        "e22"
+      ],
+      "open_gaps": [
+        "Are the perfect correlations driven by duplicated data points or inherent feature construction?",
+        "What impact does data duplication have on the validity of correlation-based feature dependency assessments?"
+      ],
+      "preserved_contradictions": [],
+      "merged_findings": [],
+      "update_focus": "",
+      "last_updated_round": "",
+      "revision_count": 0
+    },
+    {
+      "hypothesis_id": "hyp_10_low_cardinality_forward_psh_syn_flags_dependency",
+      "summary": "The Fwd PSH Flags and SYN Flag Count features form a perfect correlation pair but individually have low cardinality with unique values equal to 1 and very low cardinality ratio, indicating a potentially trivial but structurally concentrated signal within forward flag features.",
+      "status": "unresolved",
+      "evidence_refs": [
+        "e15",
+        "e26"
+      ],
+      "open_gaps": [
+        "Does the perfect correlation combined with low cardinality in these flags reflect a meaningful network behavior or a trivial artifact?",
+        "Could this dependency obscure more nuanced flag behavior relevant for attack detection?"
+      ],
+      "preserved_contradictions": [],
+      "merged_findings": [],
+      "update_focus": "",
+      "last_updated_round": "",
+      "revision_count": 0
+    }
+  ],
+  "revision_log": [
+    {
+      "revision_type": "initialization",
+      "state_version": 1,
+      "round_id": "",
+      "hypothesis_id": "",
+      "applied_updates": [
+        {
+          "action": "register_structural_substrate",
+          "substrate_id": "substrate_phase3a_batch_0406154632_friday-workinghours-afternoon-ddos.pcap_iscx_92d6c1",
+          "region_count": 8,
+          "weak_signal_count": 1,
+          "contradiction_count": 0,
+          "tension_count": 2
+        },
+        {
+          "action": "register_interpretive_hypotheses",
+          "analysis_id": "analysis_phase3a_0406154632",
+          "hypothesis_count": 10
+        }
+      ],
+      "timestamp": "2026-06-04T16:46:04.126414+00:00"
+    },
+    {
+      "revision_type": "state_update",
+      "state_version": 2,
+      "round_id": "round-001",
+      "hypothesis_id": "hyp_8_tension_low_cardinality_vs_class_variation",
+      "applied_updates": [
+        {
+          "field": "summary",
+          "reason": "The updated summary integrates the aggregation handoff findings, emphasizing the local characterization of the tension and dependency contextualization results, while preserving unresolved gaps and contradictions consistent with the current state."
+        }
+      ],
+      "timestamp": "2026-06-04T16:46:17.829244+00:00"
+    }
+  ]
+}

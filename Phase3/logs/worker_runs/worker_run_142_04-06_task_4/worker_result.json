@@ -1,0 +1,22 @@
+{
+  "task_id": "task_4",
+  "hypothesis_id": "hyp_4_strong_dependency_pairs_indicate_redundancy",
+  "status": "completed",
+  "findings": [
+    "Strongly correlated feature pairs in the cluster exhibit shortcut-like predictive leverage.",
+    "Fwd PSH Flags and SYN Flag Count show weak shortcut evidence likely due to low cardinality and perfect correlation.",
+    "Fwd Header Length shows moderate shortcut signal indicating redundancy contributes to predictive shortcuts.",
+    "Presence of duplicated rows creates unresolved tension but does not invalidate shortcut signals."
+  ],
+  "evidence_refs": [
+    "task_4_step_03",
+    "task_4_step_05",
+    "task_4_step_07"
+  ],
+  "contradictions": [
+    "Tension between perfect correlations and duplicated rows preserved as unresolved."
+  ],
+  "limitations": [
+    "Unable to fully resolve impact of duplicated rows on redundancy and shortcut signals."
+  ]
+}

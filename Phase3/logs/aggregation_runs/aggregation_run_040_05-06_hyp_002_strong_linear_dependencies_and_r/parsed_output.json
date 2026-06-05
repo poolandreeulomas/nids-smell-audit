@@ -1,0 +1,27 @@
+{
+  "batch_id": "phase3a_batch_0506083346_friday-workinghours-afternoon-ddos.pcap_iscx_67ce11",
+  "round_id": "round-001",
+  "hypothesis_id": "hyp_002_strong_linear_dependencies_and_redundancy",
+  "merged_findings": [
+    "Strong linear dependencies and near-perfect correlations among packet and flag features are stable and consistent across different temporal segments and attack phases, indicating redundancy rather than instability or dataset artifacts.",
+    "These dependencies are primarily driven by inherent protocol constraints such as packet segmentation and flow aggregation, as supported by verified feature pairs with near-perfect correlation.",
+    "Specific features like 'Packet Length Mean', 'Average Packet Size', 'Fwd Header Length.1', and 'SYN Flag Count' exhibit concentrated dependency profiles and low cardinality, suggesting limited additional information gain and reinforcing redundancy.",
+    "Local consistency checks confirm stable label-topology around these features without contradictory evidence."
+  ],
+  "evidence_refs": [
+    "task_1_step_03",
+    "task_1_step_05",
+    "task_1_step_07",
+    "task_2_step_03",
+    "task_2_step_05",
+    "task_2_step_07",
+    "task_3_step_03",
+    "task_3_step_05",
+    "task_3_step_07"
+  ],
+  "preserved_contradictions": [],
+  "open_gaps": [
+    "Analyses are limited to explicitly referenced features, local feature pairs, and local dependency clusters; global dataset-wide artifact patterns and cross-context validations remain unassessed."
+  ],
+  "update_focus": "Maintain focus on protocol-driven linear dependencies and redundancy patterns within local feature clusters, while addressing the need for broader global and cross-context validation in future rounds."
+}

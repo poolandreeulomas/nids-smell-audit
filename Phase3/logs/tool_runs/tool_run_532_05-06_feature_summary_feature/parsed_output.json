@@ -1,0 +1,69 @@
+{
+  "call_id": "task_3_step_03",
+  "tool_name": "feature_summary",
+  "status": "ok",
+  "observations": {
+    "feature_name": "Bwd Avg Bulk Rate",
+    "value": 0.0,
+    "signals": [
+      "low_variance",
+      "low_diversity"
+    ],
+    "metrics": {
+      "mean": {
+        "BENIGN": 0.0,
+        "DDoS": 0.0
+      },
+      "std": {
+        "BENIGN": 0.0,
+        "DDoS": 0.0
+      },
+      "variance": {
+        "BENIGN": 0.0,
+        "DDoS": 0.0
+      },
+      "coef_variation": {
+        "BENIGN": null,
+        "DDoS": null
+      },
+      "unique_values": {
+        "BENIGN": 1,
+        "DDoS": 1
+      },
+      "variance_ratio": null
+    },
+    "support": {
+      "n_total": 225745,
+      "n_per_class": {
+        "BENIGN": 97718,
+        "DDoS": 128027
+      },
+      "total_samples": 225745,
+      "per_class": {
+        "BENIGN": 97718,
+        "DDoS": 128027
+      }
+    },
+    "provenance": {
+      "source": "tool",
+      "tool": "feature_summary",
+      "step": null
+    },
+    "feature": "Bwd Avg Bulk Rate"
+  },
+  "evidence_refs": [
+    {
+      "artifact": "parsed_output",
+      "path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_532_05-06_feature_summary_feature\\parsed_output.json"
+    },
+    {
+      "artifact": "raw_tool_output",
+      "path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_532_05-06_feature_summary_feature\\raw_tool_output.json"
+    },
+    {
+      "artifact": "component_run",
+      "path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_532_05-06_feature_summary_feature\\component_run.json"
+    }
+  ],
+  "limitations": []
+}

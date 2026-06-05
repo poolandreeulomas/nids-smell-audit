@@ -1,0 +1,21 @@
+{
+  "task_id": "task_1",
+  "hypothesis_id": "hyp_8_tension_low_cardinality_vs_class_variation",
+  "status": "completed",
+  "findings": [
+    "Average Packet Size exhibits low cardinality with class-conditioned structural variation.",
+    "Backward packet length features including Avg Bwd Segment Size and Bwd Packet Length Max show low cardinality and near-constant behavior in some features, alongside class-conditioned variation.",
+    "The tension between near-constant low cardinality features and features with strong class-conditioned distributional shifts is locally preserved."
+  ],
+  "evidence_refs": [
+    "task_1_step_03",
+    "task_1_step_05",
+    "task_1_step_07"
+  ],
+  "contradictions": [
+    "No local contradictions detected; tension between low cardinality and class variation remains unresolved but preserved."
+  ],
+  "limitations": [
+    "Distribution verification was not performed due to budget constraints, limiting full quantification of distribution shifts."
+  ]
+}

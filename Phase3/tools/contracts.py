@@ -95,6 +95,10 @@ def normalize_legacy_tool_result(
     }
     if evidence.get("feature"):
         observations["feature"] = evidence["feature"]
+    if "skipped" in legacy_result:
+        observations["skipped"] = bool(legacy_result.get("skipped"))
+    if legacy_result.get("reason") is not None:
+        observations["reason"] = legacy_result.get("reason")
 
     limitations: list[dict[str, Any]] = []
     if not legacy_result.get("ok", False):

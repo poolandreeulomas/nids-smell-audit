@@ -1082,6 +1082,7 @@ def test_run_phase3a_runtime_flow_builds_reviewable_context(monkeypatch, tmp_pat
     cli = object.__new__(NidsAgentCli)
     cli.session_config = SessionConfig(model_name="gpt-4.1-mini")
     cli._get_selected_dataset_path = lambda: Path("dataset.csv")
+    cli._prompt_yes_no = lambda prompt, default=False: False
     cli._render = lambda content: setattr(cli, "_last_rendered", content)
     cli._read_menu_choice = lambda valid_choices: "B"
     cli._quit = lambda: None
@@ -1103,3 +1104,41 @@ def test_run_phase3a_runtime_flow_builds_reviewable_context(monkeypatch, tmp_pat
     assert isinstance(cli._last_phase3a_runtime_run, Phase3ARuntimeRunContext)
     assert cli._selected_phase3a_runtime_run is cli._last_phase3a_runtime_run
     assert cli._last_phase3a_runtime_run.component_run["batch_id"] == BATCH_ID
+
+
+def test_run_phase3a_runtime_flow_can_disable_neighborhood_analysis(monkeypatch, tmp_path: Path):
+    bundle = _build_saved_phase3a_runtime_bundle(tmp_path)
+    captured_call: dict[str, object] = {}
+    original_env_value = cli_module.os.environ.get(
+        "PHASE3A_ENABLE_NEIGHBORHOOD_CONSISTENCY_ANALYSIS"
+    )
+
+    def _fake_run_phase3a_batch(dataset_path, **kwargs):
+        captured_call["dataset_path"] = dataset_path
+        captured_call["env_value"] = cli_module.os.environ.get(
+            "PHASE3A_ENABLE_NEIGHBORHOOD_CONSISTENCY_ANALYSIS"
+        )
+        captured_call.update(kwargs)
+        return bundle
+
+    monkeypatch.setattr(cli_module, "run_phase3a_batch",
+                        _fake_run_phase3a_batch)
+
+    cli = object.__new__(NidsAgentCli)
+    cli.session_config = SessionConfig(model_name="gpt-4.1-mini")
+    cli._get_selected_dataset_path = lambda: Path("dataset.csv")
+    cli._prompt_yes_no = lambda prompt, default=False: True
+    cli._render = lambda content: setattr(cli, "_last_rendered", content)
+    cli._read_menu_choice = lambda valid_choices: "B"
+    cli._quit = lambda: None
+    cli._show_error = lambda message: (
+        _ for _ in ()).throw(AssertionError(message))
+
+    route = cli._run_phase3a_runtime_flow()
+
+    assert route == "phase3a_runtime"
+    assert cli.session_config.enable_neighborhood_consistency_analysis is False
+    assert captured_call["env_value"] == "0"
+    assert cli_module.os.environ.get(
+        "PHASE3A_ENABLE_NEIGHBORHOOD_CONSISTENCY_ANALYSIS"
+    ) == original_env_value

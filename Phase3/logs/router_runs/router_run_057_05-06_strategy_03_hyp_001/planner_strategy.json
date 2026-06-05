@@ -1,0 +1,19 @@
+{
+  "strategy_id": "strategy_03_hyp_001",
+  "hypothesis_id": "hyp_001_low_diversity_bulk_features",
+  "strategic_objective": "Investigate the nature and implications of low diversity and near-constant behavior in bulk traffic features to discern genuine patterns from artifacts.",
+  "key_checks": [
+    "Check cardinality and value distribution stability of bulk features across time and classes",
+    "Evaluate if low diversity masks intra-class variation or temporal dynamics",
+    "Explore potential data collection or preprocessing artifacts influencing feature saturation"
+  ],
+  "success_criteria": [
+    "Established whether low diversity is consistent with genuine network behavior or artifact",
+    "Detected any meaningful intra-class or temporal variation despite low cardinality",
+    "Identified structural or procedural causes for near-constant feature values"
+  ],
+  "router_constraints": [
+    "preserve feature_scope for bulk traffic features",
+    "preserve evidence refs e23-e32"
+  ]
+}

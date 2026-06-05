@@ -1,0 +1,49 @@
+{
+  "ok": true,
+  "tool": "distribution_analysis",
+  "feature_name": "Destination Port",
+  "value": 0.7322067350476297,
+  "error_code": null,
+  "error_message": null,
+  "meta": {
+    "dataset_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\data\\cic_ids_2017\\Friday-WorkingHours-Afternoon-DDos.pcap_ISCX.csv",
+    "label_column": "Label"
+  },
+  "evidence": {
+    "feature": "Destination Port",
+    "signals": [
+      "low_entropy",
+      "dominant_value",
+      "high_class_separation"
+    ],
+    "metrics": {
+      "entropy": {
+        "BENIGN": 5.5194238270026705,
+        "DDoS": 0.00029899907226881684
+      },
+      "dominant_ratio": {
+        "BENIGN": 0.32696125585869545,
+        "DDoS": 0.999976567442805
+      },
+      "js_divergence": 0.7322067350476297
+    },
+    "support": {
+      "n_total": 225745,
+      "n_per_class": {
+        "DDoS": 128027,
+        "BENIGN": 97718
+      },
+      "total_samples": 225745,
+      "per_class": {
+        "DDoS": 128027,
+        "BENIGN": 97718
+      }
+    },
+    "provenance": {
+      "source": "tool",
+      "tool": "distribution_analysis",
+      "step": null
+    },
+    "status": "active"
+  }
+}

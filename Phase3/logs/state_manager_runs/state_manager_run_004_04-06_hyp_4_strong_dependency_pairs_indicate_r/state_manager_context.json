@@ -1,0 +1,232 @@
+{
+  "batch_id": "phase3a_batch_0406154632_friday-workinghours-afternoon-ddos.pcap_iscx_92d6c1",
+  "state_version": 1,
+  "target_hypothesis": {
+    "hypothesis_id": "hyp_4_strong_dependency_pairs_indicate_redundancy",
+    "summary": "Multiple feature pairs exhibit near-perfect or perfect correlations (correlation=1 or ~0.9993), indicating strong linear dependencies and potential redundancy among features related to packet lengths, segment sizes, flags, and packet counts.",
+    "status": "unresolved",
+    "evidence_refs": [
+      "e13",
+      "e14",
+      "e15",
+      "e16",
+      "e17",
+      "e18",
+      "e19",
+      "e20",
+      "e21",
+      "e22"
+    ],
+    "open_gaps": [
+      "Are these perfect correlations a natural consequence of feature definitions or do they reflect duplicated or derived data points?",
+      "How might these dependencies affect model robustness and feature selection strategies?"
+    ],
+    "preserved_contradictions": [],
+    "merged_findings": [],
+    "update_focus": "",
+    "last_updated_round": "",
+    "revision_count": 0
+  },
+  "structural_substrate_ref": {
+    "substrate_id": "substrate_phase3a_batch_0406154632_friday-workinghours-afternoon-ddos.pcap_iscx_92d6c1",
+    "batch_id": "phase3a_batch_0406154632_friday-workinghours-afternoon-ddos.pcap_iscx_92d6c1",
+    "compressed_regions": [
+      {
+        "region_id": "region_4_strong_dependency_pairs",
+        "region_kind": "dependency_region",
+        "status": "active",
+        "summary": "Multiple feature pairs exhibit near-perfect or perfect correlation (correlation=1 or ~0.9993), indicating strong linear dependencies and potential redundancy.",
+        "feature_scope": {
+          "features": [
+            "Bwd Packet Length Mean",
+            "Avg Bwd Segment Size",
+            "Fwd Header Length",
+            "Fwd Header Length.1",
+            "Fwd PSH Flags",
+            "SYN Flag Count",
+            "Fwd Packet Length Mean",
+            "Avg Fwd Segment Size",
+            "RST Flag Count",
+            "ECE Flag Count",
+            "Total Backward Packets",
+            "Subflow Bwd Packets",
+            "Total Fwd Packets",
+            "Subflow Fwd Packets",
+            "Total Length of Bwd Packets",
+            "Subflow Bwd Bytes",
+            "Total Length of Fwd Packets",
+            "Subflow Fwd Bytes",
+            "Packet Length Mean",
+            "Average Packet Size"
+          ],
+          "feature_groups": [],
+          "locality": {
+            "scope_type": "dependency_cluster",
+            "scope_value": "Bwd Packet Length Mean|Avg Bwd Segment Size|Fwd Header Length|Fwd Header Length.1|Fwd PSH Flags|SYN Flag Count|Fwd Packet Length Mean|Avg Fwd Segment Size|RST Flag Count|ECE Flag Count|Total Backward Packets|Subflow Bwd Packets|Total Fwd Packets|Subflow Fwd Packets|Total Length of Bwd Packets|Subflow Bwd Bytes|Total Length of Fwd Packets|Subflow Fwd Bytes|Packet Length Mean|Average Packet Size",
+            "localized": true,
+            "notes": [
+              "cluster of strongly correlated feature pairs indicating redundancy"
+            ]
+          }
+        },
+        "evidence_refs": [
+          "e13",
+          "e14",
+          "e15",
+          "e16",
+          "e17",
+          "e18",
+          "e19",
+          "e20",
+          "e21",
+          "e22"
+        ]
+      }
+    ],
+    "preserved_weak_signals": [
+      {
+        "weak_signal_id": "weak_1_low_cardinality_forward_psh_syn_flags",
+        "descriptor": "Fwd PSH Flags and SYN Flag Count form a perfect correlation pair but individually have low cardinality with unique values=1 and cardinality ratio=1e-05",
+        "feature_scope": {
+          "features": [
+            "Fwd PSH Flags",
+            "SYN Flag Count"
+          ],
+          "feature_groups": [],
+          "locality": {
+            "scope_type": "dependency_cluster",
+            "scope_value": "Fwd PSH Flags|SYN Flag Count",
+            "localized": true,
+            "notes": [
+              "dependency pair with low cardinality features"
+            ]
+          }
+        },
+        "evidence_refs": [
+          "e15",
+          "e26"
+        ]
+      }
+    ],
+    "contradictions": [],
+    "unresolved_tensions": [
+      {
+        "tension_id": "tension_2_perfect_correlation_and_data_duplication",
+        "description": "Tension between observed perfect correlations among many feature pairs and the presence of duplicated rows in the partition data.",
+        "evidence_refs": [
+          "e1",
+          "e13",
+          "e14",
+          "e15",
+          "e16",
+          "e17",
+          "e18",
+          "e19",
+          "e20",
+          "e21",
+          "e22"
+        ]
+      }
+    ]
+  },
+  "recent_revision_log": [
+    {
+      "revision_type": "initialization",
+      "state_version": 1,
+      "round_id": "",
+      "hypothesis_id": "",
+      "applied_updates": [
+        {
+          "action": "register_structural_substrate",
+          "substrate_id": "substrate_phase3a_batch_0406154632_friday-workinghours-afternoon-ddos.pcap_iscx_92d6c1",
+          "region_count": 8,
+          "weak_signal_count": 1,
+          "contradiction_count": 0,
+          "tension_count": 2
+        },
+        {
+          "action": "register_interpretive_hypotheses",
+          "analysis_id": "analysis_phase3a_0406154632",
+          "hypothesis_count": 10
+        }
+      ],
+      "timestamp": "2026-06-04T15:47:47.831408+00:00"
+    }
+  ],
+  "aggregation_handoff": {
+    "batch_id": "phase3a_batch_0406154632_friday-workinghours-afternoon-ddos.pcap_iscx_92d6c1",
+    "round_id": "round-001",
+    "hypothesis_id": "hyp_4_strong_dependency_pairs_indicate_redundancy",
+    "merged_findings": [
+      "Strongly correlated feature pairs such as 'Fwd Header Length' and 'Fwd Header Length.1', as well as 'Average Packet Size' and 'Packet Length Mean', consistently demonstrate high redundancy across multiple local analyses.",
+      "These feature pairs form tightly localized dependency clusters indicative of redundancy rather than independent feature definitions.",
+      "Dataset-level duplication verification and local consistency checks reveal duplicated rows contributing to perfect or near-perfect correlations, which introduce unresolved tension in interpreting dependency origins.",
+      "Low entropy and dominant value distributions in features like 'Fwd PSH Flags' and 'SYN Flag Count' further limit variability and contribute to shortcut-like predictive leverage linked to redundancy.",
+      "Despite the presence of duplicated rows creating tension, the redundancy hypothesis remains supported locally without contradiction."
+    ],
+    "evidence_refs": [
+      "task_1_step_03",
+      "task_1_step_05",
+      "task_1_step_07",
+      "task_2_step_03",
+      "task_2_step_05",
+      "task_2_step_07",
+      "task_3_step_03",
+      "task_3_step_05",
+      "task_3_step_07",
+      "task_4_step_03",
+      "task_4_step_05",
+      "task_4_step_07"
+    ],
+    "preserved_contradictions": [
+      "Tension between perfect correlations and duplicated rows in the partition data remains unresolved locally."
+    ],
+    "open_gaps": [
+      "Local evidence does not resolve the origin of duplicated rows or their full impact on the dependency structure and shortcut signals.",
+      "Unable to fully disentangle the effect of duplicated rows on class-conditioned correlation stability and predictive shortcut leverage."
+    ],
+    "update_focus": "Maintain focus on the interplay between strong feature dependencies and data duplication effects, emphasizing the unresolved tension and the need for further investigation beyond local context."
+  },
+  "known_evidence_refs": [
+    "e1",
+    "e10",
+    "e11",
+    "e12",
+    "e13",
+    "e14",
+    "e15",
+    "e16",
+    "e17",
+    "e18",
+    "e19",
+    "e2",
+    "e20",
+    "e21",
+    "e22",
+    "e23",
+    "e24",
+    "e25",
+    "e26",
+    "e27",
+    "e28",
+    "e29",
+    "e30",
+    "e31",
+    "e32",
+    "e33",
+    "e8",
+    "e9",
+    "task_1_step_03",
+    "task_1_step_05",
+    "task_1_step_07",
+    "task_2_step_03",
+    "task_2_step_05",
+    "task_2_step_07",
+    "task_3_step_03",
+    "task_3_step_05",
+    "task_3_step_07",
+    "task_4_step_03",
+    "task_4_step_05",
+    "task_4_step_07"
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "ok": true,
+  "tool": "neighborhood_consistency_analysis",
+  "feature_name": "Fwd Header Length.1",
+  "value": null,
+  "skipped": true,
+  "reason": "disabled_by_runtime_config",
+  "meta": {
+    "runtime_config_env_var": "PHASE3A_ENABLE_NEIGHBORHOOD_CONSISTENCY_ANALYSIS",
+    "runtime_config_value": "0"
+  }
+}

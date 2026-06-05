@@ -1,0 +1,46 @@
+{
+  "ok": true,
+  "tool": "dependency_concentration_analysis",
+  "feature_name": "Fwd PSH Flags",
+  "value": 0.26518883379426617,
+  "error_code": null,
+  "error_message": null,
+  "meta": {
+    "dataset_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\data\\cic_ids_2017\\Friday-WorkingHours-Afternoon-DDos.pcap_ISCX.csv",
+    "label_column": "Label"
+  },
+  "evidence": {
+    "feature": "Fwd PSH Flags",
+    "signals": [],
+    "metrics": {
+      "partner_count": 67,
+      "strong_partner_count": 1,
+      "top_partner": "SYN Flag Count",
+      "top_partner_correlation": 1.0,
+      "top_partner_share": 0.46950671337183714,
+      "top3_share": 0.7045853467847311,
+      "concentration_index": 0.26518883379426617,
+      "effective_partner_count": 3.770897837937631,
+      "mean_abs_correlation": 0.09524316132985114,
+      "median_abs_correlation": 0.03322756911538473
+    },
+    "support": {
+      "n_total": 225745,
+      "n_per_class": {
+        "DDoS": 128027,
+        "BENIGN": 97718
+      },
+      "total_samples": 225745,
+      "per_class": {
+        "DDoS": 128027,
+        "BENIGN": 97718
+      }
+    },
+    "provenance": {
+      "source": "tool",
+      "tool": "dependency_concentration_analysis",
+      "step": null
+    },
+    "status": "active"
+  }
+}

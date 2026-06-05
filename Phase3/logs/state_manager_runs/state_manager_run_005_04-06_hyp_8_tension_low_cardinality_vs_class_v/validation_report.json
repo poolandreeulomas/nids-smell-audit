@@ -1,0 +1,60 @@
+{
+  "ok": false,
+  "request_id": "state_manager_3d0543001e754ac8afd496c85578a75b",
+  "prompt_version": "phase3a.state_manager.prompt.v1",
+  "schema_version": "phase3a.state_manager.v1",
+  "state_input_validation": {
+    "ok": true,
+    "errors": [],
+    "warnings": [],
+    "stats": {
+      "state_version": 1,
+      "hypothesis_count": 10,
+      "revision_count": 1
+    }
+  },
+  "handoff_input_validation": {
+    "ok": true,
+    "errors": [],
+    "warnings": [
+      {
+        "field": "update_focus",
+        "message": "update_focus exceeds the recommended 160 characters; continuing."
+      }
+    ],
+    "stats": {
+      "merged_finding_count": 5,
+      "evidence_ref_count": 10,
+      "preserved_contradiction_count": 3,
+      "open_gap_count": 4
+    }
+  },
+  "parse_validation": {
+    "ok": true,
+    "errors": [],
+    "warnings": []
+  },
+  "state_delta_validation": {
+    "ok": false,
+    "errors": [
+      {
+        "field": "open_gaps",
+        "message": "state_delta_record removed prior open_gaps without an explicit open_gaps update: ['Could the low cardinality features represent saturation or measurement limits that obscure meaningful variation?', 'How should models reconcile or leverage the coexistence of near-constant and highly variable features?']."
+      }
+    ],
+    "warnings": [
+      {
+        "field": "update_focus",
+        "message": "update_focus exceeds the recommended 160 characters; continuing."
+      }
+    ],
+    "stats": {
+      "applied_update_count": 3,
+      "evidence_ref_count": 25,
+      "preserved_contradiction_count": 3,
+      "open_gap_count": 4,
+      "merged_finding_count": 5
+    },
+    "forbidden_language_hits": []
+  }
+}

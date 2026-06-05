@@ -1,0 +1,70 @@
+{
+  "selected_count": 3,
+  "selected_hypotheses": [
+    {
+      "hypothesis_id": "hyp_4_strong_dependency_pairs_indicate_redundancy",
+      "summary": "Multiple feature pairs exhibit near-perfect or perfect correlations (correlation=1 or ~0.9993), indicating strong linear dependencies and potential redundancy among features related to packet lengths, segment sizes, flags, and packet counts.",
+      "evidence_refs": [
+        "e13",
+        "e14",
+        "e15",
+        "e16",
+        "e17",
+        "e18",
+        "e19",
+        "e20",
+        "e21",
+        "e22"
+      ],
+      "open_questions": [
+        "Are these perfect correlations a natural consequence of feature definitions or do they reflect duplicated or derived data points?",
+        "How might these dependencies affect model robustness and feature selection strategies?"
+      ],
+      "current_status": "unresolved",
+      "evidence_ref_count": 10,
+      "open_question_count": 2
+    },
+    {
+      "hypothesis_id": "hyp_7_class_conditioned_distribution_destination_port",
+      "summary": "Destination Port feature shows strong distributional differences between BENIGN and DDoS classes, with the DDoS class concentrated on a single port (dominant ratio=1.0, zero entropy), indicating a representation-sensitive pattern likely related to attack targeting.",
+      "evidence_refs": [
+        "e33"
+      ],
+      "open_questions": [
+        "Does the concentration on a single destination port reflect a targeted attack vector or a dataset artifact?",
+        "How does this distributional divergence impact the generalizability of models trained on this feature?"
+      ],
+      "current_status": "unresolved",
+      "evidence_ref_count": 1,
+      "open_question_count": 2
+    },
+    {
+      "hypothesis_id": "hyp_8_tension_low_cardinality_vs_class_variation",
+      "summary": "There is a tension between features exhibiting near-constant values (low cardinality) such as bulk and flag features, and other features showing strong class-conditioned structural variation and distributional shifts, suggesting heterogeneous feature behavior within the dataset.",
+      "evidence_refs": [
+        "e8",
+        "e9",
+        "e10",
+        "e11",
+        "e12",
+        "e23",
+        "e24",
+        "e25",
+        "e26",
+        "e27",
+        "e29",
+        "e30",
+        "e31",
+        "e32",
+        "e33"
+      ],
+      "open_questions": [
+        "How should models reconcile or leverage the coexistence of near-constant and highly variable features?",
+        "Could the low cardinality features represent saturation or measurement limits that obscure meaningful variation?"
+      ],
+      "current_status": "unresolved",
+      "evidence_ref_count": 15,
+      "open_question_count": 2
+    }
+  ]
+}

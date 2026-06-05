@@ -1,0 +1,12 @@
+{
+  "tool_name": "neighborhood_consistency_analysis",
+  "epistemic_role": "local_consistency_verification",
+  "supported_scopes": [
+    "feature"
+  ],
+  "required_inputs": [
+    "feature_name"
+  ],
+  "result_shape": "feature_observation",
+  "boundedness_notes": "Measures local label-topology consistency around one feature with bounded deterministic neighborhoods."
+}

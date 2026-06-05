@@ -1,0 +1,22 @@
+{
+  "task_id": "task_3",
+  "hypothesis_id": "hyp_4_strong_dependency_pairs_indicate_redundancy",
+  "status": "completed",
+  "findings": [
+    "Multiple feature pairs exhibit near-perfect or perfect correlations indicating strong linear dependencies and redundancy.",
+    "Distribution of 'Fwd PSH Flags' shows low entropy and dominant values, limiting feature variability.",
+    "Local consistency checks on 'SYN Flag Count' and 'Fwd PSH Flags' reveal high label neighborhood conflicts and duplicate label conflicts, indicating unstable dependencies and data duplication effects.",
+    "Class-conditioned correlation stability is compromised by conditional artifacts linked to redundancy and duplicated rows."
+  ],
+  "evidence_refs": [
+    "task_3_step_03",
+    "task_3_step_05",
+    "task_3_step_07"
+  ],
+  "contradictions": [
+    "Tension between perfect correlations and duplicated rows remains unresolved locally."
+  ],
+  "limitations": [
+    "Analysis limited to local evidence within the specified feature cluster; global aggregation not performed."
+  ]
+}

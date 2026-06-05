@@ -1,0 +1,60 @@
+{
+  "ok": false,
+  "request_id": "state_manager_f751a3a0996c431096910c5e17e1f9f2",
+  "prompt_version": "phase3a.state_manager.prompt.v1",
+  "schema_version": "phase3a.state_manager.v1",
+  "state_input_validation": {
+    "ok": true,
+    "errors": [],
+    "warnings": [],
+    "stats": {
+      "state_version": 1,
+      "hypothesis_count": 10,
+      "revision_count": 1
+    }
+  },
+  "handoff_input_validation": {
+    "ok": true,
+    "errors": [],
+    "warnings": [
+      {
+        "field": "update_focus",
+        "message": "update_focus exceeds the recommended 160 characters; continuing."
+      }
+    ],
+    "stats": {
+      "merged_finding_count": 5,
+      "evidence_ref_count": 12,
+      "preserved_contradiction_count": 1,
+      "open_gap_count": 2
+    }
+  },
+  "parse_validation": {
+    "ok": true,
+    "errors": [],
+    "warnings": []
+  },
+  "state_delta_validation": {
+    "ok": false,
+    "errors": [
+      {
+        "field": "open_gaps",
+        "message": "state_delta_record removed prior open_gaps without an explicit open_gaps update: ['Are these perfect correlations a natural consequence of feature definitions or do they reflect duplicated or derived data points?', 'How might these dependencies affect model robustness and feature selection strategies?']."
+      }
+    ],
+    "warnings": [
+      {
+        "field": "update_focus",
+        "message": "update_focus exceeds the recommended 160 characters; continuing."
+      }
+    ],
+    "stats": {
+      "applied_update_count": 2,
+      "evidence_ref_count": 23,
+      "preserved_contradiction_count": 1,
+      "open_gap_count": 2,
+      "merged_finding_count": 5
+    },
+    "forbidden_language_hits": []
+  }
+}

@@ -5,6 +5,7 @@ import pandas as pd
 from data.dataset_config import get_default_dataset_config
 from tools.contracts import build_tool_call_request
 from tools.execution import execute_tool_call
+from tools.neighborhood_consistency_analysis import neighborhood_consistency_analysis
 from tools.registry import get_tool_capability_record, get_tool_capability_records
 from tools.runtime_artifacts import load_tool_run_bundle
 
@@ -56,7 +57,8 @@ def test_capability_inventory_exposes_phase3a_contract_metadata():
         "dependency_concentration_analysis",
         "duplication_analysis",
     }
-    assert get_tool_capability_record("feature_relation") == records["feature_relation"]
+    assert get_tool_capability_record(
+        "feature_relation") == records["feature_relation"]
     assert records["duplication_analysis"]["supported_scopes"] == ["dataset"]
 
 
@@ -70,7 +72,8 @@ def test_execute_tool_call_supports_new_phase3a_verification_tools(tmp_path: Pat
             target_scope="feature",
             input_refs={"feature_name": "shortcut_feature"},
             preprocessing_profile_ref="default",
-            execution_constraints={"cache_policy": "reuse", "validation_mode": "strict"},
+            execution_constraints={
+                "cache_policy": "reuse", "validation_mode": "strict"},
         ),
         dataset_path="synthetic.csv",
         config=get_default_dataset_config(),
@@ -85,7 +88,8 @@ def test_execute_tool_call_supports_new_phase3a_verification_tools(tmp_path: Pat
             target_scope="feature",
             input_refs={"feature_name": "dep_anchor"},
             preprocessing_profile_ref="default",
-            execution_constraints={"cache_policy": "reuse", "validation_mode": "strict"},
+            execution_constraints={
+                "cache_policy": "reuse", "validation_mode": "strict"},
         ),
         dataset_path="synthetic.csv",
         config=get_default_dataset_config(),
@@ -100,6 +104,31 @@ def test_execute_tool_call_supports_new_phase3a_verification_tools(tmp_path: Pat
     assert dependency_bundle["tool_result"]["observations"]["metrics"]["top_partner"] == "dep_partner"
 
 
+def test_neighborhood_consistency_analysis_can_be_disabled(monkeypatch):
+    monkeypatch.setenv("PHASE3A_ENABLE_NEIGHBORHOOD_CONSISTENCY_ANALYSIS", "0")
+
+    def _unexpected_resolve_tool_inputs(*args, **kwargs):
+        raise AssertionError(
+            "resolve_tool_inputs should not run when disabled")
+
+    monkeypatch.setattr(
+        "tools.neighborhood_consistency_analysis.resolve_tool_inputs",
+        _unexpected_resolve_tool_inputs,
+    )
+
+    result = neighborhood_consistency_analysis(
+        feature_name="summary_feature",
+        dataset_path="synthetic.csv",
+        config=get_default_dataset_config(),
+        dataset_frame=None,
+        valid_numeric_features=None,
+    )
+
+    assert result["ok"] is True
+    assert result["skipped"] is True
+    assert result["reason"] == "disabled_by_runtime_config"
+
+
 def test_execute_tool_call_returns_phase3a_result_and_artifacts(tmp_path: Path):
     df, valid_numeric_features = _build_synthetic_df()
     request = build_tool_call_request(
@@ -108,7 +137,8 @@ def test_execute_tool_call_returns_phase3a_result_and_artifacts(tmp_path: Path):
         target_scope="feature",
         input_refs={"feature_name": "summary_feature"},
         preprocessing_profile_ref="default",
-        execution_constraints={"cache_policy": "reuse", "validation_mode": "strict"},
+        execution_constraints={"cache_policy": "reuse",
+                               "validation_mode": "strict"},
     )
 
     bundle = execute_tool_call(
@@ -131,7 +161,8 @@ def test_execute_tool_call_returns_phase3a_result_and_artifacts(tmp_path: Path):
     assert Path(bundle["artifact_paths"]["component_run_path"]).exists()
     assert Path(bundle["artifact_paths"]["parsed_output_path"]).exists()
 
-    loaded = load_tool_run_bundle(Path(bundle["artifact_paths"]["component_run_path"]).parent)
+    loaded = load_tool_run_bundle(
+        Path(bundle["artifact_paths"]["component_run_path"]).parent)
     assert loaded["parsed_output"]["call_id"] == "tool-call-001"
     assert loaded["tool_call_request"]["tool_name"] == "feature_summary"
 
@@ -144,7 +175,8 @@ def test_execute_tool_call_records_cache_visibility_on_repeat(tmp_path: Path):
         target_scope="feature",
         input_refs={"feature_name": "distribution_feature"},
         preprocessing_profile_ref="default",
-        execution_constraints={"cache_policy": "reuse", "validation_mode": "strict"},
+        execution_constraints={"cache_policy": "reuse",
+                               "validation_mode": "strict"},
     )
 
     first_bundle = execute_tool_call(
@@ -166,7 +198,8 @@ def test_execute_tool_call_records_cache_visibility_on_repeat(tmp_path: Path):
 
     assert first_bundle["cache_record"]["status"] == "tracked"
     assert second_bundle["cache_record"]["status"] == "tracked"
-    assert any(event["status"] == "hit" for event in second_bundle["cache_record"]["events"])
+    assert any(event["status"] ==
+               "hit" for event in second_bundle["cache_record"]["events"])
 
 
 def test_execute_tool_call_fails_closed_for_invalid_requests(tmp_path: Path):
@@ -176,7 +209,8 @@ def test_execute_tool_call_fails_closed_for_invalid_requests(tmp_path: Path):
         target_scope="feature",
         input_refs={},
         preprocessing_profile_ref="default",
-        execution_constraints={"cache_policy": "reuse", "validation_mode": "strict"},
+        execution_constraints={"cache_policy": "reuse",
+                               "validation_mode": "strict"},
     )
 
     bundle = execute_tool_call(

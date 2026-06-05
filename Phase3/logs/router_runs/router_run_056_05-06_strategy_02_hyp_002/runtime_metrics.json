@@ -1,0 +1,17 @@
+{
+  "batch_id": "phase3a_batch_0506083346_friday-workinghours-afternoon-ddos.pcap_iscx_67ce11",
+  "round_id": "round-001",
+  "hypothesis_id": "hyp_002_strong_linear_dependencies_and_redundancy",
+  "planner_strategy_id": "strategy_02_hyp_002",
+  "model_name": "gpt-4.1-mini",
+  "duration_ms": 7730.687,
+  "status": "ok",
+  "prompt_chars": 5521,
+  "raw_response_chars": 2166,
+  "task_count": 3,
+  "allowed_action_class_count": 7,
+  "fresh_execution": true,
+  "replay_of": null,
+  "caller_mode": "cli",
+  "schema_version": "phase3a.router.v1"
+}

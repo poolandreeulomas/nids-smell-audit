@@ -1,0 +1,38 @@
+{
+  "call_id": "task_4_step_05",
+  "tool_name": "dependency_concentration_analysis",
+  "status": "error",
+  "observations": {
+    "feature_name": "Bwd Avg Bulk Rate",
+    "value": null,
+    "signals": [],
+    "metrics": {},
+    "support": {},
+    "provenance": {
+      "source": "tool",
+      "tool": "dependency_concentration_analysis",
+      "step": null
+    },
+    "feature": "Bwd Avg Bulk Rate"
+  },
+  "evidence_refs": [
+    {
+      "artifact": "parsed_output",
+      "path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_515_04-06_dependency_concentration_analysis_feature\\parsed_output.json"
+    },
+    {
+      "artifact": "raw_tool_output",
+      "path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_515_04-06_dependency_concentration_analysis_feature\\raw_tool_output.json"
+    },
+    {
+      "artifact": "component_run",
+      "path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_515_04-06_dependency_concentration_analysis_feature\\component_run.json"
+    }
+  ],
+  "limitations": [
+    {
+      "code": "DATASET_VALIDATION_ERROR",
+      "message": "Dependency concentration analysis requires at least one finite pairwise dependency."
+    }
+  ]
+}

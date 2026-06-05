@@ -1,0 +1,19 @@
+{
+  "strategy_id": "strategy_02_hyp_002",
+  "hypothesis_id": "hyp_002_strong_linear_dependencies_and_redundancy",
+  "strategic_objective": "Characterize the stability and origin of strong linear dependencies among packet and flag features to clarify redundancy and its impact on feature dimensionality.",
+  "key_checks": [
+    "Verify stability of strong linear dependencies across different temporal segments and attack phases",
+    "Distinguish whether dependencies arise from protocol constraints or dataset-specific artifacts",
+    "Assess impact of removing redundant features on information retention and robustness"
+  ],
+  "success_criteria": [
+    "Dependencies remain stable or vary systematically with temporal or attack context",
+    "Clear evidence whether dependencies reflect inherent protocol structure or dataset artifacts",
+    "Identified redundant features whose removal does not degrade critical information"
+  ],
+  "router_constraints": [
+    "preserve feature_scope for correlated packet and flag features",
+    "preserve evidence refs e13-e22"
+  ]
+}

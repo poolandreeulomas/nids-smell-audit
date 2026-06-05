@@ -1,0 +1,27 @@
+{
+  "ok": true,
+  "schema_version": "phase3a.inter_hypothesis_aggregation.v1",
+  "parse_validation": {
+    "ok": true,
+    "errors": [],
+    "warnings": []
+  },
+  "core_validation": {
+    "ok": true,
+    "errors": [],
+    "warnings": [],
+    "stats": {
+      "selected_hypothesis_count": 3,
+      "source_record_count": 3,
+      "source_aggregation_count": 3,
+      "preserved_finding_count": 15,
+      "preserved_contradiction_count": 5,
+      "preserved_open_gap_count": 7,
+      "preserved_limitation_count": 11,
+      "preserved_evidence_ref_count": 28
+    }
+  },
+  "selected_hypothesis_count": 3,
+  "source_record_count": 3,
+  "source_aggregation_count": 3
+}

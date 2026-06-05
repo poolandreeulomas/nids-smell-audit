@@ -6,6 +6,7 @@ import re
 from enum import Enum
 from typing import Any
 
+from aggregation.contracts import MAX_UPDATE_FOCUS_CHARS
 from worker.contracts import VALID_WORKER_STATUSES
 
 

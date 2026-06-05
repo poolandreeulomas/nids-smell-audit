@@ -1,0 +1,347 @@
+{
+  "hypothesis_count": 10,
+  "evidence_ref_coverage": [
+    "e1",
+    "e10",
+    "e11",
+    "e12",
+    "e13",
+    "e14",
+    "e15",
+    "e16",
+    "e17",
+    "e18",
+    "e19",
+    "e2",
+    "e20",
+    "e21",
+    "e22",
+    "e23",
+    "e24",
+    "e25",
+    "e26",
+    "e27",
+    "e28",
+    "e29",
+    "e3",
+    "e30",
+    "e31",
+    "e32",
+    "e33",
+    "e4",
+    "e5",
+    "e6",
+    "e7",
+    "e8",
+    "e9"
+  ],
+  "overlap_pairs": [
+    {
+      "left_hypothesis_id": "hyp_001_low_diversity_bulk_features",
+      "right_hypothesis_id": "hyp_008_localized_representation_sensitive_handles_amid_global_low_diversity",
+      "shared_evidence_refs": [
+        "e23",
+        "e24",
+        "e25",
+        "e26",
+        "e27",
+        "e28",
+        "e29",
+        "e30",
+        "e31",
+        "e32"
+      ]
+    },
+    {
+      "left_hypothesis_id": "hyp_001_low_diversity_bulk_features",
+      "right_hypothesis_id": "hyp_009_potential_structural_collapse_vs_burst_behavior_in_feature_distributions",
+      "shared_evidence_refs": [
+        "e23",
+        "e24",
+        "e25",
+        "e26",
+        "e27",
+        "e28",
+        "e29",
+        "e30",
+        "e31",
+        "e32"
+      ]
+    },
+    {
+      "left_hypothesis_id": "hyp_002_strong_linear_dependencies_and_redundancy",
+      "right_hypothesis_id": "hyp_007_potential_overlap_preserving_competing_framings_between_dependency_and_representation_signals",
+      "shared_evidence_refs": [
+        "e13",
+        "e14",
+        "e15",
+        "e16",
+        "e17",
+        "e18",
+        "e19",
+        "e20",
+        "e21",
+        "e22"
+      ]
+    },
+    {
+      "left_hypothesis_id": "hyp_002_strong_linear_dependencies_and_redundancy",
+      "right_hypothesis_id": "hyp_009_potential_structural_collapse_vs_burst_behavior_in_feature_distributions",
+      "shared_evidence_refs": [
+        "e13",
+        "e14",
+        "e15",
+        "e16",
+        "e17",
+        "e18",
+        "e19",
+        "e20",
+        "e21",
+        "e22"
+      ]
+    },
+    {
+      "left_hypothesis_id": "hyp_003_class_conditioned_structural_variation_in_packet_length_features",
+      "right_hypothesis_id": "hyp_008_localized_representation_sensitive_handles_amid_global_low_diversity",
+      "shared_evidence_refs": [
+        "e10",
+        "e11",
+        "e12",
+        "e8",
+        "e9"
+      ]
+    },
+    {
+      "left_hypothesis_id": "hyp_003_class_conditioned_structural_variation_in_packet_length_features",
+      "right_hypothesis_id": "hyp_010_effect_of_class_imbalance_on_feature_distribution_and_modeling",
+      "shared_evidence_refs": [
+        "e10",
+        "e11",
+        "e12",
+        "e8",
+        "e9"
+      ]
+    },
+    {
+      "left_hypothesis_id": "hyp_004_destination_port_distribution_shift",
+      "right_hypothesis_id": "hyp_007_potential_overlap_preserving_competing_framings_between_dependency_and_representation_signals",
+      "shared_evidence_refs": [
+        "e33"
+      ]
+    },
+    {
+      "left_hypothesis_id": "hyp_004_destination_port_distribution_shift",
+      "right_hypothesis_id": "hyp_008_localized_representation_sensitive_handles_amid_global_low_diversity",
+      "shared_evidence_refs": [
+        "e33"
+      ]
+    },
+    {
+      "left_hypothesis_id": "hyp_005_partition_level_data_quality_and_duplication_impact",
+      "right_hypothesis_id": "hyp_010_effect_of_class_imbalance_on_feature_distribution_and_modeling",
+      "shared_evidence_refs": [
+        "e1",
+        "e2"
+      ]
+    },
+    {
+      "left_hypothesis_id": "hyp_007_potential_overlap_preserving_competing_framings_between_dependency_and_representation_signals",
+      "right_hypothesis_id": "hyp_008_localized_representation_sensitive_handles_amid_global_low_diversity",
+      "shared_evidence_refs": [
+        "e33"
+      ]
+    },
+    {
+      "left_hypothesis_id": "hyp_007_potential_overlap_preserving_competing_framings_between_dependency_and_representation_signals",
+      "right_hypothesis_id": "hyp_009_potential_structural_collapse_vs_burst_behavior_in_feature_distributions",
+      "shared_evidence_refs": [
+        "e13",
+        "e14",
+        "e15",
+        "e16",
+        "e17",
+        "e18",
+        "e19",
+        "e20",
+        "e21",
+        "e22"
+      ]
+    },
+    {
+      "left_hypothesis_id": "hyp_008_localized_representation_sensitive_handles_amid_global_low_diversity",
+      "right_hypothesis_id": "hyp_009_potential_structural_collapse_vs_burst_behavior_in_feature_distributions",
+      "shared_evidence_refs": [
+        "e23",
+        "e24",
+        "e25",
+        "e26",
+        "e27",
+        "e28",
+        "e29",
+        "e30",
+        "e31",
+        "e32"
+      ]
+    },
+    {
+      "left_hypothesis_id": "hyp_008_localized_representation_sensitive_handles_amid_global_low_diversity",
+      "right_hypothesis_id": "hyp_010_effect_of_class_imbalance_on_feature_distribution_and_modeling",
+      "shared_evidence_refs": [
+        "e10",
+        "e11",
+        "e12",
+        "e8",
+        "e9"
+      ]
+    }
+  ],
+  "hypotheses": [
+    {
+      "hypothesis_id": "hyp_001_low_diversity_bulk_features",
+      "evidence_refs": [
+        "e23",
+        "e24",
+        "e25",
+        "e26",
+        "e27",
+        "e28",
+        "e29",
+        "e30",
+        "e31",
+        "e32"
+      ],
+      "open_question_count": 2
+    },
+    {
+      "hypothesis_id": "hyp_002_strong_linear_dependencies_and_redundancy",
+      "evidence_refs": [
+        "e13",
+        "e14",
+        "e15",
+        "e16",
+        "e17",
+        "e18",
+        "e19",
+        "e20",
+        "e21",
+        "e22"
+      ],
+      "open_question_count": 3
+    },
+    {
+      "hypothesis_id": "hyp_003_class_conditioned_structural_variation_in_packet_length_features",
+      "evidence_refs": [
+        "e10",
+        "e11",
+        "e12",
+        "e8",
+        "e9"
+      ],
+      "open_question_count": 3
+    },
+    {
+      "hypothesis_id": "hyp_004_destination_port_distribution_shift",
+      "evidence_refs": [
+        "e33"
+      ],
+      "open_question_count": 3
+    },
+    {
+      "hypothesis_id": "hyp_005_partition_level_data_quality_and_duplication_impact",
+      "evidence_refs": [
+        "e1",
+        "e2"
+      ],
+      "open_question_count": 3
+    },
+    {
+      "hypothesis_id": "hyp_006_top_ranked_packet_length_features_indicate_structural_importance",
+      "evidence_refs": [
+        "e3",
+        "e4",
+        "e5",
+        "e6",
+        "e7"
+      ],
+      "open_question_count": 3
+    },
+    {
+      "hypothesis_id": "hyp_007_potential_overlap_preserving_competing_framings_between_dependency_and_representation_signals",
+      "evidence_refs": [
+        "e13",
+        "e14",
+        "e15",
+        "e16",
+        "e17",
+        "e18",
+        "e19",
+        "e20",
+        "e21",
+        "e22",
+        "e33"
+      ],
+      "open_question_count": 3
+    },
+    {
+      "hypothesis_id": "hyp_008_localized_representation_sensitive_handles_amid_global_low_diversity",
+      "evidence_refs": [
+        "e10",
+        "e11",
+        "e12",
+        "e23",
+        "e24",
+        "e25",
+        "e26",
+        "e27",
+        "e28",
+        "e29",
+        "e30",
+        "e31",
+        "e32",
+        "e33",
+        "e8",
+        "e9"
+      ],
+      "open_question_count": 3
+    },
+    {
+      "hypothesis_id": "hyp_009_potential_structural_collapse_vs_burst_behavior_in_feature_distributions",
+      "evidence_refs": [
+        "e13",
+        "e14",
+        "e15",
+        "e16",
+        "e17",
+        "e18",
+        "e19",
+        "e20",
+        "e21",
+        "e22",
+        "e23",
+        "e24",
+        "e25",
+        "e26",
+        "e27",
+        "e28",
+        "e29",
+        "e30",
+        "e31",
+        "e32"
+      ],
+      "open_question_count": 3
+    },
+    {
+      "hypothesis_id": "hyp_010_effect_of_class_imbalance_on_feature_distribution_and_modeling",
+      "evidence_refs": [
+        "e1",
+        "e10",
+        "e11",
+        "e12",
+        "e2",
+        "e8",
+        "e9"
+      ],
+      "open_question_count": 3
+    }
+  ]
+}

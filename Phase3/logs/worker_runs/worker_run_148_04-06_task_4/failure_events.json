@@ -1,0 +1,23 @@
+[
+  {
+    "step_index": 3,
+    "attempt_index": 0,
+    "failure_kind": "tool_execution_error",
+    "message": "related_feature_name 'Bwd Avg Bulk Rate' is outside the selected local context.",
+    "call_id": "task_4_step_03"
+  },
+  {
+    "step_index": 3,
+    "attempt_index": 1,
+    "failure_kind": "tool_execution_error",
+    "message": "related_feature_name 'Bwd Packet Length Max' is outside the selected local context.",
+    "call_id": "task_4_step_03"
+  },
+  {
+    "step_index": 5,
+    "attempt_index": 0,
+    "failure_kind": "tool_execution_error",
+    "message": "Dependency concentration analysis requires at least one finite pairwise dependency.",
+    "call_id": "task_4_step_05"
+  }
+]

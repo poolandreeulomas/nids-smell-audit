@@ -1,0 +1,29 @@
+{
+  "aggregation_handoff": {
+    "batch_id": "phase3a_batch_0406154632_friday-workinghours-afternoon-ddos.pcap_iscx_92d6c1",
+    "round_id": "round-001",
+    "hypothesis_id": "hyp_7_class_conditioned_distribution_destination_port",
+    "merged_findings": [
+      "The Destination Port feature in the DDoS class is characterized by a near-constant value with zero entropy and a dominant ratio of 1.0, indicating strong concentration on a single port.",
+      "This low cardinality and narrowly clustered dependency profile support strong class-conditioned distributional divergence and stable metrics for the DDoS class.",
+      "However, there is tension between the low cardinality feature values and class variation, suggesting a potential shortcut-like overfitting risk.",
+      "Local evidence reveals moderate shortcut-like predictive leverage but also high local label neighborhood conflicts and duplicate label conflicts, indicating structural irregularities and potential artifact signals mixed with genuine attack signals.",
+      "The local contradiction regarding the distinction between artifact and genuine attack signals in the destination port distribution is preserved."
+    ],
+    "evidence_refs": [
+      "task_1_step_03",
+      "task_1_step_05",
+      "task_2_step_03",
+      "task_2_step_05",
+      "task_3_step_03",
+      "task_3_step_05"
+    ],
+    "preserved_contradictions": [
+      "local contradiction preserved"
+    ],
+    "open_gaps": [
+      "Analysis is limited to local evidence and single feature context without global aggregation or cross-feature dependency expansion, leaving unresolved the differentiation between artifact signals and genuine attack targeting signals."
+    ],
+    "update_focus": "Focus on resolving the tension between low cardinality and class variation in the destination port feature, and disambiguating artifact signals from genuine attack signals through expanded cross-feature and global analyses."
+  }
+}

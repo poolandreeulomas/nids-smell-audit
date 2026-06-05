@@ -1,0 +1,47 @@
+{
+  "ok": true,
+  "tool": "shortcut_analysis",
+  "feature_name": "Fwd PSH Flags",
+  "value": 0.5383755664561091,
+  "error_code": null,
+  "error_message": null,
+  "meta": {
+    "dataset_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\data\\cic_ids_2017\\Friday-WorkingHours-Afternoon-DDos.pcap_ISCX.csv",
+    "label_column": "Label"
+  },
+  "evidence": {
+    "feature": "Fwd PSH Flags",
+    "signals": [
+      "weak_shortcut_evidence"
+    ],
+    "metrics": {
+      "cv_balanced_accuracy": 0.5383755664561091,
+      "cv_balanced_accuracy_std": 0.013029776811235377,
+      "train_balanced_accuracy": 0.5383757342557154,
+      "generalization_gap": 1.6779960632096191e-07,
+      "threshold": 0.5,
+      "fold_count": 5,
+      "attack_rate": 0.5671310549513832,
+      "retained_rows": 225745,
+      "coverage_ratio": 1.0
+    },
+    "support": {
+      "n_total": 225745,
+      "n_per_class": {
+        "DDoS": 128027,
+        "BENIGN": 97718
+      },
+      "total_samples": 225745,
+      "per_class": {
+        "DDoS": 128027,
+        "BENIGN": 97718
+      }
+    },
+    "provenance": {
+      "source": "tool",
+      "tool": "shortcut_analysis",
+      "step": null
+    },
+    "status": "active"
+  }
+}

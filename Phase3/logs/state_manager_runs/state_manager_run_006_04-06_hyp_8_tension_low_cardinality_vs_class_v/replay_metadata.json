@@ -1,0 +1,13 @@
+{
+  "request_id": "state_manager_0c70d59ea9074870b189f2cb9911ce4b",
+  "prompt_version": "phase3a.state_manager.prompt.v1",
+  "replay_of": null,
+  "fresh_execution": true,
+  "expected_prior_state_version": 1,
+  "prior_state_source": {
+    "origin": "investigation_analysis_seed",
+    "source_run_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\investigation_analysis_runs\\investigation_analysis_run_027_04-06_phase3a_batch_0406154632_friday_workingh\\component_run.json",
+    "state_version": 1,
+    "batch_id": "phase3a_batch_0406154632_friday-workinghours-afternoon-ddos.pcap_iscx_92d6c1"
+  }
+}

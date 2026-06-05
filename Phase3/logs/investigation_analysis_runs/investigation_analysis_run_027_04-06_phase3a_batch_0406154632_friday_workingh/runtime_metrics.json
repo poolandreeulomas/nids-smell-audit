@@ -1,0 +1,18 @@
+{
+  "batch_id": "phase3a_batch_0406154632_friday-workinghours-afternoon-ddos.pcap_iscx_92d6c1",
+  "source_substrate_id": "substrate_phase3a_batch_0406154632_friday-workinghours-afternoon-ddos.pcap_iscx_92d6c1",
+  "analysis_id": "analysis_phase3a_0406154632",
+  "model_name": "gpt-4.1-mini",
+  "duration_ms": 19711.185,
+  "status": "ok",
+  "prompt_chars": 15725,
+  "raw_response_chars": 7371,
+  "hypothesis_count": 10,
+  "overlap_count": 10,
+  "open_question_count": 20,
+  "distinct_evidence_ref_count": 27,
+  "fresh_execution": true,
+  "replay_of": null,
+  "caller_mode": "cli",
+  "schema_version": "phase3a.investigation_analysis.v1"
+}

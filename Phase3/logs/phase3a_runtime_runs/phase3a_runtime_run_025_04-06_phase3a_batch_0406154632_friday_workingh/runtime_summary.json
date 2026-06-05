@@ -1,0 +1,43 @@
+{
+  "run_id": "phase3a_runtime_run_025_04-06_phase3a_batch_0406154632_friday_workingh",
+  "batch_id": "phase3a_batch_0406154632_friday-workinghours-afternoon-ddos.pcap_iscx_92d6c1",
+  "mode": "full_round",
+  "status": "failed",
+  "final_status": "failed",
+  "terminal_reason": "runtime_error",
+  "completed_components": [
+    "semantic_extraction",
+    "investigation_analysis"
+  ],
+  "failed_components": [
+    "round-001"
+  ],
+  "warnings": [],
+  "errors": [
+    {
+      "type": "RuntimeError",
+      "message": "state_manager returned a non-authoritative bundle."
+    }
+  ],
+  "round_count": 0,
+  "final_state_version": 0,
+  "error": {
+    "type": "RuntimeError",
+    "message": "state_manager returned a non-authoritative bundle."
+  },
+  "artifact_paths": {
+    "run_dir": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\phase3a_runtime_runs\\phase3a_runtime_run_025_04-06_phase3a_batch_0406154632_friday_workingh",
+    "run_manifest_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\phase3a_runtime_runs\\phase3a_runtime_run_025_04-06_phase3a_batch_0406154632_friday_workingh\\run_manifest.json",
+    "runtime_summary_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\phase3a_runtime_runs\\phase3a_runtime_run_025_04-06_phase3a_batch_0406154632_friday_workingh\\runtime_summary.json",
+    "event_stream_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\phase3a_runtime_runs\\phase3a_runtime_run_025_04-06_phase3a_batch_0406154632_friday_workingh\\event_stream.jsonl",
+    "terminal_log_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\phase3a_runtime_runs\\phase3a_runtime_run_025_04-06_phase3a_batch_0406154632_friday_workingh\\runtime_terminal.log",
+    "component_run_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\phase3a_runtime_runs\\phase3a_runtime_run_025_04-06_phase3a_batch_0406154632_friday_workingh\\component_run.json",
+    "batch_ledger_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\phase3a_runtime_runs\\phase3a_runtime_run_025_04-06_phase3a_batch_0406154632_friday_workingh\\batch_ledger.json",
+    "initial_runtime_context_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\phase3a_runtime_runs\\phase3a_runtime_run_025_04-06_phase3a_batch_0406154632_friday_workingh\\initial_runtime_context.json",
+    "initial_state_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\phase3a_runtime_runs\\phase3a_runtime_run_025_04-06_phase3a_batch_0406154632_friday_workingh\\initial_state.json",
+    "finalization_summary_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\phase3a_runtime_runs\\phase3a_runtime_run_025_04-06_phase3a_batch_0406154632_friday_workingh\\finalization_summary.json",
+    "runtime_metrics_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\phase3a_runtime_runs\\phase3a_runtime_run_025_04-06_phase3a_batch_0406154632_friday_workingh\\runtime_metrics.json",
+    "replay_metadata_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\phase3a_runtime_runs\\phase3a_runtime_run_025_04-06_phase3a_batch_0406154632_friday_workingh\\replay_metadata.json",
+    "round_manifests_dir": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\phase3a_runtime_runs\\phase3a_runtime_run_025_04-06_phase3a_batch_0406154632_friday_workingh\\round_manifests"
+  }
+}

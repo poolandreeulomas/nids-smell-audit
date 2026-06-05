@@ -1,0 +1,328 @@
+[
+  {
+    "ok": true,
+    "execution_ok": true,
+    "call_id": "task_1_step_03",
+    "action": {
+      "action_class": "cardinality_verification",
+      "context_ref": "e33",
+      "feature_name": "Destination Port"
+    },
+    "tool_name": "cardinality_analysis",
+    "request": {
+      "call_id": "task_1_step_03",
+      "tool_name": "cardinality_analysis",
+      "target_scope": "feature",
+      "input_refs": {
+        "feature_name": "Destination Port"
+      },
+      "preprocessing_profile_ref": "default",
+      "execution_constraints": {
+        "cache_policy": "reuse",
+        "validation_mode": "strict",
+        "save_raw_output": true
+      }
+    },
+    "request_validation": {
+      "ok": true,
+      "errors": [],
+      "warnings": []
+    },
+    "raw_tool_output": {
+      "ok": true,
+      "tool": "cardinality_analysis",
+      "feature_name": "Destination Port",
+      "value": 0.10609315820948416,
+      "error_code": null,
+      "error_message": null,
+      "meta": {
+        "dataset_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\data\\cic_ids_2017\\Friday-WorkingHours-Afternoon-DDos.pcap_ISCX.csv",
+        "label_column": "Label"
+      },
+      "evidence": {
+        "feature": "Destination Port",
+        "signals": [],
+        "metrics": {
+          "unique_values": 23950,
+          "cardinality_ratio": 0.10609315820948416
+        },
+        "support": {
+          "n_total": 225745,
+          "n_per_class": {
+            "DDoS": 128027,
+            "BENIGN": 97718
+          },
+          "total_samples": 225745,
+          "per_class": {
+            "DDoS": 128027,
+            "BENIGN": 97718
+          }
+        },
+        "provenance": {
+          "source": "tool",
+          "tool": "cardinality_analysis",
+          "step": null
+        },
+        "status": "active"
+      }
+    },
+    "tool_result": {
+      "call_id": "task_1_step_03",
+      "tool_name": "cardinality_analysis",
+      "status": "ok",
+      "observations": {
+        "feature_name": "Destination Port",
+        "value": 0.10609315820948416,
+        "signals": [],
+        "metrics": {
+          "unique_values": 23950,
+          "cardinality_ratio": 0.10609315820948416
+        },
+        "support": {
+          "n_total": 225745,
+          "n_per_class": {
+            "DDoS": 128027,
+            "BENIGN": 97718
+          },
+          "total_samples": 225745,
+          "per_class": {
+            "DDoS": 128027,
+            "BENIGN": 97718
+          }
+        },
+        "provenance": {
+          "source": "tool",
+          "tool": "cardinality_analysis",
+          "step": null
+        },
+        "feature": "Destination Port"
+      },
+      "evidence_refs": [
+        {
+          "artifact": "parsed_output",
+          "path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_507_04-06_cardinality_analysis_feature\\parsed_output.json"
+        },
+        {
+          "artifact": "raw_tool_output",
+          "path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_507_04-06_cardinality_analysis_feature\\raw_tool_output.json"
+        },
+        {
+          "artifact": "component_run",
+          "path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_507_04-06_cardinality_analysis_feature\\component_run.json"
+        }
+      ],
+      "limitations": []
+    },
+    "result_validation": {
+      "ok": true,
+      "errors": [],
+      "warnings": []
+    },
+    "cache_events": [
+      {
+        "cache_key": "feature_cardinality",
+        "status": "miss"
+      }
+    ],
+    "artifact_paths": {
+      "component_run_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_507_04-06_cardinality_analysis_feature\\component_run.json",
+      "tool_call_request_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_507_04-06_cardinality_analysis_feature\\tool_call_request.json",
+      "tool_capability_record_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_507_04-06_cardinality_analysis_feature\\tool_capability_record.json",
+      "normalized_inputs_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_507_04-06_cardinality_analysis_feature\\normalized_inputs.json",
+      "raw_tool_output_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_507_04-06_cardinality_analysis_feature\\raw_tool_output.json",
+      "parsed_output_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_507_04-06_cardinality_analysis_feature\\parsed_output.json",
+      "validation_report_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_507_04-06_cardinality_analysis_feature\\validation_report.json",
+      "tool_metrics_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_507_04-06_cardinality_analysis_feature\\tool_metrics.json",
+      "cache_record_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_507_04-06_cardinality_analysis_feature\\cache_record.json"
+    },
+    "tool_metrics": {
+      "tool_name": "cardinality_analysis",
+      "target_scope": "feature",
+      "duration_ms": 28385.624,
+      "status": "ok",
+      "cache_status": "tracked",
+      "cache_event_count": 1,
+      "fresh_execution": true,
+      "replay_of": null,
+      "caller_mode": "worker",
+      "schema_version": "phase3a.tools.v1"
+    },
+    "error_message": "",
+    "step_index": 3,
+    "action_index": 1
+  },
+  {
+    "ok": true,
+    "execution_ok": true,
+    "call_id": "task_1_step_05",
+    "action": {
+      "action_class": "distribution_verification",
+      "context_ref": "e33",
+      "feature_name": "Destination Port"
+    },
+    "tool_name": "distribution_analysis",
+    "request": {
+      "call_id": "task_1_step_05",
+      "tool_name": "distribution_analysis",
+      "target_scope": "feature",
+      "input_refs": {
+        "feature_name": "Destination Port"
+      },
+      "preprocessing_profile_ref": "default",
+      "execution_constraints": {
+        "cache_policy": "reuse",
+        "validation_mode": "strict",
+        "save_raw_output": true
+      }
+    },
+    "request_validation": {
+      "ok": true,
+      "errors": [],
+      "warnings": []
+    },
+    "raw_tool_output": {
+      "ok": true,
+      "tool": "distribution_analysis",
+      "feature_name": "Destination Port",
+      "value": 0.7322067350476297,
+      "error_code": null,
+      "error_message": null,
+      "meta": {
+        "dataset_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\data\\cic_ids_2017\\Friday-WorkingHours-Afternoon-DDos.pcap_ISCX.csv",
+        "label_column": "Label"
+      },
+      "evidence": {
+        "feature": "Destination Port",
+        "signals": [
+          "low_entropy",
+          "dominant_value",
+          "high_class_separation"
+        ],
+        "metrics": {
+          "entropy": {
+            "BENIGN": 5.5194238270026705,
+            "DDoS": 0.00029899907226881684
+          },
+          "dominant_ratio": {
+            "BENIGN": 0.32696125585869545,
+            "DDoS": 0.999976567442805
+          },
+          "js_divergence": 0.7322067350476297
+        },
+        "support": {
+          "n_total": 225745,
+          "n_per_class": {
+            "DDoS": 128027,
+            "BENIGN": 97718
+          },
+          "total_samples": 225745,
+          "per_class": {
+            "DDoS": 128027,
+            "BENIGN": 97718
+          }
+        },
+        "provenance": {
+          "source": "tool",
+          "tool": "distribution_analysis",
+          "step": null
+        },
+        "status": "active"
+      }
+    },
+    "tool_result": {
+      "call_id": "task_1_step_05",
+      "tool_name": "distribution_analysis",
+      "status": "ok",
+      "observations": {
+        "feature_name": "Destination Port",
+        "value": 0.7322067350476297,
+        "signals": [
+          "low_entropy",
+          "dominant_value",
+          "high_class_separation"
+        ],
+        "metrics": {
+          "entropy": {
+            "BENIGN": 5.5194238270026705,
+            "DDoS": 0.00029899907226881684
+          },
+          "dominant_ratio": {
+            "BENIGN": 0.32696125585869545,
+            "DDoS": 0.999976567442805
+          },
+          "js_divergence": 0.7322067350476297
+        },
+        "support": {
+          "n_total": 225745,
+          "n_per_class": {
+            "DDoS": 128027,
+            "BENIGN": 97718
+          },
+          "total_samples": 225745,
+          "per_class": {
+            "DDoS": 128027,
+            "BENIGN": 97718
+          }
+        },
+        "provenance": {
+          "source": "tool",
+          "tool": "distribution_analysis",
+          "step": null
+        },
+        "feature": "Destination Port"
+      },
+      "evidence_refs": [
+        {
+          "artifact": "parsed_output",
+          "path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_512_04-06_distribution_analysis_feature\\parsed_output.json"
+        },
+        {
+          "artifact": "raw_tool_output",
+          "path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_512_04-06_distribution_analysis_feature\\raw_tool_output.json"
+        },
+        {
+          "artifact": "component_run",
+          "path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_512_04-06_distribution_analysis_feature\\component_run.json"
+        }
+      ],
+      "limitations": []
+    },
+    "result_validation": {
+      "ok": true,
+      "errors": [],
+      "warnings": []
+    },
+    "cache_events": [
+      {
+        "cache_key": "distribution_analysis::Destination Port",
+        "status": "miss"
+      }
+    ],
+    "artifact_paths": {
+      "component_run_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_512_04-06_distribution_analysis_feature\\component_run.json",
+      "tool_call_request_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_512_04-06_distribution_analysis_feature\\tool_call_request.json",
+      "tool_capability_record_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_512_04-06_distribution_analysis_feature\\tool_capability_record.json",
+      "normalized_inputs_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_512_04-06_distribution_analysis_feature\\normalized_inputs.json",
+      "raw_tool_output_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_512_04-06_distribution_analysis_feature\\raw_tool_output.json",
+      "parsed_output_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_512_04-06_distribution_analysis_feature\\parsed_output.json",
+      "validation_report_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_512_04-06_distribution_analysis_feature\\validation_report.json",
+      "tool_metrics_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_512_04-06_distribution_analysis_feature\\tool_metrics.json",
+      "cache_record_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_512_04-06_distribution_analysis_feature\\cache_record.json"
+    },
+    "tool_metrics": {
+      "tool_name": "distribution_analysis",
+      "target_scope": "feature",
+      "duration_ms": 1686.986,
+      "status": "ok",
+      "cache_status": "tracked",
+      "cache_event_count": 1,
+      "fresh_execution": true,
+      "replay_of": null,
+      "caller_mode": "worker",
+      "schema_version": "phase3a.tools.v1"
+    },
+    "error_message": "",
+    "step_index": 5,
+    "action_index": 1
+  }
+]

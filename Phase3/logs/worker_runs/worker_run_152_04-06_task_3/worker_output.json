@@ -1,0 +1,25 @@
+{
+  "batch_id": "phase3a_batch_0406154632_friday-workinghours-afternoon-ddos.pcap_iscx_92d6c1",
+  "round_id": "round-001",
+  "worker_result": {
+    "task_id": "task_3",
+    "hypothesis_id": "hyp_8_tension_low_cardinality_vs_class_variation",
+    "status": "completed",
+    "findings": [
+      "Backward bulk-related features with near-constant values exhibit high local label conflicts, indicating saturation or measurement limits rather than meaningful class variation.",
+      "Local evidence preserves the tension between low cardinality features and other features with strong class-conditioned variation.",
+      "No local consistency patterns verified for these low cardinality features, supporting the saturation/measurement limit interpretation."
+    ],
+    "evidence_refs": [
+      "task_3_step_03",
+      "task_3_step_05",
+      "task_3_step_07"
+    ],
+    "contradictions": [
+      "local contradiction preserved"
+    ],
+    "limitations": [
+      "Analysis limited to backward bulk features; forward bulk and other features not locally verified in this task."
+    ]
+  }
+}

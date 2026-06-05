@@ -1,0 +1,15 @@
+{
+  "task_id": "task_1",
+  "hypothesis_id": "hyp_004_destination_port_distribution_shift",
+  "task_scope": "Verify distribution stability of destination port across multiple time windows and attack campaigns using evidence e33",
+  "allowed_actions": [
+    "distribution_verification"
+  ],
+  "local_context_refs": [
+    "e33"
+  ],
+  "stop_conditions": [
+    "distribution metrics stable across all time windows",
+    "all attack campaigns analyzed"
+  ]
+}

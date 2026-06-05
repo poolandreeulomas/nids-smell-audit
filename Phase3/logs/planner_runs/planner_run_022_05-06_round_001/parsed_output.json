@@ -1,0 +1,63 @@
+{
+  "batch_id": "phase3a_batch_0506083346_friday-workinghours-afternoon-ddos.pcap_iscx_67ce11",
+  "round_id": "round-001",
+  "planner_strategies": [
+    {
+      "strategy_id": "strategy_01_hyp_004",
+      "hypothesis_id": "hyp_004_destination_port_distribution_shift",
+      "strategic_objective": "Assess stability and contextual dependencies of the destination port distribution shift to understand its reliability and potential shortcut nature.",
+      "key_checks": [
+        "Measure distribution stability of destination port across multiple time windows and attack campaigns",
+        "Evaluate correlation of destination port with other network context features to identify confounding factors",
+        "Test if destination port alone can act as a shortcut signal with high predictive leverage"
+      ],
+      "success_criteria": [
+        "Confirmed consistent distributional shift across temporal segments and attack phases",
+        "Identified whether destination port correlates strongly with other features that may confound interpretation",
+        "Determined if destination port\u2019s predictive power is narrow and shortcut-like or robust and generalizable"
+      ],
+      "router_constraints": [
+        "preserve feature_scope for destination port",
+        "preserve evidence refs e33"
+      ]
+    },
+    {
+      "strategy_id": "strategy_02_hyp_002",
+      "hypothesis_id": "hyp_002_strong_linear_dependencies_and_redundancy",
+      "strategic_objective": "Characterize the stability and origin of strong linear dependencies among packet and flag features to clarify redundancy and its impact on feature dimensionality.",
+      "key_checks": [
+        "Verify stability of strong linear dependencies across different temporal segments and attack phases",
+        "Distinguish whether dependencies arise from protocol constraints or dataset-specific artifacts",
+        "Assess impact of removing redundant features on information retention and robustness"
+      ],
+      "success_criteria": [
+        "Dependencies remain stable or vary systematically with temporal or attack context",
+        "Clear evidence whether dependencies reflect inherent protocol structure or dataset artifacts",
+        "Identified redundant features whose removal does not degrade critical information"
+      ],
+      "router_constraints": [
+        "preserve feature_scope for correlated packet and flag features",
+        "preserve evidence refs e13-e22"
+      ]
+    },
+    {
+      "strategy_id": "strategy_03_hyp_001",
+      "hypothesis_id": "hyp_001_low_diversity_bulk_features",
+      "strategic_objective": "Investigate the nature and implications of low diversity and near-constant behavior in bulk traffic features to discern genuine patterns from artifacts.",
+      "key_checks": [
+        "Check cardinality and value distribution stability of bulk features across time and classes",
+        "Evaluate if low diversity masks intra-class variation or temporal dynamics",
+        "Explore potential data collection or preprocessing artifacts influencing feature saturation"
+      ],
+      "success_criteria": [
+        "Established whether low diversity is consistent with genuine network behavior or artifact",
+        "Detected any meaningful intra-class or temporal variation despite low cardinality",
+        "Identified structural or procedural causes for near-constant feature values"
+      ],
+      "router_constraints": [
+        "preserve feature_scope for bulk traffic features",
+        "preserve evidence refs e23-e32"
+      ]
+    }
+  ]
+}

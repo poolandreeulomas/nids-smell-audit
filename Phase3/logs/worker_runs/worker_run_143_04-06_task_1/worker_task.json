@@ -1,0 +1,25 @@
+{
+  "task_id": "task_1",
+  "hypothesis_id": "hyp_4_strong_dependency_pairs_indicate_redundancy",
+  "task_scope": "Assess if strongly correlated feature pairs in evidence e13 to e22 are exact duplicates or derived from common base features",
+  "allowed_actions": [
+    "duplication_verification",
+    "relation_verification"
+  ],
+  "local_context_refs": [
+    "e13",
+    "e14",
+    "e15",
+    "e16",
+    "e17",
+    "e18",
+    "e19",
+    "e20",
+    "e21",
+    "e22"
+  ],
+  "stop_conditions": [
+    "all strong correlation pairs checked for duplication or derivation",
+    "no new duplication patterns found after full pass"
+  ]
+}

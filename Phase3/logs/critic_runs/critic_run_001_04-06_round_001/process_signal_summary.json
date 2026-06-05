@@ -1,0 +1,14 @@
+{
+  "batch_id": "phase3a_batch_0406154632_friday-workinghours-afternoon-ddos.pcap_iscx_92d6c1",
+  "round_id": "round-001",
+  "is_final_round": false,
+  "state_committed": true,
+  "validation_ok": true,
+  "applied_update_count": 1,
+  "remaining_open_gap_count": 6,
+  "warning_codes": [
+    "contradictions_preserved",
+    "failure_events_present",
+    "open_gaps_remain"
+  ]
+}

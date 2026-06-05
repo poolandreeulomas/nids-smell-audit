@@ -1,0 +1,23 @@
+{
+  "run_id": "phase3a_runtime_run_025_04-06_phase3a_batch_0406154632_friday_workingh",
+  "batch_id": "phase3a_batch_0406154632_friday-workinghours-afternoon-ddos.pcap_iscx_92d6c1",
+  "mode": "full_round",
+  "status": "failed",
+  "start_time": "2026-06-04T15:46:32.863295+00:00",
+  "end_time": "2026-06-04T16:27:49.578538+00:00",
+  "dataset": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\data\\cic_ids_2017\\Friday-WorkingHours-Afternoon-DDos.pcap_ISCX.csv",
+  "completed_components": [
+    "semantic_extraction",
+    "investigation_analysis"
+  ],
+  "failed_components": [
+    "round-001"
+  ],
+  "warnings": [],
+  "errors": [
+    {
+      "type": "RuntimeError",
+      "message": "state_manager returned a non-authoritative bundle."
+    }
+  ]
+}

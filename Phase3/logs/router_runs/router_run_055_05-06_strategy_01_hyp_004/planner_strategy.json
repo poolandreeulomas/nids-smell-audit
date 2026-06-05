@@ -1,0 +1,19 @@
+{
+  "strategy_id": "strategy_01_hyp_004",
+  "hypothesis_id": "hyp_004_destination_port_distribution_shift",
+  "strategic_objective": "Assess stability and contextual dependencies of the destination port distribution shift to understand its reliability and potential shortcut nature.",
+  "key_checks": [
+    "Measure distribution stability of destination port across multiple time windows and attack campaigns",
+    "Evaluate correlation of destination port with other network context features to identify confounding factors",
+    "Test if destination port alone can act as a shortcut signal with high predictive leverage"
+  ],
+  "success_criteria": [
+    "Confirmed consistent distributional shift across temporal segments and attack phases",
+    "Identified whether destination port correlates strongly with other features that may confound interpretation",
+    "Determined if destination port\u2019s predictive power is narrow and shortcut-like or robust and generalizable"
+  ],
+  "router_constraints": [
+    "preserve feature_scope for destination port",
+    "preserve evidence refs e33"
+  ]
+}

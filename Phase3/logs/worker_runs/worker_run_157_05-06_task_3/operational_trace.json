@@ -1,0 +1,609 @@
+{
+  "task_id": "task_3",
+  "action_sequence": [
+    {
+      "step_index": 3,
+      "action_index": 1,
+      "action_class": "structural_summary",
+      "context_ref": "e23",
+      "feature_name": "Bwd Avg Bulk Rate",
+      "related_feature_name": null,
+      "call_id": "task_3_step_03",
+      "status": "ok"
+    },
+    {
+      "step_index": 5,
+      "action_index": 1,
+      "action_class": "structural_summary",
+      "context_ref": "e23",
+      "feature_name": "Fwd Avg Bulk Rate",
+      "related_feature_name": null,
+      "call_id": "task_3_step_05",
+      "status": "ok"
+    },
+    {
+      "step_index": 7,
+      "action_index": 1,
+      "action_class": "shortcut_verification",
+      "context_ref": "e23",
+      "feature_name": "Bwd Avg Bulk Rate",
+      "related_feature_name": null,
+      "call_id": "task_3_step_07",
+      "status": "ok"
+    }
+  ],
+  "tool_events": [
+    {
+      "ok": true,
+      "execution_ok": true,
+      "call_id": "task_3_step_03",
+      "action": {
+        "action_class": "structural_summary",
+        "context_ref": "e23",
+        "feature_name": "Bwd Avg Bulk Rate"
+      },
+      "tool_name": "feature_summary",
+      "request": {
+        "call_id": "task_3_step_03",
+        "tool_name": "feature_summary",
+        "target_scope": "feature",
+        "input_refs": {
+          "feature_name": "Bwd Avg Bulk Rate"
+        },
+        "preprocessing_profile_ref": "default",
+        "execution_constraints": {
+          "cache_policy": "reuse",
+          "validation_mode": "strict",
+          "save_raw_output": true
+        }
+      },
+      "request_validation": {
+        "ok": true,
+        "errors": [],
+        "warnings": []
+      },
+      "raw_tool_output": {
+        "ok": true,
+        "tool": "feature_summary",
+        "feature_name": "Bwd Avg Bulk Rate",
+        "value": 0.0,
+        "error_code": null,
+        "error_message": null,
+        "meta": {
+          "dataset_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\data\\cic_ids_2017\\Friday-WorkingHours-Afternoon-DDos.pcap_ISCX.csv",
+          "label_column": "Label"
+        },
+        "evidence": {
+          "feature": "Bwd Avg Bulk Rate",
+          "signals": [
+            "low_variance",
+            "low_diversity"
+          ],
+          "metrics": {
+            "mean": {
+              "BENIGN": 0.0,
+              "DDoS": 0.0
+            },
+            "std": {
+              "BENIGN": 0.0,
+              "DDoS": 0.0
+            },
+            "variance": {
+              "BENIGN": 0.0,
+              "DDoS": 0.0
+            },
+            "coef_variation": {
+              "BENIGN": null,
+              "DDoS": null
+            },
+            "unique_values": {
+              "BENIGN": 1,
+              "DDoS": 1
+            },
+            "variance_ratio": null
+          },
+          "support": {
+            "n_total": 225745,
+            "n_per_class": {
+              "BENIGN": 97718,
+              "DDoS": 128027
+            },
+            "total_samples": 225745,
+            "per_class": {
+              "BENIGN": 97718,
+              "DDoS": 128027
+            }
+          },
+          "provenance": {
+            "source": "tool",
+            "tool": "feature_summary",
+            "step": null
+          },
+          "status": "active"
+        }
+      },
+      "tool_result": {
+        "call_id": "task_3_step_03",
+        "tool_name": "feature_summary",
+        "status": "ok",
+        "observations": {
+          "feature_name": "Bwd Avg Bulk Rate",
+          "value": 0.0,
+          "signals": [
+            "low_variance",
+            "low_diversity"
+          ],
+          "metrics": {
+            "mean": {
+              "BENIGN": 0.0,
+              "DDoS": 0.0
+            },
+            "std": {
+              "BENIGN": 0.0,
+              "DDoS": 0.0
+            },
+            "variance": {
+              "BENIGN": 0.0,
+              "DDoS": 0.0
+            },
+            "coef_variation": {
+              "BENIGN": null,
+              "DDoS": null
+            },
+            "unique_values": {
+              "BENIGN": 1,
+              "DDoS": 1
+            },
+            "variance_ratio": null
+          },
+          "support": {
+            "n_total": 225745,
+            "n_per_class": {
+              "BENIGN": 97718,
+              "DDoS": 128027
+            },
+            "total_samples": 225745,
+            "per_class": {
+              "BENIGN": 97718,
+              "DDoS": 128027
+            }
+          },
+          "provenance": {
+            "source": "tool",
+            "tool": "feature_summary",
+            "step": null
+          },
+          "feature": "Bwd Avg Bulk Rate"
+        },
+        "evidence_refs": [
+          {
+            "artifact": "parsed_output",
+            "path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_532_05-06_feature_summary_feature\\parsed_output.json"
+          },
+          {
+            "artifact": "raw_tool_output",
+            "path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_532_05-06_feature_summary_feature\\raw_tool_output.json"
+          },
+          {
+            "artifact": "component_run",
+            "path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_532_05-06_feature_summary_feature\\component_run.json"
+          }
+        ],
+        "limitations": []
+      },
+      "result_validation": {
+        "ok": true,
+        "errors": [],
+        "warnings": []
+      },
+      "cache_events": [
+        {
+          "cache_key": "feature_summary::Bwd Avg Bulk Rate",
+          "status": "miss"
+        }
+      ],
+      "artifact_paths": {
+        "component_run_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_532_05-06_feature_summary_feature\\component_run.json",
+        "tool_call_request_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_532_05-06_feature_summary_feature\\tool_call_request.json",
+        "tool_capability_record_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_532_05-06_feature_summary_feature\\tool_capability_record.json",
+        "normalized_inputs_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_532_05-06_feature_summary_feature\\normalized_inputs.json",
+        "raw_tool_output_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_532_05-06_feature_summary_feature\\raw_tool_output.json",
+        "parsed_output_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_532_05-06_feature_summary_feature\\parsed_output.json",
+        "validation_report_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_532_05-06_feature_summary_feature\\validation_report.json",
+        "tool_metrics_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_532_05-06_feature_summary_feature\\tool_metrics.json",
+        "cache_record_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_532_05-06_feature_summary_feature\\cache_record.json"
+      },
+      "tool_metrics": {
+        "tool_name": "feature_summary",
+        "target_scope": "feature",
+        "duration_ms": 1022.035,
+        "status": "ok",
+        "cache_status": "tracked",
+        "cache_event_count": 1,
+        "fresh_execution": true,
+        "replay_of": null,
+        "caller_mode": "worker",
+        "schema_version": "phase3a.tools.v1"
+      },
+      "error_message": "",
+      "step_index": 3,
+      "action_index": 1
+    },
+    {
+      "ok": true,
+      "execution_ok": true,
+      "call_id": "task_3_step_05",
+      "action": {
+        "action_class": "structural_summary",
+        "context_ref": "e23",
+        "feature_name": "Fwd Avg Bulk Rate"
+      },
+      "tool_name": "feature_summary",
+      "request": {
+        "call_id": "task_3_step_05",
+        "tool_name": "feature_summary",
+        "target_scope": "feature",
+        "input_refs": {
+          "feature_name": "Fwd Avg Bulk Rate"
+        },
+        "preprocessing_profile_ref": "default",
+        "execution_constraints": {
+          "cache_policy": "reuse",
+          "validation_mode": "strict",
+          "save_raw_output": true
+        }
+      },
+      "request_validation": {
+        "ok": true,
+        "errors": [],
+        "warnings": []
+      },
+      "raw_tool_output": {
+        "ok": true,
+        "tool": "feature_summary",
+        "feature_name": "Fwd Avg Bulk Rate",
+        "value": 0.0,
+        "error_code": null,
+        "error_message": null,
+        "meta": {
+          "dataset_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\data\\cic_ids_2017\\Friday-WorkingHours-Afternoon-DDos.pcap_ISCX.csv",
+          "label_column": "Label"
+        },
+        "evidence": {
+          "feature": "Fwd Avg Bulk Rate",
+          "signals": [
+            "low_variance",
+            "low_diversity"
+          ],
+          "metrics": {
+            "mean": {
+              "BENIGN": 0.0,
+              "DDoS": 0.0
+            },
+            "std": {
+              "BENIGN": 0.0,
+              "DDoS": 0.0
+            },
+            "variance": {
+              "BENIGN": 0.0,
+              "DDoS": 0.0
+            },
+            "coef_variation": {
+              "BENIGN": null,
+              "DDoS": null
+            },
+            "unique_values": {
+              "BENIGN": 1,
+              "DDoS": 1
+            },
+            "variance_ratio": null
+          },
+          "support": {
+            "n_total": 225745,
+            "n_per_class": {
+              "BENIGN": 97718,
+              "DDoS": 128027
+            },
+            "total_samples": 225745,
+            "per_class": {
+              "BENIGN": 97718,
+              "DDoS": 128027
+            }
+          },
+          "provenance": {
+            "source": "tool",
+            "tool": "feature_summary",
+            "step": null
+          },
+          "status": "active"
+        }
+      },
+      "tool_result": {
+        "call_id": "task_3_step_05",
+        "tool_name": "feature_summary",
+        "status": "ok",
+        "observations": {
+          "feature_name": "Fwd Avg Bulk Rate",
+          "value": 0.0,
+          "signals": [
+            "low_variance",
+            "low_diversity"
+          ],
+          "metrics": {
+            "mean": {
+              "BENIGN": 0.0,
+              "DDoS": 0.0
+            },
+            "std": {
+              "BENIGN": 0.0,
+              "DDoS": 0.0
+            },
+            "variance": {
+              "BENIGN": 0.0,
+              "DDoS": 0.0
+            },
+            "coef_variation": {
+              "BENIGN": null,
+              "DDoS": null
+            },
+            "unique_values": {
+              "BENIGN": 1,
+              "DDoS": 1
+            },
+            "variance_ratio": null
+          },
+          "support": {
+            "n_total": 225745,
+            "n_per_class": {
+              "BENIGN": 97718,
+              "DDoS": 128027
+            },
+            "total_samples": 225745,
+            "per_class": {
+              "BENIGN": 97718,
+              "DDoS": 128027
+            }
+          },
+          "provenance": {
+            "source": "tool",
+            "tool": "feature_summary",
+            "step": null
+          },
+          "feature": "Fwd Avg Bulk Rate"
+        },
+        "evidence_refs": [
+          {
+            "artifact": "parsed_output",
+            "path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_536_05-06_feature_summary_feature\\parsed_output.json"
+          },
+          {
+            "artifact": "raw_tool_output",
+            "path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_536_05-06_feature_summary_feature\\raw_tool_output.json"
+          },
+          {
+            "artifact": "component_run",
+            "path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_536_05-06_feature_summary_feature\\component_run.json"
+          }
+        ],
+        "limitations": []
+      },
+      "result_validation": {
+        "ok": true,
+        "errors": [],
+        "warnings": []
+      },
+      "cache_events": [
+        {
+          "cache_key": "feature_summary::Fwd Avg Bulk Rate",
+          "status": "miss"
+        }
+      ],
+      "artifact_paths": {
+        "component_run_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_536_05-06_feature_summary_feature\\component_run.json",
+        "tool_call_request_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_536_05-06_feature_summary_feature\\tool_call_request.json",
+        "tool_capability_record_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_536_05-06_feature_summary_feature\\tool_capability_record.json",
+        "normalized_inputs_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_536_05-06_feature_summary_feature\\normalized_inputs.json",
+        "raw_tool_output_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_536_05-06_feature_summary_feature\\raw_tool_output.json",
+        "parsed_output_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_536_05-06_feature_summary_feature\\parsed_output.json",
+        "validation_report_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_536_05-06_feature_summary_feature\\validation_report.json",
+        "tool_metrics_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_536_05-06_feature_summary_feature\\tool_metrics.json",
+        "cache_record_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_536_05-06_feature_summary_feature\\cache_record.json"
+      },
+      "tool_metrics": {
+        "tool_name": "feature_summary",
+        "target_scope": "feature",
+        "duration_ms": 375.307,
+        "status": "ok",
+        "cache_status": "tracked",
+        "cache_event_count": 1,
+        "fresh_execution": true,
+        "replay_of": null,
+        "caller_mode": "worker",
+        "schema_version": "phase3a.tools.v1"
+      },
+      "error_message": "",
+      "step_index": 5,
+      "action_index": 1
+    },
+    {
+      "ok": true,
+      "execution_ok": true,
+      "call_id": "task_3_step_07",
+      "action": {
+        "action_class": "shortcut_verification",
+        "context_ref": "e23",
+        "feature_name": "Bwd Avg Bulk Rate"
+      },
+      "tool_name": "shortcut_analysis",
+      "request": {
+        "call_id": "task_3_step_07",
+        "tool_name": "shortcut_analysis",
+        "target_scope": "feature",
+        "input_refs": {
+          "feature_name": "Bwd Avg Bulk Rate"
+        },
+        "preprocessing_profile_ref": "default",
+        "execution_constraints": {
+          "cache_policy": "reuse",
+          "validation_mode": "strict",
+          "save_raw_output": true
+        }
+      },
+      "request_validation": {
+        "ok": true,
+        "errors": [],
+        "warnings": []
+      },
+      "raw_tool_output": {
+        "ok": true,
+        "tool": "shortcut_analysis",
+        "feature_name": "Bwd Avg Bulk Rate",
+        "value": 0.5,
+        "error_code": null,
+        "error_message": null,
+        "meta": {
+          "dataset_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\data\\cic_ids_2017\\Friday-WorkingHours-Afternoon-DDos.pcap_ISCX.csv",
+          "label_column": "Label"
+        },
+        "evidence": {
+          "feature": "Bwd Avg Bulk Rate",
+          "signals": [
+            "weak_shortcut_evidence"
+          ],
+          "metrics": {
+            "cv_balanced_accuracy": 0.5,
+            "cv_balanced_accuracy_std": 0.0,
+            "train_balanced_accuracy": 0.5,
+            "generalization_gap": 0.0,
+            "threshold": null,
+            "fold_count": 5,
+            "attack_rate": 0.5671310549513832,
+            "retained_rows": 225745,
+            "coverage_ratio": 1.0
+          },
+          "support": {
+            "n_total": 225745,
+            "n_per_class": {
+              "DDoS": 128027,
+              "BENIGN": 97718
+            },
+            "total_samples": 225745,
+            "per_class": {
+              "DDoS": 128027,
+              "BENIGN": 97718
+            }
+          },
+          "provenance": {
+            "source": "tool",
+            "tool": "shortcut_analysis",
+            "step": null
+          },
+          "status": "active"
+        }
+      },
+      "tool_result": {
+        "call_id": "task_3_step_07",
+        "tool_name": "shortcut_analysis",
+        "status": "ok",
+        "observations": {
+          "feature_name": "Bwd Avg Bulk Rate",
+          "value": 0.5,
+          "signals": [
+            "weak_shortcut_evidence"
+          ],
+          "metrics": {
+            "cv_balanced_accuracy": 0.5,
+            "cv_balanced_accuracy_std": 0.0,
+            "train_balanced_accuracy": 0.5,
+            "generalization_gap": 0.0,
+            "threshold": null,
+            "fold_count": 5,
+            "attack_rate": 0.5671310549513832,
+            "retained_rows": 225745,
+            "coverage_ratio": 1.0
+          },
+          "support": {
+            "n_total": 225745,
+            "n_per_class": {
+              "DDoS": 128027,
+              "BENIGN": 97718
+            },
+            "total_samples": 225745,
+            "per_class": {
+              "DDoS": 128027,
+              "BENIGN": 97718
+            }
+          },
+          "provenance": {
+            "source": "tool",
+            "tool": "shortcut_analysis",
+            "step": null
+          },
+          "feature": "Bwd Avg Bulk Rate"
+        },
+        "evidence_refs": [
+          {
+            "artifact": "parsed_output",
+            "path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_540_05-06_shortcut_analysis_feature\\parsed_output.json"
+          },
+          {
+            "artifact": "raw_tool_output",
+            "path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_540_05-06_shortcut_analysis_feature\\raw_tool_output.json"
+          },
+          {
+            "artifact": "component_run",
+            "path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_540_05-06_shortcut_analysis_feature\\component_run.json"
+          }
+        ],
+        "limitations": []
+      },
+      "result_validation": {
+        "ok": true,
+        "errors": [],
+        "warnings": []
+      },
+      "cache_events": [
+        {
+          "cache_key": "shortcut_analysis::Bwd Avg Bulk Rate",
+          "status": "miss"
+        }
+      ],
+      "artifact_paths": {
+        "component_run_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_540_05-06_shortcut_analysis_feature\\component_run.json",
+        "tool_call_request_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_540_05-06_shortcut_analysis_feature\\tool_call_request.json",
+        "tool_capability_record_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_540_05-06_shortcut_analysis_feature\\tool_capability_record.json",
+        "normalized_inputs_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_540_05-06_shortcut_analysis_feature\\normalized_inputs.json",
+        "raw_tool_output_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_540_05-06_shortcut_analysis_feature\\raw_tool_output.json",
+        "parsed_output_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_540_05-06_shortcut_analysis_feature\\parsed_output.json",
+        "validation_report_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_540_05-06_shortcut_analysis_feature\\validation_report.json",
+        "tool_metrics_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_540_05-06_shortcut_analysis_feature\\tool_metrics.json",
+        "cache_record_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_540_05-06_shortcut_analysis_feature\\cache_record.json"
+      },
+      "tool_metrics": {
+        "tool_name": "shortcut_analysis",
+        "target_scope": "feature",
+        "duration_ms": 1053.048,
+        "status": "ok",
+        "cache_status": "tracked",
+        "cache_event_count": 1,
+        "fresh_execution": true,
+        "replay_of": null,
+        "caller_mode": "worker",
+        "schema_version": "phase3a.tools.v1"
+      },
+      "error_message": "",
+      "step_index": 7,
+      "action_index": 1
+    }
+  ],
+  "retry_events": [],
+  "failure_events": [],
+  "budget_consumption": {
+    "max_steps": 8,
+    "max_retries": 1,
+    "steps_used": 8,
+    "retries_used": 0,
+    "termination_cause": "model_finish",
+    "result_committed": true
+  }
+}

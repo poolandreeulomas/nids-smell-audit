@@ -1,0 +1,40 @@
+{
+  "hypothesis_id": "hyp_8_tension_low_cardinality_vs_class_variation",
+  "planner_strategy_id": "strategy_03_hyp_8",
+  "task_count": 4,
+  "action_class_count": 7,
+  "task_summaries": [
+    {
+      "task_id": "task_1",
+      "hypothesis_id": "hyp_8_tension_low_cardinality_vs_class_variation",
+      "task_scope": "Measure cardinality and distribution shifts for low cardinality bulk and flag features within evidence refs e8 to e12",
+      "allowed_action_count": 2,
+      "local_context_ref_count": 5,
+      "stop_condition_count": 2
+    },
+    {
+      "task_id": "task_2",
+      "hypothesis_id": "hyp_8_tension_low_cardinality_vs_class_variation",
+      "task_scope": "Evaluate class-conditioned structural variation in features with strong distributional shifts in evidence refs e8 to e12",
+      "allowed_action_count": 2,
+      "local_context_ref_count": 5,
+      "stop_condition_count": 2
+    },
+    {
+      "task_id": "task_3",
+      "hypothesis_id": "hyp_8_tension_low_cardinality_vs_class_variation",
+      "task_scope": "Investigate if low cardinality features reflect saturation or measurement limits using evidence refs e23 to e33",
+      "allowed_action_count": 2,
+      "local_context_ref_count": 10,
+      "stop_condition_count": 2
+    },
+    {
+      "task_id": "task_4",
+      "hypothesis_id": "hyp_8_tension_low_cardinality_vs_class_variation",
+      "task_scope": "Assess how models might reconcile or leverage heterogeneous feature behaviors across evidence refs e8 to e12 and e23 to e33",
+      "allowed_action_count": 2,
+      "local_context_ref_count": 15,
+      "stop_condition_count": 2
+    }
+  ]
+}

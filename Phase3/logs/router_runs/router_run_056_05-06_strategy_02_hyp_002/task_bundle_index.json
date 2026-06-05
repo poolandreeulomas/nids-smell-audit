@@ -1,0 +1,32 @@
+{
+  "hypothesis_id": "hyp_002_strong_linear_dependencies_and_redundancy",
+  "planner_strategy_id": "strategy_02_hyp_002",
+  "task_count": 3,
+  "action_class_count": 7,
+  "task_summaries": [
+    {
+      "task_id": "task_1",
+      "hypothesis_id": "hyp_002_strong_linear_dependencies_and_redundancy",
+      "task_scope": "Verify stability of strong linear dependencies among packet and flag features across different temporal segments and attack phases within evidence refs e13-e22.",
+      "allowed_action_count": 2,
+      "local_context_ref_count": 10,
+      "stop_condition_count": 2
+    },
+    {
+      "task_id": "task_2",
+      "hypothesis_id": "hyp_002_strong_linear_dependencies_and_redundancy",
+      "task_scope": "Distinguish whether observed linear dependencies among packet and flag features arise from inherent protocol constraints or dataset-specific artifacts using evidence refs e13-e22.",
+      "allowed_action_count": 2,
+      "local_context_ref_count": 10,
+      "stop_condition_count": 2
+    },
+    {
+      "task_id": "task_3",
+      "hypothesis_id": "hyp_002_strong_linear_dependencies_and_redundancy",
+      "task_scope": "Assess impact of removing redundant packet and flag features on information retention and robustness within evidence refs e13-e22, preserving correlated feature scope.",
+      "allowed_action_count": 3,
+      "local_context_ref_count": 10,
+      "stop_condition_count": 3
+    }
+  ]
+}

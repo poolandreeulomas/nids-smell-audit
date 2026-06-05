@@ -1,0 +1,145 @@
+```json
+{
+  "batch_id": "phase3a_batch_0506083346_friday-workinghours-afternoon-ddos.pcap_iscx_67ce11",
+  "round_id": "round-001",
+  "selected_hypothesis_ids": [
+    "hyp_004_destination_port_distribution_shift",
+    "hyp_002_strong_linear_dependencies_and_redundancy",
+    "hyp_001_low_diversity_bulk_features"
+  ],
+  "source_hypothesis_records": [
+    {
+      "hypothesis_id": "hyp_004_destination_port_distribution_shift",
+      "aggregation_run_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\aggregation_runs\\aggregation_run_039_05-06_hyp_004_destination_port_distribution_sh\\component_run.json",
+      "merged_findings": [
+        "Destination Port distribution exhibits a strong and consistent class-conditioned shift between BENIGN and DDoS classes, characterized by dominant values and high divergence metrics (e.g., Jensen-Shannon divergence of 0.7315), indicating distribution instability across attack campaigns.",
+        "This feature shows a moderate shortcut signal with predictive leverage for distinguishing BENIGN from DDoS traffic.",
+        "No local evidence within bounded scope e33 indicates correlation or confounding factors between Destination Port and other network context features."
+      ],
+      "evidence_refs": [
+        "task_1_step_03",
+        "task_2_step_03",
+        "task_2_step_05",
+        "task_2_step_07",
+        "task_3_step_03"
+      ],
+      "preserved_contradictions": [],
+      "open_gaps": [
+        "Potential confounding factors outside the bounded local evidence e33 remain unexamined.",
+        "Broader multifeature interactions beyond the single-feature deterministic decision stump analysis have not been assessed."
+      ],
+      "limitations": [
+        "Analysis limited to bounded local evidence e33; potential confounding factors outside this scope remain unexamined.",
+        "Analysis limited to single-feature deterministic decision stump; broader multifeature interactions not assessed."
+      ],
+      "update_focus": "Focus on further exploration of potential confounding factors beyond local evidence scope and assessment of multifeature interactions to better understand the role and stability of Destination Port distribution shifts as a shortcut signal.",
+      "provenance": {
+        "batch_id": "phase3a_batch_0506083346_friday-workinghours-afternoon-ddos.pcap_iscx_67ce11",
+        "round_id": "round-001",
+        "source_order": 0,
+        "source_aggregation_component_run_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\aggregation_runs\\aggregation_run_039_05-06_hyp_004_destination_port_distribution_sh\\component_run.json",
+        "source_worker_result_set_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\aggregation_runs\\aggregation_run_039_05-06_hyp_004_destination_port_distribution_sh\\worker_result_set.json",
+        "source_normalized_inputs_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\aggregation_runs\\aggregation_run_039_05-06_hyp_004_destination_port_distribution_sh\\normalized_inputs.json",
+        "source_run_dirs": [
+          "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\worker_runs\\worker_run_153_05-06_task_3",
+          "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\worker_runs\\worker_run_154_05-06_task_1",
+          "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\worker_runs\\worker_run_156_05-06_task_2"
+        ],
+        "source_validation_ok": true,
+        "source_status": "ok"
+      }
+    },
+    {
+      "hypothesis_id": "hyp_002_strong_linear_dependencies_and_redundancy",
+      "aggregation_run_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\aggregation_runs\\aggregation_run_040_05-06_hyp_002_strong_linear_dependencies_and_r\\component_run.json",
+      "merged_findings": [
+        "Strong linear dependencies and near-perfect correlations among packet and flag features are stable and consistent across different temporal segments and attack phases, indicating redundancy rather than instability or dataset artifacts.",
+        "These dependencies are primarily driven by inherent protocol constraints such as packet segmentation and flow aggregation, as supported by verified feature pairs with near-perfect correlation.",
+        "Specific features like 'Packet Length Mean', 'Average Packet Size', 'Fwd Header Length.1', and 'SYN Flag Count' exhibit concentrated dependency profiles and low cardinality, suggesting limited additional information gain and reinforcing redundancy.",
+        "Local consistency checks confirm stable label-topology around these features without contradictory evidence."
+      ],
+      "evidence_refs": [
+        "task_1_step_03",
+        "task_1_step_05",
+        "task_1_step_07",
+        "task_2_step_03",
+        "task_2_step_05",
+        "task_2_step_07",
+        "task_3_step_03",
+        "task_3_step_05",
+        "task_3_step_07"
+      ],
+      "preserved_contradictions": [],
+      "open_gaps": [
+        "Analyses are limited to explicitly referenced features, local feature pairs, and local dependency clusters; global dataset-wide artifact patterns and cross-context validations remain unassessed."
+      ],
+      "limitations": [
+        "Analysis limited to bounded local feature pairs; global dataset-wide artifact patterns not assessed.",
+        "Analysis limited to features and segments explicitly referenced; other features or segments not examined may exhibit different patterns.",
+        "Analysis limited to local dependency clusters without global aggregation or cross-context validation."
+      ],
+      "update_focus": "Maintain focus on protocol-driven linear dependencies and redundancy patterns within local feature clusters, while addressing the need for broader global and cross-context validation in future rounds.",
+      "provenance": {
+        "batch_id": "phase3a_batch_0506083346_friday-workinghours-afternoon-ddos.pcap_iscx_67ce11",
+        "round_id": "round-001",
+        "source_order": 1,
+        "source_aggregation_component_run_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\aggregation_runs\\aggregation_run_040_05-06_hyp_002_strong_linear_dependencies_and_r\\component_run.json",
+        "source_worker_result_set_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\aggregation_runs\\aggregation_run_040_05-06_hyp_002_strong_linear_dependencies_and_r\\worker_result_set.json",
+        "source_normalized_inputs_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\aggregation_runs\\aggregation_run_040_05-06_hyp_002_strong_linear_dependencies_and_r\\normalized_inputs.json",
+        "source_run_dirs": [
+          "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\worker_runs\\worker_run_155_05-06_task_3",
+          "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\worker_runs\\worker_run_158_05-06_task_1",
+          "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\worker_runs\\worker_run_160_05-06_task_2"
+        ],
+        "source_validation_ok": true,
+        "source_status": "ok"
+      }
+    },
+    {
+      "hypothesis_id": "hyp_001_low_diversity_bulk_features",
+      "aggregation_run_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\aggregation_runs\\aggregation_run_041_05-06_hyp_001_low_diversity_bulk_features\\component_run.json",
+      "merged_findings": [
+        "Bulk traffic features, including 'Bwd Avg Bulk Rate' and 'Fwd Avg Bulk Rate', consistently exhibit extremely low cardinality and near-constant values across the analyzed partition, indicating stable, low-entropy distributions without unexpected shifts.",
+        "Local and partition-global analyses confirm structural stability and lack of temporal or intra-class variation in these bulk features within bounded neighborhoods and the partition scope.",
+        "The low diversity and near-constant nature of these features may be influenced by data collection or preprocessing artifacts, but no strong shortcut signals or exact duplications were detected within the examined scope."
+      ],
+      "evidence_refs": [
+        "task_1_step_03",
+        "task_1_step_05",
+        "task_1_step_07",
+        "task_2_step_03",
+        "task_2_step_05",
+        "task_2_step_07",
+        "task_3_step_03",
+        "task_3_step_05",
+        "task_3_step_07"
+      ],
+      "preserved_contradictions": [],
+      "open_gaps": [
+        "Verification and analysis were limited to selected bulk features and bounded local neighborhoods or partition scope; broader temporal dynamics, other bulk features, and deeper semantic or cross-partition analyses remain unassessed."
+      ],
+      "limitations": [
+        "Analysis limited to bounded local neighborhoods and selected features; broader temporal dynamics outside partition scope not assessed.",
+        "Analysis limited to partition-global scope and features explicitly referenced; no deeper semantic or cross-partition analysis performed.",
+        "Verification limited to features 'Bwd Avg Bulk Rate' and 'Fwd Avg Bulk Rate'; other bulk features not explicitly verified due to budget constraints."
+      ],
+      "update_focus": "Maintain focus on the stability and low diversity of bulk traffic features within the partition, while addressing the limitations related to feature coverage and temporal or cross-partition variability in future analyses.",
+      "provenance": {
+        "batch_id": "phase3a_batch_0506083346_friday-workinghours-afternoon-ddos.pcap_iscx_67ce11",
+        "round_id": "round-001",
+        "source_order": 2,
+        "source_aggregation_component_run_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\aggregation_runs\\aggregation_run_041_05-06_hyp_001_low_diversity_bulk_features\\component_run.json",
+        "source_worker_result_set_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\aggregation_runs\\aggregation_run_041_05-06_hyp_001_low_diversity_bulk_features\\worker_result_set.json",
+        "source_normalized_inputs_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\aggregation_runs\\aggregation_run_041_05-06_hyp_001_low_diversity_bulk_features\\normalized_inputs.json",
+        "source_run_dirs": [
+          "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\worker_runs\\worker_run_157_05-06_task_3",
+          "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\worker_runs\\worker_run_159_05-06_task_2",
+          "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\worker_runs\\worker_run_161_05-06_task_1"
+        ],
+        "source_validation_ok": true,
+        "source_status": "ok"
+      }
+    }
+  ]
+}
+```

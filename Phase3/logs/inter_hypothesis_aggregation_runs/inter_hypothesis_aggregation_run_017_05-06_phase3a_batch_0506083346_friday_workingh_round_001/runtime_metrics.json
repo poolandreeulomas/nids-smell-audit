@@ -1,0 +1,21 @@
+{
+  "batch_id": "phase3a_batch_0506083346_friday-workinghours-afternoon-ddos.pcap_iscx_67ce11",
+  "round_id": "round-001",
+  "selected_hypothesis_count": 3,
+  "source_hypothesis_count": 3,
+  "model_name": "gpt-4.1-mini",
+  "temperature": 0.0,
+  "duration_ms": 32369.764,
+  "status": "ok",
+  "fresh_execution": true,
+  "replay_of": null,
+  "caller_mode": "cli",
+  "schema_version": "phase3a.inter_hypothesis_aggregation.v1",
+  "source_aggregation_count": 3,
+  "source_record_count": 3,
+  "preserved_finding_count": 10,
+  "preserved_contradiction_count": 0,
+  "preserved_open_gap_count": 4,
+  "preserved_limitation_count": 8,
+  "preserved_evidence_ref_count": 23
+}

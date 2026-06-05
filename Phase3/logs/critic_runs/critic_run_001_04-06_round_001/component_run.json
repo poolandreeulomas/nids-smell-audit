@@ -1,0 +1,32 @@
+{
+  "component": "critic",
+  "created_at": "2026-06-04T16:51:38.720486+00:00",
+  "request_id": "critic_1581cff8c951483ea098b6ca0853df7d",
+  "prompt_version": "phase3a.critic.prompt.v1",
+  "schema_version": "phase3a.critic.v1",
+  "batch_id": "phase3a_batch_0406154632_friday-workinghours-afternoon-ddos.pcap_iscx_92d6c1",
+  "round_id": "round-001",
+  "status": "ok",
+  "validation_ok": true,
+  "final_round_gate_status": "allowed_non_final_round",
+  "module_feedback_count": 4,
+  "feedback_committed": true,
+  "model_name": "gpt-4.1-mini",
+  "temperature": 0.0,
+  "source_state_manager_run_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\state_manager_runs\\state_manager_run_006_04-06_hyp_8_tension_low_cardinality_vs_class_v\\component_run.json",
+  "caller_mode": "cli",
+  "replay_of": null,
+  "artifact_paths": {
+    "component_run_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\critic_runs\\critic_run_001_04-06_round_001\\component_run.json",
+    "critic_input_bundle_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\critic_runs\\critic_run_001_04-06_round_001\\critic_input_bundle.json",
+    "refined_state_summary_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\critic_runs\\critic_run_001_04-06_round_001\\refined_state_summary.json",
+    "module_behavior_summaries_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\critic_runs\\critic_run_001_04-06_round_001\\module_behavior_summaries.json",
+    "process_signal_summary_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\critic_runs\\critic_run_001_04-06_round_001\\process_signal_summary.json",
+    "rendered_prompt_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\critic_runs\\critic_run_001_04-06_round_001\\rendered_prompt.txt",
+    "raw_response_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\critic_runs\\critic_run_001_04-06_round_001\\raw_response.txt",
+    "critic_feedback_payload_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\critic_runs\\critic_run_001_04-06_round_001\\critic_feedback_payload.json",
+    "validation_report_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\critic_runs\\critic_run_001_04-06_round_001\\validation_report.json",
+    "runtime_metrics_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\critic_runs\\critic_run_001_04-06_round_001\\runtime_metrics.json",
+    "replay_metadata_path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\critic_runs\\critic_run_001_04-06_round_001\\replay_metadata.json"
+  }
+}

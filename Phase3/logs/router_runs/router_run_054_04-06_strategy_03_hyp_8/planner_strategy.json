@@ -1,0 +1,20 @@
+{
+  "strategy_id": "strategy_03_hyp_8",
+  "hypothesis_id": "hyp_8_tension_low_cardinality_vs_class_variation",
+  "strategic_objective": "Explore the coexistence of near-constant and highly variable features to characterize dataset heterogeneity and measurement effects.",
+  "key_checks": [
+    "Measure cardinality and distribution shifts for low cardinality bulk and flag features",
+    "Evaluate class-conditioned structural variation in features with strong distributional shifts",
+    "Investigate if low cardinality features reflect saturation or measurement limits",
+    "Assess how models might reconcile or leverage heterogeneous feature behaviors"
+  ],
+  "success_criteria": [
+    "Evidence clarifying whether low cardinality features obscure meaningful variation",
+    "Understanding of how heterogeneous feature types influence model interpretability and stability",
+    "Identification of potential feature groups requiring distinct handling strategies"
+  ],
+  "router_constraints": [
+    "preserve feature scope for low cardinality and variable features",
+    "preserve evidence references e8 to e12 and e23 to e33"
+  ]
+}

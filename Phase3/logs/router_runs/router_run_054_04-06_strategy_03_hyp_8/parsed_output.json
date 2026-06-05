@@ -1,0 +1,103 @@
+{
+  "batch_id": "phase3a_batch_0406154632_friday-workinghours-afternoon-ddos.pcap_iscx_92d6c1",
+  "round_id": "round-001",
+  "hypothesis_id": "hyp_8_tension_low_cardinality_vs_class_variation",
+  "planner_strategy_id": "strategy_03_hyp_8",
+  "worker_tasks": [
+    {
+      "task_id": "task_1",
+      "hypothesis_id": "hyp_8_tension_low_cardinality_vs_class_variation",
+      "task_scope": "Measure cardinality and distribution shifts for low cardinality bulk and flag features within evidence refs e8 to e12",
+      "allowed_actions": [
+        "cardinality_verification",
+        "distribution_verification"
+      ],
+      "local_context_refs": [
+        "e8",
+        "e9",
+        "e10",
+        "e11",
+        "e12"
+      ],
+      "stop_conditions": [
+        "cardinality metrics computed for all target features",
+        "distribution shifts quantified and stable"
+      ]
+    },
+    {
+      "task_id": "task_2",
+      "hypothesis_id": "hyp_8_tension_low_cardinality_vs_class_variation",
+      "task_scope": "Evaluate class-conditioned structural variation in features with strong distributional shifts in evidence refs e8 to e12",
+      "allowed_actions": [
+        "structural_summary",
+        "distribution_verification"
+      ],
+      "local_context_refs": [
+        "e8",
+        "e9",
+        "e10",
+        "e11",
+        "e12"
+      ],
+      "stop_conditions": [
+        "class-conditioned variation metrics collected",
+        "structural variation patterns identified"
+      ]
+    },
+    {
+      "task_id": "task_3",
+      "hypothesis_id": "hyp_8_tension_low_cardinality_vs_class_variation",
+      "task_scope": "Investigate if low cardinality features reflect saturation or measurement limits using evidence refs e23 to e33",
+      "allowed_actions": [
+        "local_consistency_verification",
+        "shortcut_verification"
+      ],
+      "local_context_refs": [
+        "e23",
+        "e24",
+        "e25",
+        "e26",
+        "e27",
+        "e29",
+        "e30",
+        "e31",
+        "e32",
+        "e33"
+      ],
+      "stop_conditions": [
+        "saturation or measurement limit indicators identified",
+        "local consistency patterns verified"
+      ]
+    },
+    {
+      "task_id": "task_4",
+      "hypothesis_id": "hyp_8_tension_low_cardinality_vs_class_variation",
+      "task_scope": "Assess how models might reconcile or leverage heterogeneous feature behaviors across evidence refs e8 to e12 and e23 to e33",
+      "allowed_actions": [
+        "dependency_contextualization",
+        "relation_verification"
+      ],
+      "local_context_refs": [
+        "e8",
+        "e9",
+        "e10",
+        "e11",
+        "e12",
+        "e23",
+        "e24",
+        "e25",
+        "e26",
+        "e27",
+        "e29",
+        "e30",
+        "e31",
+        "e32",
+        "e33"
+      ],
+      "stop_conditions": [
+        "dependency patterns contextualized",
+        "feature relation heterogeneity characterized"
+      ]
+    }
+  ]
+}

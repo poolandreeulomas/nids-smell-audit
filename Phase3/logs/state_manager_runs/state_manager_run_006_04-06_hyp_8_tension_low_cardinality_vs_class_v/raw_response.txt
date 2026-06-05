@@ -1,0 +1,63 @@
+{
+  "state_delta_record": {
+    "batch_id": "phase3a_batch_0406154632_friday-workinghours-afternoon-ddos.pcap_iscx_92d6c1",
+    "round_id": "round-001",
+    "hypothesis_id": "hyp_8_tension_low_cardinality_vs_class_variation",
+    "summary": "The tension between near-constant low-cardinality features (notably backward and forward bulk and flag features) and features exhibiting strong class-conditioned structural variation (such as backward packet lengths, average packet size, and destination port) is locally characterized and preserved. Dependency contextualization confirms concentrated dependency patterns for high-variation features but fails for low-cardinality features due to their near-constant nature. This heterogeneous feature behavior suggests potential saturation or measurement limits in low-cardinality features, while high-variation features provide clearer class separation signals.",
+    "status": "active",
+    "evidence_refs": [
+      "e8",
+      "e9",
+      "e10",
+      "e11",
+      "e12",
+      "e23",
+      "e24",
+      "e25",
+      "e26",
+      "e27",
+      "e29",
+      "e30",
+      "e31",
+      "e32",
+      "e33",
+      "task_1_step_03",
+      "task_1_step_05",
+      "task_1_step_07",
+      "task_2_step_03",
+      "task_2_step_05",
+      "task_2_step_07",
+      "task_3_step_03",
+      "task_3_step_05",
+      "task_3_step_07",
+      "task_4_step_07"
+    ],
+    "preserved_contradictions": [
+      "No local contradictions detected; tension between low cardinality and class variation remains unresolved but preserved.",
+      "local contradiction preserved",
+      "Tension between low-cardinality near-constant features and features with strong class-conditioned variation remains unresolved but preserved."
+    ],
+    "open_gaps": [
+      "How should models reconcile or leverage the coexistence of near-constant and highly variable features?",
+      "Could the low cardinality features represent saturation or measurement limits that obscure meaningful variation?",
+      "Distribution verification for Average Packet Size and other features was not performed due to budget and scope constraints, limiting full quantification of distribution shifts.",
+      "Relation verification between heterogeneous feature clusters was not performed due to bounded local context constraints.",
+      "Dependency contextualization for low-cardinality features was not possible due to absence of finite pairwise dependencies.",
+      "Analysis limited to backward bulk features in some tasks; forward bulk and other features remain unverified locally."
+    ],
+    "merged_findings": [
+      "Average Packet Size and backward packet length features exhibit a tension between low cardinality near-constant behavior and strong class-conditioned structural variation, with some features showing high variance ratios and class separation signals.",
+      "Backward bulk-related features with near-constant values show high local label conflicts, suggesting saturation or measurement limits rather than meaningful class variation.",
+      "Clusters of features (e8 to e12, e33) demonstrate strong class-conditioned distributional shifts, while others (e23 to e32) form stable, low-cardinality groups lacking finite pairwise dependencies.",
+      "Dependency contextualization confirms concentrated dependency patterns for high-variation features like 'Bwd Packet Length Max' but fails for low-cardinality features due to their near-constant nature.",
+      "The tension between low-cardinality stable features and high-variation features is preserved and characterized locally without cross-cluster relation verification."
+    ],
+    "update_focus": "Maintain focus on the preserved tension between low-cardinality near-constant features and features exhibiting strong class-conditioned structural variation, emphasizing local characterization and dependency contextualization within bounded contexts while acknowledging unresolved distributional and relational gaps.",
+    "applied_updates": [
+      {
+        "field": "summary",
+        "reason": "The updated summary integrates the aggregation handoff findings, emphasizing the local characterization of the tension and dependency contextualization results, while preserving unresolved gaps and contradictions consistent with the current state."
+      }
+    ]
+  }
+}

@@ -1,0 +1,185 @@
+GLOBAL_MISSION:
+Preserve one evidence-grounded canonical batch state for the active batch.
+The grounded structural substrate is stable. Only the targeted interpretive hypothesis may change here.
+
+LOCAL_ROLE:
+You are State Manager. Apply one conservative, evidence-referenced, hypothesis-local update after Aggregation and before Critic or the next planning round.
+Do not rewrite the structural substrate, re-aggregate worker results, reroute work, replan strategy, or emit critic feedback.
+
+ARCHITECTURAL_BOUNDARIES:
+Prefer patch-style updates over whole-state reconstruction.
+Carry forward contradictions, open gaps, and traceable evidence unless the current inputs explicitly justify a bounded shift.
+Only emit the resulting state delta record for the targeted hypothesis.
+
+TASK:
+{
+  "batch_id": "phase3a_batch_0506083346_friday-workinghours-afternoon-ddos.pcap_iscx_67ce11",
+  "round_id": "round-001",
+  "hypothesis_id": "hyp_004_destination_port_distribution_shift",
+  "previous_state_version": 1
+}
+
+CURRENT_TARGET_STATE:
+{
+  "hypothesis_id": "hyp_004_destination_port_distribution_shift",
+  "summary": "The Destination Port feature (e33) exhibits a strong distributional shift between BENIGN and DDoS classes, with dominant ratio 0.346 for BENIGN and 1.0 for DDoS and a high Jensen-Shannon divergence of 0.7315, suggesting a representation-sensitive signal that may act as a narrow but locally meaningful handle for class discrimination.",
+  "status": "unresolved",
+  "evidence_refs": [
+    "e33"
+  ],
+  "open_gaps": [
+    "Is the port distribution shift stable across different time windows or attack campaigns?",
+    "Could this shift be exploited as a shortcut signal that risks overfitting to specific port usage patterns?",
+    "Does this feature correlate with other network context features that might confound interpretation?"
+  ],
+  "preserved_contradictions": [],
+  "merged_findings": [],
+  "update_focus": "",
+  "last_updated_round": "",
+  "revision_count": 0
+}
+
+STRUCTURAL_SUBSTRATE_REFERENCE:
+{
+  "substrate_id": "substrate_phase3a_batch_0506083346_friday-workinghours-afternoon-ddos.pcap_iscx_67ce11",
+  "batch_id": "phase3a_batch_0506083346_friday-workinghours-afternoon-ddos.pcap_iscx_67ce11",
+  "compressed_regions": [
+    {
+      "region_id": "region_4_destination_port_distribution_shift",
+      "region_kind": "representation_sensitive_region",
+      "status": "emerging",
+      "summary": "Destination Port feature shows a strong distributional shift between BENIGN and DDoS classes with dominant ratio 0.346 for BENIGN and 1.0 for DDoS, and a high Jensen-Shannon divergence of 0.7315.",
+      "feature_scope": {
+        "features": [
+          "Destination Port"
+        ],
+        "feature_groups": [],
+        "locality": {
+          "scope_type": "feature_group",
+          "scope_value": "Destination Port",
+          "localized": true,
+          "notes": [
+            "feature distribution sensitive to class label"
+          ]
+        }
+      },
+      "evidence_refs": [
+        "e33"
+      ]
+    }
+  ],
+  "preserved_weak_signals": [],
+  "contradictions": [],
+  "unresolved_tensions": []
+}
+
+RECENT_REVISION_CONTEXT:
+[
+  {
+    "revision_type": "initialization",
+    "state_version": 1,
+    "round_id": "",
+    "hypothesis_id": "",
+    "applied_updates": [
+      {
+        "action": "register_structural_substrate",
+        "substrate_id": "substrate_phase3a_batch_0506083346_friday-workinghours-afternoon-ddos.pcap_iscx_67ce11",
+        "region_count": 5,
+        "weak_signal_count": 5,
+        "contradiction_count": 0,
+        "tension_count": 0
+      },
+      {
+        "action": "register_interpretive_hypotheses",
+        "analysis_id": "analysis_phase3a_0506083346_01",
+        "hypothesis_count": 10
+      }
+    ],
+    "timestamp": "2026-06-05T08:35:25.088303+00:00"
+  }
+]
+
+AGGREGATION_HANDOFF:
+{
+  "batch_id": "phase3a_batch_0506083346_friday-workinghours-afternoon-ddos.pcap_iscx_67ce11",
+  "round_id": "round-001",
+  "hypothesis_id": "hyp_004_destination_port_distribution_shift",
+  "merged_findings": [
+    "Destination Port distribution exhibits a strong and consistent class-conditioned shift between BENIGN and DDoS classes, characterized by dominant values and high divergence metrics (e.g., Jensen-Shannon divergence of 0.7315), indicating distribution instability across attack campaigns.",
+    "This feature shows a moderate shortcut signal with predictive leverage for distinguishing BENIGN from DDoS traffic.",
+    "No local evidence within bounded scope e33 indicates correlation or confounding factors between Destination Port and other network context features."
+  ],
+  "evidence_refs": [
+    "task_1_step_03",
+    "task_2_step_03",
+    "task_2_step_05",
+    "task_2_step_07",
+    "task_3_step_03"
+  ],
+  "preserved_contradictions": [],
+  "open_gaps": [
+    "Potential confounding factors outside the bounded local evidence e33 remain unexamined.",
+    "Broader multifeature interactions beyond the single-feature deterministic decision stump analysis have not been assessed."
+  ],
+  "update_focus": "Focus on further exploration of potential confounding factors beyond local evidence scope and assessment of multifeature interactions to better understand the role and stability of Destination Port distribution shifts as a shortcut signal."
+}
+
+OPEN_GAP_PERSISTENCE_RULES:
+open_gaps are persistent state, not transient handoff data.
+Start from CURRENT_TARGET_STATE.open_gaps.
+Treat newly observed open gaps from the handoff as additions to the existing state.
+Do NOT replace the existing open_gaps list with the handoff list.
+A previously existing open gap may only disappear if it is explicitly resolved.
+Any resolved open gap must be documented in applied_updates.
+Removing an existing open gap without an explicit resolution is invalid.
+
+CONTRADICTION_PERSISTENCE_RULES:
+Start from CURRENT_TARGET_STATE.preserved_contradictions.
+Treat newly observed contradictions from the handoff as additive.
+Do not remove prior contradictions unless explicitly resolved and documented in applied_updates.
+
+MERGED_FINDINGS_PERSISTENCE_RULES:
+Start from CURRENT_TARGET_STATE.merged_findings.
+Merge newly supported findings from the handoff.
+Do not silently remove previously accepted findings.
+
+STATE UPDATE MODEL:
+result_open_gaps = prior_open_gaps + newly_discovered_open_gaps + explicitly_resolved_open_gaps
+result_contradictions = prior_contradictions + newly_preserved_contradictions + explicitly_resolved_contradictions
+result_merged_findings = prior_findings + newly_supported_findings + explicitly_retracted_findings
+
+OUTPUT_RULES:
+Return exactly one JSON object.
+The output lists must represent the resulting target-hypothesis state after this round, not only the newly introduced items.
+Preserve all current and newly supplied evidence_refs, preserved_contradictions, open_gaps, and merged_findings unless a field is genuinely unchanged and already present.
+If any open_gaps remain unresolved, keep them explicit; if one is resolved, state that resolution in applied_updates.
+Use only these status values: ['active', 'dormant', 'emerging', 'merged', 'partially_absorbed', 'reopened', 'uncertain', 'unresolved', 'weakened'].
+Do not mention planning, worker execution, routing, critic supervision, or canonical-state commit mechanics in the content fields.
+{
+  "state_delta_record": {
+    "batch_id": "phase3a_batch_0506083346_friday-workinghours-afternoon-ddos.pcap_iscx_67ce11",
+    "round_id": "round-001",
+    "hypothesis_id": "hyp_004_destination_port_distribution_shift",
+    "summary": "updated concise interpretive summary for the target hypothesis",
+    "status": "active",
+    "evidence_refs": [
+      "carried-forward evidence_ref"
+    ],
+    "preserved_contradictions": [
+      "explicit unresolved contradiction"
+    ],
+    "open_gaps": [
+      "remaining unresolved verification gap"
+    ],
+    "merged_findings": [
+      "resulting evidence-grounded finding carried in state"
+    ],
+    "update_focus": "short orientation for the touched interpretive area",
+    "applied_updates": [
+      {
+        "field": "summary",
+        "reason": "why this bounded change is justified by the aggregation handoff and current state"
+      }
+    ]
+  }
+}

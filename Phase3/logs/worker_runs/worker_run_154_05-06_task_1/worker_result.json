@@ -1,0 +1,13 @@
+{
+  "task_id": "task_1",
+  "hypothesis_id": "hyp_004_destination_port_distribution_shift",
+  "status": "completed",
+  "findings": [
+    "Destination Port distribution exhibits strong class-conditioned shifts with dominant values and high divergence between BENIGN and DDoS classes, indicating distribution instability across attack campaigns."
+  ],
+  "evidence_refs": [
+    "task_1_step_03"
+  ],
+  "contradictions": [],
+  "limitations": []
+}

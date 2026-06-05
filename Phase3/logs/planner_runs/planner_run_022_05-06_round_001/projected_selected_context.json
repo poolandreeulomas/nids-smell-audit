@@ -1,0 +1,67 @@
+{
+  "selected_count": 3,
+  "selected_hypotheses": [
+    {
+      "hypothesis_id": "hyp_004_destination_port_distribution_shift",
+      "summary": "The Destination Port feature (e33) exhibits a strong distributional shift between BENIGN and DDoS classes, with dominant ratio 0.346 for BENIGN and 1.0 for DDoS and a high Jensen-Shannon divergence of 0.7315, suggesting a representation-sensitive signal that may act as a narrow but locally meaningful handle for class discrimination.",
+      "evidence_refs": [
+        "e33"
+      ],
+      "open_questions": [
+        "Is the port distribution shift stable across different time windows or attack campaigns?",
+        "Could this shift be exploited as a shortcut signal that risks overfitting to specific port usage patterns?",
+        "Does this feature correlate with other network context features that might confound interpretation?"
+      ],
+      "current_status": "unresolved",
+      "evidence_ref_count": 1,
+      "open_question_count": 3
+    },
+    {
+      "hypothesis_id": "hyp_002_strong_linear_dependencies_and_redundancy",
+      "summary": "Several feature pairs exhibit perfect or near-perfect correlation (correlation=1 or 0.9993) among packet counts, lengths, and flags (e13-e22), suggesting strong linear dependencies and potential redundancy that may reduce effective feature dimensionality.",
+      "evidence_refs": [
+        "e13",
+        "e14",
+        "e15",
+        "e16",
+        "e17",
+        "e18",
+        "e19",
+        "e20",
+        "e21",
+        "e22"
+      ],
+      "open_questions": [
+        "Are these strong dependencies stable across different temporal segments or attack phases?",
+        "Do these dependencies reflect inherent protocol constraints or dataset-specific artifacts?",
+        "Could removing redundant features improve model robustness without losing critical information?"
+      ],
+      "current_status": "unresolved",
+      "evidence_ref_count": 10,
+      "open_question_count": 3
+    },
+    {
+      "hypothesis_id": "hyp_001_low_diversity_bulk_features",
+      "summary": "The extremely low cardinality and near-constant values of multiple bulk-related backward and forward traffic features (e23-e32) may indicate a structural saturation or collapse in these features, potentially reflecting a stable but narrow traffic pattern or a measurement artifact.",
+      "evidence_refs": [
+        "e23",
+        "e24",
+        "e25",
+        "e26",
+        "e27",
+        "e28",
+        "e29",
+        "e30",
+        "e31",
+        "e32"
+      ],
+      "open_questions": [
+        "Does the low diversity in bulk features reflect a genuine network behavior pattern or a data collection or preprocessing artifact?",
+        "Could this near-constant behavior mask meaningful intra-class variation or temporal dynamics?"
+      ],
+      "current_status": "unresolved",
+      "evidence_ref_count": 10,
+      "open_question_count": 2
+    }
+  ]
+}

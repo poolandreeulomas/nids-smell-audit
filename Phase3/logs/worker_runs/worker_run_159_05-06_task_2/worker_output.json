@@ -1,0 +1,23 @@
+{
+  "batch_id": "phase3a_batch_0506083346_friday-workinghours-afternoon-ddos.pcap_iscx_67ce11",
+  "round_id": "round-001",
+  "worker_result": {
+    "task_id": "task_2",
+    "hypothesis_id": "hyp_001_low_diversity_bulk_features",
+    "status": "completed",
+    "findings": [
+      "Multiple bulk-related backward and forward traffic features exhibit extremely low cardinality with unique values=1 and cardinality ratios near zero, indicating near-constant values across the partition.",
+      "Local consistency verification on selected features found no evidence of intra-class variation or temporal dynamics within the bounded neighborhoods.",
+      "The low diversity bulk features are structurally stable and lack temporal variation within the analyzed partition."
+    ],
+    "evidence_refs": [
+      "task_2_step_03",
+      "task_2_step_05",
+      "task_2_step_07"
+    ],
+    "contradictions": [],
+    "limitations": [
+      "Analysis limited to bounded local neighborhoods and selected features; broader temporal dynamics outside partition scope not assessed."
+    ]
+  }
+}

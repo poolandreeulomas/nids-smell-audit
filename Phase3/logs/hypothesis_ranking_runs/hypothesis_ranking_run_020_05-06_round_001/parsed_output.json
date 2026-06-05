@@ -1,0 +1,32 @@
+{
+  "batch_id": "phase3a_batch_0506083346_friday-workinghours-afternoon-ddos.pcap_iscx_67ce11",
+  "round_id": "round-001",
+  "selected_hypothesis_ids": [
+    "hyp_004_destination_port_distribution_shift",
+    "hyp_002_strong_linear_dependencies_and_redundancy",
+    "hyp_001_low_diversity_bulk_features"
+  ],
+  "deferred_hypothesis_ids": [
+    "hyp_003_class_conditioned_structural_variation_in_packet_length_features",
+    "hyp_005_partition_level_data_quality_and_duplication_impact",
+    "hyp_006_top_ranked_packet_length_features_indicate_structural_importance",
+    "hyp_007_potential_overlap_preserving_competing_framings_between_dependency_and_representation_signals",
+    "hyp_008_localized_representation_sensitive_handles_amid_global_low_diversity",
+    "hyp_009_potential_structural_collapse_vs_burst_behavior_in_feature_distributions",
+    "hyp_010_effect_of_class_imbalance_on_feature_distribution_and_modeling"
+  ],
+  "selection_rationales": [
+    {
+      "hypothesis_id": "hyp_004_destination_port_distribution_shift",
+      "reason": "High representation-sensitive signal with strong class distribution shift and potential shortcut risk, critical for immediate investigation."
+    },
+    {
+      "hypothesis_id": "hyp_002_strong_linear_dependencies_and_redundancy",
+      "reason": "Strong linear dependencies suggest redundancy that may impact feature dimensionality and model robustness, warranting focused analysis."
+    },
+    {
+      "hypothesis_id": "hyp_001_low_diversity_bulk_features",
+      "reason": "Extremely low diversity in bulk features may indicate structural saturation or artifact, a fundamental structural irregularity with high uncertainty."
+    }
+  ]
+}

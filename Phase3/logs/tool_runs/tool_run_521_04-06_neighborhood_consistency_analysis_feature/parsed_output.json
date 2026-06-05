@@ -1,0 +1,58 @@
+{
+  "call_id": "task_3_step_03",
+  "tool_name": "neighborhood_consistency_analysis",
+  "status": "ok",
+  "observations": {
+    "feature_name": "Bwd Avg Bulk Rate",
+    "value": 0.5671310549513833,
+    "signals": [
+      "high_label_neighborhood_conflict",
+      "duplicate_label_conflict"
+    ],
+    "metrics": {
+      "neighbor_count": 5,
+      "retained_rows": 225745,
+      "coverage_ratio": 1.0,
+      "local_consistency_rate": 0.4328689450486168,
+      "inconsistency_rate": 0.5671310549513833,
+      "attack_consistency_rate": 0.0,
+      "benign_consistency_rate": 1.0,
+      "boundary_instability_rate": 0.0,
+      "duplicate_conflict_rate": 1.0,
+      "duplicate_cluster_rate": 1.0
+    },
+    "support": {
+      "n_total": 225745,
+      "n_per_class": {
+        "DDoS": 128027,
+        "BENIGN": 97718
+      },
+      "total_samples": 225745,
+      "per_class": {
+        "DDoS": 128027,
+        "BENIGN": 97718
+      }
+    },
+    "provenance": {
+      "source": "tool",
+      "tool": "neighborhood_consistency_analysis",
+      "step": null
+    },
+    "feature": "Bwd Avg Bulk Rate"
+  },
+  "evidence_refs": [
+    {
+      "artifact": "parsed_output",
+      "path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_521_04-06_neighborhood_consistency_analysis_feature\\parsed_output.json"
+    },
+    {
+      "artifact": "raw_tool_output",
+      "path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_521_04-06_neighborhood_consistency_analysis_feature\\raw_tool_output.json"
+    },
+    {
+      "artifact": "component_run",
+      "path": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\tool_runs\\tool_run_521_04-06_neighborhood_consistency_analysis_feature\\component_run.json"
+    }
+  ],
+  "limitations": []
+}

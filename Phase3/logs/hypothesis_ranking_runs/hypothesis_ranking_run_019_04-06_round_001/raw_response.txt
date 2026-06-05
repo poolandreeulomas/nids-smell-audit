@@ -1,0 +1,32 @@
+{
+  "batch_id": "phase3a_batch_0406154632_friday-workinghours-afternoon-ddos.pcap_iscx_92d6c1",
+  "round_id": "round-001",
+  "selected_hypothesis_ids": [
+    "hyp_4_strong_dependency_pairs_indicate_redundancy",
+    "hyp_7_class_conditioned_distribution_destination_port",
+    "hyp_8_tension_low_cardinality_vs_class_variation"
+  ],
+  "deferred_hypothesis_ids": [
+    "hyp_1_low_cardinality_backward_bulk_features",
+    "hyp_2_low_cardinality_forward_bulk_features",
+    "hyp_3_low_cardinality_cwe_flag_count",
+    "hyp_5_class_conditioned_variation_in_backward_packet_lengths",
+    "hyp_6_class_conditioned_variation_average_packet_size",
+    "hyp_9_tension_perfect_correlation_and_data_duplication",
+    "hyp_10_low_cardinality_forward_psh_syn_flags_dependency"
+  ],
+  "selection_rationales": [
+    {
+      "hypothesis_id": "hyp_4_strong_dependency_pairs_indicate_redundancy",
+      "reason": "Strong perfect correlations suggest critical redundancy impacting feature independence and model robustness."
+    },
+    {
+      "hypothesis_id": "hyp_7_class_conditioned_distribution_destination_port",
+      "reason": "Distinct class-conditioned port concentration reveals a key representation-sensitive pattern with high investigative value."
+    },
+    {
+      "hypothesis_id": "hyp_8_tension_low_cardinality_vs_class_variation",
+      "reason": "The coexistence of near-constant and highly variable features presents a fundamental tension affecting feature utility and model design."
+    }
+  ]
+}

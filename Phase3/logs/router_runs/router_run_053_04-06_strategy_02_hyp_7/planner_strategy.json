@@ -1,0 +1,19 @@
+{
+  "strategy_id": "strategy_02_hyp_7",
+  "hypothesis_id": "hyp_7_class_conditioned_distribution_destination_port",
+  "strategic_objective": "Understand the implications of destination port distribution concentration on attack representation and model generalizability.",
+  "key_checks": [
+    "Verify the zero entropy and dominant ratio metrics for destination port in DDoS class",
+    "Check for dataset artifacts versus genuine attack targeting signals in port distribution",
+    "Analyze distributional divergence impact on class separability and potential overfitting risks"
+  ],
+  "success_criteria": [
+    "Clear distinction between artifact-driven and attack-driven distribution concentration",
+    "Assessment of how this pattern affects model robustness to unseen port distributions",
+    "Identification of representation-sensitive vulnerabilities linked to this feature"
+  ],
+  "router_constraints": [
+    "preserve feature scope for destination port",
+    "preserve evidence reference e33"
+  ]
+}

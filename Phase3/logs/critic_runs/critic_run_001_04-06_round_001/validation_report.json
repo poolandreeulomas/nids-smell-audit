@@ -1,0 +1,42 @@
+{
+  "ok": true,
+  "request_id": "critic_1581cff8c951483ea098b6ca0853df7d",
+  "prompt_version": "phase3a.critic.prompt.v1",
+  "schema_version": "phase3a.critic.v1",
+  "final_round_gate": {
+    "ok": true,
+    "skipped": false,
+    "status": "allowed_non_final_round",
+    "message": "Critic execution was allowed because the selected round was marked non-final."
+  },
+  "input_validation": {
+    "ok": true,
+    "errors": [],
+    "warnings": [],
+    "stats": {
+      "module_artifact_ref_count": 45,
+      "process_signal_ref_count": 28,
+      "module_behavior_summary_count": 8
+    }
+  },
+  "source_state_validation": {
+    "ok": true,
+    "errors": [],
+    "warnings": []
+  },
+  "parse_validation": {
+    "ok": true,
+    "errors": [],
+    "warnings": []
+  },
+  "critic_feedback_validation": {
+    "ok": true,
+    "errors": [],
+    "warnings": [],
+    "stats": {
+      "module_feedback_count": 4,
+      "average_suggestion_length": 109.0
+    },
+    "forbidden_language_hits": []
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "task_id": "task_1",
+  "hypothesis_id": "hyp_002_strong_linear_dependencies_and_redundancy",
+  "task_scope": "Verify stability of strong linear dependencies among packet and flag features across different temporal segments and attack phases within evidence refs e13-e22.",
+  "allowed_actions": [
+    "dependency_contextualization",
+    "distribution_verification"
+  ],
+  "local_context_refs": [
+    "e13",
+    "e14",
+    "e15",
+    "e16",
+    "e17",
+    "e18",
+    "e19",
+    "e20",
+    "e21",
+    "e22"
+  ],
+  "stop_conditions": [
+    "dependencies characterized for all temporal segments",
+    "variation patterns identified across attack phases"
+  ]
+}

@@ -1,0 +1,25 @@
+{
+  "task_id": "task_3",
+  "hypothesis_id": "hyp_8_tension_low_cardinality_vs_class_variation",
+  "task_scope": "Investigate if low cardinality features reflect saturation or measurement limits using evidence refs e23 to e33",
+  "allowed_actions": [
+    "local_consistency_verification",
+    "shortcut_verification"
+  ],
+  "local_context_refs": [
+    "e23",
+    "e24",
+    "e25",
+    "e26",
+    "e27",
+    "e29",
+    "e30",
+    "e31",
+    "e32",
+    "e33"
+  ],
+  "stop_conditions": [
+    "saturation or measurement limit indicators identified",
+    "local consistency patterns verified"
+  ]
+}

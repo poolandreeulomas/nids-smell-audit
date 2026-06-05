@@ -1,0 +1,27 @@
+{
+  "task_id": "task_3",
+  "hypothesis_id": "hyp_002_strong_linear_dependencies_and_redundancy",
+  "task_scope": "Assess impact of removing redundant packet and flag features on information retention and robustness within evidence refs e13-e22, preserving correlated feature scope.",
+  "allowed_actions": [
+    "duplication_verification",
+    "cardinality_verification",
+    "local_consistency_verification"
+  ],
+  "local_context_refs": [
+    "e13",
+    "e14",
+    "e15",
+    "e16",
+    "e17",
+    "e18",
+    "e19",
+    "e20",
+    "e21",
+    "e22"
+  ],
+  "stop_conditions": [
+    "redundant features identified",
+    "information retention measured post-removal",
+    "robustness impact evaluated"
+  ]
+}

@@ -1,0 +1,22 @@
+{
+  "batch_id": "phase3a_batch_0406154632_friday-workinghours-afternoon-ddos.pcap_iscx_92d6c1",
+  "round_id": "round-001",
+  "worker_result": {
+    "task_id": "task_3",
+    "hypothesis_id": "hyp_7_class_conditioned_distribution_destination_port",
+    "status": "completed",
+    "findings": [
+      "Destination Port shows strong class-conditioned distributional divergence with DDoS class concentrated on a single port (zero entropy).",
+      "Dependency profile is narrowly clustered, indicating low structural variability for DDoS class.",
+      "Presence of tension between low cardinality feature values and class variation suggests potential shortcut-like overfitting risk."
+    ],
+    "evidence_refs": [
+      "task_3_step_03",
+      "task_3_step_05"
+    ],
+    "contradictions": [],
+    "limitations": [
+      "Analysis limited to single feature context without cross-feature dependency expansion."
+    ]
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "task_id": "task_1",
+  "hypothesis_id": "hyp_7_class_conditioned_distribution_destination_port",
+  "task_scope": "Verify zero entropy and dominant ratio metrics for destination port feature within the DDoS class using evidence e33",
+  "allowed_actions": [
+    "distribution_verification",
+    "cardinality_verification"
+  ],
+  "local_context_refs": [
+    "e33"
+  ],
+  "stop_conditions": [
+    "metrics computed for destination port in DDoS class",
+    "dominant ratio and entropy values stabilized"
+  ]
+}

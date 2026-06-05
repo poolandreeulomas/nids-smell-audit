@@ -1,0 +1,346 @@
+{
+  "batch_id": "phase3a_batch_0406154632_friday-workinghours-afternoon-ddos.pcap_iscx_92d6c1",
+  "round_id": "round-001",
+  "state_summary_ref": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\state_manager_runs\\state_manager_run_006_04-06_hyp_8_tension_low_cardinality_vs_class_v\\updated_batch_state.json",
+  "module_artifact_refs": [
+    {
+      "module_name": "semantic_extraction",
+      "artifact_kind": "input:overview_summary_min",
+      "artifact_ref": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\semantic_extraction_runs\\semantic_extraction_run_040_04-06_phase3a_batch_0406154632_friday_workingh\\overview_summary_min.json"
+    },
+    {
+      "module_name": "semantic_extraction",
+      "artifact_kind": "input:partition_context",
+      "artifact_ref": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\semantic_extraction_runs\\semantic_extraction_run_040_04-06_phase3a_batch_0406154632_friday_workingh\\partition_context.json"
+    },
+    {
+      "module_name": "semantic_extraction",
+      "artifact_kind": "output:semantic_substrate",
+      "artifact_ref": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\semantic_extraction_runs\\semantic_extraction_run_040_04-06_phase3a_batch_0406154632_friday_workingh\\parsed_output.json"
+    },
+    {
+      "module_name": "investigation_analysis",
+      "artifact_kind": "input:semantic_substrate",
+      "artifact_ref": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\investigation_analysis_runs\\investigation_analysis_run_027_04-06_phase3a_batch_0406154632_friday_workingh\\semantic_substrate.json"
+    },
+    {
+      "module_name": "investigation_analysis",
+      "artifact_kind": "input:analysis_context_min",
+      "artifact_ref": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\investigation_analysis_runs\\investigation_analysis_run_027_04-06_phase3a_batch_0406154632_friday_workingh\\analysis_context_min.json"
+    },
+    {
+      "module_name": "investigation_analysis",
+      "artifact_kind": "input:analysis_iteration_context_min",
+      "artifact_ref": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\investigation_analysis_runs\\investigation_analysis_run_027_04-06_phase3a_batch_0406154632_friday_workingh\\analysis_iteration_context_min.json"
+    },
+    {
+      "module_name": "investigation_analysis",
+      "artifact_kind": "output:hypothesis_set",
+      "artifact_ref": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\investigation_analysis_runs\\investigation_analysis_run_027_04-06_phase3a_batch_0406154632_friday_workingh\\parsed_output.json"
+    },
+    {
+      "module_name": "investigation_analysis",
+      "artifact_kind": "output:hypothesis_index",
+      "artifact_ref": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\investigation_analysis_runs\\investigation_analysis_run_027_04-06_phase3a_batch_0406154632_friday_workingh\\hypothesis_index.json"
+    },
+    {
+      "module_name": "hypothesis_ranking",
+      "artifact_kind": "input:candidate_hypotheses",
+      "artifact_ref": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\hypothesis_ranking_runs\\hypothesis_ranking_run_019_04-06_round_001\\candidate_hypotheses.json"
+    },
+    {
+      "module_name": "hypothesis_ranking",
+      "artifact_kind": "input:ranking_state_snapshot",
+      "artifact_ref": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\hypothesis_ranking_runs\\hypothesis_ranking_run_019_04-06_round_001\\ranking_state_snapshot.json"
+    },
+    {
+      "module_name": "hypothesis_ranking",
+      "artifact_kind": "output:ranking_output",
+      "artifact_ref": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\hypothesis_ranking_runs\\hypothesis_ranking_run_019_04-06_round_001\\parsed_output.json"
+    },
+    {
+      "module_name": "hypothesis_ranking",
+      "artifact_kind": "output:selection_index",
+      "artifact_ref": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\hypothesis_ranking_runs\\hypothesis_ranking_run_019_04-06_round_001\\selection_index.json"
+    },
+    {
+      "module_name": "planner",
+      "artifact_kind": "input:ranking_decision_min",
+      "artifact_ref": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\planner_runs\\planner_run_021_04-06_round_001\\ranking_decision_min.json"
+    },
+    {
+      "module_name": "planner",
+      "artifact_kind": "input:selected_hypothesis_context",
+      "artifact_ref": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\planner_runs\\planner_run_021_04-06_round_001\\selected_hypothesis_context.json"
+    },
+    {
+      "module_name": "planner",
+      "artifact_kind": "input:planner_round_context",
+      "artifact_ref": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\planner_runs\\planner_run_021_04-06_round_001\\planner_round_context.json"
+    },
+    {
+      "module_name": "planner",
+      "artifact_kind": "output:planner_output",
+      "artifact_ref": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\planner_runs\\planner_run_021_04-06_round_001\\parsed_output.json"
+    },
+    {
+      "module_name": "planner",
+      "artifact_kind": "output:strategy_index",
+      "artifact_ref": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\planner_runs\\planner_run_021_04-06_round_001\\strategy_index.json"
+    },
+    {
+      "module_name": "router",
+      "artifact_kind": "input:planner_strategy",
+      "artifact_ref": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\router_runs\\router_run_054_04-06_strategy_03_hyp_8\\planner_strategy.json"
+    },
+    {
+      "module_name": "router",
+      "artifact_kind": "input:router_context_min",
+      "artifact_ref": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\router_runs\\router_run_054_04-06_strategy_03_hyp_8\\router_context_min.json"
+    },
+    {
+      "module_name": "router",
+      "artifact_kind": "output:router_output",
+      "artifact_ref": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\router_runs\\router_run_054_04-06_strategy_03_hyp_8\\parsed_output.json"
+    },
+    {
+      "module_name": "router",
+      "artifact_kind": "output:task_bundle_index",
+      "artifact_ref": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\router_runs\\router_run_054_04-06_strategy_03_hyp_8\\task_bundle_index.json"
+    },
+    {
+      "module_name": "worker",
+      "artifact_kind": "input:worker_task[1]",
+      "artifact_ref": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\worker_runs\\worker_run_149_04-06_task_1\\worker_task.json"
+    },
+    {
+      "module_name": "worker",
+      "artifact_kind": "input:worker_runtime_refs[1]",
+      "artifact_ref": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\worker_runs\\worker_run_149_04-06_task_1\\worker_runtime_refs.json"
+    },
+    {
+      "module_name": "worker",
+      "artifact_kind": "output:worker_result[1]",
+      "artifact_ref": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\worker_runs\\worker_run_149_04-06_task_1\\worker_result.json"
+    },
+    {
+      "module_name": "worker",
+      "artifact_kind": "output:worker_output[1]",
+      "artifact_ref": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\worker_runs\\worker_run_149_04-06_task_1\\worker_output.json"
+    },
+    {
+      "module_name": "worker",
+      "artifact_kind": "input:worker_task[2]",
+      "artifact_ref": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\worker_runs\\worker_run_147_04-06_task_2\\worker_task.json"
+    },
+    {
+      "module_name": "worker",
+      "artifact_kind": "input:worker_runtime_refs[2]",
+      "artifact_ref": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\worker_runs\\worker_run_147_04-06_task_2\\worker_runtime_refs.json"
+    },
+    {
+      "module_name": "worker",
+      "artifact_kind": "output:worker_result[2]",
+      "artifact_ref": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\worker_runs\\worker_run_147_04-06_task_2\\worker_result.json"
+    },
+    {
+      "module_name": "worker",
+      "artifact_kind": "output:worker_output[2]",
+      "artifact_ref": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\worker_runs\\worker_run_147_04-06_task_2\\worker_output.json"
+    },
+    {
+      "module_name": "worker",
+      "artifact_kind": "input:worker_task[3]",
+      "artifact_ref": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\worker_runs\\worker_run_152_04-06_task_3\\worker_task.json"
+    },
+    {
+      "module_name": "worker",
+      "artifact_kind": "input:worker_runtime_refs[3]",
+      "artifact_ref": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\worker_runs\\worker_run_152_04-06_task_3\\worker_runtime_refs.json"
+    },
+    {
+      "module_name": "worker",
+      "artifact_kind": "output:worker_result[3]",
+      "artifact_ref": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\worker_runs\\worker_run_152_04-06_task_3\\worker_result.json"
+    },
+    {
+      "module_name": "worker",
+      "artifact_kind": "output:worker_output[3]",
+      "artifact_ref": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\worker_runs\\worker_run_152_04-06_task_3\\worker_output.json"
+    },
+    {
+      "module_name": "worker",
+      "artifact_kind": "input:worker_task[4]",
+      "artifact_ref": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\worker_runs\\worker_run_148_04-06_task_4\\worker_task.json"
+    },
+    {
+      "module_name": "worker",
+      "artifact_kind": "input:worker_runtime_refs[4]",
+      "artifact_ref": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\worker_runs\\worker_run_148_04-06_task_4\\worker_runtime_refs.json"
+    },
+    {
+      "module_name": "worker",
+      "artifact_kind": "output:worker_result[4]",
+      "artifact_ref": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\worker_runs\\worker_run_148_04-06_task_4\\worker_result.json"
+    },
+    {
+      "module_name": "worker",
+      "artifact_kind": "output:worker_output[4]",
+      "artifact_ref": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\worker_runs\\worker_run_148_04-06_task_4\\worker_output.json"
+    },
+    {
+      "module_name": "aggregation",
+      "artifact_kind": "input:worker_result_set",
+      "artifact_ref": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\aggregation_runs\\aggregation_run_038_04-06_hyp_8_tension_low_cardinality_vs_class_v\\worker_result_set.json"
+    },
+    {
+      "module_name": "aggregation",
+      "artifact_kind": "input:normalized_inputs",
+      "artifact_ref": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\aggregation_runs\\aggregation_run_038_04-06_hyp_8_tension_low_cardinality_vs_class_v\\normalized_inputs.json"
+    },
+    {
+      "module_name": "aggregation",
+      "artifact_kind": "output:aggregation_handoff",
+      "artifact_ref": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\aggregation_runs\\aggregation_run_038_04-06_hyp_8_tension_low_cardinality_vs_class_v\\aggregation_handoff.json"
+    },
+    {
+      "module_name": "state_manager",
+      "artifact_kind": "input:prior_state",
+      "artifact_ref": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\state_manager_runs\\state_manager_run_006_04-06_hyp_8_tension_low_cardinality_vs_class_v\\prior_state.json"
+    },
+    {
+      "module_name": "state_manager",
+      "artifact_kind": "input:aggregation_handoff",
+      "artifact_ref": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\state_manager_runs\\state_manager_run_006_04-06_hyp_8_tension_low_cardinality_vs_class_v\\aggregation_handoff.json"
+    },
+    {
+      "module_name": "state_manager",
+      "artifact_kind": "input:state_manager_context",
+      "artifact_ref": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\state_manager_runs\\state_manager_run_006_04-06_hyp_8_tension_low_cardinality_vs_class_v\\state_manager_context.json"
+    },
+    {
+      "module_name": "state_manager",
+      "artifact_kind": "output:updated_batch_state",
+      "artifact_ref": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\state_manager_runs\\state_manager_run_006_04-06_hyp_8_tension_low_cardinality_vs_class_v\\updated_batch_state.json"
+    },
+    {
+      "module_name": "state_manager",
+      "artifact_kind": "output:state_update_result",
+      "artifact_ref": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\state_manager_runs\\state_manager_run_006_04-06_hyp_8_tension_low_cardinality_vs_class_v\\state_update_result.json"
+    }
+  ],
+  "process_signal_refs": [
+    {
+      "signal_name": "semantic_extraction.validation_report",
+      "signal_ref": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\semantic_extraction_runs\\semantic_extraction_run_040_04-06_phase3a_batch_0406154632_friday_workingh\\validation_report.json"
+    },
+    {
+      "signal_name": "semantic_extraction.runtime_metrics",
+      "signal_ref": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\semantic_extraction_runs\\semantic_extraction_run_040_04-06_phase3a_batch_0406154632_friday_workingh\\runtime_metrics.json"
+    },
+    {
+      "signal_name": "investigation_analysis.validation_report",
+      "signal_ref": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\investigation_analysis_runs\\investigation_analysis_run_027_04-06_phase3a_batch_0406154632_friday_workingh\\validation_report.json"
+    },
+    {
+      "signal_name": "investigation_analysis.runtime_metrics",
+      "signal_ref": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\investigation_analysis_runs\\investigation_analysis_run_027_04-06_phase3a_batch_0406154632_friday_workingh\\runtime_metrics.json"
+    },
+    {
+      "signal_name": "hypothesis_ranking.validation_report",
+      "signal_ref": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\hypothesis_ranking_runs\\hypothesis_ranking_run_019_04-06_round_001\\validation_report.json"
+    },
+    {
+      "signal_name": "hypothesis_ranking.runtime_metrics",
+      "signal_ref": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\hypothesis_ranking_runs\\hypothesis_ranking_run_019_04-06_round_001\\runtime_metrics.json"
+    },
+    {
+      "signal_name": "planner.validation_report",
+      "signal_ref": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\planner_runs\\planner_run_021_04-06_round_001\\validation_report.json"
+    },
+    {
+      "signal_name": "planner.runtime_metrics",
+      "signal_ref": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\planner_runs\\planner_run_021_04-06_round_001\\runtime_metrics.json"
+    },
+    {
+      "signal_name": "router.validation_report",
+      "signal_ref": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\router_runs\\router_run_054_04-06_strategy_03_hyp_8\\validation_report.json"
+    },
+    {
+      "signal_name": "router.runtime_metrics",
+      "signal_ref": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\router_runs\\router_run_054_04-06_strategy_03_hyp_8\\runtime_metrics.json"
+    },
+    {
+      "signal_name": "worker.operational_trace[1]",
+      "signal_ref": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\worker_runs\\worker_run_149_04-06_task_1\\operational_trace.json"
+    },
+    {
+      "signal_name": "worker.validation_report[1]",
+      "signal_ref": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\worker_runs\\worker_run_149_04-06_task_1\\validation_report.json"
+    },
+    {
+      "signal_name": "worker.runtime_metrics[1]",
+      "signal_ref": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\worker_runs\\worker_run_149_04-06_task_1\\runtime_metrics.json"
+    },
+    {
+      "signal_name": "worker.operational_trace[2]",
+      "signal_ref": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\worker_runs\\worker_run_147_04-06_task_2\\operational_trace.json"
+    },
+    {
+      "signal_name": "worker.validation_report[2]",
+      "signal_ref": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\worker_runs\\worker_run_147_04-06_task_2\\validation_report.json"
+    },
+    {
+      "signal_name": "worker.runtime_metrics[2]",
+      "signal_ref": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\worker_runs\\worker_run_147_04-06_task_2\\runtime_metrics.json"
+    },
+    {
+      "signal_name": "worker.operational_trace[3]",
+      "signal_ref": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\worker_runs\\worker_run_152_04-06_task_3\\operational_trace.json"
+    },
+    {
+      "signal_name": "worker.validation_report[3]",
+      "signal_ref": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\worker_runs\\worker_run_152_04-06_task_3\\validation_report.json"
+    },
+    {
+      "signal_name": "worker.runtime_metrics[3]",
+      "signal_ref": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\worker_runs\\worker_run_152_04-06_task_3\\runtime_metrics.json"
+    },
+    {
+      "signal_name": "worker.operational_trace[4]",
+      "signal_ref": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\worker_runs\\worker_run_148_04-06_task_4\\operational_trace.json"
+    },
+    {
+      "signal_name": "worker.validation_report[4]",
+      "signal_ref": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\worker_runs\\worker_run_148_04-06_task_4\\validation_report.json"
+    },
+    {
+      "signal_name": "worker.runtime_metrics[4]",
+      "signal_ref": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\worker_runs\\worker_run_148_04-06_task_4\\runtime_metrics.json"
+    },
+    {
+      "signal_name": "aggregation.overlap_diagnostics",
+      "signal_ref": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\aggregation_runs\\aggregation_run_038_04-06_hyp_8_tension_low_cardinality_vs_class_v\\overlap_diagnostics.json"
+    },
+    {
+      "signal_name": "aggregation.validation_report",
+      "signal_ref": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\aggregation_runs\\aggregation_run_038_04-06_hyp_8_tension_low_cardinality_vs_class_v\\validation_report.json"
+    },
+    {
+      "signal_name": "aggregation.runtime_metrics",
+      "signal_ref": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\aggregation_runs\\aggregation_run_038_04-06_hyp_8_tension_low_cardinality_vs_class_v\\runtime_metrics.json"
+    },
+    {
+      "signal_name": "state_manager.validation_report",
+      "signal_ref": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\state_manager_runs\\state_manager_run_006_04-06_hyp_8_tension_low_cardinality_vs_class_v\\validation_report.json"
+    },
+    {
+      "signal_name": "state_manager.runtime_metrics",
+      "signal_ref": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\state_manager_runs\\state_manager_run_006_04-06_hyp_8_tension_low_cardinality_vs_class_v\\runtime_metrics.json"
+    },
+    {
+      "signal_name": "state_manager.replay_metadata",
+      "signal_ref": "C:\\Users\\Uni\\Desktop\\TFG\\nids-smell-audit\\Phase3\\logs\\state_manager_runs\\state_manager_run_006_04-06_hyp_8_tension_low_cardinality_vs_class_v\\replay_metadata.json"
+    }
+  ]
+}

@@ -1,0 +1,32 @@
+{
+  "hypothesis_id": "hyp_001_low_diversity_bulk_features",
+  "planner_strategy_id": "strategy_03_hyp_001",
+  "task_count": 3,
+  "action_class_count": 7,
+  "task_summaries": [
+    {
+      "task_id": "task_1",
+      "hypothesis_id": "hyp_001_low_diversity_bulk_features",
+      "task_scope": "Verify cardinality and value distribution stability of bulk traffic features over time and across classes using evidence refs e23 to e32.",
+      "allowed_action_count": 2,
+      "local_context_ref_count": 10,
+      "stop_condition_count": 2
+    },
+    {
+      "task_id": "task_2",
+      "hypothesis_id": "hyp_001_low_diversity_bulk_features",
+      "task_scope": "Evaluate intra-class variation and temporal dynamics within low diversity bulk features using evidence refs e23 to e32.",
+      "allowed_action_count": 2,
+      "local_context_ref_count": 10,
+      "stop_condition_count": 2
+    },
+    {
+      "task_id": "task_3",
+      "hypothesis_id": "hyp_001_low_diversity_bulk_features",
+      "task_scope": "Explore potential data collection or preprocessing artifacts causing near-constant feature values in bulk traffic using evidence refs e23 to e32.",
+      "allowed_action_count": 3,
+      "local_context_ref_count": 10,
+      "stop_condition_count": 2
+    }
+  ]
+}

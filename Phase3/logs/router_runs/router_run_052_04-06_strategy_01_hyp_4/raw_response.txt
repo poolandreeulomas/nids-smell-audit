@@ -1,0 +1,40 @@
+{
+  "batch_id": "phase3a_batch_0406154632_friday-workinghours-afternoon-ddos.pcap_iscx_92d6c1",
+  "round_id": "round-001",
+  "hypothesis_id": "hyp_4_strong_dependency_pairs_indicate_redundancy",
+  "planner_strategy_id": "strategy_01_hyp_4",
+  "worker_tasks": [
+    {
+      "task_id": "task_1",
+      "hypothesis_id": "hyp_4_strong_dependency_pairs_indicate_redundancy",
+      "task_scope": "Assess if strongly correlated feature pairs in evidence e13 to e22 are exact duplicates or derived from common base features",
+      "allowed_actions": ["duplication_verification", "relation_verification"],
+      "local_context_refs": ["e13", "e14", "e15", "e16", "e17", "e18", "e19", "e20", "e21", "e22"],
+      "stop_conditions": ["all strong correlation pairs checked for duplication or derivation", "no new duplication patterns found after full pass"]
+    },
+    {
+      "task_id": "task_2",
+      "hypothesis_id": "hyp_4_strong_dependency_pairs_indicate_redundancy",
+      "task_scope": "Evaluate dependency concentration profiles of strong correlation pairs in evidence e13 to e22 to distinguish natural definitions from redundancy",
+      "allowed_actions": ["dependency_contextualization"],
+      "local_context_refs": ["e13", "e14", "e15", "e16", "e17", "e18", "e19", "e20", "e21", "e22"],
+      "stop_conditions": ["dependency concentration profiles fully characterized", "profiles classified as natural or redundant"]
+    },
+    {
+      "task_id": "task_3",
+      "hypothesis_id": "hyp_4_strong_dependency_pairs_indicate_redundancy",
+      "task_scope": "Examine class-conditioned stability of strong correlations in evidence e13 to e22 to detect conditional artifacts",
+      "allowed_actions": ["distribution_verification", "local_consistency_verification"],
+      "local_context_refs": ["e13", "e14", "e15", "e16", "e17", "e18", "e19", "e20", "e21", "e22"],
+      "stop_conditions": ["class-conditioned correlation stability assessed for all pairs", "conditional artifacts identified or ruled out"]
+    },
+    {
+      "task_id": "task_4",
+      "hypothesis_id": "hyp_4_strong_dependency_pairs_indicate_redundancy",
+      "task_scope": "Investigate potential shortcut-like predictive leverage from redundant feature pairs in evidence e13 to e22",
+      "allowed_actions": ["shortcut_verification"],
+      "local_context_refs": ["e13", "e14", "e15", "e16", "e17", "e18", "e19", "e20", "e21", "e22"],
+      "stop_conditions": ["shortcut-like signals from redundant pairs identified or excluded", "predictive leverage impact documented"]
+    }
+  ]
+}

@@ -1,0 +1,65 @@
+{
+  "batch_id": "phase3a_batch_0406154632_friday-workinghours-afternoon-ddos.pcap_iscx_92d6c1",
+  "round_id": "round-001",
+  "planner_strategies": [
+    {
+      "strategy_id": "strategy_01_hyp_4",
+      "hypothesis_id": "hyp_4_strong_dependency_pairs_indicate_redundancy",
+      "strategic_objective": "Clarify the nature and impact of near-perfect feature correlations on dataset structure and model robustness.",
+      "key_checks": [
+        "Assess if correlated features are exact duplicates or derived from common base features",
+        "Evaluate dependency concentration profiles to distinguish natural definitions from redundancy",
+        "Examine class-conditioned stability of these correlations to detect conditional artifacts",
+        "Investigate potential shortcut-like predictive leverage from redundant pairs"
+      ],
+      "success_criteria": [
+        "Identification of whether strong dependencies arise from feature construction or data duplication",
+        "Evidence of how redundancy influences feature selection and model sensitivity",
+        "Detection of any weakening or strengthening of correlations across classes"
+      ],
+      "router_constraints": [
+        "preserve feature pairs with strong correlations",
+        "preserve evidence references e13 to e22"
+      ]
+    },
+    {
+      "strategy_id": "strategy_02_hyp_7",
+      "hypothesis_id": "hyp_7_class_conditioned_distribution_destination_port",
+      "strategic_objective": "Understand the implications of destination port distribution concentration on attack representation and model generalizability.",
+      "key_checks": [
+        "Verify the zero entropy and dominant ratio metrics for destination port in DDoS class",
+        "Check for dataset artifacts versus genuine attack targeting signals in port distribution",
+        "Analyze distributional divergence impact on class separability and potential overfitting risks"
+      ],
+      "success_criteria": [
+        "Clear distinction between artifact-driven and attack-driven distribution concentration",
+        "Assessment of how this pattern affects model robustness to unseen port distributions",
+        "Identification of representation-sensitive vulnerabilities linked to this feature"
+      ],
+      "router_constraints": [
+        "preserve feature scope for destination port",
+        "preserve evidence reference e33"
+      ]
+    },
+    {
+      "strategy_id": "strategy_03_hyp_8",
+      "hypothesis_id": "hyp_8_tension_low_cardinality_vs_class_variation",
+      "strategic_objective": "Explore the coexistence of near-constant and highly variable features to characterize dataset heterogeneity and measurement effects.",
+      "key_checks": [
+        "Measure cardinality and distribution shifts for low cardinality bulk and flag features",
+        "Evaluate class-conditioned structural variation in features with strong distributional shifts",
+        "Investigate if low cardinality features reflect saturation or measurement limits",
+        "Assess how models might reconcile or leverage heterogeneous feature behaviors"
+      ],
+      "success_criteria": [
+        "Evidence clarifying whether low cardinality features obscure meaningful variation",
+        "Understanding of how heterogeneous feature types influence model interpretability and stability",
+        "Identification of potential feature groups requiring distinct handling strategies"
+      ],
+      "router_constraints": [
+        "preserve feature scope for low cardinality and variable features",
+        "preserve evidence references e8 to e12 and e23 to e33"
+      ]
+    }
+  ]
+}

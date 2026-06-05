@@ -1,0 +1,22 @@
+{
+  "batch_id": "phase3a_batch_0506083346_friday-workinghours-afternoon-ddos.pcap_iscx_67ce11",
+  "round_id": "round-001",
+  "worker_result": {
+    "task_id": "task_2",
+    "hypothesis_id": "hyp_004_destination_port_distribution_shift",
+    "status": "completed",
+    "findings": [
+      "Destination Port shows a strong distributional shift between BENIGN and DDoS classes with a dominant ratio of 0.346 for BENIGN and 1.0 for DDoS, and a high Jensen-Shannon divergence of 0.7315.",
+      "No local evidence of correlation or confounding factors between Destination Port and other network context features was identified within the bounded scope of evidence e33."
+    ],
+    "evidence_refs": [
+      "task_2_step_03",
+      "task_2_step_05",
+      "task_2_step_07"
+    ],
+    "contradictions": [],
+    "limitations": [
+      "Analysis limited to bounded local evidence e33; potential confounding factors outside this scope remain unexamined."
+    ]
+  }
+}

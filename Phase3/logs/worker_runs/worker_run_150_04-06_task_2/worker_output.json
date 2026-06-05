@@ -1,0 +1,24 @@
+{
+  "batch_id": "phase3a_batch_0406154632_friday-workinghours-afternoon-ddos.pcap_iscx_92d6c1",
+  "round_id": "round-001",
+  "worker_result": {
+    "task_id": "task_2",
+    "hypothesis_id": "hyp_7_class_conditioned_distribution_destination_port",
+    "status": "inconclusive",
+    "findings": [
+      "Destination Port shows moderate shortcut-like predictive leverage but also exhibits high local label neighborhood conflicts and duplicate label conflicts.",
+      "Strong class-conditioned distributional divergence is confounded by low cardinality and structural irregularities, indicating potential artifact signals mixed with genuine attack signals.",
+      "Local evidence does not conclusively distinguish artifact signals from genuine attack targeting signals in the destination port distribution."
+    ],
+    "evidence_refs": [
+      "task_2_step_03",
+      "task_2_step_05"
+    ],
+    "contradictions": [
+      "local contradiction preserved"
+    ],
+    "limitations": [
+      "analysis limited to local evidence in destination port feature; global aggregation or cross-feature analysis not performed"
+    ]
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "batch_id": "phase3a_batch_0506083346_friday-workinghours-afternoon-ddos.pcap_iscx_67ce11",
+  "round_id": "round-001",
+  "hypothesis_id": "hyp_001_low_diversity_bulk_features",
+  "planner_strategy_id": "strategy_03_hyp_001",
+  "worker_tasks": [
+    {
+      "task_id": "task_1",
+      "hypothesis_id": "hyp_001_low_diversity_bulk_features",
+      "task_scope": "Verify cardinality and value distribution stability of bulk traffic features over time and across classes using evidence refs e23 to e32.",
+      "allowed_actions": ["cardinality_verification", "distribution_verification"],
+      "local_context_refs": ["e23", "e24", "e25", "e26", "e27", "e28", "e29", "e30", "e31", "e32"],
+      "stop_conditions": ["cardinality counts stable across time windows", "value distributions show no unexpected shifts"]
+    },
+    {
+      "task_id": "task_2",
+      "hypothesis_id": "hyp_001_low_diversity_bulk_features",
+      "task_scope": "Evaluate intra-class variation and temporal dynamics within low diversity bulk features using evidence refs e23 to e32.",
+      "allowed_actions": ["local_consistency_verification", "dependency_contextualization"],
+      "local_context_refs": ["e23", "e24", "e25", "e26", "e27", "e28", "e29", "e30", "e31", "e32"],
+      "stop_conditions": ["intra-class variation quantified", "temporal dynamics characterized or ruled out"]
+    },
+    {
+      "task_id": "task_3",
+      "hypothesis_id": "hyp_001_low_diversity_bulk_features",
+      "task_scope": "Explore potential data collection or preprocessing artifacts causing near-constant feature values in bulk traffic using evidence refs e23 to e32.",
+      "allowed_actions": ["duplication_verification", "shortcut_verification", "structural_summary"],
+      "local_context_refs": ["e23", "e24", "e25", "e26", "e27", "e28", "e29", "e30", "e31", "e32"],
+      "stop_conditions": ["artifact signals identified or excluded", "structural irregularities documented"]
+    }
+  ]
+}

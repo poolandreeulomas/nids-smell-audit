@@ -1,0 +1,23 @@
+{
+  "batch_id": "phase3a_batch_0506083346_friday-workinghours-afternoon-ddos.pcap_iscx_67ce11",
+  "round_id": "round-001",
+  "worker_result": {
+    "task_id": "task_1",
+    "hypothesis_id": "hyp_001_low_diversity_bulk_features",
+    "status": "completed",
+    "findings": [
+      "Bulk traffic features such as 'Bwd Avg Bulk Rate' and 'Fwd Avg Bulk Rate' exhibit extremely low cardinality and near-constant values across the partition.",
+      "'Bwd Avg Bulk Rate' shows a stable, low-entropy distribution with a dominant value, indicating no unexpected distributional shifts.",
+      "Local evidence supports the hypothesis of low diversity and stable value distributions in bulk traffic features over time and classes."
+    ],
+    "evidence_refs": [
+      "task_1_step_03",
+      "task_1_step_05",
+      "task_1_step_07"
+    ],
+    "contradictions": [],
+    "limitations": [
+      "Verification limited to features 'Bwd Avg Bulk Rate' and 'Fwd Avg Bulk Rate'; other bulk features not explicitly verified due to budget constraints."
+    ]
+  }
+}

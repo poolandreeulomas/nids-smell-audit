@@ -1,0 +1,109 @@
+ROLE:
+You are Aggregation. Stay inside one hypothesis-local, round-local merge after Worker and before State Manager.
+Do not reroute, replan, mutate canonical state, emit critic feedback, or summarize raw traces.
+Preserve grounded contradictions and unresolved gaps instead of flattening them away.
+
+TASK:
+{
+  "batch_id": "phase3a_batch_0406154632_friday-workinghours-afternoon-ddos.pcap_iscx_92d6c1",
+  "round_id": "round-001",
+  "hypothesis_id": "hyp_7_class_conditioned_distribution_destination_port",
+  "worker_result_count": 3,
+  "expected_task_ids": [
+    "task_1",
+    "task_2",
+    "task_3"
+  ],
+  "selected_task_ids": [
+    "task_1",
+    "task_2",
+    "task_3"
+  ]
+}
+
+SOURCE_WORKER_RESULTS:
+[
+  {
+    "task_id": "task_1",
+    "hypothesis_id": "hyp_7_class_conditioned_distribution_destination_port",
+    "status": "completed",
+    "findings": [
+      "Destination Port feature in the DDoS class exhibits zero entropy and a dominant ratio of 1.0, indicating concentration on a single port.",
+      "Low cardinality verification supports near-constant behavior of the destination port within the DDoS class.",
+      "Distribution verification confirms strong class-conditioned separation and stable metrics."
+    ],
+    "evidence_refs": [
+      "task_1_step_03",
+      "task_1_step_05"
+    ],
+    "contradictions": [],
+    "limitations": []
+  },
+  {
+    "task_id": "task_2",
+    "hypothesis_id": "hyp_7_class_conditioned_distribution_destination_port",
+    "status": "inconclusive",
+    "findings": [
+      "Destination Port shows moderate shortcut-like predictive leverage but also exhibits high local label neighborhood conflicts and duplicate label conflicts.",
+      "Strong class-conditioned distributional divergence is confounded by low cardinality and structural irregularities, indicating potential artifact signals mixed with genuine attack signals.",
+      "Local evidence does not conclusively distinguish artifact signals from genuine attack targeting signals in the destination port distribution."
+    ],
+    "evidence_refs": [
+      "task_2_step_03",
+      "task_2_step_05"
+    ],
+    "contradictions": [
+      "local contradiction preserved"
+    ],
+    "limitations": [
+      "analysis limited to local evidence in destination port feature; global aggregation or cross-feature analysis not performed"
+    ]
+  },
+  {
+    "task_id": "task_3",
+    "hypothesis_id": "hyp_7_class_conditioned_distribution_destination_port",
+    "status": "completed",
+    "findings": [
+      "Destination Port shows strong class-conditioned distributional divergence with DDoS class concentrated on a single port (zero entropy).",
+      "Dependency profile is narrowly clustered, indicating low structural variability for DDoS class.",
+      "Presence of tension between low cardinality feature values and class variation suggests potential shortcut-like overfitting risk."
+    ],
+    "evidence_refs": [
+      "task_3_step_03",
+      "task_3_step_05"
+    ],
+    "contradictions": [],
+    "limitations": [
+      "Analysis limited to single feature context without cross-feature dependency expansion."
+    ]
+  }
+]
+
+OVERLAP_DIAGNOSTICS:
+[]
+
+OUTPUT_RULES:
+Return exactly one JSON object.
+Only cite evidence_refs that appear in SOURCE_WORKER_RESULTS.
+Only preserve contradictions that already appear in SOURCE_WORKER_RESULTS.
+Keep update_focus state-facing and grounded, but do not describe state mutation.
+{
+  "aggregation_handoff": {
+    "batch_id": "phase3a_batch_0406154632_friday-workinghours-afternoon-ddos.pcap_iscx_92d6c1",
+    "round_id": "round-001",
+    "hypothesis_id": "hyp_7_class_conditioned_distribution_destination_port",
+    "merged_findings": [
+      "grounded merged finding"
+    ],
+    "evidence_refs": [
+      "source evidence_ref"
+    ],
+    "preserved_contradictions": [
+      "unresolved source contradiction"
+    ],
+    "open_gaps": [
+      "remaining unresolved gap or limitation"
+    ],
+    "update_focus": "orientation for the touched interpretive area"
+  }
+}

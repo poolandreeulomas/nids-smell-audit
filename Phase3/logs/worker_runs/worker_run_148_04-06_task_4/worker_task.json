@@ -1,0 +1,30 @@
+{
+  "task_id": "task_4",
+  "hypothesis_id": "hyp_8_tension_low_cardinality_vs_class_variation",
+  "task_scope": "Assess how models might reconcile or leverage heterogeneous feature behaviors across evidence refs e8 to e12 and e23 to e33",
+  "allowed_actions": [
+    "dependency_contextualization",
+    "relation_verification"
+  ],
+  "local_context_refs": [
+    "e8",
+    "e9",
+    "e10",
+    "e11",
+    "e12",
+    "e23",
+    "e24",
+    "e25",
+    "e26",
+    "e27",
+    "e29",
+    "e30",
+    "e31",
+    "e32",
+    "e33"
+  ],
+  "stop_conditions": [
+    "dependency patterns contextualized",
+    "feature relation heterogeneity characterized"
+  ]
+}
