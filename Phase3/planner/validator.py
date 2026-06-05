@@ -85,22 +85,27 @@ def _collect_tool_name_hits(
     hits: list[dict[str, str]] = []
     for tool_name in sorted(known_tool_capability_refs):
         if tool_name.lower() in normalized:
-            hits.append({"field": field_name, "code": f"exact_tool_reference:{tool_name}"})
+            hits.append(
+                {"field": field_name, "code": f"exact_tool_reference:{tool_name}"})
     return hits
 
 
 def validate_ranking_decision_min(ranking_decision_min: dict[str, Any]) -> dict[str, Any]:
-    raw = ranking_decision_min if isinstance(ranking_decision_min, dict) else {}
+    raw = ranking_decision_min if isinstance(
+        ranking_decision_min, dict) else {}
     errors: list[dict[str, str]] = []
 
     if not isinstance(ranking_decision_min, dict):
-        errors.append(_error("ranking_decision_min", "ranking_decision_min must be an object."))
+        errors.append(_error("ranking_decision_min",
+                      "ranking_decision_min must be an object."))
 
     if not _is_non_empty_string(raw.get("batch_id")):
-        errors.append(_error("batch_id", "batch_id must be a non-empty string."))
+        errors.append(
+            _error("batch_id", "batch_id must be a non-empty string."))
 
     if not _is_non_empty_string(raw.get("round_id")):
-        errors.append(_error("round_id", "round_id must be a non-empty string."))
+        errors.append(
+            _error("round_id", "round_id must be a non-empty string."))
 
     selected_hypothesis_ids = raw.get("selected_hypothesis_ids")
     if not _is_string_list(selected_hypothesis_ids, allow_empty=False):
@@ -143,7 +148,8 @@ def validate_selected_hypothesis_context(
     *,
     expected_selected_hypothesis_ids: list[str],
 ) -> dict[str, Any]:
-    raw = selected_hypothesis_context if isinstance(selected_hypothesis_context, dict) else {}
+    raw = selected_hypothesis_context if isinstance(
+        selected_hypothesis_context, dict) else {}
     errors: list[dict[str, str]] = []
 
     if not isinstance(selected_hypothesis_context, dict):
@@ -168,11 +174,13 @@ def validate_selected_hypothesis_context(
     for index, hypothesis in enumerate(selected_hypotheses):
         field_prefix = f"selected_hypotheses[{index}]"
         if not isinstance(hypothesis, dict):
-            errors.append(_error(field_prefix, "Each selected hypothesis must be an object."))
+            errors.append(
+                _error(field_prefix, "Each selected hypothesis must be an object."))
             continue
         hypothesis_id = hypothesis.get("hypothesis_id")
         if not _is_non_empty_string(hypothesis_id):
-            errors.append(_error(f"{field_prefix}.hypothesis_id", "hypothesis_id must be a non-empty string."))
+            errors.append(_error(
+                f"{field_prefix}.hypothesis_id", "hypothesis_id must be a non-empty string."))
             continue
         normalized_hypothesis_id = str(hypothesis_id).strip()
         if normalized_hypothesis_id in seen_ids:
@@ -191,7 +199,8 @@ def validate_selected_hypothesis_context(
                 )
             )
         if not _is_non_empty_string(hypothesis.get("summary")):
-            errors.append(_error(f"{field_prefix}.summary", "summary must be a non-empty string."))
+            errors.append(_error(f"{field_prefix}.summary",
+                          "summary must be a non-empty string."))
         if not _is_string_list(hypothesis.get("evidence_refs"), allow_empty=False):
             errors.append(
                 _error(
@@ -214,12 +223,14 @@ def validate_selected_hypothesis_context(
                 )
             )
 
-    missing_ids = sorted(set(expected_selected_hypothesis_ids).difference(seen_ids))
+    missing_ids = sorted(
+        set(expected_selected_hypothesis_ids).difference(seen_ids))
     if missing_ids:
         errors.append(
             _error(
                 "selected_hypotheses",
-                "selected_hypothesis_context is missing selected hypotheses: " + ", ".join(missing_ids) + ".",
+                "selected_hypothesis_context is missing selected hypotheses: " +
+                ", ".join(missing_ids) + ".",
             )
         )
 
@@ -242,17 +253,21 @@ def validate_planner_round_context(
     expected_round_id: str,
     known_tool_capability_refs: set[str] | None = None,
 ) -> dict[str, Any]:
-    raw = planner_round_context if isinstance(planner_round_context, dict) else {}
+    raw = planner_round_context if isinstance(
+        planner_round_context, dict) else {}
     errors: list[dict[str, str]] = []
 
     if not isinstance(planner_round_context, dict):
-        errors.append(_error("planner_round_context", "planner_round_context must be an object."))
+        errors.append(_error("planner_round_context",
+                      "planner_round_context must be an object."))
 
     round_id = raw.get("round_id")
     if not _is_non_empty_string(round_id):
-        errors.append(_error("round_id", "round_id must be a non-empty string."))
+        errors.append(
+            _error("round_id", "round_id must be a non-empty string."))
     elif str(round_id).strip() != expected_round_id:
-        errors.append(_error("round_id", f"round_id must match '{expected_round_id}'."))
+        errors.append(
+            _error("round_id", f"round_id must match '{expected_round_id}'."))
 
     related_substrate_refs = raw.get("related_substrate_refs")
     if not _is_string_list(related_substrate_refs):
@@ -295,8 +310,14 @@ def validate_planner_round_context(
 
     round_constraints = raw.get("round_constraints")
     if not _is_string_list(round_constraints):
-        errors.append(_error("round_constraints", "round_constraints must be a list of strings."))
+        errors.append(_error("round_constraints",
+                      "round_constraints must be a list of strings."))
         round_constraints = []
+
+    critic_guidance = raw.get("critic_guidance")
+    if critic_guidance is not None and not _is_string_list(critic_guidance):
+        errors.append(_error("critic_guidance",
+                      "critic_guidance must be a list of strings."))
 
     return _report(
         ok=not errors,
@@ -317,29 +338,36 @@ def validate_planner_round_output(
     expected_round_id: str,
     known_tool_capability_refs: set[str] | None = None,
 ) -> dict[str, Any]:
-    raw = planner_round_output if isinstance(planner_round_output, dict) else {}
+    raw = planner_round_output if isinstance(
+        planner_round_output, dict) else {}
     errors: list[dict[str, str]] = []
     warnings: list[dict[str, str]] = []
     forbidden_language_hits: list[dict[str, str]] = []
 
     if not isinstance(planner_round_output, dict):
-        errors.append(_error("planner_round_output", "planner_round_output must be an object."))
+        errors.append(_error("planner_round_output",
+                      "planner_round_output must be an object."))
 
     batch_id = raw.get("batch_id")
     if not _is_non_empty_string(batch_id):
-        errors.append(_error("batch_id", "batch_id must be a non-empty string."))
+        errors.append(
+            _error("batch_id", "batch_id must be a non-empty string."))
     elif str(batch_id).strip() != expected_batch_id:
-        errors.append(_error("batch_id", f"batch_id must match '{expected_batch_id}'."))
+        errors.append(
+            _error("batch_id", f"batch_id must match '{expected_batch_id}'."))
 
     round_id = raw.get("round_id")
     if not _is_non_empty_string(round_id):
-        errors.append(_error("round_id", "round_id must be a non-empty string."))
+        errors.append(
+            _error("round_id", "round_id must be a non-empty string."))
     elif str(round_id).strip() != expected_round_id:
-        errors.append(_error("round_id", f"round_id must match '{expected_round_id}'."))
+        errors.append(
+            _error("round_id", f"round_id must match '{expected_round_id}'."))
 
     planner_strategies = raw.get("planner_strategies")
     if not isinstance(planner_strategies, list) or not planner_strategies:
-        errors.append(_error("planner_strategies", "planner_strategies must be a non-empty list."))
+        errors.append(_error("planner_strategies",
+                      "planner_strategies must be a non-empty list."))
         planner_strategies = []
 
     selected_set = set(selected_hypothesis_ids)
@@ -349,12 +377,14 @@ def validate_planner_round_output(
     for index, strategy in enumerate(planner_strategies):
         field_prefix = f"planner_strategies[{index}]"
         if not isinstance(strategy, dict):
-            errors.append(_error(field_prefix, "Each planner strategy must be an object."))
+            errors.append(
+                _error(field_prefix, "Each planner strategy must be an object."))
             continue
 
         strategy_id = strategy.get("strategy_id")
         if not _is_non_empty_string(strategy_id):
-            errors.append(_error(f"{field_prefix}.strategy_id", "strategy_id must be a non-empty string."))
+            errors.append(_error(
+                f"{field_prefix}.strategy_id", "strategy_id must be a non-empty string."))
         else:
             normalized_strategy_id = str(strategy_id).strip()
             if normalized_strategy_id in seen_strategy_ids:
@@ -368,7 +398,8 @@ def validate_planner_round_output(
 
         hypothesis_id = strategy.get("hypothesis_id")
         if not _is_non_empty_string(hypothesis_id):
-            errors.append(_error(f"{field_prefix}.hypothesis_id", "hypothesis_id must be a non-empty string."))
+            errors.append(_error(
+                f"{field_prefix}.hypothesis_id", "hypothesis_id must be a non-empty string."))
             continue
 
         normalized_hypothesis_id = str(hypothesis_id).strip()
@@ -406,7 +437,8 @@ def validate_planner_round_output(
                     )
                 )
             forbidden_language_hits.extend(
-                _collect_forbidden_language(f"{field_prefix}.strategic_objective", normalized_objective)
+                _collect_forbidden_language(
+                    f"{field_prefix}.strategic_objective", normalized_objective)
             )
             forbidden_language_hits.extend(
                 _collect_tool_name_hits(
@@ -443,7 +475,8 @@ def validate_planner_round_output(
                         )
                     )
                 forbidden_language_hits.extend(
-                    _collect_forbidden_language(f"{field_prefix}.{key}[{item_index}]", normalized_value)
+                    _collect_forbidden_language(
+                        f"{field_prefix}.{key}[{item_index}]", normalized_value)
                 )
                 forbidden_language_hits.extend(
                     _collect_tool_name_hits(
@@ -458,7 +491,8 @@ def validate_planner_round_output(
         errors.append(
             _error(
                 "planner_strategies",
-                "Missing planner strategies for selected hypotheses: " + ", ".join(missing_strategy_ids) + ".",
+                "Missing planner strategies for selected hypotheses: " +
+                ", ".join(missing_strategy_ids) + ".",
             )
         )
 
@@ -471,7 +505,8 @@ def validate_planner_round_output(
         )
 
     for hit in forbidden_language_hits:
-        warnings.append(_error(hit["field"], f"Semantic language flag detected ({hit['code']})."))
+        warnings.append(
+            _error(hit["field"], f"Semantic language flag detected ({hit['code']})."))
 
     stats = {
         "selected_count": len(selected_hypothesis_ids),

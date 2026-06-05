@@ -50,7 +50,8 @@ def _build_initial_state() -> dict[str, object]:
                 hypothesis_id="hyp-1",
                 summary="The dependency may reflect a shortcut-compatible framing.",
                 evidence_refs=["region-e1"],
-                open_questions=["Need to verify whether the dependency stays local."],
+                open_questions=[
+                    "Need to verify whether the dependency stays local."],
             )
         ],
     )
@@ -124,18 +125,20 @@ def _build_saved_critic_bundle(tmp_path: Path) -> dict[str, object]:
         [
             json.dumps(
                 {
-                    "critic_feedback_payload": {
-                        "batch_id": "batch-001",
-                        "round_id": "round-001",
-                        "module_feedback": [
-                            {
-                                "module_name": "aggregation",
-                                "observed_issue": "Aggregation is carrying contradiction pressure forward without narrowing the next check enough.",
-                                "evidence_refs": ["task-hyp-1-1_step_01"],
-                                "suggestion": "Keep the next round focused on one explicit contradiction-closing check before widening scope again.",
-                            }
-                        ],
-                    }
+                    "batch_id": "batch-001",
+                    "round_id": "round-001",
+                    "critic_observations": [
+                        {
+                            "observation_id": "obs_001",
+                            "observation_type": "productive_active_line",
+                            "target_module": "planner",
+                            "priority": "medium",
+                            "hypothesis_ids": ["hyp-1"],
+                            "rationale": "Aggregation is carrying contradiction pressure forward without narrowing the next check enough.",
+                            "guidance": "Keep the next round focused on one explicit contradiction-closing check before widening scope again.",
+                            "prompt_snippet": "Keep the next round focused on one explicit contradiction-closing check before widening scope again.",
+                        }
+                    ],
                 }
             )
         ]
@@ -164,12 +167,14 @@ def test_load_critic_run_context_reads_saved_bundle(tmp_path: Path):
     bundle = _build_saved_critic_bundle(tmp_path)
 
     cli = object.__new__(NidsAgentCli)
-    loaded = cli._load_critic_run_context(Path(bundle["artifact_paths"]["component_run_path"]).parent)
+    loaded = cli._load_critic_run_context(
+        Path(bundle["artifact_paths"]["component_run_path"]).parent)
 
     assert isinstance(loaded, CriticRunContext)
     assert loaded.component_run["round_id"] == "round-001"
-    assert loaded.component_run["prompt_version"] == "phase3a.critic.prompt.v1"
-    assert loaded.critic_feedback_payload["batch_id"] == "batch-001"
+    assert loaded.component_run["prompt_version"] == "phase3a.critic.prompt.v2"
+    assert loaded.critic_observations_payload["batch_id"] == "batch-001"
+    assert loaded.critic_observations_payload["critic_observations"][0]["target_module"] == "planner"
 
 
 def test_render_critic_run_review_uses_component_artifacts():
@@ -178,7 +183,7 @@ def test_render_critic_run_review_uses_component_artifacts():
         artifact_paths={
             "component_run_path": "critic_run_001/component_run.json",
             "critic_input_bundle_path": "critic_run_001/critic_input_bundle.json",
-            "critic_feedback_payload_path": "critic_run_001/critic_feedback_payload.json",
+            "critic_observations_path": "critic_run_001/critic_observations.json",
             "validation_report_path": "critic_run_001/validation_report.json",
             "runtime_metrics_path": "critic_run_001/runtime_metrics.json",
         },
@@ -189,7 +194,8 @@ def test_render_critic_run_review_uses_component_artifacts():
             "status": "ok",
             "validation_ok": True,
             "final_round_gate_status": "allowed_non_final_round",
-            "module_feedback_count": 1,
+            "observation_count": 1,
+            "observations_committed": True,
         },
         critic_input_min={"round_id": "round-001"},
         refined_state_summary={"hypothesis_id": "hyp-1"},
@@ -197,7 +203,7 @@ def test_render_critic_run_review_uses_component_artifacts():
         process_signal_summary={"is_final_round": False},
         prompt_text="prompt",
         raw_response_text="response",
-        critic_feedback_payload={"module_feedback": []},
+        critic_observations_payload={"critic_observations": []},
         validation_report={},
         runtime_metrics={"duration_ms": 10.0},
         replay_metadata=None,
@@ -209,4 +215,4 @@ def test_render_critic_run_review_uses_component_artifacts():
     assert "batch-001" in cli._last_rendered
     assert "round-001" in cli._last_rendered
     assert "critic_input_bundle.json" in cli._last_rendered
-    assert "critic_feedback_payload.json" in cli._last_rendered
+    assert "critic_observations.json" in cli._last_rendered

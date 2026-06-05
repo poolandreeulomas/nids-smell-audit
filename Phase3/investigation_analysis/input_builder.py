@@ -28,7 +28,8 @@ def build_analysis_context_min(
     partition_context: dict[str, Any],
     artifact_framing_refs: list[dict[str, Any]] | None = None,
 ) -> dict[str, Any]:
-    normalized_partition_context = normalize_partition_context(partition_context)
+    normalized_partition_context = normalize_partition_context(
+        partition_context)
     normalized_framings: list[dict[str, str]] = []
 
     for raw_framing in artifact_framing_refs or []:
@@ -55,6 +56,7 @@ def build_analysis_context_min(
 def build_analysis_iteration_context_min(
     initial_hypothesis_set_ref: dict[str, Any] | None = None,
     current_state_ref: dict[str, Any] | None = None,
+    critic_guidance: list[str] | None = None,
 ) -> dict[str, Any]:
     raw_hypothesis_set = dict(initial_hypothesis_set_ref or {})
     raw_current_state = dict(current_state_ref or {})
@@ -68,7 +70,8 @@ def build_analysis_iteration_context_min(
         for raw_hypothesis in raw_hypotheses:
             if not isinstance(raw_hypothesis, dict):
                 continue
-            hypothesis_id = _normalize_string(raw_hypothesis.get("hypothesis_id"))
+            hypothesis_id = _normalize_string(
+                raw_hypothesis.get("hypothesis_id"))
             summary = _normalize_string(raw_hypothesis.get("summary"))
             if hypothesis_id and summary:
                 normalized_hypothesis_refs.append(
@@ -83,9 +86,14 @@ def build_analysis_iteration_context_min(
     state_notes = _normalize_string_list(raw_current_state.get("state_notes"))
 
     if not analysis_id and not state_id and not state_notes and not normalized_hypothesis_refs:
+        if critic_guidance:
+            return {"critic_guidance": [str(item).strip() for item in critic_guidance if isinstance(item, str) and str(item).strip()]}
         return {}
 
-    return {
+    normalized_critic_guidance = [str(item).strip() for item in critic_guidance or [
+    ] if isinstance(item, str) and str(item).strip()]
+
+    payload = {
         "initial_hypothesis_set_ref": {
             "analysis_id": analysis_id,
             "hypothesis_refs": normalized_hypothesis_refs,
@@ -95,3 +103,6 @@ def build_analysis_iteration_context_min(
             "state_notes": state_notes,
         },
     }
+    if normalized_critic_guidance:
+        payload["critic_guidance"] = normalized_critic_guidance
+    return payload

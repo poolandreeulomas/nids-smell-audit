@@ -6,75 +6,78 @@ import re
 from typing import Any
 
 from critic.contracts import (
-    MAX_MODULE_FEEDBACK_ITEMS,
+    MAX_CRITIC_OBSERVATIONS,
     MAX_OBSERVED_ISSUE_CHARS,
+    MAX_PROMPT_SNIPPET_CHARS,
+    MAX_RATIONALE_CHARS,
     MAX_SUGGESTION_CHARS,
     VALID_MODULE_NAMES,
+    VALID_OBSERVATION_TYPES,
+    VALID_PRIORITIES,
+    VALID_TARGET_MODULES,
 )
 
 
 _CRITIC_CONTEXT_FIELDS = {
     "critic_input_min",
-    "refined_state_summary",
-    "module_behavior_summaries",
-    "process_signal_summary",
+    "semantic_landscape_summary",
+    "hypothesis_universe",
+    "investigation_history",
+    "ranking_history",
+    "investigation_outcomes",
+    "active_hypothesis_gaps",
 }
 _CRITIC_INPUT_MIN_FIELDS = {
     "batch_id",
     "round_id",
-    "state_summary_ref",
-    "module_artifact_refs",
-    "process_signal_refs",
 }
-_MODULE_ARTIFACT_REF_FIELDS = {
-    "module_name",
-    "artifact_kind",
-    "artifact_ref",
+_SEMANTIC_LANDSCAPE_REGION_FIELDS = {
+    "region_id",
+    "kind",
+    "status",
 }
-_PROCESS_SIGNAL_REF_FIELDS = {
-    "signal_name",
-    "signal_ref",
+_HYPOTHESIS_UNIVERSE_ITEM_FIELDS = {
+    "hypothesis_id",
+    "status",
+    "one_line_summary",
 }
-_REFINED_STATE_SUMMARY_FIELDS = {
-    "batch_id",
+_ACTIVE_GAP_ITEM_FIELDS = {
+    "hypothesis_id",
+    "open_gaps",
+}
+_INVESTIGATION_HISTORY_FIELDS = {
+    "round_id",
+    "selected_hypothesis_ids",
+    "state_version_start",
+    "state_version_end",
+}
+_RANKING_HISTORY_FIELDS = {
+    "round_id",
+    "candidate_hypothesis_ids",
+    "selected_hypothesis_ids",
+}
+_INVESTIGATION_OUTCOME_FIELDS = {
     "round_id",
     "hypothesis_id",
-    "state_version",
-    "summary",
-    "status",
-    "evidence_refs",
-    "open_gaps",
-    "preserved_contradictions",
-    "merged_findings",
-    "last_updated_round",
+    "revision_delta",
+    "new_findings_count",
+    "resolved_gaps_count",
+    "state_change_summary",
 }
-_MODULE_BEHAVIOR_SUMMARY_FIELDS = {
-    "module_name",
-    "status",
-    "behavior_summary",
-    "evidence_refs",
-    "warning_signals",
-}
-_PROCESS_SIGNAL_SUMMARY_FIELDS = {
+_CRITIC_OBSERVATIONS_PAYLOAD_FIELDS = {
     "batch_id",
     "round_id",
-    "is_final_round",
-    "state_committed",
-    "validation_ok",
-    "applied_update_count",
-    "remaining_open_gap_count",
-    "warning_codes",
+    "critic_observations",
 }
-_CRITIC_FEEDBACK_PAYLOAD_FIELDS = {
-    "batch_id",
-    "round_id",
-    "module_feedback",
-}
-_MODULE_FEEDBACK_FIELDS = {
-    "module_name",
-    "observed_issue",
-    "evidence_refs",
-    "suggestion",
+_CRITIC_OBSERVATION_FIELDS = {
+    "observation_id",
+    "observation_type",
+    "target_module",
+    "priority",
+    "hypothesis_ids",
+    "rationale",
+    "guidance",
+    "prompt_snippet",
 }
 _FORBIDDEN_SUGGESTION_PATTERNS = {
     "planning_directive": re.compile(r"\breplan\b|\brerank\b|\bdispatch\b|\bdecompose\b", re.IGNORECASE),
@@ -145,6 +148,18 @@ def _collect_forbidden_language(field_name: str, value: object) -> list[dict[str
     return hits
 
 
+_VALID_REGION_KINDS = {
+    "redundancy_region",
+    "dependency_region",
+    "concentration_region",
+    "low_diversity_region",
+    "localized_separability_region",
+    "representation_sensitive_region",
+    "topology_motif_region",
+    "mixed_structural_region",
+}
+
+
 def validate_critic_input_bundle(
     critic_context: dict[str, Any],
     *,
@@ -156,7 +171,8 @@ def validate_critic_input_bundle(
     warnings: list[dict[str, str]] = []
 
     if not isinstance(critic_context, dict):
-        errors.append(_error("critic_context", "critic_context must be an object."))
+        errors.append(
+            _error("critic_context", "critic_context must be an object."))
 
     unsupported_fields = sorted(set(raw.keys()) - _CRITIC_CONTEXT_FIELDS)
     if unsupported_fields:
@@ -169,200 +185,270 @@ def validate_critic_input_bundle(
 
     critic_input_min = raw.get("critic_input_min")
     if not isinstance(critic_input_min, dict):
-        errors.append(_error("critic_input_min", "critic_input_min must be an object."))
+        errors.append(_error("critic_input_min",
+                      "critic_input_min must be an object."))
         critic_input_min = {}
     else:
-        unsupported_fields = sorted(set(critic_input_min.keys()) - _CRITIC_INPUT_MIN_FIELDS)
+        unsupported_fields = sorted(
+            set(critic_input_min.keys()) - _CRITIC_INPUT_MIN_FIELDS)
         if unsupported_fields:
-            errors.append(
-                _error(
-                    "critic_input_min",
-                    f"critic_input_min contains unsupported fields: {unsupported_fields}.",
-                )
-            )
+            errors.append(_error(
+                "critic_input_min", f"critic_input_min contains unsupported fields: {unsupported_fields}."))
 
     for key, expected_value in (("batch_id", expected_batch_id), ("round_id", expected_round_id)):
         value = critic_input_min.get(key)
         if not _is_non_empty_string(value):
-            errors.append(_error(f"critic_input_min.{key}", f"{key} must be a non-empty string."))
-        elif str(value).strip() != expected_value:
-            errors.append(_error(f"critic_input_min.{key}", f"{key} must match '{expected_value}'."))
-
-    state_summary_ref = critic_input_min.get("state_summary_ref")
-    if not _is_non_empty_string(state_summary_ref):
-        errors.append(_error("critic_input_min.state_summary_ref", "state_summary_ref must be a non-empty string."))
-
-    module_artifact_refs = critic_input_min.get("module_artifact_refs")
-    if not isinstance(module_artifact_refs, list) or not module_artifact_refs:
-        errors.append(_error("critic_input_min.module_artifact_refs", "module_artifact_refs must be a non-empty list."))
-        module_artifact_refs = []
-    for index, artifact_ref in enumerate(module_artifact_refs):
-        field_prefix = f"critic_input_min.module_artifact_refs[{index}]"
-        if not isinstance(artifact_ref, dict):
-            errors.append(_error(field_prefix, "Each module_artifact_ref must be an object."))
-            continue
-        unsupported_fields = sorted(set(artifact_ref.keys()) - _MODULE_ARTIFACT_REF_FIELDS)
-        if unsupported_fields:
-            errors.append(_error(field_prefix, f"Unsupported fields: {unsupported_fields}."))
-        module_name = artifact_ref.get("module_name")
-        if not _is_non_empty_string(module_name):
-            errors.append(_error(f"{field_prefix}.module_name", "module_name must be a non-empty string."))
-        elif str(module_name).strip() not in VALID_MODULE_NAMES:
-            errors.append(_error(f"{field_prefix}.module_name", f"module_name must be one of {sorted(VALID_MODULE_NAMES)}."))
-        for key in ("artifact_kind", "artifact_ref"):
-            value = artifact_ref.get(key)
-            if not _is_non_empty_string(value):
-                errors.append(_error(f"{field_prefix}.{key}", f"{key} must be a non-empty string."))
-
-    process_signal_refs = critic_input_min.get("process_signal_refs")
-    if not isinstance(process_signal_refs, list) or not process_signal_refs:
-        errors.append(_error("critic_input_min.process_signal_refs", "process_signal_refs must be a non-empty list."))
-        process_signal_refs = []
-    for index, signal_ref in enumerate(process_signal_refs):
-        field_prefix = f"critic_input_min.process_signal_refs[{index}]"
-        if not isinstance(signal_ref, dict):
-            errors.append(_error(field_prefix, "Each process_signal_ref must be an object."))
-            continue
-        unsupported_fields = sorted(set(signal_ref.keys()) - _PROCESS_SIGNAL_REF_FIELDS)
-        if unsupported_fields:
-            errors.append(_error(field_prefix, f"Unsupported fields: {unsupported_fields}."))
-        for key in ("signal_name", "signal_ref"):
-            value = signal_ref.get(key)
-            if not _is_non_empty_string(value):
-                errors.append(_error(f"{field_prefix}.{key}", f"{key} must be a non-empty string."))
-
-    refined_state_summary = raw.get("refined_state_summary")
-    if not isinstance(refined_state_summary, dict):
-        errors.append(_error("refined_state_summary", "refined_state_summary must be an object."))
-        refined_state_summary = {}
-    else:
-        unsupported_fields = sorted(set(refined_state_summary.keys()) - _REFINED_STATE_SUMMARY_FIELDS)
-        if unsupported_fields:
             errors.append(
-                _error(
-                    "refined_state_summary",
-                    f"refined_state_summary contains unsupported fields: {unsupported_fields}.",
-                )
-            )
-
-    for key, expected_value in (("batch_id", expected_batch_id), ("round_id", expected_round_id)):
-        value = refined_state_summary.get(key)
-        if not _is_non_empty_string(value):
-            errors.append(_error(f"refined_state_summary.{key}", f"{key} must be a non-empty string."))
+                _error(f"critic_input_min.{key}", f"{key} must be a non-empty string."))
         elif str(value).strip() != expected_value:
-            errors.append(_error(f"refined_state_summary.{key}", f"{key} must match '{expected_value}'."))
-
-    if not _is_non_empty_string(refined_state_summary.get("hypothesis_id")):
-        errors.append(_error("refined_state_summary.hypothesis_id", "hypothesis_id must be a non-empty string."))
-    if not _is_non_empty_string(refined_state_summary.get("summary")):
-        errors.append(_error("refined_state_summary.summary", "summary must be a non-empty string."))
-    if not _is_non_empty_string(refined_state_summary.get("status")):
-        errors.append(_error("refined_state_summary.status", "status must be a non-empty string."))
-    state_version = _int_value(refined_state_summary.get("state_version"))
-    if state_version is None or state_version < 1:
-        errors.append(_error("refined_state_summary.state_version", "state_version must be an integer greater than or equal to 1."))
-    evidence_refs = _string_list(refined_state_summary.get("evidence_refs"), allow_empty=False)
-    if evidence_refs is None:
-        errors.append(_error("refined_state_summary.evidence_refs", "evidence_refs must be a non-empty list of strings."))
-    for list_field in ("open_gaps", "preserved_contradictions", "merged_findings"):
-        normalized_list = _string_list(refined_state_summary.get(list_field))
-        if normalized_list is None:
-            errors.append(_error(f"refined_state_summary.{list_field}", f"{list_field} must be a list of strings."))
-
-    module_behavior_summaries = raw.get("module_behavior_summaries")
-    if not isinstance(module_behavior_summaries, list) or not module_behavior_summaries:
-        errors.append(_error("module_behavior_summaries", "module_behavior_summaries must be a non-empty list."))
-        module_behavior_summaries = []
-    for index, summary in enumerate(module_behavior_summaries):
-        field_prefix = f"module_behavior_summaries[{index}]"
-        if not isinstance(summary, dict):
-            errors.append(_error(field_prefix, "Each module_behavior_summary must be an object."))
-            continue
-        unsupported_fields = sorted(set(summary.keys()) - _MODULE_BEHAVIOR_SUMMARY_FIELDS)
-        if unsupported_fields:
-            errors.append(_error(field_prefix, f"Unsupported fields: {unsupported_fields}."))
-        module_name = summary.get("module_name")
-        if not _is_non_empty_string(module_name):
-            errors.append(_error(f"{field_prefix}.module_name", "module_name must be a non-empty string."))
-        elif str(module_name).strip() not in VALID_MODULE_NAMES:
-            errors.append(_error(f"{field_prefix}.module_name", f"module_name must be one of {sorted(VALID_MODULE_NAMES)}."))
-        for key in ("status", "behavior_summary"):
-            value = summary.get(key)
-            if not _is_non_empty_string(value):
-                errors.append(_error(f"{field_prefix}.{key}", f"{key} must be a non-empty string."))
-        evidence_refs = _string_list(summary.get("evidence_refs"))
-        if evidence_refs is None:
-            errors.append(_error(f"{field_prefix}.evidence_refs", "evidence_refs must be a list of strings."))
-        warning_signals = _string_list(summary.get("warning_signals"))
-        if warning_signals is None:
-            errors.append(_error(f"{field_prefix}.warning_signals", "warning_signals must be a list of strings."))
-
-    process_signal_summary = raw.get("process_signal_summary")
-    if not isinstance(process_signal_summary, dict):
-        errors.append(_error("process_signal_summary", "process_signal_summary must be an object."))
-        process_signal_summary = {}
-    else:
-        unsupported_fields = sorted(set(process_signal_summary.keys()) - _PROCESS_SIGNAL_SUMMARY_FIELDS)
-        if unsupported_fields:
             errors.append(
-                _error(
-                    "process_signal_summary",
-                    f"process_signal_summary contains unsupported fields: {unsupported_fields}.",
-                )
-            )
+                _error(f"critic_input_min.{key}", f"{key} must match '{expected_value}'."))
 
-    for key, expected_value in (("batch_id", expected_batch_id), ("round_id", expected_round_id)):
-        value = process_signal_summary.get(key)
-        if not _is_non_empty_string(value):
-            errors.append(_error(f"process_signal_summary.{key}", f"{key} must be a non-empty string."))
-        elif str(value).strip() != expected_value:
-            errors.append(_error(f"process_signal_summary.{key}", f"{key} must match '{expected_value}'."))
-    for key in ("is_final_round", "state_committed", "validation_ok"):
-        if not isinstance(process_signal_summary.get(key), bool):
-            errors.append(_error(f"process_signal_summary.{key}", f"{key} must be a boolean."))
-    for key in ("applied_update_count", "remaining_open_gap_count"):
-        value = _int_value(process_signal_summary.get(key))
-        if value is None or value < 0:
-            errors.append(_error(f"process_signal_summary.{key}", f"{key} must be a non-negative integer."))
-    warning_codes = _string_list(process_signal_summary.get("warning_codes"))
-    if warning_codes is None:
-        errors.append(_error("process_signal_summary.warning_codes", "warning_codes must be a list of strings."))
+    # Validate compressed semantic landscape: {"regions": [...]}
+    semantic_landscape_summary = raw.get("semantic_landscape_summary")
+    region_count = 0
+    if not isinstance(semantic_landscape_summary, dict):
+        errors.append(_error("semantic_landscape_summary",
+                      "semantic_landscape_summary must be an object."))
+        semantic_landscape_summary = {}
+    else:
+        unsupported_fields = sorted(
+            set(semantic_landscape_summary.keys()) - {"regions"})
+        if unsupported_fields:
+            errors.append(_error("semantic_landscape_summary",
+                          f"semantic_landscape_summary must only contain 'regions'. Found: {unsupported_fields}."))
+        regions = semantic_landscape_summary.get("regions")
+        if not isinstance(regions, list):
+            errors.append(_error("semantic_landscape_summary.regions",
+                          "regions must be a list."))
+            regions = []
+        else:
+            seen_region_ids: set[str] = set()
+            for index, region in enumerate(regions):
+                field_prefix = f"semantic_landscape_summary.regions[{index}]"
+                if not isinstance(region, dict):
+                    errors.append(_error(field_prefix, "Each region must be an object."))
+                    continue
+                unsupported = sorted(set(region.keys()) - _SEMANTIC_LANDSCAPE_REGION_FIELDS)
+                if unsupported:
+                    errors.append(_error(field_prefix, f"Unsupported fields: {unsupported}."))
+                region_id = region.get("region_id")
+                if not _is_non_empty_string(region_id):
+                    errors.append(_error(f"{field_prefix}.region_id", "region_id must be a non-empty string."))
+                else:
+                    normalized_id = str(region_id).strip()
+                    if normalized_id in seen_region_ids:
+                        errors.append(_error(f"{field_prefix}.region_id", "region_id must be unique."))
+                    seen_region_ids.add(normalized_id)
+                kind = region.get("kind")
+                if not _is_non_empty_string(kind):
+                    errors.append(_error(f"{field_prefix}.kind", "kind must be a non-empty string."))
+                elif str(kind).strip() not in _VALID_REGION_KINDS:
+                    errors.append(_error(f"{field_prefix}.kind",
+                                  f"kind must be a valid region kind. Got: '{kind}'."))
+                status = region.get("status")
+                if not _is_non_empty_string(status):
+                    errors.append(_error(f"{field_prefix}.status", "status must be a non-empty string."))
+            region_count = len(regions)
+
+    # Validate lightweight hypothesis universe: [{hypothesis_id, status, one_line_summary}]
+    def _validate_hypothesis_universe() -> list[dict[str, Any]]:
+        items = raw.get("hypothesis_universe")
+        if not isinstance(items, list):
+            errors.append(_error("hypothesis_universe", "hypothesis_universe must be a list."))
+            return []
+        if not items:
+            errors.append(_error("hypothesis_universe", "hypothesis_universe must be a non-empty list."))
+        normalized: list[dict[str, Any]] = []
+        seen_ids: set[str] = set()
+        for index, item in enumerate(items):
+            field_prefix = f"hypothesis_universe[{index}]"
+            if not isinstance(item, dict):
+                errors.append(_error(field_prefix, "Each item must be an object."))
+                continue
+            unsupported = sorted(set(item.keys()) - _HYPOTHESIS_UNIVERSE_ITEM_FIELDS)
+            if unsupported:
+                errors.append(_error(field_prefix, f"Unsupported fields: {unsupported}."))
+            hypothesis_id = item.get("hypothesis_id")
+            if not _is_non_empty_string(hypothesis_id):
+                errors.append(_error(f"{field_prefix}.hypothesis_id", "hypothesis_id must be a non-empty string."))
+            else:
+                normalized_id = str(hypothesis_id).strip()
+                if normalized_id in seen_ids:
+                    errors.append(_error(f"{field_prefix}.hypothesis_id", "hypothesis_id must be unique."))
+                seen_ids.add(normalized_id)
+            if not _is_non_empty_string(item.get("status")):
+                errors.append(_error(f"{field_prefix}.status", "status must be a non-empty string."))
+            if not _is_non_empty_string(item.get("one_line_summary")):
+                errors.append(_error(f"{field_prefix}.one_line_summary", "one_line_summary must be a non-empty string."))
+            elif len(str(item.get("one_line_summary")).strip()) > 200:
+                errors.append(_error(f"{field_prefix}.one_line_summary", "one_line_summary must be at most 200 characters."))
+            normalized.append(item)
+        return normalized
+
+    hypothesis_universe = _validate_hypothesis_universe()
+
+    # Validate active_hypothesis_gaps: [{hypothesis_id, open_gaps}]
+    def _validate_active_gaps() -> list[dict[str, Any]]:
+        items = raw.get("active_hypothesis_gaps")
+        if not isinstance(items, list):
+            errors.append(_error("active_hypothesis_gaps", "active_hypothesis_gaps must be a list."))
+            return []
+        normalized: list[dict[str, Any]] = []
+        seen_ids: set[str] = set()
+        for index, item in enumerate(items):
+            field_prefix = f"active_hypothesis_gaps[{index}]"
+            if not isinstance(item, dict):
+                errors.append(_error(field_prefix, "Each item must be an object."))
+                continue
+            unsupported = sorted(set(item.keys()) - _ACTIVE_GAP_ITEM_FIELDS)
+            if unsupported:
+                errors.append(_error(field_prefix, f"Unsupported fields: {unsupported}."))
+            hypothesis_id = item.get("hypothesis_id")
+            if not _is_non_empty_string(hypothesis_id):
+                errors.append(_error(f"{field_prefix}.hypothesis_id", "hypothesis_id must be a non-empty string."))
+            else:
+                normalized_id = str(hypothesis_id).strip()
+                if normalized_id in seen_ids:
+                    errors.append(_error(f"{field_prefix}.hypothesis_id", "hypothesis_id must be unique."))
+                seen_ids.add(normalized_id)
+            open_gaps = _string_list(item.get("open_gaps"))
+            if open_gaps is None:
+                errors.append(_error(f"{field_prefix}.open_gaps", "open_gaps must be a list of non-empty strings."))
+            elif not open_gaps:
+                errors.append(_error(f"{field_prefix}.open_gaps", "open_gaps must be a non-empty list."))
+            normalized.append(item)
+        return normalized
+
+    active_hypothesis_gaps = _validate_active_gaps()
+
+    def _validate_history_list(field_name: str, required_fields: set[str]) -> list[dict[str, Any]]:
+        items = raw.get(field_name)
+        if not isinstance(items, list) or not items:
+            errors.append(
+                _error(field_name, f"{field_name} must be a non-empty list."))
+            return []
+        normalized_items: list[dict[str, Any]] = []
+        for index, item in enumerate(items):
+            field_prefix = f"{field_name}[{index}]"
+            if not isinstance(item, dict):
+                errors.append(
+                    _error(field_prefix, "Each item must be an object."))
+                continue
+            unsupported_fields = sorted(set(item.keys()) - required_fields)
+            if unsupported_fields:
+                errors.append(
+                    _error(field_prefix, f"Unsupported fields: {unsupported_fields}."))
+            round_value = item.get("round_id")
+            if not _is_non_empty_string(round_value):
+                errors.append(
+                    _error(f"{field_prefix}.round_id", "round_id must be a non-empty string."))
+            elif str(round_value).strip() != expected_round_id:
+                errors.append(_error(
+                    f"{field_prefix}.round_id", f"round_id must match '{expected_round_id}'."))
+            normalized_items.append(item)
+        return normalized_items
+
+    investigation_history = _validate_history_list(
+        "investigation_history", _INVESTIGATION_HISTORY_FIELDS)
+    ranking_history = _validate_history_list(
+        "ranking_history", _RANKING_HISTORY_FIELDS)
+
+    investigation_outcomes = raw.get("investigation_outcomes")
+    if not isinstance(investigation_outcomes, list) or not investigation_outcomes:
+        errors.append(_error("investigation_outcomes",
+                      "investigation_outcomes must be a non-empty list."))
+        investigation_outcomes = []
+    else:
+        for index, item in enumerate(investigation_outcomes):
+            field_prefix = f"investigation_outcomes[{index}]"
+            if not isinstance(item, dict):
+                errors.append(
+                    _error(field_prefix, "Each item must be an object."))
+                continue
+            unsupported_fields = sorted(
+                set(item.keys()) - _INVESTIGATION_OUTCOME_FIELDS)
+            if unsupported_fields:
+                errors.append(
+                    _error(field_prefix, f"Unsupported fields: {unsupported_fields}."))
+            if not _is_non_empty_string(item.get("round_id")):
+                errors.append(
+                    _error(f"{field_prefix}.round_id", "round_id must be a non-empty string."))
+            elif str(item.get("round_id")).strip() != expected_round_id:
+                errors.append(_error(
+                    f"{field_prefix}.round_id", f"round_id must match '{expected_round_id}'."))
+            if not _is_non_empty_string(item.get("hypothesis_id")):
+                errors.append(_error(
+                    f"{field_prefix}.hypothesis_id", "hypothesis_id must be a non-empty string."))
+            if _int_value(item.get("revision_delta")) is None:
+                errors.append(
+                    _error(f"{field_prefix}.revision_delta", "revision_delta must be an integer."))
+            for key in ("new_findings_count", "resolved_gaps_count"):
+                value = _int_value(item.get(key))
+                if value is None or value < 0:
+                    errors.append(
+                        _error(f"{field_prefix}.{key}", f"{key} must be a non-negative integer."))
+            if not _is_non_empty_string(item.get("state_change_summary")):
+                errors.append(_error(f"{field_prefix}.state_change_summary",
+                              "state_change_summary must be a non-empty string."))
+
+    # Cross-checks: hypothesis_ids in history/ranking/outcomes must exist in universe
+    known_ids = {str(item.get("hypothesis_id", "") or "").strip()
+                 for item in hypothesis_universe if _is_non_empty_string(item.get("hypothesis_id"))}
+    for field_name in ("investigation_history", "ranking_history"):
+        for index, item in enumerate(raw.get(field_name, []) if isinstance(raw.get(field_name), list) else []):
+            if not isinstance(item, dict):
+                continue
+            for key in ("selected_hypothesis_ids", "candidate_hypothesis_ids"):
+                ids = _string_list(item.get(key))
+                if ids is None:
+                    continue
+                for hypothesis_id in ids:
+                    if known_ids and hypothesis_id not in known_ids:
+                        errors.append(_error(
+                            f"{field_name}[{index}].{key}", f"Unknown hypothesis_id '{hypothesis_id}'."))
 
     return _report(
         ok=not errors,
         errors=errors,
         warnings=warnings,
         stats={
-            "module_artifact_ref_count": len(module_artifact_refs),
-            "process_signal_ref_count": len(process_signal_refs),
-            "module_behavior_summary_count": len(module_behavior_summaries),
+            "semantic_landscape_region_count": region_count,
+            "hypothesis_universe_count": len(hypothesis_universe),
+            "investigation_history_count": len(investigation_history),
+            "ranking_history_count": len(ranking_history),
+            "investigation_outcome_count": len(investigation_outcomes),
+            "active_hypothesis_gap_count": len(active_hypothesis_gaps),
         },
     )
 
 
-def validate_critic_feedback_payload(
-    critic_feedback_payload: dict[str, Any],
+def validate_critic_observations_payload(
+    critic_observations_payload: dict[str, Any],
     *,
     expected_batch_id: str,
     expected_round_id: str,
-    known_evidence_refs: set[str],
-    allowed_module_names: set[str] | None = None,
+    known_hypothesis_ids: set[str],
+    allowed_target_modules: set[str] | None = None,
 ) -> dict[str, Any]:
-    raw = critic_feedback_payload if isinstance(critic_feedback_payload, dict) else {}
+    raw = critic_observations_payload if isinstance(
+        critic_observations_payload, dict) else {}
     errors: list[dict[str, str]] = []
     warnings: list[dict[str, str]] = []
     forbidden_language_hits: list[dict[str, str]] = []
-    allowed_modules = set(allowed_module_names or VALID_MODULE_NAMES)
+    allowed_modules = set(allowed_target_modules or VALID_TARGET_MODULES)
 
-    if not isinstance(critic_feedback_payload, dict):
-        errors.append(_error("critic_feedback_payload", "critic_feedback_payload must be an object."))
+    if not isinstance(critic_observations_payload, dict):
+        errors.append(_error("critic_observations_payload",
+                      "critic_observations_payload must be an object."))
 
-    unsupported_fields = sorted(set(raw.keys()) - _CRITIC_FEEDBACK_PAYLOAD_FIELDS)
+    unsupported_fields = sorted(
+        set(raw.keys()) - _CRITIC_OBSERVATIONS_PAYLOAD_FIELDS)
     if unsupported_fields:
         errors.append(
             _error(
-                "critic_feedback_payload",
-                f"critic_feedback_payload contains unsupported fields: {unsupported_fields}.",
+                "critic_observations_payload",
+                f"critic_observations_payload contains unsupported fields: {unsupported_fields}.",
             )
         )
 
@@ -373,100 +459,141 @@ def validate_critic_feedback_payload(
         elif str(value).strip() != expected_value:
             errors.append(_error(key, f"{key} must match '{expected_value}'."))
 
-    module_feedback = raw.get("module_feedback")
-    if not isinstance(module_feedback, list) or not module_feedback:
-        errors.append(_error("module_feedback", "module_feedback must be a non-empty list."))
-        module_feedback = []
-    elif len(module_feedback) > MAX_MODULE_FEEDBACK_ITEMS:
+    critic_observations = raw.get("critic_observations")
+    if not isinstance(critic_observations, list):
+        errors.append(_error("critic_observations",
+                      "critic_observations must be a list."))
+        critic_observations = []
+    elif len(critic_observations) > MAX_CRITIC_OBSERVATIONS:
         errors.append(
             _error(
-                "module_feedback",
-                f"module_feedback must contain no more than {MAX_MODULE_FEEDBACK_ITEMS} items.",
+                "critic_observations",
+                f"critic_observations must contain no more than {MAX_CRITIC_OBSERVATIONS} items.",
             )
         )
 
-    for index, feedback_item in enumerate(module_feedback):
-        field_prefix = f"module_feedback[{index}]"
-        if not isinstance(feedback_item, dict):
-            errors.append(_error(field_prefix, "Each module_feedback item must be an object."))
+    seen_ids: set[str] = set()
+    for index, observation_item in enumerate(critic_observations):
+        field_prefix = f"critic_observations[{index}]"
+        if not isinstance(observation_item, dict):
+            errors.append(
+                _error(field_prefix, "Each critic_observation item must be an object."))
             continue
-        unsupported_fields = sorted(set(feedback_item.keys()) - _MODULE_FEEDBACK_FIELDS)
+        unsupported_fields = sorted(
+            set(observation_item.keys()) - _CRITIC_OBSERVATION_FIELDS)
         if unsupported_fields:
-            errors.append(_error(field_prefix, f"Unsupported fields: {unsupported_fields}."))
-
-        module_name = feedback_item.get("module_name")
-        if not _is_non_empty_string(module_name):
-            errors.append(_error(f"{field_prefix}.module_name", "module_name must be a non-empty string."))
-        elif str(module_name).strip() not in VALID_MODULE_NAMES:
-            errors.append(_error(f"{field_prefix}.module_name", f"module_name must be one of {sorted(VALID_MODULE_NAMES)}."))
-        elif str(module_name).strip() not in allowed_modules:
             errors.append(
-                _error(
-                    f"{field_prefix}.module_name",
-                    f"module_name must target one of the observed modules: {sorted(allowed_modules)}.",
-                )
-            )
+                _error(field_prefix, f"Unsupported fields: {unsupported_fields}."))
 
-        observed_issue = feedback_item.get("observed_issue")
-        if not _is_non_empty_string(observed_issue):
-            errors.append(_error(f"{field_prefix}.observed_issue", "observed_issue must be a non-empty string."))
-        elif len(str(observed_issue).strip()) > MAX_OBSERVED_ISSUE_CHARS:
-            errors.append(
-                _error(
-                    f"{field_prefix}.observed_issue",
-                    f"observed_issue must stay under {MAX_OBSERVED_ISSUE_CHARS} characters.",
-                )
-            )
-
-        evidence_refs = _string_list(feedback_item.get("evidence_refs"), allow_empty=False)
-        if evidence_refs is None:
-            errors.append(_error(f"{field_prefix}.evidence_refs", "evidence_refs must be a non-empty list of strings."))
-            evidence_refs = []
+        observation_id = observation_item.get("observation_id")
+        if not _is_non_empty_string(observation_id):
+            errors.append(_error(
+                f"{field_prefix}.observation_id", "observation_id must be a non-empty string."))
         else:
-            for evidence_ref in evidence_refs:
-                if evidence_ref not in known_evidence_refs:
-                    errors.append(_error(f"{field_prefix}.evidence_refs", f"Unknown evidence_ref '{evidence_ref}'."))
+            normalized_id = str(observation_id).strip()
+            if normalized_id in seen_ids:
+                errors.append(
+                    _error(f"{field_prefix}.observation_id", "observation_id must be unique."))
+            seen_ids.add(normalized_id)
 
-        suggestion = feedback_item.get("suggestion")
-        if not _is_non_empty_string(suggestion):
-            errors.append(_error(f"{field_prefix}.suggestion", "suggestion must be a non-empty string."))
-        elif len(str(suggestion).strip()) > MAX_SUGGESTION_CHARS:
+        observation_type = observation_item.get("observation_type")
+        if not _is_non_empty_string(observation_type):
+            errors.append(_error(f"{field_prefix}.observation_type",
+                          "observation_type must be a non-empty string."))
+        elif str(observation_type).strip() not in VALID_OBSERVATION_TYPES:
+            errors.append(_error(f"{field_prefix}.observation_type",
+                          f"observation_type must be one of {sorted(VALID_OBSERVATION_TYPES)}."))
+
+        target_module = observation_item.get("target_module")
+        if not _is_non_empty_string(target_module):
+            errors.append(_error(
+                f"{field_prefix}.target_module", "target_module must be a non-empty string."))
+        elif str(target_module).strip() not in VALID_TARGET_MODULES:
+            errors.append(_error(f"{field_prefix}.target_module",
+                          f"target_module must be one of {sorted(VALID_TARGET_MODULES)}."))
+        elif str(target_module).strip() not in allowed_modules:
             errors.append(
                 _error(
-                    f"{field_prefix}.suggestion",
-                    f"suggestion must stay under {MAX_SUGGESTION_CHARS} characters.",
+                    f"{field_prefix}.target_module",
+                    f"target_module must be one of the allowed runtime targets: {sorted(allowed_modules)}.",
+                )
+            )
+
+        priority = observation_item.get("priority")
+        if not _is_non_empty_string(priority):
+            errors.append(
+                _error(f"{field_prefix}.priority", "priority must be a non-empty string."))
+        elif str(priority).strip() not in VALID_PRIORITIES:
+            errors.append(_error(
+                f"{field_prefix}.priority", f"priority must be one of {sorted(VALID_PRIORITIES)}."))
+
+        hypothesis_ids = _string_list(observation_item.get("hypothesis_ids"))
+        if hypothesis_ids is None:
+            errors.append(_error(
+                f"{field_prefix}.hypothesis_ids", "hypothesis_ids must be a list of strings."))
+            hypothesis_ids = []
+        else:
+            for hypothesis_id in hypothesis_ids:
+                if hypothesis_id not in known_hypothesis_ids:
+                    errors.append(_error(
+                        f"{field_prefix}.hypothesis_ids", f"Unknown hypothesis_id '{hypothesis_id}'."))
+
+        rationale = observation_item.get("rationale")
+        if not _is_non_empty_string(rationale):
+            errors.append(
+                _error(f"{field_prefix}.rationale", "rationale must be a non-empty string."))
+        elif len(str(rationale).strip()) > MAX_RATIONALE_CHARS:
+            errors.append(
+                _error(
+                    f"{field_prefix}.rationale",
+                    f"rationale must stay under {MAX_RATIONALE_CHARS} characters.",
+                )
+            )
+
+        guidance = observation_item.get("guidance")
+        if not _is_non_empty_string(guidance):
+            errors.append(
+                _error(f"{field_prefix}.guidance", "guidance must be a non-empty string."))
+
+        prompt_snippet = observation_item.get("prompt_snippet")
+        if not _is_non_empty_string(prompt_snippet):
+            errors.append(_error(
+                f"{field_prefix}.prompt_snippet", "prompt_snippet must be a non-empty string."))
+        elif len(str(prompt_snippet).strip()) > MAX_PROMPT_SNIPPET_CHARS:
+            errors.append(
+                _error(
+                    f"{field_prefix}.prompt_snippet",
+                    f"prompt_snippet must stay under {MAX_PROMPT_SNIPPET_CHARS} characters.",
                 )
             )
         forbidden_language_hits.extend(
-            _collect_forbidden_language(f"{field_prefix}.observed_issue", observed_issue)
-        )
-        forbidden_language_hits.extend(
-            _collect_forbidden_language(f"{field_prefix}.suggestion", suggestion)
+            _collect_forbidden_language(
+                f"{field_prefix}.prompt_snippet", prompt_snippet)
         )
 
     if forbidden_language_hits:
         warnings.extend(
-            _error(hit["field"], f"Semantic language flag detected ({hit['code']}).")
+            _error(hit["field"],
+                   f"Semantic language flag detected ({hit['code']}).")
             for hit in forbidden_language_hits
         )
 
-    suggestion_lengths = [
-        len(str(item.get("suggestion", "") or "").strip())
-        for item in module_feedback
+    snippet_lengths = [
+        len(str(item.get("prompt_snippet", "") or "").strip())
+        for item in critic_observations
         if isinstance(item, dict)
     ]
-    average_suggestion_length = round(
-        sum(suggestion_lengths) / len(suggestion_lengths),
-        3,
-    ) if suggestion_lengths else 0.0
+    average_snippet_length = round(
+        sum(snippet_lengths) / len(snippet_lengths), 3) if snippet_lengths else 0.0
 
     return _report(
         ok=not errors,
         errors=errors,
         warnings=warnings,
         stats={
-            "module_feedback_count": len(module_feedback),
-            "average_suggestion_length": average_suggestion_length,
+            "observation_count": len(critic_observations),
+            "observations_committed": not errors,
+            "average_prompt_snippet_length": average_snippet_length,
         },
         forbidden_language_hits=forbidden_language_hits,
     )

@@ -32,6 +32,7 @@ def build_ranking_state_min(
     selection_budget: int = MAX_SELECTION_BUDGET,
     hypothesis_state_refs: list[dict[str, Any]] | None = None,
     round_constraints: list[str] | None = None,
+    critic_guidance: list[str] | None = None,
 ) -> dict[str, Any]:
     normalized_state_refs: list[dict[str, Any]] = []
     for raw_state_ref in hypothesis_state_refs or []:
@@ -47,21 +48,27 @@ def build_ranking_state_min(
             }
         )
 
-    normalized_budget = selection_budget if isinstance(selection_budget, int) else MAX_SELECTION_BUDGET
+    normalized_budget = selection_budget if isinstance(
+        selection_budget, int) else MAX_SELECTION_BUDGET
     if normalized_budget <= 0:
         normalized_budget = MAX_SELECTION_BUDGET
 
-    return {
+    payload = {
         "round_id": _string_value(round_id),
         "selection_budget": normalized_budget,
         "hypothesis_state_refs": normalized_state_refs,
         "round_constraints": _string_list(round_constraints),
     }
+    if critic_guidance is not None:
+        payload["critic_guidance"] = _string_list(critic_guidance)
+    return payload
 
 
 def project_candidate_hypothesis_context(investigation_hypothesis_set: dict[str, Any]) -> dict[str, Any]:
-    raw = investigation_hypothesis_set if isinstance(investigation_hypothesis_set, dict) else {}
-    raw_hypotheses = raw.get("hypotheses") if isinstance(raw.get("hypotheses"), list) else []
+    raw = investigation_hypothesis_set if isinstance(
+        investigation_hypothesis_set, dict) else {}
+    raw_hypotheses = raw.get("hypotheses") if isinstance(
+        raw.get("hypotheses"), list) else []
     hypotheses: list[dict[str, Any]] = []
 
     for raw_hypothesis in raw_hypotheses:
@@ -90,7 +97,8 @@ def project_candidate_hypothesis_context(investigation_hypothesis_set: dict[str,
 
 def project_ranking_state_min(ranking_state_min: dict[str, Any]) -> dict[str, Any]:
     raw = ranking_state_min if isinstance(ranking_state_min, dict) else {}
-    raw_state_refs = raw.get("hypothesis_state_refs") if isinstance(raw.get("hypothesis_state_refs"), list) else []
+    raw_state_refs = raw.get("hypothesis_state_refs") if isinstance(
+        raw.get("hypothesis_state_refs"), list) else []
 
     return {
         "round_id": _string_value(raw.get("round_id")),
@@ -103,12 +111,15 @@ def project_ranking_state_min(ranking_state_min: dict[str, Any]) -> dict[str, An
             for item in raw_state_refs
         ],
         "round_constraints": _string_list(raw.get("round_constraints")),
+        "critic_guidance": _string_list(raw.get("critic_guidance")),
     }
 
 
 def collect_candidate_hypothesis_ids(investigation_hypothesis_set: dict[str, Any]) -> set[str]:
-    raw = investigation_hypothesis_set if isinstance(investigation_hypothesis_set, dict) else {}
-    raw_hypotheses = raw.get("hypotheses") if isinstance(raw.get("hypotheses"), list) else []
+    raw = investigation_hypothesis_set if isinstance(
+        investigation_hypothesis_set, dict) else {}
+    raw_hypotheses = raw.get("hypotheses") if isinstance(
+        raw.get("hypotheses"), list) else []
     return {
         hypothesis_id
         for item in raw_hypotheses
@@ -122,7 +133,8 @@ def build_selection_index(
     investigation_hypothesis_set: dict[str, Any],
     ranking_decision: dict[str, Any],
 ) -> dict[str, Any]:
-    candidate_context = project_candidate_hypothesis_context(investigation_hypothesis_set)
+    candidate_context = project_candidate_hypothesis_context(
+        investigation_hypothesis_set)
     hypothesis_map = {
         item["hypothesis_id"]: item
         for item in candidate_context.get("hypotheses", [])

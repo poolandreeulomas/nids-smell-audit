@@ -115,6 +115,8 @@ def run_hypothesis_ranking(
             round_id=round_id,
             projected_candidate_context=projected_candidate_context,
             projected_ranking_state=projected_ranking_state,
+            critic_guidance=raw_ranking_state.get("critic_guidance") if isinstance(
+                raw_ranking_state.get("critic_guidance"), list) else None,
         )
         try:
             callable_to_use = llm_callable or _build_openai_hypothesis_ranking_callable(

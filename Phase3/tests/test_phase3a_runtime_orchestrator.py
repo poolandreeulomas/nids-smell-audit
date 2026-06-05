@@ -457,6 +457,437 @@ def test_run_phase3a_batch_refreshes_analysis_after_round_one_and_keeps_round_st
     assert Path(bundle["artifact_paths"]["initial_state_path"]).exists()
 
 
+def test_run_phase3a_batch_propagates_critic_guidance_to_next_round_contexts(
+    tmp_path,
+    monkeypatch,
+):
+    dataset_path = tmp_path / "partition.csv"
+    dataset_path.write_text(
+        "Label,src_bytes,dst_bytes\n0,1,2\n1,3,4\n", encoding="utf-8")
+    batch_id = "runtime-batch-guidance-001"
+
+    analysis_calls: list[dict[str, object]] = []
+    ranking_calls: list[dict[str, object]] = []
+    planner_calls: list[dict[str, object]] = []
+    critic_calls: list[dict[str, object]] = []
+
+    semantic_substrate = _build_semantic_substrate(batch_id)
+    initial_hypothesis_set = _build_hypothesis_set(
+        batch_id,
+        analysis_id="analysis-initial-guidance-001",
+        summary="Initial dependency framing remains broad and unresolved.",
+    )
+
+    def fake_build_initial_semantic_inputs(dataset_path_arg, runtime_batch_id):
+        return {
+            "overview_summary_min": {"batch_id": runtime_batch_id},
+            "partition_context": {"partition_semantics": ["synthetic"]},
+        }
+
+    def fake_build_initial_analysis_context(dataset_path_arg):
+        return {
+            "partition_context_ref": {
+                "semantics": ["synthetic"],
+                "expected_properties": ["deterministic"],
+                "epistemic_warnings": ["bounded"],
+                "investigation_guidance": ["stay local"],
+            },
+            "artifact_framing_refs": [
+                {
+                    "framing_id": "synthetic-framing",
+                    "label": "synthetic framing",
+                    "description": "Synthetic runtime framing for orchestration tests.",
+                }
+            ],
+        }
+
+    def fake_run_semantic_extraction(overview_summary_min, partition_context, **kwargs):
+        return {
+            "component_run": {
+                "component": "semantic_extraction",
+                "batch_id": batch_id,
+                "status": "ok",
+                "validation_ok": True,
+            },
+            "parsed_output": semantic_substrate,
+            "artifact_paths": {
+                "component_run_path": str(tmp_path / "semantic_extraction" / "component_run.json"),
+            },
+        }
+
+    def fake_run_investigation_analysis(semantic_substrate_input, analysis_context_min, analysis_iteration_context_min=None, **kwargs):
+        analysis_calls.append(
+            {
+                "analysis_iteration_context_min": dict(analysis_iteration_context_min or {}),
+            }
+        )
+        return {
+            "component_run": {
+                "component": "investigation_analysis",
+                "batch_id": batch_id,
+                "status": "ok",
+                "validation_ok": True,
+            },
+            "parsed_output": initial_hypothesis_set,
+            "artifact_paths": {
+                "component_run_path": str(tmp_path / f"investigation_analysis_{len(analysis_calls)}" / "component_run.json"),
+            },
+        }
+
+    def fake_run_hypothesis_ranking(investigation_hypothesis_set, ranking_state_min, **kwargs):
+        ranking_calls.append(deepcopy(ranking_state_min))
+        round_id = str(ranking_state_min.get("round_id") or "unknown_round")
+        return {
+            "component_run": {
+                "component": "hypothesis_ranking",
+                "batch_id": batch_id,
+                "round_id": round_id,
+                "status": "ok",
+                "validation_ok": True,
+            },
+            "parsed_output": {
+                "batch_id": batch_id,
+                "round_id": round_id,
+                "selected_hypothesis_ids": ["hyp-1"],
+                "deferred_hypothesis_ids": [],
+            },
+            "artifact_paths": {
+                "component_run_path": str(tmp_path / f"ranking_{round_id}" / "component_run.json"),
+            },
+        }
+
+    def fake_run_planner(ranking_decision_min, selected_hypothesis_context, planner_round_context, **kwargs):
+        planner_calls.append(deepcopy(planner_round_context))
+        round_id = str(planner_round_context.get(
+            "round_id") or "unknown_round")
+        return {
+            "component_run": {
+                "component": "planner",
+                "batch_id": batch_id,
+                "round_id": round_id,
+                "status": "ok",
+                "validation_ok": True,
+            },
+            "parsed_output": {
+                "batch_id": batch_id,
+                "round_id": round_id,
+                "planner_strategies": [
+                    {
+                        "strategy_id": f"strategy-{round_id}",
+                        "hypothesis_id": "hyp-1",
+                        "strategic_objective": "Bound one local dependency check.",
+                        "key_checks": ["local dependency check"],
+                        "success_criteria": ["one bounded local check"],
+                        "router_constraints": ["stay local"],
+                        "tool_capability_refs": ["feature_summary"],
+                    }
+                ],
+            },
+            "artifact_paths": {
+                "component_run_path": str(tmp_path / f"planner_{round_id}" / "component_run.json"),
+            },
+        }
+
+    def fake_run_router(planner_strategy, router_context_min, **kwargs):
+        round_id = str(kwargs.get("round_id") or "unknown_round")
+        return {
+            "component_run": {
+                "component": "router",
+                "batch_id": batch_id,
+                "round_id": round_id,
+                "hypothesis_id": "hyp-1",
+                "status": "ok",
+                "validation_ok": True,
+            },
+            "parsed_output": {
+                "batch_id": batch_id,
+                "round_id": round_id,
+                "hypothesis_id": "hyp-1",
+                "planner_strategy_id": str(planner_strategy.get("strategy_id") or "strategy"),
+                "worker_tasks": [
+                    {
+                        "task_id": f"task-{round_id}",
+                        "hypothesis_id": "hyp-1",
+                        "task_scope": "feature",
+                        "allowed_actions": ["structural_summary"],
+                        "local_context_refs": ["runtime-region-e1"],
+                        "stop_conditions": ["one check"],
+                    }
+                ],
+            },
+            "artifact_paths": {
+                "component_run_path": str(tmp_path / f"router_{round_id}" / "component_run.json"),
+            },
+        }
+
+    def fake_run_worker(worker_task, worker_runtime_refs, **kwargs):
+        round_id = str(kwargs.get("round_id") or "unknown_round")
+        return {
+            "component_run": {
+                "component": "worker",
+                "batch_id": batch_id,
+                "round_id": round_id,
+                "hypothesis_id": "hyp-1",
+                "status": "ok",
+                "validation_ok": True,
+                "result_committed": True,
+            },
+            "worker_result": {
+                "hypothesis_id": "hyp-1",
+                "evidence_refs": ["runtime-region-e1"],
+                "merged_findings": ["finding"],
+                "preserved_contradictions": [],
+                "open_gaps": [],
+                "update_focus": "stay local",
+            },
+            "artifact_paths": {
+                "component_run_path": str(tmp_path / f"worker_{round_id}" / "component_run.json"),
+            },
+        }
+
+    def fake_run_aggregation(worker_result_set, **kwargs):
+        round_id = str(kwargs.get("round_id") or "unknown_round")
+        return {
+            "component_run": {
+                "component": "aggregation",
+                "batch_id": batch_id,
+                "round_id": round_id,
+                "hypothesis_id": "hyp-1",
+                "status": "ok",
+                "validation_ok": True,
+                "handoff_committed": True,
+            },
+            "aggregation_handoff": {
+                "batch_id": batch_id,
+                "round_id": round_id,
+                "hypothesis_id": "hyp-1",
+                "merged_findings": ["finding"],
+                "evidence_refs": ["runtime-region-e1"],
+                "preserved_contradictions": [],
+                "open_gaps": [],
+                "update_focus": "stay local",
+            },
+            "artifact_paths": {
+                "component_run_path": str(tmp_path / f"aggregation_{round_id}" / "component_run.json"),
+            },
+        }
+
+    def fake_run_state_manager(canonical_batch_state, aggregation_handoff, **kwargs):
+        round_id = str(aggregation_handoff.get("round_id") or "unknown_round")
+        updated_batch_state = dict(canonical_batch_state)
+        updated_batch_state["state_version"] = int(
+            updated_batch_state.get("state_version") or 0) + 1
+        return {
+            "component_run": {
+                "component": "state_manager",
+                "batch_id": batch_id,
+                "round_id": round_id,
+                "hypothesis_id": "hyp-1",
+                "status": "ok",
+                "validation_ok": True,
+                "state_committed": True,
+                "new_state_version": updated_batch_state["state_version"],
+            },
+            "updated_batch_state": updated_batch_state,
+            "artifact_paths": {
+                "component_run_path": str(tmp_path / f"state_manager_{round_id}" / "component_run.json"),
+                "updated_batch_state_path": str(tmp_path / f"state_manager_{round_id}" / "updated_batch_state.json"),
+            },
+        }
+
+    def fake_run_critic(*args, **kwargs):
+        critic_calls.append(dict(kwargs))
+        return {
+            "component_run": {
+                "component": "critic",
+                "validation_ok": True,
+                "observation_count": 3,
+                "observations_committed": True,
+            },
+            "critic_observations_payload": {
+                "batch_id": batch_id,
+                "round_id": kwargs.get("round_id", "round-001"),
+                "critic_observations": [
+                    {
+                        "observation_id": "obs-ranking",
+                        "observation_type": "productive_active_line",
+                        "target_module": "hypothesis_ranking",
+                        "priority": "high",
+                        "hypothesis_ids": ["hyp-1"],
+                        "rationale": "Ranking should keep the productive line in play.",
+                        "guidance": "Keep allocating attention to the productive line.",
+                        "prompt_snippet": "Keep allocating attention to the productive line.",
+                    },
+                    {
+                        "observation_id": "obs-planner",
+                        "observation_type": "productive_active_line",
+                        "target_module": "planner",
+                        "priority": "high",
+                        "hypothesis_ids": ["hyp-1"],
+                        "rationale": "Planner should preserve the productive line.",
+                        "guidance": "Preserve the productive line in the next investigation strategy.",
+                        "prompt_snippet": "Preserve the productive line in the next investigation strategy.",
+                    },
+                    {
+                        "observation_id": "obs-analysis",
+                        "observation_type": "productive_active_line",
+                        "target_module": "investigation_analysis",
+                        "priority": "high",
+                        "hypothesis_ids": ["hyp-1"],
+                        "rationale": "Analysis should keep the active line visible.",
+                        "guidance": "Keep the active line visible in the next interpretation pass.",
+                        "prompt_snippet": "Keep the active line visible in the next interpretation pass.",
+                    },
+                ],
+            },
+            "artifact_paths": {
+                "component_run_path": str(tmp_path / "critic" / "component_run.json"),
+            },
+        }
+
+    def fake_run_final_batch_auditor(state_manager_bundle, **kwargs):
+        return {
+            "component_run": {
+                "component": "final_batch_auditor",
+                "batch_id": batch_id,
+                "status": "ok",
+                "validation_ok": True,
+                "report_committed": True,
+            },
+            "debugging_audit_report": {
+                "batch_id": batch_id,
+            },
+            "artifact_paths": {
+                "component_run_path": str(tmp_path / "final_batch_auditor" / "component_run.json"),
+            },
+        }
+
+    monkeypatch.setattr(orchestrator, "build_initial_semantic_inputs",
+                        fake_build_initial_semantic_inputs)
+    monkeypatch.setattr(orchestrator, "build_initial_analysis_context",
+                        fake_build_initial_analysis_context)
+    monkeypatch.setattr(orchestrator, "run_semantic_extraction",
+                        fake_run_semantic_extraction)
+    monkeypatch.setattr(
+        orchestrator, "run_investigation_analysis", fake_run_investigation_analysis)
+    monkeypatch.setattr(orchestrator, "run_final_batch_auditor",
+                        fake_run_final_batch_auditor)
+    monkeypatch.setattr(
+        round_executor, "run_investigation_analysis", fake_run_investigation_analysis)
+    monkeypatch.setattr(
+        round_executor, "run_hypothesis_ranking", fake_run_hypothesis_ranking)
+    monkeypatch.setattr(round_executor, "run_planner", fake_run_planner)
+    monkeypatch.setattr(round_executor, "run_router", fake_run_router)
+    monkeypatch.setattr(round_executor, "run_worker", fake_run_worker)
+    monkeypatch.setattr(round_executor, "run_aggregation",
+                        fake_run_aggregation)
+    monkeypatch.setattr(round_executor, "run_state_manager",
+                        fake_run_state_manager)
+    monkeypatch.setattr(round_executor, "run_critic", fake_run_critic)
+    monkeypatch.setattr(round_executor, "build_critic_guidance_context", lambda previous_round_manifest: {
+        "source_round_id": "round-001",
+        "source_critic_run_path": str(tmp_path / "critic" / "component_run.json"),
+        "observations": [
+            {
+                "observation_id": "obs-ranking",
+                "observation_type": "productive_active_line",
+                "target_module": "hypothesis_ranking",
+                "priority": "high",
+                "hypothesis_ids": ["hyp-1"],
+                "guidance": "Keep allocating attention to the productive line.",
+                "prompt_snippet": "Keep allocating attention to the productive line.",
+            },
+            {
+                "observation_id": "obs-planner",
+                "observation_type": "productive_active_line",
+                "target_module": "planner",
+                "priority": "high",
+                "hypothesis_ids": ["hyp-1"],
+                "guidance": "Preserve the productive line in the next investigation strategy.",
+                "prompt_snippet": "Preserve the productive line in the next investigation strategy.",
+            },
+            {
+                "observation_id": "obs-analysis",
+                "observation_type": "productive_active_line",
+                "target_module": "investigation_analysis",
+                "priority": "high",
+                "hypothesis_ids": ["hyp-1"],
+                "guidance": "Keep the active line visible in the next interpretation pass.",
+                "prompt_snippet": "Keep the active line visible in the next interpretation pass.",
+            },
+        ],
+        "per_module": {
+            "hypothesis_ranking": {
+                "target_module": "hypothesis_ranking",
+                "source_round_id": "round-001",
+                "source_critic_run_path": str(tmp_path / "critic" / "component_run.json"),
+                "observations": [
+                    {
+                        "observation_id": "obs-ranking",
+                        "observation_type": "productive_active_line",
+                        "target_module": "hypothesis_ranking",
+                        "priority": "high",
+                        "hypothesis_ids": ["hyp-1"],
+                        "guidance": "Keep allocating attention to the productive line.",
+                        "prompt_snippet": "Keep allocating attention to the productive line.",
+                    }
+                ],
+                "prompt_snippets": ["Keep allocating attention to the productive line."],
+            },
+            "planner": {
+                "target_module": "planner",
+                "source_round_id": "round-001",
+                "source_critic_run_path": str(tmp_path / "critic" / "component_run.json"),
+                "observations": [
+                    {
+                        "observation_id": "obs-planner",
+                        "observation_type": "productive_active_line",
+                        "target_module": "planner",
+                        "priority": "high",
+                        "hypothesis_ids": ["hyp-1"],
+                        "guidance": "Preserve the productive line in the next investigation strategy.",
+                        "prompt_snippet": "Preserve the productive line in the next investigation strategy.",
+                    }
+                ],
+                "prompt_snippets": ["Preserve the productive line in the next investigation strategy."],
+            },
+            "investigation_analysis": {
+                "target_module": "investigation_analysis",
+                "source_round_id": "round-001",
+                "source_critic_run_path": str(tmp_path / "critic" / "component_run.json"),
+                "observations": [
+                    {
+                        "observation_id": "obs-analysis",
+                        "observation_type": "productive_active_line",
+                        "target_module": "investigation_analysis",
+                        "priority": "high",
+                        "hypothesis_ids": ["hyp-1"],
+                        "guidance": "Keep the active line visible in the next interpretation pass.",
+                        "prompt_snippet": "Keep the active line visible in the next interpretation pass.",
+                    }
+                ],
+                "prompt_snippets": ["Keep the active line visible in the next interpretation pass."],
+            },
+        },
+    })
+
+    bundle = orchestrator.run_phase3a_batch(
+        dataset_path,
+        batch_id=batch_id,
+        model_name="gpt-4.1-mini",
+        max_rounds=2,
+        enable_critic=True,
+        log_dir=tmp_path / "runtime_logs",
+    )
+
+    assert bundle["component_run"]["status"] == "completed"
+    assert critic_calls
+    assert analysis_calls[1]["analysis_iteration_context_min"]["critic_guidance"][
+        0] == "Keep the active line visible in the next interpretation pass."
+    assert ranking_calls[1]["critic_guidance"][0] == "Keep allocating attention to the productive line."
+    assert planner_calls[1]["critic_guidance"][0] == "Preserve the productive line in the next investigation strategy."
+
+
 def test_execute_round_waits_for_all_hypothesis_aggregations_before_state_updates(
     tmp_path,
     monkeypatch,

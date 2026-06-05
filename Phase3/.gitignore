@@ -9,8 +9,7 @@ __pycache__/
 data/
 
 # Generated run artifacts
-logs/runs/*.json
-!logs/runs/.gitkeep
+logs/
 
 # Generated evaluation reports
 reports/evaluations/*.json

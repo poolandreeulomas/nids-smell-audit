@@ -328,6 +328,7 @@ def run_phase3a_batch(
             initial_state.get("state_version") or 0)
 
         current_state = dict(initial_state)
+        previous_round_manifest = None
         terminal_reason = (
             "max_rounds_reached"
             if normalized_execution_mode == "full_batch"
@@ -363,6 +364,7 @@ def run_phase3a_batch(
                 llm_callables=llm_callables,
                 caller_mode=caller_mode,
                 analysis_mode=analysis_mode,
+                previous_round_manifest=previous_round_manifest,
             )
             round_manifest = round_result["round_manifest"]
             snapshot_path = artifact_paths["round_manifests_dir"] / \
@@ -383,6 +385,7 @@ def run_phase3a_batch(
 
             ledger.round_manifests.append(round_manifest)
             round_results.append(round_result)
+            previous_round_manifest = round_manifest
 
             all_aggregation_bundles.extend(
                 round_result.get("aggregation_bundles", []))

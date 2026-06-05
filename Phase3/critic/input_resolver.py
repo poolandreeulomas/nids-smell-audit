@@ -36,7 +36,8 @@ _COMPONENT_ARTIFACT_PLAN = {
         "input_refs": [
             ("semantic_substrate_path", "semantic_substrate"),
             ("analysis_context_min_path", "analysis_context_min"),
-            ("analysis_iteration_context_min_path", "analysis_iteration_context_min"),
+            ("analysis_iteration_context_min_path",
+             "analysis_iteration_context_min"),
         ],
         "output_refs": [
             ("parsed_output_path", "hypothesis_set"),
@@ -278,7 +279,8 @@ def _build_summary_entry(
 def _summarize_semantic_extraction(bundle: dict[str, Any], fallback_refs: set[str]) -> dict[str, Any]:
     component_run = dict(bundle.get("component_run", {}) or {})
     metrics = dict(bundle.get("runtime_metrics", {}) or {})
-    bundle_refs = _collect_bundle_refs(bundle.get("overview_summary_min"), bundle.get("parsed_output"))
+    bundle_refs = _collect_bundle_refs(bundle.get(
+        "overview_summary_min"), bundle.get("parsed_output"))
     return _build_summary_entry(
         module_name="semantic_extraction",
         status=str(component_run.get("status", "unknown") or "unknown"),
@@ -378,7 +380,8 @@ def _summarize_router(bundles: list[dict[str, Any]], fallback_refs: set[str]) ->
         hypothesis_id = str(component_run.get("hypothesis_id") or "").strip()
         if hypothesis_id:
             hypothesis_ids.append(hypothesis_id)
-        bundle_status = str(component_run.get("status", "unknown") or "unknown")
+        bundle_status = str(component_run.get(
+            "status", "unknown") or "unknown")
         if bundle_status != "ok":
             status = "mixed"
         warning_signals.extend(_base_warning_signals(component_run))
@@ -407,8 +410,10 @@ def _summarize_router(bundles: list[dict[str, Any]], fallback_refs: set[str]) ->
 
 
 def _summarize_worker(bundles: list[dict[str, Any]], fallback_refs: set[str]) -> dict[str, Any]:
-    component_runs = [dict(bundle.get("component_run", {}) or {}) for bundle in bundles]
-    metrics_list = [dict(bundle.get("runtime_metrics", {}) or {}) for bundle in bundles]
+    component_runs = [dict(bundle.get("component_run", {}) or {})
+                      for bundle in bundles]
+    metrics_list = [dict(bundle.get("runtime_metrics", {}) or {})
+                    for bundle in bundles]
     warning_signals: list[str] = []
     task_ids: list[str] = []
     known_refs: set[str] = set()
@@ -425,7 +430,8 @@ def _summarize_worker(bundles: list[dict[str, Any]], fallback_refs: set[str]) ->
             committed_count += 1
         tool_event_count += _int_value(metrics.get("tool_event_count"))
         failure_event_count += _int_value(metrics.get("failure_event_count"))
-        termination_cause = str(metrics.get("termination_cause", "") or "").strip()
+        termination_cause = str(metrics.get(
+            "termination_cause", "") or "").strip()
         if termination_cause:
             termination_causes.add(termination_cause)
         warning_signals.extend(_base_warning_signals(component_run))
@@ -445,7 +451,8 @@ def _summarize_worker(bundles: list[dict[str, Any]], fallback_refs: set[str]) ->
 
     return _build_summary_entry(
         module_name="worker",
-        status="ok" if committed_count == len(bundles) and bundles else "mixed",
+        status="ok" if committed_count == len(
+            bundles) and bundles else "mixed",
         behavior_summary=(
             "Input: "
             f"{len(bundles)} worker tasks ({', '.join(task_ids[:3]) or 'no task ids'}). "
@@ -473,7 +480,8 @@ def _summarize_aggregation_bundle(bundles: list[dict[str, Any]], fallback_refs: 
         component_run = dict(bundle.get("component_run", {}) or {})
         worker_result_set = dict(bundle.get("worker_result_set", {}) or {})
         aggregation_handoff = dict(bundle.get("aggregation_handoff", {}) or {})
-        bundle_status = str(component_run.get("status", "unknown") or "unknown")
+        bundle_status = str(component_run.get(
+            "status", "unknown") or "unknown")
         if bundle_status != "ok":
             status = "mixed"
         warning_signals.extend(_base_warning_signals(component_run))
@@ -485,8 +493,10 @@ def _summarize_aggregation_bundle(bundles: list[dict[str, Any]], fallback_refs: 
             warning_signals.append("handoff_not_committed")
         total_worker_results += len(worker_result_set.get("worker_results", []))
         total_overlap_diagnostics += len(bundle.get("overlap_diagnostics", []))
-        total_merged_findings += len(_string_list(aggregation_handoff.get("merged_findings")))
-        total_contradictions += len(_string_list(aggregation_handoff.get("preserved_contradictions")))
+        total_merged_findings += len(_string_list(
+            aggregation_handoff.get("merged_findings")))
+        total_contradictions += len(_string_list(
+            aggregation_handoff.get("preserved_contradictions")))
         total_open_gaps += len(_string_list(aggregation_handoff.get("open_gaps")))
         known_refs.update(
             _collect_bundle_refs(
@@ -665,12 +675,217 @@ def _summarize_state_manager(raw: dict[str, Any], fallback_refs: set[str]) -> tu
             f"and {len(state_update_result.get('remaining_open_gaps', []))} remaining open gaps."
         ),
         evidence_refs=_summary_refs(
-            _collect_bundle_refs(state_manager_context, raw.get("updated_batch_state"), state_update_result),
+            _collect_bundle_refs(state_manager_context, raw.get(
+                "updated_batch_state"), state_update_result),
             fallback_refs,
         ),
         warning_signals=sorted(set(warning_signals)),
     )
     return artifact_refs, signal_refs, summary
+
+
+# Mirrors semantic_extraction.contracts.VALID_REGION_KINDS
+_VALID_REGION_KINDS = {
+    "redundancy_region",
+    "dependency_region",
+    "concentration_region",
+    "low_diversity_region",
+    "localized_separability_region",
+    "representation_sensitive_region",
+    "topology_motif_region",
+    "mixed_structural_region",
+}
+
+
+def _project_semantic_landscape(structural_substrate: dict[str, Any]) -> dict[str, Any]:
+    """Return compressed regions only: region_id, kind, status."""
+    raw = structural_substrate if isinstance(structural_substrate, dict) else {}
+    compressed: list[dict[str, str]] = []
+    seen_ids: set[str] = set()
+    for item in raw.get("compressed_regions", []):
+        if not isinstance(item, dict):
+            continue
+        region_id = str(item.get("region_id", "") or "").strip()
+        if not region_id or region_id in seen_ids:
+            continue
+        seen_ids.add(region_id)
+        kind = str(item.get("region_kind", "") or "").strip()
+        if kind not in _VALID_REGION_KINDS:
+            kind = "mixed_structural_region"
+        status = str(item.get("status", "") or "").strip() or "unresolved"
+        compressed.append({
+            "region_id": region_id,
+            "kind": kind,
+            "status": status,
+        })
+    return {"regions": compressed}
+
+
+def _earliest_revision_round(state: Any, hypothesis_id: str) -> str:
+    if not hasattr(state, "revision_log"):
+        return ""
+    for entry in getattr(state, "revision_log", []) or []:
+        if getattr(entry, "hypothesis_id", "") == hypothesis_id and getattr(entry, "round_id", ""):
+            return str(getattr(entry, "round_id", "") or "")
+    return ""
+
+
+def _ranking_snapshot(
+    round_id: str,
+    round_component_bundles: dict[str, Any] | None,
+    fallback_ids: list[str],
+) -> tuple[list[str], list[str]]:
+    raw = round_component_bundles if isinstance(
+        round_component_bundles, dict) else {}
+    ranking_bundle = raw.get("hypothesis_ranking", {}) if isinstance(
+        raw.get("hypothesis_ranking", {}), dict) else {}
+    candidate_source = ranking_bundle.get("candidate_hypotheses", {}) if isinstance(
+        ranking_bundle.get("candidate_hypotheses", {}), dict) else {}
+    parsed_output = ranking_bundle.get("parsed_output", {}) if isinstance(
+        ranking_bundle.get("parsed_output", {}), dict) else {}
+    selection_index = ranking_bundle.get("selection_index", {}) if isinstance(
+        ranking_bundle.get("selection_index", {}), dict) else {}
+
+    candidate_hypothesis_ids = [
+        str(item.get("hypothesis_id", "") or "").strip()
+        for item in candidate_source.get("candidate_hypotheses", [])
+        if isinstance(item, dict) and str(item.get("hypothesis_id", "") or "").strip()
+    ]
+    if not candidate_hypothesis_ids:
+        candidate_hypothesis_ids = [
+            hypothesis_id for hypothesis_id in fallback_ids if hypothesis_id]
+
+    selected_hypothesis_ids = [
+        str(item.get("hypothesis_id", "") or "").strip()
+        for item in parsed_output.get("selected_hypotheses", [])
+        if isinstance(item, dict) and str(item.get("hypothesis_id", "") or "").strip()
+    ]
+    if not selected_hypothesis_ids:
+        selected_hypothesis_ids = _string_list(
+            parsed_output.get("selected_hypothesis_ids"))
+    if not selected_hypothesis_ids:
+        selected_hypothesis_ids = _string_list(
+            selection_index.get("selected_hypothesis_ids"))
+    if not selected_hypothesis_ids:
+        selected_hypothesis_ids = [
+            hypothesis_id for hypothesis_id in candidate_hypothesis_ids[:1]]
+
+    return candidate_hypothesis_ids, selected_hypothesis_ids
+
+
+def _truncate_summary(summary: str, max_chars: int = 200) -> str:
+    stripped = str(summary or "").strip()
+    if len(stripped) <= max_chars:
+        return stripped
+    return stripped[:max_chars - 1].rsplit(" ", 1)[0] + "…"
+
+
+def _build_hypothesis_universe(
+    state: Any,
+    batch_id: str,
+) -> list[dict[str, Any]]:
+    """Lightweight registry: hypothesis_id, status, one_line_summary only."""
+    hypotheses: list[dict[str, Any]] = []
+    if not hasattr(state, "interpretive_hypotheses"):
+        return hypotheses
+
+    for hypothesis in getattr(state, "interpretive_hypotheses", []) or []:
+        if not hasattr(hypothesis, "to_dict"):
+            continue
+        hypothesis_dict = hypothesis.to_dict()
+        hypothesis_id = str(hypothesis_dict.get("hypothesis_id", "") or "").strip()
+        if not hypothesis_id:
+            continue
+        hypotheses.append({
+            "hypothesis_id": hypothesis_id,
+            "status": str(hypothesis_dict.get("status", "unresolved") or "unresolved"),
+            "one_line_summary": _truncate_summary(
+                str(hypothesis_dict.get("summary", "") or ""), 200),
+        })
+    return hypotheses
+
+
+def _build_active_hypothesis_gaps(state: Any) -> list[dict[str, Any]]:
+    """Only hypothesis_id + open_gaps for active (non-resolved) hypotheses."""
+    active_gaps: list[dict[str, Any]] = []
+    if not hasattr(state, "interpretive_hypotheses"):
+        return active_gaps
+
+    for hypothesis in getattr(state, "interpretive_hypotheses", []) or []:
+        if not hasattr(hypothesis, "to_dict"):
+            continue
+        hypothesis_dict = hypothesis.to_dict()
+        hypothesis_id = str(hypothesis_dict.get("hypothesis_id", "") or "").strip()
+        if not hypothesis_id:
+            continue
+        status = str(hypothesis_dict.get("status", "") or "").lower().strip()
+        # Only include gaps for non-resolved hypotheses
+        if status in ("resolved", "confirmed", "refuted", "dismissed", "closed"):
+            continue
+        open_gaps = _string_list(hypothesis_dict.get("open_gaps"))
+        if not open_gaps:
+            continue
+        active_gaps.append({
+            "hypothesis_id": hypothesis_id,
+            "open_gaps": open_gaps,
+        })
+    return active_gaps
+
+
+def _build_investigation_history(
+    *,
+    round_id: str,
+    selected_hypothesis_ids: list[str],
+    state_manager_bundle: dict[str, Any],
+) -> list[dict[str, Any]]:
+    component_run = dict(state_manager_bundle.get("component_run", {}) or {})
+    start_state_version = _int_value(
+        component_run.get("previous_state_version"), default=0)
+    end_state_version = _int_value(
+        component_run.get("new_state_version"), default=0)
+    if end_state_version == 0:
+        end_state_version = _int_value(dict(state_manager_bundle.get(
+            "updated_batch_state", {}) or {}).get("state_version"), default=0)
+    return [
+        {
+            "round_id": round_id,
+            "selected_hypothesis_ids": list(selected_hypothesis_ids),
+            "state_version_start": start_state_version,
+            "state_version_end": end_state_version,
+        }
+    ]
+
+
+def _build_investigation_outcomes(
+    *,
+    round_id: str,
+    selected_hypothesis_ids: list[str],
+    state: Any,
+) -> list[dict[str, Any]]:
+    outcomes: list[dict[str, Any]] = []
+    if not hasattr(state, "interpretive_hypotheses"):
+        return outcomes
+
+    by_id = {
+        str(hypothesis.to_dict().get("hypothesis_id", "") or "").strip(): hypothesis.to_dict()
+        for hypothesis in getattr(state, "interpretive_hypotheses", []) or []
+        if hasattr(hypothesis, "to_dict") and str(hypothesis.to_dict().get("hypothesis_id", "") or "").strip()
+    }
+    for hypothesis_id in selected_hypothesis_ids:
+        hypothesis_dict = by_id.get(hypothesis_id, {})
+        if not hypothesis_dict:
+            continue
+        outcomes.append(
+            {
+                "round_id": round_id,
+                "hypothesis_id": hypothesis_id,
+                "revision_delta": _int_value(hypothesis_dict.get("revision_count"), default=0),
+                "new_findings_count": len(_string_list(hypothesis_dict.get("merged_findings"))),
+                "resolved_gaps_count": 0,
+                "state_change_summary": str(hypothesis_dict.get("summary", "") or ""),
+            }
+        )
+    return outcomes
 
 
 def build_critic_context(
@@ -679,7 +894,8 @@ def build_critic_context(
     is_final_round: bool = False,
     round_component_bundles: dict[str, Any] | None = None,
 ) -> dict[str, Any]:
-    raw = state_manager_bundle if isinstance(state_manager_bundle, dict) else {}
+    raw = state_manager_bundle if isinstance(
+        state_manager_bundle, dict) else {}
     artifact_paths = dict(raw.get("artifact_paths", {}) or {})
     component_run = dict(raw.get("component_run", {}) or {})
     aggregation_handoff = dict(raw.get("aggregation_handoff", {}) or {})
@@ -707,24 +923,35 @@ def build_critic_context(
     ).strip() or "unknown_hypothesis"
 
     target_hypothesis: dict[str, Any] = dict(
-        state_manager_context.get("target_hypothesis", {}) or {}
-    )
-    state_version = _int_value(updated_batch_state.get("state_version"), default=0)
+        state_manager_context.get("target_hypothesis", {}) or {})
+    state_version = _int_value(
+        updated_batch_state.get("state_version"), default=0)
+    canonical_state = None
     if updated_batch_state:
         try:
             canonical_state = load_canonical_batch_state(updated_batch_state)
             state_version = canonical_state.state_version
-            resolved_hypothesis = get_interpretive_hypothesis(canonical_state, hypothesis_id)
+            resolved_hypothesis = get_interpretive_hypothesis(
+                canonical_state, hypothesis_id)
             if resolved_hypothesis is not None:
                 target_hypothesis = resolved_hypothesis.to_dict()
         except Exception:
             pass
+    if canonical_state is None:
+        try:
+            canonical_state = load_canonical_batch_state(
+                raw.get("updated_batch_state", {}))
+        except Exception:
+            canonical_state = None
 
-    known_evidence_refs = set(_string_list(target_hypothesis.get("evidence_refs")))
-    known_evidence_refs.update(_string_list(aggregation_handoff.get("evidence_refs")))
+    known_evidence_refs = set(_string_list(
+        target_hypothesis.get("evidence_refs")))
+    known_evidence_refs.update(_string_list(
+        aggregation_handoff.get("evidence_refs")))
 
     normalized_component_bundles: dict[str, list[dict[str, Any]]] = {}
-    raw_component_bundles = round_component_bundles if isinstance(round_component_bundles, dict) else {}
+    raw_component_bundles = round_component_bundles if isinstance(
+        round_component_bundles, dict) else {}
     for component_name, value in raw_component_bundles.items():
         bundles = _bundle_list(value)
         if bundles:
@@ -750,25 +977,33 @@ def build_critic_context(
         bundles = normalized_component_bundles.get(component_name, [])
         if not bundles:
             continue
-        module_artifact_refs.extend(_build_artifact_ref_records(component_name, bundles))
-        process_signal_refs.extend(_build_signal_ref_records(component_name, bundles))
-        summary = builder(bundles, known_evidence_refs) if component_name == "router" else builder(bundles[0], known_evidence_refs)
+        module_artifact_refs.extend(
+            _build_artifact_ref_records(component_name, bundles))
+        process_signal_refs.extend(
+            _build_signal_ref_records(component_name, bundles))
+        summary = builder(bundles, known_evidence_refs) if component_name == "router" else builder(
+            bundles[0], known_evidence_refs)
         module_behavior_summaries.append(summary)
         warning_codes.update(summary.get("warning_signals", []))
 
     worker_bundles = normalized_component_bundles.get("worker", [])
     if worker_bundles:
-        module_artifact_refs.extend(_build_artifact_ref_records("worker", worker_bundles))
-        process_signal_refs.extend(_build_signal_ref_records("worker", worker_bundles))
+        module_artifact_refs.extend(
+            _build_artifact_ref_records("worker", worker_bundles))
+        process_signal_refs.extend(
+            _build_signal_ref_records("worker", worker_bundles))
         worker_summary = _summarize_worker(worker_bundles, known_evidence_refs)
         module_behavior_summaries.append(worker_summary)
         warning_codes.update(worker_summary.get("warning_signals", []))
 
     aggregation_bundles = normalized_component_bundles.get("aggregation", [])
     if aggregation_bundles:
-        module_artifact_refs.extend(_build_artifact_ref_records("aggregation", aggregation_bundles))
-        process_signal_refs.extend(_build_signal_ref_records("aggregation", aggregation_bundles))
-        aggregation_summary = _summarize_aggregation_bundle(aggregation_bundles, known_evidence_refs)
+        module_artifact_refs.extend(_build_artifact_ref_records(
+            "aggregation", aggregation_bundles))
+        process_signal_refs.extend(_build_signal_ref_records(
+            "aggregation", aggregation_bundles))
+        aggregation_summary = _summarize_aggregation_bundle(
+            aggregation_bundles, known_evidence_refs)
         module_behavior_summaries.append(aggregation_summary)
         warning_codes.update(aggregation_summary.get("warning_signals", []))
     else:
@@ -794,7 +1029,8 @@ def build_critic_context(
     module_behavior_summaries.append(state_manager_summary)
     warning_codes.update(state_manager_summary.get("warning_signals", []))
 
-    aggregation_evidence_refs = _string_list(aggregation_handoff.get("evidence_refs"))
+    aggregation_evidence_refs = _string_list(
+        aggregation_handoff.get("evidence_refs"))
     refined_state_summary = {
         "batch_id": batch_id,
         "round_id": round_id,
@@ -823,29 +1059,55 @@ def build_critic_context(
         "warning_codes": sorted(warning_codes),
     }
 
+    if canonical_state is None:
+        canonical_state = load_canonical_batch_state(updated_batch_state)
+
+    semantic_landscape_summary = _project_semantic_landscape(
+        dict(canonical_state.structural_substrate)) if canonical_state is not None else {"regions": []}
+    hypothesis_universe = _build_hypothesis_universe(
+        canonical_state, batch_id) if canonical_state is not None else []
+
+    candidate_hypothesis_ids, selected_hypothesis_ids = _ranking_snapshot(
+        round_id,
+        raw_component_bundles,
+        [item.get("hypothesis_id", "") for item in hypothesis_universe],
+    )
+    investigation_history = _build_investigation_history(
+        round_id=round_id,
+        selected_hypothesis_ids=selected_hypothesis_ids,
+        state_manager_bundle=raw,
+    )
+    ranking_history = [
+        {
+            "round_id": round_id,
+            "candidate_hypothesis_ids": list(candidate_hypothesis_ids),
+            "selected_hypothesis_ids": list(selected_hypothesis_ids),
+        }
+    ]
+    investigation_outcomes = _build_investigation_outcomes(
+        round_id=round_id,
+        selected_hypothesis_ids=selected_hypothesis_ids,
+        state=canonical_state,
+    )
+    active_hypothesis_gaps = _build_active_hypothesis_gaps(
+        canonical_state) if canonical_state is not None else []
+
     critic_input_min = {
         "batch_id": batch_id,
         "round_id": round_id,
-        "state_summary_ref": _artifact_ref(
-            artifact_paths,
-            "updated_batch_state_path",
-            "state_manager.updated_batch_state",
-        ),
-        "module_artifact_refs": module_artifact_refs,
-        "process_signal_refs": process_signal_refs,
     }
-    observed_modules = [
-        str(summary.get("module_name", "") or "").strip()
-        for summary in module_behavior_summaries
-        if str(summary.get("module_name", "") or "").strip()
-    ]
 
     return {
         "critic_input_min": critic_input_min,
+        "semantic_landscape_summary": semantic_landscape_summary,
+        "hypothesis_universe": hypothesis_universe,
+        "investigation_history": investigation_history,
+        "ranking_history": ranking_history,
+        "investigation_outcomes": investigation_outcomes,
+        "active_hypothesis_gaps": active_hypothesis_gaps,
         "refined_state_summary": refined_state_summary,
         "module_behavior_summaries": module_behavior_summaries,
         "process_signal_summary": process_signal_summary,
         "known_evidence_refs": sorted(known_evidence_refs),
         "source_state_manager_run_path": str(artifact_paths.get("component_run_path", "") or ""),
-        "observed_modules": observed_modules,
     }

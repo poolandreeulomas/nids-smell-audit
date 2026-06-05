@@ -82,14 +82,17 @@ def validate_ranking_state_min(ranking_state_min: dict[str, Any]) -> dict[str, A
     errors: list[dict[str, str]] = []
 
     if not isinstance(ranking_state_min, dict):
-        errors.append(_error("ranking_state_min", "ranking_state_min must be an object."))
+        errors.append(_error("ranking_state_min",
+                      "ranking_state_min must be an object."))
 
     if not _is_non_empty_string(raw.get("round_id")):
-        errors.append(_error("round_id", "round_id must be a non-empty string."))
+        errors.append(
+            _error("round_id", "round_id must be a non-empty string."))
 
     selection_budget = raw.get("selection_budget")
     if not isinstance(selection_budget, int):
-        errors.append(_error("selection_budget", "selection_budget must be an integer."))
+        errors.append(_error("selection_budget",
+                      "selection_budget must be an integer."))
         selection_budget = 0
     elif selection_budget <= 0 or selection_budget > MAX_SELECTION_BUDGET:
         errors.append(
@@ -101,25 +104,35 @@ def validate_ranking_state_min(ranking_state_min: dict[str, Any]) -> dict[str, A
 
     hypothesis_state_refs = raw.get("hypothesis_state_refs")
     if not isinstance(hypothesis_state_refs, list) or not hypothesis_state_refs:
-        errors.append(_error("hypothesis_state_refs", "hypothesis_state_refs must be a non-empty list."))
+        errors.append(_error("hypothesis_state_refs",
+                      "hypothesis_state_refs must be a non-empty list."))
         hypothesis_state_refs = []
 
     for index, state_ref in enumerate(hypothesis_state_refs):
         field_prefix = f"hypothesis_state_refs[{index}]"
         if not isinstance(state_ref, dict):
-            errors.append(_error(field_prefix, "Each hypothesis_state_ref must be an object."))
+            errors.append(
+                _error(field_prefix, "Each hypothesis_state_ref must be an object."))
             continue
         if not _is_non_empty_string(state_ref.get("hypothesis_id")):
             errors.append(
-                _error(f"{field_prefix}.hypothesis_id", "hypothesis_id must be a non-empty string.")
+                _error(f"{field_prefix}.hypothesis_id",
+                       "hypothesis_id must be a non-empty string.")
             )
         if not _is_string_list(state_ref.get("state_notes")):
-            errors.append(_error(f"{field_prefix}.state_notes", "state_notes must be a list of strings."))
+            errors.append(
+                _error(f"{field_prefix}.state_notes", "state_notes must be a list of strings."))
 
     round_constraints = raw.get("round_constraints")
     if not _is_string_list(round_constraints):
-        errors.append(_error("round_constraints", "round_constraints must be a list of strings."))
+        errors.append(_error("round_constraints",
+                      "round_constraints must be a list of strings."))
         round_constraints = []
+
+    critic_guidance = raw.get("critic_guidance")
+    if critic_guidance is not None and not _is_string_list(critic_guidance):
+        errors.append(_error("critic_guidance",
+                      "critic_guidance must be a list of strings."))
 
     return _report(
         ok=not errors,
@@ -146,19 +159,24 @@ def validate_ranking_decision(
     forbidden_language_hits: list[dict[str, str]] = []
 
     if not isinstance(ranking_decision, dict):
-        errors.append(_error("ranking_decision", "ranking_decision must be an object."))
+        errors.append(_error("ranking_decision",
+                      "ranking_decision must be an object."))
 
     batch_id = raw.get("batch_id")
     if not _is_non_empty_string(batch_id):
-        errors.append(_error("batch_id", "batch_id must be a non-empty string."))
+        errors.append(
+            _error("batch_id", "batch_id must be a non-empty string."))
     elif str(batch_id).strip() != expected_batch_id:
-        errors.append(_error("batch_id", f"batch_id must match '{expected_batch_id}'."))
+        errors.append(
+            _error("batch_id", f"batch_id must match '{expected_batch_id}'."))
 
     round_id = raw.get("round_id")
     if not _is_non_empty_string(round_id):
-        errors.append(_error("round_id", "round_id must be a non-empty string."))
+        errors.append(
+            _error("round_id", "round_id must be a non-empty string."))
     elif str(round_id).strip() != expected_round_id:
-        errors.append(_error("round_id", f"round_id must match '{expected_round_id}'."))
+        errors.append(
+            _error("round_id", f"round_id must match '{expected_round_id}'."))
 
     selected_hypothesis_ids = raw.get("selected_hypothesis_ids")
     if not _is_string_list(selected_hypothesis_ids, allow_empty=False):
@@ -224,7 +242,8 @@ def validate_ranking_decision(
                 )
             )
 
-    overlap = set(selected_hypothesis_ids).intersection(deferred_hypothesis_ids)
+    overlap = set(selected_hypothesis_ids).intersection(
+        deferred_hypothesis_ids)
     if overlap:
         errors.append(
             _error(
@@ -234,7 +253,8 @@ def validate_ranking_decision(
         )
 
     accounted_for = set(selected_hypothesis_ids).union(deferred_hypothesis_ids)
-    missing_candidate_ids = sorted(candidate_hypothesis_ids.difference(accounted_for))
+    missing_candidate_ids = sorted(
+        candidate_hypothesis_ids.difference(accounted_for))
     if missing_candidate_ids:
         errors.append(
             _error(
@@ -247,19 +267,22 @@ def validate_ranking_decision(
 
     selection_rationales = raw.get("selection_rationales")
     if not isinstance(selection_rationales, list):
-        errors.append(_error("selection_rationales", "selection_rationales must be a list."))
+        errors.append(_error("selection_rationales",
+                      "selection_rationales must be a list."))
         selection_rationales = []
 
     seen_rationale_ids: set[str] = set()
     for index, rationale in enumerate(selection_rationales):
         field_prefix = f"selection_rationales[{index}]"
         if not isinstance(rationale, dict):
-            errors.append(_error(field_prefix, "Each selection rationale must be an object."))
+            errors.append(
+                _error(field_prefix, "Each selection rationale must be an object."))
             continue
         hypothesis_id = rationale.get("hypothesis_id")
         reason = rationale.get("reason")
         if not _is_non_empty_string(hypothesis_id):
-            errors.append(_error(f"{field_prefix}.hypothesis_id", "hypothesis_id must be a non-empty string."))
+            errors.append(_error(
+                f"{field_prefix}.hypothesis_id", "hypothesis_id must be a non-empty string."))
             continue
         normalized_hypothesis_id = str(hypothesis_id).strip()
         if normalized_hypothesis_id in seen_rationale_ids:
@@ -278,12 +301,15 @@ def validate_ranking_decision(
                 )
             )
         if not _is_non_empty_string(reason):
-            errors.append(_error(f"{field_prefix}.reason", "reason must be a non-empty string."))
+            errors.append(_error(f"{field_prefix}.reason",
+                          "reason must be a non-empty string."))
             continue
         normalized_reason = str(reason).strip()
         if len(normalized_reason) > 240:
-            errors.append(_error(f"{field_prefix}.reason", "reason must stay under 240 characters."))
-        forbidden_language_hits.extend(_collect_forbidden_language(f"{field_prefix}.reason", normalized_reason))
+            errors.append(_error(f"{field_prefix}.reason",
+                          "reason must stay under 240 characters."))
+        forbidden_language_hits.extend(_collect_forbidden_language(
+            f"{field_prefix}.reason", normalized_reason))
 
     for selected_hypothesis_id in selected_hypothesis_ids:
         if selected_hypothesis_id not in seen_rationale_ids:

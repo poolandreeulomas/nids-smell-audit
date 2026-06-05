@@ -48,7 +48,8 @@ def _bundle_list(value: Any) -> list[dict[str, Any]]:
 def _bundle_identity(bundle: dict[str, Any]) -> str:
     artifact_paths = dict(bundle.get("artifact_paths", {}) or {})
     component_run = dict(bundle.get("component_run", {}) or {})
-    component_run_path = str(artifact_paths.get("component_run_path", "") or "").strip()
+    component_run_path = str(artifact_paths.get(
+        "component_run_path", "") or "").strip()
     if component_run_path:
         return component_run_path
     request_id = str(component_run.get("request_id", "") or "").strip()
@@ -169,23 +170,25 @@ def _resolve_hypothesis_snapshot(
 
     if updated_batch_state and hypothesis_id:
         try:
-            canonical_state = CanonicalBatchState.from_dict(updated_batch_state)
+            canonical_state = CanonicalBatchState.from_dict(
+                updated_batch_state)
             for hypothesis in canonical_state.interpretive_hypotheses:
                 if hypothesis.hypothesis_id == hypothesis_id:
                     return hypothesis.to_dict()
         except Exception:
             pass
 
-    target_hypothesis = dict(state_manager_context.get("target_hypothesis", {}) or {})
+    target_hypothesis = dict(
+        state_manager_context.get("target_hypothesis", {}) or {})
     if target_hypothesis:
         return target_hypothesis
     return state_delta_record
 
 
-def _critic_feedback_refs(bundle: dict[str, Any]) -> list[str]:
-    payload = dict(bundle.get("critic_feedback_payload", {}) or {})
+def _critic_observation_refs(bundle: dict[str, Any]) -> list[str]:
+    payload = dict(bundle.get("critic_observations", {}) or {})
     refs: list[str] = []
-    for item in payload.get("module_feedback", []) or []:
+    for item in payload.get("critic_observations", []) or payload.get("module_feedback", []) or []:
         if not isinstance(item, dict):
             continue
         refs.extend(_string_list(item.get("evidence_refs")))
@@ -199,7 +202,8 @@ def _index_history_bundles(
     for bundle in bundles:
         component_run = dict(bundle.get("component_run", {}) or {})
         round_id = str(component_run.get("round_id", "") or "").strip()
-        hypothesis_id = str(component_run.get("hypothesis_id", "") or "").strip()
+        hypothesis_id = str(component_run.get(
+            "hypothesis_id", "") or "").strip()
         if round_id:
             indexed[(round_id, hypothesis_id)] = bundle
     return indexed
@@ -210,16 +214,19 @@ def build_final_batch_audit_context(
     *,
     batch_component_bundles: dict[str, Any] | None = None,
 ) -> dict[str, Any]:
-    raw = state_manager_bundle if isinstance(state_manager_bundle, dict) else {}
+    raw = state_manager_bundle if isinstance(
+        state_manager_bundle, dict) else {}
     artifact_paths = dict(raw.get("artifact_paths", {}) or {})
     component_run = dict(raw.get("component_run", {}) or {})
     updated_batch_state = dict(raw.get("updated_batch_state", {}) or {})
     batch_id = str(
-        component_run.get("batch_id") or updated_batch_state.get("batch_id") or "unknown_batch"
+        component_run.get("batch_id") or updated_batch_state.get(
+            "batch_id") or "unknown_batch"
     ).strip() or "unknown_batch"
 
     discovered = _load_persisted_batch_component_bundles(batch_id)
-    provided = batch_component_bundles if isinstance(batch_component_bundles, dict) else {}
+    provided = batch_component_bundles if isinstance(
+        batch_component_bundles, dict) else {}
     state_manager_bundles = _merge_bundle_lists(
         [raw],
         _bundle_list(provided.get("state_manager")),
@@ -240,15 +247,18 @@ def build_final_batch_audit_context(
     ready_aggregation_bundles = [
         bundle for bundle in aggregation_bundles if _is_aggregation_bundle_ready(bundle)
     ]
-    ready_critic_bundles = [bundle for bundle in critic_bundles if _is_critic_bundle_ready(bundle)]
+    ready_critic_bundles = [
+        bundle for bundle in critic_bundles if _is_critic_bundle_ready(bundle)]
 
     ready_state_manager_bundles.sort(
         key=lambda bundle: (
             _int_value(
-                dict(bundle.get("component_run", {}) or {}).get("new_state_version"),
+                dict(bundle.get("component_run", {})
+                     or {}).get("new_state_version"),
                 default=0,
             ),
-            _round_sort_key(dict(bundle.get("component_run", {}) or {}).get("round_id", "")),
+            _round_sort_key(dict(bundle.get("component_run", {})
+                            or {}).get("round_id", "")),
         )
     )
 
@@ -263,12 +273,15 @@ def build_final_batch_audit_context(
     except Exception:
         canonical_state = CanonicalBatchState(
             batch_id=batch_id,
-            state_version=_int_value(updated_batch_state.get("state_version"), default=1),
-            structural_substrate=dict(updated_batch_state.get("structural_substrate", {}) or {}),
+            state_version=_int_value(
+                updated_batch_state.get("state_version"), default=1),
+            structural_substrate=dict(updated_batch_state.get(
+                "structural_substrate", {}) or {}),
         )
 
     known_traceability_refs: set[str] = {final_state_ref}
-    known_traceability_refs.update(_collect_state_traceability_refs(canonical_state))
+    known_traceability_refs.update(
+        _collect_state_traceability_refs(canonical_state))
 
     substrate = dict(canonical_state.structural_substrate or {})
     hypothesis_snapshots: list[dict[str, Any]] = []
@@ -310,8 +323,10 @@ def build_final_batch_audit_context(
     for bundle in ready_state_manager_bundles:
         bundle_component_run = dict(bundle.get("component_run", {}) or {})
         bundle_artifact_paths = dict(bundle.get("artifact_paths", {}) or {})
-        round_id = str(bundle_component_run.get("round_id", "") or "").strip() or "unknown_round"
-        hypothesis_id = str(bundle_component_run.get("hypothesis_id", "") or "").strip() or "unknown_hypothesis"
+        round_id = str(bundle_component_run.get("round_id", "")
+                       or "").strip() or "unknown_round"
+        hypothesis_id = str(bundle_component_run.get(
+            "hypothesis_id", "") or "").strip() or "unknown_hypothesis"
         bundle_key = (round_id, hypothesis_id)
 
         updated_state_ref = _artifact_ref(
@@ -356,9 +371,12 @@ def build_final_batch_audit_context(
         aggregation_handoff = {}
         overlap_diagnostics: list[dict[str, Any]] = []
         if aggregation_bundle is not None:
-            aggregation_paths = dict(aggregation_bundle.get("artifact_paths", {}) or {})
-            aggregation_handoff = dict(aggregation_bundle.get("aggregation_handoff", {}) or {})
-            overlap_diagnostics = list(aggregation_bundle.get("overlap_diagnostics", []) or [])
+            aggregation_paths = dict(
+                aggregation_bundle.get("artifact_paths", {}) or {})
+            aggregation_handoff = dict(
+                aggregation_bundle.get("aggregation_handoff", {}) or {})
+            overlap_diagnostics = list(
+                aggregation_bundle.get("overlap_diagnostics", []) or [])
             aggregation_handoff_ref = _artifact_ref(
                 aggregation_paths,
                 "aggregation_handoff_path",
@@ -385,8 +403,10 @@ def build_final_batch_audit_context(
                     },
                 ]
             )
-            known_traceability_refs.update({aggregation_handoff_ref, overlap_ref})
-            known_traceability_refs.update(_string_list(aggregation_handoff.get("evidence_refs")))
+            known_traceability_refs.update(
+                {aggregation_handoff_ref, overlap_ref})
+            known_traceability_refs.update(_string_list(
+                aggregation_handoff.get("evidence_refs")))
         else:
             fallback_aggregation_ref = _artifact_ref(
                 bundle_artifact_paths,
@@ -403,31 +423,34 @@ def build_final_batch_audit_context(
             )
             known_traceability_refs.add(fallback_aggregation_ref)
 
-        critic_feedback_count = 0
+        critic_observation_count = 0
         if critic_bundle is not None:
             critic_paths = dict(critic_bundle.get("artifact_paths", {}) or {})
-            critic_feedback_ref = _artifact_ref(
+            critic_observation_ref = _artifact_ref(
                 critic_paths,
-                "critic_feedback_payload_path",
-                f"critic.critic_feedback_payload.{round_id}",
+                "critic_observations_path",
+                f"critic.critic_observations.{round_id}",
             )
             round_artifact_refs.append(
                 {
                     "round_id": round_id,
                     "component_name": "critic",
-                    "artifact_kind": "critic_feedback_payload",
-                    "artifact_ref": critic_feedback_ref,
+                    "artifact_kind": "critic_observations",
+                    "artifact_ref": critic_observation_ref,
                 }
             )
-            known_traceability_refs.add(critic_feedback_ref)
-            critic_feedback_refs = _critic_feedback_refs(critic_bundle)
-            known_traceability_refs.update(critic_feedback_refs)
-            critic_feedback_count = len(
-                dict(critic_bundle.get("critic_feedback_payload", {}) or {}).get("module_feedback", []) or []
+            known_traceability_refs.add(critic_observation_ref)
+            critic_observation_refs = _critic_observation_refs(critic_bundle)
+            known_traceability_refs.update(critic_observation_refs)
+            critic_observation_count = len(
+                dict(critic_bundle.get("critic_observations", {})
+                     or {}).get("critic_observations", []) or []
             )
 
-        traceability_refs = _string_list(hypothesis_snapshot.get("evidence_refs"))
-        traceability_refs.extend(_string_list(aggregation_handoff.get("evidence_refs")))
+        traceability_refs = _string_list(
+            hypothesis_snapshot.get("evidence_refs"))
+        traceability_refs.extend(_string_list(
+            aggregation_handoff.get("evidence_refs")))
         traceability_refs = list(dict.fromkeys(traceability_refs))[:6]
         known_traceability_refs.update(traceability_refs)
 
@@ -452,12 +475,13 @@ def build_final_batch_audit_context(
                 "contradiction_count": len(contradictions),
                 "open_gap_count": len(open_gaps),
                 "overlap_group_count": len(overlap_diagnostics),
-                "critic_feedback_count": critic_feedback_count,
+                "critic_observation_count": critic_observation_count,
                 "traceability_refs": traceability_refs,
             }
         )
 
-    round_history_summary.sort(key=lambda item: _round_sort_key(item.get("round_id", "")))
+    round_history_summary.sort(
+        key=lambda item: _round_sort_key(item.get("round_id", "")))
     round_artifact_refs = [
         item
         for item in round_artifact_refs

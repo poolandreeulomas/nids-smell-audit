@@ -136,6 +136,8 @@ def run_planner(
             round_id=round_id,
             projected_selected_context=projected_selected_context,
             projected_planner_round_context=projected_planner_round_context,
+            critic_guidance=raw_planner_round_context.get("critic_guidance") if isinstance(
+                raw_planner_round_context.get("critic_guidance"), list) else None,
         )
         try:
             callable_to_use = llm_callable or _build_openai_planner_callable(

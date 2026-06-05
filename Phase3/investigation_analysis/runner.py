@@ -119,6 +119,8 @@ def run_investigation_analysis(
             projected_substrate=projected_substrate,
             projected_analysis_context=projected_analysis_context,
             projected_iteration_context=projected_iteration_context,
+            critic_guidance=raw_iteration_context.get("critic_guidance") if isinstance(
+                raw_iteration_context.get("critic_guidance"), list) else None,
         )
         try:
             callable_to_use = llm_callable or _build_openai_investigation_analysis_callable(

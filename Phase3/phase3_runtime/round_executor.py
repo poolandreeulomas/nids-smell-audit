@@ -17,6 +17,7 @@ from planner.runner import run_planner
 from phase3_runtime.inter_hypothesis_aggregation import run_inter_hypothesis_aggregation
 from phase3_runtime.context_builder import (
     DEFAULT_SELECTION_BUDGET,
+    build_critic_guidance_context,
     build_analysis_iteration_context,
     build_planner_context,
     build_round_ranking_state,
@@ -286,6 +287,7 @@ def execute_round(
     llm_callables: ComponentCallableMap | None = None,
     caller_mode: str = "phase3a_runtime",
     analysis_mode: str = "initial",
+    previous_round_manifest: RoundManifest | dict[str, Any] | None = None,
 ) -> dict[str, Any]:
     round_start_time = perf_counter()
     phase_start("round", batch_id=batch_id, round_id=round_id)
@@ -300,12 +302,23 @@ def execute_round(
             initial_hypothesis_bundle.get("parsed_output", {}) or {}),
     )
     current_state = dict(canonical_batch_state or {})
+    critic_guidance_context = build_critic_guidance_context(
+        previous_round_manifest)
+    critic_guidance_by_module = dict(
+        critic_guidance_context.get("per_module", {}) or {})
+
+    def _critic_snippets_for(module_name: str) -> list[str]:
+        module_bucket = critic_guidance_by_module.get(module_name, {})
+        if not isinstance(module_bucket, dict):
+            return []
+        return list(module_bucket.get("prompt_snippets", []) or [])
 
     analysis_bundle = initial_hypothesis_bundle
     if analysis_mode != "initial":
         analysis_iteration_context = build_analysis_iteration_context(
             dict(initial_hypothesis_bundle.get("parsed_output", {}) or {}),
             current_state,
+            critic_guidance=_critic_snippets_for("investigation_analysis"),
         )
         analysis_bundle = run_investigation_analysis(
             semantic_substrate,
@@ -327,6 +340,7 @@ def execute_round(
         current_state,
         round_id=round_id,
         selection_budget=selection_budget,
+        critic_guidance=_critic_snippets_for("hypothesis_ranking"),
     )
     ranking_bundle = run_hypothesis_ranking(
         candidate_hypothesis_set,
@@ -388,7 +402,10 @@ def execute_round(
         investigation_hypothesis_set=candidate_hypothesis_set,
     )
     planner_round_context = build_planner_context(
-        selected_hypothesis_context, round_id)
+        selected_hypothesis_context,
+        round_id,
+        critic_guidance=_critic_snippets_for("planner"),
+    )
     planner_bundle = run_planner(
         {
             "batch_id": batch_id,

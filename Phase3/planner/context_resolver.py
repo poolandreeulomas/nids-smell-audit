@@ -88,19 +88,25 @@ def build_planner_round_context(
     related_substrate_refs: list[str] | None = None,
     tool_capability_refs: list[str] | None = None,
     round_constraints: list[str] | None = None,
+    critic_guidance: list[str] | None = None,
 ) -> dict[str, Any]:
-    return {
+    payload = {
         "round_id": _string_value(round_id),
         "related_substrate_refs": _string_list(related_substrate_refs),
         "tool_capability_refs": _string_list(tool_capability_refs),
         "round_constraints": _string_list(round_constraints),
     }
+    if critic_guidance is not None:
+        payload["critic_guidance"] = _string_list(critic_guidance)
+    return payload
 
 
 def project_selected_hypothesis_context(selected_hypothesis_context: dict[str, Any]) -> dict[str, Any]:
-    raw = selected_hypothesis_context if isinstance(selected_hypothesis_context, dict) else {}
+    raw = selected_hypothesis_context if isinstance(
+        selected_hypothesis_context, dict) else {}
     raw_hypotheses = (
-        raw.get("selected_hypotheses") if isinstance(raw.get("selected_hypotheses"), list) else []
+        raw.get("selected_hypotheses") if isinstance(
+            raw.get("selected_hypotheses"), list) else []
     )
 
     hypotheses: list[dict[str, Any]] = []
@@ -132,7 +138,8 @@ def project_planner_round_context(
     *,
     tool_capability_catalog: dict[str, dict[str, Any]] | None = None,
 ) -> dict[str, Any]:
-    raw = planner_round_context if isinstance(planner_round_context, dict) else {}
+    raw = planner_round_context if isinstance(
+        planner_round_context, dict) else {}
     tool_refs = _string_list(raw.get("tool_capability_refs"))
     tool_catalog = tool_capability_catalog or {}
 
@@ -151,11 +158,13 @@ def project_planner_round_context(
         ],
         "tool_capability_count": len(tool_refs),
         "round_constraints": _string_list(raw.get("round_constraints")),
+        "critic_guidance": _string_list(raw.get("critic_guidance")),
     }
 
 
 def collect_selected_hypothesis_ids(ranking_decision_min: dict[str, Any]) -> list[str]:
-    raw = ranking_decision_min if isinstance(ranking_decision_min, dict) else {}
+    raw = ranking_decision_min if isinstance(
+        ranking_decision_min, dict) else {}
     selected_ids = _string_list(raw.get("selected_hypothesis_ids"))
     seen: set[str] = set()
     ordered: list[str] = []
@@ -168,7 +177,8 @@ def collect_selected_hypothesis_ids(ranking_decision_min: dict[str, Any]) -> lis
 
 
 def collect_related_substrate_refs(selected_hypothesis_context: dict[str, Any]) -> list[str]:
-    projected = project_selected_hypothesis_context(selected_hypothesis_context)
+    projected = project_selected_hypothesis_context(
+        selected_hypothesis_context)
     seen: set[str] = set()
     ordered: list[str] = []
     for hypothesis in projected.get("selected_hypotheses", []):
@@ -186,7 +196,8 @@ def build_strategy_index(
     selected_hypothesis_context: dict[str, Any],
     planner_round_output: dict[str, Any],
 ) -> dict[str, Any]:
-    projected_selected_context = project_selected_hypothesis_context(selected_hypothesis_context)
+    projected_selected_context = project_selected_hypothesis_context(
+        selected_hypothesis_context)
     selected_map = {
         item["hypothesis_id"]: item
         for item in projected_selected_context.get("selected_hypotheses", [])

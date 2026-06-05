@@ -1253,7 +1253,7 @@ def render_critic_run_review(
 ) -> str:
     lines = [
         *_meta_lines("Phase 3A Components / Critic / Review",
-                     "Inspect critic input summaries, feedback payload, validation, prompt-response text, and artifacts."),
+                     "Inspect critic input summaries, observations payload, validation, prompt-response text, and artifacts."),
         run_name,
         "",
         *(_section("Summary", _kv_lines(summary_pairs))),
@@ -1265,8 +1265,8 @@ def render_critic_run_review(
                         "component_run_path", "unavailable")),
                     ("critic_input_bundle", artifact_paths.get(
                         "critic_input_bundle_path", "unavailable")),
-                    ("critic_feedback_payload", artifact_paths.get(
-                        "critic_feedback_payload_path", "unavailable")),
+                    ("critic_observations", artifact_paths.get(
+                        "critic_observations_path", "unavailable")),
                     ("validation", artifact_paths.get(
                         "validation_report_path", "unavailable")),
                 ]

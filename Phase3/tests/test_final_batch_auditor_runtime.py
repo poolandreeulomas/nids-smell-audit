@@ -54,7 +54,8 @@ def _build_initial_state() -> dict[str, object]:
                 hypothesis_id=HYPOTHESIS_ID,
                 summary="The dependency may indicate a shortcut-compatible dependency framing.",
                 evidence_refs=["final-region-e1"],
-                open_questions=["Need to verify whether the dependency stays local."],
+                open_questions=[
+                    "Need to verify whether the dependency stays local."],
             )
         ],
     )
@@ -199,22 +200,26 @@ def _build_critic_bundle(*, round_id: str, evidence_ref: str) -> dict[str, objec
             "validation_ok": True,
         },
         "artifact_paths": {
-            "critic_feedback_payload_path": f"critic/{round_id}/critic_feedback_payload.json",
+            "critic_observations_path": f"critic/{round_id}/critic_observations.json",
         },
-        "critic_feedback_payload": {
+        "critic_observations": {
             "batch_id": BATCH_ID,
             "round_id": round_id,
-            "module_feedback": [
+            "critic_observations": [
                 {
-                    "module_name": "planner",
-                    "observed_issue": "Planner narrowed too quickly onto one contradiction path.",
-                    "evidence_refs": [evidence_ref],
-                    "suggestion": "Keep contradiction pressure visible without broadening scope prematurely.",
+                    "observation_id": "obs-final-001",
+                    "observation_type": "productive_active_line",
+                    "target_module": "planner",
+                    "priority": "medium",
+                    "hypothesis_ids": ["hyp-final-1"],
+                    "rationale": "Planner narrowed too quickly onto one contradiction path.",
+                    "guidance": "Keep contradiction pressure visible without broadening scope prematurely.",
+                    "prompt_snippet": "Keep contradiction pressure visible without broadening scope prematurely.",
                 }
             ],
         },
         "validation_report": {"ok": True},
-        "runtime_metrics": {"module_feedback_count": 1},
+        "runtime_metrics": {"observation_count": 1},
     }
 
 
@@ -240,7 +245,8 @@ def _build_multi_round_history(tmp_path: Path) -> tuple[dict[str, object], dict[
             "Need to verify whether the dependency stays local.",
             "Need one counter-check after the first local verification.",
         ],
-        merged_findings=["The dependency remained visible in the first local verification slice."],
+        merged_findings=[
+            "The dependency remained visible in the first local verification slice."],
         update_focus="Carry the contradiction forward without collapsing the framing.",
         log_dir_name="state_manager_round_001",
     )
@@ -257,7 +263,8 @@ def _build_multi_round_history(tmp_path: Path) -> tuple[dict[str, object], dict[
         ),
         summary="The second round strengthened local support while leaving one contradiction and one closure gap unresolved.",
         status="active",
-        evidence_refs=["final-region-e1", "final-task-step-01", "final-task-step-02"],
+        evidence_refs=["final-region-e1",
+                       "final-task-step-01", "final-task-step-02"],
         preserved_contradictions=[
             "The first local slice still conflicts with the broader dependency framing.",
             "The final local slice still conflicts with the broader dependency framing."
@@ -319,7 +326,8 @@ def test_run_final_batch_auditor_returns_valid_bundle_and_artifacts(tmp_path: Pa
                         "traceability_refs": [
                             "final-region-e1",
                             "final-task-step-02",
-                            str(round_two_bundle["artifact_paths"]["updated_batch_state_path"]),
+                            str(round_two_bundle["artifact_paths"]
+                                ["updated_batch_state_path"]),
                         ],
                     }
                 }
@@ -346,9 +354,11 @@ def test_run_final_batch_auditor_returns_valid_bundle_and_artifacts(tmp_path: Pa
     assert len(bundle["round_history_summary"]) == 2
     assert bundle["debugging_audit_report"]["batch_id"] == BATCH_ID
     assert Path(bundle["artifact_paths"]["component_run_path"]).exists()
-    assert Path(bundle["artifact_paths"]["debugging_audit_report_path"]).exists()
+    assert Path(bundle["artifact_paths"]
+                ["debugging_audit_report_path"]).exists()
 
-    loaded = load_final_batch_auditor_bundle(Path(bundle["artifact_paths"]["component_run_path"]).parent)
+    loaded = load_final_batch_auditor_bundle(
+        Path(bundle["artifact_paths"]["component_run_path"]).parent)
     assert loaded["debugging_audit_report"]["batch_id"] == BATCH_ID
     assert loaded["component_run"]["audit_mode"] == "authoritative"
 
@@ -401,7 +411,8 @@ def test_run_final_batch_auditor_flags_future_facing_report_without_blocking(tmp
         model_name="gpt-4.1-mini",
         log_dir=str(tmp_path / "final_batch_auditor_runs"),
         is_final_batch=True,
-        batch_component_bundles={"state_manager": [round_one_bundle, round_two_bundle]},
+        batch_component_bundles={"state_manager": [
+            round_one_bundle, round_two_bundle]},
     )
 
     assert bundle["component_run"]["status"] == "ok"

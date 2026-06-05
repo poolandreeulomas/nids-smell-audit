@@ -26,7 +26,8 @@ def _string_value(value: object) -> str:
 
 def _compact_feature_scope(feature_scope: object) -> dict[str, Any]:
     raw_scope = feature_scope if isinstance(feature_scope, dict) else {}
-    raw_locality = raw_scope.get("locality") if isinstance(raw_scope.get("locality"), dict) else {}
+    raw_locality = raw_scope.get("locality") if isinstance(
+        raw_scope.get("locality"), dict) else {}
     return {
         "features": _string_list(raw_scope.get("features")),
         "feature_groups": _string_list(raw_scope.get("feature_groups")),
@@ -41,10 +42,14 @@ def _compact_feature_scope(feature_scope: object) -> dict[str, Any]:
 
 def project_semantic_substrate(semantic_substrate: dict[str, Any]) -> dict[str, Any]:
     raw = semantic_substrate if isinstance(semantic_substrate, dict) else {}
-    compressed_regions = raw.get("compressed_regions") if isinstance(raw.get("compressed_regions"), list) else []
-    weak_signals = raw.get("preserved_weak_signals") if isinstance(raw.get("preserved_weak_signals"), list) else []
-    contradictions = raw.get("contradictions") if isinstance(raw.get("contradictions"), list) else []
-    tensions = raw.get("unresolved_tensions") if isinstance(raw.get("unresolved_tensions"), list) else []
+    compressed_regions = raw.get("compressed_regions") if isinstance(
+        raw.get("compressed_regions"), list) else []
+    weak_signals = raw.get("preserved_weak_signals") if isinstance(
+        raw.get("preserved_weak_signals"), list) else []
+    contradictions = raw.get("contradictions") if isinstance(
+        raw.get("contradictions"), list) else []
+    tensions = raw.get("unresolved_tensions") if isinstance(
+        raw.get("unresolved_tensions"), list) else []
 
     return {
         "substrate_id": _string_value(raw.get("substrate_id")),
@@ -99,9 +104,12 @@ def project_semantic_substrate(semantic_substrate: dict[str, Any]) -> dict[str, 
 
 
 def project_analysis_context_min(analysis_context_min: dict[str, Any]) -> dict[str, Any]:
-    raw = analysis_context_min if isinstance(analysis_context_min, dict) else {}
-    partition_context_ref = raw.get("partition_context_ref") if isinstance(raw.get("partition_context_ref"), dict) else {}
-    artifact_framing_refs = raw.get("artifact_framing_refs") if isinstance(raw.get("artifact_framing_refs"), list) else []
+    raw = analysis_context_min if isinstance(
+        analysis_context_min, dict) else {}
+    partition_context_ref = raw.get("partition_context_ref") if isinstance(
+        raw.get("partition_context_ref"), dict) else {}
+    artifact_framing_refs = raw.get("artifact_framing_refs") if isinstance(
+        raw.get("artifact_framing_refs"), list) else []
 
     return {
         "partition_context_ref": {
@@ -122,13 +130,15 @@ def project_analysis_context_min(analysis_context_min: dict[str, Any]) -> dict[s
 
 
 def project_analysis_iteration_context_min(analysis_iteration_context_min: dict[str, Any] | None) -> dict[str, Any]:
-    raw = analysis_iteration_context_min if isinstance(analysis_iteration_context_min, dict) else {}
+    raw = analysis_iteration_context_min if isinstance(
+        analysis_iteration_context_min, dict) else {}
     initial_hypothesis_set_ref = (
         raw.get("initial_hypothesis_set_ref")
         if isinstance(raw.get("initial_hypothesis_set_ref"), dict)
         else {}
     )
-    current_state_ref = raw.get("current_state_ref") if isinstance(raw.get("current_state_ref"), dict) else {}
+    current_state_ref = raw.get("current_state_ref") if isinstance(
+        raw.get("current_state_ref"), dict) else {}
 
     return {
         "initial_hypothesis_set_ref": {
@@ -149,6 +159,7 @@ def project_analysis_iteration_context_min(analysis_iteration_context_min: dict[
             "state_id": _string_value(current_state_ref.get("state_id")),
             "state_notes": _string_list(current_state_ref.get("state_notes")),
         },
+        "critic_guidance": _string_list(raw.get("critic_guidance")),
     }
 
 
@@ -166,8 +177,10 @@ def collect_valid_evidence_ids(semantic_substrate: dict[str, Any]) -> set[str]:
 
     for contradiction in raw.get("contradictions", []):
         if isinstance(contradiction, dict):
-            evidence_ids.update(_string_list(contradiction.get("supporting_evidence_refs")))
-            evidence_ids.update(_string_list(contradiction.get("conflicting_evidence_refs")))
+            evidence_ids.update(_string_list(
+                contradiction.get("supporting_evidence_refs")))
+            evidence_ids.update(_string_list(
+                contradiction.get("conflicting_evidence_refs")))
 
     for tension in raw.get("unresolved_tensions", []):
         if isinstance(tension, dict):
@@ -178,7 +191,8 @@ def collect_valid_evidence_ids(semantic_substrate: dict[str, Any]) -> set[str]:
 
 def build_hypothesis_index(hypothesis_set: dict[str, Any]) -> dict[str, Any]:
     raw = hypothesis_set if isinstance(hypothesis_set, dict) else {}
-    raw_hypotheses = raw.get("hypotheses") if isinstance(raw.get("hypotheses"), list) else []
+    raw_hypotheses = raw.get("hypotheses") if isinstance(
+        raw.get("hypotheses"), list) else []
     hypotheses: list[dict[str, Any]] = []
 
     for hypothesis in raw_hypotheses:
@@ -197,8 +211,9 @@ def build_hypothesis_index(hypothesis_set: dict[str, Any]) -> dict[str, Any]:
         left_evidence = set(left["evidence_refs"])
         if not left_evidence:
             continue
-        for right in hypotheses[left_index + 1 :]:
-            shared_evidence = sorted(left_evidence.intersection(right["evidence_refs"]))
+        for right in hypotheses[left_index + 1:]:
+            shared_evidence = sorted(
+                left_evidence.intersection(right["evidence_refs"]))
             if shared_evidence:
                 overlap_pairs.append(
                     {

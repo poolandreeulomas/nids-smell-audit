@@ -104,7 +104,8 @@ def _build_valid_response_payload() -> dict[str, object]:
 def test_parse_planner_response_accepts_wrapped_payload():
     payload = _build_valid_response_payload()
 
-    parsed = parse_planner_response(json.dumps({"planner_round_output": payload}))
+    parsed = parse_planner_response(
+        json.dumps({"planner_round_output": payload}))
 
     assert parsed["round_id"] == "round-001"
     assert parsed["planner_strategies"][0]["strategy_id"] == "strategy-hyp-1"
@@ -115,7 +116,8 @@ def test_run_planner_returns_valid_bundle_and_artifacts(tmp_path: Path):
         _build_ranking_decision_min(),
         _build_selected_hypothesis_context(),
         _build_planner_round_context(),
-        llm_callable=lambda prompt_text: json.dumps(_build_valid_response_payload()),
+        llm_callable=lambda prompt_text: json.dumps(
+            _build_valid_response_payload()),
         model_name="gpt-4.1-mini",
         log_dir=str(tmp_path),
     )
@@ -124,11 +126,13 @@ def test_run_planner_returns_valid_bundle_and_artifacts(tmp_path: Path):
     assert bundle["validation_report"]["ok"] is True
     assert bundle["planner_round_output"]["round_id"] == "round-001"
     assert bundle["strategy_index"]["strategy_count"] == 2
-    assert "Produce exactly one planner_strategy per selected hypothesis for round_id=round-001 in batch_id=batch-001." in bundle["prompt_text"]
+    assert "Produce exactly one planner_strategy per selected hypothesis for round_id=round-001 in batch_id=batch-001." in bundle[
+        "prompt_text"]
     assert Path(bundle["artifact_paths"]["component_run_path"]).exists()
     assert Path(bundle["artifact_paths"]["strategy_index_path"]).exists()
 
-    loaded = load_planner_bundle(Path(bundle["artifact_paths"]["component_run_path"]).parent)
+    loaded = load_planner_bundle(
+        Path(bundle["artifact_paths"]["component_run_path"]).parent)
     assert loaded["parsed_output"]["planner_strategies"][0]["strategy_id"] == "strategy-hyp-1"
     assert loaded["strategy_index"]["strategy_count"] == 2
     assert loaded["runtime_metrics"]["status"] == "ok"
@@ -152,7 +156,8 @@ def test_validate_planner_round_output_rejects_exact_tool_calls():
     )
 
     assert report["ok"] is True
-    assert any("Semantic language flag detected" in warning["message"] for warning in report["warnings"])
+    assert any(
+        "Semantic language flag detected" in warning["message"] for warning in report["warnings"])
 
 
 def test_run_planner_rejects_invalid_round_context_before_calling_llm(tmp_path: Path):
@@ -211,6 +216,8 @@ def test_build_planner_prompt_sanitizes_forbidden_reranking_terms():
         round_id="round-001",
         projected_selected_context=selected_context,
         projected_planner_round_context=round_context,
+        critic_guidance=[
+            "Preserve the productive line in the next investigation strategy."],
     )
 
     # Verify forbidden terms are replaced in hypothesis_id (underscore variant)
@@ -220,13 +227,16 @@ def test_build_planner_prompt_sanitizes_forbidden_reranking_terms():
 
     # Verify ranking variants are replaced
     assert "ranking" not in prompt.lower() or "relative importance" in prompt
-    
+
     # Verify prominent appears (replacement for ranked)
     assert "prominent" in prompt
 
     # Verify summary with forbidden terms gets sanitized
-    assert "Bwd Packet Length Mean show ranking" not in prompt  # original would have "ranking"
+    # original would have "ranking"
+    assert "Bwd Packet Length Mean show ranking" not in prompt
 
     # Verify that batch_id and round_id are preserved
     assert "round-001" in prompt
     assert "test-batch" in prompt
+    assert "ADDITIONAL CRITIC GUIDANCE:" in prompt
+    assert "Preserve the productive line in the next investigation strategy." in prompt

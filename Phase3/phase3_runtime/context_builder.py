@@ -14,6 +14,7 @@ from investigation_analysis.input_builder import (
 )
 from planner.context_resolver import build_planner_round_context, collect_related_substrate_refs
 from router.context_reducer import build_router_context_min
+from critic.runtime_artifacts import load_critic_bundle
 from semantic_extraction.input_builder import build_overview_summary_min, build_partition_context
 from state.schema import CanonicalBatchState
 
@@ -37,6 +38,77 @@ def _string_list(values: object) -> list[str]:
         if stripped:
             normalized.append(stripped)
     return normalized
+
+
+def _manifest_string_value(manifest: object, key: str) -> str:
+    if isinstance(manifest, dict):
+        return _string_value(manifest.get(key))
+    return _string_value(getattr(manifest, key, ""))
+
+
+def build_critic_guidance_context(previous_round_manifest: object | None) -> dict[str, Any]:
+    critic_run_path = _manifest_string_value(
+        previous_round_manifest, "critic_run_path")
+    previous_round_id = _manifest_string_value(
+        previous_round_manifest, "round_id")
+    if not critic_run_path:
+        return {
+            "source_round_id": previous_round_id,
+            "source_critic_run_path": "",
+            "observations": [],
+            "per_module": {},
+        }
+
+    try:
+        bundle = load_critic_bundle(Path(critic_run_path).parent)
+    except Exception:
+        return {
+            "source_round_id": previous_round_id,
+            "source_critic_run_path": critic_run_path,
+            "observations": [],
+            "per_module": {},
+        }
+
+    critic_observations = dict(bundle.get("critic_observations", {}) or {}).get(
+        "critic_observations", [])
+    observations: list[dict[str, Any]] = []
+    per_module: dict[str, dict[str, Any]] = {}
+    for item in critic_observations if isinstance(critic_observations, list) else []:
+        if not isinstance(item, dict):
+            continue
+        target_module = _string_value(item.get("target_module"))
+        prompt_snippet = _string_value(item.get("prompt_snippet"))
+        if not target_module or not prompt_snippet:
+            continue
+        normalized_observation = {
+            "observation_id": _string_value(item.get("observation_id")),
+            "observation_type": _string_value(item.get("observation_type")),
+            "target_module": target_module,
+            "priority": _string_value(item.get("priority")),
+            "hypothesis_ids": _string_list(item.get("hypothesis_ids")),
+            "guidance": _string_value(item.get("guidance")),
+            "prompt_snippet": prompt_snippet,
+        }
+        observations.append(normalized_observation)
+        module_bucket = per_module.setdefault(
+            target_module,
+            {
+                "target_module": target_module,
+                "source_round_id": previous_round_id,
+                "source_critic_run_path": critic_run_path,
+                "observations": [],
+                "prompt_snippets": [],
+            },
+        )
+        module_bucket["observations"].append(normalized_observation)
+        module_bucket["prompt_snippets"].append(prompt_snippet)
+
+    return {
+        "source_round_id": previous_round_id,
+        "source_critic_run_path": critic_run_path,
+        "observations": observations,
+        "per_module": per_module,
+    }
 
 
 def _load_canonical_batch_state(canonical_batch_state: CanonicalBatchState | dict[str, Any]) -> CanonicalBatchState:
@@ -105,13 +177,17 @@ def build_current_state_ref(canonical_batch_state: CanonicalBatchState | dict[st
             )
         )
         for evidence_ref in hypothesis.evidence_refs[:4]:
-            state_notes.append(f"{hypothesis.hypothesis_id} evidence_ref={evidence_ref}")
+            state_notes.append(
+                f"{hypothesis.hypothesis_id} evidence_ref={evidence_ref}")
         for open_gap in hypothesis.open_gaps[:3]:
-            state_notes.append(f"{hypothesis.hypothesis_id} open_gap={open_gap}")
+            state_notes.append(
+                f"{hypothesis.hypothesis_id} open_gap={open_gap}")
         for contradiction in hypothesis.preserved_contradictions[:3]:
-            state_notes.append(f"{hypothesis.hypothesis_id} preserved_contradiction={contradiction}")
+            state_notes.append(
+                f"{hypothesis.hypothesis_id} preserved_contradiction={contradiction}")
         for finding in hypothesis.merged_findings[:3]:
-            state_notes.append(f"{hypothesis.hypothesis_id} merged_finding={finding}")
+            state_notes.append(
+                f"{hypothesis.hypothesis_id} merged_finding={finding}")
 
     return {
         "state_id": f"{state.batch_id}:v{state.state_version}",
@@ -122,11 +198,16 @@ def build_current_state_ref(canonical_batch_state: CanonicalBatchState | dict[st
 def build_analysis_iteration_context(
     initial_hypothesis_set: dict[str, Any],
     canonical_batch_state: CanonicalBatchState | dict[str, Any],
+    *,
+    critic_guidance: list[str] | None = None,
 ) -> dict[str, Any]:
-    return build_analysis_iteration_context_min(
+    iteration_context = build_analysis_iteration_context_min(
         initial_hypothesis_set_ref=initial_hypothesis_set,
         current_state_ref=build_current_state_ref(canonical_batch_state),
     )
+    if critic_guidance is not None:
+        iteration_context["critic_guidance"] = list(critic_guidance)
+    return iteration_context
 
 
 def build_round_snapshot(
@@ -165,6 +246,7 @@ def build_round_ranking_state(
     *,
     round_id: str,
     selection_budget: int = DEFAULT_SELECTION_BUDGET,
+    critic_guidance: list[str] | None = None,
 ) -> dict[str, Any]:
     state = _load_canonical_batch_state(canonical_batch_state)
     hypothesis_state_refs = [
@@ -183,7 +265,7 @@ def build_round_ranking_state(
         for hypothesis in state.interpretive_hypotheses
         if hypothesis.hypothesis_id
     ]
-    return build_ranking_state_min(
+    ranking_state = build_ranking_state_min(
         round_id=round_id,
         selection_budget=selection_budget,
         hypothesis_state_refs=hypothesis_state_refs,
@@ -194,6 +276,9 @@ def build_round_ranking_state(
             f"round_start_state_version={state.state_version}",
         ],
     )
+    if critic_guidance is not None:
+        ranking_state["critic_guidance"] = list(critic_guidance)
+    return ranking_state
 
 
 def overlay_hypothesis_current_status(
@@ -220,13 +305,19 @@ def overlay_hypothesis_current_status(
     return payload
 
 
-def build_planner_context(selected_hypothesis_context: dict[str, Any], round_id: str) -> dict[str, Any]:
+def build_planner_context(
+    selected_hypothesis_context: dict[str, Any],
+    round_id: str,
+    *,
+    critic_guidance: list[str] | None = None,
+) -> dict[str, Any]:
     from tools.registry import get_tool_capability_records
 
     tool_capability_records = get_tool_capability_records()
-    return build_planner_round_context(
+    planner_round_context = build_planner_round_context(
         round_id=round_id,
-        related_substrate_refs=collect_related_substrate_refs(selected_hypothesis_context),
+        related_substrate_refs=collect_related_substrate_refs(
+            selected_hypothesis_context),
         tool_capability_refs=sorted(tool_capability_records.keys()),
         round_constraints=[
             "strategic_only",
@@ -235,6 +326,9 @@ def build_planner_context(selected_hypothesis_context: dict[str, Any], round_id:
             "router_ready_handoff",
         ],
     )
+    if critic_guidance is not None:
+        planner_round_context["critic_guidance"] = list(critic_guidance)
+    return planner_round_context
 
 
 def build_router_context(
@@ -247,7 +341,8 @@ def build_router_context(
     max_tasks_per_hypothesis: int,
 ) -> dict[str, Any]:
     hypothesis_id = _string_value(planner_strategy.get("hypothesis_id"))
-    selected_hypotheses = selected_hypothesis_context.get("selected_hypotheses", [])
+    selected_hypotheses = selected_hypothesis_context.get(
+        "selected_hypotheses", [])
     selected_hypothesis = next(
         (
             item
@@ -257,11 +352,14 @@ def build_router_context(
         {},
     )
 
-    related_substrate_refs = _string_list(selected_hypothesis.get("evidence_refs"))
+    related_substrate_refs = _string_list(
+        selected_hypothesis.get("evidence_refs"))
     if not related_substrate_refs:
-        related_substrate_refs = _string_list(planner_round_context.get("related_substrate_refs"))
+        related_substrate_refs = _string_list(
+            planner_round_context.get("related_substrate_refs"))
 
-    round_constraints = _string_list(planner_round_context.get("round_constraints"))
+    round_constraints = _string_list(
+        planner_round_context.get("round_constraints"))
     guardrails = list(
         dict.fromkeys(
             [
@@ -277,7 +375,8 @@ def build_router_context(
 
     return build_router_context_min(
         related_substrate_refs=related_substrate_refs,
-        tool_capability_refs=_string_list(planner_round_context.get("tool_capability_refs")),
+        tool_capability_refs=_string_list(
+            planner_round_context.get("tool_capability_refs")),
         execution_budget={
             "max_worker_steps": max_worker_steps,
             "max_tasks": max_tasks,

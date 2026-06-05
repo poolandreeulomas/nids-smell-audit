@@ -404,7 +404,7 @@ class CriticRunContext:
     process_signal_summary: dict[str, Any]
     prompt_text: str
     raw_response_text: str
-    critic_feedback_payload: dict[str, Any]
+    critic_observations_payload: dict[str, Any]
     validation_report: dict[str, Any]
     runtime_metrics: dict[str, Any]
     replay_metadata: dict[str, Any] | None = None
@@ -4896,10 +4896,10 @@ class NidsAgentCli:
         if choice == "2":
             self._render(
                 render_tool_json_view(
-                    title="Critic Feedback Payload",
-                    path_label="Phase 3A Components / Critic / Review / Feedback Payload",
-                    payload=run_context.critic_feedback_payload,
-                    hint="Bounded module-local reflective feedback emitted for future rounds.",
+                    title="Critic Observations",
+                    path_label="Phase 3A Components / Critic / Review / Observations",
+                    payload=run_context.critic_observations_payload,
+                    hint="Bounded strategic observations emitted for the next round.",
                 )
             )
             self._wait_for_enter()
@@ -4935,10 +4935,10 @@ class NidsAgentCli:
             ("duration_ms", str(run_context.runtime_metrics.get("duration_ms", 0.0))),
             ("final_round_gate", str(run_context.runtime_metrics.get(
                 "final_round_gate_status", "unknown"))),
-            ("module_feedback_count", str(
-                run_context.runtime_metrics.get("module_feedback_count", 0))),
-            ("feedback_committed", str(
-                run_context.runtime_metrics.get("feedback_committed", False))),
+            ("observation_count", str(
+                run_context.runtime_metrics.get("observation_count", 0))),
+            ("observations_committed", str(
+                run_context.runtime_metrics.get("observations_committed", False))),
             ("fresh_execution", str(
                 run_context.runtime_metrics.get("fresh_execution", True))),
             ("schema_version", str(run_context.runtime_metrics.get(
@@ -6477,8 +6477,8 @@ class NidsAgentCli:
                 bundle.get("process_signal_summary", {})),
             prompt_text=str(bundle.get("rendered_prompt", "")),
             raw_response_text=str(bundle.get("raw_response", "")),
-            critic_feedback_payload=dict(
-                bundle.get("critic_feedback_payload", {})),
+            critic_observations_payload=dict(
+                bundle.get("critic_observations", {})),
             validation_report=dict(bundle.get("validation_report", {})),
             runtime_metrics=dict(bundle.get("runtime_metrics", {})),
             replay_metadata=dict(bundle.get("replay_metadata", {})) if bundle.get(
@@ -7095,8 +7095,8 @@ class NidsAgentCli:
                 bundle.get("process_signal_summary", {})),
             prompt_text=str(bundle.get("prompt_text", "")),
             raw_response_text=str(bundle.get("raw_response_text", "")),
-            critic_feedback_payload=dict(
-                bundle.get("critic_feedback_payload", {})),
+            critic_observations_payload=dict(
+                bundle.get("critic_observations", {})),
             validation_report=dict(bundle.get("validation_report", {})),
             runtime_metrics=dict(bundle.get("runtime_metrics", {})),
             replay_metadata=dict(bundle.get("replay_metadata", {})) if bundle.get(
@@ -7875,8 +7875,8 @@ class NidsAgentCli:
             ("validation_ok", str(run_context.component_run.get("validation_ok", False))),
             ("final_round_gate", str(run_context.component_run.get(
                 "final_round_gate_status", "unknown"))),
-            ("module_feedback_count", str(
-                run_context.component_run.get("module_feedback_count", 0))),
+            ("observation_count", str(
+                run_context.component_run.get("observation_count", 0))),
         ]
         self._render(
             render_critic_run_review(
@@ -7885,7 +7885,7 @@ class NidsAgentCli:
                 artifact_paths=run_context.artifact_paths,
                 options=[
                     ("1", "Inspect Critic Input Summary"),
-                    ("2", "Inspect Critic Feedback Payload"),
+                    ("2", "Inspect Critic Observations"),
                     ("3", "Inspect Validation"),
                     ("4", "Inspect Prompt / Response"),
                     ("5", "Inspect Technical Details"),

@@ -92,21 +92,25 @@ def _collect_forbidden_language(field_name: str, value: object) -> list[dict[str
 
 
 def validate_analysis_context_min(analysis_context_min: dict[str, Any]) -> dict[str, Any]:
-    raw = analysis_context_min if isinstance(analysis_context_min, dict) else {}
+    raw = analysis_context_min if isinstance(
+        analysis_context_min, dict) else {}
     errors: list[dict[str, str]] = []
 
     if not isinstance(analysis_context_min, dict):
-        errors.append(_error("analysis_context_min", "analysis_context_min must be an object."))
+        errors.append(_error("analysis_context_min",
+                      "analysis_context_min must be an object."))
 
     partition_context_ref = raw.get("partition_context_ref")
     if not isinstance(partition_context_ref, dict):
-        errors.append(_error("partition_context_ref", "partition_context_ref must be an object."))
+        errors.append(_error("partition_context_ref",
+                      "partition_context_ref must be an object."))
         partition_context_ref = {}
 
     for key in ("semantics", "expected_properties", "epistemic_warnings", "investigation_guidance"):
         value = partition_context_ref.get(key)
         if not isinstance(value, list):
-            errors.append(_error(f"partition_context_ref.{key}", f"{key} must be a list."))
+            errors.append(
+                _error(f"partition_context_ref.{key}", f"{key} must be a list."))
             continue
         if not all(_is_non_empty_string(item) for item in value):
             errors.append(
@@ -118,20 +122,25 @@ def validate_analysis_context_min(analysis_context_min: dict[str, Any]) -> dict[
 
     artifact_framing_refs = raw.get("artifact_framing_refs")
     if not isinstance(artifact_framing_refs, list) or not artifact_framing_refs:
-        errors.append(_error("artifact_framing_refs", "artifact_framing_refs must be a non-empty list."))
+        errors.append(_error("artifact_framing_refs",
+                      "artifact_framing_refs must be a non-empty list."))
         artifact_framing_refs = []
 
     for index, framing_ref in enumerate(artifact_framing_refs):
         field_prefix = f"artifact_framing_refs[{index}]"
         if not isinstance(framing_ref, dict):
-            errors.append(_error(field_prefix, "Each artifact framing ref must be an object."))
+            errors.append(
+                _error(field_prefix, "Each artifact framing ref must be an object."))
             continue
         if not _is_non_empty_string(framing_ref.get("framing_id")):
-            errors.append(_error(f"{field_prefix}.framing_id", "framing_id must be a non-empty string."))
+            errors.append(
+                _error(f"{field_prefix}.framing_id", "framing_id must be a non-empty string."))
         if not _is_non_empty_string(framing_ref.get("label")):
-            errors.append(_error(f"{field_prefix}.label", "label must be a non-empty string."))
+            errors.append(_error(f"{field_prefix}.label",
+                          "label must be a non-empty string."))
         if not _is_non_empty_string(framing_ref.get("description")):
-            errors.append(_error(f"{field_prefix}.description", "description must be a non-empty string."))
+            errors.append(_error(
+                f"{field_prefix}.description", "description must be a non-empty string."))
 
     return _report(
         ok=not errors,
@@ -146,7 +155,8 @@ def validate_analysis_iteration_context_min(
     if analysis_iteration_context_min in (None, {}):
         return _report(ok=True, errors=[], stats={"mode": "initial"})
 
-    raw = analysis_iteration_context_min if isinstance(analysis_iteration_context_min, dict) else {}
+    raw = analysis_iteration_context_min if isinstance(
+        analysis_iteration_context_min, dict) else {}
     errors: list[dict[str, str]] = []
 
     if not isinstance(analysis_iteration_context_min, dict):
@@ -188,14 +198,17 @@ def validate_analysis_iteration_context_min(
     for index, hypothesis_ref in enumerate(hypothesis_refs):
         field_prefix = f"initial_hypothesis_set_ref.hypothesis_refs[{index}]"
         if not isinstance(hypothesis_ref, dict):
-            errors.append(_error(field_prefix, "Each hypothesis ref must be an object."))
+            errors.append(
+                _error(field_prefix, "Each hypothesis ref must be an object."))
             continue
         if not _is_non_empty_string(hypothesis_ref.get("hypothesis_id")):
             errors.append(
-                _error(f"{field_prefix}.hypothesis_id", "hypothesis_id must be a non-empty string.")
+                _error(f"{field_prefix}.hypothesis_id",
+                       "hypothesis_id must be a non-empty string.")
             )
         if not _is_non_empty_string(hypothesis_ref.get("summary")):
-            errors.append(_error(f"{field_prefix}.summary", "summary must be a non-empty string."))
+            errors.append(_error(f"{field_prefix}.summary",
+                          "summary must be a non-empty string."))
 
     current_state_ref = raw.get("current_state_ref")
     if not isinstance(current_state_ref, dict):
@@ -208,9 +221,16 @@ def validate_analysis_iteration_context_min(
         current_state_ref = {}
 
     if not _is_non_empty_string(current_state_ref.get("state_id")):
-        errors.append(_error("current_state_ref.state_id", "state_id must be a non-empty string."))
+        errors.append(_error("current_state_ref.state_id",
+                      "state_id must be a non-empty string."))
     if not _is_string_list(current_state_ref.get("state_notes")):
-        errors.append(_error("current_state_ref.state_notes", "state_notes must be a list of strings."))
+        errors.append(_error("current_state_ref.state_notes",
+                      "state_notes must be a list of strings."))
+
+    critic_guidance = raw.get("critic_guidance")
+    if critic_guidance is not None and not _is_string_list(critic_guidance):
+        errors.append(_error("critic_guidance",
+                      "critic_guidance must be a list of strings."))
 
     return _report(
         ok=not errors,
@@ -226,13 +246,15 @@ def _compute_overlap_pair_count(hypotheses: list[dict[str, Any]]) -> int:
     overlap_pair_count = 0
     normalized_evidence_refs: list[set[str]] = []
     for hypothesis in hypotheses:
-        evidence_refs = hypothesis.get("evidence_refs") if isinstance(hypothesis, dict) else []
-        normalized_evidence_refs.append(set(item for item in evidence_refs if isinstance(item, str)))
+        evidence_refs = hypothesis.get(
+            "evidence_refs") if isinstance(hypothesis, dict) else []
+        normalized_evidence_refs.append(
+            set(item for item in evidence_refs if isinstance(item, str)))
 
     for left_index, left in enumerate(normalized_evidence_refs):
         if not left:
             continue
-        for right in normalized_evidence_refs[left_index + 1 :]:
+        for right in normalized_evidence_refs[left_index + 1:]:
             if left.intersection(right):
                 overlap_pair_count += 1
     return overlap_pair_count
@@ -250,23 +272,29 @@ def validate_hypothesis_set(
     forbidden_language_hits: list[dict[str, str]] = []
 
     if not isinstance(hypothesis_set, dict):
-        errors.append(_error("hypothesis_set", "hypothesis_set must be an object."))
+        errors.append(
+            _error("hypothesis_set", "hypothesis_set must be an object."))
 
     if not _is_non_empty_string(raw.get("analysis_id")):
-        errors.append(_error("analysis_id", "analysis_id must be a non-empty string."))
+        errors.append(
+            _error("analysis_id", "analysis_id must be a non-empty string."))
 
     batch_id = raw.get("batch_id")
     if not _is_non_empty_string(batch_id):
-        errors.append(_error("batch_id", "batch_id must be a non-empty string."))
+        errors.append(
+            _error("batch_id", "batch_id must be a non-empty string."))
     elif expected_batch_id and str(batch_id).strip() != expected_batch_id:
-        errors.append(_error("batch_id", f"batch_id must match '{expected_batch_id}'."))
+        errors.append(
+            _error("batch_id", f"batch_id must match '{expected_batch_id}'."))
 
     hypotheses = raw.get("hypotheses")
     if not isinstance(hypotheses, list) or not hypotheses:
-        errors.append(_error("hypotheses", "hypotheses must be a non-empty list."))
+        errors.append(
+            _error("hypotheses", "hypotheses must be a non-empty list."))
         hypotheses = []
     elif len(hypotheses) > 10:
-        errors.append(_error("hypotheses", "hypotheses may contain at most 10 entries."))
+        errors.append(
+            _error("hypotheses", "hypotheses may contain at most 10 entries."))
 
     seen_hypothesis_ids: set[str] = set()
     distinct_evidence_refs: set[str] = set()
@@ -275,12 +303,14 @@ def validate_hypothesis_set(
     for index, hypothesis in enumerate(hypotheses):
         field_prefix = f"hypotheses[{index}]"
         if not isinstance(hypothesis, dict):
-            errors.append(_error(field_prefix, "Each hypothesis must be an object."))
+            errors.append(
+                _error(field_prefix, "Each hypothesis must be an object."))
             continue
 
         hypothesis_id = hypothesis.get("hypothesis_id")
         if not _is_non_empty_string(hypothesis_id):
-            errors.append(_error(f"{field_prefix}.hypothesis_id", "hypothesis_id must be a non-empty string."))
+            errors.append(_error(
+                f"{field_prefix}.hypothesis_id", "hypothesis_id must be a non-empty string."))
         else:
             normalized_hypothesis_id = str(hypothesis_id).strip()
             if normalized_hypothesis_id in seen_hypothesis_ids:
@@ -294,9 +324,11 @@ def validate_hypothesis_set(
 
         summary = hypothesis.get("summary")
         if not _is_non_empty_string(summary):
-            errors.append(_error(f"{field_prefix}.summary", "summary must be a non-empty string."))
+            errors.append(_error(f"{field_prefix}.summary",
+                          "summary must be a non-empty string."))
         else:
-            forbidden_language_hits.extend(_collect_forbidden_language(f"{field_prefix}.summary", summary))
+            forbidden_language_hits.extend(
+                _collect_forbidden_language(f"{field_prefix}.summary", summary))
 
         evidence_refs = hypothesis.get("evidence_refs")
         if not _is_string_list(evidence_refs, allow_empty=False):

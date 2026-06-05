@@ -6,15 +6,36 @@ from copy import deepcopy
 from typing import Any
 
 
-SCHEMA_VERSION = "phase3a.critic.v1"
-MAX_MODULE_FEEDBACK_ITEMS = 4
-MAX_OBSERVED_ISSUE_CHARS = 220
-MAX_SUGGESTION_CHARS = 180
-VALID_MODULE_NAMES = {
-    "semantic_extraction",
+SCHEMA_VERSION = "phase3a.critic.v2"
+MAX_CRITIC_OBSERVATIONS = 3
+MAX_RATIONALE_CHARS = 250
+MAX_PROMPT_SNIPPET_CHARS = 180
+VALID_TARGET_MODULES = {
     "investigation_analysis",
     "hypothesis_ranking",
     "planner",
+}
+VALID_PRIORITIES = {"high", "medium", "low"}
+VALID_OBSERVATION_TYPES = {
+    "underexplored_hypothesis",
+    "underexplored_region",
+    "premature_convergence",
+    "exploration_bias",
+    "weak_signal_neglect",
+    "diminishing_returns",
+    "persistent_unresolved_tension",
+    "investigation_imbalance",
+    "high_uncertainty_high_potential",
+    "investigation_focus",
+    "productive_active_line",
+}
+
+# Compatibility aliases retained for historical loaders and review surfaces.
+MAX_MODULE_FEEDBACK_ITEMS = MAX_CRITIC_OBSERVATIONS
+MAX_OBSERVED_ISSUE_CHARS = MAX_RATIONALE_CHARS
+MAX_SUGGESTION_CHARS = MAX_PROMPT_SNIPPET_CHARS
+VALID_MODULE_NAMES = VALID_TARGET_MODULES | {
+    "semantic_extraction",
     "router",
     "worker",
     "aggregation",
@@ -31,14 +52,18 @@ def _clone_json_like(value: Any) -> Any:
         return value
 
 
-def build_critic_feedback_payload(
+def _normalized_text(value: Any, default: str) -> str:
+    return str(value or default).strip() or default
+
+
+def build_critic_observations_payload(
     *,
     batch_id: str,
     round_id: str,
-    module_feedback: list[dict[str, Any]],
+    critic_observations: list[dict[str, Any]],
 ) -> dict[str, Any]:
     return {
-        "batch_id": str(batch_id or "unknown_batch").strip() or "unknown_batch",
-        "round_id": str(round_id or "unknown_round").strip() or "unknown_round",
-        "module_feedback": _clone_json_like(module_feedback),
+        "batch_id": _normalized_text(batch_id, "unknown_batch"),
+        "round_id": _normalized_text(round_id, "unknown_round"),
+        "critic_observations": _clone_json_like(critic_observations),
     }
