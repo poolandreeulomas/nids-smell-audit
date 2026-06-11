@@ -13,6 +13,8 @@ from time import perf_counter
 import re
 from typing import Any, Callable
 
+from json_repair import repair_json
+
 from instrumentation import exception, phase_end, phase_start, validation_result
 from utils.openai_response import build_responses_create_kwargs, extract_response_text
 from utils.run_logging import load_json, write_json
@@ -338,9 +340,17 @@ def build_inter_hypothesis_prompt(
 def parse_inter_hypothesis_response(response_text: str) -> dict[str, Any]:
     try:
         payload = json.loads(_strip_code_fences(response_text))
-    except json.JSONDecodeError as exc:
-        raise ValueError(
-            "inter-hypothesis aggregation response is not valid JSON") from exc
+    except json.JSONDecodeError:
+        print("[JSON_RECOVERY] attempting repair")
+        text = _strip_code_fences(response_text)
+        try:
+            repaired_text = repair_json(text)
+            payload = json.loads(repaired_text)
+            print("[JSON_RECOVERY] repair successful")
+        except Exception:
+            print("[JSON_RECOVERY] repair failed")
+            raise ValueError(
+                "inter-hypothesis aggregation response is not valid JSON")
 
     if not isinstance(payload, dict):
         raise ValueError(

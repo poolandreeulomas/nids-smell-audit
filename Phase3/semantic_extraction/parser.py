@@ -5,6 +5,8 @@ from __future__ import annotations
 import json
 from typing import Any
 
+from json_repair import repair_json
+
 
 TOP_LEVEL_FIELDS = {
     "substrate_id",
@@ -28,25 +30,35 @@ def _strip_code_fences(text: str) -> str:
 def parse_semantic_extraction_response(response_text: str) -> dict[str, Any]:
     try:
         payload = json.loads(_strip_code_fences(response_text))
-    except json.JSONDecodeError as exc:
+    except json.JSONDecodeError:
+        print("[JSON_RECOVERY] attempting repair")
         text = _strip_code_fences(response_text)
+        try:
+            repaired_text = repair_json(text)
+            payload = json.loads(repaired_text)
+            print("[JSON_RECOVERY] repair successful")
+        except Exception:
+            print("[JSON_RECOVERY] repair failed")
 
-        start = max(0, exc.pos - 200)
-        end = min(len(text), exc.pos + 200)
+            print("\n" + "=" * 80)
+            print("SEMANTIC EXTRACTION JSON PARSE FAILURE")
+            print("=" * 80)
+            import json as _json
+            try:
+                _json.loads(text)
+            except _json.JSONDecodeError as exc2:
+                print(f"Message : {exc2.msg}")
+                print(f"Position: {exc2.pos}")
+                print(f"Line    : {exc2.lineno}")
+                print(f"Column  : {exc2.colno}")
+                print()
+                print("Context around failure:")
+                start2 = max(0, exc2.pos - 200)
+                end2 = min(len(text), exc2.pos + 200)
+                print(text[start2:end2])
+            print("=" * 80 + "\n")
 
-        print("\n" + "=" * 80)
-        print("SEMANTIC EXTRACTION JSON PARSE FAILURE")
-        print("=" * 80)
-        print(f"Message : {exc.msg}")
-        print(f"Position: {exc.pos}")
-        print(f"Line    : {exc.lineno}")
-        print(f"Column  : {exc.colno}")
-        print()
-        print("Context around failure:")
-        print(text[start:end])
-        print("=" * 80 + "\n")
-
-        raise ValueError("semantic extraction response is not valid JSON") from exc
+            raise ValueError("semantic extraction response is not valid JSON")
 
     if not isinstance(payload, dict):
         raise ValueError("semantic extraction response must be a JSON object")

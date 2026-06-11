@@ -5,6 +5,8 @@ from __future__ import annotations
 import json
 from typing import Any
 
+from json_repair import repair_json
+
 
 def _looks_like_worker_result(payload: dict[str, Any]) -> bool:
     required_keys = {
@@ -26,8 +28,15 @@ def parse_worker_step_response(raw_response_text: str) -> dict[str, Any]:
 
     try:
         payload = json.loads(text)
-    except json.JSONDecodeError as exc:
-        raise ValueError(f"Worker response is not valid JSON: {exc.msg}") from exc
+    except json.JSONDecodeError:
+        print("[JSON_RECOVERY] attempting repair")
+        try:
+            repaired_text = repair_json(text)
+            payload = json.loads(repaired_text)
+            print("[JSON_RECOVERY] repair successful")
+        except Exception:
+            print("[JSON_RECOVERY] repair failed")
+            raise ValueError(f"Worker response is not valid JSON")
 
     if not isinstance(payload, dict):
         raise ValueError("Worker response must decode to a JSON object.")
