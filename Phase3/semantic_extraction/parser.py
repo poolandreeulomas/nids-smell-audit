@@ -29,6 +29,23 @@ def parse_semantic_extraction_response(response_text: str) -> dict[str, Any]:
     try:
         payload = json.loads(_strip_code_fences(response_text))
     except json.JSONDecodeError as exc:
+        text = _strip_code_fences(response_text)
+
+        start = max(0, exc.pos - 200)
+        end = min(len(text), exc.pos + 200)
+
+        print("\n" + "=" * 80)
+        print("SEMANTIC EXTRACTION JSON PARSE FAILURE")
+        print("=" * 80)
+        print(f"Message : {exc.msg}")
+        print(f"Position: {exc.pos}")
+        print(f"Line    : {exc.lineno}")
+        print(f"Column  : {exc.colno}")
+        print()
+        print("Context around failure:")
+        print(text[start:end])
+        print("=" * 80 + "\n")
+
         raise ValueError("semantic extraction response is not valid JSON") from exc
 
     if not isinstance(payload, dict):
