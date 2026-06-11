@@ -83,9 +83,10 @@ def _build_aggregation_handoff() -> dict[str, object]:
             "The dependency signal remained visible in the targeted local slice."
         ],
         evidence_refs=["task-hyp-1-1_step_01"],
-        preserved_contradictions=[
-            "Current local evidence still conflicts with the broader dependency framing."
-        ],
+        preserved_contradiction_ids=["contr_0"],
+        contradiction_lookup={
+            "contr_0": "Current local evidence still conflicts with the broader dependency framing.",
+        },
         open_gaps=["Need one more counter-check before closing the framing."],
         update_focus="Carry forward the dependency framing without collapsing the remaining contradiction.",
     )

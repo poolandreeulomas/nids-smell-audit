@@ -90,13 +90,21 @@ def build_normalized_inputs(
             for evidence_ref in result.get("evidence_refs", [])
         }
     )
-    source_contradictions = sorted(
+    source_contradiction_texts = sorted(
         {
             contradiction
             for result in worker_results
             for contradiction in result.get("contradictions", [])
         }
     )
+    source_contradictions = [
+        {"id": f"contr_{idx}", "text": text}
+        for idx, text in enumerate(source_contradiction_texts)
+    ]
+    source_contradiction_lookup = {
+        item["id"]: item["text"]
+        for item in source_contradictions
+    }
     source_limitations = sorted(
         {
             limitation
@@ -125,6 +133,7 @@ def build_normalized_inputs(
         ),
         "worker_results": worker_results,
         "overlap_diagnostics": _build_overlap_diagnostics(worker_results),
+        "source_contradiction_lookup": source_contradiction_lookup,
     }
 
 

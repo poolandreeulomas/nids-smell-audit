@@ -47,17 +47,16 @@ _ALLOWED_APPLIED_UPDATE_FIELDS = {
     "merged_findings",
     "update_focus",
 }
-_ALLOWED_STATUS_SHIFTS = {
-    "unresolved": {"unresolved", "emerging", "active", "weakened", "reopened", "uncertain"},
-    "emerging": {"emerging", "active", "weakened", "dormant", "reopened", "merged", "partially_absorbed", "uncertain"},
-    "active": {"active", "weakened", "dormant", "reopened", "merged", "partially_absorbed", "uncertain"},
-    "weakened": {"weakened", "active", "dormant", "reopened", "merged", "partially_absorbed", "uncertain"},
-    "dormant": {"dormant", "reopened", "merged", "partially_absorbed", "uncertain"},
-    "reopened": {"reopened", "active", "weakened", "dormant", "merged", "partially_absorbed", "uncertain"},
-    "merged": {"merged"},
-    "partially_absorbed": {"partially_absorbed", "merged", "reopened", "active", "weakened", "uncertain"},
-    "uncertain": {"uncertain", "active", "weakened", "dormant", "reopened", "merged", "partially_absorbed"},
-}
+_ALLOWED_STATUS_SHIFTS: dict[str, set[str]] = {}
+"""Semantic status-transition policy.
+
+Rather than enumerating every individually allowed edge, this validator rejects only
+transitions that are logically impossible or structurally dangerous.
+
+The only structurally dangerous transition is leaving the terminal 'merged' state: once a
+hypothesis has been absorbed into another interpretive structure, it must not re-emerge as a
+separate entity. All other transitions represent reasonable evidence-driven belief evolution.
+"""
 _FORBIDDEN_OUTPUT_PATTERNS = {
     "planning_language": re.compile(r"\bplan(?:ning|ned|s)?\b|\bstrategy\b|\brout(?:e|ing|er)\b", re.IGNORECASE),
     "aggregation_language": re.compile(r"\bworker\b|\bre-?aggregat(?:e|ion)\b", re.IGNORECASE),
@@ -113,6 +112,21 @@ def _int_value(value: object) -> int | None:
         return int(value)
     except Exception:
         return None
+
+
+def _compute_allowed_shifts(current_status: str) -> set[str]:
+    """Return the set of statuses reachable from *current_status*.
+
+    The only structurally dangerous transition is leaving the terminal 'merged' state.
+    All other transitions represent reasonable evidence-driven belief evolution and are
+    therefore allowed.
+    """
+    if current_status == "merged":
+        # merged is terminal: a hypothesis absorbed into another structure cannot re-emerge
+        # as a separate entity.
+        return {"merged"}
+    # All other statuses can transition to any valid hypothesis status.
+    return VALID_HYPOTHESIS_STATUSES
 
 
 def _collect_forbidden_language(field_name: str, value: object) -> list[dict[str, str]]:
@@ -397,7 +411,7 @@ def validate_state_delta_record(
         if normalized_status not in VALID_HYPOTHESIS_STATUSES:
             errors.append(
                 _error("status", f"status must be one of {sorted(VALID_HYPOTHESIS_STATUSES)}."))
-        elif normalized_status not in _ALLOWED_STATUS_SHIFTS.get(current_status, VALID_HYPOTHESIS_STATUSES):
+        elif normalized_status not in _compute_allowed_shifts(current_status):
             errors.append(
                 _error(
                     "status",

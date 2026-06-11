@@ -46,9 +46,7 @@ def _build_saved_aggregation_bundle(tmp_path: Path) -> dict[str, object]:
                             "The wider dependency signal remains stronger than the narrow port-local shortcut."
                         ],
                         "evidence_refs": ["task-hyp-1-1_step_01", "task-hyp-1-2_step_01"],
-                        "preserved_contradictions": [
-                            "The broad dependency signal still conflicts with the narrower local port signal."
-                        ],
+                        "preserved_contradiction_ids": ["contr_0"],
                         "open_gaps": [
                             "The local port evidence remains too narrow to resolve the wider mechanism."
                         ],

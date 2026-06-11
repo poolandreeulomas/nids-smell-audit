@@ -12,7 +12,7 @@ TOP_LEVEL_FIELDS = {
     "hypothesis_id",
     "merged_findings",
     "evidence_refs",
-    "preserved_contradictions",
+    "preserved_contradiction_ids",
     "open_gaps",
     "update_focus",
 }
@@ -44,7 +44,7 @@ def parse_aggregation_response(response_text: str) -> dict[str, Any]:
 
     if set(payload.keys()) != TOP_LEVEL_FIELDS:
         raise ValueError(
-            "aggregation response must contain exactly batch_id, round_id, hypothesis_id, merged_findings, evidence_refs, preserved_contradictions, open_gaps, update_focus"
+            "aggregation response must contain exactly batch_id, round_id, hypothesis_id, merged_findings, evidence_refs, preserved_contradiction_ids, open_gaps, update_focus"
         )
 
     return payload

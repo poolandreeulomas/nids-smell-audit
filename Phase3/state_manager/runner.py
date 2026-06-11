@@ -11,6 +11,7 @@ from state.store import apply_interpretive_hypothesis_patch, get_interpretive_hy
 from state_manager.contracts import SCHEMA_VERSION, build_state_update_result
 from state_manager.parser import parse_state_manager_response
 from state_manager.prompt_builder import PROMPT_VERSION, build_state_manager_prompt
+from state_manager.repair import enforce_append_only_invariants
 from state_manager.runtime_artifacts import (
     build_state_manager_artifact_paths,
     save_state_manager_artifacts,
@@ -103,6 +104,7 @@ def run_state_manager(
     prompt_text = ""
     raw_response_text = ""
     state_delta_record: dict[str, Any] = {}
+    repair_events: list[dict[str, Any]] = []
     updated_batch_state: dict[str, Any] = {}
     state_update_result: dict[str, Any] = {}
     parse_validation: dict[str, Any] = _report_error(
@@ -129,6 +131,17 @@ def run_state_manager(
             state_delta_record = parse_state_manager_response(
                 raw_response_text)
             parse_validation = {"ok": True, "errors": [], "warnings": []}
+            # Repair append-only invariants before validation.
+            # The LLM may accidentally drop previously existing items from
+            # evidence_refs, merged_findings, open_gaps, or preserved_contradictions.
+            # These are deterministic state-persistence failures, not reasoning
+            # failures, so we restore them automatically.
+            state_delta_record, repair_events = enforce_append_only_invariants(
+                state_delta_record,
+                current_hypothesis=state_manager_context.get(
+                    "target_hypothesis", {}),
+                aggregation_handoff=raw_handoff,
+            )
             delta_validation = validate_state_delta_record(
                 state_delta_record,
                 current_hypothesis=state_manager_context.get(
@@ -283,6 +296,7 @@ def run_state_manager(
         "prompt_text": prompt_text,
         "raw_response_text": raw_response_text,
         "state_delta_record": state_delta_record,
+        "repair_events": repair_events,
         "updated_batch_state": updated_batch_state,
         "state_update_result": state_update_result,
         "validation_report": validation_report,

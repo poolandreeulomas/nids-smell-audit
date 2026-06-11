@@ -83,8 +83,11 @@ def run_aggregation(
         normalized_inputs.get("overlap_diagnostics", []))
     known_evidence_refs = set(
         normalized_inputs.get("source_evidence_refs", []))
-    source_contradictions = set(
-        normalized_inputs.get("source_contradictions", []))
+    source_contradictions = normalized_inputs.get("source_contradictions", [])
+    source_contradiction_ids = {
+        c["id"] for c in source_contradictions if isinstance(c, dict) and "id" in c
+    }
+    source_contradiction_lookup = normalized_inputs.get("source_contradiction_lookup", {})
     source_gap_signal_count = len(normalized_inputs.get("source_limitations", [])) + int(
         normalized_inputs.get("non_success_count", 0)
     )
@@ -127,12 +130,29 @@ def run_aggregation(
                 expected_hypothesis_id=normalized_hypothesis_id,
                 known_evidence_refs=known_evidence_refs,
                 source_contradictions=source_contradictions,
+                source_contradiction_ids=source_contradiction_ids,
                 source_gap_signal_count=source_gap_signal_count,
                 source_finding_count=source_finding_count,
             )
             handoff_validation = dict(initial_handoff_validation)
             if handoff_validation["ok"]:
+                # Reconstruct preserved_contradictions text from IDs
+                handoff_text = {
+                    "batch_id": parsed_output.get("batch_id"),
+                    "round_id": parsed_output.get("round_id"),
+                    "hypothesis_id": parsed_output.get("hypothesis_id"),
+                    "merged_findings": parsed_output.get("merged_findings", []),
+                    "evidence_refs": parsed_output.get("evidence_refs", []),
+                    "preserved_contradictions": [
+                        source_contradiction_lookup[cid]
+                        for cid in parsed_output.get("preserved_contradiction_ids", [])
+                        if cid in source_contradiction_lookup
+                    ],
+                    "open_gaps": parsed_output.get("open_gaps", []),
+                    "update_focus": parsed_output.get("update_focus", ""),
+                }
                 aggregation_handoff = dict(parsed_output)
+                aggregation_handoff["preserved_contradictions"] = handoff_text["preserved_contradictions"]
             elif handoff_validation.get("repairable"):
                 repair_result = repair_aggregation_handoff(parsed_output)
                 repaired_output = dict(
@@ -144,6 +164,7 @@ def run_aggregation(
                     expected_hypothesis_id=normalized_hypothesis_id,
                     known_evidence_refs=known_evidence_refs,
                     source_contradictions=source_contradictions,
+                    source_contradiction_ids=source_contradiction_ids,
                     source_gap_signal_count=source_gap_signal_count,
                     source_finding_count=source_finding_count,
                 )

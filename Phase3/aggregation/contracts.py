@@ -39,17 +39,23 @@ def build_aggregation_handoff(
     hypothesis_id: str,
     merged_findings: list[str],
     evidence_refs: list[str],
-    preserved_contradictions: list[str],
+    preserved_contradiction_ids: list[str],
+    contradiction_lookup: dict[str, str],
     open_gaps: list[str],
     update_focus: str,
 ) -> dict[str, Any]:
+    preserved_contradictions = [
+        contradiction_lookup[cid]
+        for cid in preserved_contradiction_ids
+        if cid in contradiction_lookup
+    ]
     return {
         "batch_id": str(batch_id or "unknown_batch").strip() or "unknown_batch",
         "round_id": str(round_id or "unknown_round").strip() or "unknown_round",
         "hypothesis_id": str(hypothesis_id or "unknown_hypothesis").strip() or "unknown_hypothesis",
         "merged_findings": list(merged_findings),
         "evidence_refs": list(evidence_refs),
-        "preserved_contradictions": list(preserved_contradictions),
+        "preserved_contradictions": preserved_contradictions,
         "open_gaps": list(open_gaps),
         "update_focus": str(update_focus or "").strip(),
     }

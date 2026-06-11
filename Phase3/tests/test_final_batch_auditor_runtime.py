@@ -81,7 +81,8 @@ def _build_handoff(
         hypothesis_id=HYPOTHESIS_ID,
         merged_findings=[finding],
         evidence_refs=[evidence_ref],
-        preserved_contradictions=[contradiction],
+        preserved_contradiction_ids=["contr_0"],
+        contradiction_lookup={"contr_0": contradiction},
         open_gaps=[open_gap],
         update_focus=update_focus,
     )

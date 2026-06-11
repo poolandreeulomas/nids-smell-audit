@@ -12,6 +12,7 @@ from investigation_analysis.input_builder import (
     build_analysis_context_min,
     build_analysis_iteration_context_min,
 )
+from investigation_analysis.substrate_loader import collect_valid_evidence_ids
 from planner.context_resolver import build_planner_round_context, collect_related_substrate_refs
 from router.context_reducer import build_router_context_min
 from critic.runtime_artifacts import load_critic_bundle
@@ -163,6 +164,7 @@ def build_initial_analysis_context(dataset_path: str | Path) -> dict[str, Any]:
 def build_current_state_ref(canonical_batch_state: CanonicalBatchState | dict[str, Any]) -> dict[str, Any]:
     state = _load_canonical_batch_state(canonical_batch_state)
     state_notes: list[str] = [f"state_version={state.state_version}"]
+    substrate_evidence_ids = collect_valid_evidence_ids(state.structural_substrate)
 
     for hypothesis in state.interpretive_hypotheses:
         state_notes.append(
@@ -176,7 +178,13 @@ def build_current_state_ref(canonical_batch_state: CanonicalBatchState | dict[st
                 ]
             )
         )
-        for evidence_ref in hypothesis.evidence_refs[:4]:
+        evidence_ref_count = 0
+        for evidence_ref in hypothesis.evidence_refs:
+            if evidence_ref not in substrate_evidence_ids:
+                continue
+            evidence_ref_count += 1
+            if evidence_ref_count > 4:
+                break
             state_notes.append(
                 f"{hypothesis.hypothesis_id} evidence_ref={evidence_ref}")
         for open_gap in hypothesis.open_gaps[:3]:

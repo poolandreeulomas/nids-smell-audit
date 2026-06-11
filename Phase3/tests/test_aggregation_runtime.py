@@ -225,9 +225,7 @@ def test_run_aggregation_returns_valid_bundle_and_artifacts(tmp_path: Path):
                             "The wider dependency signal remains stronger than the narrow port-local shortcut."
                         ],
                         "evidence_refs": ["task-hyp-1-1_step_01", "task-hyp-1-2_step_01"],
-                        "preserved_contradictions": [
-                            "The broad dependency signal still conflicts with the narrower local port signal."
-                        ],
+                        "preserved_contradiction_ids": ["contr_0"],
                         "open_gaps": [
                             "The local port evidence remains too narrow to resolve the wider mechanism."
                         ],
@@ -307,9 +305,7 @@ def test_run_aggregation_accepts_update_focus_overflow_without_failing_round(tmp
                             "The wider dependency signal remains stronger than the narrow port-local shortcut."
                         ],
                         "evidence_refs": ["task-hyp-1-1_step_01", "task-hyp-1-2_step_01"],
-                        "preserved_contradictions": [
-                            "The broad dependency signal still conflicts with the narrower local port signal."
-                        ],
+                        "preserved_contradiction_ids": ["contr_0"],
                         "open_gaps": [
                             "The local port evidence remains too narrow to resolve the wider mechanism."
                         ],
@@ -432,7 +428,7 @@ def test_run_aggregation_fails_closed_on_invalid_handoff(tmp_path: Path):
                             "The wider dependency signal remains stronger than the narrow port-local shortcut."
                         ],
                         "evidence_refs": ["invented-evidence-ref"],
-                        "preserved_contradictions": [],
+                        "preserved_contradiction_ids": [],
                         "open_gaps": [],
                         "update_focus": "Dependency strength versus localized port evidence.",
                     }

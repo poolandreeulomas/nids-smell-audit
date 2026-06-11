@@ -37,6 +37,12 @@ from final_batch_auditor.runtime_artifacts import (
     list_final_batch_auditor_run_dirs,
     load_final_batch_auditor_bundle,
 )
+from final_batch_report.runner import run_final_batch_report
+from final_batch_report.runtime_artifacts import (
+    list_final_batch_report_run_dirs,
+    load_final_batch_report_bundle,
+)
+from state.schema import CanonicalBatchState
 from phase3_runtime.context_builder import build_round_snapshot
 from phase3_runtime.inter_hypothesis_aggregation import (
     DEFAULT_INTER_HYPOTHESIS_DIR,
@@ -55,6 +61,11 @@ from interface.terminal_ui import (
     render_critic_run_review,
     render_final_batch_auditor_menu,
     render_final_batch_auditor_run_review,
+    render_final_batch_report_config_menu,
+    render_final_batch_report_menu,
+    render_final_batch_report_run_review,
+    render_final_batch_report_post_run,
+    render_recent_final_batch_report_runs,
     render_phase3a_runtime_event_review,
     render_phase3a_runtime_event_stream_index,
     render_phase3a_runtime_menu,
@@ -194,6 +205,7 @@ class SessionConfig:
     planning_model_name: str | None = None
     worker_model_name: str | None = None
     synthesis_model_name: str | None = None
+    critic_model_name: str | None = None
     judge_model_name: str = "gpt-4.1"
     dataset_name: str | None = None
     trace_enabled: bool = False
@@ -429,6 +441,18 @@ class FinalBatchAuditorRunContext:
 
 
 @dataclass
+class FinalBatchReportRunContext:
+    """Cached Final Batch Report Generator component run context for CLI inspection."""
+
+    artifact_paths: dict[str, str]
+    component_run: dict[str, Any]
+    report_markdown: str
+    rendered_prompt: str
+    raw_response: str
+    runtime_metrics: dict[str, Any]
+
+
+@dataclass
 class Phase3ARuntimeRunContext:
     """Cached Phase 3A batch runtime context for CLI inspection."""
 
@@ -543,6 +567,7 @@ class NidsAgentCli:
         self._view_state_manager_runs_limit = 5
         self._view_critic_runs_limit = 5
         self._view_final_batch_auditor_runs_limit = 5
+        self._view_final_batch_report_runs_limit = 5
         self._view_phase3a_runtime_runs_limit = 5
         self._selected_view_run: RunContext | None = None
         self._last_tool_run: ToolRunContext | None = None
@@ -567,6 +592,8 @@ class NidsAgentCli:
         self._selected_critic_run: CriticRunContext | None = None
         self._last_final_batch_auditor_run: FinalBatchAuditorRunContext | None = None
         self._selected_final_batch_auditor_run: FinalBatchAuditorRunContext | None = None
+        self._last_final_batch_report_run: FinalBatchReportRunContext | None = None
+        self._selected_final_batch_report_run: FinalBatchReportRunContext | None = None
         self._last_phase3a_runtime_run: Phase3ARuntimeRunContext | None = None
         self._selected_phase3a_runtime_run: Phase3ARuntimeRunContext | None = None
         self._selected_tool_name: str | None = None
@@ -587,6 +614,7 @@ class NidsAgentCli:
             "state_manager": self._state_manager_menu,
             "critic": self._critic_menu,
             "final_batch_auditor": self._final_batch_auditor_menu,
+            "final_batch_report": self._final_batch_report_menu,
             "tools": self._tools_menu,
             "run": self._run_agent_menu,
             "judge": self._judge_menu,
@@ -649,7 +677,7 @@ class NidsAgentCli:
     def _phase3a_components_menu(self) -> str:
         self._render(render_phase3a_components_menu())
         choice = self._read_menu_choice(
-            {"1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "B", "Q"})
+            {"1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "B", "Q"})
         # For the Phase 3A Batch Runtime flow we prefer a cleaner menu view
         # without availability noise; re-render without the marker when the
         # user explicitly requests the batch runtime route. This preserves
@@ -685,6 +713,8 @@ class NidsAgentCli:
             return "final_batch_auditor"
         if choice == "12":
             return "phase3a_runtime"
+        if choice == "13":
+            return "final_batch_report"
         return "tools"
 
     def _phase3a_runtime_menu(self) -> str:
@@ -1172,11 +1202,10 @@ class NidsAgentCli:
             return self._run_critic_flow()
         if choice == "L":
             return self._latest_critic_run_menu()
-        if choice in {"E", "D", "C"}:
+        if choice in {"E", "D"}:
             pending_actions = {
                 "E": "evaluation",
                 "D": "debug / replay",
-                "C": "config",
             }
             self._show_component_action_pending(
                 component_name="Critic",
@@ -1184,6 +1213,8 @@ class NidsAgentCli:
                 implemented_summary="run, latest-run review, and saved-run browsing are available",
             )
             return "critic"
+        if choice == "C":
+            return self._critic_config_flow()
         return self._view_critic_runs_menu()
 
     def _final_batch_auditor_menu(self) -> str:
@@ -1229,6 +1260,315 @@ class NidsAgentCli:
             )
             return "final_batch_auditor"
         return self._view_final_batch_auditor_runs_menu()
+
+    def _final_batch_report_menu(self) -> str:
+        latest_run_context = (
+            self._last_final_batch_report_run or self._get_latest_final_batch_report_run_context()
+        )
+        latest_run_name = None
+        if latest_run_context is not None:
+            latest_run_name = Path(
+                latest_run_context.artifact_paths.get("component_run_path", "")
+            ).parent.name or None
+
+        self._render(
+            render_final_batch_report_menu(
+                dataset_name=self._get_selected_dataset_label(),
+                model_name=self._resolve_phase3a_model_name(
+                    "final_batch_report"),
+                latest_run_name=latest_run_name,
+            )
+        )
+
+        choice = self._read_letter_choice(
+            {"R", "L", "V", "C", "B", "Q"})
+        if choice == "Q":
+            self._quit()
+            return "final_batch_report"
+        if choice == "B":
+            return "phase3a"
+        if choice == "R":
+            return self._run_final_batch_report_flow()
+        if choice == "L":
+            return self._latest_final_batch_report_run_menu()
+        if choice == "C":
+            return self._final_batch_report_config_flow()
+        return self._view_final_batch_report_runs_menu()
+
+    def _final_batch_report_config_flow(self) -> str:
+        """Inline config flow for the Final Batch Report Generator."""
+        current_name = self._resolve_phase3a_model_name("final_batch_report")
+        self._render(render_final_batch_report_config_menu(current_model_name=current_name))
+        choice = self._read_menu_choice({"1", "B", "Q"})
+        if choice == "Q":
+            self._quit()
+            return "final_batch_report"
+        if choice == "B":
+            return "final_batch_report"
+        if choice == "1":
+            selected = self._select_model_name(
+                current_name=current_name,
+                custom_label="final batch report model",
+            )
+            if selected is not None:
+                self.session_config.synthesis_model_name = selected
+                self._show_info(f"Final Batch Report model updated to: {selected}")
+        return "final_batch_report"
+
+    def _run_final_batch_report_flow(self) -> str:
+        source_run = self._prompt_final_batch_report_source()
+        if source_run is None:
+            return "final_batch_report"
+        if not source_run.updated_batch_state:
+            print("\n[DEV FALLBACK ACTIVE] Using hardcoded updated_batch_state.json\n")
+
+            source_run.updated_batch_state = load_json(
+                r"C:\Users\Uni\Desktop\TFG\nids-smell-audit\Phase3\logs\state_manager_runs"
+                r"\state_manager_run_098_09-06_hyp_8_distributional_divergence_destinat"
+                r"\updated_batch_state.json"
+            )
+        try:
+            final_state = CanonicalBatchState.from_dict(source_run.updated_batch_state)
+            partition_name = self._get_selected_dataset_label()
+            bundle = run_final_batch_report(
+                final_state,
+                partition_name,
+                model_name=self._resolve_phase3a_model_name("final_batch_report"),
+                log_dir=None,
+            )
+        except Exception as exc:
+            self._show_error(f"final batch report failed: {exc}")
+            return "final_batch_report"
+        self._last_final_batch_report_run = FinalBatchReportRunContext(
+            artifact_paths=dict(bundle.get("artifact_paths", {})),
+            component_run=dict(bundle.get("runtime_metrics", {})),
+            report_markdown=str(bundle.get("report_markdown", "")),
+            rendered_prompt=str(bundle.get("prompt_text", "")),
+            raw_response=str(bundle.get("raw_response_text", "")),
+            runtime_metrics=dict(bundle.get("runtime_metrics", {})),
+        )
+        self._selected_final_batch_report_run = self._last_final_batch_report_run
+        while True:
+            self._render_final_batch_report_run_review(
+                self._last_final_batch_report_run)
+            choice = self._read_menu_choice(
+                {"1", "2", "3", "4", "B", "Q"})
+            if choice == "Q":
+                self._quit()
+                return "final_batch_report"
+            if choice == "B":
+                return "final_batch_report"
+            self._handle_final_batch_report_review_choice(
+                choice, self._last_final_batch_report_run)
+
+    def _render_final_batch_report_run_review(self, run_context: FinalBatchReportRunContext) -> None:
+        run_name = Path(
+            run_context.artifact_paths.get("component_run_path", "")
+        ).parent.name or "final_batch_report_run"
+        summary_pairs = [
+            ("batch_id", str(run_context.component_run.get("batch_id", "unknown"))),
+            ("state_version", str(run_context.component_run.get("state_version", "unknown"))),
+            ("model", str(run_context.component_run.get("model_name", "unknown"))),
+            ("report_generated", str(bool(run_context.report_markdown))),
+            ("runtime_seconds", str(run_context.runtime_metrics.get("duration_ms", 0.0) / 1000.0)),
+        ]
+        self._render(
+            render_final_batch_report_run_review(
+                run_name=run_name,
+                summary_pairs=summary_pairs,
+                artifact_paths=run_context.artifact_paths,
+                options=[
+                    ("1", "View Report"),
+                    ("2", "View Prompt"),
+                    ("3", "View Raw Response"),
+                    ("4", "View Technical Details"),
+                    ("B", "Back"),
+                    ("Q", "Quit"),
+                ],
+            )
+        )
+
+    def _handle_final_batch_report_review_choice(self, choice: str, run_context: FinalBatchReportRunContext) -> None:
+        if choice == "1":
+            self._render(
+                render_text_view(
+                    title="Final Batch Report",
+                    path_label="Phase 3A Components / Final Batch Report / Review / Report",
+                    content=run_context.report_markdown or "No report was generated.",
+                    hint="Human-facing audit report generated from the Final Updated State.",
+                )
+            )
+            self._wait_for_enter()
+            return
+        if choice == "2":
+            self._render(
+                render_text_view(
+                    title="Rendered Prompt",
+                    path_label="Phase 3A Components / Final Batch Report / Review / Prompt",
+                    content=run_context.rendered_prompt or "No prompt was recorded.",
+                    hint="Exact prompt sent to the model.",
+                )
+            )
+            self._wait_for_enter()
+            return
+        if choice == "3":
+            self._render(
+                render_text_view(
+                    title="Raw Response",
+                    path_label="Phase 3A Components / Final Batch Report / Review / Raw Response",
+                    content=run_context.raw_response or "No raw response was recorded.",
+                    hint="Raw LLM response before parsing.",
+                )
+            )
+            self._wait_for_enter()
+            return
+        metrics = [
+            ("duration_ms", str(run_context.runtime_metrics.get("duration_ms", 0.0))),
+            ("report_length_chars", str(run_context.runtime_metrics.get("report_length_chars", 0))),
+            ("investigated_findings", str(run_context.runtime_metrics.get("investigated_findings_count", 0))),
+            ("additional_findings", str(run_context.runtime_metrics.get("additional_findings_count", 0))),
+            ("schema_version", str(run_context.runtime_metrics.get("schema_version", "unknown"))),
+        ]
+        self._render(
+            render_technical_details(
+                title="Final Batch Report Technical Details",
+                run_name=Path(run_context.artifact_paths.get("component_run_path", "")).parent.name or None,
+                metrics=metrics,
+                tools_used=["final_batch_report"],
+                artifact_paths=run_context.artifact_paths,
+                path_label="Phase 3A Components / Final Batch Report / Review / Technical Details",
+                hint="Metrics and artifact paths for the report run.",
+            )
+        )
+        self._wait_for_enter()
+
+    def _get_latest_final_batch_report_run_context(self) -> FinalBatchReportRunContext | None:
+        latest_runs = list_final_batch_report_run_dirs(limit=1)
+        if not latest_runs:
+            return None
+        return self._load_final_batch_report_run_context(latest_runs[0])
+
+    def _load_final_batch_report_run_context(self, run_dir: Path) -> FinalBatchReportRunContext:
+        bundle = load_final_batch_report_bundle(run_dir)
+        return FinalBatchReportRunContext(
+            artifact_paths=dict(bundle.get("artifact_paths", {})),
+            component_run=dict(bundle.get("component_run", {})),
+            report_markdown=str(bundle.get("report_markdown", "")),
+            rendered_prompt=str(bundle.get("rendered_prompt", "")),
+            raw_response=str(bundle.get("raw_response", "")),
+            runtime_metrics=dict(bundle.get("runtime_metrics", {})),
+        )
+
+    def _latest_final_batch_report_run_menu(self) -> str:
+        run_context = self._get_latest_final_batch_report_run_context()
+        if run_context is None:
+            self._show_error("No persisted Final Batch Report runs are available yet.")
+            return "final_batch_report"
+        self._selected_final_batch_report_run = run_context
+        while True:
+            self._render_final_batch_report_run_review(run_context)
+            choice = self._read_menu_choice(
+                {"1", "2", "3", "4", "B", "Q"})
+            if choice == "Q":
+                self._quit()
+                return "final_batch_report"
+            if choice == "B":
+                return "final_batch_report"
+            self._handle_final_batch_report_review_choice(choice, run_context)
+
+    def _view_final_batch_report_runs_menu(self) -> str:
+        while True:
+            recent_runs = list_final_batch_report_run_dirs(
+                limit=self._view_final_batch_report_runs_limit
+            )
+            self._render(
+                render_recent_final_batch_report_runs(
+                    recent_runs,
+                    self._view_final_batch_report_runs_limit,
+                )
+            )
+            if not recent_runs:
+                choice = self._read_letter_choice({"B", "Q"})
+                if choice == "Q":
+                    self._quit()
+                    return "final_batch_report"
+                return "final_batch_report"
+            valid_choices = {str(index) for index in range(
+                1, len(recent_runs) + 1)} | {"N", "B", "Q"}
+            choice = self._read_menu_choice(valid_choices)
+            if choice == "Q":
+                self._quit()
+                return "final_batch_report"
+            if choice == "B":
+                return "final_batch_report"
+            if choice == "N":
+                self._change_view_final_batch_report_runs_limit()
+                continue
+            selected_dir = recent_runs[int(choice) - 1]
+            try:
+                run_context = self._load_final_batch_report_run_context(selected_dir)
+            except Exception as exc:
+                self._show_error(f"failed to load Final Batch Report run: {exc}")
+                continue
+            while True:
+                self._render_final_batch_report_run_review(run_context)
+                review_choice = self._read_menu_choice(
+                    {"1", "2", "3", "4", "B", "Q"})
+                if review_choice == "Q":
+                    self._quit()
+                    return "final_batch_report"
+                if review_choice == "B":
+                    break
+                self._handle_final_batch_report_review_choice(review_choice, run_context)
+
+    def _change_view_final_batch_report_runs_limit(self) -> None:
+        self._clear_screen()
+        print("Enter number of Final Batch Report runs to show:")
+        while True:
+            raw_value = input("> ").strip()
+            if not raw_value.isdigit():
+                print("Enter a positive integer.")
+                continue
+            limit = int(raw_value)
+            if limit <= 0:
+                print("Enter a positive integer.")
+                continue
+            self._view_final_batch_report_runs_limit = limit
+            return
+
+    def _prompt_final_batch_report_source(self) -> StateManagerRunContext | None:
+        session_run = self._last_state_manager_run
+        saved_run = self._get_latest_state_manager_run_context()
+        session_path = ""
+        saved_path = ""
+        if session_run is not None:
+            session_path = session_run.artifact_paths.get("component_run_path", "")
+        if saved_run is not None:
+            saved_path = saved_run.artifact_paths.get("component_run_path", "")
+        if session_run is None and saved_run is None:
+            self._show_error("No State Manager run is available yet. Run State Manager first.")
+            return None
+        self._clear_screen()
+        print("Choose Final Batch Report source State Manager run:")
+        print()
+        valid_choices: set[str] = {"B"}
+        if session_run is not None:
+            session_name = Path(session_path).parent.name or "latest_session_state_manager"
+            print(f"[1] Use latest session State Manager run ({session_name})")
+            valid_choices.add("1")
+        if saved_run is not None and saved_path != session_path:
+            saved_name = Path(saved_path).parent.name or "latest_saved_state_manager"
+            print(f"[2] Use latest saved State Manager run ({saved_name})")
+            valid_choices.add("2")
+        print("[B] Back")
+        while True:
+            choice = self._read_menu_choice(valid_choices)
+            if choice == "B":
+                return None
+            if choice == "1" and session_run is not None:
+                return session_run
+            if choice == "2" and saved_run is not None:
+                return saved_run
 
     def _run_agent_menu(self) -> str:
         if self._last_run is None:
@@ -2176,6 +2516,8 @@ class NidsAgentCli:
 
     def _resolve_phase3a_model_name(self, component_name: str) -> str:
         normalized_name = str(component_name or "").strip()
+        if normalized_name == "critic":
+            return str(self.session_config.critic_model_name or self.session_config.synthesis_model_name or self.session_config.model_name)
         if normalized_name in PHASE3A_PLANNING_COMPONENTS:
             return str(self.session_config.planning_model_name or self.session_config.model_name)
         if normalized_name in PHASE3A_WORKER_COMPONENTS:
@@ -2191,6 +2533,8 @@ class NidsAgentCli:
             configured_value = self.session_config.planning_model_name
         elif role_name == "worker":
             configured_value = self.session_config.worker_model_name
+        elif role_name == "critic":
+            configured_value = self.session_config.critic_model_name
         else:
             configured_value = self.session_config.synthesis_model_name
         if configured_value:
@@ -8779,6 +9123,17 @@ class NidsAgentCli:
             self._show_info(f"Visible runs set to: {limit}")
             return
 
+    def _change_critic_model_name(self) -> None:
+        selected_model = self._select_model_name(
+            current_name=self._resolve_phase3a_model_name("critic"),
+            custom_label="critic model",
+        )
+        if selected_model is None:
+            return
+        self.session_config.critic_model_name = selected_model
+        self._show_info(
+            f"Critic model updated to: {self.session_config.critic_model_name}")
+
     def _edit_session_config_flow(self) -> str:
         while True:
             self._render(
@@ -8790,6 +9145,8 @@ class NidsAgentCli:
                         "worker"),
                     synthesis_model_name=self._render_session_model_name(
                         "synthesis"),
+                    critic_model_name=self._render_session_model_name(
+                        "critic"),
                     judge_model_name=self.session_config.judge_model_name,
                     dataset_name=self._get_selected_dataset_label(),
                     trace_enabled=self.session_config.trace_enabled,
@@ -8799,7 +9156,7 @@ class NidsAgentCli:
             )
 
             choice = self._read_menu_choice(
-                {"1", "2", "3", "4", "5", "6", "7", "8", "9", "B", "Q"})
+                {"1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "B", "Q"})
             if choice == "B":
                 return "back"
             if choice == "Q":
@@ -8817,18 +9174,31 @@ class NidsAgentCli:
                 self._change_synthesis_model_name()
                 continue
             if choice == "5":
-                self._change_judge_model_name()
+                self._change_critic_model_name()
                 continue
             if choice == "6":
-                self._change_dataset_partition()
+                self._change_judge_model_name()
                 continue
             if choice == "7":
-                self._toggle_trace_enabled()
+                self._change_dataset_partition()
                 continue
             if choice == "8":
+                self._toggle_trace_enabled()
+                continue
+            if choice == "9":
                 self._change_max_steps()
                 continue
             self._change_evaluation_window()
+
+    def _critic_config_flow(self) -> str:
+        """Inline model selection for the Critic component."""
+        selected = self._select_model_name(
+            current_name=self._resolve_phase3a_model_name("critic"),
+            custom_label="critic model",
+        )
+        if selected is not None:
+            self.session_config.critic_model_name = selected
+        return "critic"
 
     def _build_jif_payload_for_judge(self, *, source_choice: str, mode: str) -> tuple[dict[str, Any], str]:
         if source_choice == "1":

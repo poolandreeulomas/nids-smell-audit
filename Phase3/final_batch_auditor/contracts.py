@@ -28,16 +28,20 @@ def build_debugging_audit_report(
     *,
     batch_id: str,
     trajectory_summary: str,
-    hypothesis_summary: str,
+    hypothesis_summary: str | dict[str, Any],
     surviving_contradictions: list[str],
     open_pressures: list[str],
     failure_summary: str,
     traceability_refs: list[str],
 ) -> dict[str, Any]:
+    if isinstance(hypothesis_summary, dict):
+        hypothesis_summary_value = _clone_json_like(hypothesis_summary)
+    else:
+        hypothesis_summary_value = str(hypothesis_summary or "").strip()
     return {
         "batch_id": str(batch_id or "unknown_batch").strip() or "unknown_batch",
         "trajectory_summary": str(trajectory_summary or "").strip(),
-        "hypothesis_summary": str(hypothesis_summary or "").strip(),
+        "hypothesis_summary": hypothesis_summary_value,
         "surviving_contradictions": _clone_json_like(surviving_contradictions),
         "open_pressures": _clone_json_like(open_pressures),
         "failure_summary": str(failure_summary or "").strip(),

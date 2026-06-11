@@ -37,7 +37,7 @@ _AGGREGATION_HANDOFF_FIELDS = {
     "hypothesis_id",
     "merged_findings",
     "evidence_refs",
-    "preserved_contradictions",
+    "preserved_contradiction_ids",
     "open_gaps",
     "update_focus",
 }
@@ -122,7 +122,7 @@ def repair_aggregation_handoff(
 
     repaired["update_focus"] = _normalize_text(repaired.get("update_focus"))
 
-    for field_name in ("merged_findings", "preserved_contradictions", "open_gaps"):
+    for field_name in ("merged_findings", "preserved_contradiction_ids", "open_gaps"):
         if not isinstance(repaired.get(field_name), list):
             continue
         normalized_items: list[str] = []
@@ -321,7 +321,8 @@ def validate_aggregation_handoff(
     expected_round_id: str,
     expected_hypothesis_id: str,
     known_evidence_refs: set[str],
-    source_contradictions: set[str],
+    source_contradictions: list[dict[str, Any]],
+    source_contradiction_ids: set[str],
     source_gap_signal_count: int,
     source_finding_count: int,
 ) -> dict[str, Any]:
@@ -381,24 +382,24 @@ def validate_aggregation_handoff(
         errors.append(_issue(
             "evidence_refs", "merged_findings require at least one evidence_ref.", severity=ValidationSeverity.FATAL))
 
-    preserved_contradictions = raw.get("preserved_contradictions")
-    if not _is_string_list(preserved_contradictions):
-        errors.append(_issue("preserved_contradictions",
-                      "preserved_contradictions must be a list of strings.", severity=ValidationSeverity.FATAL))
-        preserved_contradictions = []
+    preserved_contradiction_ids = raw.get("preserved_contradiction_ids")
+    if not _is_string_list(preserved_contradiction_ids):
+        errors.append(_issue("preserved_contradiction_ids",
+                      "preserved_contradiction_ids must be a list of strings.", severity=ValidationSeverity.FATAL))
+        preserved_contradiction_ids = []
     else:
-        for contradiction in preserved_contradictions:
-            if contradiction not in source_contradictions:
+        for cid in preserved_contradiction_ids:
+            if cid not in source_contradiction_ids:
                 errors.append(
                     _issue(
-                        "preserved_contradictions",
-                        f"Unknown preserved_contradiction '{contradiction}'.",
+                        "preserved_contradiction_ids",
+                        f"Unknown preserved_contradiction_id '{cid}'.",
                         severity=ValidationSeverity.FATAL,
                     )
                 )
-    if source_contradictions and not preserved_contradictions:
-        errors.append(_issue("preserved_contradictions",
-                      "Source contradictions must remain explicit in the handoff.", severity=ValidationSeverity.FATAL))
+    if source_contradiction_ids and not preserved_contradiction_ids:
+        errors.append(_issue("preserved_contradiction_ids",
+                      "Source contradictions must remain explicit in the handoff (at least one ID required).", severity=ValidationSeverity.FATAL))
 
     open_gaps = raw.get("open_gaps")
     if not _is_string_list(open_gaps):
@@ -463,7 +464,7 @@ def validate_aggregation_handoff(
         stats={
             "merged_finding_count": len(merged_findings),
             "evidence_ref_count": len(evidence_refs),
-            "preserved_contradiction_count": len(preserved_contradictions),
+            "preserved_contradiction_count": len(preserved_contradiction_ids),
             "open_gap_count": len(open_gaps),
         },
         forbidden_language_hits=forbidden_language_hits,

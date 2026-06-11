@@ -77,6 +77,23 @@ def build_state_manager_prompt(
         "Merge newly supported findings from the handoff.",
         "Do not silently remove previously accepted findings.",
         "",
+        "",
+        "IMMUTABLE_STATE_ITEMS_RULE:",
+        "For merged_findings, open_gaps, preserved_contradictions, and evidence_refs:",
+        "Treat all items already present in CURRENT_TARGET_STATE as immutable state records.",
+        "When constructing the final state:",
+        "1. Copy every existing item from CURRENT_TARGET_STATE verbatim.",
+        "2. Append genuinely new items from AGGREGATION_HANDOFF.",
+        "3. Never rewrite, paraphrase, summarize, merge, replace, deduplicate, or remove an existing item.",
+        "4. Existing items may only disappear if explicitly resolved and documented in applied_updates using the corresponding field name.",
+        "5. Semantic equivalence is not sufficient. Existing items must be preserved as exact strings.",
+        "If uncertain whether a new item replaces an existing item, preserve both.",
+        "",
+        "VERBATIM_PERSISTANCE_RULES:",
+        "When carrying forward existing presered_contradictions, open_gaps, or merged_findings, copy the exact text from the CURRENT_TARGET_STATE.",
+        "Do not paraphrase, rewrite, normalize, summarize, merge or restate existing entries.",
+        "If a prior entry remains valid, reproduce it verbatim in the resulting state.",
+        "",
         "STATE UPDATE MODEL:",
         "result_open_gaps = prior_open_gaps + newly_discovered_open_gaps + explicitly_resolved_open_gaps",
         "result_contradictions = prior_contradictions + newly_preserved_contradictions + explicitly_resolved_contradictions",
@@ -128,11 +145,16 @@ def build_state_manager_prompt(
                     "merged_findings": ["resulting evidence-grounded finding carried in state"],
                     "update_focus": "short orientation for the touched interpretive area",
                     "applied_updates": [
-                        {
-                            "field": "summary",
-                            "reason": "why this bounded change is justified by the aggregation handoff and current state"
-                        }
+                            {
+                                "field": "summary",
+                                "reason": "why this bounded change is justified..."
+                            },
+                            {
+                                "field": "merged_findings",
+                                "reason": "new findings were added while preserving all prior findings"
+                            },   
                     ],
+                    
                 }
             }
         ),

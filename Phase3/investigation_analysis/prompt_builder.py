@@ -53,6 +53,33 @@ def _render_critic_guidance_section(critic_guidance: list[str] | None) -> str:
     )
 
 
+def _extract_prior_hypothesis_ids(iteration_context: dict[str, Any]) -> list[str]:
+    """Extract prior hypothesis IDs from the iteration context if present."""
+    initial_set = iteration_context.get("initial_hypothesis_set_ref", {})
+    if not initial_set.get("analysis_id"):
+        return []
+    hypothesis_refs = initial_set.get("hypothesis_refs", [])
+    if not isinstance(hypothesis_refs, list):
+        return []
+    return [str(h.get("hypothesis_id", "")) for h in hypothesis_refs if isinstance(h, dict) and h.get("hypothesis_id")]
+
+
+def _render_id_preservation_instruction(prior_ids: list[str]) -> str:
+    if not prior_ids:
+        return ""
+    ids_formatted = ", ".join(prior_ids)
+    return (
+        "=== ID PRESERVATION ==="
+        "\nThis is a refresh round. Prior hypothesis IDs from the previous round are listed below."
+        "\nYou MUST preserve these exact hypothesis IDs. Do not assign new numeric ranges."
+        "\nFor each hypothesis you produce, use its existing ID from the prior set."
+        "\nIf you refine a hypothesis, keep its original ID. Do not create new hyp_011, hyp_012, etc."
+        f"\nPrior hypothesis IDs: {ids_formatted}"
+        "\nOutput hypotheses MUST use only these prior IDs."
+        "\n"
+    )
+
+
 def build_investigation_analysis_prompt(
     *,
     batch_id: str,
@@ -69,6 +96,9 @@ def build_investigation_analysis_prompt(
     critic_guidance_block = _render_critic_guidance_section(
         _sanitize_forbidden_terms(critic_guidance) if critic_guidance else None
     )
+
+    prior_hypothesis_ids = _extract_prior_hypothesis_ids(sanitized_iteration_context)
+    id_preservation_block = _render_id_preservation_instruction(prior_hypothesis_ids)
 
     iteration_block = _render_json_block(sanitized_iteration_context)
     if not sanitized_iteration_context.get("initial_hypothesis_set_ref", {}).get("analysis_id"):
@@ -107,13 +137,16 @@ def build_investigation_analysis_prompt(
             "hypothesis_id, summary, evidence_refs, open_questions.",
             "Every hypothesis must cite one or more evidence_refs already present in the substrate input.",
             "Every hypothesis must preserve one or more open_questions.",
-            "At most 10 hypotheses may be returned.",
+            "At most 10 hypotheses can be returned.",
+            "If prior hypotheses IDs are provided in the iteration context, you MUST preserve those exact IDs for any hypotheses that continue from the prior set. Do not create new IDs or numeric ranges.",
             "",
             "=== ANALYSIS CONTEXT ===",
             _render_json_block(sanitized_analysis_context),
             "",
             "=== ITERATION CONTEXT ===",
             iteration_block,
+            "",
+            id_preservation_block,
             "",
             "=== STRUCTURAL SUBSTRATE ===",
             _render_json_block(sanitized_substrate),

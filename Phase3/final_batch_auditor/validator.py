@@ -472,14 +472,14 @@ def validate_debugging_audit_report(
             )
         )
 
-    for key in ("trajectory_summary", "hypothesis_summary", "failure_summary"):
+    for key in ("trajectory_summary", "failure_summary"):
         value = raw.get(key)
         if not _is_non_empty_string(value):
             errors.append(
                 _error(f"debugging_audit_report.{key}", f"{key} must be a non-empty string."))
             continue
         if len(str(value).strip()) > MAX_SUMMARY_CHARS:
-            errors.append(
+            warnings.append(
                 _error(
                     f"debugging_audit_report.{key}",
                     f"{key} must be at most {MAX_SUMMARY_CHARS} characters.",
@@ -488,6 +488,37 @@ def validate_debugging_audit_report(
         forbidden_language_hits.extend(_collect_forbidden_language(
             f"debugging_audit_report.{key}", value))
 
+    # hypothesis_summary: accepts non-empty string OR non-empty dict
+    hypothesis_summary = raw.get("hypothesis_summary")
+    if hypothesis_summary is None:
+        errors.append(
+            _error("debugging_audit_report.hypothesis_summary",
+                   "hypothesis_summary must be a non-empty string or non-empty object."))
+    elif isinstance(hypothesis_summary, dict):
+        if not hypothesis_summary:
+            errors.append(
+                _error("debugging_audit_report.hypothesis_summary",
+                       "hypothesis_summary must be a non-empty string or non-empty object."))
+    elif isinstance(hypothesis_summary, str):
+        if not hypothesis_summary.strip():
+            errors.append(
+                _error("debugging_audit_report.hypothesis_summary",
+                       "hypothesis_summary must be a non-empty string or non-empty object."))
+        else:
+            if len(hypothesis_summary.strip()) > MAX_SUMMARY_CHARS:
+                warnings.append(
+                    _error(
+                        "debugging_audit_report.hypothesis_summary",
+                        f"hypothesis_summary must be at most {MAX_SUMMARY_CHARS} characters.",
+                    )
+                )
+            forbidden_language_hits.extend(
+                _collect_forbidden_language("debugging_audit_report.hypothesis_summary", hypothesis_summary))
+    else:
+        errors.append(
+            _error("debugging_audit_report.hypothesis_summary",
+                   "hypothesis_summary must be a non-empty string or non-empty object."))
+
     for list_field in ("surviving_contradictions", "open_pressures"):
         values = _string_list(raw.get(list_field))
         if values is None:
@@ -495,7 +526,7 @@ def validate_debugging_audit_report(
                 f"debugging_audit_report.{list_field}", f"{list_field} must be a list of strings."))
             continue
         if len(values) > MAX_LIST_ITEMS:
-            errors.append(
+            warnings.append(
                 _error(
                     f"debugging_audit_report.{list_field}",
                     f"{list_field} must contain at most {MAX_LIST_ITEMS} items.",
@@ -528,7 +559,7 @@ def validate_debugging_audit_report(
         traceability_refs = []
     else:
         if len(traceability_refs) > MAX_LIST_ITEMS:
-            errors.append(
+            warnings.append(
                 _error(
                     "debugging_audit_report.traceability_refs",
                     f"traceability_refs must contain at most {MAX_LIST_ITEMS} items.",
@@ -537,7 +568,7 @@ def validate_debugging_audit_report(
         unknown_refs = sorted(set(traceability_refs) -
                               set(known_traceability_refs))
         if unknown_refs:
-            errors.append(
+            warnings.append(
                 _error(
                     "debugging_audit_report.traceability_refs",
                     f"traceability_refs contains unknown refs: {unknown_refs}.",

@@ -172,6 +172,7 @@ def render_phase3a_components_menu() -> str:
                 "[10] Final Batch Auditor  <available>",
                 "[11] Tools",
                 "[12] Phase 3A Batch Runtime",
+                "[13] Final Batch Report  <available>",
             ],
         )),
         *(_section("Actions", _menu_lines([("B", "Back"), ("Q", "Quit")]))),
@@ -528,7 +529,7 @@ def render_state_manager_menu(*, dataset_name: str, model_name: str, latest_run_
 def render_critic_menu(*, dataset_name: str, model_name: str, latest_run_name: str | None) -> str:
     lines = [
         *_meta_lines("Home / Phase 3A Components / Critic",
-                     "Bounded reflective process supervision over one committed State Manager run with artifact-first review. Run, latest-run review, and saved-run browsing are available; evaluate/debug/config remain planned."),
+                     "Bounded reflective process supervision over one committed State Manager run with artifact-first review. Run, latest-run review, saved-run browsing, and config are available; evaluate/debug remain planned."),
         *(_section(
             "Session",
             _kv_lines(
@@ -548,7 +549,7 @@ def render_critic_menu(*, dataset_name: str, model_name: str, latest_run_name: s
                     ("V", "View Saved Critic Runs  <available>"),
                     ("E", "Evaluate Critic Runs  <planned>"),
                     ("D", "Debug / Replay Critic  <planned>"),
-                    ("C", "Critic Config  <planned>"),
+                    ("C", "Critic Config  <available>"),
                     ("B", "Back"),
                     ("Q", "Quit"),
                 ]
@@ -589,6 +590,47 @@ def render_final_batch_auditor_menu(*, dataset_name: str, model_name: str, lates
         )),
     ]
     return _block("Final Batch Auditor", lines)
+
+
+def render_final_batch_report_menu(*, dataset_name: str, model_name: str, latest_run_name: str | None) -> str:
+    lines = [
+        *_meta_lines("Home / Phase 3A Components / Final Batch Report",
+                     "Generate a human-facing audit report from the Final Updated State. Run, latest-run review, saved-run browsing, and config are available."),
+        *(_section(
+            "Session",
+            _kv_lines(
+                [
+                    ("dataset", dataset_name),
+                    ("model", model_name),
+                    ("latest_run", latest_run_name or "none"),
+                ]
+            ),
+        )),
+        *(_section(
+            "Actions",
+            _menu_lines(
+                [
+                    ("R", "Run Final Batch Report  <available>"),
+                    ("L", "Review Latest Final Batch Report  <available>"),
+                    ("V", "View Saved Final Batch Reports  <available>"),
+                    ("C", "Final Batch Report Config  <available>"),
+                    ("B", "Back"),
+                    ("Q", "Quit"),
+                ]
+            ),
+        )),
+    ]
+    return _block("Final Batch Report", lines)
+
+
+def render_final_batch_report_config_menu(*, current_model_name: str) -> str:
+    lines = [
+        *_meta_lines("Home / Phase 3A Components / Final Batch Report / Config",
+                     "Select the model used by the Final Batch Report Generator."),
+        *(_section("Current Configuration", _kv_lines([("model", current_model_name)]))),
+        *(_section("Actions", _menu_lines([("1", "Change Model"), ("B", "Back"), ("Q", "Quit")]))),
+    ]
+    return _block("Final Batch Report Config", lines)
 
 
 def render_tool_inventory(records: list[dict[str, Any]]) -> str:
@@ -915,6 +957,33 @@ def render_recent_final_batch_auditor_runs(paths: list[Path], limit: int) -> str
           _menu_lines([("N", "Change number of visible runs"), ("B", "Back"), ("Q", "Quit")]))),
     ]
     return _block("Saved Final Batch Audits", lines)
+
+
+def render_recent_final_batch_report_runs(paths: list[Path], limit: int) -> str:
+    if not paths:
+        return _block(
+            "Saved Final Batch Reports",
+            [
+                *_meta_lines("Phase 3A Components / Final Batch Report / Saved Runs",
+                             "Select a saved Final Batch Report run directory."),
+                "No Final Batch Report run artifacts were found in logs/final_batch_report_runs.",
+                "",
+                *(_section("Actions",
+                  _menu_lines([("B", "Back"), ("Q", "Quit")]))),
+            ],
+        )
+
+    lines = [
+        *_meta_lines("Phase 3A Components / Final Batch Report / Saved Runs",
+                     "Select a saved Final Batch Report run directory."),
+        f"Showing latest {len(paths)} run(s) out of limit {limit}.",
+        "",
+        *(_section("Available Runs",
+          [f"[{index}] {path.name}" for index, path in enumerate(paths, start=1)])),
+        *(_section("Actions",
+          _menu_lines([("N", "Change number of visible runs"), ("B", "Back"), ("Q", "Quit")]))),
+    ]
+    return _block("Saved Final Batch Reports", lines)
 
 
 def render_recent_phase3a_runtime_runs(paths: list[Path], limit: int) -> str:
@@ -1310,6 +1379,72 @@ def render_final_batch_auditor_run_review(
     return _block("Final Batch Auditor Review", lines)
 
 
+def render_final_batch_report_run_review(
+    *,
+    run_name: str,
+    summary_pairs: list[tuple[str, str]],
+    artifact_paths: dict[str, str],
+    options: list[tuple[str, str]],
+) -> str:
+    lines = [
+        *_meta_lines("Phase 3A Components / Final Batch Report / Review",
+                     "View the generated audit report, prompt, raw response, and technical details."),
+        run_name,
+        "",
+        *(_section("Summary", _kv_lines(summary_pairs))),
+        *(_section(
+            "Artifacts",
+            _kv_lines(
+                [
+                    ("report", artifact_paths.get(
+                        "report_path", "unavailable")),
+                    ("prompt", artifact_paths.get(
+                        "prompt_path", "unavailable")),
+                    ("raw_response", artifact_paths.get(
+                        "raw_response_path", "unavailable")),
+                    ("runtime_metrics", artifact_paths.get(
+                        "runtime_metrics_path", "unavailable")),
+                ]
+            ),
+        )),
+        *(_section("Actions", _menu_lines(options))),
+    ]
+    return _block("Final Batch Report Review", lines)
+
+
+def render_final_batch_report_post_run(
+    *,
+    run_name: str,
+    summary_pairs: list[tuple[str, str]],
+    artifact_paths: dict[str, str],
+    options: list[tuple[str, str]],
+) -> str:
+    lines = [
+        *_meta_lines("Phase 3A Components / Final Batch Report / Run Complete",
+                     "The report has been generated. Use the actions below to inspect the result."),
+        run_name,
+        "",
+        *(_section("Summary", _kv_lines(summary_pairs))),
+        *(_section(
+            "Artifacts",
+            _kv_lines(
+                [
+                    ("report.md", artifact_paths.get(
+                        "report_path", "unavailable")),
+                    ("prompt.txt", artifact_paths.get(
+                        "prompt_path", "unavailable")),
+                    ("raw_response.txt", artifact_paths.get(
+                        "raw_response_path", "unavailable")),
+                    ("runtime_metrics.json", artifact_paths.get(
+                        "runtime_metrics_path", "unavailable")),
+                ]
+            ),
+        )),
+        *(_section("Actions", _menu_lines(options))),
+    ]
+    return _block("Final Batch Report Run Complete", lines)
+
+
 def render_phase3a_runtime_run_review(
     *,
     run_name: str,
@@ -1559,30 +1694,33 @@ def render_session_config(
     planning_model_name: str,
     worker_model_name: str,
     synthesis_model_name: str,
+    critic_model_name: str | None = None,
     judge_model_name: str,
     dataset_name: str,
     trace_enabled: bool,
     max_steps: int,
     evaluation_window: int,
 ) -> str:
+    config_pairs = [
+        ("default_model", model_name),
+        ("planning_model", planning_model_name),
+        ("worker_model", worker_model_name),
+        ("synthesis_model", synthesis_model_name),
+        ("judge_model", judge_model_name),
+        ("dataset", dataset_name),
+        ("max_steps", str(max_steps)),
+        ("live_trace", "on" if trace_enabled else "off"),
+        ("evaluation_window", str(evaluation_window)),
+    ]
+    if critic_model_name:
+        config_pairs.insert(4, ("critic_model", critic_model_name))
+
     lines = [
         *_meta_lines("Home / Session Config",
                      "Changes affect only this session."),
         *(_section(
             "Current Session Configuration",
-            _kv_lines(
-                [
-                    ("default_model", model_name),
-                    ("planning_model", planning_model_name),
-                    ("worker_model", worker_model_name),
-                    ("synthesis_model", synthesis_model_name),
-                    ("judge_model", judge_model_name),
-                    ("dataset", dataset_name),
-                    ("max_steps", str(max_steps)),
-                    ("live_trace", "on" if trace_enabled else "off"),
-                    ("evaluation_window", str(evaluation_window)),
-                ]
-            ),
+            _kv_lines(config_pairs),
         )),
         *(_section(
             "Actions",
@@ -1592,11 +1730,12 @@ def render_session_config(
                     ("2", "Change Planning Model"),
                     ("3", "Change Worker Model"),
                     ("4", "Change Synthesis Model"),
-                    ("5", "Change Judge Model"),
-                    ("6", "Select Partition"),
-                    ("7", "Toggle Live Trace"),
-                    ("8", "Change Max Steps"),
-                    ("9", "Change Evaluation Window"),
+                    ("5", "Change Critic Model"),
+                    ("6", "Change Judge Model"),
+                    ("7", "Select Partition"),
+                    ("8", "Toggle Live Trace"),
+                    ("9", "Change Max Steps"),
+                    ("10", "Change Evaluation Window"),
                     ("B", "Back"),
                     ("Q", "Quit"),
                 ]
@@ -1604,6 +1743,16 @@ def render_session_config(
         )),
     ]
     return _block("Session Config", lines)
+
+
+def render_critic_config_menu(*, current_model_name: str) -> str:
+    lines = [
+        *_meta_lines("Home / Phase 3A Components / Critic / Critic Config",
+                     "Select the model used by the Critic component."),
+        *(_section("Current", _kv_lines([("model", current_model_name)]))),
+        *(_section("Actions", _menu_lines([("B", "Back"), ("Q", "Quit")]))),
+    ]
+    return _block("Critic Config", lines)
 
 
 def render_dataset_selection(paths: list[Path], current_name: str | None) -> str:

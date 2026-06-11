@@ -109,9 +109,10 @@ def _build_saved_final_batch_auditor_bundle(tmp_path: Path) -> dict[str, object]
                 "The dependency remained visible in the localized verification slice."
             ],
             evidence_refs=["final-cli-task-step-01"],
-            preserved_contradictions=[
-                "The local slice still conflicts with the broader dependency framing."
-            ],
+            preserved_contradiction_ids=["contr_0"],
+            contradiction_lookup={
+                "contr_0": "The local slice still conflicts with the broader dependency framing.",
+            },
             open_gaps=["One closure gap still remains in the final committed state."],
             update_focus="Finish with contradiction-preserving auditability rather than forced closure.",
         ),
