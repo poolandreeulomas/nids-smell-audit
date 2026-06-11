@@ -75,6 +75,8 @@ def build_router_prompt(
             "=== SEMANTIC GOVERNANCE NOTES ===",
             "Prefer concise operational phrasing inside `task_scope` and `stop_conditions` rather than planning, ranking, or execution-scripting language (for example 'first use', 'then use', 'call <tool>', 'step by step', 'prioritize', 'replan').",
             "Avoid exact tool names or exact parameters; use abstract action classes only. Such wording may trigger semantic governance flags in logs, but it does not invalidate the output.",
+            "When planner intent involves shortcut-like signals, suspicious separability, label leakage, or representation-sensitive predictors, ensure that at least one worker task remains capable of obtaining direct verification evidence rather than only indirect characterization.",
+            "Prefer task scopes that can reduce uncertainty through confirmation or rejection, not only through additional description.",
             "",
             "=== PLANNER STRATEGY ===",
             _render_json_block(projected_planner_strategy),

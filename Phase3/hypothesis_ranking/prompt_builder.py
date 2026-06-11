@@ -89,6 +89,7 @@ def build_hypothesis_ranking_prompt(
             "Selection history signals such as times_selected and rounds_since_last_selected are provided to help reason about prior attention allocation.",
             "These signals are advisory and should not be treated as hard penalties.",
             "",
+            "Hypothesis involving potential  shortcut learning, label leakage, or suspicious separability may deserve continued seletion until direct verification (when there is too strong a shortcut signal to ignore but not enough evidence to confirm or reject).",
             "A hypothesis that has already received substantial investigation attention may still be selected IF there is strong evidence that additional investigation is likely to produce meaningful findings.",
             "",
             "A hypothesis that has received little or no attention may deserve consideration if critic guidance or current uncertainty suggests potential value.",

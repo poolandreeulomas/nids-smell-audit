@@ -101,6 +101,9 @@ def build_worker_prompt(
                 "This is an action window.",
                 "Reason briefly about what local check is still worth running.",
                 "If a bounded in-scope check is useful, return decision='action' with one or more actions in 'actions'.",
+                "During action windows:",
+                "If a plausible shortcut candidate already exists in the local evidence and direct verification is available through the allowed actions, prefer direct verification over additional exploratory actions unless a clear unresolved prerequisite remains.",
+                "Avoid repeatedly collecting indirect evidence around the same candidate when direct verification is already feasible.",
                 "If no additional in-scope action is warranted, return decision='continue' with a short bounded reasoning update.",
             ]
         )
@@ -169,6 +172,20 @@ def build_worker_prompt(
         "Use action_class values only. Do not mention exact tool names.",
         "Context summaries are not equivalent to locally observed evidence.",
         "When no local evidence exists yet, budget remains available, unresolved tensions remain, and bounded actions are available, prefer bounded evidence acquisition before finishing inconclusive.",
+        "",
+        "HIGH-VALUE VERIFICATION RULES:"
+        "When local evidence suggests that a specific feature or small feature set may act as a shortcut-like signal, label-sensitive separator, leakage candidate, or unusually strong predictor, direct verification should be treated as HIGH VALUE evidence acquisition.\n"
+        "Examples include:",
+        "- strong class-conditioned concentration,",
+        "- suspicious separability,",
+        "- unusually low entropy within one class,",
+        "- near-deterministic thresholds,",
+        "- repeated observations that a feature may dominate prediction,",
+        "- explicit shortcut-like signals reported by previous observations.",
+        "",
+        "When direct verification remains available, prefer obtaining direct evidence before spending most of the remaining budget on additional indirect exploration.",
+        "",
+        "Confirming or rejecting a plausible shortcut candidate is usually more valuable than collecting additional weak supporting evidence.",
         "",
         "TASK:",
         _json_block(
