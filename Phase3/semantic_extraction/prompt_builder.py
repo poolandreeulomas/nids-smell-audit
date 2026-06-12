@@ -16,88 +16,87 @@ def _render_json_block(payload: dict[str, Any]) -> str:
     return json.dumps(payload, indent=2, sort_keys=True, ensure_ascii=True)
 
 
-def _render_canonical_schema_examples(batch_id: str) -> str:
-    return "\n".join(
-        [
-            "=== CANONICAL JSON SHAPES ===",
-            "Use these exact nested shapes. Do not flatten them, rename keys, or change types.",
-            "",
-            "feature_scope (required inside every compressed region; strongly recommended for weak signals too):",
-            "{",
-            '  "features": ["feature_a", "feature_b"],',
-            '  "feature_groups": ["feature_group_name"],',
-            '  "locality": {',
-            '    "scope_type": "dependency_cluster",',
-            '    "scope_value": "feature_a|feature_b",',
-            '    "localized": true,',
-            '    "notes": ["short grounded note"]',
-            "  }",
-            "}",
-            "",
-            "If there are no concrete feature names available in the overview evidence, set features to a non-empty list such as [\"__dataset__\"] or the top feature from projected_evidence.feature_scope_refs. Do NOT leave features empty.",
-            "feature_scope for a partition-wide region can use:",
-            "{",
-            '  "features": ["feature_a"],',
-            '  "feature_groups": [],',
-            '  "locality": {',
-            '    "scope_type": "partition_global",',
-            f'    "scope_value": "{batch_id}",',
-            '    "localized": false,',
-            '    "notes": ["partition-level observation"]',
-            "  }",
-            "}",
-            "",
-            "uncertainty_notes must always be a JSON list of strings, for example: [\"note 1\", \"note 2\"].",
-            "Never emit a string, object, or null for uncertainty_notes.",
-            "",
-            "compressed region skeleton:",
-            "{",
-            '  "region_id": "region_1_example",',
-            '  "region_kind": "dependency_region",',
-            '  "status": "active",',
-            '  "summary": "grounded summary",',
-            '  "structural_descriptors": ["descriptor 1"],',
-            '  "feature_scope": {',
-            '    "features": ["feature_a", "feature_b"],',
-            '    "feature_groups": ["feature_group_name"],',
-            '    "locality": {',
-            '      "scope_type": "dependency_cluster",',
-            '      "scope_value": "feature_a|feature_b",',
-            '      "localized": true,',
-            '      "notes": []',
-            "    }",
-            "  }",
-            '  "evidence_refs": ["e1"],',
-            '  "supporting_patterns": ["pattern 1"],',
-            '  "contextual_modifiers": ["modifier 1"],',
-            '  "uncertainty_notes": ["note 1"],',
-            '  "contradiction_refs": [],',
-            '  "tension_refs": []',
-            "}",
-            "",
-            "weak signal skeleton:",
-            "{",
-            '  "weak_signal_id": "weak_1_example",',
-            '  "descriptor": "grounded descriptor",',
-            '  "feature_scope": {',
-            '    "features": ["feature_a"],',
-            '    "feature_groups": [],',
-            '    "locality": {',
-            '      "scope_type": "feature_group",',
-            '      "scope_value": "feature_a",',
-            '      "localized": true,',
-            '      "notes": []',
-            "    }",
-            "  }",
-            '  "evidence_refs": ["e1"],',
-            '  "preservation_reason": "grounded reason",',
-            '  "contextual_modifiers": [],',
-            '  "uncertainty_notes": []',
-            "}",
-            "",
-            "For contradictions and tensions, follow the same list/object discipline: every refs field is a list, every notes field is a list, and every feature_scope uses the nested object shape above.",
-        ]
-    )
+def _render_output_contract() -> str:
+    return """{
+  "substrate_id": string,
+  "batch_id": string,
+  "compressed_regions": [
+    {
+      "region_id": string,
+      "region_kind": string,
+      "status": string,
+      "summary": string,
+      "structural_descriptors": [string],
+      "feature_scope": {
+        "features": [string],
+        "feature_groups": [string],
+        "locality": {
+          "scope_type": string,
+          "scope_value": string,
+          "localized": boolean,
+          "notes": [string]
+        }
+      },
+      "evidence_refs": [string],
+      "supporting_patterns": [string],
+      "contextual_modifiers": [string],
+      "uncertainty_notes": [string],
+      "contradiction_refs": [string],
+      "tension_refs": [string]
+    }
+  ],
+  "preserved_weak_signals": [
+    {
+      "weak_signal_id": string,
+      "descriptor": string,
+      "feature_scope": {
+        "features": [string],
+        "feature_groups": [string],
+        "locality": {
+          "scope_type": string,
+          "scope_value": string,
+          "localized": boolean,
+          "notes": [string]
+        }
+      },
+      "evidence_refs": [string],
+      "preservation_reason": string,
+      "contextual_modifiers": [string],
+      "uncertainty_notes": [string]
+    }
+  ],
+  "contradictions": [
+    {
+      "contradiction_id": string,
+      "contradiction_kind": string,
+      "description": string,
+      "feature_scope": {
+        "features": [string],
+        "feature_groups": [string],
+        "locality": {
+          "scope_type": string,
+          "scope_value": string,
+          "localized": boolean,
+          "notes": [string]
+        }
+      },
+      "supporting_evidence_refs": [string],
+      "conflicting_evidence_refs": [string],
+      "context_notes": [string],
+      "downstream_relevance": string
+    }
+  ],
+  "unresolved_tensions": [
+    {
+      "tension_id": string,
+      "description": string,
+      "related_region_ids": [string],
+      "evidence_refs": [string],
+      "context_notes": [string],
+      "reason_unresolved": string
+    }
+  ]
+}"""
 
 
 def build_semantic_extraction_prompt(
@@ -175,30 +174,24 @@ def build_semantic_extraction_prompt(
             "Keep `uncertainty_notes` descriptive, probabilistic, and grounded; causal or operational wording is observable telemetry rather than a blocking condition.",
             "Keep the output compact and grounded in the provided evidence IDs.",
             "",
-            "=== OUTPUT RULES ===",
-            "Return valid JSON only.",
-            "Do not use markdown or code fences.",
-            "Return exactly these top-level fields:",
-            "substrate_id, batch_id, compressed_regions, preserved_weak_signals, contradictions, unresolved_tensions.",
-            "Each compressed region must include:",
-            "region_id, region_kind, status, summary, structural_descriptors, feature_scope, evidence_refs, supporting_patterns, contextual_modifiers, uncertainty_notes, contradiction_refs, tension_refs.",
-            "Each weak signal must include:",
-            "weak_signal_id, descriptor, feature_scope, evidence_refs, preservation_reason, contextual_modifiers, uncertainty_notes.",
-            "Each contradiction must include:",
-            "contradiction_id, contradiction_kind, description, feature_scope, supporting_evidence_refs, conflicting_evidence_refs, context_notes, downstream_relevance.",
-            "Each tension must include:",
-            "tension_id, description, related_region_ids, evidence_refs, context_notes, reason_unresolved.",
+            "=== OUTPUT CONTRACT ===",
+            _render_output_contract(),
+            "",
+            "=== FIELD RULES ===",
             f"Allowed region_kind values: {region_kinds}.",
             f"Allowed status values: {region_statuses}.",
             f"Allowed locality.scope_type values: {locality_scope_types}.",
-            "Every compressed region feature_scope must include features, feature_groups, and locality.",
             "features MUST be a non-empty JSON list. If no concrete feature names are present in the overview evidence, choose one representative feature from projected_evidence.feature_scope_refs (prefer the top-ranked) or use the sentinel __dataset__ explicitly to indicate a pure partition-level observation. Never emit an empty list for features.",
-            "Every locality must include scope_type, scope_value, localized, and notes.",
-            "For weak signals, contradictions, and tensions, keep the same nested feature_scope shape and use list-valued refs/notes fields.",
             "Use [] for empty lists. Never emit null for any list field.",
             "All evidence_refs must cite only evidence_id values present in the overview evidence input.",
             "",
-            _render_canonical_schema_examples(batch_id),
+            "=== NESTED TYPE RULES ===",
+            "feature_scope.features must be a JSON array of strings.",
+            "feature_scope.feature_groups must be a JSON array of strings.",
+            "feature_scope.locality.scope_type must be one of the allowed locality scope types.",
+            "feature_scope.locality.scope_value must be a string.",
+            "feature_scope.locality.localized must be a boolean.",
+            "feature_scope.locality.notes must be a JSON array of strings.",
             "",
             "=== PARTITION CONTEXT ===",
             _render_json_block(normalized_partition_context),

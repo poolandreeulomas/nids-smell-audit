@@ -44,6 +44,104 @@ def _render_critic_guidance_section(critic_guidance: list[str] | None) -> str:
     )
 
 
+def _render_investigation_coverage_section(
+    projected_ranking_state: dict[str, Any],
+) -> str:
+    hypothesis_state_refs = projected_ranking_state.get("hypothesis_state_refs")
+    if not isinstance(hypothesis_state_refs, list):
+        return ""
+
+    previously_selected: list[str] = []
+    not_yet_selected: list[str] = []
+
+    for ref in hypothesis_state_refs:
+        if not isinstance(ref, dict):
+            continue
+        hypothesis_id = ref.get("hypothesis_id", "")
+        if not isinstance(hypothesis_id, str) or not hypothesis_id.strip():
+            continue
+
+        state_notes = ref.get("state_notes")
+        if not isinstance(state_notes, list):
+            continue
+
+        revision_count = 0
+        for note in state_notes:
+            if isinstance(note, str) and note.startswith("revision_count="):
+                try:
+                    revision_count = int(note.split("=", 1)[1])
+                except (ValueError, IndexError):
+                    revision_count = 0
+                break
+
+        if revision_count > 0:
+            previously_selected.append(f"* {hypothesis_id}")
+        else:
+            not_yet_selected.append(f"* {hypothesis_id}")
+
+    lines = [
+        "=== INVESTIGATION COVERAGE ===",
+        "",
+        "Previously Selected:",
+    ]
+
+    if previously_selected:
+        lines.extend(previously_selected)
+    else:
+        lines.append("* (none)")
+
+    lines.append("")
+    lines.append("Not Yet Selected:")
+
+    if not_yet_selected:
+        lines.extend(not_yet_selected)
+    else:
+        lines.append("* (none)")
+
+    lines.append("")
+    lines.append("Interpretation:")
+    lines.append("")
+    lines.append("Previously Selected hypotheses have already received investigation attention but may still contain unresolved questions.")
+    lines.append("")
+    lines.append("Not Yet Selected hypotheses have not yet received direct investigation attention.")
+    lines.append("")
+    lines.append("Selection history is an attention-allocation signal, not a resolution signal.")
+    lines.append("")
+    lines.append("Previously Selected DOES NOT mean resolved.")
+    lines.append("")
+    lines.append("Not Yet Selected DOES NOT mean correct.")
+    lines.append("")
+
+    if not_yet_selected:
+        lines.append("When one or more Not Yet Selected hypotheses exist:")
+        lines.append("")
+        lines.append("At least one selection slot should normally be allocated to that group unless the evidence strongly indicates that continued investigation of already-selected hypotheses is substantially more valuable.")
+
+    lines.append("")
+    lines.append("Important:")
+    lines.append("")
+    lines.append("This section is informational.")
+    lines.append("")
+
+    return "\n".join(lines)
+
+
+def _render_output_contract() -> str:
+    return """
+{
+  "batch_id": string,
+  "round_id": string,
+  "selected_hypothesis_ids": [string],
+  "deferred_hypothesis_ids": [string],
+  "selection_rationales": [
+    {
+      "hypothesis_id": string,
+      "reason": string
+    }
+  ]
+}
+"""
+
 def build_hypothesis_ranking_prompt(
     *,
     batch_id: str,
@@ -56,6 +154,10 @@ def build_hypothesis_ranking_prompt(
 
     critic_guidance_block = _render_critic_guidance_section(
         critic_guidance
+    )
+
+    coverage_section = _render_investigation_coverage_section(
+        projected_ranking_state
     )
 
     return "\n".join(
@@ -75,27 +177,8 @@ def build_hypothesis_ranking_prompt(
             "",
             "OUTPUT CONTRACT COMPLIANCE TAKES PRIORITY OVER REASONING COMPLETENESS.",
             "",
-            "DO NOT RETURN AN APPROXIMATE RESPONSE.",
-            "DO NOT RETURN A PARTIALLY VALID RESPONSE.",
-            "DO NOT RETURN ADDITIONAL EXPLANATIONS.",
-            "DO NOT RETURN MARKDOWN.",
-            "DO NOT RETURN CODE FENCES.",
-            "",
-            "DO NOT INFER PERMITTED OUTPUTS.",
-            "DO NOT GENERALIZE THE SCHEMA.",
-            "ONLY EMIT FIELDS AND VALUES EXPLICITLY ALLOWED.",
-            "",
-            "FINAL CHECK:",
-            "",
-            "IMMEDIATELY BEFORE PRODUCING THE RESPONSE,",
-            "PERFORM A SELF-CHECK AGAINST THE OUTPUT RULES.",
-            "",
-            "IF THE RESPONSE DOES NOT SATISFY EVERY OUTPUT RULE,",
-            "REWRITE IT BEFORE RETURNING IT.",
-            "",
-            "OUTPUT VALIDITY IS MORE IMPORTANT THAN ANALYSIS QUALITY.",
-            "",
-            "RETURN ONLY A FULLY VALID OUTPUT OBJECT.",
+            "=== OUTPUT CONTRACT ===",
+            _render_output_contract(),
             "",
             "=== ROLE ===",
             "You are the Phase 3A Hypothesis Ranking module.",
@@ -107,6 +190,7 @@ def build_hypothesis_ranking_prompt(
             f"Select up to {selection_budget} hypotheses for round_id={round_id} in batch_id={batch_id}.",
             "Allocate bounded epistemic budget to the hypotheses most worth investigating now.",
             "",
+            coverage_section,
             "=== BOUNDARIES ===",
             "You are allocation-only.",
             "Do not design verification strategy, router tasks, or worker actions.",
@@ -117,37 +201,23 @@ def build_hypothesis_ranking_prompt(
             "",
             "=== SELECTION PRINCIPLES ===",
             "Balance expected information gain, unresolved uncertainty, prior investigation investment, and critic observations.",
+            "Hypothesis involving potential  shortcut learning, label leakage, or suspicious separability are of high priority",
             "",
             "Repeated selection is allowed.",
-            "However, repeated selection should be justified by continuing uncertainty-reduction potential or meaningful expected information gain.",
+            "=== MAINTAIN INVESTIGATION COVERAGE ===",
             "",
+            "The ranking stage is responsible for allocating",
+            "attention across the available hypothesis space.",
+            "If one or more hypotheses have never been selected:",
+            "- You MUST allocate at least one selection slot to a never-selected hypothesis.",
+            "Coverage is mandatory.",
             "When two hypotheses appear similarly valuable, prefer the allocation that improves overall investigation quality rather than automatically reinforcing prior selections.",
             "",
             "Selection history signals such as times_selected and rounds_since_last_selected are provided to help reason about prior attention allocation.",
             "These signals are advisory and should not be treated as hard penalties.",
             "",
-            "Hypothesis involving potential  shortcut learning, label leakage, or suspicious separability may deserve continued seletion until direct verification (when there is too strong a shortcut signal to ignore but not enough evidence to confirm or reject).",
+            "Hypothesis involving potential  shortcut learning, label leakage, or suspicious separability may deserve continued selection until direct verification (when there is too strong a shortcut signal to ignore but not enough evidence to confirm or reject).",
             "A hypothesis that has already received substantial investigation attention may still be selected IF there is strong evidence that additional investigation is likely to produce meaningful findings.",
-            "",
-            "A hypothesis that has received little or no attention may deserve consideration if critic guidance or current uncertainty suggests potential value.",
-            "",
-            "=== EXPLORATION GUIDANCE ===",
-            "Investigation quality depends on both exploitation AND exploration.",
-            "",
-            "When selection_budget >= 3, AVOID allocating all available budget to the same repeatedly selected hypothesis set unless there is strong evidence that all selected hypotheses continue to provide substantially higher expected information gain than every alternative.",
-            "",
-            "Prefer maintaining AT LEAST ONE exploration-oriented allocation slot WHEN plausible alternatives exist.",
-            "",
-            "Exploration-oriented selections should favor hypotheses that:",
-            "- have received comparatively little investigation attention,",
-            "- remain epistemically unresolved,",
-            "- MAY REVEAL HIGH-IMPACT structural issues if confirmed,",
-            "- or represent important untested explanations not covered by currently dominant hypotheses.",
-            "",
-            "A hypothesis should NOT be selected solely because it is underexplored.",
-            "However, underexplored hypotheses with meaningful potential value deserve periodic investigation.",
-            "",
-            "Repeated concentration on the same hypothesis subset across many rounds requires stronger justification than early-round concentration.",
             "",
             critic_guidance_block,
             "=== CRITIC INTERPRETATION RULES ===",
@@ -162,17 +232,10 @@ def build_hypothesis_ranking_prompt(
             "",
             "If strong local evidence and critic guidance point in different directions, attempt to balance both considerations rather than treating either as absolute.",
             "",
-            "=== OUTPUT RULES ===",
-            "Return valid JSON only.",
-            "Do not use markdown or code fences.",
-            "Return exactly these top-level fields:",
-            "batch_id, round_id, selected_hypothesis_ids, deferred_hypothesis_ids, selection_rationales.",
-            "",
+            "=== FIELD RULES ===",
             "selected_hypothesis_ids must contain only hypothesis ids from the candidate set.",
             "deferred_hypothesis_ids must contain every non-selected hypothesis id that remains available later.",
-            "",
             "selection_rationales must contain only selected hypotheses and each record must include hypothesis_id and reason.",
-            "",
             "Reasons must remain short, allocation-oriented, and non-operational.",
             "",
             "=== RANKING STATE ===",

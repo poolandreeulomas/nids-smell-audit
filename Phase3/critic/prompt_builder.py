@@ -15,6 +15,28 @@ def _json_block(payload: Any) -> str:
     return json.dumps(payload, indent=2, ensure_ascii=True)
 
 
+def _render_output_contract() -> str:
+    return """
+{
+  "critic_observations": {
+    "batch_id": string,
+    "round_id": string,
+    "critic_observations": [
+      {
+        "observation_id": string,
+        "observation_type": string,
+        "target_module": string,
+        "priority": string,
+        "hypothesis_ids": [string],
+        "rationale": string,
+        "guidance": string,
+        "prompt_snippet": string
+      }
+    ]
+  }
+}
+"""
+
 def build_critic_prompt(
     *,
     batch_id: str,
@@ -139,7 +161,10 @@ def build_critic_prompt(
         "- exploration vs validation balance",
         "- productive active lines that continue to generate substantial state evolution",
         "",
-        "SCHEMA CONTRACT (MANDATORY):",
+        "OUTPUT CONTRACT (typed JSON tree — this is the authoritative schema):",
+        _render_output_contract(),
+        "",
+        "=== FIELD RULES ===",
         "",
         "The validator enforces strict enums.",
         "",
@@ -224,33 +249,11 @@ def build_critic_prompt(
         "Return ONLY JSON.",
         "Do not wrap JSON in markdown.",
         "Do not include explanations before or after JSON.",
-        "",
-        "Every critic_observations item must include observation_id, observation_type,",
-        "target_module, priority, hypothesis_ids, rationale, guidance, and prompt_snippet.",
+        "Every critic_observations item must include observation_id, observation_type, target_module, priority, hypothesis_ids, rationale, guidance, and prompt_snippet.",
         "Use only hypothesis_ids and evidence references that are visible in the provided data.",
         "guidance is inspection-friendly; prompt_snippet must be short enough to append",
         "directly to future module prompts (<= 180 chars, single sentence, advisory).",
         "Do not claim truth authority over hypotheses.",
-        _json_block(
-            {
-                "critic_observations": {
-                    "batch_id": batch_id,
-                    "round_id": round_id,
-                    "critic_observations": [
-                        {
-                            "observation_id": "obs-001",
-                            "observation_type": "underexplored_hypothesis",
-                            "target_module": "hypothesis_ranking",
-                            "priority": "medium",
-                            "hypothesis_ids": ["hyp_002"],
-                            "rationale": "Several candidate hypotheses were available but received no investigation during the round.",
-                            "guidance": "Reserve some investigation budget for unexplored candidates when coverage is limited.",
-                            "prompt_snippet": "Reserve some investigation budget for unexplored candidates when coverage is limited.",
-                        }
-                    ],
-                }
-            }
-        ),
     ]
 
     return "\n".join(sections).strip() + "\n"

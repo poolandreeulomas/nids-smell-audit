@@ -12,7 +12,7 @@ def _json_block(payload: Any) -> str:
 
 def _history_snapshot(tool_events: list[dict[str, Any]]) -> list[dict[str, Any]]:
     snapshot: list[dict[str, Any]] = []
-    for event in tool_events[-4:]:
+    for event in tool_events[-10:]:
         action = event.get("action", {}) if isinstance(
             event.get("action"), dict) else {}
         tool_result = event.get("tool_result", {}) if isinstance(
@@ -55,6 +55,53 @@ def _step_mode(current_step: int, max_steps: int) -> str:
         return "action_window"
     return "reasoning_only"
 
+def _render_reasoning_only_contract() -> str:
+    return """
+{
+  "decision": string,
+  "reasoning": string
+}"""
+
+
+def _render_action_contract() -> str:
+    return """
+{
+  "decision": string,
+  "reasoning": string,
+  "actions": [
+    {
+      "action_class": string,
+      "context_ref": string,
+      "feature_name": string
+    }
+  ]
+}"""
+
+
+def _render_finish_contract() -> str:
+    return """
+{
+  "decision": string,
+  "reasoning": string,
+  "worker_result": {
+    "task_id": string,
+    "hypothesis_id": string,
+    "status": string,
+    "findings": [
+      string
+    ],
+    "evidence_refs": [
+      string
+    ],
+    "contradictions": [
+      string
+    ],
+    "limitations": [
+      string
+    ]
+  }
+}"""
+
 
 def build_worker_prompt(
     *,
@@ -76,6 +123,7 @@ def build_worker_prompt(
 
     output_examples: list[str] = []
     step_rules: list[str] = []
+
     if step_mode == "reasoning_only":
         step_rules.extend(
             [
@@ -84,17 +132,17 @@ def build_worker_prompt(
                 "Return decision='continue' with a short bounded reasoning update.",
             ]
         )
+
         output_examples.extend(
             [
-                "Return:",
-                _json_block(
-                    {
-                        "decision": "continue",
-                        "reasoning": "State the most important local inference, the remaining uncertainty, and the next local focus.",
-                    }
-                ),
+                "=== OUTPUT CONTRACT ===",
+                _render_reasoning_only_contract(),
+                "",
+                "=== FIELD RULES ===",
+                "decision must be 'continue'.",
             ]
         )
+
     elif step_mode == "action_window":
         step_rules.extend(
             [
@@ -107,32 +155,30 @@ def build_worker_prompt(
                 "If no additional in-scope action is warranted, return decision='continue' with a short bounded reasoning update.",
             ]
         )
+
         output_examples.extend(
             [
-                "If you need local evidence acquisition, return:",
-                _json_block(
-                    {
-                        "decision": "action",
-                        "reasoning": "Explain why these local checks are the narrowest useful next step.",
-                        "actions": [
-                            {
-                                "action_class": "one allowed action_class",
-                                "context_ref": "one listed local_context_ref",
-                                "feature_name": "one feature inside that context when required",
-                                "related_feature_name": "optional second feature for relation_verification only",
-                            }
-                        ],
-                    }
-                ),
-                "If no bounded action is needed on this step, return:",
-                _json_block(
-                    {
-                        "decision": "continue",
-                        "reasoning": "Explain what the current evidence already says and what remains locally unresolved.",
-                    }
-                ),
+                "IF decision='action':",
+                _render_action_contract(),
+                "",
+                "FIELD RULES:",
+                "decision must be 'action'.",
+                "action_class must be one of the allowed action classes.",
+                "context_ref must be one of the allowed local_context_refs.",
+                "related_feature_name must be a non-empty string when present.",
+                "related_feature_name is OPTIONAL.",
+                "IF NOT REQUIRED, OMIT THE FIELD COMPLETELY.",
+                "DO NOT EMIT related_feature_name WITH '', ' ', null, OR ANY EMPTY VALUE.",
+                "ONLY INCLUDE related_feature_name FOR RELATIONSHIP-STYLE ACTIONS THAT REQUIRE A SECOND FEATURE.",
+                "",
+                "IF decision='continue':",
+                _render_reasoning_only_contract(),
+                "",
+                "FIELD RULES:",
+                "decision must be 'continue'.",
             ]
         )
+
     else:
         step_rules.extend(
             [
@@ -141,24 +187,15 @@ def build_worker_prompt(
                 "Return decision='finish' with the authoritative worker_result for this task.",
             ]
         )
+
         output_examples.extend(
             [
-                "Return:",
-                _json_block(
-                    {
-                        "decision": "finish",
-                        "reasoning": "Briefly summarize the reasoning progression and why the final task status is warranted.",
-                        "worker_result": {
-                            "task_id": task_id,
-                            "hypothesis_id": hypothesis_id,
-                            "status": "completed|partial|failed|inconclusive",
-                            "findings": ["bounded evidence-oriented finding"],
-                            "evidence_refs": ["tool_event call_id"],
-                            "contradictions": ["local contradiction preserved"],
-                            "limitations": ["local limitation if any"],
-                        },
-                    }
-                ),
+                "=== OUTPUT CONTRACT ===",
+                _render_finish_contract(),
+                "",
+                "=== FIELD RULES ===",
+                "decision must be 'finish'.",
+                "status must be one of: completed, partial, failed, inconclusive.",
             ]
         )
 

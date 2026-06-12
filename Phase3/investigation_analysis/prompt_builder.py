@@ -80,6 +80,22 @@ def _render_id_preservation_instruction(prior_ids: list[str]) -> str:
     )
 
 
+def _render_output_contract() -> str:
+    return """
+{
+  "analysis_id": string,
+  "batch_id": string,
+  "hypotheses": [
+    {
+      "hypothesis_id": string,
+      "summary": string,
+      "evidence_refs": [string],
+      "open_questions": [string]
+    }
+  ]
+}
+"""
+
 def build_investigation_analysis_prompt(
     *,
     batch_id: str,
@@ -165,17 +181,14 @@ def build_investigation_analysis_prompt(
             "Open questions should remain unresolved verification-oriented questions, not ordered instructions.",
             "",
             critic_guidance_block,
-            "=== OUTPUT RULES ===",
-            "Return valid JSON only.",
-            "Do not use markdown or code fences.",
-            "Return exactly these top-level fields:",
-            "analysis_id, batch_id, hypotheses.",
-            "Each hypothesis must include:",
-            "hypothesis_id, summary, evidence_refs, open_questions.",
+            "=== OUTPUT CONTRACT ===",
+            _render_output_contract(),
+            "",
+            "=== FIELD RULES ===",
+            "At most 10 hypotheses can be returned.",
             "Every hypothesis must cite one or more evidence_refs already present in the substrate input.",
             "Every hypothesis must preserve one or more open_questions.",
-            "At most 10 hypotheses can be returned.",
-            "If prior hypotheses IDs are provided in the iteration context, you MUST preserve those exact IDs for any hypotheses that continue from the prior set. Do not create new IDs or numeric ranges.",
+            "If prior hypothesis IDs are provided in the iteration context, you MUST preserve those exact IDs for any hypotheses that continue from the prior set. Do not create new IDs or numeric ranges.",
             "",
             "=== ANALYSIS CONTEXT ===",
             _render_json_block(sanitized_analysis_context),

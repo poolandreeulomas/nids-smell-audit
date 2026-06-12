@@ -430,10 +430,10 @@ def validate_planner_round_output(
         else:
             normalized_objective = str(strategic_objective).strip()
             if len(normalized_objective) > 280:
-                errors.append(
+                warnings.append(
                     _error(
                         f"{field_prefix}.strategic_objective",
-                        "strategic_objective must stay under 280 characters.",
+                        "strategic_objective exceeds recommended length limit.",
                     )
                 )
             forbidden_language_hits.extend(
@@ -459,12 +459,20 @@ def validate_planner_round_output(
                 )
                 continue
             if len(values) > 6:
-                errors.append(
-                    _error(
-                        f"{field_prefix}.{key}",
-                        f"{key} must contain at most 6 items.",
+                if key == "success_criteria":
+                    warnings.append(
+                        _error(
+                            f"{field_prefix}.{key}",
+                            f"{key} must contain at most 6 items.",
+                        )
                     )
-                )
+                else:
+                    errors.append(
+                        _error(
+                            f"{field_prefix}.{key}",
+                            f"{key} must contain at most 6 items.",
+                        )
+                    )
             for item_index, value in enumerate(values):
                 normalized_value = str(value).strip()
                 if len(normalized_value) > 240:

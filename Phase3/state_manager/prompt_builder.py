@@ -15,6 +15,37 @@ def _json_block(payload: Any) -> str:
     return json.dumps(payload, indent=2, ensure_ascii=True)
 
 
+def _render_output_contract() -> str:
+    return """
+{
+  "state_delta_record": {
+    "batch_id": string,
+    "round_id": string,
+    "hypothesis_id": string,
+    "summary": string,
+    "status": string,
+    "evidence_refs": [
+      string
+    ],
+    "preserved_contradictions": [
+      string
+    ],
+    "open_gaps": [
+      string
+    ],
+    "merged_findings": [
+      string
+    ],
+    "update_focus": string,
+    "applied_updates": [
+      {
+        "field": string,
+        "reason": string
+      }
+    ]
+  }
+}"""
+
 def build_state_manager_prompt(
     *,
     batch_id: str,
@@ -152,7 +183,10 @@ def build_state_manager_prompt(
         "result_contradictions = prior_contradictions + newly_preserved_contradictions + explicitly_resolved_contradictions",
         "result_merged_findings = prior_findings + newly_supported_findings + explicitly_retracted_findings",
         "",
-        "STRICT OUTPUT CONTRACT:",
+        "OUTPUT CONTRACT (typed JSON tree — this is the authoritative schema):",
+        _render_output_contract(),
+        "",
+        "=== FIELD RULES ===",
         "The output schema is closed.",
         "The object inside state_delta_record must contain exactly and only the following fields:",
         "* batch_id",
@@ -184,33 +218,6 @@ def build_state_manager_prompt(
         "If any open_gaps remain unresolved, keep them explicit; if one is resolved, state that resolution in applied_updates.",
         f"Use only these status values: {sorted(VALID_HYPOTHESIS_STATUSES)}.",
         "Do not mention planning, worker execution, routing, critic supervision, or canonical-state commit mechanics in the content fields.",
-        _json_block(
-            {
-                "state_delta_record": {
-                    "batch_id": batch_id,
-                    "round_id": round_id,
-                    "hypothesis_id": hypothesis_id,
-                    "summary": "updated concise interpretive summary for the target hypothesis",
-                    "status": "active",
-                    "evidence_refs": ["carried-forward evidence_ref"],
-                    "preserved_contradictions": ["explicit unresolved contradiction"],
-                    "open_gaps": ["remaining unresolved verification gap"],
-                    "merged_findings": ["resulting evidence-grounded finding carried in state"],
-                    "update_focus": "short orientation for the touched interpretive area",
-                    "applied_updates": [
-                            {
-                                "field": "summary",
-                                "reason": "why this bounded change is justified..."
-                            },
-                            {
-                                "field": "merged_findings",
-                                "reason": "new findings were added while preserving all prior findings"
-                            },   
-                    ],
-                    
-                }
-            }
-        ),
     ]
 
     return "\n".join(sections).strip() + "\n"

@@ -10,6 +10,26 @@ def _render_json_block(payload: dict[str, Any]) -> str:
     return json.dumps(payload, indent=2, sort_keys=True, ensure_ascii=True)
 
 
+def _render_output_contract() -> str:
+    return """
+{
+  "batch_id": string,
+  "round_id": string,
+  "hypothesis_id": string,
+  "planner_strategy_id": string,
+  "worker_tasks": [
+    {
+      "task_id": string,
+      "hypothesis_id": string,
+      "task_scope": string,
+      "allowed_actions": [string],
+      "local_context_refs": [string],
+      "stop_conditions": [string]
+    }
+  ]
+}
+"""
+
 def build_router_prompt(
     *,
     batch_id: str,
@@ -77,38 +97,16 @@ def build_router_prompt(
             "Use local_context_refs only from related_substrate_refs.",
             "Keep tasks operational, bounded, and worker-compatible.",
             "",
-            "=== OUTPUT RULES ===",
-            "Return valid JSON only.",
-            "Do not use markdown or code fences.",
-            "Return exactly these top-level fields:",
-            "batch_id, round_id, hypothesis_id, planner_strategy_id, worker_tasks.",
-            "Each worker_task must contain exactly:",
-            "task_id, hypothesis_id, task_scope, allowed_actions, local_context_refs, stop_conditions.",
-            "REQUIREMENTS for these fields:",
-            "- `allowed_actions`: a JSON LIST of short strings. Each value must be one of the provided `available_action_classes`. Do not include exact tool names.",
-            "- `local_context_refs`: a JSON LIST of short strings. Each ref must appear in `related_substrate_refs` from the reduced routing context.",
-            "- `stop_conditions`: a JSON LIST of short strings describing termination criteria for the task. This field MUST be a non-empty list (use [] only if there are legitimately no stop conditions).",
+            "=== OUTPUT CONTRACT ===",
+            _render_output_contract(),
+            "",
+            "=== FIELD RULES ===",
+            "allowed_actions: each value must be one of the provided `available_action_classes`. Do not include exact tool names.",
+            "local_context_refs: each ref must appear in `related_substrate_refs` from the reduced routing context.",
+            "stop_conditions: this field MUST be a non-empty list (use [] only if there are legitimately no stop conditions).",
             "All lists MUST be JSON arrays. Use [] for empty lists when semantically appropriate. Never emit null for any list field.",
             "Keep `task_scope` concise (<=280 chars) and `stop_conditions` entries short (<=220 chars).",
-            "=== CANONICAL JSON SHAPES ===",
-            "Use these exact nested shapes. Do not flatten, rename keys, or change types.",
-            "router_output (top-level):",
-            "{",
-            '  "batch_id": "...",',
-            '  "round_id": "...",',
-            '  "hypothesis_id": "...",',
-            '  "planner_strategy_id": "...",',
-            '  "worker_tasks": [',
-            "    {",
-            '      "task_id": "task_1",',
-            '      "hypothesis_id": "hyp_42",',
-            '      "task_scope": "Short operational task description",',
-            '      "allowed_actions": ["action_a", "action_b"],',
-            '      "local_context_refs": ["region_3", "evidence_e12"],',
-            '      "stop_conditions": ["collected N=1000 samples", "distribution stabilized"]',
-            "    }",
-            "  ]",
-            "}",
+            "",
             "=== SEMANTIC GOVERNANCE NOTES ===",
             "Prefer concise operational phrasing inside `task_scope` and `stop_conditions` rather than planning, ranking, or execution-scripting language (for example 'first use', 'then use', 'call <tool>', 'step by step', 'prioritize', 'replan').",
             "Avoid exact tool names or exact parameters; use abstract action classes only. Such wording may trigger semantic governance flags in logs, but it does not invalidate the output.",

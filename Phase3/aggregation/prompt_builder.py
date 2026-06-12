@@ -19,6 +19,23 @@ def _render_contradiction_block(source_contradictions: list[dict[str, Any]]) -> 
     return "\n".join(lines)
 
 
+def _render_output_contract() -> str:
+    return """
+{
+  "aggregation_handoff": {
+    "batch_id": string,
+    "round_id": string,
+    "hypothesis_id": string,
+    "merged_findings": [string],
+    "evidence_refs": [string],
+    "preserved_contradiction_ids": [string],
+    "open_gaps": [string],
+    "update_focus": string
+  }
+}
+"""
+
+
 def build_aggregation_prompt(
     *,
     batch_id: str,
@@ -91,30 +108,16 @@ def build_aggregation_prompt(
         "",
         _render_contradiction_block(source_contradictions),
         "",
-        "OUTPUT_RULES:",
-        "Return exactly one JSON object.",
+        "OUTPUT CONTRACT (typed JSON tree — this is the authoritative schema):",
+        _render_output_contract(),
+        "",
+        "=== FIELD RULES ===",
         "Only cite evidence_refs that appear in SOURCE_WORKER_RESULTS.",
         'For preserved_contradiction_ids: output ID STRINGS ONLY, never contradiction text.',
         'IDs must come from SOURCE_CONTRADICTIONS shown above.',
         'Do not invent, summarize, paraphrase, merge, or synthesize contradiction text.',
         'Do not include a "preserved_contradictions" field in your output — only preserved_contradiction_ids.',
         "Keep update_focus state-facing and grounded, but do not describe state mutation.",
-        "",
-        "=== OUTPUT SCHEMA ===",
-        _json_block(
-            {
-                "aggregation_handoff": {
-                    "batch_id": batch_id,
-                    "round_id": round_id,
-                    "hypothesis_id": hypothesis_id,
-                    "merged_findings": ["grounded merged finding"],
-                    "evidence_refs": ["source evidence_ref"],
-                    "preserved_contradiction_ids": ["contr_1", "contr_2"],
-                    "open_gaps": ["remaining unresolved gap or limitation"],
-                    "update_focus": "orientation for the touched interpretive area",
-                }
-            }
-        ),
         "",
         "=== EXAMPLES ===",
         'GOOD (ID only):  "preserved_contradiction_ids": ["contr_0", "contr_3"]',
