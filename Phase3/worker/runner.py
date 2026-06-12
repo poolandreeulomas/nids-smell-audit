@@ -174,6 +174,7 @@ def run_worker(
         local_context_records)
     action_guidance = _build_action_guidance(
         list(raw_worker_task.get("allowed_actions") or []), capability_records)
+    investigation_memory: dict[str, Any] | None = None
 
     worker_result: dict[str, Any] = {}
     worker_output: dict[str, Any] = {}
@@ -219,6 +220,7 @@ def run_worker(
                         budget_rules=budget_rules,
                         current_step=step_index,
                         repair_note=repair_note,
+                        investigation_memory=investigation_memory,
                     )
                     prompt_snapshots.append(
                         {
