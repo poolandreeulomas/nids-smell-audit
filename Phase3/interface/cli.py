@@ -7385,6 +7385,7 @@ class NidsAgentCli:
             raw_response_text=str(bundle.get("raw_response_text", "")),
             parsed_output=dict(bundle.get("parsed_output", {})),
             aggregation_handoff=dict(bundle.get("aggregation_handoff", {})),
+            repair_attempts=list(bundle.get("repair_attempts", [])),
             validation_report=dict(bundle.get("validation_report", {})),
             runtime_metrics=dict(bundle.get("runtime_metrics", {})),
             replay_metadata=dict(bundle.get("replay_metadata", {})) if bundle.get(

@@ -116,6 +116,7 @@ def run_worker(
     log_dir: str | None = None,
     replay_of: str | None = None,
     caller_mode: str = "cli",
+    investigation_memory: dict[str, Any] | None = None,
 ) -> dict[str, Any]:
     raw_worker_task = worker_task if isinstance(worker_task, dict) else {}
     raw_worker_runtime_refs = worker_runtime_refs if isinstance(
@@ -174,8 +175,6 @@ def run_worker(
         local_context_records)
     action_guidance = _build_action_guidance(
         list(raw_worker_task.get("allowed_actions") or []), capability_records)
-    investigation_memory: dict[str, Any] | None = None
-
     worker_result: dict[str, Any] = {}
     worker_output: dict[str, Any] = {}
     runtime_dataset: dict[str, Any] | None = None

@@ -97,6 +97,63 @@ def build_router_prompt(
             "Use local_context_refs only from related_substrate_refs.",
             "Keep tasks operational, bounded, and worker-compatible.",
             "",
+            "=== ACTION SELECTION GUIDANCE ===",
+
+            "allowed_actions define the investigation toolkit available to the Worker.",
+
+            "Do not restrict allowed_actions to only the single most obvious verification path.",   
+
+            "Include:",
+
+            "- PRIMARY action classes directly aligned with the task objective.",
+            "- SECONDARY action classes that could independently confirm, weaken, or contextualize findings.",
+            "- SUPPORTING action classes that may reduce uncertainty if primary evidence is incomplete.",
+
+            "Workers operate across multiple investigation stages and action windows.",
+
+            "Overly narrow action lists can prevent useful follow-up verification even when the task remains unresolved.",
+
+            "Good:"
+
+            "Task:",
+            "Investigate whether feature X acts as a shortcut-like predictor.",
+
+            "allowed_actions:",
+            "["
+            "shortcut_verification",
+            "distribution_verification",
+            "cardinality_verification",
+            "structural_summary"
+            "]"
+
+            "Poor:"
+
+            "allowed_actions:",
+            "["
+            "shortcut_verification"
+            "]"
+            "Do not add irrelevant action classes."
+            "The goal is evidence diversity and uncertainty reduction, not action count."
+            "When multiple action classes could provide independent evidence relevant to the task scope, include them.",
+             "=== SHORTCUT INVESTIGATION GUIDANCE ===",
+            "",
+            "When planner intent, local context, or related substrate evidence suggests:",
+            "",
+            "- low entropy",
+            "- dominant values",
+            "- strong class-conditioned concentration",
+            "- high class separation",
+            "- near-deterministic behavior",
+            "- suspicious predictive leverage",
+            "- representation-sensitive predictors",
+            "",
+            "ensure that at least one worker task remains capable of direct shortcut verification.",
+            "Do not rely exclusively on indirect characterization when direct shortcut verification is available.",
+            "Features exhibiting multiple shortcut-like indicators should normally receive a task whose allowed_actions include:",  
+            "shortcut_verification"
+            "unless there is a clear task-scoping reason preventing it.",
+            "Direct confirmation or rejection of shortcut-like behavior is typically higher-value evidence than additional descriptive characterization alone.",
+            "",
             "=== OUTPUT CONTRACT ===",
             _render_output_contract(),
             "",

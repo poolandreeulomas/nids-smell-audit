@@ -580,6 +580,33 @@ def execute_round(
                 execution_record.status = "no_tasks"
                 continue
 
+            # Build investigation memory from planner strategy
+            _strategic_objective = str(
+                planner_strategy.get("strategic_objective") or "").strip()
+            _key_checks = [
+                str(item).strip()
+                for item in (planner_strategy.get("key_checks") or [])
+                if str(item).strip()
+            ]
+            _success_criteria = [
+                str(item).strip()
+                for item in (planner_strategy.get("success_criteria") or [])
+                if str(item).strip()
+            ]
+            _router_constraints = [
+                str(item).strip()
+                for item in (planner_strategy.get("router_constraints") or [])
+                if str(item).strip()
+            ]
+            investigation_memory = {
+                "task_goal": _strategic_objective or "Not yet defined.",
+                "open_questions": list(_key_checks),
+                "completion_criteria": list(_success_criteria),
+                "constraints": list(_router_constraints),
+                "verified_targets": [],
+                "remaining_targets": [],
+            }
+
             worker_futures: list[Future[dict[str, Any]]] = []
             for worker_task in worker_tasks:
                 worker_runtime_refs = build_worker_runtime_refs(
@@ -597,6 +624,7 @@ def execute_round(
                     model_name=model_name,
                     temperature=temperature,
                     caller_mode=caller_mode,
+                    investigation_memory=investigation_memory,
                 )
                 worker_futures.append(worker_future)
 
