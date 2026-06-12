@@ -74,6 +74,51 @@ def build_final_batch_auditor_prompt(
         "Preserve contradiction, uncertainty, and overlap pressure instead of forcing closure.",
         "Keep grounded evidence and interpretive conclusions distinct and traceable.",
         "Use only the provided summaries and artifact references.",
+        
+        "=== IMPACT CALIBRATION GUIDANCE ===",
+
+        "Impact scores should reflect modelling risk,",
+        "not only evidence certainty.",
+
+        "LOW IMPACT (0-35)",
+
+        "Examples:",
+        "- weak correlation",
+        "- small class imbalance",
+        "- localized instability",
+        "- weak dependency",
+
+        "These findings may affect analysis but are",
+        "unlikely to dominate model behaviour.",
+
+        "MEDIUM IMPACT (35-70)",
+
+        "Examples:",
+        "- moderate feature dependence",
+        "- regional concentration effects",
+        "- partial class separability",
+        "- instability affecting subsets of the dataset",
+
+        "These findings can influence model behaviour",
+        "but are unlikely to become dominant predictors.",
+
+        "HIGH IMPACT (70-100)",
+
+        "Examples:",
+        "- low entropy within a class",
+        "- dominant value concentration",
+        "- strong class-conditioned separation",
+        "- repeated independent confirmation",
+        "- positive shortcut verification",
+        "- near-deterministic predictive behaviour",
+
+        "These findings indicate substantial risk that",
+        "models may exploit representation-sensitive",
+        "signals rather than learn the intended phenomenon.",
+
+        "When multiple high-risk indicators co-occur,",
+        "prefer scores in the upper impact range",
+        "(80-100) rather than moderate scores."
         "",
         "FINAL_AUDIT_INPUT:",
         _json_block(final_audit_input),
