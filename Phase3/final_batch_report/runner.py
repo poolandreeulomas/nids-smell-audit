@@ -19,6 +19,7 @@ from final_batch_report.contracts import (
     MERGER_SCHEMA_VERSION,
     SCHEMA_VERSION,
 )
+from data.dataset_config import DatasetConfig
 from final_batch_report.input_resolver import (
     resolve_batch_reports,
     load_batch_report,
@@ -81,6 +82,7 @@ def run_final_batch_report(
     model_name: str = "gpt-4.1-mini",
     temperature: float = 0.0,
     log_dir: str | None = None,
+    dataset_config: DatasetConfig | None = None,
 ) -> dict[str, Any]:
     """Generate a Final Partition Audit Report from the Final Updated State.
 
@@ -115,7 +117,7 @@ def run_final_batch_report(
     state_version = final_state.state_version
 
     # Step 1: Resolve Report Context
-    report_context = resolve_report_context(final_state, partition_name)
+    report_context = resolve_report_context(final_state, partition_name, dataset_config=dataset_config)
 
     partition_audit_context = report_context["partition_audit_context"]
     intended_behavioral_scenario = report_context["intended_behavioral_scenario"]

@@ -17,7 +17,7 @@ from pydantic import BaseModel
 SCHEMA_VERSION = "phase3.final_batch_report.v1"
 PROMPT_VERSION = "phase3.final_batch_report.prompt.v1"
 
-CICIDS2017_PARTITION_SCENARIOS: dict[str, str] = {
+PARTITION_SCENARIOS: dict[str, str] = {
     "ddos": (
         "This partition models a DDoS (Distributed Denial of Service) scenario "
         "in which attack traffic is expected to target a limited service surface. "

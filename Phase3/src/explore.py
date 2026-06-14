@@ -148,7 +148,14 @@ def analyze_partition(file_path):
     partition_results["class_imbalance_ratio"] = imbalance_ratio
 
     # ---- Correlation screening ----
-    df["Label_bin"] = (df[label_col] != "BENIGN").astype(int)
+    # Determine attack encoding dynamically from label values.
+    # CICIDS uses "BENIGN" as normal; UNSW-NB15 uses binary 0/1.
+    if df[label_col].dtype in (int, float):
+        # Numeric labels (UNSW-NB15): 0 = normal
+        df["Label_bin"] = (df[label_col] != 0).astype(int)
+    else:
+        # String labels (CICIDS2017): "BENIGN" = normal
+        df["Label_bin"] = (df[label_col] != "BENIGN").astype(int)
 
     corr = (
         df.corr(numeric_only=True)["Label_bin"]

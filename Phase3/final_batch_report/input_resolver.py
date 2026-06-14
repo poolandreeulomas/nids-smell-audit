@@ -21,11 +21,12 @@ import logging
 from pathlib import Path
 from typing import Any
 
+from data.dataset_config import DatasetConfig, get_default_dataset_config
 from judge.context_loader import get_judge_partition_context, resolve_judge_partition_phenomenon
 from semantic_extraction.input_builder import build_partition_context
 from state.schema import CanonicalBatchState
 
-from final_batch_report.contracts import CICIDS2017_PARTITION_SCENARIOS
+from final_batch_report.contracts import PARTITION_SCENARIOS
 
 logger = logging.getLogger(__name__)
 
@@ -104,19 +105,37 @@ def build_partition_audit_context(partition_name: str) -> dict[str, Any]:
 
 # ─── Responsibility 2: Build Intended Behavioral Scenario ─────────────────
 
-def build_intended_behavioral_scenario(partition_name: str) -> str:
+def build_intended_behavioral_scenario(
+    partition_name: str,
+    dataset_config: DatasetConfig | None = None,
+) -> str:
     """Build intended behavioral scenario deterministically (not LLM-generated).
 
     Maps partition name to a phenomenon, then looks up the scenario description.
     Falls back to a generic network traffic scenario.
+    Uses the dataset config description as dataset-specific context.
     """
+    cfg = dataset_config or get_default_dataset_config()
     phenomenon = resolve_judge_partition_phenomenon(partition_name)
 
-    if phenomenon and phenomenon in CICIDS2017_PARTITION_SCENARIOS:
-        return CICIDS2017_PARTITION_SCENARIOS[phenomenon]
+    scenario = None
+    if phenomenon and phenomenon in PARTITION_SCENARIOS:
+        scenario = PARTITION_SCENARIOS[phenomenon]
+
+    # Prepend dataset context from config
+    dataset_context = (
+        f"Dataset: {cfg.dataset_display_name}. "
+        f"{cfg.dataset_description} "
+        f"Traffic domain: {cfg.traffic_domain}. "
+        f"Label semantics: {cfg.label_description}"
+    )
+
+    if scenario:
+        return f"{dataset_context}\n\n{scenario}"
 
     # Generic fallback
     return (
+        f"{dataset_context}\n\n"
         "This partition models network traffic behavior. "
         "Expected characteristics depend on the specific attack or benign "
         "scenario represented. "
@@ -142,8 +161,12 @@ def build_researcher_audit_context(
         h for h in hypotheses
         if h.revision_count > 0 or (h.merged_findings and len(h.merged_findings) > 0)
     ]
+    # Complement: hypotheses that are NOT investigated.
+    # Use the inverse criteria instead of `not in` to avoid hashing
+    # mutable dataclass instances (which are unhashable).
     less_explored_hypotheses = [
-        h for h in hypotheses if h not in investigated_hypotheses
+        h for h in hypotheses
+        if not (h.revision_count > 0 or (h.merged_findings and len(h.merged_findings) > 0))
     ]
 
     revision_log = canonical_state.revision_log
@@ -282,19 +305,24 @@ def build_structural_context(
 def resolve_report_context(
     final_state: CanonicalBatchState,
     partition_name: str,
+    dataset_config: DatasetConfig | None = None,
 ) -> dict[str, Any]:
     """Master resolver that builds all context needed for the report prompt.
 
     Args:
         final_state: CanonicalBatchState (the Final Updated State).
         partition_name: Human-readable partition name.
+        dataset_config: Optional DatasetConfig for dataset-specific context.
+            Falls back to default if not provided.
 
     Returns:
         Dict with partition_audit_context, intended_behavioral_scenario,
         researcher_audit_context, investigated_findings, additional_findings.
     """
     partition_audit_context = build_partition_audit_context(partition_name)
-    intended_behavioral_scenario = build_intended_behavioral_scenario(partition_name)
+    intended_behavioral_scenario = build_intended_behavioral_scenario(
+        partition_name, dataset_config=dataset_config
+    )
     researcher_audit_context = build_researcher_audit_context(final_state)
     finding_inventory = build_finding_inventory(final_state)
 

@@ -8,7 +8,7 @@ from typing import Callable
 
 from agent.loop import run_agent
 from config import DATA_DIR, MAX_STEPS
-from data.dataset_config import get_default_dataset_config
+from data.dataset_config import get_default_dataset_config, infer_dataset_config
 from data.loader import load_dataset
 from phase3_runtime.orchestrator import run_phase3a_batch
 from src.feature_index import build_compact_feature_index
@@ -116,8 +116,8 @@ def build_phase3a_llm_callables(
 
 def main() -> AgentState:
     """Wire dependencies and execute one bounded MVP run."""
-    dataset_config = get_default_dataset_config()
     dataset_path = _select_dataset_path(DATA_DIR)
+    dataset_config = infer_dataset_config(dataset_path)
     dataset_frame, available_features = load_dataset(
         dataset_path, dataset_config)
     tool_names = list(get_tool_registry().keys())
