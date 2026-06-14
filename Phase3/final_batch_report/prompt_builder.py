@@ -1,10 +1,16 @@
-"""Prompt assembly for the Phase 3 Final Partition Audit Report Generator."""
+"""Prompt assembly for the Phase 3 Final Partition Audit Report Generator.
+
+Phase 3a: Per-partition final batch report prompt builder.
+Phase 3b: Dataset Merger prompt builder.
+"""
 
 from __future__ import annotations
 
 import json
 from typing import Any
 
+
+# ── Phase 3a — Partition report prompt builder ────────────────────────────
 
 PROMPT_VERSION = "phase3.final_batch_report.prompt.v1"
 
@@ -156,7 +162,6 @@ def _build_section_structure() -> str:
     - which findings most strongly influenced the recommendation,
     - what conditions would change the recommendation."""
    
-
 
 def build_final_batch_report_prompt(
     *,
@@ -415,6 +420,235 @@ def build_final_batch_report_prompt(
         "Return the complete report as Markdown text.\n"
         "Do not wrap in code fences. Do not add JSON wrapper.\n"
         "Start directly with the report title and content."
+    )
+
+    return "\n\n".join(sections).strip() + "\n"
+
+
+# ── Phase 3b — Dataset Merger prompt builder ──────────────────────────────
+
+MERGER_PROMPT_VERSION = "phase3.dataset_merger.prompt.v1"
+
+
+def _build_dataset_report_schema_description() -> str:
+    """Describe the required JSON output schema for the dataset merger."""
+    return """OUTPUT SCHEMA:
+
+Produce a JSON object with the following structure. Every field is required unless marked as optional.
+
+{
+  "title": "string — title for the final dataset report",
+
+  "dataset_overview": "string — high-level summary of the entire dataset",
+
+  "batch_summaries": [
+    {
+      "batch_id": "string — identifier for the batch",
+      "batch_label": "string — human-readable label",
+      "source_file": "string — filename of the source report",
+      "total_findings": "integer — count of findings in this batch",
+      "key_themes": ["string — theme description", ...],
+      "summary": "string — brief summary of this batch"
+    }
+  ],
+
+  "recurring_artifact_families": [
+    {
+      "pattern_name": "string — name of the artifact pattern",
+      "description": "string — description of the pattern",
+      "observed_in_batches": ["string — batch IDs where observed", ...],
+      "severity": "string or null — optional severity assessment"
+    }
+  ],
+
+  "recurring_findings": [
+    {
+      "finding_id": "string — unique identifier for this recurring finding",
+      "description": "string — description of the finding",
+      "batch_ids": ["string — batch IDs where this finding appears", ...],
+      "finding_type": "string — type/category of finding",
+      "consistency_note": "string or null — optional note on consistency across batches"
+    }
+  ],
+
+  "coverage_interpretation": "string — human-readable interpretation of coverage data",
+
+  "partition_summaries": [
+    {
+      "partition_id": "string — partition identifier",
+      "partition_label": "string — human-readable label",
+      "artifact_category_counts": {"category_name": "integer count", ...},
+      "notable_findings": ["string — description", ...],
+      "summary": "string — brief summary"
+    }
+  ],
+
+  "cross_partition_synthesis": "string — cross-cutting analysis connecting partitions",
+
+  "contradictions": [
+    {
+      "contradiction_id": "string — unique identifier for this contradiction",
+      "batch_a": "string — first batch ID",
+      "finding_a": "string — finding in first batch",
+      "batch_b": "string — second batch ID",
+      "finding_b": "string — finding in second batch",
+      "description": "string — description of the contradiction",
+      "resolution_status": "string — default 'unresolved'"
+    }
+  ],
+
+  "final_recommendation": "string — overall recommendation for the dataset",
+
+  "metadata": {
+    "report_version": "string — version of the report",
+    "generated_at": "ISO 8601 datetime — when the report was generated",
+    "batch_sources": ["string — filenames of source batch reports", ...],
+    "merger_version": "string — version of the merger process"
+  }
+}
+
+CRITICAL: Return ONLY valid JSON. No markdown, no code fences, no explanation."""
+
+
+def build_merge_prompt(
+    batch_reports: list[tuple[str, str]],
+    coverage_data: dict,
+) -> str:
+    """Build the LLM prompt for merging batch reports into the final dataset report.
+
+    Args:
+        batch_reports: List of (filename, content) tuples for each batch report.
+        coverage_data: Dictionary with coverage data from the coverage_builder.
+
+    Returns:
+        Complete prompt string ready for LLM consumption.
+    """
+    sections: list[str] = []
+
+    # Section 1: Mission
+    sections.append(
+        "=== CRITICAL OUTPUT COMPLIANCE REQUIREMENT ===\n"
+        "\n"
+        "THE OUTPUT CONTRACT IS THE HIGHEST PRIORITY REQUIREMENT IN THIS PROMPT.\n"
+        "\n"
+        "BEFORE RETURNING ANY RESPONSE:\n"
+        "\n"
+        "1. VERIFY THAT THE RESPONSE EXACTLY MATCHES THE REQUIRED OUTPUT SCHEMA.\n"
+        "2. VERIFY THAT NO REQUIRED FIELD IS MISSING.\n"
+        "3. VERIFY THAT NO EXTRA FIELD IS PRESENT.\n"
+        "4. VERIFY THAT ALL ENUM VALUES ARE VALID.\n"
+        "5. VERIFY THAT ALL REQUIRED LISTS ARE PRESENT AND CORRECTLY TYPED.\n"
+        "6. IF ANY PART OF THE RESPONSE WOULD VIOLATE THE OUTPUT CONTRACT, REVISE THE RESPONSE BEFORE RETURNING IT.\n"
+        "\n"
+        "OUTPUT CONTRACT COMPLIANCE TAKES PRIORITY OVER REASONING COMPLETENESS.\n"
+        "\n"
+        "DO NOT RETURN AN APPROXIMATE RESPONSE.\n"
+        "DO NOT RETURN A PARTIALLY VALID RESPONSE.\n"
+        "DO NOT RETURN ADDITIONAL EXPLANATIONS.\n"
+        "DO NOT RETURN MARKDOWN.\n"
+        "DO NOT RETURN CODE FENCES.\n"
+        "\n"
+        "DO NOT INFER PERMITTED OUTPUTS.\n"
+        "DO NOT GENERALIZE THE SCHEMA.\n"
+        "ONLY EMIT FIELDS AND VALUES EXPLICITLY ALLOWED.\n"
+        "\n"
+        "FINAL CHECK:\n"
+        "\n"
+        "IMMEDIATELY BEFORE PRODUCING THE RESPONSE,\n"
+        "PERFORM A SELF-CHECK AGAINST THE OUTPUT RULES.\n"
+        "\n"
+        "IF THE RESPONSE DOES NOT SATISFY EVERY OUTPUT RULE,\n"
+        "REWRITE IT BEFORE RETURNING IT.\n"
+        "\n"
+        "OUTPUT VALIDITY IS MORE IMPORTANT THAN ANALYSIS QUALITY.\n"
+        "\n"
+        "RETURN ONLY A FULLY VALID OUTPUT OBJECT.\n"
+        "\n"
+        "MISSION:\n"
+        "You are the Dataset Merger.\n"
+        "Your role is to merge multiple partition-level batch reports into a single,\n"
+        "comprehensive Final Dataset Report.\n"
+        "\n"
+        "You will receive:\n"
+        "1. All batch report contents (from individual partition audits)\n"
+        "2. Coverage data (artifact and finding coverage across partitions)\n"
+        "\n"
+        "Your output must be a structured JSON report covering ALL of the following:\n"
+        "- title and dataset overview\n"
+        "- summary of each batch report\n"
+        "- recurring artifact families (patterns appearing across multiple batches)\n"
+        "- recurring findings (findings that repeat across batches)\n"
+        "- interpretation of coverage data\n"
+        "- summaries for each partition\n"
+        "- cross-partition synthesis connecting findings across partitions\n"
+        "- contradictions (conflicting findings between batches — do NOT collapse them)\n"
+        "- final recommendation for the dataset\n"
+        "- metadata about this report"
+    )
+
+    # Section 2: Coverage Data
+    if coverage_data:
+        sections.append(
+            f"COVERAGE DATA:\n{json.dumps(coverage_data, indent=2, ensure_ascii=True, default=str)}"
+        )
+    else:
+        sections.append("COVERAGE DATA: None provided.")
+
+    # Section 3: Coverage Interpretation Guidance
+    sections.append(
+        "COVERAGE INTERPRETATION GUIDANCE:\n"
+        "Coverage data shows how widely each artifact family or finding appears across partitions.\n"
+        "Coverage is evidence, not a conclusion.\n"
+        "Interpret coverage meaningfully:\n"
+        "- High coverage (e.g., 7/7) suggests a dataset-wide pattern.\n"
+        "- Partial coverage (e.g., 3/7) suggests partition-specific effects.\n"
+        "- Low coverage (e.g., 1/7) suggests isolated or partition-specific findings.\n"
+        "- Absence of coverage does NOT imply absence of the phenomenon.\n"
+        "- Coverage should inform the final recommendation, not dictate it."
+    )
+
+    # Section 4: Contradiction Preservation Instruction
+    sections.append(
+        "CRITICAL INSTRUCTION — CONTRADICTION PRESERVATION:\n"
+        "Contradictions MUST be preserved, not resolved.\n"
+        "\n"
+        "Do NOT collapse conflicting findings into a single 'averaged' conclusion.\n"
+        "Do NOT remove a finding because it contradicts another.\n"
+        "Do NOT attempt to resolve contradictions by deciding which finding is correct.\n"
+        "\n"
+        "Instead:\n"
+        "- Record each contradictory finding explicitly.\n"
+        "- Describe the nature of the contradiction.\n"
+        "- Note the batches where the contradiction appears.\n"
+        "- Leave resolution_status as 'unresolved' unless the evidence clearly resolves it.\n"
+        "\n"
+        "Contradictions are valuable scientific information. They indicate genuine uncertainty\n"
+        "in the audit and should be transparently reported."
+    )
+
+    # Section 5: Batch Reports
+    sections.append("BATCH REPORTS (contents of each partition audit report):\n")
+    for filename, content in batch_reports:
+        sections.append(
+            f"--- BEGIN BATCH REPORT: {filename} ---\n"
+            f"{content}\n"
+            f"--- END BATCH REPORT: {filename} ---"
+        )
+
+    # Section 6: Output Schema
+    sections.append(_build_dataset_report_schema_description())
+
+    # Section 7: Final Instructions
+    sections.append(
+        "FINAL INSTRUCTIONS:\n"
+        "1. Analyze ALL batch reports thoroughly before writing the merged report.\n"
+        "2. Identify patterns, recurring themes, and contradictions across batches.\n"
+        "3. Coverage data is provided as evidence — interpret it, don't just report raw counts.\n"
+        "4. Every required section in the schema must be populated.\n"
+        "5. If a section has no data (e.g., no contradictions found), use an empty list.\n"
+        "6. Do NOT add findings that are not present in the input batch reports.\n"
+        "7. Do NOT discard contradictory findings.\n"
+        "8. Output ONLY valid JSON matching the schema exactly."
     )
 
     return "\n\n".join(sections).strip() + "\n"

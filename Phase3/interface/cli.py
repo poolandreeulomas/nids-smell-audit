@@ -1,6 +1,7 @@
 """Interactive CLI for the NIDS agent project."""
 
 from __future__ import annotations
+import pandas as pd
 
 from collections import Counter
 from dataclasses import dataclass
@@ -37,10 +38,22 @@ from final_batch_auditor.runtime_artifacts import (
     list_final_batch_auditor_run_dirs,
     load_final_batch_auditor_bundle,
 )
-from final_batch_report.runner import run_final_batch_report
+from final_batch_report.runner import run_dataset_merger, run_final_batch_report
 from final_batch_report.runtime_artifacts import (
     list_final_batch_report_run_dirs,
+    list_merger_run_dirs,
     load_final_batch_report_bundle,
+    load_merger_bundle,
+)
+from coverage_builder.runner import run_coverage_builder
+from coverage_builder.runtime_artifacts import (
+    list_coverage_builder_run_dirs,
+    load_coverage_builder_bundle,
+)
+from partition_memory_extractor.runner import run_partition_memory_extractor
+from partition_memory_extractor.runtime_artifacts import (
+    list_partition_memory_run_dirs,
+    load_partition_memory_bundle,
 )
 from state.schema import CanonicalBatchState
 from phase3_runtime.context_builder import build_round_snapshot
@@ -84,6 +97,18 @@ from interface.terminal_ui import (
     render_planner_run_review,
     render_recent_aggregation_runs,
     render_recent_router_runs,
+    render_coverage_builder_menu,
+    render_coverage_builder_run_review,
+    render_dataset_merger_menu,
+    render_dataset_merger_run_review,
+    render_dataset_runtime_menu,
+    render_dataset_runtime_run_review,
+    render_partition_memory_extractor_menu,
+    render_partition_memory_extractor_run_review,
+    render_recent_coverage_builder_runs,
+    render_recent_dataset_merger_runs,
+    render_recent_dataset_runtime_runs,
+    render_recent_partition_memory_extractor_runs,
     render_phase3a_components_menu,
     render_dataset_selection,
     render_error,
@@ -453,6 +478,23 @@ class FinalBatchReportRunContext:
 
 
 @dataclass
+class DatasetRunContext:
+    """Cached Dataset Runtime run context for CLI inspection."""
+
+    run_id: str
+    dataset_name: str
+    overall_status: str
+    total_partitions: int
+    completed_partitions: int
+    failed_partitions: int
+    skipped_partitions: int
+    partition_results: list[dict[str, Any]]
+    dataset_memory: dict[str, Any] | None = None
+    final_dataset_report: dict[str, Any] | None = None
+    error_message: str | None = None
+
+
+@dataclass
 class Phase3ARuntimeRunContext:
     """Cached Phase 3A batch runtime context for CLI inspection."""
 
@@ -596,6 +638,33 @@ class NidsAgentCli:
         self._selected_final_batch_report_run: FinalBatchReportRunContext | None = None
         self._last_phase3a_runtime_run: Phase3ARuntimeRunContext | None = None
         self._selected_phase3a_runtime_run: Phase3ARuntimeRunContext | None = None
+        self._last_partition_memory_run: DatasetRunContext | None = None
+        self._selected_partition_memory_run: DatasetRunContext | None = None
+        self._last_coverage_builder_run: DatasetRunContext | None = None
+        self._selected_coverage_builder_run: DatasetRunContext | None = None
+        self._last_dataset_merger_run: DatasetRunContext | None = None
+        self._selected_dataset_merger_run: DatasetRunContext | None = None
+        self._last_dataset_runtime_run: DatasetRunContext | None = None
+        self._selected_dataset_runtime_run: DatasetRunContext | None = None
+        self._view_partition_memory_runs_limit = 5
+        self._view_coverage_builder_runs_limit = 5
+        self._view_dataset_merger_runs_limit = 5
+        self._view_dataset_runtime_runs_limit = 5
+        self._selected_tool_name: str | None = None
+        self._last_phase3a_runtime_run: Phase3ARuntimeRunContext | None = None
+        self._selected_phase3a_runtime_run: Phase3ARuntimeRunContext | None = None
+        self._last_partition_memory_run: DatasetRunContext | None = None
+        self._selected_partition_memory_run: DatasetRunContext | None = None
+        self._last_coverage_builder_run: DatasetRunContext | None = None
+        self._selected_coverage_builder_run: DatasetRunContext | None = None
+        self._last_dataset_merger_run: DatasetRunContext | None = None
+        self._selected_dataset_merger_run: DatasetRunContext | None = None
+        self._last_dataset_runtime_run: DatasetRunContext | None = None
+        self._selected_dataset_runtime_run: DatasetRunContext | None = None
+        self._view_partition_memory_runs_limit = 5
+        self._view_coverage_builder_runs_limit = 5
+        self._view_dataset_merger_runs_limit = 5
+        self._view_dataset_runtime_runs_limit = 5
         self._selected_tool_name: str | None = None
         self._session_run_counter = get_next_run_index(LOG_DIR) - 1
         self._running = True
@@ -615,6 +684,10 @@ class NidsAgentCli:
             "critic": self._critic_menu,
             "final_batch_auditor": self._final_batch_auditor_menu,
             "final_batch_report": self._final_batch_report_menu,
+            "partition_memory": self._partition_memory_menu,
+            "coverage_builder": self._coverage_builder_menu,
+            "dataset_merger": self._dataset_merger_menu,
+            "dataset_runtime": self._dataset_runtime_menu,
             "tools": self._tools_menu,
             "run": self._run_agent_menu,
             "judge": self._judge_menu,
@@ -677,7 +750,7 @@ class NidsAgentCli:
     def _phase3a_components_menu(self) -> str:
         self._render(render_phase3a_components_menu())
         choice = self._read_menu_choice(
-            {"1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "B", "Q"})
+            {"1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "B", "Q"})
         # For the Phase 3A Batch Runtime flow we prefer a cleaner menu view
         # without availability noise; re-render without the marker when the
         # user explicitly requests the batch runtime route. This preserves
@@ -715,6 +788,14 @@ class NidsAgentCli:
             return "phase3a_runtime"
         if choice == "13":
             return "final_batch_report"
+        if choice == "14":
+            return "partition_memory"
+        if choice == "15":
+            return "coverage_builder"
+        if choice == "16":
+            return "dataset_merger"
+        if choice == "17":
+            return "dataset_merger"
         return "tools"
 
     def _phase3a_runtime_menu(self) -> str:
@@ -739,7 +820,7 @@ class NidsAgentCli:
         )
 
         choice = self._read_menu_choice(
-            {"1", "2", "3", "4", "L", "V", "E", "D", "C", "B", "Q"})
+            {"1", "2", "3", "4", "5", "6", "7", "L", "V", "E", "D", "C", "B", "Q"})
         if choice == "Q":
             self._quit()
             return "phase3a_runtime"
@@ -753,6 +834,12 @@ class NidsAgentCli:
             return self._run_phase3a_runtime_flow("full_round")
         if choice == "4":
             return self._run_phase3a_runtime_flow("full_batch")
+        if choice == "5":
+            return "dataset_runtime"
+        if choice == "6":
+            return self._latest_dataset_runtime_run_menu()
+        if choice == "7":
+            return self._view_dataset_runtime_runs_menu()
         if choice == "L":
             return self._latest_phase3a_runtime_run_menu()
         if choice == "C":
@@ -1295,6 +1382,720 @@ class NidsAgentCli:
             return self._final_batch_report_config_flow()
         return self._view_final_batch_report_runs_menu()
 
+    # ── Partition Memory Extractor ────────────────────────────────────────
+
+    def _partition_memory_menu(self) -> str:
+        latest_run_context = self._get_latest_partition_memory_run_context()
+        latest_run_name = None
+        if latest_run_context is not None:
+            latest_run_name = latest_run_context.run_id
+
+        self._render(
+            render_partition_memory_extractor_menu(
+                dataset_name=self._get_selected_dataset_label(),
+                latest_run_name=latest_run_name,
+            )
+        )
+        choice = self._read_letter_choice({"R", "L", "V", "B", "Q"})
+        if choice == "Q":
+            self._quit()
+            return "partition_memory"
+        if choice == "B":
+            return "phase3a"
+        if choice == "R":
+            return self._run_partition_memory_flow()
+        if choice == "L":
+            return self._latest_partition_memory_run_menu()
+        return self._view_partition_memory_runs_menu()
+
+    def _run_partition_memory_flow(self) -> str:
+        """Run Partition Memory Extractor on a selected Final Batch Report."""
+        from partition_memory_extractor.runner import run_partition_memory_extractor
+        fbr_dirs = list_final_batch_report_run_dirs()
+        if not fbr_dirs:
+            self._show_error("No Final Batch Report runs are available. Run a Full Batch first.")
+            return "partition_memory"
+        self._clear_screen()
+        print("Available Final Batch Report runs:")
+        for i, d in enumerate(fbr_dirs, 1):
+            print(f"[{i}] {d.name}")
+        print("[B] Back")
+        valid = {str(i) for i in range(1, len(fbr_dirs) + 1)} | {"B"}
+        choice = self._read_menu_choice(valid)
+        if choice == "B":
+            return "partition_memory"
+        run_dir = fbr_dirs[int(choice) - 1]
+        partition_id = self._get_selected_dataset_label()
+        try:
+            bundle = run_partition_memory_extractor(
+                run_dir,
+                partition_id,
+                model_name=self.session_config.model_name,
+            )
+        except Exception as exc:
+            self._show_error(f"Partition Memory extraction failed: {exc}")
+            return "partition_memory"
+        self._last_partition_memory_run = DatasetRunContext(
+            run_id=run_dir.name + "_pm",
+            dataset_name=partition_id,
+            overall_status=bundle.get("runtime_metrics", {}).get("status", "ok"),
+            total_partitions=1,
+            completed_partitions=1,
+            failed_partitions=0,
+            skipped_partitions=0,
+            partition_results=[],
+            dataset_memory=dict(bundle.get("partition_memory", {})),
+        )
+        self._selected_partition_memory_run = self._last_partition_memory_run
+        self._show_info(f"Partition Memory extracted successfully from {run_dir.name}")
+        return "partition_memory"
+
+    def _latest_partition_memory_run_menu(self) -> str:
+        run_context = self._get_latest_partition_memory_run_context()
+        if run_context is None:
+            self._show_error("No persisted Partition Memory runs are available yet.")
+            return "partition_memory"
+        self._selected_partition_memory_run = run_context
+        while True:
+            self._render_partition_memory_run_review(run_context)
+            choice = self._read_menu_choice({"1", "2", "B", "Q"})
+            if choice == "Q":
+                self._quit()
+                return "partition_memory"
+            if choice == "B":
+                return "partition_memory"
+            self._handle_partition_memory_review_choice(choice, run_context)
+
+    def _view_partition_memory_runs_menu(self) -> str:
+        return self._generic_view_runs_menu(
+            component_name="partition_memory",
+            list_fn=lambda: list_partition_memory_run_dirs(limit=self._view_partition_memory_runs_limit),
+            load_fn=self._load_partition_memory_run_context,
+            limit=self._view_partition_memory_runs_limit,
+            render_list_fn=lambda runs, lim: render_recent_partition_memory_extractor_runs(
+                [{"run_name": p.name, "metrics": {}, "partition_id": ""} for p in runs]
+            ),
+            render_review_fn=self._render_partition_memory_run_review,
+            handle_review_fn=self._handle_partition_memory_review_choice,
+            back_screen="partition_memory",
+            limit_attr="_view_partition_memory_runs_limit",
+        )
+
+    def _render_partition_memory_run_review(self, ctx: DatasetRunContext) -> None:
+        self._render(render_partition_memory_extractor_run_review({
+            "artifact_paths": {
+                "prompt_path": ctx.dataset_memory.get("_prompt_path", ""),
+                "raw_response_path": ctx.dataset_memory.get("_raw_response_path", ""),
+                "partition_memory_path": ctx.dataset_memory.get("_output_path", ""),
+            },
+            "partition_memory": {"partition_id": ctx.run_id},
+            "runtime_metrics": {"request_id": ctx.run_id, "status": ctx.overall_status, "duration_ms": ctx.dataset_memory.get("_duration_ms", "")},
+        }))
+
+    def _handle_partition_memory_review_choice(self, choice: str, ctx: DatasetRunContext) -> None:
+        if choice == "1" and ctx.dataset_memory:
+            self._render(render_tool_json_view(
+                title="Partition Memory",
+                path_label="Phase 3B / Partition Memory Extractor / Review / Memory",
+                payload=ctx.dataset_memory,
+                hint="Extracted partition memory content.",
+            ))
+            self._wait_for_enter()
+        elif choice == "2" and ctx.dataset_memory:
+            self._render(render_text_view(
+                title="Partition Memory Prompt",
+                path_label="Phase 3B / Partition Memory Extractor / Review / Prompt",
+                content=ctx.dataset_memory.get("_prompt", "") or "No prompt recorded.",
+                hint="Rendered prompt sent to the model.",
+            ))
+            self._wait_for_enter()
+        else:
+            self._show_info(f"Detail view for choice {choice}: not available.")
+
+    def _get_latest_partition_memory_run_context(self) -> DatasetRunContext | None:
+        dirs = list_partition_memory_run_dirs(limit=1)
+        if not dirs:
+            return None
+        return self._load_partition_memory_run_context(dirs[0])
+
+    def _load_partition_memory_run_context(self, run_dir: Path) -> DatasetRunContext:
+        bundle = load_partition_memory_bundle(run_dir)
+        return DatasetRunContext(
+            run_id=run_dir.name,
+            dataset_name="",
+            overall_status=str(bundle.get("component_run", {}).get("status", "unknown")),
+            total_partitions=1,
+            completed_partitions=1 if bundle.get("component_run", {}).get("status") == "completed" else 0,
+            failed_partitions=0,
+            skipped_partitions=0,
+            partition_results=[],
+            dataset_memory=dict(bundle.get("parsed_output", {})),
+        )
+
+    # ── Coverage Builder ────────────────────────────────────────────────
+
+    def _coverage_builder_menu(self) -> str:
+        latest_run_context = self._get_latest_coverage_builder_run_context()
+        latest_run_name = None
+        if latest_run_context is not None:
+            latest_run_name = latest_run_context.run_id
+
+        self._render(
+            render_coverage_builder_menu(
+                dataset_name=self._get_selected_dataset_label(),
+                latest_run_name=latest_run_name,
+            )
+        )
+        choice = self._read_letter_choice({"R", "L", "V", "B", "Q"})
+        if choice == "Q":
+            self._quit()
+            return "coverage_builder"
+        if choice == "B":
+            return "phase3a"
+        if choice == "R":
+            return self._run_coverage_builder_flow()
+        if choice == "L":
+            return self._latest_coverage_builder_run_menu()
+        return self._view_coverage_builder_runs_menu()
+
+    def _run_coverage_builder_flow(self) -> str:
+        """Run Coverage Builder on selected Partition Memory runs."""
+        pm_dirs = list_partition_memory_run_dirs()
+        if not pm_dirs:
+            self._show_error("No Partition Memory runs are available. Run Partition Memory Extractor first.")
+            return "coverage_builder"
+        self._clear_screen()
+        print("Select Partition Memory runs to include (comma-separated indices, or A for all):")
+        for i, d in enumerate(pm_dirs, 1):
+            print(f"[{i}] {d.name}")
+        print("[B] Back")
+        valid = {str(i) for i in range(1, len(pm_dirs) + 1)} | {"A", "B"}
+        choice = self._read_menu_choice(valid)
+        if choice == "B":
+            return "coverage_builder"
+        if choice == "A":
+            selected = pm_dirs
+        else:
+            idx = int(choice) - 1
+            selected = [pm_dirs[idx]]
+        dataset_id = self._get_selected_dataset_label()
+        try:
+            bundle = run_coverage_builder(selected, dataset_id)
+        except Exception as exc:
+            self._show_error(f"Coverage Builder failed: {exc}")
+            return "coverage_builder"
+        metrics = bundle.get("runtime_metrics", {})
+        self._last_coverage_builder_run = DatasetRunContext(
+            run_id=dataset_id + "_coverage",
+            dataset_name=dataset_id,
+            overall_status=metrics.get("status", "ok"),
+            total_partitions=metrics.get("partitions_available", len(selected)),
+            completed_partitions=metrics.get("partitions_loaded", len(selected)),
+            failed_partitions=metrics.get("partitions_failed", 0),
+            skipped_partitions=0,
+            partition_results=[],
+            dataset_memory=dict(bundle.get("dataset_memory", {})),
+        )
+        self._selected_coverage_builder_run = self._last_coverage_builder_run
+        self._show_info(f"Coverage Builder completed: {metrics.get('partitions_loaded', 0)}/{metrics.get('partitions_available', 0)} partitions loaded")
+        return "coverage_builder"
+
+    def _latest_coverage_builder_run_menu(self) -> str:
+        run_context = self._get_latest_coverage_builder_run_context()
+        if run_context is None:
+            self._show_error("No persisted Coverage Builder runs are available yet.")
+            return "coverage_builder"
+        self._selected_coverage_builder_run = run_context
+        while True:
+            self._render_coverage_builder_run_review(run_context)
+            choice = self._read_menu_choice({"1", "2", "B", "Q"})
+            if choice == "Q":
+                self._quit()
+                return "coverage_builder"
+            if choice == "B":
+                return "coverage_builder"
+            self._handle_coverage_builder_review_choice(choice, run_context)
+
+    def _view_coverage_builder_runs_menu(self) -> str:
+        return self._generic_view_runs_menu(
+            component_name="coverage_builder",
+            list_fn=lambda: list_coverage_builder_run_dirs(limit=self._view_coverage_builder_runs_limit),
+            load_fn=self._load_coverage_builder_run_context,
+            limit=self._view_coverage_builder_runs_limit,
+            render_list_fn=lambda runs, lim: render_recent_coverage_builder_runs(
+                [{"run_name": p.name, "metrics": {}} for p in runs]
+            ),
+            render_review_fn=self._render_coverage_builder_run_review,
+            handle_review_fn=self._handle_coverage_builder_review_choice,
+            back_screen="coverage_builder",
+            limit_attr="_view_coverage_builder_runs_limit",
+        )
+
+    def _render_coverage_builder_run_review(self, ctx: DatasetRunContext) -> None:
+        self._render(render_coverage_builder_run_review({
+            "artifact_paths": {
+                "dataset_memory_path": ctx.dataset_memory.get("_output_path", ""),
+            },
+            "runtime_metrics": {"request_id": ctx.run_id, "status": ctx.overall_status, "partitions_loaded": ctx.completed_partitions, "duration_ms": ""},
+        }))
+
+    def _handle_coverage_builder_review_choice(self, choice: str, ctx: DatasetRunContext) -> None:
+        if choice == "1" and ctx.dataset_memory:
+            self._render(render_tool_json_view(
+                title="Dataset Memory (Coverage)",
+                path_label="Phase 3B / Coverage Builder / Review / Dataset Memory",
+                payload=ctx.dataset_memory,
+                hint="Aggregated dataset-level coverage data.",
+            ))
+            self._wait_for_enter()
+        else:
+            self._show_info(f"Detail view for choice {choice}: not available.")
+
+    def _get_latest_coverage_builder_run_context(self) -> DatasetRunContext | None:
+        dirs = list_coverage_builder_run_dirs(limit=1)
+        if not dirs:
+            return None
+        return self._load_coverage_builder_run_context(dirs[0])
+
+    def _load_coverage_builder_run_context(self, run_dir: Path) -> DatasetRunContext:
+        bundle = load_coverage_builder_bundle(run_dir)
+        return DatasetRunContext(
+            run_id=run_dir.name,
+            dataset_name="",
+            overall_status=str(bundle.get("component_run", {}).get("status", "unknown")),
+            total_partitions=1,
+            completed_partitions=1 if bundle.get("component_run", {}).get("status") == "completed" else 0,
+            failed_partitions=0,
+            skipped_partitions=0,
+            partition_results=[],
+            dataset_memory=dict(bundle.get("coverage_data", {})),
+        )
+
+    # ── Dataset Merger ──────────────────────────────────────────────────
+
+    def _dataset_merger_menu(self) -> str:
+        latest_run_context = self._get_latest_dataset_merger_run_context()
+        latest_run_name = None
+        if latest_run_context is not None:
+            latest_run_name = latest_run_context.run_id
+
+        self._render(
+            render_dataset_merger_menu(
+                dataset_name=self._get_selected_dataset_label(),
+                latest_run_name=latest_run_name,
+            )
+        )
+        choice = self._read_letter_choice({"R", "L", "V", "B", "Q"})
+        if choice == "Q":
+            self._quit()
+            return "dataset_merger"
+        if choice == "B":
+            return "phase3a"
+        if choice == "R":
+            return self._run_dataset_merger_flow()
+        if choice == "L":
+            return self._latest_dataset_merger_run_menu()
+        return self._view_dataset_merger_runs_menu()
+
+    def _run_dataset_merger_flow(self) -> str:
+        """Run Dataset Merger using coverage data from a Coverage Builder run."""
+        cb_dirs = list_coverage_builder_run_dirs()
+        if not cb_dirs:
+            self._show_error("No Coverage Builder runs are available. Run Coverage Builder first.")
+            return "dataset_merger"
+        self._clear_screen()
+        print("Select Coverage Builder run to use:")
+        for i, d in enumerate(cb_dirs, 1):
+            print(f"[{i}] {d.name}")
+        print("[B] Back")
+        valid = {str(i) for i in range(1, len(cb_dirs) + 1)} | {"B"}
+        choice = self._read_menu_choice(valid)
+        if choice == "B":
+            return "dataset_merger"
+        cb_dir = cb_dirs[int(choice) - 1]
+        coverage_bundle = load_coverage_builder_bundle(cb_dir)
+        coverage_file = str(cb_dir)
+        import json, tempfile
+        with tempfile.NamedTemporaryFile(mode='w', suffix='.json', delete=False) as f:
+            json.dump(coverage_bundle.get("coverage_data", {}), f)
+            tmp_path = f.name
+        try:
+            bundle = run_dataset_merger(
+                batch_reports_dir="docs/batch_reports",
+                coverage_file=tmp_path,
+                output_dir="final_dataset",
+                llm_callable=None,
+            )
+        except Exception as exc:
+            import os
+            os.unlink(tmp_path)
+            self._show_error(f"Dataset Merger failed: {exc}")
+            return "dataset_merger"
+        import os
+        os.unlink(tmp_path)
+        metrics = dict(bundle.get("runtime_metrics", {})) if hasattr(bundle, 'get') else {}
+        report_json = dict(bundle.get("report_json", {})) if hasattr(bundle, 'get') else {}
+        report_md = str(bundle.get("report_markdown", "")) if hasattr(bundle, 'get') else ""
+        ctx = DatasetRunContext(
+            run_id=f"dataset_merger_{datetime.now(UTC).strftime('%Y%m%d_%H%M%S')}",
+            dataset_name=self._get_selected_dataset_label(),
+            overall_status=metrics.get("status", "completed" if report_json else "error"),
+            total_partitions=1,
+            completed_partitions=1 if report_json else 0,
+            failed_partitions=0,
+            skipped_partitions=0,
+            partition_results=[],
+            dataset_memory=report_json,
+            final_dataset_report=report_json,
+        )
+        self._last_dataset_merger_run = ctx
+        self._selected_dataset_merger_run = ctx
+        self._show_info("Dataset Merger completed successfully. Final Dataset Report generated.")
+        return "dataset_merger"
+
+    def _latest_dataset_merger_run_menu(self) -> str:
+        run_context = self._get_latest_dataset_merger_run_context()
+        if run_context is None:
+            self._show_error("No persisted Dataset Merger runs are available yet.")
+            return "dataset_merger"
+        self._selected_dataset_merger_run = run_context
+        while True:
+            self._render_dataset_merger_run_review(run_context)
+            choice = self._read_menu_choice({"1", "2", "B", "Q"})
+            if choice == "Q":
+                self._quit()
+                return "dataset_merger"
+            if choice == "B":
+                return "dataset_merger"
+            self._handle_dataset_merger_review_choice(choice, run_context)
+
+    def _view_dataset_merger_runs_menu(self) -> str:
+        return self._generic_view_runs_menu(
+            component_name="dataset_merger",
+            list_fn=lambda: list_merger_run_dirs(limit=self._view_dataset_merger_runs_limit),
+            load_fn=self._load_dataset_merger_run_context,
+            limit=self._view_dataset_merger_runs_limit,
+            render_list_fn=lambda runs, lim: render_recent_dataset_merger_runs(
+                [{"run_name": p.name, "metrics": {}} for p in runs]
+            ),
+            render_review_fn=self._render_dataset_merger_run_review,
+            handle_review_fn=self._handle_dataset_merger_review_choice,
+            back_screen="dataset_merger",
+            limit_attr="_view_dataset_merger_runs_limit",
+        )
+
+    def _render_dataset_merger_run_review(self, ctx: DatasetRunContext) -> None:
+        self._render(render_dataset_merger_run_review({
+            "artifact_paths": {
+                "report_json_path": ctx.dataset_memory.get("_report_json_path", ""),
+                "report_md_path": ctx.dataset_memory.get("_report_md_path", ""),
+            },
+            "runtime_metrics": {"run_id": ctx.run_id, "status": ctx.overall_status, "batch_report_count": ctx.completed_partitions},
+        }))
+
+    def _handle_dataset_merger_review_choice(self, choice: str, ctx: DatasetRunContext) -> None:
+        if choice == "1" and ctx.final_dataset_report:
+            self._render(render_tool_json_view(
+                title="Final Dataset Report (JSON)",
+                path_label="Phase 3B / Dataset Merger / Review / Report JSON",
+                payload=ctx.final_dataset_report,
+                hint="Structured final dataset report.",
+            ))
+            self._wait_for_enter()
+        elif choice == "2" and ctx.dataset_memory:
+            self._render(render_text_view(
+                title="Dataset Merger Prompt",
+                path_label="Phase 3B / Dataset Merger / Review / Prompt",
+                content=ctx.dataset_memory.get("_prompt", "") or "No prompt recorded.",
+                hint="Rendered merge prompt sent to the model.",
+            ))
+            self._wait_for_enter()
+        else:
+            self._show_info(f"Detail view for choice {choice}: not available.")
+
+    def _get_latest_dataset_merger_run_context(self) -> DatasetRunContext | None:
+        dirs = list_merger_run_dirs(limit=1)
+        if not dirs:
+            return None
+        return self._load_dataset_merger_run_context(dirs[0])
+
+    def _load_dataset_merger_run_context(self, run_dir: Path) -> DatasetRunContext:
+        bundle = load_merger_bundle(run_dir)
+        return DatasetRunContext(
+            run_id=run_dir.name,
+            dataset_name="",
+            overall_status=str(bundle.get("component_run", {}).get("status", "unknown")),
+            total_partitions=1,
+            completed_partitions=1 if bundle.get("component_run", {}).get("status") == "completed" else 0,
+            failed_partitions=0,
+            skipped_partitions=0,
+            partition_results=[],
+            dataset_memory=dict(bundle.get("report_json", {})),
+            final_dataset_report=dict(bundle.get("report_json", {})),
+        )
+
+    # ── Dataset Runtime (Full Dataset) ─────────────────────────────────
+
+    def _dataset_runtime_menu(self) -> str:
+        latest_run_context = self._last_dataset_runtime_run
+        latest_run_name = None
+        if latest_run_context is not None:
+            latest_run_name = latest_run_context.run_id
+
+        self._render(
+            render_dataset_runtime_menu(
+                dataset_name=self._get_selected_dataset_label(),
+                latest_run_id=latest_run_name,
+            )
+        )
+        choice = self._read_letter_choice({"R", "L", "V", "B", "Q"})
+        if choice == "Q":
+            self._quit()
+            return "dataset_runtime"
+        if choice == "B":
+            return "phase3a_runtime"
+        if choice == "R":
+            return self._run_full_dataset_flow()
+        if choice == "L":
+            return self._latest_dataset_runtime_run_menu()
+        return self._view_dataset_runtime_runs_menu()
+
+    def _run_full_dataset_flow(self) -> str:
+        """Run full dataset pipeline across all partitions."""
+        available = self._get_available_dataset_paths()
+        if not available:
+            self._show_error("No dataset partitions are available.")
+            return "dataset_runtime"
+        self._clear_screen()
+        print("Select dataset partition:")
+        for i, p in enumerate(available, 1):
+            marker = "  <current>" if p.name == self.session_config.dataset_name else ""
+            print(f"[{i}] {p.name}{marker}")
+        print("[A] All partitions")
+        print("[B] Back")
+        valid = {str(i) for i in range(1, len(available) + 1)} | {"A", "B"}
+        choice = self._read_menu_choice(valid)
+        if choice == "B":
+            return "dataset_runtime"
+        if choice == "A":
+            partitions = [str(p) for p in available]
+        else:
+            partitions = [str(available[int(choice) - 1])]
+        dataset_name = self._get_selected_dataset_label()
+        from dataset_runtime.orchestrator import run_full_dataset
+        from dataset_runtime.runtime_artifacts import SinglePartitionResult
+        from phase3_runtime.orchestrator import run_phase3a_batch
+        from main import build_phase3a_llm_callables
+        def run_single_batch(partition_name: str) -> SinglePartitionResult:
+            try:
+                batch_result = run_phase3a_batch(
+                    Path(DATA_DIR) / partition_name,
+                    model_name=self.session_config.model_name,
+                    max_rounds=1,
+                    execution_mode="full_batch",
+                    enable_critic=False,
+                    caller_mode="cli",
+                    llm_callables=build_phase3a_llm_callables(
+                        self.session_config.model_name, 0.0, {}
+                    ),
+                )
+                return SinglePartitionResult(
+                    partition_name=partition_name,
+                    status="completed",
+                    batch_report=str(batch_result.get("artifact_paths", {}).get("report_path", "")),
+                )
+            except Exception as exc:
+                return SinglePartitionResult(
+                    partition_name=partition_name,
+                    status="failed",
+                    error_message=str(exc),
+                )
+        def cov_builder_callable(memories: list[dict], total: int) -> dict:
+            from coverage_builder.runner import run_coverage_builder as rcb
+            return rcb([], dataset_name)
+        def merger_callable(dataset_memory: dict) -> dict:
+            from final_batch_report.runner import run_dataset_merger as rdm
+            return {"final_dataset_report": dataset_memory}
+        try:
+            artifacts = run_full_dataset(
+                partitions,
+                dataset_name=dataset_name,
+                max_retries=1,
+                run_single_batch=run_single_batch,
+                run_coverage_builder=cov_builder_callable,
+                run_dataset_merger=merger_callable,
+            )
+        except Exception as exc:
+            self._show_error(f"Full dataset run failed: {exc}")
+            return "dataset_runtime"
+        self._last_dataset_runtime_run = DatasetRunContext(
+            run_id=artifacts.run_id,
+            dataset_name=artifacts.dataset_name,
+            overall_status=artifacts.overall_status,
+            total_partitions=artifacts.total_partitions,
+            completed_partitions=artifacts.completed_partitions,
+            failed_partitions=artifacts.failed_partitions,
+            skipped_partitions=artifacts.skipped_partitions,
+            partition_results=[{"partition_name": p.partition_name, "status": p.status}
+                               for p in artifacts.partition_results],
+            dataset_memory=artifacts.dataset_memory,
+            final_dataset_report=artifacts.final_dataset_report,
+            error_message=artifacts.error_message,
+        )
+        self._show_info(
+            f"Dataset run completed: {artifacts.completed_partitions}/{artifacts.total_partitions} partitions succeeded"
+        )
+        return "dataset_runtime"
+
+    def _latest_dataset_runtime_run_menu(self) -> str:
+        if self._last_dataset_runtime_run is None:
+            self._show_error("No dataset runtime runs are available in this session yet.")
+            return "dataset_runtime"
+        ctx = self._last_dataset_runtime_run
+        while True:
+            self._render_dataset_runtime_run_review(ctx)
+            choice = self._read_menu_choice({"1", "2", "B", "Q"})
+            if choice == "Q":
+                self._quit()
+                return "dataset_runtime"
+            if choice == "B":
+                return "dataset_runtime"
+            self._handle_dataset_runtime_review_choice(choice, ctx)
+
+    def _view_dataset_runtime_runs_menu(self) -> str:
+        return self._generic_view_runs_menu(
+            component_name="dataset_runtime",
+            list_fn=lambda: [
+                p for p in sorted(
+                    Path("nids-smell-audit/Phase3/logs/dataset_runtime_runs").iterdir(),
+                    reverse=True,
+                ) if p.is_dir()
+            ][:self._view_dataset_runtime_runs_limit] if Path("nids-smell-audit/Phase3/logs/dataset_runtime_runs").exists() else [],
+            load_fn=self._load_dataset_runtime_run_context,
+            limit=self._view_dataset_runtime_runs_limit,
+            render_list_fn=lambda runs, lim: render_recent_dataset_runtime_runs(
+                [{"run_id": p.name, "overall_status": ""} for p in runs]
+            ),
+            render_review_fn=self._render_dataset_runtime_run_review,
+            handle_review_fn=self._handle_dataset_runtime_review_choice,
+            back_screen="dataset_runtime",
+            limit_attr="_view_dataset_runtime_runs_limit",
+        )
+
+    def _render_dataset_runtime_run_review(self, ctx: DatasetRunContext) -> None:
+        self._render(render_dataset_runtime_run_review({
+            "run_id": ctx.run_id,
+            "dataset_name": ctx.dataset_name,
+            "overall_status": ctx.overall_status,
+            "completed_partitions": ctx.completed_partitions,
+            "failed_partitions": ctx.failed_partitions,
+            "skipped_partitions": ctx.skipped_partitions,
+            "error_message": ctx.error_message,
+            "partition_results": [{"partition_name": p.get("partition_name",""), "status": p.get("status","")}
+                                   for p in ctx.partition_results],
+        }))
+
+    def _handle_dataset_runtime_review_choice(self, choice: str, ctx: DatasetRunContext) -> None:
+        if choice == "1" and ctx.dataset_memory:
+            self._render(render_tool_json_view(
+                title="Dataset Memory",
+                path_label="Phase 3B / Dataset Runtime / Review / Dataset Memory",
+                payload=ctx.dataset_memory,
+                hint="Aggregated dataset memory from coverage builder.",
+            ))
+            self._wait_for_enter()
+        elif choice == "2" and ctx.final_dataset_report:
+            self._render(render_tool_json_view(
+                title="Final Dataset Report",
+                path_label="Phase 3B / Dataset Runtime / Review / Final Report",
+                payload=ctx.final_dataset_report,
+                hint="Final dataset-level audit report.",
+            ))
+            self._wait_for_enter()
+        else:
+            self._show_info(f"Detail view for choice {choice}: not available.")
+
+    def _load_dataset_runtime_run_context(self, run_dir: Path) -> DatasetRunContext:
+        record = load_dataset_run_record(run_dir)
+        return DatasetRunContext(
+            run_id=record.run_id,
+            dataset_name=record.dataset_name,
+            overall_status=record.overall_status,
+            total_partitions=record.total_partitions,
+            completed_partitions=record.completed_partitions,
+            failed_partitions=record.failed_partitions,
+            skipped_partitions=record.skipped_partitions,
+            partition_results=[{"partition_name": r.partition_name, "status": r.status} for r in record.partition_results],
+            dataset_memory=record.dataset_memory,
+            final_dataset_report=record.final_dataset_report,
+            error_message=record.error_message,
+        )
+
+    # ── Generic View Runs Helper ────────────────────────────────────────
+
+    def _generic_view_runs_menu(
+        self,
+        *,
+        component_name: str,
+        list_fn,
+        load_fn,
+        limit: int,
+        render_list_fn,
+        render_review_fn,
+        handle_review_fn,
+        back_screen: str,
+        limit_attr: str,
+    ) -> str:
+        while True:
+            recent_runs = list_fn()
+            self._render(render_list_fn(recent_runs, limit))
+            if not recent_runs:
+                choice = self._read_letter_choice({"B", "Q"})
+                if choice == "Q":
+                    self._quit()
+                    return back_screen
+                return back_screen
+            valid_choices = {str(i) for i in range(1, len(recent_runs) + 1)} | {"N", "B", "Q"}
+            choice = self._read_menu_choice(valid_choices)
+            if choice == "Q":
+                self._quit()
+                return back_screen
+            if choice == "B":
+                return back_screen
+            if choice == "N":
+                self._generic_change_view_limit(limit_attr)
+                continue
+            selected_dir = recent_runs[int(choice) - 1]
+            try:
+                ctx = load_fn(selected_dir)
+            except Exception as exc:
+                self._show_error(f"failed to load {component_name} run: {exc}")
+                continue
+            while True:
+                render_review_fn(ctx)
+                rc = self._read_menu_choice({"1", "2", "B", "Q"})
+                if rc == "Q":
+                    self._quit()
+                    return back_screen
+                if rc == "B":
+                    break
+                handle_review_fn(rc, ctx)
+        return back_screen
+
+    def _generic_change_view_limit(self, attr_name: str) -> None:
+        self._clear_screen()
+        print("Enter number of runs to show:")
+        while True:
+            raw = input("> ").strip()
+            if not raw.isdigit():
+                print("Enter a positive integer.")
+                continue
+            val = int(raw)
+            if val <= 0:
+                print("Enter a positive integer.")
+                continue
+            setattr(self, attr_name, val)
+            return
     def _final_batch_report_config_flow(self) -> str:
         """Inline config flow for the Final Batch Report Generator."""
         current_name = self._resolve_phase3a_model_name("final_batch_report")
@@ -2565,7 +3366,7 @@ class NidsAgentCli:
     def _get_available_dataset_paths(self) -> list[Path]:
         return sorted(
             path
-            for path in Path(DATA_DIR).iterdir()
+            for path in Path(DATA_DIR).rglob("*")
             if path.is_file() and path.suffix.lower() in {".csv", ".tsv", ".tab"}
         )
 

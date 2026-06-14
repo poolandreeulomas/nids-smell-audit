@@ -1,17 +1,24 @@
 """Resolve report inputs from the Final Updated State (CanonicalBatchState).
 
-Responsibilities:
+Phase 3a:
   - Build Partition Audit Context (using existing partition descriptors)
   - Build Intended Behavioral Scenario (deterministic, not LLM-generated)
   - Build Researcher Audit Context (audit coverage summary)
   - Build Finding Inventory (investigated vs additional)
   - Finding Prioritization (lightweight ranking score, not shown to users)
   - Internal ID Removal (strip hypothesis IDs, evidence IDs, region IDs)
+
+Phase 3b:
+  - Resolve batch reports from disk (locate .md files)
+  - Load batch report content
+  - Load coverage data from coverage_builder JSON output
 """
 
 from __future__ import annotations
 
-import re
+import json
+import logging
+from pathlib import Path
 from typing import Any
 
 from judge.context_loader import get_judge_partition_context, resolve_judge_partition_phenomenon
@@ -20,16 +27,20 @@ from state.schema import CanonicalBatchState
 
 from final_batch_report.contracts import CICIDS2017_PARTITION_SCENARIOS
 
+logger = logging.getLogger(__name__)
 
-_INTERNAL_ID_RE = re.compile(
+
+# ── Phase 3a — Report context resolution from state ────────────────────────
+
+_INTERNAL_ID_RE = __import__("re").compile(
     r"\b(?:e\d+|hyp_\d+|region_\d+|task_\d+_step_\d+)\b",
-    re.IGNORECASE,
+    __import__("re").IGNORECASE,
 )
 
 
 def _strip_internal_ids(text: str) -> str:
     cleaned = _INTERNAL_ID_RE.sub("[reference]", str(text or ""))
-    cleaned = re.sub(r"\s+", " ", cleaned)
+    cleaned = __import__("re").sub(r"\s+", " ", cleaned)
     return cleaned.strip()
 
 
@@ -53,7 +64,7 @@ def _int_value(value: Any, default: int = 0) -> int:
         return default
 
 
-# âââ Responsibility 1: Build Partition Audit Context ââââââââââââââââââââââââââ
+# ─── Responsibility 1: Build Partition Audit Context ──────────────────────
 
 def build_partition_audit_context(partition_name: str) -> dict[str, Any]:
     """Build partition audit context using existing partition descriptors.
@@ -91,7 +102,7 @@ def build_partition_audit_context(partition_name: str) -> dict[str, Any]:
     }
 
 
-# âââ Responsibility 2: Build Intended Behavioral Scenario âââââââââââââââââââââ
+# ─── Responsibility 2: Build Intended Behavioral Scenario ─────────────────
 
 def build_intended_behavioral_scenario(partition_name: str) -> str:
     """Build intended behavioral scenario deterministically (not LLM-generated).
@@ -117,7 +128,7 @@ def build_intended_behavioral_scenario(partition_name: str) -> str:
     )
 
 
-# âââ Responsibility 3: Build Researcher Audit Context âââââââââââââââââââââââââ
+# ─── Responsibility 3: Build Researcher Audit Context ─────────────────────
 
 def build_researcher_audit_context(
     canonical_state: CanonicalBatchState,
@@ -159,7 +170,7 @@ def build_researcher_audit_context(
     }
 
 
-# âââ Responsibility 4: Build Finding Inventory ââââââââââââââââââââââââââââââââ
+# ─── Responsibility 4: Build Finding Inventory ───────────────────────────
 
 def _classify_finding(hypothesis: Any) -> str:
     """Classify a hypothesis as 'investigated' or 'additional'.
@@ -266,7 +277,7 @@ def build_structural_context(
         ],
     }
 
-# âââ Master Resolver ââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
+# ─── Master Resolver ─────────────────────────────────────────────────────
 
 def resolve_report_context(
     final_state: CanonicalBatchState,
@@ -299,3 +310,82 @@ def resolve_report_context(
         "investigated_findings": investigated,
         "additional_findings": additional,
     }
+
+
+# ── Phase 3b — Dataset Merger input resolution ─────────────────────────────
+
+DEFAULT_BATCH_REPORTS_DIR = Path("docs/batch_reports")
+DEFAULT_COVERAGE_FILE = (
+    Path(__file__).resolve().parent.parent
+    / "coverage_builder"
+    / "coverage_output"
+    / "coverage.json"
+)
+
+
+def resolve_batch_reports(
+    batch_reports_dir: str = "docs/batch_reports",
+) -> list[str]:
+    """Scan the batch reports directory and return absolute paths to .md files.
+
+    Args:
+        batch_reports_dir: Directory containing .md batch report files.
+
+    Returns:
+        List of absolute file paths, sorted alphabetically.
+        Returns empty list if directory doesn't exist.
+    """
+    reports_path = Path(batch_reports_dir)
+    if not reports_path.is_dir():
+        logger.warning("Batch reports directory does not exist: %s", batch_reports_dir)
+        return []
+
+    md_files = sorted(
+        str(p.resolve())
+        for p in reports_path.iterdir()
+        if p.is_file() and p.suffix.lower() == ".md"
+    )
+    return md_files
+
+
+def load_batch_report(file_path: str) -> str:
+    """Load the content of a single batch report file.
+
+    Args:
+        file_path: Path to the .md batch report file.
+
+    Returns:
+        String content of the file.
+
+    Raises:
+        FileNotFoundError if file doesn't exist.
+        IOError if file can't be read.
+    """
+    path = Path(file_path)
+    if not path.exists():
+        raise FileNotFoundError(f"Batch report file not found: {file_path}")
+    try:
+        return path.read_text(encoding="utf-8")
+    except Exception as exc:
+        raise IOError(f"Failed to read batch report file {file_path}: {exc}") from exc
+
+
+def load_coverage_data(coverage_file: str) -> dict:
+    """Load coverage data from the coverage_builder output.
+
+    Args:
+        coverage_file: Path to coverage JSON file.
+
+    Returns:
+        Dictionary with coverage data (may be empty if no coverage data exists).
+    """
+    cov_path = Path(coverage_file)
+    if not cov_path.is_file():
+        logger.warning("Coverage data file not found: %s", coverage_file)
+        return {}
+    try:
+        raw = cov_path.read_text(encoding="utf-8")
+        return dict(json.loads(raw))
+    except Exception as exc:
+        logger.warning("Failed to load coverage data from %s: %s", coverage_file, exc)
+        return {}

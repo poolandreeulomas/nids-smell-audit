@@ -56,7 +56,7 @@ def _select_dataset_path(data_dir: str | Path) -> Path:
 
     candidates = sorted(
         path
-        for path in Path(data_dir).iterdir()
+        for path in Path(data_dir).rglob("*")
         if path.is_file() and path.suffix.lower() in {".csv", ".tsv", ".tab"}
     )
     if not candidates:

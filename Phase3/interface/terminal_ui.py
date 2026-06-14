@@ -173,6 +173,10 @@ def render_phase3a_components_menu() -> str:
                 "[11] Tools",
                 "[12] Phase 3A Batch Runtime",
                 "[13] Final Batch Report  <available>",
+                "[14] Partition Memory Extractor  <available>",
+                "[15] Coverage Builder  <available>",
+                "[16] Dataset Merger  <available>",
+                "[17] Final Dataset Report  <available>",
             ],
         )),
         *(_section("Actions", _menu_lines([("B", "Back"), ("Q", "Quit")]))),
@@ -217,6 +221,9 @@ def render_phase3a_runtime_menu(
                     ("V", "View Saved Phase 3A Batch Runs"),
                     ("E", "Evaluate Phase 3A Batch Runs  <planned>"),
                     ("D", "Debug / Replay Phase 3A Batch Run  <planned>"),
+                    ("5", "Run Full Dataset  <available>"),
+                    ("6", "Review Latest Dataset Run  <available>"),
+                    ("7", "View Saved Dataset Runs  <available>"),
                     ("C", "Open Session Config"),
                     ("B", "Back"),
                     ("Q", "Quit"),
@@ -2261,6 +2268,259 @@ def render_saved_judge_report(artifact_paths: dict[str, str]) -> str:
             )),
         ],
     )
+
+
+# ── New Phase 3B/4 Render Functions ─────────────────────────────────────────
+
+
+def render_partition_memory_extractor_menu(
+    *, dataset_name: str,
+    latest_run_name: str | None,
+) -> str:
+    lines = [
+        *_meta_lines(
+            "Home / Phase 3A Components / Partition Memory Extractor",
+            "LLM-powered extraction of structured partition memories from Final Batch Reports.",
+        ),
+        *(_section(
+            "Session",
+            _kv_lines([
+                ("dataset", dataset_name),
+                ("latest_run", latest_run_name or "none"),
+            ]),
+        )),
+        *(_section(
+            "Actions",
+            _menu_lines([
+                ("R", "Run Partition Memory Extractor  <available>"),
+                ("L", "Review Latest Run  <available>"),
+                ("V", "View Saved Runs  <available>"),
+                ("B", "Back"),
+                ("Q", "Quit"),
+            ]),
+        )),
+    ]
+    return _block("Partition Memory Extractor", lines)
+
+
+def render_coverage_builder_menu(
+    *, dataset_name: str,
+    latest_run_name: str | None,
+) -> str:
+    lines = [
+        *_meta_lines(
+            "Home / Phase 3A Components / Coverage Builder",
+            "Deterministic aggregation of partition memories into dataset coverage.",
+        ),
+        *(_section(
+            "Session",
+            _kv_lines([
+                ("dataset", dataset_name),
+                ("latest_run", latest_run_name or "none"),
+            ]),
+        )),
+        *(_section(
+            "Actions",
+            _menu_lines([
+                ("R", "Run Coverage Builder  <available>"),
+                ("L", "Review Latest Run  <available>"),
+                ("V", "View Saved Runs  <available>"),
+                ("B", "Back"),
+                ("Q", "Quit"),
+            ]),
+        )),
+    ]
+    return _block("Coverage Builder", lines)
+
+
+def render_dataset_merger_menu(
+    *, dataset_name: str,
+    latest_run_name: str | None,
+) -> str:
+    lines = [
+        *_meta_lines(
+            "Home / Phase 3A Components / Dataset Merger",
+            "LLM-powered merge of batch reports into a unified final dataset report.",
+        ),
+        *(_section(
+            "Session",
+            _kv_lines([
+                ("dataset", dataset_name),
+                ("latest_run", latest_run_name or "none"),
+            ]),
+        )),
+        *(_section(
+            "Actions",
+            _menu_lines([
+                ("R", "Run Dataset Merger  <available>"),
+                ("L", "Review Latest Run  <available>"),
+                ("V", "View Saved Runs  <available>"),
+                ("B", "Back"),
+                ("Q", "Quit"),
+            ]),
+        )),
+    ]
+    return _block("Dataset Merger", lines)
+
+
+def render_partition_memory_extractor_run_review(context: dict) -> str:
+    paths = context.get("artifact_paths", {})
+    pm = context.get("partition_memory", {})
+    metrics = context.get("runtime_metrics", {})
+    return _block("Partition Memory Extractor Review", [
+        *_meta_lines("Review"),
+        *(_section("Metrics", _kv_lines([
+            ("request_id", metrics.get("request_id", "unknown")),
+            ("status", metrics.get("status", "unknown")),
+            ("partition_id", pm.get("partition_id", "unknown")),
+            ("duration_ms", str(metrics.get("duration_ms", ""))),
+        ]))),
+        *(_section("Artifact Paths", _kv_lines([
+            ("prompt", paths.get("prompt_path", "unavailable")),
+            ("raw_response", paths.get("raw_response_path", "unavailable")),
+            ("partition_memory", paths.get("partition_memory_path", "unavailable")),
+        ]))),
+    ])
+
+
+def render_coverage_builder_run_review(context: dict) -> str:
+    paths = context.get("artifact_paths", {})
+    metrics = context.get("runtime_metrics", {})
+    return _block("Coverage Builder Review", [
+        *_meta_lines("Review"),
+        *(_section("Metrics", _kv_lines([
+            ("request_id", metrics.get("request_id", "unknown")),
+            ("status", metrics.get("status", "unknown")),
+            ("partitions_loaded", str(metrics.get("partitions_loaded", ""))),
+            ("duration_ms", str(metrics.get("duration_ms", ""))),
+        ]))),
+        *(_section("Artifact Paths", _kv_lines([
+            ("dataset_memory", paths.get("dataset_memory_path", "unavailable")),
+        ]))),
+    ])
+
+
+def render_dataset_merger_run_review(context: dict) -> str:
+    paths = context.get("artifact_paths", {})
+    metrics = context.get("runtime_metrics", {})
+    return _block("Dataset Merger Review", [
+        *_meta_lines("Review"),
+        *(_section("Metrics", _kv_lines([
+            ("run_id", metrics.get("run_id", "unknown")),
+            ("status", metrics.get("status", "unknown")),
+            ("batch_count", str(metrics.get("batch_report_count", ""))),
+        ]))),
+        *(_section("Artifact Paths", _kv_lines([
+            ("report_json", paths.get("report_json_path", "unavailable")),
+            ("report_md", paths.get("report_md_path", "unavailable")),
+        ]))),
+    ])
+
+
+def render_recent_partition_memory_extractor_runs(runs: list[dict]) -> str:
+    if not runs:
+        return _block("Partition Memory Extractor Runs",
+                      [*_meta_lines("View Runs"), "No saved runs found."])
+    lines: list[str] = [*_meta_lines("View Runs")]
+    for i, run in enumerate(runs, 1):
+        name = run.get("run_name", "unknown")
+        status = run.get("metrics", {}).get("status", "unknown")
+        pid = run.get("partition_id", "unknown")
+        lines.append(f"{i}. {name}")
+        lines.append(f"   partition : {pid}  status : {status}")
+        lines.append("")
+    return _block("Partition Memory Extractor Runs", lines)
+
+
+def render_recent_coverage_builder_runs(runs: list[dict]) -> str:
+    if not runs:
+        return _block("Coverage Builder Runs",
+                      [*_meta_lines("View Runs"), "No saved runs found."])
+    lines: list[str] = [*_meta_lines("View Runs")]
+    for i, run in enumerate(runs, 1):
+        name = run.get("run_name", "unknown")
+        status = run.get("metrics", {}).get("status", "unknown")
+        lines.append(f"{i}. {name}")
+        lines.append(f"   status : {status}")
+        lines.append("")
+    return _block("Coverage Builder Runs", lines)
+
+
+def render_recent_dataset_merger_runs(runs: list[dict]) -> str:
+    if not runs:
+        return _block("Dataset Merger Runs",
+                      [*_meta_lines("View Runs"), "No saved runs found."])
+    lines: list[str] = [*_meta_lines("View Runs")]
+    for i, run in enumerate(runs, 1):
+        name = run.get("run_name", "unknown")
+        status = run.get("metrics", {}).get("status", "unknown")
+        lines.append(f"{i}. {name}")
+        lines.append(f"   status : {status}")
+        lines.append("")
+    return _block("Dataset Merger Runs", lines)
+
+
+def render_dataset_runtime_menu(
+    *,
+    dataset_name: str,
+    latest_run_id: str | None = None,
+) -> str:
+    lines = [
+        *_meta_lines(
+            "Home / Phase 3A Components / Batch Runtime / Dataset Runtime",
+            "Full dataset orchestration: runs all partitions, coverage builder, and dataset merger.",
+        ),
+        *(_section(
+            "Session",
+            _kv_lines([
+                ("dataset", dataset_name),
+                ("latest_run", latest_run_id or "none"),
+            ]),
+        )),
+        *(_section(
+            "Actions",
+            _menu_lines([
+                ("R", "Run Full Dataset  <available>"),
+                ("L", "Review Latest Dataset Run  <available>"),
+                ("V", "View Saved Dataset Runs  <available>"),
+                ("B", "Back"),
+                ("Q", "Quit"),
+            ]),
+        )),
+    ]
+    return _block("Dataset Runtime", lines)
+
+
+def render_dataset_runtime_run_review(artifacts: dict) -> str:
+    return _block("Dataset Run Review", [
+        *_meta_lines("Review"),
+        *(_section("Summary", _kv_lines([
+            ("run_id", str(artifacts.get("run_id", ""))),
+            ("dataset", str(artifacts.get("dataset_name", ""))),
+            ("overall_status", artifacts.get("overall_status", "unknown")),
+            ("completed", str(artifacts.get("completed_partitions", 0))),
+            ("failed", str(artifacts.get("failed_partitions", 0))),
+            ("skipped", str(artifacts.get("skipped_partitions", 0))),
+            ("error", artifacts.get("error_message") or "none"),
+        ]))),
+        *(_section("Results",
+            [p.get("partition_name", "?") + " : " + p.get("status", "?")
+             for p in artifacts.get("partition_results", [])]
+        )),
+    ])
+
+
+def render_recent_dataset_runtime_runs(runs: list[dict]) -> str:
+    if not runs:
+        return _block("Dataset Runs",
+                      [*_meta_lines("View Runs"), "No saved dataset runs found."])
+    lines: list[str] = [*_meta_lines("View Runs")]
+    for i, run in enumerate(runs, 1):
+        rid = run.get("run_id", "unknown")
+        status = run.get("overall_status", "unknown")
+        lines.append(f"{i}. {rid}  status : {status}")
+        lines.append("")
+    return _block("Dataset Runs", lines)
 
 
 def render_info(message: str) -> str:

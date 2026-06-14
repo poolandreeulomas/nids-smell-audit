@@ -102,6 +102,23 @@ def distribution_metrics(df, feature, label_col="Label"):
 # ============================================================
 
 
+def _resolve_label_column(df: pd.DataFrame) -> str:
+    """Resolve the label column name, preferring common NIDS conventions."""
+    candidates = ["Label", "label"]
+    for candidate in candidates:
+        if candidate in df.columns:
+            return candidate
+    # Fallback: any column whose name contains "label" (case-insensitive)
+    for col in df.columns:
+        if "label" in col.lower():
+            return col
+    raise KeyError(
+        "No label column found in dataset. "
+        "Expected one of: 'Label', 'label', or a column containing 'label' (case-insensitive). "
+        f"Available columns: {sorted(df.columns)}"
+    )
+
+
 def analyze_partition(file_path):
 
     partition_name = os.path.basename(file_path)
@@ -110,15 +127,18 @@ def analyze_partition(file_path):
     df = pd.read_csv(file_path, nrows=100000)
     df.columns = df.columns.str.strip()
 
+    # Resolve the label column (supports CIC_IDS_2017 'Label' and UNSW_NB15 'label')
+    label_col = _resolve_label_column(df)
+
     # ---- Basic metadata ----
     partition_results["basic_info"] = {
         "shape": df.shape,
-        "class_distribution": df["Label"].value_counts().to_dict(),
+        "class_distribution": df[label_col].value_counts().to_dict(),
         "duplicates": int(df.duplicated().sum())
     }
 
     # ---- Class imbalance ----
-    class_counts = df["Label"].value_counts()
+    class_counts = df[label_col].value_counts()
 
     if len(class_counts) > 1:
         imbalance_ratio = float(class_counts.max() / class_counts.min())
@@ -128,7 +148,7 @@ def analyze_partition(file_path):
     partition_results["class_imbalance_ratio"] = imbalance_ratio
 
     # ---- Correlation screening ----
-    df["Label_bin"] = (df["Label"] != "BENIGN").astype(int)
+    df["Label_bin"] = (df[label_col] != "BENIGN").astype(int)
 
     corr = (
         df.corr(numeric_only=True)["Label_bin"]
@@ -143,7 +163,7 @@ def analyze_partition(file_path):
 
     # ---- Intra-class structural metrics ----
     for feature in top_features:
-        analysis = analyze_feature_by_class(df, feature)
+        analysis = analyze_feature_by_class(df, feature, label_col=label_col)
         partition_results["feature_analysis"][feature] = analysis
 
     # ---- Feature redundancy detection ----
@@ -155,7 +175,7 @@ def analyze_partition(file_path):
 
     # ---- Distribution metrics (example: Destination Port) ----
     if "Destination Port" in df.columns:
-        dist_metrics = distribution_metrics(df, "Destination Port")
+        dist_metrics = distribution_metrics(df, "Destination Port", label_col=label_col)
         partition_results["distribution_metrics"] = {
             "Destination Port": dist_metrics
         }
