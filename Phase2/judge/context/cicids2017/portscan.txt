@@ -1,5 +1,0 @@
-This partition models scanning behavior with high repetition.
-
-Highly regular scanning behavior, repeated structures across sources, or unusually strong alignment between related features may require deeper analysis.
-
-The agent should distinguish expected regularity from artificial regularity and avoid re-checking already obvious signals. Strong regularity is expected, so depth matters.

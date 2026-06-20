@@ -1,5 +1,0 @@
-This partition models normal user traffic and heterogeneous, non-attack behavior.
-
-Unusually constant features, repeated or duplicated flows, or reduced diversity may require attention because benign traffic should retain variability.
-
-The agent should establish a baseline, detect unnatural collapse or redundancy, and avoid overreacting to benign structure.

@@ -1,2 +1,0 @@
-This partition includes application-layer interactions where behavior is reflected in request structure rather than volume.
-Patterns may appear in how requests are formed rather than how often they occur.

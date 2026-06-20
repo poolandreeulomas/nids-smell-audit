@@ -1,2 +1,0 @@
-This partition contains normal user activity with diverse usage patterns across protocols and services.
-Traffic is expected to be heterogeneous and not dominated by a single behavior.
