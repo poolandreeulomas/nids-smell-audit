@@ -79,7 +79,15 @@ def parse_worker_step_response(raw_response_text: str) -> dict[str, Any]:
         else:
             actions = []
         if not actions:
-            raise ValueError("Worker action responses must include 'action' or a non-empty 'actions' list.")
+            # Downgrade: LLM returned decision='action' with empty/missing actions
+            # at an action_window step. Silently treat as continue instead of failing.
+            reasoning = str(payload.get("reasoning") or "").strip()
+            if not reasoning:
+                reasoning = "No remaining actions to propose. Continuing without action request."
+            return {
+                "decision": "continue",
+                "reasoning": reasoning,
+            }
         normalized_payload = {
             "decision": "action",
             "actions": actions,

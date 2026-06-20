@@ -570,6 +570,8 @@ def build_worker_prompt(
                 "=== FIELD RULES ===",
                 "decision must be 'finish'.",
                 "status must be one of: completed, partial, failed, inconclusive.",
+                "evidence_refs must contain one or more call_id values from EXECUTION_HISTORY.",
+                "Do NOT use weak_signal_ids, context_refs, or any other identifiers from LOCAL_CONTEXT as evidence_refs.",
             ]
         )
 
@@ -733,7 +735,8 @@ def build_worker_prompt(
         "OUTPUT_RULES:",
         "Return exactly one JSON object.",
         *output_examples,
-        "Only cite evidence_refs that already appeared in EXECUTION_HISTORY.",
+        "Only cite evidence_refs that already appeared in EXECUTION_HISTORY (call_id values from tool events).",
+        "Do NOT use weak_signal_ids, context_refs, or any other identifiers from LOCAL_CONTEXT as evidence_refs.",
         "Keep findings local and grounded in observed signals or explicit failure limits.",
     ])
 
