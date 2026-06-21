@@ -1,0 +1,37 @@
+# =============================================================================
+# Evaluation Pipeline — Source Code vs Generated Artifacts
+# =============================================================================
+# The scripts/ folder and README.md are the actual source code to track.
+# Everything else is generated output from running the pipeline.
+#
+# To regenerate all artifacts:
+#   python evaluation/scripts/validate_corpus.py
+#   python evaluation/scripts/extract_metrics.py
+#   python evaluation/scripts/aggregate_metrics.py
+# =============================================================================
+
+# =============================================================================
+# Generated Audit Reports
+# =============================================================================
+audit/
+
+# =============================================================================
+# Generated Findings Data
+# =============================================================================
+findings/
+
+# =============================================================================
+# Generated Outputs (figures, aggregated metrics, cached scripts)
+# =============================================================================
+outputs/
+
+# =============================================================================
+# Generated Reproducibility Analysis
+# =============================================================================
+reproducibility/
+
+# =============================================================================
+# Python Bytecode Cache
+# =============================================================================
+__pycache__/
+*.pyc
