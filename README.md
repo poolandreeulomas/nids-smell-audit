@@ -683,8 +683,8 @@ Note: `Thesis_reports/` contains the thesis source files and is **not tracked** 
 If you use this framework in your research, please cite:
 
 ```bibtex
-@thesis{campillo2025,
-  author       = {Campillo, Marc},
+@thesis{andreu2025,
+  author       = {Andreu, Pol},
   title        = {Auditing NIDS Datasets Using LLM Agents},
   school       = {Universitat Politècnica de Catalunya (UPC)},
   year         = {2025},
