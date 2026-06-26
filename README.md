@@ -66,7 +66,7 @@ The project was developed as part of a Bachelor's Thesis at the *Universitat Pol
 
 The framework follows a **layered micro-architecture** organized around phases of investigation.
 
-<img src="docs/images/architecture_overview.jpeg" alt="Architecture Overview" width="700"/>
+<img src="docs/images/architecture_overview.jpeg" alt="Architecture Overview" width="550"/>
 
 *Figure 1: High-level architecture showing the relationship between components, datasets, and the LLM backend.*
 
@@ -89,7 +89,7 @@ The framework follows a **layered micro-architecture** organized around phases o
 
 The framework supports two execution modalities:
 
-<img src="docs/images/run_modalities.png" alt="Run Modalities" width="700"/>
+<img src="docs/images/run_modalities.png" alt="Run Modalities" width="550"/>
 
 - **Single Run (`main`)**: A self-contained MVP execution that processes one dataset partition through the full pipeline once.
 - **Batch Run (`main_phase3a_batch`)**: A multi-round investigation that iteratively refines hypotheses, executes tasks, and synthesizes findings across rounds.
@@ -100,7 +100,7 @@ The framework supports two execution modalities:
 
 The end-to-end investigation follows this sequence:
 
-<img src="docs/images/batch_investigation_overview.jpeg" alt="Batch Investigation Overview" width="700"/>
+<img src="docs/images/batch_investigation_overview.jpeg" alt="Batch Investigation Overview" width="550"/>
 
 *Figure 2: Batch investigation workflow showing the round-level iteration and synthesis pipeline.*
 
@@ -116,7 +116,7 @@ The end-to-end investigation follows this sequence:
    - **Critique**: Findings are reviewed for quality.
 6. **Final Synthesis** — The final batch auditor produces a consolidated report.
 
-<img src="docs/images/round_investigation_overview.jpeg" alt="Round Investigation Overview" width="700"/>
+<img src="docs/images/round_investigation_overview.jpeg" alt="Round Investigation Overview" width="550"/>
 
 *Figure 3: Detailed view of a single round's internal execution flow.*
 
@@ -138,7 +138,7 @@ A hypothesis is a testable claim about a potential design artefact. Examples:
 
 The Planner decomposes each hypothesis into a directed acyclic graph (DAG) of investigation tasks:
 
-<img src="docs/images/hypothesis_planning.jpeg" alt="Hypothesis Planning" width="700"/>
+<img src="docs/images/hypothesis_planning.jpeg" alt="Hypothesis Planning" width="550"/>
 
 *Figure 4: Hypothesis decomposition into a structured investigation plan.*
 
@@ -154,7 +154,7 @@ Each leaf task in the plan is a concrete, self-contained unit of investigation:
 
 Workers execute tasks using a **ReAct (Reasoning + Acting)** loop:
 
-<img src="docs/images/worker_design.jpeg" alt="Worker Design" width="700"/>
+<img src="docs/images/worker_design.jpeg" alt="Worker Design" width="550"/>
 
 *Figure 5: Worker execution loop combining reasoning, tool selection, and evidence gathering.*
 
@@ -187,7 +187,7 @@ The final batch auditor produces a consolidated report that:
 - Tracks reproducibility across partitions.
 - Provides an executive summary of all identified artefacts.
 
-<img src="docs/images/hypothesis_aggregation.jpeg" alt="Hypothesis Aggregation" width="700"/>
+<img src="docs/images/hypothesis_aggregation.jpeg" alt="Hypothesis Aggregation" width="550"/>
 
 *Figure 6: Multi-round aggregation and synthesis pipeline.*
 
