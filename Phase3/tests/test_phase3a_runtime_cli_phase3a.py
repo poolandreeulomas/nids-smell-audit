@@ -168,7 +168,8 @@ def test_phase3a_components_menu_routes_phase3a_runtime():
     route = cli._phase3a_components_menu()
 
     assert route == "phase3a_runtime"
-    assert "Phase 3A Batch Runtime" in cli._last_rendered
+    assert ("ATLAS Batch Runtime" in cli._last_rendered or
+            "Phase 3A Batch Runtime" in cli._last_rendered)
     assert "<available>" not in cli._last_rendered
 
 

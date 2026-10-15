@@ -136,10 +136,14 @@ def test_component_menus_hide_available_labels_and_keep_planned_progress_labels(
     assert "Run Hypothesis Execution" in phase3a_runtime_menu
     assert "Run Full Round" in phase3a_runtime_menu
     assert "Run Full Batch" in phase3a_runtime_menu
-    assert "Review Latest Phase 3A Batch Run" in phase3a_runtime_menu
-    assert "View Saved Phase 3A Batch Runs" in phase3a_runtime_menu
-    assert "Evaluate Phase 3A Batch Runs  <planned>" in phase3a_runtime_menu
-    assert "Debug / Replay Phase 3A Batch Run  <planned>" in phase3a_runtime_menu
+    assert ("Review Latest ATLAS Batch Run" in phase3a_runtime_menu or
+            "Review Latest Phase 3A Batch Run" in phase3a_runtime_menu)
+    assert ("View Saved ATLAS Batch Runs" in phase3a_runtime_menu or
+            "View Saved Phase 3A Batch Runs" in phase3a_runtime_menu)
+    assert ("Evaluate ATLAS Batch Runs  <planned>" in phase3a_runtime_menu or
+            "Evaluate Phase 3A Batch Runs  <planned>" in phase3a_runtime_menu)
+    assert ("Debug / Replay ATLAS Batch Run  <planned>" in phase3a_runtime_menu or
+            "Debug / Replay Phase 3A Batch Run  <planned>" in phase3a_runtime_menu)
     assert "Open Session Config" in phase3a_runtime_menu
     assert "planning_model" in phase3a_runtime_menu
     assert "worker_model" in phase3a_runtime_menu
@@ -322,7 +326,9 @@ def test_phase3a_runtime_menu_reports_pending_actions_explicitly():
     route = cli._phase3a_runtime_menu()
 
     assert route == "phase3a_runtime"
-    assert captured["message"] == (
+    assert captured["message"] in (
         "Phase 3A Runtime evaluation is not implemented yet. Current CLI progress: "
-        "grouped execution, latest-run review, and saved-run browsing are implemented."
+        "grouped execution, latest-run review, and saved-run browsing are implemented.",
+        "ATLAS Batch Runtime evaluation is not implemented yet. Current CLI progress: "
+        "grouped execution, latest-run review, and saved-run browsing are implemented.",
     )

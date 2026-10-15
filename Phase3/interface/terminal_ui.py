@@ -3,27 +3,71 @@
 from __future__ import annotations
 
 from pathlib import Path
+import re
 from textwrap import fill
 from typing import Any
 
+from interface.welcome import is_color_supported, style
 from utils.human_readable import parse_thought_fields, summarize_action, summarize_observation
 
 WIDTH = 68
 
+_MENU_ITEM_RE = re.compile(r"^(\s*)(\[[A-Za-z0-9]+\])(.*)$")
 
-def _rule(char: str = "=") -> str:
-    return char * WIDTH
+
+def _rule(char: str = "=", color_key: str | None = None) -> str:
+    line = char * WIDTH
+    if not is_color_supported():
+        return line
+    if color_key is None:
+        if char == "=":
+            color_key = "ochre"
+        elif char == "-":
+            color_key = "brown"
+        elif char == "!":
+            color_key = "amber"
+        else:
+            color_key = "ochre"
+    return style(line, color_key)
 
 
 def _block(title: str, lines: list[str] | None = None, char: str = "=") -> str:
-    output = [_rule(char), title, _rule(char)]
+    clean_title = _clean_ui_text(title)
+    color_key = "amber" if char == "!" else ("brown" if char == "-" else "ochre")
+    title_color = "amber" if char in ("=", "!") else "gold"
+    styled_title = style(clean_title, title_color, bold=True) if is_color_supported() else clean_title
+    output = [_rule(char, color_key=color_key), styled_title, _rule(char, color_key=color_key)]
     if lines:
-        output.extend(lines)
+        cleaned_lines = list(lines)
+        while cleaned_lines and cleaned_lines[-1] == "":
+            cleaned_lines.pop()
+        output.extend(cleaned_lines)
+    output.append(_rule(char, color_key=color_key))
     return "\n".join(output)
 
 
+def _format_section_line(line: str) -> str:
+    if not is_color_supported() or not line:
+        return line
+    if "\033[" in line:
+        return line
+    match = _MENU_ITEM_RE.match(line)
+    if match:
+        indent = match.group(1)
+        bracket_key = match.group(2)
+        rest = match.group(3)
+        return f"{indent}{style(bracket_key, 'gold', bold=True)}{style(rest, 'light_grey')}"
+    if line.startswith("- "):
+        return f"{style('-', 'muted')} {style(line[2:], 'light_grey')}"
+    return style(line, "light_grey")
+
+
 def _section(title: str, lines: list[str]) -> list[str]:
-    return [title, "-" * len(title), *lines, ""]
+    clean_title = _clean_ui_text(title)
+    header = style(clean_title, "gold", bold=True) if is_color_supported() else clean_title
+    underline = style("-" * len(clean_title), "brown", dim=True) if is_color_supported() else "-" * len(clean_title)
+    styled_lines = [_format_section_line(line) for line in lines]
+    return [header, underline, *styled_lines, ""]
 
 
 def _clean_ui_text(text: str) -> str:
@@ -35,44 +79,104 @@ def _clean_ui_text(text: str) -> str:
         .replace("Available Models", "Models")
         .replace("Available Partitions", "Partitions")
         .replace("available models", "models")
+        .replace("Phase 3A", "ATLAS")
+        .replace("Phase3A", "ATLAS")
     )
 
 
 def _meta_lines(path_label: str, hint: str | None = None) -> list[str]:
-    lines = [f"Path: {path_label}"]
+    clean_path = _clean_ui_text(path_label)
+    if not is_color_supported():
+        lines = [f"Path: {clean_path}"]
+        if hint:
+            lines.append(f"Hint: {_clean_ui_text(hint)}")
+        lines.append("")
+        return lines
+
+    lines = [f"{style('Path:', 'muted')} {style(clean_path, 'light_grey')}"]
     if hint:
-        lines.append(f"Hint: {_clean_ui_text(hint)}")
+        lines.append(f"{style('Hint:', 'muted')} {style(_clean_ui_text(hint), 'light_grey')}")
     lines.append("")
     return lines
 
 
 def _menu_lines(options: list[tuple[str, str]]) -> list[str]:
-    return [f"[{key}] {_clean_ui_text(label)}" for key, label in options]
+    if not is_color_supported():
+        return [f"[{key}] {_clean_ui_text(label)}" for key, label in options]
+    return [
+        f"{style(f'[{key}]', 'gold', bold=True)} {style(_clean_ui_text(label), 'light_grey')}"
+        for key, label in options
+    ]
 
 
 def _kv_lines(pairs: list[tuple[str, str]]) -> list[str]:
     if not pairs:
         return ["- none"]
     width = max(len(key) for key, _ in pairs)
-    return [f"- {key:<{width}} : {value}" for key, value in pairs]
+    if not is_color_supported():
+        return [f"- {key:<{width}} : {value}" for key, value in pairs]
+    return [
+        f"{style('-', 'muted')} {style(f'{key:<{width}}', 'amber')} {style(':', 'muted')} {style(str(value), 'light_grey')}"
+        for key, value in pairs
+    ]
 
 
 def _wrap_line(text: str, *, initial: str = "- ", subsequent: str = "  ") -> list[str]:
-    return fill(
+    raw_lines = fill(
         text,
         width=WIDTH,
         initial_indent=initial,
         subsequent_indent=subsequent,
     ).splitlines()
+    if not is_color_supported() or not raw_lines:
+        return raw_lines
+    styled_lines: list[str] = []
+    first = raw_lines[0]
+    if first.startswith("- "):
+        styled_lines.append(f"{style('-', 'muted')} {style(first[2:], 'light_grey')}")
+    else:
+        styled_lines.append(style(first, "light_grey"))
+    for line in raw_lines[1:]:
+        styled_lines.append(style(line, "light_grey"))
+    return styled_lines
 
 
 def _wrap_field(label: str, value: str, *, initial: str = "  ") -> list[str]:
-    return fill(
+    raw_lines = fill(
         f"{label:<13} {value}",
         width=WIDTH,
         initial_indent=initial,
         subsequent_indent=" " * len(initial) + " " * 14,
     ).splitlines()
+    if not is_color_supported() or not raw_lines:
+        return raw_lines
+
+    prefix_len = len(initial) + 13 + 1
+    styled_lines: list[str] = []
+    first = raw_lines[0]
+    if len(first) >= prefix_len:
+        val_part = first[prefix_len:]
+        val_upper = val_part.strip().upper()
+        if val_upper == "HIGH":
+            styled_val = style(val_part, "amber", bold=True)
+        elif val_upper == "MEDIUM":
+            styled_val = style(val_part, "gold")
+        elif val_upper == "LOW":
+            styled_val = style(val_part, "green")
+        elif val_upper in {"ON", "SUCCESS", "COMPLETED", "OK"}:
+            styled_val = style(val_part, "green")
+        elif val_upper in {"OFF", "FAILED", "ERROR"}:
+            styled_val = style(val_part, "amber")
+        else:
+            styled_val = style(val_part, "light_grey")
+        styled_label = style(f"{label:<13}", "muted")
+        styled_lines.append(f"{initial}{styled_label} {styled_val}")
+    else:
+        styled_lines.append(first)
+
+    for line in raw_lines[1:]:
+        styled_lines.append(style(line, "light_grey"))
+    return styled_lines
 
 
 def _render_risk_cards(items: list[dict[str, str]], *, include_context: bool) -> list[str]:
@@ -87,7 +191,8 @@ def _render_risk_cards(items: list[dict[str, str]], *, include_context: bool) ->
         why = item.get("why", "No explanation available.")
         context = item.get("context", "")
 
-        lines.append(name)
+        styled_name = style(name, "amber", bold=True) if is_color_supported() else name
+        lines.append(styled_name)
         lines.extend(_wrap_field("Risk", level.upper()))
         lines.extend(_wrap_field("Where", where))
         lines.extend(_wrap_field("Why", why))
@@ -141,16 +246,19 @@ def render_main_menu(
                 "[3] Session Configuration",
                 "    Configure the dataset, models, and execution parameters.",
                 "",
+                "[B] Welcome Screen",
+                "    Return to the ATLAS welcome and concept screen.",
+                "",
                 "[Q] Quit",
             ],
         )),
     ]
-    return _block("NIDS Agent CLI", lines)
+    return _block("ATLAS -- Research Console (NIDS Agent)", lines)
 
 
 def render_phase3a_components_menu() -> str:
     lines = [
-        *_meta_lines("Home / Single Round / Components", "Access individual components for isolated execution, inspection, and debugging."),
+        *_meta_lines("Home / ATLAS Components", "Access individual components for isolated execution, inspection, and debugging."),
         *(_section(
             "Analysis & Hypothesis Generation",
             [
@@ -207,12 +315,12 @@ def render_phase3a_components_menu() -> str:
                 "Low-level tools execution and direct batch runtime entry point.",
                 "",
                 "[11] Tools",
-                "[12] Phase 3A Batch Runtime",
+                "[12] ATLAS Batch Runtime",
             ],
         )),
-        *(_section("Actions", _menu_lines([("B", "Back"), ("Q", "Quit")]))),
+        *(_section("Navigation", _menu_lines([("B", "Back"), ("Q", "Quit")]))),
     ]
-    return _block("Phase 3A Components", lines)
+    return _block("ATLAS Components", lines)
 
 
 def render_phase3a_runtime_menu(
@@ -225,7 +333,7 @@ def render_phase3a_runtime_menu(
     latest_run_name: str | None,
 ) -> str:
     lines = [
-        *_meta_lines("Home / Batch Runtime",
+        *_meta_lines("Home / ATLAS Batch Runtime",
                      "Execute the auditing pipeline at batch or single-round level. Inspect completed batch runs, debug executions, and evaluate results."),
         *(_section(
             "Session",
@@ -256,8 +364,8 @@ def render_phase3a_runtime_menu(
             [
                 "Inspect previously recorded batch executions.",
                 "",
-                "[L] Review Latest Phase 3A Batch Run",
-                "[V] View Saved Phase 3A Batch Runs",
+                "[L] Review Latest ATLAS Batch Run",
+                "[V] View Saved ATLAS Batch Runs",
             ],
         )),
         *(_section(
@@ -265,8 +373,8 @@ def render_phase3a_runtime_menu(
             [
                 "Investigate execution behavior and evaluate completed runs.",
                 "",
-                "[D] Debug / Replay Phase 3A Batch Run  <planned>",
-                "[E] Evaluate Phase 3A Batch Runs  <planned>",
+                "[D] Debug / Replay ATLAS Batch Run  <planned>",
+                "[E] Evaluate ATLAS Batch Runs  <planned>",
             ],
         )),
         *(_section(
@@ -278,12 +386,12 @@ def render_phase3a_runtime_menu(
             ],
         )),
     ]
-    return _block("Phase 3A Batch Runtime", lines)
+    return _block("ATLAS Batch Runtime", lines)
 
 
 def render_tools_menu(*, dataset_name: str, latest_run_name: str | None, selected_tool_name: str | None) -> str:
     lines = [
-        *_meta_lines("Home / Phase 3A Components / Tools",
+        *_meta_lines("Home / ATLAS Components / Tools",
                      "Direct deterministic tools execution and artifact review. Run, inventory, latest-run review, and saved-run browsing are available; evaluate/debug/config remain planned."),
         *(_section(
             "Session",
@@ -296,15 +404,36 @@ def render_tools_menu(*, dataset_name: str, latest_run_name: str | None, selecte
             ),
         )),
         *(_section(
-            "Actions",
+            "Execution & Inspection",
             _menu_lines(
                 [
                     ("R", "Run Tool  <available>"),
                     ("I", "Inspect Tool Inventory  <available>"),
+                ]
+            ),
+        )),
+        *(_section(
+            "Review & History",
+            _menu_lines(
+                [
                     ("L", "Review Latest Tool Run  <available>"),
                     ("V", "View Saved Tool Runs  <available>"),
-                    ("E", "Evaluate Tool Runs  <planned>"),
+                ]
+            ),
+        )),
+        *(_section(
+            "Debugging & Evaluation",
+            _menu_lines(
+                [
                     ("D", "Debug / Replay Tool Run  <planned>"),
+                    ("E", "Evaluate Tool Runs  <planned>"),
+                ]
+            ),
+        )),
+        *(_section(
+            "Configuration & Navigation",
+            _menu_lines(
+                [
                     ("C", "Tools Config  <planned>"),
                     ("B", "Back"),
                     ("Q", "Quit"),
@@ -317,7 +446,7 @@ def render_tools_menu(*, dataset_name: str, latest_run_name: str | None, selecte
 
 def render_semantic_extraction_menu(*, dataset_name: str, model_name: str, latest_run_name: str | None) -> str:
     lines = [
-        *_meta_lines("Home / Phase 3A Components / Semantic Extraction",
+        *_meta_lines("Home / ATLAS Components / Semantic Extraction",
                      "One-shot structural compression over overview evidence with artifact-first review. Run, latest-run review, and saved-run browsing are available; evaluate/debug/config remain planned."),
         *(_section(
             "Session",
@@ -330,14 +459,35 @@ def render_semantic_extraction_menu(*, dataset_name: str, model_name: str, lates
             ),
         )),
         *(_section(
-            "Actions",
+            "Execution",
             _menu_lines(
                 [
                     ("R", "Run Semantic Extraction  <available>"),
+                ]
+            ),
+        )),
+        *(_section(
+            "Review & History",
+            _menu_lines(
+                [
                     ("L", "Review Latest Semantic Extraction Run  <available>"),
                     ("V", "View Saved Semantic Extraction Runs  <available>"),
-                    ("E", "Evaluate Semantic Extraction Runs  <planned>"),
+                ]
+            ),
+        )),
+        *(_section(
+            "Debugging & Evaluation",
+            _menu_lines(
+                [
                     ("D", "Debug / Replay Semantic Extraction  <planned>"),
+                    ("E", "Evaluate Semantic Extraction Runs  <planned>"),
+                ]
+            ),
+        )),
+        *(_section(
+            "Configuration & Navigation",
+            _menu_lines(
+                [
                     ("C", "Semantic Extraction Config  <planned>"),
                     ("B", "Back"),
                     ("Q", "Quit"),
@@ -350,7 +500,7 @@ def render_semantic_extraction_menu(*, dataset_name: str, model_name: str, lates
 
 def render_investigation_analysis_menu(*, dataset_name: str, model_name: str, latest_run_name: str | None) -> str:
     lines = [
-        *_meta_lines("Home / Phase 3A Components / Investigation Analysis",
+        *_meta_lines("Home / ATLAS Components / Investigation Analysis",
                      "Bounded interpretive hypothesis generation over the structural substrate with artifact-first review. Run, latest-run review, and saved-run browsing are available; evaluate/debug/config remain planned."),
         *(_section(
             "Session",
@@ -363,14 +513,35 @@ def render_investigation_analysis_menu(*, dataset_name: str, model_name: str, la
             ),
         )),
         *(_section(
-            "Actions",
+            "Execution",
             _menu_lines(
                 [
                     ("R", "Run Investigation Analysis  <available>"),
+                ]
+            ),
+        )),
+        *(_section(
+            "Review & History",
+            _menu_lines(
+                [
                     ("L", "Review Latest Investigation Analysis Run  <available>"),
                     ("V", "View Saved Investigation Analysis Runs  <available>"),
-                    ("E", "Evaluate Investigation Analysis Runs  <planned>"),
+                ]
+            ),
+        )),
+        *(_section(
+            "Debugging & Evaluation",
+            _menu_lines(
+                [
                     ("D", "Debug / Replay Investigation Analysis  <planned>"),
+                    ("E", "Evaluate Investigation Analysis Runs  <planned>"),
+                ]
+            ),
+        )),
+        *(_section(
+            "Configuration & Navigation",
+            _menu_lines(
+                [
                     ("C", "Investigation Analysis Config  <planned>"),
                     ("B", "Back"),
                     ("Q", "Quit"),
@@ -383,7 +554,7 @@ def render_investigation_analysis_menu(*, dataset_name: str, model_name: str, la
 
 def render_hypothesis_ranking_menu(*, dataset_name: str, model_name: str, latest_run_name: str | None) -> str:
     lines = [
-        *_meta_lines("Home / Phase 3A Components / Hypothesis Ranking",
+        *_meta_lines("Home / ATLAS Components / Hypothesis Ranking",
                      "Bounded round-level hypothesis allocation with artifact-first review. Run, latest-run review, and saved-run browsing are available; evaluate/debug/config remain planned."),
         *(_section(
             "Session",
@@ -396,14 +567,35 @@ def render_hypothesis_ranking_menu(*, dataset_name: str, model_name: str, latest
             ),
         )),
         *(_section(
-            "Actions",
+            "Execution",
             _menu_lines(
                 [
                     ("R", "Run Hypothesis Ranking  <available>"),
+                ]
+            ),
+        )),
+        *(_section(
+            "Review & History",
+            _menu_lines(
+                [
                     ("L", "Review Latest Hypothesis Ranking Run  <available>"),
                     ("V", "View Saved Hypothesis Ranking Runs  <available>"),
-                    ("E", "Evaluate Hypothesis Ranking Runs  <planned>"),
+                ]
+            ),
+        )),
+        *(_section(
+            "Debugging & Evaluation",
+            _menu_lines(
+                [
                     ("D", "Debug / Replay Hypothesis Ranking  <planned>"),
+                    ("E", "Evaluate Hypothesis Ranking Runs  <planned>"),
+                ]
+            ),
+        )),
+        *(_section(
+            "Configuration & Navigation",
+            _menu_lines(
+                [
                     ("C", "Hypothesis Ranking Config  <planned>"),
                     ("B", "Back"),
                     ("Q", "Quit"),
@@ -416,7 +608,7 @@ def render_hypothesis_ranking_menu(*, dataset_name: str, model_name: str, latest
 
 def render_planner_menu(*, dataset_name: str, model_name: str, latest_run_name: str | None) -> str:
     lines = [
-        *_meta_lines("Home / Phase 3A Components / Planner",
+        *_meta_lines("Home / ATLAS Components / Planner",
                      "Bounded strategic investigation design over the selected hypothesis set with artifact-first review. Run, latest-run review, and saved-run browsing are available; evaluate/debug/config remain planned."),
         *(_section(
             "Session",
@@ -429,14 +621,35 @@ def render_planner_menu(*, dataset_name: str, model_name: str, latest_run_name: 
             ),
         )),
         *(_section(
-            "Actions",
+            "Execution",
             _menu_lines(
                 [
                     ("R", "Run Planner  <available>"),
+                ]
+            ),
+        )),
+        *(_section(
+            "Review & History",
+            _menu_lines(
+                [
                     ("L", "Review Latest Planner Run  <available>"),
                     ("V", "View Saved Planner Runs  <available>"),
-                    ("E", "Evaluate Planner Runs  <planned>"),
+                ]
+            ),
+        )),
+        *(_section(
+            "Debugging & Evaluation",
+            _menu_lines(
+                [
                     ("D", "Debug / Replay Planner  <planned>"),
+                    ("E", "Evaluate Planner Runs  <planned>"),
+                ]
+            ),
+        )),
+        *(_section(
+            "Configuration & Navigation",
+            _menu_lines(
+                [
                     ("C", "Planner Config  <planned>"),
                     ("B", "Back"),
                     ("Q", "Quit"),
@@ -449,7 +662,7 @@ def render_planner_menu(*, dataset_name: str, model_name: str, latest_run_name: 
 
 def render_router_menu(*, dataset_name: str, model_name: str, latest_run_name: str | None) -> str:
     lines = [
-        *_meta_lines("Home / Phase 3A Components / Router",
+        *_meta_lines("Home / ATLAS Components / Router",
                      "Bounded operational decomposition over one planner strategy with artifact-first review. Run, latest-run review, and saved-run browsing are available; evaluate/debug/config remain planned."),
         *(_section(
             "Session",
@@ -462,14 +675,35 @@ def render_router_menu(*, dataset_name: str, model_name: str, latest_run_name: s
             ),
         )),
         *(_section(
-            "Actions",
+            "Execution",
             _menu_lines(
                 [
                     ("R", "Run Router  <available>"),
+                ]
+            ),
+        )),
+        *(_section(
+            "Review & History",
+            _menu_lines(
+                [
                     ("L", "Review Latest Router Run  <available>"),
                     ("V", "View Saved Router Runs  <available>"),
-                    ("E", "Evaluate Router Runs  <planned>"),
+                ]
+            ),
+        )),
+        *(_section(
+            "Debugging & Evaluation",
+            _menu_lines(
+                [
                     ("D", "Debug / Replay Router  <planned>"),
+                    ("E", "Evaluate Router Runs  <planned>"),
+                ]
+            ),
+        )),
+        *(_section(
+            "Configuration & Navigation",
+            _menu_lines(
+                [
                     ("C", "Router Config  <planned>"),
                     ("B", "Back"),
                     ("Q", "Quit"),
@@ -482,7 +716,7 @@ def render_router_menu(*, dataset_name: str, model_name: str, latest_run_name: s
 
 def render_worker_menu(*, dataset_name: str, model_name: str, latest_run_name: str | None) -> str:
     lines = [
-        *_meta_lines("Home / Phase 3A Components / Worker",
+        *_meta_lines("Home / ATLAS Components / Worker",
                      "Bounded local execution over one routed worker task with artifact-first review. Run, latest-run review, and saved-run browsing are available; evaluate/debug/config remain planned."),
         *(_section(
             "Session",
@@ -495,14 +729,35 @@ def render_worker_menu(*, dataset_name: str, model_name: str, latest_run_name: s
             ),
         )),
         *(_section(
-            "Actions",
+            "Execution",
             _menu_lines(
                 [
                     ("R", "Run Worker  <available>"),
+                ]
+            ),
+        )),
+        *(_section(
+            "Review & History",
+            _menu_lines(
+                [
                     ("L", "Review Latest Worker Run  <available>"),
                     ("V", "View Saved Worker Runs  <available>"),
-                    ("E", "Evaluate Worker Runs  <planned>"),
+                ]
+            ),
+        )),
+        *(_section(
+            "Debugging & Evaluation",
+            _menu_lines(
+                [
                     ("D", "Debug / Replay Worker  <planned>"),
+                    ("E", "Evaluate Worker Runs  <planned>"),
+                ]
+            ),
+        )),
+        *(_section(
+            "Configuration & Navigation",
+            _menu_lines(
+                [
                     ("C", "Worker Config  <planned>"),
                     ("B", "Back"),
                     ("Q", "Quit"),
@@ -515,7 +770,7 @@ def render_worker_menu(*, dataset_name: str, model_name: str, latest_run_name: s
 
 def render_aggregation_menu(*, dataset_name: str, model_name: str, latest_run_name: str | None) -> str:
     lines = [
-        *_meta_lines("Home / Phase 3A Components / Aggregation",
+        *_meta_lines("Home / ATLAS Components / Aggregation",
                      "Hypothesis-local structured consolidation over committed Worker results with artifact-first review. Run, latest-run review, and saved-run browsing are available; evaluate/debug/config remain planned."),
         *(_section(
             "Session",
@@ -528,15 +783,36 @@ def render_aggregation_menu(*, dataset_name: str, model_name: str, latest_run_na
             ),
         )),
         *(_section(
-            "Actions",
+            "Execution",
             _menu_lines(
                 [
                     ("R", "Run Aggregation  <available>"),
+                ]
+            ),
+        )),
+        *(_section(
+            "Review & History",
+            _menu_lines(
+                [
                     ("L", "Review Latest Aggregation Run  <available>"),
                     ("V", "View Saved Aggregation Runs  <available>"),
-                    ("H", "Browse Latest Phase3A Hypotheses  <available>"),
-                    ("E", "Evaluate Aggregation Runs  <planned>"),
+                    ("H", "Browse Latest ATLAS Hypotheses  <available>"),
+                ]
+            ),
+        )),
+        *(_section(
+            "Debugging & Evaluation",
+            _menu_lines(
+                [
                     ("D", "Debug / Replay Aggregation  <planned>"),
+                    ("E", "Evaluate Aggregation Runs  <planned>"),
+                ]
+            ),
+        )),
+        *(_section(
+            "Configuration & Navigation",
+            _menu_lines(
+                [
                     ("C", "Aggregation Config  <planned>"),
                     ("B", "Back"),
                     ("Q", "Quit"),
@@ -549,7 +825,7 @@ def render_aggregation_menu(*, dataset_name: str, model_name: str, latest_run_na
 
 def render_state_manager_menu(*, dataset_name: str, model_name: str, latest_run_name: str | None) -> str:
     lines = [
-        *_meta_lines("Home / Phase 3A Components / State Manager",
+        *_meta_lines("Home / ATLAS Components / State Manager",
                      "Canonical batch-state revision over one committed Aggregation handoff with artifact-first review. Run, latest-run review, and saved-run browsing are available; evaluate/debug/config remain planned."),
         *(_section(
             "Session",
@@ -562,14 +838,36 @@ def render_state_manager_menu(*, dataset_name: str, model_name: str, latest_run_
             ),
         )),
         *(_section(
-            "Actions",
+            "Execution",
             _menu_lines(
                 [
                     ("R", "Run State Manager  <available>"),
+                ]
+            ),
+        )),
+        *(_section(
+            "Review & History",
+            _menu_lines(
+                [
                     ("L", "Review Latest State Manager Run  <available>"),
                     ("V", "View Saved State Manager Runs  <available>"),
-                    ("E", "Evaluate State Manager Runs  <planned>"),
+                    ("H", "Browse Latest ATLAS Hypotheses  <available>"),
+                ]
+            ),
+        )),
+        *(_section(
+            "Debugging & Evaluation",
+            _menu_lines(
+                [
                     ("D", "Debug / Replay State Manager  <planned>"),
+                    ("E", "Evaluate State Manager Runs  <planned>"),
+                ]
+            ),
+        )),
+        *(_section(
+            "Configuration & Navigation",
+            _menu_lines(
+                [
                     ("C", "State Manager Config  <planned>"),
                     ("B", "Back"),
                     ("Q", "Quit"),
@@ -582,7 +880,7 @@ def render_state_manager_menu(*, dataset_name: str, model_name: str, latest_run_
 
 def render_critic_menu(*, dataset_name: str, model_name: str, latest_run_name: str | None) -> str:
     lines = [
-        *_meta_lines("Home / Phase 3A Components / Critic",
+        *_meta_lines("Home / ATLAS Components / Critic",
                      "Bounded reflective process supervision over one committed State Manager run with artifact-first review. Run, latest-run review, saved-run browsing, and config are available; evaluate/debug remain planned."),
         *(_section(
             "Session",
@@ -595,14 +893,36 @@ def render_critic_menu(*, dataset_name: str, model_name: str, latest_run_name: s
             ),
         )),
         *(_section(
-            "Actions",
+            "Execution",
             _menu_lines(
                 [
                     ("R", "Run Critic  <available>"),
+                ]
+            ),
+        )),
+        *(_section(
+            "Review & History",
+            _menu_lines(
+                [
                     ("L", "Review Latest Critic Run  <available>"),
                     ("V", "View Saved Critic Runs  <available>"),
-                    ("E", "Evaluate Critic Runs  <planned>"),
+                    ("H", "Browse Latest ATLAS Hypotheses  <available>"),
+                ]
+            ),
+        )),
+        *(_section(
+            "Debugging & Evaluation",
+            _menu_lines(
+                [
                     ("D", "Debug / Replay Critic  <planned>"),
+                    ("E", "Evaluate Critic Runs  <planned>"),
+                ]
+            ),
+        )),
+        *(_section(
+            "Configuration & Navigation",
+            _menu_lines(
+                [
                     ("C", "Critic Config  <available>"),
                     ("B", "Back"),
                     ("Q", "Quit"),
@@ -615,7 +935,7 @@ def render_critic_menu(*, dataset_name: str, model_name: str, latest_run_name: s
 
 def render_final_batch_auditor_menu(*, dataset_name: str, model_name: str, latest_run_name: str | None) -> str:
     lines = [
-        *_meta_lines("Home / Phase 3A Components / Final Batch Auditor",
+        *_meta_lines("Home / ATLAS Components / Final Batch Auditor",
                      "Terminal debugging-oriented batch inspection over one committed final State Manager state with artifact-first review. Run, latest-run review, and saved-run browsing are available; evaluate/debug/config remain planned."),
         *(_section(
             "Session",
@@ -628,14 +948,36 @@ def render_final_batch_auditor_menu(*, dataset_name: str, model_name: str, lates
             ),
         )),
         *(_section(
-            "Actions",
+            "Execution",
             _menu_lines(
                 [
                     ("R", "Run Final Batch Auditor  <available>"),
+                ]
+            ),
+        )),
+        *(_section(
+            "Review & History",
+            _menu_lines(
+                [
                     ("L", "Review Latest Final Batch Audit  <available>"),
                     ("V", "View Saved Final Batch Audits  <available>"),
-                    ("E", "Evaluate Final Batch Audits  <planned>"),
+                    ("H", "Browse Latest ATLAS Hypotheses  <available>"),
+                ]
+            ),
+        )),
+        *(_section(
+            "Debugging & Evaluation",
+            _menu_lines(
+                [
                     ("D", "Debug / Replay Final Batch Audit  <planned>"),
+                    ("E", "Evaluate Final Batch Audits  <planned>"),
+                ]
+            ),
+        )),
+        *(_section(
+            "Configuration & Navigation",
+            _menu_lines(
+                [
                     ("C", "Final Batch Auditor Config  <planned>"),
                     ("B", "Back"),
                     ("Q", "Quit"),
@@ -648,7 +990,7 @@ def render_final_batch_auditor_menu(*, dataset_name: str, model_name: str, lates
 
 def render_final_batch_report_menu(*, dataset_name: str, model_name: str, latest_run_name: str | None) -> str:
     lines = [
-        *_meta_lines("Home / Phase 3A Components / Final Batch Report",
+        *_meta_lines("Home / ATLAS Components / Final Batch Report",
                      "Generate a human-facing audit report from the Final Updated State. Run, latest-run review, saved-run browsing, and config are available."),
         *(_section(
             "Session",
@@ -661,12 +1003,26 @@ def render_final_batch_report_menu(*, dataset_name: str, model_name: str, latest
             ),
         )),
         *(_section(
-            "Actions",
+            "Execution",
             _menu_lines(
                 [
                     ("R", "Run Final Batch Report  <available>"),
+                ]
+            ),
+        )),
+        *(_section(
+            "Review & History",
+            _menu_lines(
+                [
                     ("L", "Review Latest Final Batch Report  <available>"),
                     ("V", "View Saved Final Batch Reports  <available>"),
+                ]
+            ),
+        )),
+        *(_section(
+            "Configuration & Navigation",
+            _menu_lines(
+                [
                     ("C", "Final Batch Report Config  <available>"),
                     ("B", "Back"),
                     ("Q", "Quit"),
@@ -679,7 +1035,7 @@ def render_final_batch_report_menu(*, dataset_name: str, model_name: str, latest
 
 def render_final_batch_report_config_menu(*, current_model_name: str) -> str:
     lines = [
-        *_meta_lines("Home / Phase 3A Components / Final Batch Report / Config",
+        *_meta_lines("Home / ATLAS Components / Final Batch Report / Config",
                      "Select the model used by the Final Batch Report Generator."),
         *(_section("Current Configuration", _kv_lines([("model", current_model_name)]))),
         *(_section("Actions", _menu_lines([("1", "Change Model"), ("B", "Back"), ("Q", "Quit")]))),
@@ -689,7 +1045,7 @@ def render_final_batch_report_config_menu(*, current_model_name: str) -> str:
 
 def render_tool_inventory(records: list[dict[str, Any]]) -> str:
     lines: list[str] = [
-        *_meta_lines("Phase 3A Components / Tools / Inventory",
+        *_meta_lines("ATLAS Components / Tools / Inventory",
                      "Capability-oriented inventory for the admitted deterministic stack."),
     ]
     if not records:
@@ -698,7 +1054,8 @@ def render_tool_inventory(records: list[dict[str, Any]]) -> str:
 
     for record in records:
         lines.append(_rule("-"))
-        lines.append(str(record.get("tool_name") or "unknown"))
+        tool_name = str(record.get("tool_name") or "unknown")
+        lines.append(style(tool_name, "amber", bold=True) if is_color_supported() else tool_name)
         lines.extend(_wrap_field("Role", str(
             record.get("epistemic_role") or "unknown")))
         lines.extend(_wrap_field("Scopes", ", ".join(
@@ -721,7 +1078,7 @@ def render_recent_tool_runs(paths: list[Path], limit: int) -> str:
         return _block(
             "Saved Tool Runs",
             [
-                *_meta_lines("Phase 3A Components / Tools / Saved Runs",
+                *_meta_lines("ATLAS Components / Tools / Saved Runs",
                              "Select a saved tool run directory."),
                 "No tool run artifacts were found in logs/tool_runs.",
                 "",
@@ -731,7 +1088,7 @@ def render_recent_tool_runs(paths: list[Path], limit: int) -> str:
         )
 
     lines = [
-        *_meta_lines("Phase 3A Components / Tools / Saved Runs",
+        *_meta_lines("ATLAS Components / Tools / Saved Runs",
                      "Select a saved tool run directory."),
         f"Showing latest {len(paths)} tool run(s) out of limit {limit}.",
         "",
@@ -748,7 +1105,7 @@ def render_recent_semantic_extraction_runs(paths: list[Path], limit: int) -> str
         return _block(
             "Saved Semantic Extraction Runs",
             [
-                *_meta_lines("Phase 3A Components / Semantic Extraction / Saved Runs",
+                *_meta_lines("ATLAS Components / Semantic Extraction / Saved Runs",
                              "Select a saved Semantic Extraction run directory."),
                 "No Semantic Extraction run artifacts were found in logs/semantic_extraction_runs.",
                 "",
@@ -758,7 +1115,7 @@ def render_recent_semantic_extraction_runs(paths: list[Path], limit: int) -> str
         )
 
     lines = [
-        *_meta_lines("Phase 3A Components / Semantic Extraction / Saved Runs",
+        *_meta_lines("ATLAS Components / Semantic Extraction / Saved Runs",
                      "Select a saved Semantic Extraction run directory."),
         f"Showing latest {len(paths)} run(s) out of limit {limit}.",
         "",
@@ -775,7 +1132,7 @@ def render_recent_investigation_analysis_runs(paths: list[Path], limit: int) -> 
         return _block(
             "Saved Investigation Analysis Runs",
             [
-                *_meta_lines("Phase 3A Components / Investigation Analysis / Saved Runs",
+                *_meta_lines("ATLAS Components / Investigation Analysis / Saved Runs",
                              "Select a saved Investigation Analysis run directory."),
                 "No Investigation Analysis run artifacts were found in logs/investigation_analysis_runs.",
                 "",
@@ -785,7 +1142,7 @@ def render_recent_investigation_analysis_runs(paths: list[Path], limit: int) -> 
         )
 
     lines = [
-        *_meta_lines("Phase 3A Components / Investigation Analysis / Saved Runs",
+        *_meta_lines("ATLAS Components / Investigation Analysis / Saved Runs",
                      "Select a saved Investigation Analysis run directory."),
         f"Showing latest {len(paths)} run(s) out of limit {limit}.",
         "",
@@ -802,7 +1159,7 @@ def render_recent_hypothesis_ranking_runs(paths: list[Path], limit: int) -> str:
         return _block(
             "Saved Hypothesis Ranking Runs",
             [
-                *_meta_lines("Phase 3A Components / Hypothesis Ranking / Saved Runs",
+                *_meta_lines("ATLAS Components / Hypothesis Ranking / Saved Runs",
                              "Select a saved Hypothesis Ranking run directory."),
                 "No Hypothesis Ranking run artifacts were found in logs/hypothesis_ranking_runs.",
                 "",
@@ -812,7 +1169,7 @@ def render_recent_hypothesis_ranking_runs(paths: list[Path], limit: int) -> str:
         )
 
     lines = [
-        *_meta_lines("Phase 3A Components / Hypothesis Ranking / Saved Runs",
+        *_meta_lines("ATLAS Components / Hypothesis Ranking / Saved Runs",
                      "Select a saved Hypothesis Ranking run directory."),
         f"Showing latest {len(paths)} run(s) out of limit {limit}.",
         "",
@@ -829,7 +1186,7 @@ def render_recent_planner_runs(paths: list[Path], limit: int) -> str:
         return _block(
             "Saved Planner Runs",
             [
-                *_meta_lines("Phase 3A Components / Planner / Saved Runs",
+                *_meta_lines("ATLAS Components / Planner / Saved Runs",
                              "Select a saved Planner run directory."),
                 "No Planner run artifacts were found in logs/planner_runs.",
                 "",
@@ -839,7 +1196,7 @@ def render_recent_planner_runs(paths: list[Path], limit: int) -> str:
         )
 
     lines = [
-        *_meta_lines("Phase 3A Components / Planner / Saved Runs",
+        *_meta_lines("ATLAS Components / Planner / Saved Runs",
                      "Select a saved Planner run directory."),
         f"Showing latest {len(paths)} run(s) out of limit {limit}.",
         "",
@@ -856,7 +1213,7 @@ def render_recent_router_runs(paths: list[Path], limit: int) -> str:
         return _block(
             "Saved Router Runs",
             [
-                *_meta_lines("Phase 3A Components / Router / Saved Runs",
+                *_meta_lines("ATLAS Components / Router / Saved Runs",
                              "Select a saved Router run directory."),
                 "No Router run artifacts were found in logs/router_runs.",
                 "",
@@ -866,7 +1223,7 @@ def render_recent_router_runs(paths: list[Path], limit: int) -> str:
         )
 
     lines = [
-        *_meta_lines("Phase 3A Components / Router / Saved Runs",
+        *_meta_lines("ATLAS Components / Router / Saved Runs",
                      "Select a saved Router run directory."),
         f"Showing latest {len(paths)} run(s) out of limit {limit}.",
         "",
@@ -883,7 +1240,7 @@ def render_recent_worker_runs(paths: list[Path], limit: int) -> str:
         return _block(
             "Saved Worker Runs",
             [
-                *_meta_lines("Phase 3A Components / Worker / Saved Runs",
+                *_meta_lines("ATLAS Components / Worker / Saved Runs",
                              "Select a saved Worker run directory."),
                 "No Worker run artifacts were found in logs/worker_runs.",
                 "",
@@ -893,7 +1250,7 @@ def render_recent_worker_runs(paths: list[Path], limit: int) -> str:
         )
 
     lines = [
-        *_meta_lines("Phase 3A Components / Worker / Saved Runs",
+        *_meta_lines("ATLAS Components / Worker / Saved Runs",
                      "Select a saved Worker run directory."),
         f"Showing latest {len(paths)} run(s) out of limit {limit}.",
         "",
@@ -910,7 +1267,7 @@ def render_recent_aggregation_runs(paths: list[Path], limit: int) -> str:
         return _block(
             "Saved Aggregation Runs",
             [
-                *_meta_lines("Phase 3A Components / Aggregation / Saved Runs",
+                *_meta_lines("ATLAS Components / Aggregation / Saved Runs",
                              "Select a saved Aggregation run directory."),
                 "No Aggregation run artifacts were found in logs/aggregation_runs.",
                 "",
@@ -920,7 +1277,7 @@ def render_recent_aggregation_runs(paths: list[Path], limit: int) -> str:
         )
 
     lines = [
-        *_meta_lines("Phase 3A Components / Aggregation / Saved Runs",
+        *_meta_lines("ATLAS Components / Aggregation / Saved Runs",
                      "Select a saved Aggregation run directory."),
         f"Showing latest {len(paths)} run(s) out of limit {limit}.",
         "",
@@ -937,7 +1294,7 @@ def render_recent_state_manager_runs(paths: list[Path], limit: int) -> str:
         return _block(
             "Saved State Manager Runs",
             [
-                *_meta_lines("Phase 3A Components / State Manager / Saved Runs",
+                *_meta_lines("ATLAS Components / State Manager / Saved Runs",
                              "Select a saved State Manager run directory."),
                 "No State Manager run artifacts were found in logs/state_manager_runs.",
                 "",
@@ -947,7 +1304,7 @@ def render_recent_state_manager_runs(paths: list[Path], limit: int) -> str:
         )
 
     lines = [
-        *_meta_lines("Phase 3A Components / State Manager / Saved Runs",
+        *_meta_lines("ATLAS Components / State Manager / Saved Runs",
                      "Select a saved State Manager run directory."),
         f"Showing latest {len(paths)} run(s) out of limit {limit}.",
         "",
@@ -964,7 +1321,7 @@ def render_recent_critic_runs(paths: list[Path], limit: int) -> str:
         return _block(
             "Saved Critic Runs",
             [
-                *_meta_lines("Phase 3A Components / Critic / Saved Runs",
+                *_meta_lines("ATLAS Components / Critic / Saved Runs",
                              "Select a saved Critic run directory."),
                 "No Critic run artifacts were found in logs/critic_runs.",
                 "",
@@ -974,7 +1331,7 @@ def render_recent_critic_runs(paths: list[Path], limit: int) -> str:
         )
 
     lines = [
-        *_meta_lines("Phase 3A Components / Critic / Saved Runs",
+        *_meta_lines("ATLAS Components / Critic / Saved Runs",
                      "Select a saved Critic run directory."),
         f"Showing latest {len(paths)} run(s) out of limit {limit}.",
         "",
@@ -991,7 +1348,7 @@ def render_recent_final_batch_auditor_runs(paths: list[Path], limit: int) -> str
         return _block(
             "Saved Final Batch Audits",
             [
-                *_meta_lines("Phase 3A Components / Final Batch Auditor / Saved Runs",
+                *_meta_lines("ATLAS Components / Final Batch Auditor / Saved Runs",
                              "Select a saved Final Batch Auditor run directory."),
                 "No Final Batch Auditor run artifacts were found in logs/final_batch_auditor_runs.",
                 "",
@@ -1001,7 +1358,7 @@ def render_recent_final_batch_auditor_runs(paths: list[Path], limit: int) -> str
         )
 
     lines = [
-        *_meta_lines("Phase 3A Components / Final Batch Auditor / Saved Runs",
+        *_meta_lines("ATLAS Components / Final Batch Auditor / Saved Runs",
                      "Select a saved Final Batch Auditor run directory."),
         f"Showing latest {len(paths)} run(s) out of limit {limit}.",
         "",
@@ -1018,7 +1375,7 @@ def render_recent_final_batch_report_runs(paths: list[Path], limit: int) -> str:
         return _block(
             "Saved Final Batch Reports",
             [
-                *_meta_lines("Phase 3A Components / Final Batch Report / Saved Runs",
+                *_meta_lines("ATLAS Components / Final Batch Report / Saved Runs",
                              "Select a saved Final Batch Report run directory."),
                 "No Final Batch Report run artifacts were found in logs/final_batch_report_runs.",
                 "",
@@ -1028,7 +1385,7 @@ def render_recent_final_batch_report_runs(paths: list[Path], limit: int) -> str:
         )
 
     lines = [
-        *_meta_lines("Phase 3A Components / Final Batch Report / Saved Runs",
+        *_meta_lines("ATLAS Components / Final Batch Report / Saved Runs",
                      "Select a saved Final Batch Report run directory."),
         f"Showing latest {len(paths)} run(s) out of limit {limit}.",
         "",
@@ -1043,28 +1400,28 @@ def render_recent_final_batch_report_runs(paths: list[Path], limit: int) -> str:
 def render_recent_phase3a_runtime_runs(paths: list[Path], limit: int) -> str:
     if not paths:
         return _block(
-            "Saved Phase 3A Batch Runs",
+            "Saved ATLAS Batch Runs",
             [
-                *_meta_lines("Phase 3A Components / Batch Runtime / Saved Runs",
-                             "Select a saved Phase 3A batch runtime directory."),
-                "No Phase 3A batch runtime artifacts were found in logs/phase3a_runtime_runs.",
+                *_meta_lines("ATLAS Components / Batch Runtime / Saved Runs",
+                             "Select a saved ATLAS batch runtime directory."),
+                "No ATLAS batch runtime artifacts were found in logs/phase3a_runtime_runs.",
                 "",
-                *(_section("Actions",
+                *(_section("Navigation",
                   _menu_lines([("B", "Back"), ("Q", "Quit")]))),
             ],
         )
 
     lines = [
-        *_meta_lines("Phase 3A Components / Batch Runtime / Saved Runs",
-                     "Select a saved Phase 3A batch runtime directory."),
+        *_meta_lines("ATLAS Components / Batch Runtime / Saved Runs",
+                     "Select a saved ATLAS batch runtime directory."),
         f"Showing latest {len(paths)} run(s) out of limit {limit}.",
         "",
         *(_section("Available Runs",
           [f"[{index}] {path.name}" for index, path in enumerate(paths, start=1)])),
-        *(_section("Actions",
+        *(_section("Navigation",
           _menu_lines([("N", "Change number of visible runs"), ("B", "Back"), ("Q", "Quit")]))),
     ]
-    return _block("Saved Phase 3A Batch Runs", lines)
+    return _block("Saved ATLAS Batch Runs", lines)
 
 
 def render_tool_run_review(
@@ -1075,7 +1432,7 @@ def render_tool_run_review(
     options: list[tuple[str, str]],
 ) -> str:
     lines = [
-        *_meta_lines("Phase 3A Components / Tools / Review",
+        *_meta_lines("ATLAS Components / Tools / Review",
                      "Inspect normalized inputs, raw output, parsed output, validation, and artifacts."),
         run_name,
         "",
@@ -1108,7 +1465,7 @@ def render_semantic_extraction_run_review(
     options: list[tuple[str, str]],
 ) -> str:
     lines = [
-        *_meta_lines("Phase 3A Components / Semantic Extraction / Review",
+        *_meta_lines("ATLAS Components / Semantic Extraction / Review",
                      "Inspect inputs, substrate, validation, prompt-response text, and artifacts."),
         run_name,
         "",
@@ -1141,7 +1498,7 @@ def render_investigation_analysis_run_review(
     options: list[tuple[str, str]],
 ) -> str:
     lines = [
-        *_meta_lines("Phase 3A Components / Investigation Analysis / Review",
+        *_meta_lines("ATLAS Components / Investigation Analysis / Review",
                      "Inspect substrate inputs, hypothesis outputs, validation, prompt-response text, and artifacts."),
         run_name,
         "",
@@ -1174,7 +1531,7 @@ def render_hypothesis_ranking_run_review(
     options: list[tuple[str, str]],
 ) -> str:
     lines = [
-        *_meta_lines("Phase 3A Components / Hypothesis Ranking / Review",
+        *_meta_lines("ATLAS Components / Hypothesis Ranking / Review",
                      "Inspect candidate inputs, selection decision, validation, prompt-response text, and artifacts."),
         run_name,
         "",
@@ -1207,7 +1564,7 @@ def render_planner_run_review(
     options: list[tuple[str, str]],
 ) -> str:
     lines = [
-        *_meta_lines("Phase 3A Components / Planner / Review",
+        *_meta_lines("ATLAS Components / Planner / Review",
                      "Inspect planning inputs, strategy bundle, validation, prompt-response text, and artifacts."),
         run_name,
         "",
@@ -1240,7 +1597,7 @@ def render_router_run_review(
     options: list[tuple[str, str]],
 ) -> str:
     lines = [
-        *_meta_lines("Phase 3A Components / Router / Review",
+        *_meta_lines("ATLAS Components / Router / Review",
                      "Inspect planner strategy input, reduced context, task bundle, validation, prompt-response text, and artifacts."),
         run_name,
         "",
@@ -1274,7 +1631,7 @@ def render_worker_run_review(
     options: list[tuple[str, str]],
 ) -> str:
     lines = [
-        *_meta_lines("Phase 3A Components / Worker / Review",
+        *_meta_lines("ATLAS Components / Worker / Review",
                      "Inspect worker task inputs, step trace, validation, prompt-response history, and artifacts."),
         run_name,
         "",
@@ -1309,7 +1666,7 @@ def render_aggregation_run_review(
     options: list[tuple[str, str]],
 ) -> str:
     lines = [
-        *_meta_lines("Phase 3A Components / Aggregation / Review",
+        *_meta_lines("ATLAS Components / Aggregation / Review",
                      "Inspect worker-result inputs, overlap diagnostics, merged handoff, validation, prompt-response text, and artifacts."),
         run_name,
         "",
@@ -1342,7 +1699,7 @@ def render_state_manager_run_review(
     options: list[tuple[str, str]],
 ) -> str:
     lines = [
-        *_meta_lines("Phase 3A Components / State Manager / Review",
+        *_meta_lines("ATLAS Components / State Manager / Review",
                      "Inspect prior state, state delta, updated canonical state, validation, prompt-response text, and artifacts."),
         run_name,
         "",
@@ -1375,7 +1732,7 @@ def render_critic_run_review(
     options: list[tuple[str, str]],
 ) -> str:
     lines = [
-        *_meta_lines("Phase 3A Components / Critic / Review",
+        *_meta_lines("ATLAS Components / Critic / Review",
                      "Inspect critic input summaries, observations payload, validation, prompt-response text, and artifacts."),
         run_name,
         "",
@@ -1408,7 +1765,7 @@ def render_final_batch_auditor_run_review(
     options: list[tuple[str, str]],
 ) -> str:
     lines = [
-        *_meta_lines("Phase 3A Components / Final Batch Auditor / Review",
+        *_meta_lines("ATLAS Components / Final Batch Auditor / Review",
                      "Inspect final audit input refs, debugging report, validation, prompt-response text, and artifacts."),
         run_name,
         "",
@@ -1441,7 +1798,7 @@ def render_final_batch_report_run_review(
     options: list[tuple[str, str]],
 ) -> str:
     lines = [
-        *_meta_lines("Phase 3A Components / Final Batch Report / Review",
+        *_meta_lines("ATLAS Components / Final Batch Report / Review",
                      "View the generated audit report, prompt, raw response, and technical details."),
         run_name,
         "",
@@ -1474,7 +1831,7 @@ def render_final_batch_report_post_run(
     options: list[tuple[str, str]],
 ) -> str:
     lines = [
-        *_meta_lines("Phase 3A Components / Final Batch Report / Run Complete",
+        *_meta_lines("ATLAS Components / Final Batch Report / Run Complete",
                      "The report has been generated. Use the actions below to inspect the result."),
         run_name,
         "",
@@ -1499,6 +1856,76 @@ def render_final_batch_report_post_run(
     return _block("Final Batch Report Run Complete", lines)
 
 
+def _group_runtime_run_review_options(options: list[tuple[str, str]]) -> list[str]:
+    chain_keys = {"1", "2", "3", "4", "5"}
+    audit_keys = {"6", "7"}
+    obs_keys = {"8", "9", "10", "11", "12", "13"}
+    nav_keys = {"B", "Q"}
+
+    chain_opts = [opt for opt in options if opt[0] in chain_keys]
+    audit_opts = [opt for opt in options if opt[0] in audit_keys]
+    obs_opts = [opt for opt in options if opt[0] in obs_keys]
+    nav_opts = [opt for opt in options if opt[0] in nav_keys]
+    other_opts = [opt for opt in options if opt[0] not in (chain_keys | audit_keys | obs_keys | nav_keys)]
+
+    sections: list[str] = []
+    if chain_opts:
+        sections.extend(_section("Cognitive Chain & Hypotheses", _menu_lines(chain_opts)))
+    if audit_opts:
+        sections.extend(_section("Auditing & Supervision", _menu_lines(audit_opts)))
+    if obs_opts:
+        sections.extend(_section("Observability & Artifacts", _menu_lines(obs_opts)))
+    if other_opts:
+        sections.extend(_section("Actions", _menu_lines(other_opts)))
+    if nav_opts:
+        sections.extend(_section("Navigation", _menu_lines(nav_opts)))
+    return sections
+
+
+def _group_round_review_options(options: list[tuple[str, str]]) -> list[str]:
+    comp_keys = {"1", "2", "3", "4"}
+    synth_keys = {"5", "6", "7"}
+    nav_keys = {"B", "Q"}
+
+    comp_opts = [opt for opt in options if opt[0] in comp_keys]
+    synth_opts = [opt for opt in options if opt[0] in synth_keys]
+    nav_opts = [opt for opt in options if opt[0] in nav_keys]
+    other_opts = [opt for opt in options if opt[0] not in (comp_keys | synth_keys | nav_keys)]
+
+    sections: list[str] = []
+    if comp_opts:
+        sections.extend(_section("Round Components", _menu_lines(comp_opts)))
+    if synth_opts:
+        sections.extend(_section("Hypotheses & Synthesis", _menu_lines(synth_opts)))
+    if other_opts:
+        sections.extend(_section("Actions", _menu_lines(other_opts)))
+    if nav_opts:
+        sections.extend(_section("Navigation", _menu_lines(nav_opts)))
+    return sections
+
+
+def _group_hypothesis_review_options(options: list[tuple[str, str]]) -> list[str]:
+    exec_keys = {"1", "2"}
+    state_keys = {"3", "4", "5"}
+    nav_keys = {"B", "Q"}
+
+    exec_opts = [opt for opt in options if opt[0] in exec_keys]
+    state_opts = [opt for opt in options if opt[0] in state_keys]
+    nav_opts = [opt for opt in options if opt[0] in nav_keys]
+    other_opts = [opt for opt in options if opt[0] not in (exec_keys | state_keys | nav_keys)]
+
+    sections: list[str] = []
+    if exec_opts:
+        sections.extend(_section("Execution Lineage", _menu_lines(exec_opts)))
+    if state_opts:
+        sections.extend(_section("State & Synthesis", _menu_lines(state_opts)))
+    if other_opts:
+        sections.extend(_section("Actions", _menu_lines(other_opts)))
+    if nav_opts:
+        sections.extend(_section("Navigation", _menu_lines(nav_opts)))
+    return sections
+
+
 def render_phase3a_runtime_run_review(
     *,
     run_name: str,
@@ -1507,7 +1934,7 @@ def render_phase3a_runtime_run_review(
     options: list[tuple[str, str]],
 ) -> str:
     lines = [
-        *_meta_lines("Phase 3A Components / Batch Runtime / Debugger",
+        *_meta_lines("ATLAS Components / Batch Runtime / Debugger",
                      "Inspect the persisted execution tree for this batch run, then drill into semantic extraction, rounds, hypotheses, statement, critic, and technical artifacts."),
         run_name,
         "",
@@ -1527,9 +1954,9 @@ def render_phase3a_runtime_run_review(
                 ]
             ),
         )),
-        *(_section("Actions", _menu_lines(options))),
+        *(_group_runtime_run_review_options(options)),
     ]
-    return _block("Phase 3A Runtime Execution Tree", lines)
+    return _block("ATLAS Runtime Execution Tree", lines)
 
 
 def render_phase3a_runtime_rounds_index(
@@ -1539,14 +1966,14 @@ def render_phase3a_runtime_rounds_index(
     options: list[tuple[str, str]],
 ) -> str:
     lines = [
-        *_meta_lines("Phase 3A Components / Batch Runtime / Review / Rounds",
+        *_meta_lines("ATLAS Components / Batch Runtime / Review / Rounds",
                      "Select a persisted round manifest to inspect its frozen snapshot and execution lineage."),
         run_name,
         "",
         *(_section("Rounds", round_lines or ["No round manifests are available."])),
-        *(_section("Actions", _menu_lines(options))),
+        *(_section("Navigation", _menu_lines(options))),
     ]
-    return _block("Phase 3A Runtime Rounds", lines)
+    return _block("ATLAS Runtime Rounds", lines)
 
 
 def render_phase3a_runtime_round_review(
@@ -1558,7 +1985,7 @@ def render_phase3a_runtime_round_review(
     options: list[tuple[str, str]],
 ) -> str:
     lines = [
-        *_meta_lines("Phase 3A Components / Batch Runtime / Review / Round",
+        *_meta_lines("ATLAS Components / Batch Runtime / Review / Round",
                      "Inspect the frozen snapshot and persisted component lineage for one round."),
         round_id,
         "",
@@ -1566,9 +1993,9 @@ def render_phase3a_runtime_round_review(
         *(_section("Default Hypothesis", default_hypothesis_lines or [
           "No persisted hypothesis execution is available for this round."])),
         *(_section("Artifacts", _kv_lines(artifact_pairs))),
-        *(_section("Actions", _menu_lines(options))),
+        *(_group_round_review_options(options)),
     ]
-    return _block("Phase 3A Round Review", lines)
+    return _block("ATLAS Round Review", lines)
 
 
 def render_phase3a_runtime_inter_hypothesis_aggregation_review(
@@ -1579,16 +2006,16 @@ def render_phase3a_runtime_inter_hypothesis_aggregation_review(
     options: list[tuple[str, str]],
 ) -> str:
     lines = [
-        *_meta_lines("Phase 3A Components / Batch Runtime / Review / Round / Inter-Hypothesis Aggregation",
+        *_meta_lines("ATLAS Components / Batch Runtime / Review / Round / Inter-Hypothesis Aggregation",
                      "Inspect the persisted round-level cross-hypothesis aggregation record before any state updates are committed."),
         round_id,
         "",
         *(_section("Summary", _kv_lines(summary_pairs))),
         *(_section("Hypothesis Syntheses",
           synthesis_lines or ["No persisted inter-hypothesis synthesis records are available."])),
-        *(_section("Actions", _menu_lines(options))),
+        *(_section("Navigation", _menu_lines(options))),
     ]
-    return _block("Phase 3A Inter-Hypothesis Aggregation", lines)
+    return _block("ATLAS Inter-Hypothesis Aggregation", lines)
 
 
 def render_phase3a_runtime_hypothesis_index(
@@ -1598,15 +2025,15 @@ def render_phase3a_runtime_hypothesis_index(
     options: list[tuple[str, str]],
 ) -> str:
     lines = [
-        *_meta_lines("Phase 3A Components / Batch Runtime / Review / Hypotheses",
+        *_meta_lines("ATLAS Components / Batch Runtime / Review / Hypotheses",
                      "Select a hypothesis execution lineage to inspect Router, Worker, Aggregation, and State Manager artifacts."),
         round_id,
         "",
         *(_section("Hypothesis Lineage",
           hypothesis_lines or ["No hypothesis executions were recorded for this round."])),
-        *(_section("Actions", _menu_lines(options))),
+        *(_section("Navigation", _menu_lines(options))),
     ]
-    return _block("Phase 3A Hypothesis Lineage", lines)
+    return _block("ATLAS Hypothesis Lineage", lines)
 
 
 def render_phase3a_runtime_hypothesis_review(
@@ -1618,7 +2045,7 @@ def render_phase3a_runtime_hypothesis_review(
     options: list[tuple[str, str]],
 ) -> str:
     lines = [
-        *_meta_lines("Phase 3A Components / Batch Runtime / Review / Hypothesis",
+        *_meta_lines("ATLAS Components / Batch Runtime / Review / Hypothesis",
                      "Inspect the persisted execution lineage for one hypothesis within a round."),
         hypothesis_id,
         "",
@@ -1626,9 +2053,9 @@ def render_phase3a_runtime_hypothesis_review(
         *(_section("Default Worker Task", default_worker_lines or [
           "No persisted Worker task is available for this hypothesis."])),
         *(_section("Artifacts", _kv_lines(artifact_pairs))),
-        *(_section("Actions", _menu_lines(options))),
+        *(_group_hypothesis_review_options(options)),
     ]
-    return _block("Phase 3A Hypothesis Review", lines)
+    return _block("ATLAS Hypothesis Review", lines)
 
 
 def render_phase3a_runtime_worker_index(
@@ -1638,15 +2065,15 @@ def render_phase3a_runtime_worker_index(
     options: list[tuple[str, str]],
 ) -> str:
     lines = [
-        *_meta_lines("Phase 3A Components / Batch Runtime / Review / Hypothesis / Workers",
+        *_meta_lines("ATLAS Components / Batch Runtime / Review / Hypothesis / Workers",
                      "Select a Worker task execution to inspect bounded task inputs, step timeline, and final result."),
         hypothesis_id,
         "",
         *(_section("Worker Tasks",
           worker_lines or ["No Worker executions were recorded for this hypothesis."])),
-        *(_section("Actions", _menu_lines(options))),
+        *(_section("Navigation", _menu_lines(options))),
     ]
-    return _block("Phase 3A Worker Tasks", lines)
+    return _block("ATLAS Worker Tasks", lines)
 
 
 def render_phase3a_runtime_event_stream_index(
@@ -1657,16 +2084,16 @@ def render_phase3a_runtime_event_stream_index(
     options: list[tuple[str, str]],
 ) -> str:
     lines = [
-        *_meta_lines("Phase 3A Components / Batch Runtime / Debugger / Event Stream",
+        *_meta_lines("ATLAS Components / Batch Runtime / Debugger / Event Stream",
                      "Select a persisted runtime event to inspect structured metadata and captured terminal lines."),
         run_name,
         "",
         *(_section("Summary", _kv_lines(summary_pairs))),
         *(_section("Events",
           event_lines or ["No persisted runtime events are available."])),
-        *(_section("Actions", _menu_lines(options))),
+        *(_section("Navigation", _menu_lines(options))),
     ]
-    return _block("Phase 3A Runtime Event Stream", lines)
+    return _block("ATLAS Runtime Event Stream", lines)
 
 
 def render_phase3a_runtime_event_review(
@@ -1677,16 +2104,16 @@ def render_phase3a_runtime_event_review(
     options: list[tuple[str, str]],
 ) -> str:
     lines = [
-        *_meta_lines("Phase 3A Components / Batch Runtime / Debugger / Event",
+        *_meta_lines("ATLAS Components / Batch Runtime / Debugger / Event",
                      "Inspect one persisted runtime event with its structured payload and captured terminal replay lines."),
         event_label,
         "",
         *(_section("Summary", _kv_lines(summary_pairs))),
         *(_section("Focus",
           focus_lines or ["No additional event context is available."])),
-        *(_section("Actions", _menu_lines(options))),
+        *(_section("Navigation", _menu_lines(options))),
     ]
-    return _block("Phase 3A Runtime Event Review", lines)
+    return _block("ATLAS Runtime Event Review", lines)
 
 
 def render_worker_step_index(
@@ -1696,7 +2123,7 @@ def render_worker_step_index(
     options: list[tuple[str, str]],
 ) -> str:
     lines = [
-        *_meta_lines("Phase 3A Components / Worker / Review / Steps",
+        *_meta_lines("ATLAS Components / Worker / Review / Steps",
                      "Select a persisted Worker step to inspect prompt, response, parsed output, actions, retries, and flags."),
         task_id,
         "",
@@ -1716,7 +2143,7 @@ def render_worker_step_review(
     options: list[tuple[str, str]],
 ) -> str:
     lines = [
-        *_meta_lines("Phase 3A Components / Worker / Review / Step",
+        *_meta_lines("ATLAS Components / Worker / Review / Step",
                      "Inspect one Worker step across attempts, prompt-response text, parser output, execution history, and local action results."),
         f"{task_id} / {step_label}",
         "",
@@ -1777,7 +2204,7 @@ def render_session_config(
             _kv_lines(config_pairs),
         )),
         *(_section(
-            "Actions",
+            "Model Roles",
             _menu_lines(
                 [
                     ("1", "Change Default Model"),
@@ -1786,10 +2213,24 @@ def render_session_config(
                     ("4", "Change Synthesis Model"),
                     ("5", "Change Critic Model"),
                     ("6", "Change Judge Model"),
+                ]
+            ),
+        )),
+        *(_section(
+            "Environment & Execution",
+            _menu_lines(
+                [
                     ("7", "Select Partition"),
                     ("8", "Toggle Live Trace"),
                     ("9", "Change Max Steps"),
                     ("10", "Change Evaluation Window"),
+                ]
+            ),
+        )),
+        *(_section(
+            "Navigation",
+            _menu_lines(
+                [
                     ("B", "Back"),
                     ("Q", "Quit"),
                 ]
@@ -1801,7 +2242,7 @@ def render_session_config(
 
 def render_critic_config_menu(*, current_model_name: str) -> str:
     lines = [
-        *_meta_lines("Home / Phase 3A Components / Critic / Critic Config",
+        *_meta_lines("Home / ATLAS Components / Critic / Critic Config",
                      "Select the model used by the Critic component."),
         *(_section("Current", _kv_lines([("model", current_model_name)]))),
         *(_section("Actions", _menu_lines([("B", "Back"), ("Q", "Quit")]))),
@@ -1924,8 +2365,9 @@ def render_reasoning_trace(history: list[dict[str, Any]], path_label: str | None
             step.get("observation") or {}, failure_noun="tool")
 
         lines.append(_rule("-"))
-        lines.append(f"STEP {int(step_id):02d}" if isinstance(
-            step_id, int) else f"STEP {step_id}")
+        step_id_str = f"STEP {int(step_id):02d}" if isinstance(
+            step_id, int) else f"STEP {step_id}"
+        lines.append(style(step_id_str, "amber", bold=True) if is_color_supported() else step_id_str)
         lines.extend(_wrap_field("Status", str(status)))
         lines.extend(_wrap_field(
             "Hypothesis", thought_fields.get("hypothesis") or thought))
@@ -2326,7 +2768,7 @@ def render_partition_memory_extractor_menu(
 ) -> str:
     lines = [
         *_meta_lines(
-            "Home / Phase 3A Components / Partition Memory Extractor",
+            "Home / ATLAS Components / Partition Memory Extractor",
             "LLM-powered extraction of structured partition memories from Final Batch Reports.",
         ),
         *(_section(
@@ -2337,11 +2779,21 @@ def render_partition_memory_extractor_menu(
             ]),
         )),
         *(_section(
-            "Actions",
+            "Execution",
             _menu_lines([
                 ("R", "Run Partition Memory Extractor  <available>"),
+            ]),
+        )),
+        *(_section(
+            "Review & History",
+            _menu_lines([
                 ("L", "Review Latest Run  <available>"),
                 ("V", "View Saved Runs  <available>"),
+            ]),
+        )),
+        *(_section(
+            "Navigation",
+            _menu_lines([
                 ("B", "Back"),
                 ("Q", "Quit"),
             ]),
@@ -2356,7 +2808,7 @@ def render_coverage_builder_menu(
 ) -> str:
     lines = [
         *_meta_lines(
-            "Home / Phase 3A Components / Coverage Builder",
+            "Home / ATLAS Components / Coverage Builder",
             "Deterministic aggregation of partition memories into dataset coverage.",
         ),
         *(_section(
@@ -2367,11 +2819,21 @@ def render_coverage_builder_menu(
             ]),
         )),
         *(_section(
-            "Actions",
+            "Execution",
             _menu_lines([
                 ("R", "Run Coverage Builder  <available>"),
+            ]),
+        )),
+        *(_section(
+            "Review & History",
+            _menu_lines([
                 ("L", "Review Latest Run  <available>"),
                 ("V", "View Saved Runs  <available>"),
+            ]),
+        )),
+        *(_section(
+            "Navigation",
+            _menu_lines([
                 ("B", "Back"),
                 ("Q", "Quit"),
             ]),
@@ -2386,7 +2848,7 @@ def render_dataset_merger_menu(
 ) -> str:
     lines = [
         *_meta_lines(
-            "Home / Phase 3A Components / Dataset Merger",
+            "Home / ATLAS Components / Dataset Merger",
             "LLM-powered merge of batch reports into a unified final dataset report.",
         ),
         *(_section(
@@ -2397,11 +2859,21 @@ def render_dataset_merger_menu(
             ]),
         )),
         *(_section(
-            "Actions",
+            "Execution",
             _menu_lines([
                 ("R", "Run Dataset Merger  <available>"),
+            ]),
+        )),
+        *(_section(
+            "Review & History",
+            _menu_lines([
                 ("L", "Review Latest Run  <available>"),
                 ("V", "View Saved Runs  <available>"),
+            ]),
+        )),
+        *(_section(
+            "Navigation",
+            _menu_lines([
                 ("B", "Back"),
                 ("Q", "Quit"),
             ]),
@@ -2514,7 +2986,7 @@ def render_dataset_runtime_menu(
 ) -> str:
     lines = [
         *_meta_lines(
-            "Home / Phase 3A Components / Batch Runtime / Dataset Runtime",
+            "Home / ATLAS Components / Batch Runtime / Dataset Runtime",
             "Full dataset orchestration: runs all partitions, coverage builder, and dataset merger.",
         ),
         *(_section(
@@ -2525,11 +2997,21 @@ def render_dataset_runtime_menu(
             ]),
         )),
         *(_section(
-            "Actions",
+            "Execution",
             _menu_lines([
                 ("R", "Run Full Dataset  <available>"),
+            ]),
+        )),
+        *(_section(
+            "Review & History",
+            _menu_lines([
                 ("L", "Review Latest Dataset Run  <available>"),
                 ("V", "View Saved Dataset Runs  <available>"),
+            ]),
+        )),
+        *(_section(
+            "Navigation",
+            _menu_lines([
                 ("B", "Back"),
                 ("Q", "Quit"),
             ]),

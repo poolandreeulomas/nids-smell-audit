@@ -158,6 +158,14 @@ from interface.terminal_ui import (
     render_worker_step_index,
     render_worker_step_review,
 )
+from interface.welcome import (
+    CONCEPT_CHAPTERS,
+    render_all_concept_chapters,
+    render_concept_chapter,
+    render_concept_toc,
+    render_usage_screen,
+    render_welcome_screen,
+)
 from hypothesis_ranking.context_resolver import build_ranking_state_min
 from hypothesis_ranking.runner import run_hypothesis_ranking
 from hypothesis_ranking.runtime_artifacts import (
@@ -591,7 +599,7 @@ PHASE3A_RUNTIME_MODE_LABELS = {
 class NidsAgentCli:
     """Simple keyboard-driven CLI shell for research workflows."""
 
-    def __init__(self) -> None:
+    def __init__(self, initial_screen: str = "welcome") -> None:
         self.session_config = SessionConfig()
         available_datasets = self._get_available_dataset_paths()
         if available_datasets:
@@ -669,8 +677,13 @@ class NidsAgentCli:
         self._selected_tool_name: str | None = None
         self._session_run_counter = get_next_run_index(LOG_DIR) - 1
         self._running = True
-        self._current_screen = "main"
+        self._concept_chapter_idx = 0
+        self._current_screen = initial_screen
         self._screen_handlers: dict[str, ScreenHandler] = {
+            "welcome": self._welcome_menu,
+            "concept": self._concept_menu,
+            "concept_chapter": self._concept_chapter_menu,
+            "usage": self._usage_menu,
             "main": self._main_menu,
             "phase3a": self._phase3a_components_menu,
             "phase3a_runtime": self._phase3a_runtime_menu,
@@ -718,6 +731,80 @@ class NidsAgentCli:
         print()
         input(prompt)
 
+    def _welcome_menu(self) -> str | None:
+        self._render(
+            render_welcome_screen(
+                dataset_name=self._get_selected_dataset_label(),
+            )
+        )
+        choice = self._read_menu_choice({"1", "2", "3", "0", "Q"})
+        if choice in {"0", "Q"}:
+            self._quit()
+            return None
+        if choice == "1":
+            return "main"
+        if choice == "2":
+            return "concept"
+        if choice == "3":
+            return "usage"
+        return "welcome"
+
+    def _concept_menu(self) -> str:
+        self._render(render_concept_toc())
+        choice = self._read_menu_choice({"1", "2", "3", "4", "5", "A", "B", "0", "Q"})
+        if choice in {"B", "0"}:
+            return "welcome"
+        if choice == "Q":
+            self._quit()
+            return "concept"
+        if choice == "A":
+            self._render(render_all_concept_chapters())
+            self._wait_for_enter("Press Enter to return to Concept Menu.")
+            return "concept"
+        if choice in {"1", "2", "3", "4", "5"}:
+            self._concept_chapter_idx = int(choice) - 1
+            return "concept_chapter"
+        return "concept"
+
+    def _concept_chapter_menu(self) -> str:
+        self._render(render_concept_chapter(self._concept_chapter_idx))
+        valid_choices = {"T", "B", "0", "Q"}
+        total_chapters = len(CONCEPT_CHAPTERS)
+        if self._concept_chapter_idx < total_chapters - 1:
+            valid_choices.add("N")
+        if self._concept_chapter_idx > 0:
+            valid_choices.add("P")
+
+        choice = self._read_menu_choice(valid_choices)
+        if choice in {"B", "0"}:
+            return "welcome"
+        if choice == "T":
+            return "concept"
+        if choice == "Q":
+            self._quit()
+            return "concept_chapter"
+        if choice == "N" and self._concept_chapter_idx < total_chapters - 1:
+            self._concept_chapter_idx += 1
+            return "concept_chapter"
+        if choice == "P" and self._concept_chapter_idx > 0:
+            self._concept_chapter_idx -= 1
+            return "concept_chapter"
+        return "concept_chapter"
+
+    def _usage_menu(self) -> str:
+        self._render(render_usage_screen())
+        choice = self._read_menu_choice({"1", "2", "B", "0", "Q"})
+        if choice in {"B", "0"}:
+            return "welcome"
+        if choice == "1":
+            return "main"
+        if choice == "2":
+            return "concept"
+        if choice == "Q":
+            self._quit()
+            return "usage"
+        return "welcome"
+
     def _main_menu(self) -> str | None:
         self._render(
             render_main_menu(
@@ -731,11 +818,14 @@ class NidsAgentCli:
             )
         )
 
-        choice = self._read_menu_choice({"1", "2", "3", "Q"})
+        choice = self._read_menu_choice({"1", "2", "3", "B", "0", "W", "Q"})
         routes = {
             "1": "phase3a_runtime",
             "2": "phase3a",
             "3": "session",
+            "B": "welcome",
+            "0": "welcome",
+            "W": "welcome",
         }
         if choice == "Q":
             self._quit()
@@ -836,7 +926,7 @@ class NidsAgentCli:
                 "D": "debug / replay",
             }
             self._show_component_action_pending(
-                component_name="Phase 3A Runtime",
+                component_name="ATLAS Batch Runtime",
                 action_name=pending_actions[choice],
                 implemented_summary="grouped execution, latest-run review, and saved-run browsing are available",
             )
@@ -2224,7 +2314,7 @@ class NidsAgentCli:
             self._render(
                 render_text_view(
                     title="Final Batch Report",
-                    path_label="Phase 3A Components / Final Batch Report / Review / Report",
+                    path_label="ATLAS Components / Final Batch Report / Review / Report",
                     content=run_context.report_markdown or "No report was generated.",
                     hint="Human-facing audit report generated from the Final Updated State.",
                 )
@@ -2235,7 +2325,7 @@ class NidsAgentCli:
             self._render(
                 render_text_view(
                     title="Rendered Prompt",
-                    path_label="Phase 3A Components / Final Batch Report / Review / Prompt",
+                    path_label="ATLAS Components / Final Batch Report / Review / Prompt",
                     content=run_context.rendered_prompt or "No prompt was recorded.",
                     hint="Exact prompt sent to the model.",
                 )
@@ -2246,7 +2336,7 @@ class NidsAgentCli:
             self._render(
                 render_text_view(
                     title="Raw Response",
-                    path_label="Phase 3A Components / Final Batch Report / Review / Raw Response",
+                    path_label="ATLAS Components / Final Batch Report / Review / Raw Response",
                     content=run_context.raw_response or "No raw response was recorded.",
                     hint="Raw LLM response before parsing.",
                 )
@@ -2272,7 +2362,7 @@ class NidsAgentCli:
                 metrics=metrics,
                 tools_used=["final_batch_report"],
                 artifact_paths=run_context.artifact_paths,
-                path_label="Phase 3A Components / Final Batch Report / Review / Technical Details",
+                path_label="ATLAS Components / Final Batch Report / Review / Technical Details",
                 hint="Metrics and artifact paths for the report run.",
             )
         )
@@ -3273,7 +3363,7 @@ class NidsAgentCli:
             )
         except Exception as exc:  # noqa: BLE001
             self._show_error(
-                f"{PHASE3A_RUNTIME_MODE_LABELS.get(execution_mode, 'Phase 3A Runtime')} failed: {exc}"
+                f"{PHASE3A_RUNTIME_MODE_LABELS.get(execution_mode, 'ATLAS Batch Runtime')} failed: {exc}"
             )
             return "phase3a_runtime"
         finally:
@@ -5031,7 +5121,7 @@ class NidsAgentCli:
             self._render(
                 render_tool_json_view(
                     title="Normalized Inputs",
-                    path_label="Phase 3A Components / Tools / Review / Normalized Inputs",
+                    path_label="ATLAS Components / Tools / Review / Normalized Inputs",
                     payload=run_context.normalized_inputs,
                     hint="Exact resolved input surface used for deterministic execution.",
                 )
@@ -5042,7 +5132,7 @@ class NidsAgentCli:
             self._render(
                 render_tool_json_view(
                     title="Raw Tool Output",
-                    path_label="Phase 3A Components / Tools / Review / Raw Output",
+                    path_label="ATLAS Components / Tools / Review / Raw Output",
                     payload=run_context.raw_tool_output,
                     hint="Legacy raw output before Phase 3A normalization.",
                 )
@@ -5053,7 +5143,7 @@ class NidsAgentCli:
             self._render(
                 render_tool_json_view(
                     title="Parsed Tool Output",
-                    path_label="Phase 3A Components / Tools / Review / Parsed Output",
+                    path_label="ATLAS Components / Tools / Review / Parsed Output",
                     payload=run_context.parsed_output,
                     hint="Phase 3A normalized tool_result contract.",
                 )
@@ -5064,7 +5154,7 @@ class NidsAgentCli:
             self._render(
                 render_tool_json_view(
                     title="Validation Report",
-                    path_label="Phase 3A Components / Tools / Review / Validation",
+                    path_label="ATLAS Components / Tools / Review / Validation",
                     payload=run_context.validation_report,
                     hint="Request, inventory, and result validation outcome.",
                 )
@@ -5093,7 +5183,7 @@ class NidsAgentCli:
                     "run_log_path": run_context.artifact_paths.get("component_run_path", "unavailable"),
                     "metrics_log_path": run_context.artifact_paths.get("tool_metrics_path", "unavailable"),
                 },
-                path_label="Phase 3A Components / Tools / Review / Technical Details",
+                path_label="ATLAS Components / Tools / Review / Technical Details",
                 hint="Artifact-first debugging surface for direct tool execution.",
             )
         )
@@ -5108,7 +5198,7 @@ class NidsAgentCli:
             self._render(
                 render_tool_json_view(
                     title="Semantic Extraction Inputs",
-                    path_label="Phase 3A Components / Semantic Extraction / Review / Inputs",
+                    path_label="ATLAS Components / Semantic Extraction / Review / Inputs",
                     payload={
                         "overview_summary_min": run_context.overview_summary_min,
                         "partition_context": run_context.partition_context,
@@ -5123,7 +5213,7 @@ class NidsAgentCli:
             self._render(
                 render_tool_json_view(
                     title="Parsed Semantic Substrate",
-                    path_label="Phase 3A Components / Semantic Extraction / Review / Parsed Output",
+                    path_label="ATLAS Components / Semantic Extraction / Review / Parsed Output",
                     payload=run_context.parsed_output,
                     hint="Structured substrate handed off for downstream Investigation Analysis.",
                 )
@@ -5134,7 +5224,7 @@ class NidsAgentCli:
             self._render(
                 render_tool_json_view(
                     title="Validation Report",
-                    path_label="Phase 3A Components / Semantic Extraction / Review / Validation",
+                    path_label="ATLAS Components / Semantic Extraction / Review / Validation",
                     payload=run_context.validation_report,
                     hint="Overview, context, parse, and substrate validation outcome.",
                 )
@@ -5145,7 +5235,7 @@ class NidsAgentCli:
             self._render(
                 render_text_view(
                     title="Prompt And Raw Response",
-                    path_label="Phase 3A Components / Semantic Extraction / Review / Prompt Response",
+                    path_label="ATLAS Components / Semantic Extraction / Review / Prompt Response",
                     content="=== PROMPT ===\n\n"
                     + run_context.prompt_text
                     + "\n\n=== RAW RESPONSE ===\n\n"
@@ -5179,7 +5269,7 @@ class NidsAgentCli:
                     "run_log_path": run_context.artifact_paths.get("component_run_path", "unavailable"),
                     "metrics_log_path": run_context.artifact_paths.get("runtime_metrics_path", "unavailable"),
                 },
-                path_label="Phase 3A Components / Semantic Extraction / Review / Technical Details",
+                path_label="ATLAS Components / Semantic Extraction / Review / Technical Details",
                 hint="Artifact-first debugging surface for Semantic Extraction runs.",
             )
         )
@@ -5194,7 +5284,7 @@ class NidsAgentCli:
             self._render(
                 render_tool_json_view(
                     title="Investigation Analysis Inputs",
-                    path_label="Phase 3A Components / Investigation Analysis / Review / Inputs",
+                    path_label="ATLAS Components / Investigation Analysis / Review / Inputs",
                     payload={
                         "semantic_substrate_input": run_context.semantic_substrate_input,
                         "analysis_context_min": run_context.analysis_context_min,
@@ -5212,7 +5302,7 @@ class NidsAgentCli:
             self._render(
                 render_tool_json_view(
                     title="Hypothesis Set",
-                    path_label="Phase 3A Components / Investigation Analysis / Review / Hypothesis Set",
+                    path_label="ATLAS Components / Investigation Analysis / Review / Hypothesis Set",
                     payload={
                         "hypothesis_set": run_context.parsed_output,
                         "hypothesis_index": run_context.hypothesis_index,
@@ -5226,7 +5316,7 @@ class NidsAgentCli:
             self._render(
                 render_tool_json_view(
                     title="Validation Report",
-                    path_label="Phase 3A Components / Investigation Analysis / Review / Validation",
+                    path_label="ATLAS Components / Investigation Analysis / Review / Validation",
                     payload=run_context.validation_report,
                     hint="Input, parse, and anti-planning validation outcome.",
                 )
@@ -5237,7 +5327,7 @@ class NidsAgentCli:
             self._render(
                 render_text_view(
                     title="Prompt And Raw Response",
-                    path_label="Phase 3A Components / Investigation Analysis / Review / Prompt Response",
+                    path_label="ATLAS Components / Investigation Analysis / Review / Prompt Response",
                     content="=== PROMPT ===\n\n"
                     + run_context.prompt_text
                     + "\n\n=== RAW RESPONSE ===\n\n"
@@ -5274,7 +5364,7 @@ class NidsAgentCli:
                     "run_log_path": run_context.artifact_paths.get("component_run_path", "unavailable"),
                     "metrics_log_path": run_context.artifact_paths.get("runtime_metrics_path", "unavailable"),
                 },
-                path_label="Phase 3A Components / Investigation Analysis / Review / Technical Details",
+                path_label="ATLAS Components / Investigation Analysis / Review / Technical Details",
                 hint="Artifact-first debugging surface for Investigation Analysis runs.",
             )
         )
@@ -5289,7 +5379,7 @@ class NidsAgentCli:
             self._render(
                 render_tool_json_view(
                     title="Hypothesis Ranking Inputs",
-                    path_label="Phase 3A Components / Hypothesis Ranking / Review / Inputs",
+                    path_label="ATLAS Components / Hypothesis Ranking / Review / Inputs",
                     payload={
                         "candidate_hypotheses": run_context.candidate_hypotheses,
                         "ranking_state_snapshot": run_context.ranking_state_snapshot,
@@ -5305,7 +5395,7 @@ class NidsAgentCli:
             self._render(
                 render_tool_json_view(
                     title="Selection Decision",
-                    path_label="Phase 3A Components / Hypothesis Ranking / Review / Selection Decision",
+                    path_label="ATLAS Components / Hypothesis Ranking / Review / Selection Decision",
                     payload={
                         "ranking_decision": run_context.parsed_output,
                         "selection_index": run_context.selection_index,
@@ -5319,7 +5409,7 @@ class NidsAgentCli:
             self._render(
                 render_tool_json_view(
                     title="Validation Report",
-                    path_label="Phase 3A Components / Hypothesis Ranking / Review / Validation",
+                    path_label="ATLAS Components / Hypothesis Ranking / Review / Validation",
                     payload=run_context.validation_report,
                     hint="Input, parse, and allocation-only validation outcome.",
                 )
@@ -5330,7 +5420,7 @@ class NidsAgentCli:
             self._render(
                 render_text_view(
                     title="Prompt And Raw Response",
-                    path_label="Phase 3A Components / Hypothesis Ranking / Review / Prompt Response",
+                    path_label="ATLAS Components / Hypothesis Ranking / Review / Prompt Response",
                     content="=== PROMPT ===\n\n"
                     + run_context.prompt_text
                     + "\n\n=== RAW RESPONSE ===\n\n"
@@ -5367,7 +5457,7 @@ class NidsAgentCli:
                     "run_log_path": run_context.artifact_paths.get("component_run_path", "unavailable"),
                     "metrics_log_path": run_context.artifact_paths.get("runtime_metrics_path", "unavailable"),
                 },
-                path_label="Phase 3A Components / Hypothesis Ranking / Review / Technical Details",
+                path_label="ATLAS Components / Hypothesis Ranking / Review / Technical Details",
                 hint="Artifact-first debugging surface for Hypothesis Ranking runs.",
             )
         )
@@ -5382,7 +5472,7 @@ class NidsAgentCli:
             self._render(
                 render_tool_json_view(
                     title="Planner Inputs",
-                    path_label="Phase 3A Components / Planner / Review / Inputs",
+                    path_label="ATLAS Components / Planner / Review / Inputs",
                     payload={
                         "ranking_decision_min": run_context.ranking_decision_min,
                         "selected_hypothesis_context": run_context.selected_hypothesis_context,
@@ -5399,7 +5489,7 @@ class NidsAgentCli:
             self._render(
                 render_tool_json_view(
                     title="Planner Strategy Bundle",
-                    path_label="Phase 3A Components / Planner / Review / Strategy Bundle",
+                    path_label="ATLAS Components / Planner / Review / Strategy Bundle",
                     payload={
                         "planner_round_output": run_context.parsed_output,
                         "strategy_index": run_context.strategy_index,
@@ -5413,7 +5503,7 @@ class NidsAgentCli:
             self._render(
                 render_tool_json_view(
                     title="Validation Report",
-                    path_label="Phase 3A Components / Planner / Review / Validation",
+                    path_label="ATLAS Components / Planner / Review / Validation",
                     payload=run_context.validation_report,
                     hint="Input, parse, and strategic-boundary validation outcome.",
                 )
@@ -5424,7 +5514,7 @@ class NidsAgentCli:
             self._render(
                 render_text_view(
                     title="Prompt And Raw Response",
-                    path_label="Phase 3A Components / Planner / Review / Prompt Response",
+                    path_label="ATLAS Components / Planner / Review / Prompt Response",
                     content="=== PROMPT ===\n\n"
                     + run_context.prompt_text
                     + "\n\n=== RAW RESPONSE ===\n\n"
@@ -5461,7 +5551,7 @@ class NidsAgentCli:
                     "run_log_path": run_context.artifact_paths.get("component_run_path", "unavailable"),
                     "metrics_log_path": run_context.artifact_paths.get("runtime_metrics_path", "unavailable"),
                 },
-                path_label="Phase 3A Components / Planner / Review / Technical Details",
+                path_label="ATLAS Components / Planner / Review / Technical Details",
                 hint="Artifact-first debugging surface for Planner runs.",
             )
         )
@@ -5476,7 +5566,7 @@ class NidsAgentCli:
             self._render(
                 render_tool_json_view(
                     title="Router Inputs And Reduced Context",
-                    path_label="Phase 3A Components / Router / Review / Inputs Context",
+                    path_label="ATLAS Components / Router / Review / Inputs Context",
                     payload={
                         "planner_strategy": run_context.planner_strategy,
                         "router_context_min": run_context.router_context_min,
@@ -5491,7 +5581,7 @@ class NidsAgentCli:
             self._render(
                 render_tool_json_view(
                     title="Router Task Bundle",
-                    path_label="Phase 3A Components / Router / Review / Task Bundle",
+                    path_label="ATLAS Components / Router / Review / Task Bundle",
                     payload={
                         "router_output": run_context.parsed_output,
                         "task_bundle_index": run_context.task_bundle_index,
@@ -5505,7 +5595,7 @@ class NidsAgentCli:
             self._render(
                 render_tool_json_view(
                     title="Validation Report",
-                    path_label="Phase 3A Components / Router / Review / Validation",
+                    path_label="ATLAS Components / Router / Review / Validation",
                     payload=run_context.validation_report,
                     hint="Input, parse, and task-boundary validation outcome.",
                 )
@@ -5516,7 +5606,7 @@ class NidsAgentCli:
             self._render(
                 render_text_view(
                     title="Prompt And Raw Response",
-                    path_label="Phase 3A Components / Router / Review / Prompt Response",
+                    path_label="ATLAS Components / Router / Review / Prompt Response",
                     content="=== PROMPT ===\n\n"
                     + run_context.prompt_text
                     + "\n\n=== RAW RESPONSE ===\n\n"
@@ -5552,7 +5642,7 @@ class NidsAgentCli:
                     "run_log_path": run_context.artifact_paths.get("component_run_path", "unavailable"),
                     "metrics_log_path": run_context.artifact_paths.get("runtime_metrics_path", "unavailable"),
                 },
-                path_label="Phase 3A Components / Router / Review / Technical Details",
+                path_label="ATLAS Components / Router / Review / Technical Details",
                 hint="Artifact-first debugging surface for Router runs.",
             )
         )
@@ -5625,7 +5715,7 @@ class NidsAgentCli:
                 self._render(
                     render_text_view(
                         title="Worker Step Prompt / Raw Response",
-                        path_label="Phase 3A Components / Worker / Review / Step / Prompt Response",
+                        path_label="ATLAS Components / Worker / Review / Step / Prompt Response",
                         content="=== PROMPT ===\n\n"
                         + step_trace.latest_attempt.prompt_text
                         + "\n\n=== RAW RESPONSE ===\n\n"
@@ -5639,7 +5729,7 @@ class NidsAgentCli:
                 self._render(
                     render_tool_json_view(
                         title="Worker Step Parsed Output / Validation",
-                        path_label="Phase 3A Components / Worker / Review / Step / Parsed Validation",
+                        path_label="ATLAS Components / Worker / Review / Step / Parsed Validation",
                         payload={
                             "parsed_output": step_trace.latest_attempt.parsed_output,
                             "validator_output": step_trace.latest_attempt.validator_output,
@@ -5661,7 +5751,7 @@ class NidsAgentCli:
                 self._render(
                     render_tool_json_view(
                         title="Worker Step Execution History",
-                        path_label="Phase 3A Components / Worker / Review / Step / Execution History",
+                        path_label="ATLAS Components / Worker / Review / Step / Execution History",
                         payload=step_trace.execution_history_before_step,
                         hint="All executed tool actions before this step, used as the local execution history context.",
                     )
@@ -5672,7 +5762,7 @@ class NidsAgentCli:
                 self._render(
                     render_tool_json_view(
                         title="Worker Step Actions And Results",
-                        path_label="Phase 3A Components / Worker / Review / Step / Actions Results",
+                        path_label="ATLAS Components / Worker / Review / Step / Actions Results",
                         payload={
                             "proposed_actions": step_trace.proposed_actions,
                             "executed_actions": step_trace.executed_actions,
@@ -5687,7 +5777,7 @@ class NidsAgentCli:
                 self._render(
                     render_tool_json_view(
                         title="Worker Step Retries / Failures / Flags",
-                        path_label="Phase 3A Components / Worker / Review / Step / Flags",
+                        path_label="ATLAS Components / Worker / Review / Step / Flags",
                         payload={
                             "retry_events": step_trace.retry_events,
                             "failure_events": step_trace.failure_events,
@@ -5702,7 +5792,7 @@ class NidsAgentCli:
             self._render(
                 render_tool_json_view(
                     title="Worker Full Step Payload",
-                    path_label="Phase 3A Components / Worker / Review / Step / Full Payload",
+                    path_label="ATLAS Components / Worker / Review / Step / Full Payload",
                     payload={
                         "step_index": step_trace.step_index,
                         "step_mode": step_trace.step_mode,
@@ -5776,7 +5866,7 @@ class NidsAgentCli:
             self._render(
                 render_tool_json_view(
                     title="Worker Task And Runtime Context",
-                    path_label="Phase 3A Components / Worker / Review / Inputs",
+                    path_label="ATLAS Components / Worker / Review / Inputs",
                     payload={
                         "worker_task": run_context.worker_task,
                         "worker_runtime_refs": run_context.worker_runtime_refs,
@@ -5801,7 +5891,7 @@ class NidsAgentCli:
             self._render(
                 render_tool_json_view(
                     title="Validation Report",
-                    path_label="Phase 3A Components / Worker / Review / Validation",
+                    path_label="ATLAS Components / Worker / Review / Validation",
                     payload=run_context.validation_report,
                     hint="Task, runtime, result, and output validation outcome.",
                 )
@@ -5812,7 +5902,7 @@ class NidsAgentCli:
             self._render(
                 render_text_view(
                     title="Prompt And Raw Responses",
-                    path_label="Phase 3A Components / Worker / Review / Prompt Response",
+                    path_label="ATLAS Components / Worker / Review / Prompt Response",
                     content=self._build_worker_prompt_response_text(
                         run_context),
                     hint="Rendered prompt snapshots and raw model responses for artifact-first debugging.",
@@ -5824,7 +5914,7 @@ class NidsAgentCli:
             self._render(
                 render_tool_json_view(
                     title="Worker Trace And Result",
-                    path_label="Phase 3A Components / Worker / Review / Trace Result",
+                    path_label="ATLAS Components / Worker / Review / Trace Result",
                     payload={
                         "parsed_steps": run_context.parsed_steps,
                         "tool_events": run_context.tool_events,
@@ -5866,7 +5956,7 @@ class NidsAgentCli:
                     "run_log_path": run_context.artifact_paths.get("component_run_path", "unavailable"),
                     "metrics_log_path": run_context.artifact_paths.get("runtime_metrics_path", "unavailable"),
                 },
-                path_label="Phase 3A Components / Worker / Review / Technical Details",
+                path_label="ATLAS Components / Worker / Review / Technical Details",
                 hint="Artifact-first debugging surface for Worker runs.",
             )
         )
@@ -5881,7 +5971,7 @@ class NidsAgentCli:
             self._render(
                 render_tool_json_view(
                     title="Aggregation Source Worker Results",
-                    path_label="Phase 3A Components / Aggregation / Review / Inputs",
+                    path_label="ATLAS Components / Aggregation / Review / Inputs",
                     payload={
                         "worker_result_set": run_context.worker_result_set,
                         "normalized_inputs": run_context.normalized_inputs,
@@ -5895,7 +5985,7 @@ class NidsAgentCli:
             self._render(
                 render_tool_json_view(
                     title="Aggregation Merge Output",
-                    path_label="Phase 3A Components / Aggregation / Review / Merge Output",
+                    path_label="ATLAS Components / Aggregation / Review / Merge Output",
                     payload={
                         "overlap_diagnostics": run_context.overlap_diagnostics,
                         "parsed_output": run_context.parsed_output,
@@ -5910,7 +6000,7 @@ class NidsAgentCli:
             self._render(
                 render_tool_json_view(
                     title="Validation Report",
-                    path_label="Phase 3A Components / Aggregation / Review / Validation",
+                    path_label="ATLAS Components / Aggregation / Review / Validation",
                     payload=run_context.validation_report,
                     hint="Worker-result set, parse, and handoff validation outcome.",
                 )
@@ -5921,7 +6011,7 @@ class NidsAgentCli:
             self._render(
                 render_text_view(
                     title="Aggregation Prompt / Response",
-                    path_label="Phase 3A Components / Aggregation / Review / Prompt Response",
+                    path_label="ATLAS Components / Aggregation / Review / Prompt Response",
                     content=self._build_aggregation_prompt_response_text(
                         run_context),
                     hint="Exact prompt sent to the model and the raw response returned.",
@@ -5956,7 +6046,7 @@ class NidsAgentCli:
                     "run_log_path": run_context.artifact_paths.get("component_run_path", "unavailable"),
                     "metrics_log_path": run_context.artifact_paths.get("runtime_metrics_path", "unavailable"),
                 },
-                path_label="Phase 3A Components / Aggregation / Review / Technical Details",
+                path_label="ATLAS Components / Aggregation / Review / Technical Details",
                 hint="Artifact-first debugging surface for Aggregation runs.",
             )
         )
@@ -5971,7 +6061,7 @@ class NidsAgentCli:
             self._render(
                 render_tool_json_view(
                     title="State Manager Prior State / Context",
-                    path_label="Phase 3A Components / State Manager / Review / Prior State",
+                    path_label="ATLAS Components / State Manager / Review / Prior State",
                     payload={
                         "prior_state": run_context.prior_state,
                         "state_manager_context": run_context.state_manager_context,
@@ -5986,7 +6076,7 @@ class NidsAgentCli:
             self._render(
                 render_tool_json_view(
                     title="State Manager Delta And Updated State",
-                    path_label="Phase 3A Components / State Manager / Review / Delta",
+                    path_label="ATLAS Components / State Manager / Review / Delta",
                     payload={
                         "state_delta_record": run_context.state_delta_record,
                         "state_update_result": run_context.state_update_result,
@@ -6001,7 +6091,7 @@ class NidsAgentCli:
             self._render(
                 render_tool_json_view(
                     title="Validation Report",
-                    path_label="Phase 3A Components / State Manager / Review / Validation",
+                    path_label="ATLAS Components / State Manager / Review / Validation",
                     payload=run_context.validation_report,
                     hint="Canonical state input, handoff, parse, and state-delta validation outcome.",
                 )
@@ -6012,7 +6102,7 @@ class NidsAgentCli:
             self._render(
                 render_text_view(
                     title="State Manager Prompt / Response",
-                    path_label="Phase 3A Components / State Manager / Review / Prompt Response",
+                    path_label="ATLAS Components / State Manager / Review / Prompt Response",
                     content=self._build_state_manager_prompt_response_text(
                         run_context),
                     hint="Exact prompt sent to the model and the raw response returned.",
@@ -6054,7 +6144,7 @@ class NidsAgentCli:
                     "run_log_path": run_context.artifact_paths.get("component_run_path", "unavailable"),
                     "metrics_log_path": run_context.artifact_paths.get("runtime_metrics_path", "unavailable"),
                 },
-                path_label="Phase 3A Components / State Manager / Review / Technical Details",
+                path_label="ATLAS Components / State Manager / Review / Technical Details",
                 hint="Artifact-first debugging surface for State Manager runs.",
             )
         )
@@ -6069,7 +6159,7 @@ class NidsAgentCli:
             self._render(
                 render_tool_json_view(
                     title="Critic Input Summary",
-                    path_label="Phase 3A Components / Critic / Review / Input Summary",
+                    path_label="ATLAS Components / Critic / Review / Input Summary",
                     payload={
                         "critic_input_min": run_context.critic_input_min,
                         "refined_state_summary": run_context.refined_state_summary,
@@ -6085,7 +6175,7 @@ class NidsAgentCli:
             self._render(
                 render_tool_json_view(
                     title="Critic Observations",
-                    path_label="Phase 3A Components / Critic / Review / Observations",
+                    path_label="ATLAS Components / Critic / Review / Observations",
                     payload=run_context.critic_observations_payload,
                     hint="Bounded strategic observations emitted for the next round.",
                 )
@@ -6096,7 +6186,7 @@ class NidsAgentCli:
             self._render(
                 render_tool_json_view(
                     title="Validation Report",
-                    path_label="Phase 3A Components / Critic / Review / Validation",
+                    path_label="ATLAS Components / Critic / Review / Validation",
                     payload=run_context.validation_report,
                     hint="Input, final-round gate, parse, and advisory-boundary validation outcome.",
                 )
@@ -6107,7 +6197,7 @@ class NidsAgentCli:
             self._render(
                 render_text_view(
                     title="Critic Prompt / Response",
-                    path_label="Phase 3A Components / Critic / Review / Prompt Response",
+                    path_label="ATLAS Components / Critic / Review / Prompt Response",
                     content=self._build_critic_prompt_response_text(
                         run_context),
                     hint="Exact prompt sent to the model and the raw response returned.",
@@ -6143,7 +6233,7 @@ class NidsAgentCli:
                     "run_log_path": run_context.artifact_paths.get("component_run_path", "unavailable"),
                     "metrics_log_path": run_context.artifact_paths.get("runtime_metrics_path", "unavailable"),
                 },
-                path_label="Phase 3A Components / Critic / Review / Technical Details",
+                path_label="ATLAS Components / Critic / Review / Technical Details",
                 hint="Artifact-first debugging surface for Critic runs.",
             )
         )
@@ -6158,7 +6248,7 @@ class NidsAgentCli:
             self._render(
                 render_tool_json_view(
                     title="Final Batch Audit Input Summary",
-                    path_label="Phase 3A Components / Final Batch Auditor / Review / Input Summary",
+                    path_label="ATLAS Components / Final Batch Auditor / Review / Input Summary",
                     payload={
                         "final_audit_input": run_context.final_audit_input,
                         "final_state_summary": run_context.final_state_summary,
@@ -6174,7 +6264,7 @@ class NidsAgentCli:
             self._render(
                 render_tool_json_view(
                     title="Debugging Audit Report",
-                    path_label="Phase 3A Components / Final Batch Auditor / Review / Debugging Report",
+                    path_label="ATLAS Components / Final Batch Auditor / Review / Debugging Report",
                     payload=run_context.debugging_audit_report,
                     hint="Terminal debugging-oriented retrospective batch report.",
                 )
@@ -6185,7 +6275,7 @@ class NidsAgentCli:
             self._render(
                 render_tool_json_view(
                     title="Validation Report",
-                    path_label="Phase 3A Components / Final Batch Auditor / Review / Validation",
+                    path_label="ATLAS Components / Final Batch Auditor / Review / Validation",
                     payload=run_context.validation_report,
                     hint="Terminal gate, input, parse, and report-boundary validation outcome.",
                 )
@@ -6196,7 +6286,7 @@ class NidsAgentCli:
             self._render(
                 render_text_view(
                     title="Final Batch Auditor Prompt / Response",
-                    path_label="Phase 3A Components / Final Batch Auditor / Review / Prompt Response",
+                    path_label="ATLAS Components / Final Batch Auditor / Review / Prompt Response",
                     content=self._build_final_batch_auditor_prompt_response_text(
                         run_context),
                     hint="Exact prompt sent to the model and the raw response returned.",
@@ -6235,7 +6325,7 @@ class NidsAgentCli:
                     "run_log_path": run_context.artifact_paths.get("component_run_path", "unavailable"),
                     "metrics_log_path": run_context.artifact_paths.get("runtime_metrics_path", "unavailable"),
                 },
-                path_label="Phase 3A Components / Final Batch Auditor / Review / Technical Details",
+                path_label="ATLAS Components / Final Batch Auditor / Review / Technical Details",
                 hint="Artifact-first debugging surface for terminal batch audits.",
             )
         )
@@ -6445,7 +6535,7 @@ class NidsAgentCli:
         run_context = self._get_latest_phase3a_runtime_run_context()
         if run_context is None:
             self._show_error(
-                "No persisted Phase 3A runtime runs are available yet.")
+                "No persisted ATLAS runtime runs are available yet.")
             return "phase3a_runtime"
 
         while True:
@@ -7025,7 +7115,7 @@ class NidsAgentCli:
                     selected_dir)
             except Exception as exc:  # noqa: BLE001
                 self._show_error(
-                    f"failed to load Phase 3A batch runtime run: {exc}")
+                    f"failed to load ATLAS batch runtime run: {exc}")
                 continue
 
             while True:
@@ -7044,7 +7134,7 @@ class NidsAgentCli:
 
     def _change_view_phase3a_runtime_runs_limit(self) -> None:
         self._clear_screen()
-        print("Enter number of Phase 3A batch runtime runs to show:")
+        print("Enter number of ATLAS batch runtime runs to show:")
         while True:
             raw_value = input("> ").strip()
             if not raw_value.isdigit():
@@ -8837,8 +8927,8 @@ class NidsAgentCli:
                 if event_choice == "1":
                     self._render(
                         render_tool_json_view(
-                            title="Phase 3A Runtime Event Payload",
-                            path_label="Phase 3A Components / Batch Runtime / Debugger / Event / Payload",
+                            title="ATLAS Runtime Event Payload",
+                            path_label="ATLAS Components / Batch Runtime / Debugger / Event / Payload",
                             payload=selected_event,
                             hint="Full persisted runtime event payload in recorded order.",
                         )
@@ -8847,8 +8937,8 @@ class NidsAgentCli:
                     continue
                 self._render(
                     render_text_view(
-                        title="Phase 3A Runtime Event Terminal Lines",
-                        path_label="Phase 3A Components / Batch Runtime / Debugger / Event / Terminal Lines",
+                        title="ATLAS Runtime Event Terminal Lines",
+                        path_label="ATLAS Components / Batch Runtime / Debugger / Event / Terminal Lines",
                         content="\n".join(
                             list(selected_event.get("terminal_lines", [])))
                         or "No terminal lines were captured for this persisted event.",
@@ -8937,8 +9027,8 @@ class NidsAgentCli:
             if choice == "1":
                 self._render(
                     render_tool_json_view(
-                        title="Phase 3A Inter-Hypothesis Aggregation Inputs",
-                        path_label="Phase 3A Components / Batch Runtime / Review / Round / Inter-Hypothesis Aggregation / Inputs",
+                        title="ATLAS Inter-Hypothesis Aggregation Inputs",
+                        path_label="ATLAS Components / Batch Runtime / Review / Round / Inter-Hypothesis Aggregation / Inputs",
                         payload={
                             "batch_id": parsed_output.get("batch_id", ""),
                             "round_id": parsed_output.get("round_id", ""),
@@ -8953,8 +9043,8 @@ class NidsAgentCli:
             if choice == "2":
                 self._render(
                     render_tool_json_view(
-                        title="Phase 3A Inter-Hypothesis Aggregation Output",
-                        path_label="Phase 3A Components / Batch Runtime / Review / Round / Inter-Hypothesis Aggregation / Output",
+                        title="ATLAS Inter-Hypothesis Aggregation Output",
+                        path_label="ATLAS Components / Batch Runtime / Review / Round / Inter-Hypothesis Aggregation / Output",
                         payload=self._build_phase3a_inter_hypothesis_parsed_output(
                             round_context),
                         hint="Canonical round artifact with preserved source hypothesis records and provenance.",
@@ -8965,8 +9055,8 @@ class NidsAgentCli:
             if choice == "3":
                 self._render(
                     render_tool_json_view(
-                        title="Phase 3A Inter-Hypothesis Aggregation Validation",
-                        path_label="Phase 3A Components / Batch Runtime / Review / Round / Inter-Hypothesis Aggregation / Validation",
+                        title="ATLAS Inter-Hypothesis Aggregation Validation",
+                        path_label="ATLAS Components / Batch Runtime / Review / Round / Inter-Hypothesis Aggregation / Validation",
                         payload=dict(aggregation_summary.get(
                             "validation_report", {}) or {}),
                         hint="Authoritative validation state for the persisted round-level aggregation record.",
@@ -8981,8 +9071,8 @@ class NidsAgentCli:
                     "raw_response", "") or "").strip()
                 self._render(
                     render_text_view(
-                        title="Phase 3A Inter-Hypothesis Aggregation Prompt / Response",
-                        path_label="Phase 3A Components / Batch Runtime / Review / Round / Inter-Hypothesis Aggregation / Prompt Response",
+                        title="ATLAS Inter-Hypothesis Aggregation Prompt / Response",
+                        path_label="ATLAS Components / Batch Runtime / Review / Round / Inter-Hypothesis Aggregation / Prompt Response",
                         content=(
                             "prompt_text:\n"
                             + (str(aggregation_summary.get("rendered_prompt", "") or "")
@@ -8999,8 +9089,8 @@ class NidsAgentCli:
 
             self._render(
                 render_tool_json_view(
-                    title="Phase 3A Inter-Hypothesis Aggregation Technical Details",
-                    path_label="Phase 3A Components / Batch Runtime / Review / Round / Inter-Hypothesis Aggregation / Technical Details",
+                    title="ATLAS Inter-Hypothesis Aggregation Technical Details",
+                    path_label="ATLAS Components / Batch Runtime / Review / Round / Inter-Hypothesis Aggregation / Technical Details",
                     payload={
                         "component_run": dict(aggregation_summary.get("component_run", {}) or {}),
                         "runtime_metrics": dict(aggregation_summary.get("runtime_metrics", {}) or {}),
@@ -9357,7 +9447,7 @@ class NidsAgentCli:
             run_context.batch_ledger.get("round_manifests", []))
         if not round_manifests:
             self._show_error(
-                "No persisted round manifests are available for this Phase 3A batch run.")
+                "No persisted round manifests are available for this ATLAS batch run.")
             return
 
         run_name = Path(run_context.artifact_paths.get(
@@ -9419,8 +9509,8 @@ class NidsAgentCli:
             if choice == "1":
                 self._render(
                     render_tool_json_view(
-                        title="Phase 3A Frozen Round Snapshot",
-                        path_label="Phase 3A Components / Batch Runtime / Review / Round / Snapshot",
+                        title="ATLAS Frozen Round Snapshot",
+                        path_label="ATLAS Components / Batch Runtime / Review / Round / Snapshot",
                         payload=round_context.frozen_snapshot,
                         hint="Frozen same-round snapshot used as the stable round-start state.",
                     )
@@ -9594,8 +9684,8 @@ class NidsAgentCli:
 
             self._render(
                 render_tool_json_view(
-                    title="Phase 3A Hypothesis Lineage Summary",
-                    path_label="Phase 3A Components / Batch Runtime / Review / Hypothesis / Summary",
+                    title="ATLAS Hypothesis Lineage Summary",
+                    path_label="ATLAS Components / Batch Runtime / Review / Hypothesis / Summary",
                     payload={
                         "hypothesis_record": lineage_context.hypothesis_record,
                         "worker_run_paths": [
@@ -9725,8 +9815,8 @@ class NidsAgentCli:
         if choice == "8":
             self._render(
                 render_text_view(
-                    title="Phase 3A Runtime Execution Log",
-                    path_label="Phase 3A Components / Batch Runtime / Debugger / Runtime Log",
+                    title="ATLAS Runtime Execution Log",
+                    path_label="ATLAS Components / Batch Runtime / Debugger / Runtime Log",
                     content=run_context.terminal_log_text or "No persisted runtime terminal log is available for this run.",
                     hint="Replay of the persisted runtime stream captured during authoritative execution.",
                 )
@@ -9739,8 +9829,8 @@ class NidsAgentCli:
         if choice == "10":
             self._render(
                 render_tool_json_view(
-                    title="Phase 3A Runtime Overview",
-                    path_label="Phase 3A Components / Batch Runtime / Debugger / Runtime Overview",
+                    title="ATLAS Runtime Overview",
+                    path_label="ATLAS Components / Batch Runtime / Debugger / Runtime Overview",
                     payload={
                         "component_run": run_context.component_run,
                         "run_manifest": run_context.run_manifest or {},
@@ -9758,8 +9848,8 @@ class NidsAgentCli:
         if choice == "11":
             self._render(
                 render_tool_json_view(
-                    title="Phase 3A Batch Ledger",
-                    path_label="Phase 3A Components / Batch Runtime / Debugger / Batch Ledger",
+                    title="ATLAS Batch Ledger",
+                    path_label="ATLAS Components / Batch Runtime / Debugger / Batch Ledger",
                     payload=run_context.batch_ledger,
                     hint="Round-by-round lifecycle bookkeeping owned by the authoritative runtime.",
                 )
@@ -9769,8 +9859,8 @@ class NidsAgentCli:
         if choice == "12":
             self._render(
                 render_tool_json_view(
-                    title="Phase 3A State Evolution",
-                    path_label="Phase 3A Components / Batch Runtime / Debugger / State Evolution",
+                    title="ATLAS State Evolution",
+                    path_label="ATLAS Components / Batch Runtime / Debugger / State Evolution",
                     payload=self._build_phase3a_state_evolution_payload(
                         run_context),
                     hint="Version lineage across the initial state, per-round hypothesis updates, and finalization.",
@@ -9781,8 +9871,8 @@ class NidsAgentCli:
         if choice == "13":
             self._render(
                 render_tool_json_view(
-                    title="Phase 3A Runtime Technical Details",
-                    path_label="Phase 3A Components / Batch Runtime / Debugger / Technical Details",
+                    title="ATLAS Runtime Technical Details",
+                    path_label="ATLAS Components / Batch Runtime / Debugger / Technical Details",
                     payload={
                         "component_run": run_context.component_run,
                         "runtime_metrics": run_context.runtime_metrics,
@@ -9795,7 +9885,7 @@ class NidsAgentCli:
             self._wait_for_enter()
             return
 
-        self._show_error(f"Unknown Phase 3A runtime review choice: {choice}")
+        self._show_error(f"Unknown ATLAS runtime review choice: {choice}")
 
     def _render_run_review_screen(
         self,
@@ -10700,18 +10790,68 @@ class NidsAgentCli:
 
     def _quit(self) -> None:
         print()
-        print("Exiting NIDS Agent CLI.")
+        print("Exiting ATLAS.")
         self._running = False
 
 
-def main() -> None:
-    """Run the interactive CLI shell."""
-    cli = NidsAgentCli()
+def main(args: list[str] | None = None) -> None:
+    """Run the interactive CLI shell or non-interactive presentation commands."""
+    import argparse
+
+    parser = argparse.ArgumentParser(
+        prog="atlas",
+        description="ATLAS: Agent-Based Dataset Auditing Framework",
+        add_help=True,
+    )
+    parser.add_argument(
+        "--skip-welcome",
+        "--enter",
+        action="store_true",
+        help="Skip the welcome screen and enter the research console directly.",
+    )
+    parser.add_argument(
+        "--concept",
+        action="store_true",
+        help="Display the full conceptual narrative (explorer analogy) and exit.",
+    )
+    parser.add_argument(
+        "--usage",
+        action="store_true",
+        help="Display operational usage guidance and exit.",
+    )
+    parser.add_argument(
+        "--version",
+        action="store_true",
+        help="Display ATLAS version and exit.",
+    )
+
+    parsed_args, _ = parser.parse_known_args(args)
+
+    if parsed_args.version:
+        from interface.welcome import ATLAS_DESCRIPTOR, ATLAS_NAME, ATLAS_VERSION
+        print(f"{ATLAS_NAME} {ATLAS_VERSION} - {ATLAS_DESCRIPTOR}")
+        return
+
+    if parsed_args.concept:
+        from interface.welcome import render_all_concept_chapters
+        print(render_all_concept_chapters())
+        return
+
+    if parsed_args.usage:
+        from interface.welcome import render_usage_screen
+        print(render_usage_screen())
+        return
+
+    initial_screen = "main" if parsed_args.skip_welcome else "welcome"
+    cli = NidsAgentCli(initial_screen=initial_screen)
     try:
         cli.run()
     except KeyboardInterrupt:
         print()
-        print("Exiting NIDS Agent CLI.")
+        print("Exiting ATLAS.")
+    except EOFError:
+        print()
+        print("Exiting ATLAS (input stream closed).")
 
 
 if __name__ == "__main__":
