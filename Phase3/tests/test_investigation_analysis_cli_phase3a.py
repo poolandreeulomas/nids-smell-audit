@@ -145,7 +145,7 @@ def test_phase3a_components_menu_routes_investigation_analysis():
     route = cli._phase3a_components_menu()
 
     assert route == "investigation_analysis"
-    assert "Investigation Analysis  <available>" in cli._last_rendered
+    assert "Investigation Analysis" in cli._last_rendered
 
 
 def test_load_investigation_analysis_run_context_reads_saved_bundle(tmp_path: Path):

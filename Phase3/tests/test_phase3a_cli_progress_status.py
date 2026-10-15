@@ -124,7 +124,8 @@ def test_component_menus_hide_available_labels_and_keep_planned_progress_labels(
     assert "Run Critic" in critic_menu
     assert "Evaluate Critic Runs  <planned>" in critic_menu
     assert "Debug / Replay Critic  <planned>" in critic_menu
-    assert "Critic Config  <planned>" in critic_menu
+    assert "Critic Config" in critic_menu
+    assert "Critic Config  <planned>" not in critic_menu
 
     assert "Run Final Batch Auditor" in final_batch_auditor_menu
     assert "Evaluate Final Batch Audits  <planned>" in final_batch_auditor_menu

@@ -28,11 +28,10 @@ _LOADED_DOTENV_PATH = load_local_dotenv()
 
 
 _RESPONSES_MODELS_WITHOUT_TEMPERATURE_PREFIXES = (
-    # Exclude all GPT-5 family models from receiving the `temperature`
-    # parameter since newer GPT-5 variants may reject it at the transport
-    # layer. Matching on the prefix `gpt-5` covers `gpt-5-mini`,
-    # `gpt-5.5`, and other GPT-5 variants.
-    "gpt-5",
+    # Exclude GPT-5.5 (and later gpt-5.5-* variants) from receiving the
+    # `temperature` parameter since that model family rejects it at the
+    # transport layer. GPT-5.4 and GPT-5-mini continue to accept temperature.
+    "gpt-5.5",
 )
 
 

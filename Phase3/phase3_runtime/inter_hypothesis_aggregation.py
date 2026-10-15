@@ -617,6 +617,23 @@ def save_inter_hypothesis_artifacts(
     }
 
 
+def list_inter_hypothesis_run_dirs(
+    *,
+    log_dir: str | Path | None = None,
+    limit: int | None = None,
+) -> list[Path]:
+    runs_dir = ensure_inter_hypothesis_aggregation_runs_dir(log_dir)
+    paths = [
+        path
+        for path in runs_dir.iterdir()
+        if path.is_dir() and _RUN_INDEX_PATTERN.match(path.name)
+    ]
+    paths.sort(key=lambda path: path.name, reverse=True)
+    if limit is not None:
+        return paths[:limit]
+    return paths
+
+
 def load_inter_hypothesis_bundle(run_dir: str | Path) -> dict[str, Any]:
     path = Path(run_dir)
     component_run = load_json(path / "component_run.json")

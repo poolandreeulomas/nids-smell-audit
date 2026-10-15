@@ -154,7 +154,7 @@ def test_phase3a_components_menu_routes_router():
     route = cli._phase3a_components_menu()
 
     assert route == "router"
-    assert "Router  <available>" in cli._last_rendered
+    assert "Router" in cli._last_rendered
 
 
 def test_load_router_run_context_reads_saved_bundle(tmp_path: Path):

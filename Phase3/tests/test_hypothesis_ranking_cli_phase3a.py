@@ -80,7 +80,7 @@ def test_phase3a_components_menu_routes_hypothesis_ranking():
     route = cli._phase3a_components_menu()
 
     assert route == "hypothesis_ranking"
-    assert "Hypothesis Ranking  <available>" in cli._last_rendered
+    assert "Hypothesis Ranking" in cli._last_rendered
 
 
 def test_load_hypothesis_ranking_run_context_reads_saved_bundle(tmp_path: Path):

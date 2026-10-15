@@ -233,7 +233,9 @@ def test_prompt_includes_decision_criteria():
     assert "Reason over artefact families, not isolated features or one-off pairs." in prompt_text
     assert "Do not re-confirm a fact in KNOWN_FACTS when the next action probes the same mechanism." in prompt_text
     assert "Do not repeat failed actions with the same input." in prompt_text
-    assert "Prefer new information over confirming an already established pattern." in prompt_text
+    # The prompt discourages redundant confirmation: further checks in an
+    # already-established pattern are explicitly marked as low value.
+    assert "Additional checks that only confirm an already established pattern are low value and should be avoided." in prompt_text
     assert "In the first 1-2 steps, prefer one high-information global falsifier (`duplication_analysis` or `cardinality_analysis`) before stacking local relation checks, unless strong evidence already bounds the global story." in prompt_text
     assert "After one or two strong confirmations in the same family, treat that family as provisionally established." in prompt_text
     assert "Do not treat ADDITIONAL_CANDIDATES as a checklist or ranked queue." in prompt_text
@@ -276,7 +278,10 @@ def test_prompt_prioritizes_non_obvious_and_shared_pattern_rules():
     assert "Treat similar features with the same signal as one pattern rather than separate tasks." in prompt_text
     assert "Stop exploring a pattern once the mechanism is understood unless the next step adds a different mechanism, stronger evidence, or resolves a contradiction." in prompt_text
     assert "Do not rotate across sibling or near-duplicate features when they express the same pattern." in prompt_text
-    assert "Keep same-mechanism bursts short. After two consecutive actions in the same mechanism, prefer an orthogonal mechanism unless resolving a contradiction or recovering from a failed step." in prompt_text
+    # Mechanism diversity rule: after two consecutive same-mechanism actions,
+    # the prompt must encourage switching unless resolving a contradiction or
+    # testing a different structure.
+    assert "Do not perform more than two actions from the same mechanism unless resolving a contradiction or testing a clearly different structure." in prompt_text
     assert "If a blocked action occurs, ban that exact target and avoid nearby variants from the same family on the next step." in prompt_text
     assert "Start broad, test a global falsifier early, then narrow only after the broad story is bounded." in prompt_text
     assert "If dependency is already supported, prefer duplication, cardinality, or distribution before another nearby relation." in prompt_text

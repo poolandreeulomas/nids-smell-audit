@@ -165,7 +165,7 @@ def test_phase3a_components_menu_routes_final_batch_auditor():
     route = cli._phase3a_components_menu()
 
     assert route == "final_batch_auditor"
-    assert "Final Batch Auditor  <available>" in cli._last_rendered
+    assert "Final Batch Auditor" in cli._last_rendered
 
 
 def test_load_final_batch_auditor_run_context_reads_saved_bundle(tmp_path: Path):

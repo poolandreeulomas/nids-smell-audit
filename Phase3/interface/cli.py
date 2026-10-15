@@ -59,6 +59,7 @@ from state.schema import CanonicalBatchState
 from phase3_runtime.context_builder import build_round_snapshot
 from phase3_runtime.inter_hypothesis_aggregation import (
     DEFAULT_INTER_HYPOTHESIS_DIR,
+    list_inter_hypothesis_run_dirs,
     load_inter_hypothesis_bundle,
 )
 from phase3_runtime.orchestrator import run_phase3a_batch
@@ -730,21 +731,15 @@ class NidsAgentCli:
             )
         )
 
-        choice = self._read_letter_choice(
-            {"R", "P", "J", "L", "V", "E", "M", "Q"})
+        choice = self._read_menu_choice({"1", "2", "3", "Q"})
         routes = {
-            "P": "phase3a",
-            "J": "judge",
-            "L": "latest",
-            "V": "view",
-            "E": "evaluate",
-            "M": "session",
+            "1": "phase3a_runtime",
+            "2": "phase3a",
+            "3": "session",
         }
         if choice == "Q":
             self._quit()
             return None
-        if choice == "R":
-            return self._start_run_agent_flow()
         return routes[choice]
 
     def _phase3a_components_menu(self) -> str:
@@ -756,9 +751,6 @@ class NidsAgentCli:
         # user explicitly requests the batch runtime route. This preserves
         # the default detailed menu (with availability markers) for other
         # component flows and keeps backward-compatible behavior for tests.
-        if choice == "12":
-            sanitized = render_phase3a_components_menu().replace("  <available>", "")
-            self._render(sanitized)
         if choice == "Q":
             self._quit()
             return "phase3a"
@@ -820,12 +812,12 @@ class NidsAgentCli:
         )
 
         choice = self._read_menu_choice(
-            {"1", "2", "3", "4", "5", "6", "7", "L", "V", "E", "D", "C", "B", "Q"})
+            {"1", "2", "3", "4", "L", "V", "E", "D", "C", "B", "Q"})
         if choice == "Q":
             self._quit()
             return "phase3a_runtime"
         if choice == "B":
-            return "phase3a"
+            return "main"
         if choice == "1":
             return self._run_phase3a_runtime_flow("cognitive_only")
         if choice == "2":
@@ -834,12 +826,6 @@ class NidsAgentCli:
             return self._run_phase3a_runtime_flow("full_round")
         if choice == "4":
             return self._run_phase3a_runtime_flow("full_batch")
-        if choice == "5":
-            return "dataset_runtime"
-        if choice == "6":
-            return self._latest_dataset_runtime_run_menu()
-        if choice == "7":
-            return self._view_dataset_runtime_runs_menu()
         if choice == "L":
             return self._latest_phase3a_runtime_run_menu()
         if choice == "C":
@@ -1413,7 +1399,8 @@ class NidsAgentCli:
         from partition_memory_extractor.runner import run_partition_memory_extractor
         fbr_dirs = list_final_batch_report_run_dirs()
         if not fbr_dirs:
-            self._show_error("No Final Batch Report runs are available. Run a Full Batch first.")
+            self._show_error(
+                "No Final Batch Report runs are available. Run a Full Batch first.")
             return "partition_memory"
         self._clear_screen()
         print("Available Final Batch Report runs:")
@@ -1438,7 +1425,8 @@ class NidsAgentCli:
         self._last_partition_memory_run = DatasetRunContext(
             run_id=run_dir.name + "_pm",
             dataset_name=partition_id,
-            overall_status=bundle.get("runtime_metrics", {}).get("status", "ok"),
+            overall_status=bundle.get(
+                "runtime_metrics", {}).get("status", "ok"),
             total_partitions=1,
             completed_partitions=1,
             failed_partitions=0,
@@ -1447,13 +1435,15 @@ class NidsAgentCli:
             dataset_memory=dict(bundle.get("partition_memory", {})),
         )
         self._selected_partition_memory_run = self._last_partition_memory_run
-        self._show_info(f"Partition Memory extracted successfully from {run_dir.name}")
+        self._show_info(
+            f"Partition Memory extracted successfully from {run_dir.name}")
         return "partition_memory"
 
     def _latest_partition_memory_run_menu(self) -> str:
         run_context = self._get_latest_partition_memory_run_context()
         if run_context is None:
-            self._show_error("No persisted Partition Memory runs are available yet.")
+            self._show_error(
+                "No persisted Partition Memory runs are available yet.")
             return "partition_memory"
         self._selected_partition_memory_run = run_context
         while True:
@@ -1469,11 +1459,13 @@ class NidsAgentCli:
     def _view_partition_memory_runs_menu(self) -> str:
         return self._generic_view_runs_menu(
             component_name="partition_memory",
-            list_fn=lambda: list_partition_memory_run_dirs(limit=self._view_partition_memory_runs_limit),
+            list_fn=lambda: list_partition_memory_run_dirs(
+                limit=self._view_partition_memory_runs_limit),
             load_fn=self._load_partition_memory_run_context,
             limit=self._view_partition_memory_runs_limit,
             render_list_fn=lambda runs, lim: render_recent_partition_memory_extractor_runs(
-                [{"run_name": p.name, "metrics": {}, "partition_id": ""} for p in runs]
+                [{"run_name": p.name, "metrics": {}, "partition_id": ""}
+                    for p in runs]
             ),
             render_review_fn=self._render_partition_memory_run_review,
             handle_review_fn=self._handle_partition_memory_review_choice,
@@ -1505,7 +1497,8 @@ class NidsAgentCli:
             self._render(render_text_view(
                 title="Partition Memory Prompt",
                 path_label="Phase 3B / Partition Memory Extractor / Review / Prompt",
-                content=ctx.dataset_memory.get("_prompt", "") or "No prompt recorded.",
+                content=ctx.dataset_memory.get(
+                    "_prompt", "") or "No prompt recorded.",
                 hint="Rendered prompt sent to the model.",
             ))
             self._wait_for_enter()
@@ -1523,9 +1516,11 @@ class NidsAgentCli:
         return DatasetRunContext(
             run_id=run_dir.name,
             dataset_name="",
-            overall_status=str(bundle.get("component_run", {}).get("status", "unknown")),
+            overall_status=str(bundle.get(
+                "component_run", {}).get("status", "unknown")),
             total_partitions=1,
-            completed_partitions=1 if bundle.get("component_run", {}).get("status") == "completed" else 0,
+            completed_partitions=1 if bundle.get(
+                "component_run", {}).get("status") == "completed" else 0,
             failed_partitions=0,
             skipped_partitions=0,
             partition_results=[],
@@ -1562,7 +1557,8 @@ class NidsAgentCli:
         """Run Coverage Builder on selected Partition Memory runs."""
         pm_dirs = list_partition_memory_run_dirs()
         if not pm_dirs:
-            self._show_error("No Partition Memory runs are available. Run Partition Memory Extractor first.")
+            self._show_error(
+                "No Partition Memory runs are available. Run Partition Memory Extractor first.")
             return "coverage_builder"
         self._clear_screen()
         print("Select Partition Memory runs to include (comma-separated indices, or A for all):")
@@ -1589,21 +1585,25 @@ class NidsAgentCli:
             run_id=dataset_id + "_coverage",
             dataset_name=dataset_id,
             overall_status=metrics.get("status", "ok"),
-            total_partitions=metrics.get("partitions_available", len(selected)),
-            completed_partitions=metrics.get("partitions_loaded", len(selected)),
+            total_partitions=metrics.get(
+                "partitions_available", len(selected)),
+            completed_partitions=metrics.get(
+                "partitions_loaded", len(selected)),
             failed_partitions=metrics.get("partitions_failed", 0),
             skipped_partitions=0,
             partition_results=[],
             dataset_memory=dict(bundle.get("dataset_memory", {})),
         )
         self._selected_coverage_builder_run = self._last_coverage_builder_run
-        self._show_info(f"Coverage Builder completed: {metrics.get('partitions_loaded', 0)}/{metrics.get('partitions_available', 0)} partitions loaded")
+        self._show_info(
+            f"Coverage Builder completed: {metrics.get('partitions_loaded', 0)}/{metrics.get('partitions_available', 0)} partitions loaded")
         return "coverage_builder"
 
     def _latest_coverage_builder_run_menu(self) -> str:
         run_context = self._get_latest_coverage_builder_run_context()
         if run_context is None:
-            self._show_error("No persisted Coverage Builder runs are available yet.")
+            self._show_error(
+                "No persisted Coverage Builder runs are available yet.")
             return "coverage_builder"
         self._selected_coverage_builder_run = run_context
         while True:
@@ -1619,7 +1619,8 @@ class NidsAgentCli:
     def _view_coverage_builder_runs_menu(self) -> str:
         return self._generic_view_runs_menu(
             component_name="coverage_builder",
-            list_fn=lambda: list_coverage_builder_run_dirs(limit=self._view_coverage_builder_runs_limit),
+            list_fn=lambda: list_coverage_builder_run_dirs(
+                limit=self._view_coverage_builder_runs_limit),
             load_fn=self._load_coverage_builder_run_context,
             limit=self._view_coverage_builder_runs_limit,
             render_list_fn=lambda runs, lim: render_recent_coverage_builder_runs(
@@ -1662,9 +1663,11 @@ class NidsAgentCli:
         return DatasetRunContext(
             run_id=run_dir.name,
             dataset_name="",
-            overall_status=str(bundle.get("component_run", {}).get("status", "unknown")),
+            overall_status=str(bundle.get(
+                "component_run", {}).get("status", "unknown")),
             total_partitions=1,
-            completed_partitions=1 if bundle.get("component_run", {}).get("status") == "completed" else 0,
+            completed_partitions=1 if bundle.get(
+                "component_run", {}).get("status") == "completed" else 0,
             failed_partitions=0,
             skipped_partitions=0,
             partition_results=[],
@@ -1701,7 +1704,8 @@ class NidsAgentCli:
         """Run Dataset Merger using coverage data from a Coverage Builder run."""
         cb_dirs = list_coverage_builder_run_dirs()
         if not cb_dirs:
-            self._show_error("No Coverage Builder runs are available. Run Coverage Builder first.")
+            self._show_error(
+                "No Coverage Builder runs are available. Run Coverage Builder first.")
             return "dataset_merger"
         self._clear_screen()
         print("Select Coverage Builder run to use:")
@@ -1715,7 +1719,8 @@ class NidsAgentCli:
         cb_dir = cb_dirs[int(choice) - 1]
         coverage_bundle = load_coverage_builder_bundle(cb_dir)
         coverage_file = str(cb_dir)
-        import json, tempfile
+        import json
+        import tempfile
         with tempfile.NamedTemporaryFile(mode='w', suffix='.json', delete=False) as f:
             json.dump(coverage_bundle.get("coverage_data", {}), f)
             tmp_path = f.name
@@ -1733,13 +1738,17 @@ class NidsAgentCli:
             return "dataset_merger"
         import os
         os.unlink(tmp_path)
-        metrics = dict(bundle.get("runtime_metrics", {})) if hasattr(bundle, 'get') else {}
-        report_json = dict(bundle.get("report_json", {})) if hasattr(bundle, 'get') else {}
-        report_md = str(bundle.get("report_markdown", "")) if hasattr(bundle, 'get') else ""
+        metrics = dict(bundle.get("runtime_metrics", {})
+                       ) if hasattr(bundle, 'get') else {}
+        report_json = dict(bundle.get("report_json", {})
+                           ) if hasattr(bundle, 'get') else {}
+        report_md = str(bundle.get("report_markdown", "")
+                        ) if hasattr(bundle, 'get') else ""
         ctx = DatasetRunContext(
             run_id=f"dataset_merger_{datetime.now(UTC).strftime('%Y%m%d_%H%M%S')}",
             dataset_name=self._get_selected_dataset_label(),
-            overall_status=metrics.get("status", "completed" if report_json else "error"),
+            overall_status=metrics.get(
+                "status", "completed" if report_json else "error"),
             total_partitions=1,
             completed_partitions=1 if report_json else 0,
             failed_partitions=0,
@@ -1750,13 +1759,15 @@ class NidsAgentCli:
         )
         self._last_dataset_merger_run = ctx
         self._selected_dataset_merger_run = ctx
-        self._show_info("Dataset Merger completed successfully. Final Dataset Report generated.")
+        self._show_info(
+            "Dataset Merger completed successfully. Final Dataset Report generated.")
         return "dataset_merger"
 
     def _latest_dataset_merger_run_menu(self) -> str:
         run_context = self._get_latest_dataset_merger_run_context()
         if run_context is None:
-            self._show_error("No persisted Dataset Merger runs are available yet.")
+            self._show_error(
+                "No persisted Dataset Merger runs are available yet.")
             return "dataset_merger"
         self._selected_dataset_merger_run = run_context
         while True:
@@ -1772,7 +1783,8 @@ class NidsAgentCli:
     def _view_dataset_merger_runs_menu(self) -> str:
         return self._generic_view_runs_menu(
             component_name="dataset_merger",
-            list_fn=lambda: list_merger_run_dirs(limit=self._view_dataset_merger_runs_limit),
+            list_fn=lambda: list_merger_run_dirs(
+                limit=self._view_dataset_merger_runs_limit),
             load_fn=self._load_dataset_merger_run_context,
             limit=self._view_dataset_merger_runs_limit,
             render_list_fn=lambda runs, lim: render_recent_dataset_merger_runs(
@@ -1806,7 +1818,8 @@ class NidsAgentCli:
             self._render(render_text_view(
                 title="Dataset Merger Prompt",
                 path_label="Phase 3B / Dataset Merger / Review / Prompt",
-                content=ctx.dataset_memory.get("_prompt", "") or "No prompt recorded.",
+                content=ctx.dataset_memory.get(
+                    "_prompt", "") or "No prompt recorded.",
                 hint="Rendered merge prompt sent to the model.",
             ))
             self._wait_for_enter()
@@ -1824,9 +1837,11 @@ class NidsAgentCli:
         return DatasetRunContext(
             run_id=run_dir.name,
             dataset_name="",
-            overall_status=str(bundle.get("component_run", {}).get("status", "unknown")),
+            overall_status=str(bundle.get(
+                "component_run", {}).get("status", "unknown")),
             total_partitions=1,
-            completed_partitions=1 if bundle.get("component_run", {}).get("status") == "completed" else 0,
+            completed_partitions=1 if bundle.get(
+                "component_run", {}).get("status") == "completed" else 0,
             failed_partitions=0,
             skipped_partitions=0,
             partition_results=[],
@@ -1886,6 +1901,7 @@ class NidsAgentCli:
         from dataset_runtime.runtime_artifacts import SinglePartitionResult
         from phase3_runtime.orchestrator import run_phase3a_batch
         from main import build_phase3a_llm_callables
+
         def run_single_batch(partition_name: str) -> SinglePartitionResult:
             try:
                 batch_result = run_phase3a_batch(
@@ -1902,7 +1918,8 @@ class NidsAgentCli:
                 return SinglePartitionResult(
                     partition_name=partition_name,
                     status="completed",
-                    batch_report=str(batch_result.get("artifact_paths", {}).get("report_path", "")),
+                    batch_report=str(batch_result.get(
+                        "artifact_paths", {}).get("report_path", "")),
                 )
             except Exception as exc:
                 return SinglePartitionResult(
@@ -1910,9 +1927,11 @@ class NidsAgentCli:
                     status="failed",
                     error_message=str(exc),
                 )
+
         def cov_builder_callable(memories: list[dict], total: int) -> dict:
             from coverage_builder.runner import run_coverage_builder as rcb
             return rcb([], dataset_name)
+
         def merger_callable(dataset_memory: dict) -> dict:
             from final_batch_report.runner import run_dataset_merger as rdm
             return {"final_dataset_report": dataset_memory}
@@ -1949,7 +1968,8 @@ class NidsAgentCli:
 
     def _latest_dataset_runtime_run_menu(self) -> str:
         if self._last_dataset_runtime_run is None:
-            self._show_error("No dataset runtime runs are available in this session yet.")
+            self._show_error(
+                "No dataset runtime runs are available in this session yet.")
             return "dataset_runtime"
         ctx = self._last_dataset_runtime_run
         while True:
@@ -1991,8 +2011,8 @@ class NidsAgentCli:
             "failed_partitions": ctx.failed_partitions,
             "skipped_partitions": ctx.skipped_partitions,
             "error_message": ctx.error_message,
-            "partition_results": [{"partition_name": p.get("partition_name",""), "status": p.get("status","")}
-                                   for p in ctx.partition_results],
+            "partition_results": [{"partition_name": p.get("partition_name", ""), "status": p.get("status", "")}
+                                  for p in ctx.partition_results],
         }))
 
     def _handle_dataset_runtime_review_choice(self, choice: str, ctx: DatasetRunContext) -> None:
@@ -2025,7 +2045,8 @@ class NidsAgentCli:
             completed_partitions=record.completed_partitions,
             failed_partitions=record.failed_partitions,
             skipped_partitions=record.skipped_partitions,
-            partition_results=[{"partition_name": r.partition_name, "status": r.status} for r in record.partition_results],
+            partition_results=[{"partition_name": r.partition_name,
+                                "status": r.status} for r in record.partition_results],
             dataset_memory=record.dataset_memory,
             final_dataset_report=record.final_dataset_report,
             error_message=record.error_message,
@@ -2055,7 +2076,8 @@ class NidsAgentCli:
                     self._quit()
                     return back_screen
                 return back_screen
-            valid_choices = {str(i) for i in range(1, len(recent_runs) + 1)} | {"N", "B", "Q"}
+            valid_choices = {str(i) for i in range(
+                1, len(recent_runs) + 1)} | {"N", "B", "Q"}
             choice = self._read_menu_choice(valid_choices)
             if choice == "Q":
                 self._quit()
@@ -2096,10 +2118,12 @@ class NidsAgentCli:
                 continue
             setattr(self, attr_name, val)
             return
+
     def _final_batch_report_config_flow(self) -> str:
         """Inline config flow for the Final Batch Report Generator."""
         current_name = self._resolve_phase3a_model_name("final_batch_report")
-        self._render(render_final_batch_report_config_menu(current_model_name=current_name))
+        self._render(render_final_batch_report_config_menu(
+            current_model_name=current_name))
         choice = self._read_menu_choice({"1", "B", "Q"})
         if choice == "Q":
             self._quit()
@@ -2113,7 +2137,8 @@ class NidsAgentCli:
             )
             if selected is not None:
                 self.session_config.synthesis_model_name = selected
-                self._show_info(f"Final Batch Report model updated to: {selected}")
+                self._show_info(
+                    f"Final Batch Report model updated to: {selected}")
         return "final_batch_report"
 
     def _run_final_batch_report_flow(self) -> str:
@@ -2121,7 +2146,8 @@ class NidsAgentCli:
         if source_run is None:
             return "final_batch_report"
         if not source_run.updated_batch_state:
-            print("\n[DEV FALLBACK ACTIVE] Using hardcoded updated_batch_state.json\n")
+            print(
+                "\n[DEV FALLBACK ACTIVE] Using hardcoded updated_batch_state.json\n")
 
             source_run.updated_batch_state = load_json(
                 r"C:\Users\Uni\Desktop\TFG\nids-smell-audit\Phase3\logs\state_manager_runs"
@@ -2129,12 +2155,14 @@ class NidsAgentCli:
                 r"\updated_batch_state.json"
             )
         try:
-            final_state = CanonicalBatchState.from_dict(source_run.updated_batch_state)
+            final_state = CanonicalBatchState.from_dict(
+                source_run.updated_batch_state)
             partition_name = self._get_selected_dataset_label()
             bundle = run_final_batch_report(
                 final_state,
                 partition_name,
-                model_name=self._resolve_phase3a_model_name("final_batch_report"),
+                model_name=self._resolve_phase3a_model_name(
+                    "final_batch_report"),
                 log_dir=None,
             )
         except Exception as exc:
@@ -2168,10 +2196,12 @@ class NidsAgentCli:
         ).parent.name or "final_batch_report_run"
         summary_pairs = [
             ("batch_id", str(run_context.component_run.get("batch_id", "unknown"))),
-            ("state_version", str(run_context.component_run.get("state_version", "unknown"))),
+            ("state_version", str(run_context.component_run.get(
+                "state_version", "unknown"))),
             ("model", str(run_context.component_run.get("model_name", "unknown"))),
             ("report_generated", str(bool(run_context.report_markdown))),
-            ("runtime_seconds", str(run_context.runtime_metrics.get("duration_ms", 0.0) / 1000.0)),
+            ("runtime_seconds", str(run_context.runtime_metrics.get(
+                "duration_ms", 0.0) / 1000.0)),
         ]
         self._render(
             render_final_batch_report_run_review(
@@ -2225,15 +2255,20 @@ class NidsAgentCli:
             return
         metrics = [
             ("duration_ms", str(run_context.runtime_metrics.get("duration_ms", 0.0))),
-            ("report_length_chars", str(run_context.runtime_metrics.get("report_length_chars", 0))),
-            ("investigated_findings", str(run_context.runtime_metrics.get("investigated_findings_count", 0))),
-            ("additional_findings", str(run_context.runtime_metrics.get("additional_findings_count", 0))),
-            ("schema_version", str(run_context.runtime_metrics.get("schema_version", "unknown"))),
+            ("report_length_chars", str(
+                run_context.runtime_metrics.get("report_length_chars", 0))),
+            ("investigated_findings", str(
+                run_context.runtime_metrics.get("investigated_findings_count", 0))),
+            ("additional_findings", str(
+                run_context.runtime_metrics.get("additional_findings_count", 0))),
+            ("schema_version", str(run_context.runtime_metrics.get(
+                "schema_version", "unknown"))),
         ]
         self._render(
             render_technical_details(
                 title="Final Batch Report Technical Details",
-                run_name=Path(run_context.artifact_paths.get("component_run_path", "")).parent.name or None,
+                run_name=Path(run_context.artifact_paths.get(
+                    "component_run_path", "")).parent.name or None,
                 metrics=metrics,
                 tools_used=["final_batch_report"],
                 artifact_paths=run_context.artifact_paths,
@@ -2263,7 +2298,8 @@ class NidsAgentCli:
     def _latest_final_batch_report_run_menu(self) -> str:
         run_context = self._get_latest_final_batch_report_run_context()
         if run_context is None:
-            self._show_error("No persisted Final Batch Report runs are available yet.")
+            self._show_error(
+                "No persisted Final Batch Report runs are available yet.")
             return "final_batch_report"
         self._selected_final_batch_report_run = run_context
         while True:
@@ -2307,9 +2343,11 @@ class NidsAgentCli:
                 continue
             selected_dir = recent_runs[int(choice) - 1]
             try:
-                run_context = self._load_final_batch_report_run_context(selected_dir)
+                run_context = self._load_final_batch_report_run_context(
+                    selected_dir)
             except Exception as exc:
-                self._show_error(f"failed to load Final Batch Report run: {exc}")
+                self._show_error(
+                    f"failed to load Final Batch Report run: {exc}")
                 continue
             while True:
                 self._render_final_batch_report_run_review(run_context)
@@ -2320,7 +2358,8 @@ class NidsAgentCli:
                     return "final_batch_report"
                 if review_choice == "B":
                     break
-                self._handle_final_batch_report_review_choice(review_choice, run_context)
+                self._handle_final_batch_report_review_choice(
+                    review_choice, run_context)
 
     def _change_view_final_batch_report_runs_limit(self) -> None:
         self._clear_screen()
@@ -2343,22 +2382,26 @@ class NidsAgentCli:
         session_path = ""
         saved_path = ""
         if session_run is not None:
-            session_path = session_run.artifact_paths.get("component_run_path", "")
+            session_path = session_run.artifact_paths.get(
+                "component_run_path", "")
         if saved_run is not None:
             saved_path = saved_run.artifact_paths.get("component_run_path", "")
         if session_run is None and saved_run is None:
-            self._show_error("No State Manager run is available yet. Run State Manager first.")
+            self._show_error(
+                "No State Manager run is available yet. Run State Manager first.")
             return None
         self._clear_screen()
         print("Choose Final Batch Report source State Manager run:")
         print()
         valid_choices: set[str] = {"B"}
         if session_run is not None:
-            session_name = Path(session_path).parent.name or "latest_session_state_manager"
+            session_name = Path(
+                session_path).parent.name or "latest_session_state_manager"
             print(f"[1] Use latest session State Manager run ({session_name})")
             valid_choices.add("1")
         if saved_run is not None and saved_path != session_path:
-            saved_name = Path(saved_path).parent.name or "latest_saved_state_manager"
+            saved_name = Path(
+                saved_path).parent.name or "latest_saved_state_manager"
             print(f"[2] Use latest saved State Manager run ({saved_name})")
             valid_choices.add("2")
         print("[B] Back")
@@ -7738,6 +7781,7 @@ class NidsAgentCli:
             (list_aggregation_run_dirs, load_aggregation_bundle),
             (list_state_manager_run_dirs, load_state_manager_bundle),
             (list_critic_run_dirs, load_critic_bundle),
+            (list_inter_hypothesis_run_dirs, load_inter_hypothesis_bundle),
         ]
 
         for list_dirs_fn, load_bundle_fn in component_scans:
@@ -7818,32 +7862,6 @@ class NidsAgentCli:
             or ""
         ).strip()
 
-        def _matching_inter_hypothesis_bundles(round_id: str) -> list[dict[str, Any]]:
-            runs_dir = DEFAULT_INTER_HYPOTHESIS_DIR
-            if not runs_dir.exists():
-                return []
-
-            matches: list[dict[str, Any]] = []
-            run_dirs = [
-                path for path in runs_dir.iterdir()
-                if path.is_dir()
-            ]
-            run_dirs.sort(key=lambda path: path.name, reverse=True)
-            for run_dir_candidate in run_dirs:
-                try:
-                    candidate_bundle = load_inter_hypothesis_bundle(
-                        run_dir_candidate)
-                except Exception:
-                    continue
-                candidate_run = dict(
-                    candidate_bundle.get("component_run", {}) or {})
-                if str(candidate_run.get("batch_id") or "").strip() != batch_id:
-                    continue
-                if str(candidate_run.get("round_id") or "").strip() != round_id:
-                    continue
-                matches.append(candidate_bundle)
-            return matches
-
         def _matching_bundles(
             list_dirs_fn: Callable[..., list[Path]],
             load_bundle_fn: Callable[[Path], dict[str, Any]],
@@ -7870,6 +7888,13 @@ class NidsAgentCli:
                     continue
                 matches.append(candidate_bundle)
             return matches
+
+        def _matching_inter_hypothesis_bundles(round_id: str) -> list[dict[str, Any]]:
+            return _matching_bundles(
+                list_inter_hypothesis_run_dirs,
+                load_inter_hypothesis_bundle,
+                round_id=round_id,
+            )
 
         def _bundle_path(candidate_bundle: dict[str, Any] | None, key: str) -> str:
             if not candidate_bundle:

@@ -196,6 +196,7 @@ def test_load_phase3a_runtime_run_context_recovers_missing_round_manifests(monke
     worker_run_dir = Path("worker_run_recovered")
     aggregation_run_dir = Path("aggregation_run_recovered")
     state_manager_run_dir = Path("state_manager_run_recovered")
+    inter_hypothesis_run_dir = Path("inter_hypothesis_run_recovered")
 
     fake_bundle = {
         "artifact_paths": {
@@ -504,7 +505,13 @@ def test_load_phase3a_runtime_run_context_recovers_missing_round_manifests(monke
                         lambda run_dir: state_manager_bundle)
     monkeypatch.setattr(cli_module, "list_critic_run_dirs",
                         lambda limit=None: [])
+    monkeypatch.setattr(cli_module, "list_inter_hypothesis_run_dirs",
+                        lambda limit=None: [inter_hypothesis_run_dir])
     monkeypatch.setattr(cli_module, "load_inter_hypothesis_bundle", lambda run_dir: {
+        "artifact_paths": {
+            "component_run_path": str(inter_hypothesis_run_dir / "component_run.json"),
+            "parsed_output_path": str(inter_hypothesis_run_dir / "parsed_output.json"),
+        },
         "component_run": {
             "component": "inter_hypothesis_aggregation",
             "batch_id": BATCH_ID,
@@ -566,8 +573,8 @@ def test_load_phase3a_runtime_run_context_recovers_missing_round_manifests(monke
         "source_hypothesis_records"][0]["hypothesis_id"] == "hyp-runtime-1"
     assert round_context.analysis_run["component_run_path"] == str(
         analysis_run_dir / "component_run.json")
-    assert round_context.analysis_run["component_run_path"] == str(
-        analysis_run_dir / "component_run.json")
+    bad_dir = Path("phase3a_runtime_run_bad")
+    good_dir = Path("phase3a_runtime_run_good")
     expected = Phase3ARuntimeRunContext(
         artifact_paths={
             "component_run_path": "phase3a_runtime_run_good/component_run.json"},

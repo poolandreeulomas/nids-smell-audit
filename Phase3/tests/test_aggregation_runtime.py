@@ -102,16 +102,19 @@ def _run_saved_worker_bundle(
     dataset_path = _write_dataset(tmp_path)
     responses = iter(
         [
-            json.dumps({"decision": "action", "action": action}),
+            json.dumps({"decision": "continue", "reasoning": "Reasoning step 1."}),
+            json.dumps({"decision": "continue", "reasoning": "Reasoning step 2."}),
+            json.dumps({"decision": "action", "reasoning": "Action step 3.", "actions": [action]}),
             json.dumps(
                 {
                     "decision": "finish",
+                    "reasoning": "Finish step 4.",
                     "worker_result": {
                         "task_id": task_id,
                         "hypothesis_id": "hyp-1",
                         "status": "completed",
                         "findings": findings,
-                        "evidence_refs": [f"{task_id}_step_01"],
+                        "evidence_refs": [f"{task_id}_step_03"],
                         "contradictions": contradictions,
                         "limitations": limitations,
                     },
@@ -224,7 +227,7 @@ def test_run_aggregation_returns_valid_bundle_and_artifacts(tmp_path: Path):
                         "merged_findings": [
                             "The wider dependency signal remains stronger than the narrow port-local shortcut."
                         ],
-                        "evidence_refs": ["task-hyp-1-1_step_01", "task-hyp-1-2_step_01"],
+                        "evidence_refs": ["task-hyp-1-1_step_03", "task-hyp-1-2_step_03"],
                         "preserved_contradiction_ids": ["contr_0"],
                         "open_gaps": [
                             "The local port evidence remains too narrow to resolve the wider mechanism."
@@ -304,7 +307,7 @@ def test_run_aggregation_accepts_update_focus_overflow_without_failing_round(tmp
                         "merged_findings": [
                             "The wider dependency signal remains stronger than the narrow port-local shortcut."
                         ],
-                        "evidence_refs": ["task-hyp-1-1_step_01", "task-hyp-1-2_step_01"],
+                        "evidence_refs": ["task-hyp-1-1_step_03", "task-hyp-1-2_step_03"],
                         "preserved_contradiction_ids": ["contr_0"],
                         "open_gaps": [
                             "The local port evidence remains too narrow to resolve the wider mechanism."

@@ -161,7 +161,7 @@ def test_phase3a_components_menu_routes_critic():
     route = cli._phase3a_components_menu()
 
     assert route == "critic"
-    assert "Critic  <available>" in cli._last_rendered
+    assert "Critic" in cli._last_rendered
 
 
 def test_load_critic_run_context_reads_saved_bundle(tmp_path: Path):

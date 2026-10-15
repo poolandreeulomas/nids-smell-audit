@@ -111,9 +111,10 @@ def render_main_menu(
     has_cli_run: bool,
 ) -> str:
     lines = [
-        "Interactive research console for MVP runs.",
+        "Interactive Research Console",
+        "Agent-based auditing of NIDS benchmark datasets.",
         "",
-        *_meta_lines("Home", "Type one letter and press Enter."),
+        *_meta_lines("Home", "Choose an option and press Enter."),
         *(_section(
             "Session",
             _kv_lines(
@@ -127,28 +128,21 @@ def render_main_menu(
             ),
         )),
         *(_section(
-            "Workspace",
-            _kv_lines(
-                [
-                    ("stored_runs", str(stored_runs_count)),
-                    ("last_cli_run", "yes" if has_cli_run else "no"),
-                ]
-            ),
-        )),
-        *(_section(
-            "Actions",
-            _menu_lines(
-                [
-                    ("R", "Run Agent"),
-                    ("P", "Phase 3A Components"),
-                    ("J", "Run Judge"),
-                    ("L", "Latest Run"),
-                    ("V", "View Runs"),
-                    ("E", "Evaluate Runs"),
-                    ("M", "Session Config"),
-                    ("Q", "Quit"),
-                ]
-            ),
+            "Main Menu",
+            [
+                "[1] Batch Runtime",
+                "    Execute and inspect complete batches, individual rounds,",
+                "    and specific stages of the auditing pipeline.",
+                "",
+                "[2] Single Round / Components",
+                "    Access individual components for isolated execution,",
+                "    inspection, and debugging.",
+                "",
+                "[3] Session Configuration",
+                "    Configure the dataset, models, and execution parameters.",
+                "",
+                "[Q] Quit",
+            ],
         )),
     ]
     return _block("NIDS Agent CLI", lines)
@@ -156,27 +150,64 @@ def render_main_menu(
 
 def render_phase3a_components_menu() -> str:
     lines = [
-        *_meta_lines("Home / Phase 3A Components", "Phase 3A Batch Runtime, Semantic Extraction, Investigation Analysis, Hypothesis Ranking, Planner, Router, Worker, Aggregation, State Manager, Critic, Final Batch Auditor, and Tools have core run/review surfaces."),
+        *_meta_lines("Home / Single Round / Components", "Access individual components for isolated execution, inspection, and debugging."),
         *(_section(
-            "Components",
+            "Analysis & Hypothesis Generation",
             [
-                "[1]  Semantic Extraction  <available>",
-                "[2]  Investigation Analysis  <available>",
-                "[3]  Hypothesis Ranking  <available>",
-                "[4]  Planner  <available>",
-                "[5]  Router  <available>",
-                "[6]  Worker  <available>",
-                "[7]  Aggregation  <available>",
-                "[8]  State Manager  <available>",
-                "[9]  Critic  <available>",
-                "[10] Final Batch Auditor  <available>",
+                "Extract domain insights, analyze features, and rank investigation hypotheses.",
+                "",
+                "[1]  Semantic Extraction",
+                "[2]  Investigation Analysis",
+                "[3]  Hypothesis Ranking",
+            ],
+        )),
+        *(_section(
+            "Planning & Execution",
+            [
+                "Decompose hypotheses into investigation plans, route tasks, and execute tools.",
+                "",
+                "[4]  Planner",
+                "[5]  Router",
+                "[6]  Worker",
+            ],
+        )),
+        *(_section(
+            "State & Reasoning",
+            [
+                "Synthesize worker findings, maintain canonical state, and critique progress.",
+                "",
+                "[7]  Aggregation",
+                "[8]  State Manager",
+                "[9]  Critic",
+            ],
+        )),
+        *(_section(
+            "Auditing & Reporting",
+            [
+                "Audit batch results and generate final structured reports.",
+                "",
+                "[10] Final Batch Auditor",
+                "[13] Final Batch Report",
+            ],
+        )),
+        *(_section(
+            "Dataset Infrastructure",
+            [
+                "Extract partition memories, build coverage matrices, and merge dataset reports.",
+                "",
+                "[14] Partition Memory Extractor",
+                "[15] Coverage Builder",
+                "[16] Dataset Merger",
+                "[17] Final Dataset Report",
+            ],
+        )),
+        *(_section(
+            "Other Components",
+            [
+                "Low-level tools execution and direct batch runtime entry point.",
+                "",
                 "[11] Tools",
                 "[12] Phase 3A Batch Runtime",
-                "[13] Final Batch Report  <available>",
-                "[14] Partition Memory Extractor  <available>",
-                "[15] Coverage Builder  <available>",
-                "[16] Dataset Merger  <available>",
-                "[17] Final Dataset Report  <available>",
             ],
         )),
         *(_section("Actions", _menu_lines([("B", "Back"), ("Q", "Quit")]))),
@@ -194,8 +225,8 @@ def render_phase3a_runtime_menu(
     latest_run_name: str | None,
 ) -> str:
     lines = [
-        *_meta_lines("Home / Phase 3A Components / Batch Runtime",
-                     "Authoritative deterministic Phase 3A orchestration with ledger-first review. Grouped execution, latest-run review, and saved-run browsing are implemented; evaluate and replay remain planned."),
+        *_meta_lines("Home / Batch Runtime",
+                     "Execute the auditing pipeline at batch or single-round level. Inspect completed batch runs, debug executions, and evaluate results."),
         *(_section(
             "Session",
             _kv_lines(
@@ -210,25 +241,41 @@ def render_phase3a_runtime_menu(
             ),
         )),
         *(_section(
-            "Actions",
-            _menu_lines(
-                [
-                    ("1", "Run Cognitive Chain"),
-                    ("2", "Run Hypothesis Execution"),
-                    ("3", "Run Full Round"),
-                    ("4", "Run Full Batch"),
-                    ("L", "Review Latest Phase 3A Batch Run"),
-                    ("V", "View Saved Phase 3A Batch Runs"),
-                    ("E", "Evaluate Phase 3A Batch Runs  <planned>"),
-                    ("D", "Debug / Replay Phase 3A Batch Run  <planned>"),
-                    ("5", "Run Full Dataset  <available>"),
-                    ("6", "Review Latest Dataset Run  <available>"),
-                    ("7", "View Saved Dataset Runs  <available>"),
-                    ("C", "Open Session Config"),
-                    ("B", "Back"),
-                    ("Q", "Quit"),
-                ]
-            ),
+            "Execution",
+            [
+                "Run the pipeline at different levels of granularity.",
+                "",
+                "[1] Run Cognitive Chain",
+                "[2] Run Hypothesis Execution",
+                "[3] Run Full Round",
+                "[4] Run Full Batch",
+            ],
+        )),
+        *(_section(
+            "Review & History",
+            [
+                "Inspect previously recorded batch executions.",
+                "",
+                "[L] Review Latest Phase 3A Batch Run",
+                "[V] View Saved Phase 3A Batch Runs",
+            ],
+        )),
+        *(_section(
+            "Debugging & Evaluation",
+            [
+                "Investigate execution behavior and evaluate completed runs.",
+                "",
+                "[D] Debug / Replay Phase 3A Batch Run  <planned>",
+                "[E] Evaluate Phase 3A Batch Runs  <planned>",
+            ],
+        )),
+        *(_section(
+            "Configuration & Navigation",
+            [
+                "[C] Open Session Config",
+                "[B] Back",
+                "[Q] Quit",
+            ],
         )),
     ]
     return _block("Phase 3A Batch Runtime", lines)

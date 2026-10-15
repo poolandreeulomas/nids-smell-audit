@@ -112,7 +112,7 @@ def test_phase3a_components_menu_routes_semantic_extraction():
     route = cli._phase3a_components_menu()
 
     assert route == "semantic_extraction"
-    assert "Semantic Extraction  <available>" in cli._last_rendered
+    assert "Semantic Extraction" in cli._last_rendered
 
 
 def test_load_semantic_extraction_run_context_reads_saved_bundle(tmp_path: Path):

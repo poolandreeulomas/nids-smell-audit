@@ -2,7 +2,7 @@ from interface import cli as cli_module
 from interface.cli import NidsAgentCli, SessionConfig
 
 
-def test_main_menu_routes_to_judge(monkeypatch):
+def test_main_menu_routes_to_batch_runtime(monkeypatch):
     cli = object.__new__(NidsAgentCli)
     cli.session_config = SessionConfig(dataset_name="dataset.csv")
     cli._last_run = None
@@ -10,11 +10,58 @@ def test_main_menu_routes_to_judge(monkeypatch):
     cli._render = lambda content: None
     cli._count_persisted_runs = lambda: 3
     cli._get_selected_dataset_label = lambda: "dataset.csv"
-    monkeypatch.setattr(cli, "_read_letter_choice", lambda valid_choices: "J")
+    monkeypatch.setattr(cli, "_read_menu_choice", lambda valid_choices: "1")
 
     next_screen = cli._main_menu()
 
-    assert next_screen == "judge"
+    assert next_screen == "phase3a_runtime"
+
+
+def test_main_menu_routes_to_components(monkeypatch):
+    cli = object.__new__(NidsAgentCli)
+    cli.session_config = SessionConfig(dataset_name="dataset.csv")
+    cli._last_run = None
+    cli._running = True
+    cli._render = lambda content: None
+    cli._count_persisted_runs = lambda: 3
+    cli._get_selected_dataset_label = lambda: "dataset.csv"
+    monkeypatch.setattr(cli, "_read_menu_choice", lambda valid_choices: "2")
+
+    next_screen = cli._main_menu()
+
+    assert next_screen == "phase3a"
+
+
+def test_main_menu_routes_to_session_config(monkeypatch):
+    cli = object.__new__(NidsAgentCli)
+    cli.session_config = SessionConfig(dataset_name="dataset.csv")
+    cli._last_run = None
+    cli._running = True
+    cli._render = lambda content: None
+    cli._count_persisted_runs = lambda: 3
+    cli._get_selected_dataset_label = lambda: "dataset.csv"
+    monkeypatch.setattr(cli, "_read_menu_choice", lambda valid_choices: "3")
+
+    next_screen = cli._main_menu()
+
+    assert next_screen == "session"
+
+
+def test_main_menu_quit(monkeypatch):
+    cli = object.__new__(NidsAgentCli)
+    cli.session_config = SessionConfig(dataset_name="dataset.csv")
+    cli._last_run = None
+    cli._running = True
+    cli._render = lambda content: None
+    cli._count_persisted_runs = lambda: 3
+    cli._get_selected_dataset_label = lambda: "dataset.csv"
+    cli._quit = lambda: setattr(cli, "_running", False)
+    monkeypatch.setattr(cli, "_read_menu_choice", lambda valid_choices: "Q")
+
+    next_screen = cli._main_menu()
+
+    assert next_screen is None
+    assert cli._running is False
 
 
 def test_build_jif_payload_for_judge_uses_existing_jif_paths(monkeypatch):

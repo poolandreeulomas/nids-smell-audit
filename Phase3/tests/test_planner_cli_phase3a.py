@@ -100,7 +100,7 @@ def test_phase3a_components_menu_routes_planner():
     route = cli._phase3a_components_menu()
 
     assert route == "planner"
-    assert "Planner  <available>" in cli._last_rendered
+    assert "Planner" in cli._last_rendered
 
 
 def test_load_planner_run_context_reads_saved_bundle(tmp_path: Path):

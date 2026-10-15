@@ -18,6 +18,12 @@ _APPEND_ONLY_FIELDS = (
     "preserved_contradictions",
 )
 
+# evidence_refs is always repaired regardless of applied_updates, because
+# evidence traceability is a non-negotiable integrity requirement.  The
+# other three fields may be intentionally reduced when the state delta
+# explicitly declares a corresponding applied_updates entry.
+_ALWAYS_REPAIRED_FIELDS = frozenset({"evidence_refs"})
+
 
 def _normalized_string_set(values: object) -> set[str]:
     """Return a deduplicated, stripped set of strings from a list-like value."""
@@ -46,6 +52,28 @@ def _normalized_string_list(values: object) -> list[str]:
     return result
 
 
+def _collect_explicitly_updated_fields(
+    state_delta_record: dict[str, Any],
+) -> frozenset[str]:
+    """Return the set of field names declared in applied_updates.
+
+    A field listed in applied_updates signals that the state delta
+    intentionally modifies that field (possibly removing prior items).
+    Repair must not silently re-add items the LLM explicitly removed in that
+    case, because doing so would override the intended update.
+    """
+    applied_updates = state_delta_record.get("applied_updates")
+    if not isinstance(applied_updates, list):
+        return frozenset()
+    updated: set[str] = set()
+    for update in applied_updates:
+        if isinstance(update, dict):
+            field_name = update.get("field")
+            if isinstance(field_name, str) and field_name.strip():
+                updated.add(field_name.strip())
+    return frozenset(updated)
+
+
 def enforce_append_only_invariants(
     state_delta_record: dict[str, Any],
     *,
@@ -61,6 +89,12 @@ def enforce_append_only_invariants(
     If the LLM-produced record is missing any required items, they are
     appended while preserving the existing ordering.
 
+    Exception: if the field is not in _ALWAYS_REPAIRED_FIELDS *and* the
+    state delta's applied_updates explicitly lists that field as updated,
+    repair is skipped.  This allows the validator to accept a legitimate
+    reduction (e.g. resolving a contradiction) without the repair layer
+    undoing the intended change.
+
     Returns
     -------
     repaired : dict
@@ -74,7 +108,18 @@ def enforce_append_only_invariants(
     current = current_hypothesis if isinstance(current_hypothesis, dict) else {}
     handoff = aggregation_handoff if isinstance(aggregation_handoff, dict) else {}
 
+    # Determine which fields are explicitly declared as updated by the LLM.
+    # For those non-mandatory fields, repair is skipped so that the validator
+    # can evaluate the intended update on its own merits.
+    explicitly_updated = _collect_explicitly_updated_fields(state_delta_record)
+
     for field in _APPEND_ONLY_FIELDS:
+        # Always repair evidence_refs to preserve evidence traceability.
+        # For other fields, skip repair when the delta explicitly declares an
+        # update for that field — the validator will accept or reject it.
+        if field not in _ALWAYS_REPAIRED_FIELDS and field in explicitly_updated:
+            continue
+
         required = _normalized_string_set(current.get(field))
         required |= _normalized_string_set(handoff.get(field))
 

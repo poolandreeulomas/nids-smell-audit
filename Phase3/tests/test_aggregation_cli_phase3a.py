@@ -74,7 +74,7 @@ def test_phase3a_components_menu_routes_aggregation():
     route = cli._phase3a_components_menu()
 
     assert route == "aggregation"
-    assert "Aggregation  <available>" in cli._last_rendered
+    assert "Aggregation" in cli._last_rendered
 
 
 def test_load_aggregation_run_context_reads_saved_bundle(tmp_path: Path):
