@@ -161,6 +161,20 @@ from interface.welcome import (
     render_usage_screen,
     render_welcome_screen,
 )
+from interface.thesis_experiments import (
+    CORPUS_RUNS,
+    FIGURES_CATALOG,
+    SECTIONS,
+    TABLES_CATALOG,
+    open_figure_file,
+    render_figure_detail,
+    render_figures_menu,
+    render_run_detail,
+    render_run_inventory,
+    render_table_detail,
+    render_thesis_experiments_menu,
+    render_thesis_section,
+)
 from interface.how_to_use import (
     CATEGORIES,
     get_category_by_key,
@@ -668,6 +682,11 @@ class NidsAgentCli:
         self._how_to_use_category: str = "getting_started"
         self._how_to_use_item_idx: int = 0
         self._how_to_use_show_details: bool = False
+        self._thesis_exp_section_idx: int = 0
+        self._thesis_exp_figure_idx: int = 0
+        self._thesis_exp_table_idx: int = 0
+        self._thesis_exp_selected_run_id: str = "050"
+        self._thesis_exp_feedback_msg: str | None = None
         self._current_screen = initial_screen
         self._screen_handlers: dict[str, ScreenHandler] = {
             "welcome": self._welcome_menu,
@@ -676,6 +695,13 @@ class NidsAgentCli:
             "usage": self._usage_menu,
             "usage_category": self._usage_category_menu,
             "usage_topic": self._usage_topic_menu,
+            "thesis_experiments": self._thesis_experiments_menu,
+            "thesis_exp_section": self._thesis_exp_section_menu,
+            "thesis_exp_runs": self._thesis_exp_runs_menu,
+            "thesis_exp_run_detail": self._thesis_exp_run_detail_menu,
+            "thesis_exp_figures": self._thesis_exp_figures_menu,
+            "thesis_exp_figure_detail": self._thesis_exp_figure_detail_menu,
+            "thesis_exp_table_detail": self._thesis_exp_table_detail_menu,
             "main": self._main_menu,
             "phase3a": self._phase3a_components_menu,
             "phase3a_runtime": self._phase3a_runtime_menu,
@@ -729,7 +755,7 @@ class NidsAgentCli:
                 dataset_name=self._get_selected_dataset_label(),
             )
         )
-        choice = self._read_menu_choice({"1", "2", "3", "0", "Q"})
+        choice = self._read_menu_choice({"1", "2", "3", "4", "0", "Q"})
         if choice in {"0", "Q"}:
             self._quit()
             return None
@@ -739,6 +765,8 @@ class NidsAgentCli:
             return "concept"
         if choice == "3":
             return "usage"
+        if choice == "4":
+            return "thesis_experiments"
         return "welcome"
 
     def _concept_menu(self) -> str:
@@ -864,6 +892,180 @@ class NidsAgentCli:
             return None
         return "usage_topic"
 
+    def _thesis_experiments_menu(self) -> str | None:
+        self._render(render_thesis_experiments_menu())
+        valid_choices = {"1", "2", "3", "4", "5", "6", "7", "I", "F", "B", "M", "W", "0", "Q"}
+        choice = self._read_menu_choice(valid_choices)
+        if choice in {"0", "Q"}:
+            self._quit()
+            return None
+        if choice in {"B", "W"}:
+            return "welcome"
+        if choice == "M":
+            return "main"
+        if choice == "I":
+            return "thesis_exp_runs"
+        if choice == "F":
+            return "thesis_exp_figures"
+        if choice.isdigit() and 1 <= int(choice) <= len(SECTIONS):
+            self._thesis_exp_section_idx = int(choice) - 1
+            return "thesis_exp_section"
+        return "thesis_experiments"
+
+    def _thesis_exp_section_menu(self) -> str | None:
+        total_sections = len(SECTIONS)
+        sec = SECTIONS[self._thesis_exp_section_idx]
+        self._render(render_thesis_section(sec["id"]))
+        valid_choices = {"T", "I", "F", "B", "M", "W", "0", "Q"}
+        if self._thesis_exp_section_idx < total_sections - 1:
+            valid_choices.add("N")
+        if self._thesis_exp_section_idx > 0:
+            valid_choices.add("P")
+
+        choice = self._read_menu_choice(valid_choices)
+        if choice in {"0", "Q"}:
+            self._quit()
+            return None
+        if choice == "N" and self._thesis_exp_section_idx < total_sections - 1:
+            self._thesis_exp_section_idx += 1
+            return "thesis_exp_section"
+        if choice == "P" and self._thesis_exp_section_idx > 0:
+            self._thesis_exp_section_idx -= 1
+            return "thesis_exp_section"
+        if choice in {"T", "B"}:
+            return "thesis_experiments"
+        if choice == "I":
+            return "thesis_exp_runs"
+        if choice == "F":
+            return "thesis_exp_figures"
+        if choice == "M":
+            return "main"
+        if choice == "W":
+            return "welcome"
+        return "thesis_exp_section"
+
+    def _thesis_exp_runs_menu(self) -> str | None:
+        self._render(render_run_inventory())
+        run_ids = {r["run_id"] for r in CORPUS_RUNS}
+        valid_choices = run_ids | {"T", "B", "M", "W", "0", "Q"}
+        choice = self._read_menu_choice(valid_choices)
+        if choice in {"0", "Q"}:
+            self._quit()
+            return None
+        if choice in {"T", "B"}:
+            return "thesis_experiments"
+        if choice == "M":
+            return "main"
+        if choice == "W":
+            return "welcome"
+        if choice in run_ids:
+            self._thesis_exp_selected_run_id = choice
+            return "thesis_exp_run_detail"
+        return "thesis_exp_runs"
+
+    def _thesis_exp_run_detail_menu(self) -> str | None:
+        self._render(render_run_detail(self._thesis_exp_selected_run_id))
+        valid_choices = {"I", "T", "B", "M", "W", "0", "Q"}
+        choice = self._read_menu_choice(valid_choices)
+        if choice in {"0", "Q"}:
+            self._quit()
+            return None
+        if choice in {"I", "B"}:
+            return "thesis_exp_runs"
+        if choice == "T":
+            return "thesis_experiments"
+        if choice == "M":
+            return "main"
+        if choice == "W":
+            return "welcome"
+        return "thesis_exp_run_detail"
+
+    def _thesis_exp_figures_menu(self) -> str | None:
+        self._render(render_figures_menu())
+        fig_ids = {f["id"].upper() for f in FIGURES_CATALOG}
+        tbl_ids = {t["id"].upper() for t in TABLES_CATALOG}
+        valid_choices = fig_ids | tbl_ids | {"T", "B", "M", "W", "0", "Q"}
+        choice = self._read_menu_choice(valid_choices)
+        if choice in {"0", "Q"}:
+            self._quit()
+            return None
+        if choice in {"T", "B"}:
+            return "thesis_experiments"
+        if choice == "M":
+            return "main"
+        if choice == "W":
+            return "welcome"
+        if choice in fig_ids:
+            for idx, f in enumerate(FIGURES_CATALOG):
+                if f["id"].upper() == choice:
+                    self._thesis_exp_figure_idx = idx
+                    self._thesis_exp_feedback_msg = None
+                    return "thesis_exp_figure_detail"
+        if choice in tbl_ids:
+            for idx, t in enumerate(TABLES_CATALOG):
+                if t["id"].upper() == choice:
+                    self._thesis_exp_table_idx = idx
+                    return "thesis_exp_table_detail"
+        return "thesis_exp_figures"
+
+    def _thesis_exp_figure_detail_menu(self) -> str | None:
+        total_figs = len(FIGURES_CATALOG)
+        fig_entry = FIGURES_CATALOG[self._thesis_exp_figure_idx]
+        self._render(render_figure_detail(fig_entry["id"], feedback_msg=self._thesis_exp_feedback_msg))
+        valid_choices = {"O", "F", "T", "B", "M", "W", "0", "Q"}
+        if self._thesis_exp_figure_idx < total_figs - 1:
+            valid_choices.add("N")
+        if self._thesis_exp_figure_idx > 0:
+            valid_choices.add("P")
+
+        choice = self._read_menu_choice(valid_choices)
+        if choice in {"0", "Q"}:
+            self._quit()
+            return None
+        if choice == "O":
+            ok, msg = open_figure_file(fig_entry["id"])
+            self._thesis_exp_feedback_msg = msg
+            return "thesis_exp_figure_detail"
+        if choice == "N" and self._thesis_exp_figure_idx < total_figs - 1:
+            self._thesis_exp_figure_idx += 1
+            self._thesis_exp_feedback_msg = None
+            return "thesis_exp_figure_detail"
+        if choice == "P" and self._thesis_exp_figure_idx > 0:
+            self._thesis_exp_figure_idx -= 1
+            self._thesis_exp_feedback_msg = None
+            return "thesis_exp_figure_detail"
+        if choice in {"F", "B"}:
+            self._thesis_exp_feedback_msg = None
+            return "thesis_exp_figures"
+        if choice == "T":
+            self._thesis_exp_feedback_msg = None
+            return "thesis_experiments"
+        if choice == "M":
+            self._thesis_exp_feedback_msg = None
+            return "main"
+        if choice == "W":
+            self._thesis_exp_feedback_msg = None
+            return "welcome"
+        return "thesis_exp_figure_detail"
+
+    def _thesis_exp_table_detail_menu(self) -> str | None:
+        tbl_entry = TABLES_CATALOG[self._thesis_exp_table_idx]
+        self._render(render_table_detail(tbl_entry["id"]))
+        valid_choices = {"F", "T", "B", "M", "W", "0", "Q"}
+        choice = self._read_menu_choice(valid_choices)
+        if choice in {"0", "Q"}:
+            self._quit()
+            return None
+        if choice in {"F", "B"}:
+            return "thesis_exp_figures"
+        if choice == "T":
+            return "thesis_experiments"
+        if choice == "M":
+            return "main"
+        if choice == "W":
+            return "welcome"
+        return "thesis_exp_table_detail"
+
     def _main_menu(self) -> str | None:
         self._render(
             render_main_menu(
@@ -877,11 +1079,12 @@ class NidsAgentCli:
             )
         )
 
-        choice = self._read_menu_choice({"1", "2", "3", "B", "0", "W", "Q"})
+        choice = self._read_menu_choice({"1", "2", "3", "4", "B", "0", "W", "Q"})
         routes = {
             "1": "phase3a_runtime",
             "2": "phase3a",
             "3": "session",
+            "4": "thesis_experiments",
             "B": "welcome",
             "0": "welcome",
             "W": "welcome",

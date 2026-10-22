@@ -215,6 +215,7 @@ def render_welcome_screen(
         ("1", "Enter ATLAS", "Launch interactive console and batch runtime."),
         ("2", "The Concept", "The explorer analogy: dataset auditing as cartography."),
         ("3", "How to Use ATLAS", "Interactive guide: workflows, components, tools & debugging."),
+        ("4", "Thesis Experiments", "Empirical evaluation: methodology, corpus & results."),
         ("0", "Exit", "Exit the application."),
     ]
 
