@@ -9,7 +9,7 @@ from time import perf_counter
 import threading
 from typing import Any, Callable
 
-from data.dataset_config import infer_dataset_config
+from data.dataset_config import DatasetConfig, infer_dataset_config
 from final_batch_auditor.runner import run_final_batch_auditor
 from final_batch_report.runner import run_final_batch_report
 from final_batch_report.round_runner import run_round_report
@@ -146,6 +146,7 @@ def run_phase3a_batch(
     dataset_path: str | Path,
     *,
     batch_id: str | None = None,
+    dataset_config: DatasetConfig | None = None,
     model_name: str = "gpt-4.1-mini",
     temperature: float = 0.0,
     max_rounds: int = 3,
@@ -203,9 +204,17 @@ def run_phase3a_batch(
     created_at = datetime.now(UTC).isoformat()
     batch_start_time = perf_counter()
     phase_start("batch", batch_id=normalized_batch_id)
+    dataset_cfg = dataset_config or infer_dataset_config(normalized_dataset_path)
     initial_runtime_context = {
         "batch_id": normalized_batch_id,
         "dataset_path": str(normalized_dataset_path),
+        "dataset_name": dataset_cfg.dataset_name,
+        "dataset_display_name": dataset_cfg.dataset_display_name,
+        "label_column": dataset_cfg.label_column,
+        "normal_labels": dataset_cfg.normal_labels,
+        "attack_labels": dataset_cfg.attack_labels,
+        "delimiter": dataset_cfg.delimiter,
+        "is_custom_dataset": dataset_cfg.dataset_name.startswith("custom"),
         "model_name": model_name,
         "temperature": temperature,
         "max_rounds": effective_max_rounds,
@@ -251,6 +260,18 @@ def run_phase3a_batch(
         else f"{normalized_execution_mode}_completed"
     )
     current_component = "bootstrap"
+    dataset_metadata = {
+        "source_type": "custom_path" if dataset_cfg.dataset_name.startswith("custom") else "predefined",
+        "dataset_path": str(normalized_dataset_path.resolve()),
+        "dataset_name": dataset_cfg.dataset_name,
+        "dataset_display_name": dataset_cfg.dataset_display_name,
+        "label_column": dataset_cfg.label_column,
+        "normal_labels": dataset_cfg.normal_labels,
+        "attack_labels": dataset_cfg.attack_labels,
+        "delimiter": dataset_cfg.delimiter,
+        "file_size_bytes": normalized_dataset_path.stat().st_size if normalized_dataset_path.is_file() else 0,
+        "is_custom_dataset": dataset_cfg.dataset_name.startswith("custom"),
+    }
     ledger = BatchLedger(
         batch_id=normalized_batch_id,
         dataset_path=str(normalized_dataset_path),
@@ -263,6 +284,7 @@ def run_phase3a_batch(
         initial_investigation_analysis_run_path="",
         initial_state_path=str(artifact_paths["initial_state_path"]),
         initial_state_version=0,
+        dataset_metadata=dataset_metadata,
     )
 
     def _emit_event(event_type: str, **payload: Any) -> None:
@@ -277,8 +299,12 @@ def run_phase3a_batch(
 
     try:
         current_component = "semantic_extraction"
-        semantic_inputs = build_initial_semantic_inputs(
-            normalized_dataset_path, normalized_batch_id)
+        try:
+            semantic_inputs = build_initial_semantic_inputs(
+                normalized_dataset_path, normalized_batch_id, dataset_config=dataset_cfg)
+        except TypeError:
+            semantic_inputs = build_initial_semantic_inputs(
+                normalized_dataset_path, normalized_batch_id)
         semantic_bundle = run_semantic_extraction(
             semantic_inputs["overview_summary_min"],
             semantic_inputs["partition_context"],
@@ -298,8 +324,12 @@ def run_phase3a_batch(
         )
 
         current_component = "investigation_analysis"
-        analysis_context_min = build_initial_analysis_context(
-            normalized_dataset_path)
+        try:
+            analysis_context_min = build_initial_analysis_context(
+                normalized_dataset_path, dataset_config=dataset_cfg)
+        except TypeError:
+            analysis_context_min = build_initial_analysis_context(
+                normalized_dataset_path)
         initial_hypothesis_bundle = run_investigation_analysis(
             dict(semantic_bundle.get("parsed_output", {}) or {}),
             analysis_context_min,
@@ -346,11 +376,66 @@ def run_phase3a_batch(
             is_final_round = round_index == effective_max_rounds
 
             current_component = round_id
-            round_result = execute_round(
-                batch_id=normalized_batch_id,
-                round_id=round_id,
-                round_index=round_index,
-                dataset_path=normalized_dataset_path,
+            try:
+                round_result = execute_round(
+                    batch_id=normalized_batch_id,
+                    round_id=round_id,
+                    round_index=round_index,
+                    dataset_path=normalized_dataset_path,
+                    dataset_config=dataset_cfg,
+                    semantic_bundle=semantic_bundle,
+                    initial_hypothesis_bundle=initial_hypothesis_bundle,
+                    analysis_context_min=analysis_context_min,
+                    canonical_batch_state=current_state,
+                    model_name=model_name,
+                    temperature=temperature,
+                    selection_budget=selection_budget,
+                    max_worker_steps=max_worker_steps,
+                    max_worker_retries=max_worker_retries,
+                    max_tasks_per_hypothesis=max_tasks_per_hypothesis,
+                    max_concurrent_workers=max_concurrent_workers,
+                    max_concurrent_hypotheses=max_concurrent_hypotheses,
+                    stop_after_phase=stop_after_phase,
+                    enable_critic=critic_enabled,
+                    is_final_round=is_final_round,
+                    llm_callables=llm_callables,
+                    caller_mode=caller_mode,
+                    analysis_mode=analysis_mode,
+                    previous_round_manifest=previous_round_manifest,
+                )
+            except TypeError:
+                round_result = execute_round(
+                    batch_id=normalized_batch_id,
+                    round_id=round_id,
+                    round_index=round_index,
+                    dataset_path=normalized_dataset_path,
+                    semantic_bundle=semantic_bundle,
+                    initial_hypothesis_bundle=initial_hypothesis_bundle,
+                    analysis_context_min=analysis_context_min,
+                    canonical_batch_state=current_state,
+                    model_name=model_name,
+                    temperature=temperature,
+                    selection_budget=selection_budget,
+                    max_worker_steps=max_worker_steps,
+                    max_worker_retries=max_worker_retries,
+                    max_tasks_per_hypothesis=max_tasks_per_hypothesis,
+                    max_concurrent_workers=max_concurrent_workers,
+                    max_concurrent_hypotheses=max_concurrent_hypotheses,
+                    stop_after_phase=stop_after_phase,
+                    enable_critic=critic_enabled,
+                    is_final_round=is_final_round,
+                    llm_callables=llm_callables,
+                    caller_mode=caller_mode,
+                    analysis_mode=analysis_mode,
+                    previous_round_manifest=previous_round_manifest,
+                )
+            if False:  # bypass legacy block
+                round_result = execute_round(
+                    batch_id=normalized_batch_id,
+                    round_id=round_id,
+                    round_index=round_index,
+                    dataset_path=normalized_dataset_path,
+                    dataset_config=dataset_cfg,
                 semantic_bundle=semantic_bundle,
                 initial_hypothesis_bundle=initial_hypothesis_bundle,
                 analysis_context_min=analysis_context_min,
@@ -572,7 +657,7 @@ def run_phase3a_batch(
                     else CanonicalBatchState.from_dict(current_state)
                 )
                 partition_name = normalized_dataset_path.name
-                dataset_cfg = infer_dataset_config(normalized_dataset_path)
+                dataset_cfg = dataset_config or infer_dataset_config(normalized_dataset_path)
                 report_model = str(
                     (component_model_names or {}).get("final_batch_report") or model_name
                 )
@@ -642,7 +727,7 @@ def run_phase3a_batch(
                     else CanonicalBatchState.from_dict(current_state)
                 )
                 partition_name = normalized_dataset_path.name
-                dataset_cfg = infer_dataset_config(normalized_dataset_path)
+                dataset_cfg = dataset_config or infer_dataset_config(normalized_dataset_path)
                 round_report_model = str(
                     (component_model_names or {}).get("round_report")
                     or (component_model_names or {}).get("final_batch_report")

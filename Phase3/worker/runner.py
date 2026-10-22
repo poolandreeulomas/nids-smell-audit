@@ -188,8 +188,10 @@ def run_worker(
     if task_validation["ok"] and runtime_refs_validation["ok"] and action_map_validation["ok"]:
         dataset_path = str(raw_worker_runtime_refs.get(
             "dataset_handles", {}).get("dataset_path") or "")
+        dataset_config = raw_worker_runtime_refs.get(
+            "dataset_handles", {}).get("dataset_config")
         try:
-            runtime_dataset = prepare_worker_dataset(dataset_path)
+            runtime_dataset = prepare_worker_dataset(dataset_path, config=dataset_config)
             callable_to_use = llm_callable or _build_openai_worker_callable(
                 model_name, temperature)
             max_steps = int(budget_rules.get("max_steps", 0) or 0)

@@ -5,7 +5,7 @@ from __future__ import annotations
 from pathlib import Path
 from typing import Any
 
-from data.dataset_config import infer_dataset_config
+from data.dataset_config import DatasetConfig, infer_dataset_config
 from data.loader import load_dataset
 from tools.common import sanitize_json_like
 from tools.execution import execute_tool_call
@@ -54,8 +54,11 @@ def build_action_tool_map(
     }
 
 
-def prepare_worker_dataset(dataset_path: str | Path) -> dict[str, Any]:
-    cfg = infer_dataset_config(dataset_path)
+def prepare_worker_dataset(
+    dataset_path: str | Path,
+    config: DatasetConfig | None = None,
+) -> dict[str, Any]:
+    cfg = config or infer_dataset_config(dataset_path)
     dataframe, valid_numeric_features = load_dataset(dataset_path, cfg)
     return {
         "dataset_path": str(dataset_path),

@@ -6,6 +6,7 @@ from pathlib import Path
 import re
 from typing import Any
 
+from data.dataset_config import DatasetConfig
 from judge.context_loader import get_judge_partition_context
 from src.explore import analyze_partition
 
@@ -21,8 +22,8 @@ def _split_paragraphs(text: str) -> list[str]:
     ]
 
 
-def build_partition_context(partition_name: str) -> dict[str, list[str]]:
-    paragraphs = _split_paragraphs(get_judge_partition_context(partition_name))
+def build_partition_context(partition_name: str, dataset_config: DatasetConfig | None = None) -> dict[str, list[str]]:
+    paragraphs = _split_paragraphs(get_judge_partition_context(partition_name, dataset_config=dataset_config))
 
     semantics: list[str] = []
     expected_properties: list[str] = []
@@ -53,8 +54,13 @@ def build_partition_context(partition_name: str) -> dict[str, list[str]]:
     }
 
 
-def build_overview_summary_min(dataset_path: str | Path, *, batch_id: str) -> dict[str, Any]:
-    partition_name, partition_results = analyze_partition(str(dataset_path))
+def build_overview_summary_min(
+    dataset_path: str | Path,
+    *,
+    batch_id: str,
+    dataset_config: DatasetConfig | None = None,
+) -> dict[str, Any]:
+    partition_name, partition_results = analyze_partition(str(dataset_path), dataset_config=dataset_config)
     evidence_records: list[dict[str, Any]] = []
     global_observation_refs: list[str] = []
     feature_scope_refs: set[str] = set()

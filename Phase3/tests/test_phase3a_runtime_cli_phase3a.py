@@ -1150,3 +1150,141 @@ def test_run_phase3a_runtime_flow_can_disable_neighborhood_analysis(monkeypatch,
     assert cli_module.os.environ.get(
         "PHASE3A_ENABLE_NEIGHBORHOOD_CONSISTENCY_ANALYSIS"
     ) == original_env_value
+
+
+def test_run_phase3a_runtime_flow_cognitive_only_accepts_options_and_backs_out(monkeypatch, tmp_path: Path):
+    bundle = _build_saved_phase3a_runtime_bundle(tmp_path)
+    captured_call: dict[str, object] = {}
+    valid_choices_seen: set[str] = set()
+
+    def _fake_run_phase3a_batch(dataset_path, **kwargs):
+        captured_call["dataset_path"] = dataset_path
+        captured_call.update(kwargs)
+        return bundle
+
+    monkeypatch.setattr(cli_module, "run_phase3a_batch", _fake_run_phase3a_batch)
+
+    cli = object.__new__(NidsAgentCli)
+    cli._running = True
+    cli.session_config = SessionConfig(model_name="gpt-4.1-mini")
+    cli._get_selected_dataset_path = lambda: Path("dataset.csv")
+    cli._prompt_yes_no = lambda prompt, default=False: False
+    cli._render = lambda content: setattr(cli, "_last_rendered", content)
+
+    def _mock_read_menu_choice(valid_choices: set[str]) -> str:
+        valid_choices_seen.update(valid_choices)
+        return "B"
+
+    cli._read_menu_choice = _mock_read_menu_choice
+    cli._quit = lambda: setattr(cli, "_running", False)
+    cli._show_error = lambda message: (_ for _ in ()).throw(AssertionError(message))
+
+    route = cli._run_phase3a_runtime_flow("cognitive_only")
+
+    assert route == "phase3a_runtime"
+    assert captured_call["execution_mode"] == "cognitive_only"
+    assert captured_call["max_rounds"] == 1
+    assert captured_call["enable_critic"] is False
+    expected_choices = {"1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "B", "Q"}
+    assert expected_choices == valid_choices_seen
+
+
+def test_run_phase3a_runtime_flow_cognitive_workers_back_navigation(monkeypatch, tmp_path: Path):
+    bundle = _build_saved_phase3a_runtime_bundle(tmp_path)
+    captured_call: dict[str, object] = {}
+
+    def _fake_run_phase3a_batch(dataset_path, **kwargs):
+        captured_call["dataset_path"] = dataset_path
+        captured_call.update(kwargs)
+        return bundle
+
+    monkeypatch.setattr(cli_module, "run_phase3a_batch", _fake_run_phase3a_batch)
+
+    cli = object.__new__(NidsAgentCli)
+    cli._running = True
+    cli.session_config = SessionConfig(model_name="gpt-4.1-mini")
+    cli._get_selected_dataset_path = lambda: Path("dataset.csv")
+    cli._prompt_yes_no = lambda prompt, default=False: False
+    cli._render = lambda content: setattr(cli, "_last_rendered", content)
+    cli._read_menu_choice = lambda valid_choices: "B"
+    cli._quit = lambda: setattr(cli, "_running", False)
+    cli._show_error = lambda message: (_ for _ in ()).throw(AssertionError(message))
+
+    route = cli._run_phase3a_runtime_flow("cognitive_workers")
+
+    assert route == "phase3a_runtime"
+    assert captured_call["execution_mode"] == "cognitive_workers"
+    assert captured_call["max_rounds"] == 1
+    assert captured_call["enable_critic"] is False
+
+
+def test_run_phase3a_runtime_flow_cognitive_only_quit_behavior(monkeypatch, tmp_path: Path):
+    bundle = _build_saved_phase3a_runtime_bundle(tmp_path)
+
+    monkeypatch.setattr(cli_module, "run_phase3a_batch", lambda *args, **kwargs: bundle)
+
+    cli = object.__new__(NidsAgentCli)
+    cli._running = True
+    cli.session_config = SessionConfig(model_name="gpt-4.1-mini")
+    cli._get_selected_dataset_path = lambda: Path("dataset.csv")
+    cli._prompt_yes_no = lambda prompt, default=False: False
+    cli._render = lambda content: setattr(cli, "_last_rendered", content)
+    cli._read_menu_choice = lambda valid_choices: "Q"
+    cli._quit = lambda: setattr(cli, "_running", False)
+    cli._show_error = lambda message: (_ for _ in ()).throw(AssertionError(message))
+
+    route = cli._run_phase3a_runtime_flow("cognitive_only")
+
+    assert route == "phase3a_runtime"
+    assert cli._running is False
+
+
+def test_run_phase3a_runtime_flow_cognitive_only_dispatches_numeric_options(monkeypatch, tmp_path: Path):
+    bundle = _build_saved_phase3a_runtime_bundle(tmp_path)
+    dispatched_choices: list[str] = []
+
+    monkeypatch.setattr(cli_module, "run_phase3a_batch", lambda *args, **kwargs: bundle)
+
+    cli = object.__new__(NidsAgentCli)
+    cli._running = True
+    cli.session_config = SessionConfig(model_name="gpt-4.1-mini")
+    cli._get_selected_dataset_path = lambda: Path("dataset.csv")
+    cli._prompt_yes_no = lambda prompt, default=False: False
+    cli._render = lambda content: setattr(cli, "_last_rendered", content)
+
+    inputs = iter(["1", "10", "13", "B"])
+    cli._read_menu_choice = lambda valid_choices: next(inputs)
+    cli._handle_phase3a_runtime_review_choice = lambda choice, run_context: dispatched_choices.append(choice)
+    cli._quit = lambda: setattr(cli, "_running", False)
+    cli._show_error = lambda message: (_ for _ in ()).throw(AssertionError(message))
+
+    route = cli._run_phase3a_runtime_flow("cognitive_only")
+
+    assert route == "phase3a_runtime"
+    assert dispatched_choices == ["1", "10", "13"]
+
+
+def test_run_phase3a_runtime_flow_cognitive_only_exits_when_not_running(monkeypatch, tmp_path: Path):
+    bundle = _build_saved_phase3a_runtime_bundle(tmp_path)
+
+    monkeypatch.setattr(cli_module, "run_phase3a_batch", lambda *args, **kwargs: bundle)
+
+    cli = object.__new__(NidsAgentCli)
+    cli._running = True
+    cli.session_config = SessionConfig(model_name="gpt-4.1-mini")
+    cli._get_selected_dataset_path = lambda: Path("dataset.csv")
+    cli._prompt_yes_no = lambda prompt, default=False: False
+    cli._render = lambda content: setattr(cli, "_last_rendered", content)
+
+    def _fake_handle(choice, run_context):
+        cli._running = False
+
+    cli._read_menu_choice = lambda valid_choices: "1"
+    cli._handle_phase3a_runtime_review_choice = _fake_handle
+    cli._quit = lambda: setattr(cli, "_running", False)
+    cli._show_error = lambda message: (_ for _ in ()).throw(AssertionError(message))
+
+    route = cli._run_phase3a_runtime_flow("cognitive_only")
+
+    assert route == "phase3a_runtime"
+    assert cli._running is False

@@ -9,11 +9,13 @@ from __future__ import annotations
 
 import json
 import os
+from pathlib import Path
 
 import pandas as pd
 from scipy.spatial.distance import jensenshannon
 from scipy.stats import entropy
 
+from data.dataset_config import DatasetConfig, infer_dataset_config
 from src.feature_index import (
     build_compact_feature_index,
     detect_feature_redundancy,
@@ -119,16 +121,22 @@ def _resolve_label_column(df: pd.DataFrame) -> str:
     )
 
 
-def analyze_partition(file_path):
-
-    partition_name = os.path.basename(file_path)
+def analyze_partition(file_path: str | Path, dataset_config: DatasetConfig | None = None):
+    partition_name = os.path.basename(str(file_path))
     partition_results = {}
 
-    df = pd.read_csv(file_path, nrows=100000)
+    cfg = dataset_config or infer_dataset_config(file_path)
+    suffix = Path(file_path).suffix.lower()
+    sep = cfg.delimiter or ("\t" if suffix in {".tsv", ".tab"} else ",")
+
+    df = pd.read_csv(file_path, sep=sep, nrows=100000)
     df.columns = df.columns.str.strip()
 
-    # Resolve the label column (supports CIC_IDS_2017 'Label' and UNSW_NB15 'label')
-    label_col = _resolve_label_column(df)
+    # Resolve the label column: check config first, then heuristic
+    if cfg and cfg.label_column in df.columns:
+        label_col = cfg.label_column
+    else:
+        label_col = _resolve_label_column(df)
 
     # ---- Basic metadata ----
     partition_results["basic_info"] = {
@@ -148,22 +156,33 @@ def analyze_partition(file_path):
     partition_results["class_imbalance_ratio"] = imbalance_ratio
 
     # ---- Correlation screening ----
-    # Determine attack encoding dynamically from label values.
-    # CICIDS uses "BENIGN" as normal; UNSW-NB15 uses binary 0/1.
-    if df[label_col].dtype in (int, float):
+    # Determine attack encoding dynamically from label values and config.
+    if cfg and cfg.normal_labels:
+        normal_set = {str(v).strip() for v in cfg.normal_labels if str(v).strip()}
+        df["Label_bin"] = df[label_col].apply(lambda x: 0 if str(x).strip() in normal_set else 1).astype(int)
+    elif df[label_col].dtype in (int, float):
         # Numeric labels (UNSW-NB15): 0 = normal
         df["Label_bin"] = (df[label_col] != 0).astype(int)
     else:
         # String labels (CICIDS2017): "BENIGN" = normal
         df["Label_bin"] = (df[label_col] != "BENIGN").astype(int)
 
-    corr = (
-        df.corr(numeric_only=True)["Label_bin"]
-        .abs()
-        .sort_values(ascending=False)
-    )
+    # If all rows have the same class, correlation cannot be computed
+    if df["Label_bin"].nunique() > 1:
+        corr_series = df.corr(numeric_only=True)["Label_bin"].abs().sort_values(ascending=False)
+        if "Label_bin" in corr_series:
+            corr_series = corr_series.drop("Label_bin")
+        top_features = [col for col in corr_series.dropna().head(5).index.tolist() if col != label_col]
+    else:
+        top_features = []
 
-    top_features = corr.drop("Label_bin").head(5).index.tolist()
+    # Fallback to valid numeric features if correlation didn't yield features
+    if not top_features:
+        numeric_candidates = [
+            c for c in df.select_dtypes(include="number").columns.tolist()
+            if c not in {"Label_bin", label_col}
+        ]
+        top_features = numeric_candidates[:5]
 
     partition_results["top_features"] = top_features
     partition_results["feature_analysis"] = {}
@@ -174,7 +193,6 @@ def analyze_partition(file_path):
         partition_results["feature_analysis"][feature] = analysis
 
     # ---- Feature redundancy detection ----
-
     partition_results["feature_redundancy"] = detect_feature_redundancy(df)
 
     # ---- Feature cardinality ----

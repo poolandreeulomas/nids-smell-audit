@@ -171,6 +171,7 @@ class BatchLedger:
     initial_state_version: int = 0
     round_manifests: list[RoundManifest] = field(default_factory=list)
     finalization: FinalizationRecord = field(default_factory=FinalizationRecord)
+    dataset_metadata: dict[str, Any] = field(default_factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
         return _ensure_json_primitive(asdict(self))
@@ -199,4 +200,5 @@ class BatchLedger:
             initial_state_version=_int_value(raw.get("initial_state_version")),
             round_manifests=manifests,
             finalization=finalization,
+            dataset_metadata=dict(raw.get("dataset_metadata") or {}),
         )

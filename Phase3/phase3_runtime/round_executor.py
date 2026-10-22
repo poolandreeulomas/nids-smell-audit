@@ -7,6 +7,7 @@ from pathlib import Path
 from time import perf_counter
 from typing import Any, Callable
 
+from data.dataset_config import DatasetConfig
 from aggregation.contracts import build_worker_result_set
 from aggregation.runner import run_aggregation
 from critic.runner import run_critic
@@ -269,6 +270,7 @@ def execute_round(
     round_id: str,
     round_index: int,
     dataset_path: str | Path,
+    dataset_config: DatasetConfig | None = None,
     semantic_bundle: dict[str, Any],
     initial_hypothesis_bundle: dict[str, Any],
     analysis_context_min: dict[str, Any],
@@ -613,6 +615,7 @@ def execute_round(
                     router_context_min=router_context_min,
                     semantic_substrate=semantic_substrate,
                     dataset_path=dataset_path,
+                    dataset_config=dataset_config,
                 )
                 worker_future = worker_executor.submit(
                     run_worker,

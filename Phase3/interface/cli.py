@@ -18,7 +18,18 @@ if __package__ in {None, ""}:
         sys.path.insert(0, repo_root_str)
 
 from config import DATA_DIR, LOG_DIR, MAX_STEPS
-from data.dataset_config import get_default_dataset_config
+from data.dataset_config import (
+    DatasetConfig,
+    create_custom_dataset_config,
+    get_default_dataset_config,
+    infer_dataset_config,
+    register_custom_dataset_config,
+    unregister_custom_dataset_config,
+)
+from data.validation import (
+    DatasetPreflightReport,
+    inspect_custom_dataset_preflight,
+)
 from data.loader import load_dataset
 from aggregation.input_resolver import load_worker_result_set
 from aggregation.runner import run_aggregation
@@ -107,6 +118,11 @@ from interface.terminal_ui import (
     render_recent_partition_memory_extractor_runs,
     render_phase3a_components_menu,
     render_dataset_selection,
+    render_dataset_source_selection,
+    render_discovered_datasets,
+    render_custom_dataset_preflight_review,
+    render_column_selection_menu,
+    render_benign_value_selection_menu,
     render_error,
     render_feature_analysis,
     render_judge_mode_selection,
@@ -258,6 +274,8 @@ class SessionConfig:
     critic_model_name: str | None = None
     judge_model_name: str = "gpt-4.1"
     dataset_name: str | None = None
+    custom_dataset_path: Path | None = None
+    custom_dataset_config: DatasetConfig | None = None
     trace_enabled: bool = False
     enable_neighborhood_consistency_analysis: bool = True
     max_steps: int = MAX_STEPS
@@ -3014,10 +3032,11 @@ class NidsAgentCli:
 
         self._selected_tool_name = tool_name
         dataset_path = self._get_selected_dataset_path()
+        dataset_cfg = self._get_selected_dataset_config()
         try:
             dataset_frame, valid_numeric_features = load_dataset(
                 dataset_path,
-                get_default_dataset_config(),
+                dataset_cfg,
             )
             request = build_tool_call_request(
                 call_id=self._next_tool_call_id(tool_name),
@@ -3034,7 +3053,7 @@ class NidsAgentCli:
             bundle = execute_tool_call(
                 request,
                 dataset_path=dataset_path,
-                config=get_default_dataset_config(),
+                config=dataset_cfg,
                 dataset_frame=dataset_frame,
                 valid_numeric_features=valid_numeric_features,
             )
@@ -3058,12 +3077,13 @@ class NidsAgentCli:
 
     def _run_semantic_extraction_flow(self) -> str:
         dataset_path = self._get_selected_dataset_path()
+        dataset_cfg = self._get_selected_dataset_config()
         batch_id = self._next_semantic_extraction_batch_id(dataset_path)
 
         try:
             overview_summary_min = build_overview_summary_min(
-                dataset_path, batch_id=batch_id)
-            partition_context = build_partition_context(dataset_path.name)
+                dataset_path, batch_id=batch_id, dataset_config=dataset_cfg)
+            partition_context = build_partition_context(dataset_path.name, dataset_config=dataset_cfg)
             bundle = run_semantic_extraction(
                 overview_summary_min,
                 partition_context,
@@ -3584,6 +3604,7 @@ class NidsAgentCli:
         try:
             bundle = run_phase3a_batch(
                 dataset_path,
+                dataset_config=self._get_selected_dataset_config(),
                 model_name=self.session_config.model_name,
                 max_rounds=max_rounds,
                 execution_mode=execution_mode,
@@ -3628,12 +3649,17 @@ class NidsAgentCli:
             return self._full_round_post_run_flow(run_context, bundle)
 
         while True:
-            self._render_phase3a_runtime_run_review(
-                run_context)
+            self._render_phase3a_runtime_run_review(run_context)
             choice = self._read_menu_choice(
-                {"1", "2", "3", "4", "5", "6", "7", "8", "B", "Q"})
+                {"1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "B", "Q"}
+            )
             if choice == "Q":
                 self._quit()
+                return "phase3a_runtime"
+            if choice == "B":
+                return "phase3a_runtime"
+            self._handle_phase3a_runtime_review_choice(choice, run_context)
+            if not self._running:
                 return "phase3a_runtime"
 
     def _full_round_post_run_flow(
@@ -3863,7 +3889,7 @@ class NidsAgentCli:
         previous_max_steps = os.environ.get("NIDS_MAX_STEPS")
         os.environ["OPENAI_MODEL"] = self.session_config.model_name
         os.environ["REACT_TRACE"] = "1" if self.session_config.trace_enabled else "0"
-        os.environ["NIDS_DATASET_PATH"] = self._get_selected_dataset_path().name
+        os.environ["NIDS_DATASET_PATH"] = str(self._get_selected_dataset_path().resolve())
         os.environ["NIDS_MAX_STEPS"] = str(self.session_config.max_steps)
 
         try:
@@ -3945,11 +3971,22 @@ class NidsAgentCli:
         }
 
     def _get_selected_dataset_label(self) -> str:
+        if self.session_config.custom_dataset_path is not None:
+            path = self.session_config.custom_dataset_path
+            if not path.is_file():
+                return f"[Custom - Missing: {path.name}]"
+            return f"[Custom] {path.name}"
         try:
             dataset_path = self._get_selected_dataset_path()
         except FileNotFoundError:
             return f"missing from {DATA_DIR}"
         return dataset_path.name
+
+    def _get_selected_dataset_config(self) -> DatasetConfig:
+        if self.session_config.custom_dataset_config is not None:
+            return self.session_config.custom_dataset_config
+        dataset_path = self._get_selected_dataset_path()
+        return infer_dataset_config(dataset_path)
 
     def _get_available_dataset_paths(self) -> list[Path]:
         return sorted(
@@ -3959,6 +3996,14 @@ class NidsAgentCli:
         )
 
     def _get_selected_dataset_path(self) -> Path:
+        if self.session_config.custom_dataset_path is not None:
+            path = self.session_config.custom_dataset_path
+            if not path.is_file():
+                raise FileNotFoundError(
+                    f"Configured custom dataset file does not exist or is unreadable: '{path}'."
+                )
+            return path
+
         candidates = self._get_available_dataset_paths()
         if not candidates:
             raise FileNotFoundError(DATA_DIR)
@@ -10903,27 +10948,174 @@ class NidsAgentCli:
             return raw_value
 
     def _change_dataset_partition(self) -> None:
+        while True:
+            self._render(render_dataset_source_selection(self._get_selected_dataset_label()))
+            choice = self._read_menu_choice({"1", "2", "3", "B", "Q"})
+            if choice == "B":
+                return
+            if choice == "Q":
+                self._quit()
+                return
+            if choice == "1":
+                if self._select_predefined_dataset_partition():
+                    return
+                continue
+            if choice == "2":
+                if self._select_discovered_dataset_partition():
+                    return
+                continue
+            if choice == "3":
+                if self._select_custom_path_dataset():
+                    return
+                continue
+
+    def _select_predefined_dataset_partition(self) -> bool:
         dataset_paths = self._get_available_dataset_paths()
         if not dataset_paths:
             self._show_error(f"no dataset partitions found under {DATA_DIR}")
-            return
+            return False
 
+        current_name = self.session_config.dataset_name if self.session_config.custom_dataset_path is None else None
         self._render(
             render_dataset_selection(
-                dataset_paths, self.session_config.dataset_name)
+                dataset_paths, current_name)
         )
         valid_choices = {str(index) for index in range(
             1, len(dataset_paths) + 1)} | {"B", "Q"}
         choice = self._read_menu_choice(valid_choices)
         if choice == "B":
-            return
+            return False
         if choice == "Q":
             self._quit()
-            return
+            return False
 
         selected_path = dataset_paths[int(choice) - 1]
         self.session_config.dataset_name = selected_path.name
+        self.session_config.custom_dataset_path = None
+        self.session_config.custom_dataset_config = None
         self._show_info(f"Dataset partition updated to: {selected_path.name}")
+        return True
+
+    def _select_discovered_dataset_partition(self) -> bool:
+        discovered = sorted(
+            p for p in Path(DATA_DIR).rglob("*")
+            if p.is_file() and p.suffix.lower() in {".csv", ".tsv", ".tab"}
+        )
+        if not discovered:
+            self._show_error(f"No compatible CSV/TSV files discovered under {DATA_DIR}.")
+            return False
+
+        current_name = self.session_config.dataset_name if self.session_config.custom_dataset_path is not None else None
+        self._render(render_discovered_datasets(discovered, current_name))
+        valid_choices = {str(index) for index in range(1, len(discovered) + 1)} | {"B", "Q"}
+        choice = self._read_menu_choice(valid_choices)
+        if choice == "B":
+            return False
+        if choice == "Q":
+            self._quit()
+            return False
+
+        selected_path = discovered[int(choice) - 1]
+        return self._handle_custom_dataset_file_confirmation(selected_path)
+
+    def _select_custom_path_dataset(self) -> bool:
+        while True:
+            self._clear_screen()
+            print("Enter filesystem path to a CSV/TSV file (absolute or relative):")
+            print("Enter [B] or leave blank to cancel.")
+            raw_val = input("> ").strip()
+            if not raw_val or raw_val.upper() == "B":
+                return False
+            cleaned = raw_val.strip('"\'')
+            p = Path(cleaned).expanduser()
+            if not p.is_absolute():
+                resolved = (Path.cwd() / p).resolve()
+            else:
+                resolved = p.resolve()
+
+            confirmed = self._handle_custom_dataset_file_confirmation(resolved)
+            if confirmed:
+                return True
+
+    def _handle_custom_dataset_file_confirmation(self, file_path: Path) -> bool:
+        explicit_label: str | None = None
+        explicit_normal: str | None = None
+
+        while True:
+            report = inspect_custom_dataset_preflight(
+                file_path,
+                explicit_label_column=explicit_label,
+                explicit_normal_value=explicit_normal,
+            )
+
+            size_str = (
+                f"{report.file_size_bytes / (1024 * 1024):.2f} MB"
+                if report.file_size_bytes >= 1024 * 1024
+                else f"{report.file_size_bytes / 1024:.1f} KB"
+            )
+            summary = {
+                "ok": report.ok,
+                "file_name": report.resolved_path.name,
+                "resolved_path": str(report.resolved_path),
+                "file_size_formatted": size_str,
+                "delimiter": report.delimiter,
+                "estimated_rows": f"{report.estimated_total_rows:,}" if report.estimated_total_rows is not None else f"{report.row_count_sampled} (sampled)",
+                "total_columns": report.total_columns,
+                "numeric_features_count": len(report.numeric_columns),
+                "selected_label_column": report.selected_label_column or "none",
+                "selected_normal_value": report.selected_normal_value or "none",
+                "unique_classes_preview": ", ".join(report.unique_label_values[:5]) if report.unique_label_values else "none",
+                "warnings": report.warnings,
+                "errors": report.errors,
+            }
+
+            self._render(render_custom_dataset_preflight_review(summary))
+            if not report.ok:
+                choice = self._read_menu_choice({"B", "Q"})
+                if choice == "Q":
+                    self._quit()
+                return False
+
+            choice = self._read_menu_choice({"1", "2", "3", "B", "Q"})
+            if choice == "Q":
+                self._quit()
+                return False
+            if choice == "B":
+                return False
+
+            if choice == "2":
+                self._render(render_column_selection_menu(report.column_names, report.selected_label_column))
+                valid_cols = {str(i) for i in range(1, len(report.column_names) + 1)} | {"B"}
+                col_choice = self._read_menu_choice(valid_cols)
+                if col_choice != "B":
+                    explicit_label = report.column_names[int(col_choice) - 1]
+                    explicit_normal = None
+                continue
+
+            if choice == "3":
+                if not report.unique_label_values:
+                    self._show_error("No unique class values detected in label column.")
+                    continue
+                self._render(render_benign_value_selection_menu(report.unique_label_values, report.selected_normal_value))
+                valid_vals = {str(i) for i in range(1, len(report.unique_label_values) + 1)} | {"B"}
+                val_choice = self._read_menu_choice(valid_vals)
+                if val_choice != "B":
+                    explicit_normal = report.unique_label_values[int(val_choice) - 1]
+                continue
+
+            if choice == "1":
+                custom_cfg = create_custom_dataset_config(
+                    file_path=report.resolved_path,
+                    label_column=report.selected_label_column or "Label",
+                    normal_labels=[report.selected_normal_value or "BENIGN"],
+                    delimiter=report.delimiter,
+                )
+                register_custom_dataset_config(report.resolved_path, custom_cfg)
+                self.session_config.custom_dataset_path = report.resolved_path
+                self.session_config.custom_dataset_config = custom_cfg
+                self.session_config.dataset_name = report.resolved_path.name
+                self._show_info(f"Custom dataset confirmed: {report.resolved_path.name}")
+                return True
 
     def _toggle_trace_enabled(self) -> None:
         self.session_config.trace_enabled = not self.session_config.trace_enabled

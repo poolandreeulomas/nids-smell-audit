@@ -17,6 +17,7 @@ from planner.context_resolver import build_planner_round_context, collect_relate
 from router.context_reducer import build_router_context_min
 from critic.runtime_artifacts import load_critic_bundle
 from semantic_extraction.input_builder import build_overview_summary_min, build_partition_context
+from data.dataset_config import DatasetConfig
 from state.schema import CanonicalBatchState
 
 
@@ -144,19 +145,28 @@ def default_investigation_artifact_framing_refs() -> list[dict[str, str]]:
     ]
 
 
-def build_initial_semantic_inputs(dataset_path: str | Path, batch_id: str) -> dict[str, Any]:
+def build_initial_semantic_inputs(
+    dataset_path: str | Path,
+    batch_id: str,
+    dataset_config: DatasetConfig | None = None,
+) -> dict[str, Any]:
     dataset = Path(dataset_path)
-    partition_context = build_partition_context(dataset.name)
+    partition_context = build_partition_context(dataset.name, dataset_config=dataset_config)
     return {
-        "overview_summary_min": build_overview_summary_min(dataset, batch_id=batch_id),
+        "overview_summary_min": build_overview_summary_min(
+            dataset, batch_id=batch_id, dataset_config=dataset_config
+        ),
         "partition_context": partition_context,
     }
 
 
-def build_initial_analysis_context(dataset_path: str | Path) -> dict[str, Any]:
+def build_initial_analysis_context(
+    dataset_path: str | Path,
+    dataset_config: DatasetConfig | None = None,
+) -> dict[str, Any]:
     dataset = Path(dataset_path)
     return build_analysis_context_min(
-        build_partition_context(dataset.name),
+        build_partition_context(dataset.name, dataset_config=dataset_config),
         default_investigation_artifact_framing_refs(),
     )
 
@@ -399,6 +409,7 @@ def build_worker_runtime_refs(
     router_context_min: dict[str, Any],
     semantic_substrate: dict[str, Any],
     dataset_path: str | Path,
+    dataset_config: DatasetConfig | None = None,
 ) -> dict[str, Any]:
     execution_budget = (
         dict(router_context_min.get("execution_budget") or {})
@@ -410,6 +421,7 @@ def build_worker_runtime_refs(
         "dataset_handles": {
             "dataset_path": str(dataset_path),
             "semantic_substrate": dict(semantic_substrate or {}),
+            "dataset_config": dataset_config,
         },
         "budget_rules": {
             "max_steps": int(execution_budget.get("max_worker_steps") or 0),

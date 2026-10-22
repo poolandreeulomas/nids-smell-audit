@@ -3134,3 +3134,142 @@ def render_info(message: str) -> str:
 
 def render_error(message: str) -> str:
     return _block("Error", [*_meta_lines("Status"), message], char="!")
+
+
+def render_dataset_source_selection(current_source_label: str) -> str:
+    lines = [
+        *_meta_lines(
+            "Home / Session Config / Dataset Source",
+            "Choose dataset source type.",
+        ),
+        *(
+            _section(
+                "Current Active Dataset",
+                _kv_lines([("active_source", current_source_label)]),
+            )
+        ),
+        *(
+            _section(
+                "Dataset Sources",
+                _menu_lines([
+                    ("1", "Predefined Benchmark Partitions (CICIDS2017 & UNSW-NB15)"),
+                    ("2", "Discovered Files in Project Data Directory"),
+                    ("3", "Custom Filesystem Path (Enter File Path)"),
+                ]),
+            )
+        ),
+        *(_section("Actions", _menu_lines([("B", "Back"), ("Q", "Quit")]))),
+    ]
+    return _block("Dataset Source", lines)
+
+
+def render_discovered_datasets(paths: list[Path], current_name: str | None) -> str:
+    lines = [
+        *_meta_lines(
+            "Home / Session Config / Discovered Datasets",
+            "Select a tabular file discovered in the project data directory.",
+        ),
+        *(
+            _section(
+                "Discovered Data Files",
+                [
+                    f"[{index}] {path.name}{'  <current>' if path.name == current_name else ''}"
+                    for index, path in enumerate(paths, start=1)
+                ]
+                or ["none"],
+            )
+        ),
+        *(_section("Actions", _menu_lines([("B", "Back"), ("Q", "Quit")]))),
+    ]
+    return _block("Discovered Data Files", lines)
+
+
+def render_custom_dataset_preflight_review(summary: dict[str, object]) -> str:
+    status_label = "VALIDATED" if summary.get("ok") else "VALIDATION FAILED"
+    pairs = [
+        ("status", status_label),
+        ("file_name", str(summary.get("file_name", ""))),
+        ("resolved_path", str(summary.get("resolved_path", ""))),
+        ("file_size", str(summary.get("file_size_formatted", ""))),
+        ("delimiter", repr(str(summary.get("delimiter", ",")))),
+        ("rows_estimated", str(summary.get("estimated_rows", "unknown"))),
+        ("total_columns", str(summary.get("total_columns", 0))),
+        ("numeric_features", str(summary.get("numeric_features_count", 0))),
+        ("label_column", str(summary.get("selected_label_column", "none"))),
+        ("normal_value", str(summary.get("selected_normal_value", "none"))),
+        ("unique_classes", str(summary.get("unique_classes_preview", ""))),
+    ]
+
+    sections = [
+        *_meta_lines(
+            "Home / Session Config / Custom Dataset / Pre-Flight Review",
+            "Inspect schema and verify label configuration.",
+        ),
+        *_section("Pre-Flight Inspection Summary", _kv_lines(pairs)),
+    ]
+
+    warnings = summary.get("warnings") or []
+    if isinstance(warnings, list) and warnings:
+        sections.extend(_section("Warnings", [f"- {w}" for w in warnings]))
+
+    errors = summary.get("errors") or []
+    if isinstance(errors, list) and errors:
+        sections.extend(_section("Errors", [f"! {e}" for e in errors]))
+
+    if summary.get("ok"):
+        actions = [
+            ("1", "Confirm and Select Dataset"),
+            ("2", "Change Label Column"),
+            ("3", "Change Benign/Normal Class Value"),
+            ("B", "Cancel / Re-enter Path"),
+            ("Q", "Quit"),
+        ]
+    else:
+        actions = [
+            ("B", "Back / Re-enter Path"),
+            ("Q", "Quit"),
+        ]
+    sections.extend(_section("Actions", _menu_lines(actions)))
+    return _block("Pre-Flight Review", sections)
+
+
+def render_column_selection_menu(columns: list[str], current_column: str | None) -> str:
+    lines = [
+        *_meta_lines(
+            "Home / Session Config / Custom Dataset / Select Label Column",
+            "Choose the column that contains ground-truth labels.",
+        ),
+        *(
+            _section(
+                "Available Columns",
+                [
+                    f"[{index}] {col}{'  <current label>' if col == current_column else ''}"
+                    for index, col in enumerate(columns, start=1)
+                ]
+                or ["none"],
+            )
+        ),
+        *(_section("Actions", _menu_lines([("B", "Cancel")]))),
+    ]
+    return _block("Select Label Column", lines)
+
+
+def render_benign_value_selection_menu(values: list[str], current_value: str | None) -> str:
+    lines = [
+        *_meta_lines(
+            "Home / Session Config / Custom Dataset / Select Benign Value",
+            "Choose which class represents normal/benign traffic.",
+        ),
+        *(
+            _section(
+                "Detected Classes",
+                [
+                    f"[{index}] {val}{'  <current normal>' if val == current_value else ''}"
+                    for index, val in enumerate(values, start=1)
+                ]
+                or ["none"],
+            )
+        ),
+        *(_section("Actions", _menu_lines([("B", "Cancel")]))),
+    ]
+    return _block("Select Benign Value", lines)
