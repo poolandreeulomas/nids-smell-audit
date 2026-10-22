@@ -214,7 +214,7 @@ def render_welcome_screen(
     menu_items = [
         ("1", "Enter ATLAS", "Launch interactive console and batch runtime."),
         ("2", "The Concept", "The explorer analogy: dataset auditing as cartography."),
-        ("3", "How to Use ATLAS", "Quick start, execution modes, prerequisites, and paths."),
+        ("3", "How to Use ATLAS", "Interactive guide: workflows, components, tools & debugging."),
         ("0", "Exit", "Exit the application."),
     ]
 
@@ -625,114 +625,5 @@ def render_all_concept_chapters() -> str:
 
 def render_usage_screen() -> str:
     """Render practical, verified operational guidance for using ATLAS."""
-    use_color = is_color_supported()
-    top_rule = _rule("=", "ochre")
-    sub_rule = _subtle_rule("-", "brown")
-    bot_rule = _rule("=", "ochre")
-
-    title = "HOW TO USE ATLAS -- Operational Research Guide"
-    if use_color:
-        title = style(title, "amber", bold=True)
-
-    def _sec(sec_title: str) -> str:
-        if use_color:
-            return f"  {style(sec_title, 'gold', bold=True)}"
-        return f"  {sec_title}"
-
-    def _cmd(cmd_text: str) -> str:
-        if use_color:
-            return f"    {style(cmd_text, 'amber')}"
-        return f"    {cmd_text}"
-
-    def _body(text: str) -> str:
-        wrapped = fill(
-            text,
-            width=WIDTH - 4,
-            initial_indent="  ",
-            subsequent_indent="  ",
-        )
-        if use_color:
-            return "\n".join(style(line, "light_grey") for line in wrapped.splitlines())
-        return wrapped
-
-    def _item(label: str, detail: str) -> str:
-        if use_color:
-            return f"    {style(label, 'gold')} {style(detail, 'light_grey')}"
-        return f"    {label} {detail}"
-
-    lines = [
-        top_rule,
-        f"  {title}",
-        top_rule,
-        "",
-        _sec("1. Environment & Prerequisites"),
-        _body(
-            "ATLAS requires Python 3.10+ (tested with Python 3.13) and standard "
-            "scientific dependencies (pandas, scikit-learn, scipy, openai, matplotlib)."
-        ),
-        _body(
-            "Activate the virtual environment (.venv) and set your OpenAI API key:"
-        ),
-        _cmd("pip install -r requirements.txt"),
-        _cmd("export OPENAI_API_KEY='your-key-here'  # or configure in .env"),
-        "",
-        sub_rule,
-        "",
-        _sec("2. Interactive Research Console"),
-        _body(
-            "Launch the interactive console from nids-smell-audit/Phase3:"
-        ),
-        _cmd("python interface/cli.py"),
-        _body(
-            "From the welcome screen, select [1] Enter ATLAS to access:"
-        ),
-        _item("[1] Batch Runtime :", "Multi-round batch pipeline execution & inspection"),
-        _item("[2] Components    :", "Isolated execution & debugging of individual agents"),
-        _item("[3] Session Config:", "Switch datasets, LLM models, and trace modes"),
-        "",
-        sub_rule,
-        "",
-        _sec("3. Non-Interactive & Full-Batch Execution"),
-        _body(
-            "Execute end-to-end multi-round batch investigations without manual interaction:"
-        ),
-        _cmd('python -c "from main import main_phase3a_batch; main_phase3a_batch()"'),
-        _body("Or via the batch orchestrator CLI:"),
-        _cmd("python -m phase3_runtime.orchestrator --mode full_batch"),
-        "",
-        sub_rule,
-        "",
-        _sec("4. Granular Component CLIs"),
-        _body(
-            "Each research component can be invoked independently for targeted inspection:"
-        ),
-        _cmd("python -m semantic_extraction.cli --dataset <partition.csv>"),
-        _cmd("python -m investigation_analysis.cli --metadata <metadata.json>"),
-        _cmd("python -m hypothesis_ranking.cli --hypotheses <hypotheses.json>"),
-        _cmd('python -m planner.cli --hypothesis "<lead summary>"'),
-        _cmd("python -m router.cli --task-list <tasks.json>"),
-        _cmd("python -m worker.cli --task <task.json> --context <context.json>"),
-        _cmd("python -m aggregation.cli --findings <findings_dir/>"),
-        _cmd("python -m critic.cli --findings <aggregated_results.json>"),
-        _cmd("python -m final_batch_auditor.cli --round-results <rounds_dir/>"),
-        _cmd("python -m dataset_runtime.cli --dataset-path <dataset_dir/>"),
-        "",
-        sub_rule,
-        "",
-        _sec("5. Artifact Locations & Reproducibility"),
-        _body("All ATLAS executions produce structured, inspectable artifacts:"),
-        _item("reports/              :", "Consolidated audit reports (JSON & Markdown)"),
-        _item("logs/runs/            :", "Canonical round states & session bundles"),
-        _item("logs/worker_runs/     :", "Worker traces, ReAct steps & tool observations"),
-        _item("logs/aggregation_runs/:", "Hypothesis-level aggregated finding sets"),
-        _item("logs/critic_runs/     :", "Critic feedback evaluations across rounds"),
-        "",
-        sub_rule,
-        "",
-        _sec("Navigation"),
-        "  [1] Enter ATLAS (Proceed to Main Research Console)",
-        "  [2] The Concept (Learn the Explorer Analogy)",
-        "  [B] Return to Welcome Menu",
-        bot_rule,
-    ]
-    return "\n".join(lines)
+    from interface.how_to_use import get_non_interactive_usage_guide
+    return get_non_interactive_usage_guide()

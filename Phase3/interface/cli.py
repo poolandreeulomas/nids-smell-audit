@@ -161,6 +161,14 @@ from interface.welcome import (
     render_usage_screen,
     render_welcome_screen,
 )
+from interface.how_to_use import (
+    CATEGORIES,
+    get_category_by_key,
+    get_category_item_count,
+    render_category_item,
+    render_category_menu,
+    render_how_to_use_landing,
+)
 from hypothesis_ranking.context_resolver import build_ranking_state_min
 from hypothesis_ranking.runner import run_hypothesis_ranking
 from hypothesis_ranking.runtime_artifacts import (
@@ -657,12 +665,17 @@ class NidsAgentCli:
         self._session_run_counter = get_next_run_index(LOG_DIR) - 1
         self._running = True
         self._concept_chapter_idx = 0
+        self._how_to_use_category: str = "getting_started"
+        self._how_to_use_item_idx: int = 0
+        self._how_to_use_show_details: bool = False
         self._current_screen = initial_screen
         self._screen_handlers: dict[str, ScreenHandler] = {
             "welcome": self._welcome_menu,
             "concept": self._concept_menu,
             "concept_chapter": self._concept_chapter_menu,
             "usage": self._usage_menu,
+            "usage_category": self._usage_category_menu,
+            "usage_topic": self._usage_topic_menu,
             "main": self._main_menu,
             "phase3a": self._phase3a_components_menu,
             "phase3a_runtime": self._phase3a_runtime_menu,
@@ -770,19 +783,86 @@ class NidsAgentCli:
             return "concept_chapter"
         return "concept_chapter"
 
-    def _usage_menu(self) -> str:
-        self._render(render_usage_screen())
-        choice = self._read_menu_choice({"1", "2", "B", "0", "Q"})
+    def _usage_menu(self) -> str | None:
+        self._render(render_how_to_use_landing())
+        valid_choices = {"1", "2", "3", "4", "5", "6", "7", "M", "B", "0", "Q"}
+        choice = self._read_menu_choice(valid_choices)
         if choice in {"B", "0"}:
             return "welcome"
-        if choice == "1":
+        if choice == "M":
             return "main"
-        if choice == "2":
-            return "concept"
         if choice == "Q":
             self._quit()
+            return None
+        cat = get_category_by_key(choice)
+        if cat:
+            self._how_to_use_category = cat["id"]
+            self._how_to_use_item_idx = 0
+            self._how_to_use_show_details = False
+            return "usage_category"
+        return "usage"
+
+    def _usage_category_menu(self) -> str | None:
+        cat_id = self._how_to_use_category or "getting_started"
+        self._render(render_category_menu(cat_id))
+        total_items = get_category_item_count(cat_id)
+        valid_choices = {str(i) for i in range(1, total_items + 1)} | {"B", "M", "W", "0", "Q"}
+        choice = self._read_menu_choice(valid_choices)
+        if choice in {"W", "0"}:
+            return "welcome"
+        if choice == "B":
             return "usage"
-        return "welcome"
+        if choice == "M":
+            return "main"
+        if choice == "Q":
+            self._quit()
+            return None
+        if choice.isdigit() and 1 <= int(choice) <= total_items:
+            self._how_to_use_item_idx = int(choice) - 1
+            self._how_to_use_show_details = False
+            return "usage_topic"
+        return "usage_category"
+
+    def _usage_topic_menu(self) -> str | None:
+        cat_id = self._how_to_use_category or "getting_started"
+        total_items = get_category_item_count(cat_id)
+        self._render(
+            render_category_item(
+                cat_id,
+                self._how_to_use_item_idx,
+                show_details=self._how_to_use_show_details,
+            )
+        )
+        valid_choices = {"D", "B", "H", "M", "W", "0", "Q"}
+        if self._how_to_use_item_idx < total_items - 1:
+            valid_choices.add("N")
+        if self._how_to_use_item_idx > 0:
+            valid_choices.add("P")
+
+        choice = self._read_menu_choice(valid_choices)
+        if choice == "D":
+            self._how_to_use_show_details = not self._how_to_use_show_details
+            return "usage_topic"
+        if choice == "N" and self._how_to_use_item_idx < total_items - 1:
+            self._how_to_use_item_idx += 1
+            self._how_to_use_show_details = False
+            return "usage_topic"
+        if choice == "P" and self._how_to_use_item_idx > 0:
+            self._how_to_use_item_idx -= 1
+            self._how_to_use_show_details = False
+            return "usage_topic"
+        if choice == "B":
+            return "usage_category"
+        if choice == "H":
+            return "usage"
+        if choice == "M":
+            return "main"
+        if choice in {"W", "0"}:
+            return "welcome"
+        if choice == "Q":
+            self._quit()
+            return None
+        return "usage_topic"
 
     def _main_menu(self) -> str | None:
         self._render(

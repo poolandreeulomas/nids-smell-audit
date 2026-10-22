@@ -210,12 +210,13 @@ def test_usage_screen_contains_verified_commands_and_paths():
     assert "python -m aggregation.cli" in usage_plain
     assert "python -m final_batch_auditor.cli" in usage_plain
 
-    # Artifact directories
-    assert "reports/" in usage_plain
-    assert "logs/runs/" in usage_plain
+    # Verified artifact directories
+    assert "logs/final_batch_report_runs/" in usage_plain
+    assert "logs/round_report_runs/" in usage_plain
+    assert "logs/phase3a_runtime_runs/" in usage_plain
     assert "logs/worker_runs/" in usage_plain
-    assert "logs/aggregation_runs/" in usage_plain
-    assert "logs/critic_runs/" in usage_plain
+    assert "docs/batch_reports/" in usage_plain
+    assert "final_dataset/" in usage_plain
 
 
 # ===========================================================================
@@ -338,18 +339,56 @@ def test_usage_menu_navigation(monkeypatch):
     cli = object.__new__(NidsAgentCli)
     cli._render = lambda content: None
     cli._quit = lambda: None
+    cli._how_to_use_category = "getting_started"
+    cli._how_to_use_item_idx = 0
+    cli._how_to_use_show_details = False
 
     # Usage -> Return to welcome
     monkeypatch.setattr(cli, "_read_menu_choice", lambda valid_choices: "B")
     assert cli._usage_menu() == "welcome"
 
-    # Usage -> Enter ATLAS main menu
-    monkeypatch.setattr(cli, "_read_menu_choice", lambda valid_choices: "1")
+    # Usage -> Enter ATLAS main menu via [M]
+    monkeypatch.setattr(cli, "_read_menu_choice", lambda valid_choices: "M")
     assert cli._usage_menu() == "main"
 
-    # Usage -> Jump to Concept
-    monkeypatch.setattr(cli, "_read_menu_choice", lambda valid_choices: "2")
-    assert cli._usage_menu() == "concept"
+    # Usage -> Open Category 1 (Getting Started)
+    monkeypatch.setattr(cli, "_read_menu_choice", lambda valid_choices: "1")
+    assert cli._usage_menu() == "usage_category"
+    assert cli._how_to_use_category == "getting_started"
+
+    # Usage -> Open Category 4 (Components)
+    monkeypatch.setattr(cli, "_read_menu_choice", lambda valid_choices: "4")
+    assert cli._usage_menu() == "usage_category"
+    assert cli._how_to_use_category == "components"
+
+    # Category -> Select Item 1 -> usage_topic
+    monkeypatch.setattr(cli, "_read_menu_choice", lambda valid_choices: "1")
+    assert cli._usage_category_menu() == "usage_topic"
+    assert cli._how_to_use_item_idx == 0
+
+    # Topic -> Toggle details [D]
+    monkeypatch.setattr(cli, "_read_menu_choice", lambda valid_choices: "D")
+    assert cli._usage_topic_menu() == "usage_topic"
+    assert cli._how_to_use_show_details is True
+
+    # Topic -> Next Item [N]
+    monkeypatch.setattr(cli, "_read_menu_choice", lambda valid_choices: "N")
+    assert cli._usage_topic_menu() == "usage_topic"
+    assert cli._how_to_use_item_idx == 1
+    assert cli._how_to_use_show_details is False
+
+    # Topic -> Previous Item [P]
+    monkeypatch.setattr(cli, "_read_menu_choice", lambda valid_choices: "P")
+    assert cli._usage_topic_menu() == "usage_topic"
+    assert cli._how_to_use_item_idx == 0
+
+    # Topic -> Back to Category [B]
+    monkeypatch.setattr(cli, "_read_menu_choice", lambda valid_choices: "B")
+    assert cli._usage_topic_menu() == "usage_category"
+
+    # Category -> Back to Usage TOC [B]
+    monkeypatch.setattr(cli, "_read_menu_choice", lambda valid_choices: "B")
+    assert cli._usage_category_menu() == "usage"
 
 
 # ===========================================================================
