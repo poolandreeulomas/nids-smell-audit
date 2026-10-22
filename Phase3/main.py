@@ -29,6 +29,7 @@ PHASE3A_RUNTIME_COMPONENTS: tuple[str, ...] = (
     "critic",
     "final_batch_auditor",
     "final_batch_report",
+    "round_report",
 )
 
 
@@ -142,6 +143,7 @@ def main_phase3a_batch() -> dict[str, object]:
             "critic": synthesis_model_name,
             "final_batch_auditor": synthesis_model_name,
             "final_batch_report": synthesis_model_name,
+            "round_report": synthesis_model_name,
         }.items()
         if str(target_model or "").strip()
     }

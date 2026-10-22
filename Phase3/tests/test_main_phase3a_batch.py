@@ -55,6 +55,8 @@ def test_main_phase3a_batch_routes_to_authoritative_runtime(monkeypatch):
         "state_manager": "gpt-5.4",
         "critic": "gpt-5.4",
         "final_batch_auditor": "gpt-5.4",
+        "final_batch_report": "gpt-5.4",
+        "round_report": "gpt-5.4",
     }
     assert set(captured_call["llm_callables"]) == set(main_module.PHASE3A_RUNTIME_COMPONENTS)
     assert all(callable(fn) for fn in captured_call["llm_callables"].values())

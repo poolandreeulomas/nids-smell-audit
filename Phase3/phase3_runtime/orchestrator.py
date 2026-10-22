@@ -12,6 +12,7 @@ from typing import Any, Callable
 from data.dataset_config import infer_dataset_config
 from final_batch_auditor.runner import run_final_batch_auditor
 from final_batch_report.runner import run_final_batch_report
+from final_batch_report.round_runner import run_round_report
 from instrumentation import (
     exception,
     phase_end,
@@ -624,6 +625,82 @@ def run_phase3a_batch(
                     "error": str(report_exc),
                 })
 
+        round_report_bundle: dict[str, Any] | None = None
+        if (
+            normalized_execution_mode == "full_round"
+            and ledger.status == "completed"
+            and final_status == "completed"
+            and round_results
+        ):
+            try:
+                latest_round_result = round_results[-1]
+                latest_manifest = latest_round_result.get("round_manifest")
+                latest_snapshot = latest_round_result.get("frozen_snapshot")
+                final_canonical_state = (
+                    current_state
+                    if isinstance(current_state, CanonicalBatchState)
+                    else CanonicalBatchState.from_dict(current_state)
+                )
+                partition_name = normalized_dataset_path.name
+                dataset_cfg = infer_dataset_config(normalized_dataset_path)
+                round_report_model = str(
+                    (component_model_names or {}).get("round_report")
+                    or (component_model_names or {}).get("final_batch_report")
+                    or model_name
+                )
+                round_report_llm_callable = (
+                    _llm_callable_for(llm_callables, "round_report")
+                    or _llm_callable_for(llm_callables, "final_batch_report")
+                )
+                if caller_mode == "test" and round_report_llm_callable is None:
+                    round_report_llm_callable = lambda prompt: "# Round Report\n\nAutomated test report."
+
+                round_id = getattr(latest_manifest, "round_id", "round-001") if latest_manifest else "round-001"
+                round_manifest_file = artifact_paths["round_manifests_dir"] / f"{round_id}.json"
+
+                round_report_bundle = run_round_report(
+                    round_manifest=latest_manifest,
+                    frozen_snapshot=latest_snapshot,
+                    canonical_state=final_canonical_state,
+                    dataset_path=normalized_dataset_path,
+                    dataset_config=dataset_cfg,
+                    round_bundles=latest_round_result,
+                    round_manifest_path=str(round_manifest_file) if round_manifest_file.is_file() else None,
+                    llm_callable=round_report_llm_callable,
+                    model_name=round_report_model,
+                    temperature=temperature,
+                    log_dir=log_dir,
+                )
+                r_report_path = (
+                    round_report_bundle.get("artifact_paths", {}).get("report_path")
+                )
+                if r_report_path:
+                    persisted_paths["round_report_path"] = str(r_report_path)
+                    persisted_paths["round_report_run_dir"] = str(
+                        round_report_bundle.get("artifact_paths", {}).get("run_dir", "")
+                    )
+                    component_run_file = Path(persisted_paths["component_run_path"])
+                    if component_run_file.is_file():
+                        comp_data = load_json(component_run_file)
+                        comp_data.setdefault("artifact_paths", {})[
+                            "round_report_path"
+                        ] = str(r_report_path)
+                        write_json(component_run_file, comp_data)
+                    run_manifest_file = Path(persisted_paths["run_manifest_path"])
+                    if run_manifest_file.is_file():
+                        man_data = load_json(run_manifest_file)
+                        man_data.setdefault("artifact_paths", {})[
+                            "round_report_path"
+                        ] = str(r_report_path)
+                        write_json(run_manifest_file, man_data)
+                completed_components.append("round_report")
+            except Exception as round_report_exc:
+                # Report failure must not abort a successful round
+                warnings.append({
+                    "component": "round_report",
+                    "error": str(round_report_exc),
+                })
+
         _emit_event(
             "BATCH_COMPLETE",
             status=ledger.status,
@@ -645,6 +722,7 @@ def run_phase3a_batch(
             "round_results": round_results,
             "final_batch_auditor_bundle": final_batch_auditor_bundle,
             "final_batch_report_bundle": final_batch_report_bundle,
+            "round_report_bundle": round_report_bundle,
             "finalization_summary": finalization_summary,
             "runtime_metrics": runtime_metrics,
             "runtime_summary": runtime_summary,

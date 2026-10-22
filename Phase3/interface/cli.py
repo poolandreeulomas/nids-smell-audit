@@ -31,6 +31,7 @@ from final_batch_auditor.runtime_artifacts import (
     load_final_batch_auditor_bundle,
 )
 from final_batch_report.runner import run_dataset_merger, run_final_batch_report
+from final_batch_report.round_runner import regenerate_round_report, run_round_report
 from final_batch_report.runtime_artifacts import (
     list_final_batch_report_run_dirs,
     list_merger_run_dirs,
@@ -72,6 +73,7 @@ from interface.terminal_ui import (
     render_final_batch_report_run_review,
     render_final_batch_report_post_run,
     render_full_batch_post_run,
+    render_full_round_post_run,
     render_recent_final_batch_report_runs,
     render_phase3a_runtime_event_review,
     render_phase3a_runtime_event_stream_index,
@@ -3339,12 +3341,124 @@ class NidsAgentCli:
 
         if execution_mode == "full_batch":
             return self._full_batch_post_run_flow(run_context, bundle)
+        if execution_mode == "full_round":
+            return self._full_round_post_run_flow(run_context, bundle)
 
         while True:
             self._render_phase3a_runtime_run_review(
                 run_context)
             choice = self._read_menu_choice(
                 {"1", "2", "3", "4", "5", "6", "7", "8", "B", "Q"})
+            if choice == "Q":
+                self._quit()
+                return "phase3a_runtime"
+
+    def _full_round_post_run_flow(
+        self,
+        run_context: Phase3ARuntimeRunContext,
+        bundle: dict[str, Any],
+    ) -> str:
+        artifact_paths = dict(bundle.get("artifact_paths", {}) or run_context.artifact_paths or {})
+        round_report_path = (
+            artifact_paths.get("round_report_path")
+            or bundle.get("round_report_bundle", {}).get("artifact_paths", {}).get("report_path")
+        )
+        if round_report_path:
+            round_report_path = str(round_report_path).strip() or None
+
+        report_error: str | None = None
+        for warning in list(
+            bundle.get("runtime_summary", {}).get("warnings", [])
+            or run_context.runtime_summary.get("warnings", [])
+            or []
+        ):
+            if isinstance(warning, dict) and warning.get("component") == "round_report":
+                report_error = str(warning.get("error") or "Unknown error")
+                break
+
+        batch_id = str(run_context.component_run.get("batch_id", "unknown"))
+        round_id = "round-001"
+        round_manifests = list(run_context.batch_ledger.get("round_manifests", []) or [])
+        if round_manifests and isinstance(round_manifests[0], dict):
+            round_id = str(round_manifests[0].get("round_id") or "round-001")
+
+        status = str(run_context.component_run.get("status", "completed"))
+        run_name = Path(
+            run_context.artifact_paths.get("component_run_path", "")
+        ).parent.name or "full_round_run"
+
+        summary_pairs = [
+            ("batch_id", batch_id),
+            ("round_id", round_id),
+            ("status", status),
+            ("final_status", str(run_context.component_run.get("final_status", "unknown"))),
+        ]
+
+        while True:
+            options: list[tuple[str, str]] = []
+            valid_choices: set[str] = {"2", "0", "B", "Q"}
+
+            report_file_ok = bool(round_report_path and Path(round_report_path).is_file())
+            if report_file_ok:
+                options.append(("1", "See round report"))
+                valid_choices.add("1")
+
+            options.append(("2", "View run summary"))
+            options.append(("0", "Return to main menu"))
+            options.append(("B", "Back to runtime menu"))
+            options.append(("Q", "Quit"))
+
+            self._render(
+                render_full_round_post_run(
+                    run_name=run_name,
+                    batch_id=batch_id,
+                    round_id=round_id,
+                    status=status,
+                    report_path=round_report_path if report_file_ok else None,
+                    options=options,
+                    summary_pairs=summary_pairs,
+                    report_error=report_error if not report_file_ok else None,
+                )
+            )
+
+            choice = self._read_menu_choice(valid_choices)
+            if choice == "1" and report_file_ok and round_report_path:
+                try:
+                    content = Path(round_report_path).read_text(encoding="utf-8")
+                except Exception as exc:
+                    self._show_error(f"Cannot read report file: {exc}")
+                    continue
+                self._render(
+                    render_text_view(
+                        title="ATLAS Round Report",
+                        path_label="ATLAS / Batch Runtime / Full Round / Round Report",
+                        content=content or "Report file is empty.",
+                        hint="Press Enter to return to post-run menu.",
+                    )
+                )
+                self._wait_for_enter()
+                continue
+
+            if choice == "2":
+                while True:
+                    self._render_phase3a_runtime_run_review(run_context)
+                    sub_choice = self._read_menu_choice(
+                        {"1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "B", "Q"}
+                    )
+                    if sub_choice == "Q":
+                        self._quit()
+                        return "phase3a_runtime"
+                    if sub_choice == "B":
+                        break
+                    self._handle_phase3a_runtime_review_choice(sub_choice, run_context)
+                    if not self._running:
+                        return "phase3a_runtime"
+                continue
+
+            if choice in {"0", "main"}:
+                return "main"
+            if choice == "B":
+                return "phase3a_runtime"
             if choice == "Q":
                 self._quit()
                 return "phase3a_runtime"
@@ -9381,17 +9495,7 @@ class NidsAgentCli:
                 artifact_pairs=artifact_pairs,
                 default_hypothesis_lines=self._build_phase3a_round_default_hypothesis_lines(
                     round_context),
-                options=[
-                    ("1", "Inspect Frozen Snapshot"),
-                    ("2", "Review Investigation Analysis"),
-                    ("3", "Review Ranking"),
-                    ("4", "Review Planner"),
-                    ("5", "Review Inter-Hypothesis Aggregation"),
-                    ("6", "Browse Hypothesis Lineage"),
-                    ("7", "Review Critic"),
-                    ("B", "Back"),
-                    ("Q", "Quit"),
-                ],
+                options=self._build_phase3a_round_review_options(round_context),
             )
         )
 
@@ -9557,14 +9661,105 @@ class NidsAgentCli:
             if not self._running:
                 return
 
+    def _find_round_report_path(
+        self,
+        round_context: Phase3ARuntimeRoundContext,
+    ) -> str | None:
+        rm = round_context.round_manifest
+        path = rm.get("round_report_path") or rm.get("artifact_paths", {}).get("round_report_path")
+        if path and Path(path).is_file():
+            return str(path)
+        round_id = str(rm.get("round_id") or "").strip()
+        report_runs_dir = Path(__file__).resolve().parent.parent / "logs" / "round_report_runs"
+        if report_runs_dir.is_dir() and round_id:
+            for run_dir in sorted(report_runs_dir.iterdir(), reverse=True):
+                if not run_dir.is_dir():
+                    continue
+                if round_id in run_dir.name:
+                    report_file = run_dir / "report.md"
+                    if report_file.is_file():
+                        return str(report_file)
+        return None
+
+    def _build_phase3a_round_review_options(
+        self,
+        round_context: Phase3ARuntimeRoundContext,
+    ) -> list[tuple[str, str]]:
+        report_path = self._find_round_report_path(round_context)
+        options = [
+            ("1", "Inspect Frozen Snapshot"),
+            ("2", "Review Investigation Analysis"),
+            ("3", "Review Ranking"),
+            ("4", "Review Planner"),
+            ("5", "Review Inter-Hypothesis Aggregation"),
+            ("6", "Browse Hypothesis Lineage"),
+            ("7", "Review Critic"),
+        ]
+        if report_path:
+            options.append(("8", "View Round Report"))
+            options.append(("9", "Regenerate Round Report"))
+        else:
+            options.append(("8", "Generate Round Report"))
+        options.append(("B", "Back"))
+        options.append(("Q", "Quit"))
+        return options
+
+    def _generate_or_regenerate_round_report(
+        self,
+        round_context: Phase3ARuntimeRoundContext,
+    ) -> None:
+        round_id = str(round_context.round_manifest.get("round_id") or "round-001")
+        manifest_file = ""
+        snapshot_path = str(round_context.round_manifest.get("frozen_snapshot_path") or "")
+        if snapshot_path:
+            candidate = Path(snapshot_path).parent / f"{round_id}.json"
+            if candidate.is_file():
+                manifest_file = str(candidate)
+
+        try:
+            self._render(render_info(f"Generating Round Report for {round_id} from persisted artifacts..."))
+            report_model = self._resolve_phase3a_model_name("round_report") or self.session_config.model_name
+            dataset_path = self._get_selected_dataset_path()
+            if manifest_file:
+                bundle = regenerate_round_report(
+                    round_manifest_path=manifest_file,
+                    dataset_path=dataset_path,
+                    model_name=report_model,
+                )
+            else:
+                bundle = run_round_report(
+                    round_manifest=round_context.round_manifest,
+                    frozen_snapshot=round_context.frozen_snapshot,
+                    dataset_path=dataset_path,
+                    model_name=report_model,
+                )
+            new_report_path = bundle.get("artifact_paths", {}).get("report_path")
+            if new_report_path:
+                round_context.round_manifest["round_report_path"] = str(new_report_path)
+                content = Path(new_report_path).read_text(encoding="utf-8")
+                self._render(
+                    render_text_view(
+                        title="ATLAS Round Report",
+                        path_label="ATLAS / Batch Runtime / Round Review / Round Report",
+                        content=content or "Report file is empty.",
+                        hint="Press Enter to return to round review menu.",
+                    )
+                )
+                self._wait_for_enter()
+        except Exception as exc:
+            self._show_error(f"Failed to generate round report: {exc}")
+
     def _view_phase3a_runtime_round_review_menu(
         self,
         round_context: Phase3ARuntimeRoundContext,
     ) -> None:
         while True:
             self._render_phase3a_runtime_round_review(round_context)
-            choice = self._read_menu_choice(
-                {"1", "2", "3", "4", "5", "6", "7", "B", "Q"})
+            report_path = self._find_round_report_path(round_context)
+            valid_choices = {"1", "2", "3", "4", "5", "6", "7", "8", "B", "Q"}
+            if report_path:
+                valid_choices.add("9")
+            choice = self._read_menu_choice(valid_choices)
             if choice == "Q":
                 self._quit()
                 return
@@ -9624,6 +9819,29 @@ class NidsAgentCli:
             if choice == "6":
                 self._view_phase3a_runtime_hypothesis_lineage_menu(
                     round_context)
+                continue
+            if choice == "8":
+                if report_path:
+                    try:
+                        content = Path(report_path).read_text(encoding="utf-8")
+                    except Exception as exc:
+                        self._show_error(f"Cannot read round report file: {exc}")
+                        continue
+                    self._render(
+                        render_text_view(
+                            title="ATLAS Round Report",
+                            path_label="ATLAS / Batch Runtime / Round Review / Round Report",
+                            content=content or "Report file is empty.",
+                            hint="Press Enter to return to round review menu.",
+                        )
+                    )
+                    self._wait_for_enter()
+                    continue
+                else:
+                    self._generate_or_regenerate_round_report(round_context)
+                    continue
+            if choice == "9" and report_path:
+                self._generate_or_regenerate_round_report(round_context)
                 continue
 
             if round_context.critic_run is None:
