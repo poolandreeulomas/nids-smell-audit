@@ -9,7 +9,9 @@ from time import perf_counter
 import threading
 from typing import Any, Callable
 
+from data.dataset_config import infer_dataset_config
 from final_batch_auditor.runner import run_final_batch_auditor
+from final_batch_report.runner import run_final_batch_report
 from instrumentation import (
     exception,
     phase_end,
@@ -33,7 +35,9 @@ from phase3_runtime.runtime_artifacts import (
     save_phase3a_runtime_artifacts,
 )
 from semantic_extraction.runner import run_semantic_extraction
+from state.schema import CanonicalBatchState
 from state.store import init_canonical_batch_state
+from utils.run_logging import load_json
 from utils.run_logging import write_json
 
 
@@ -554,6 +558,72 @@ def run_phase3a_batch(
             run_manifest=run_manifest,
         )
 
+        final_batch_report_bundle: dict[str, Any] | None = None
+        if (
+            normalized_execution_mode == "full_batch"
+            and ledger.status == "completed"
+            and final_status == "completed"
+        ):
+            try:
+                final_canonical_state = (
+                    current_state
+                    if isinstance(current_state, CanonicalBatchState)
+                    else CanonicalBatchState.from_dict(current_state)
+                )
+                partition_name = normalized_dataset_path.name
+                dataset_cfg = infer_dataset_config(normalized_dataset_path)
+                report_model = str(
+                    (component_model_names or {}).get("final_batch_report") or model_name
+                )
+                report_llm_callable = _llm_callable_for(
+                    llm_callables, "final_batch_report"
+                )
+                if caller_mode == "test" and report_llm_callable is None:
+                    report_llm_callable = lambda prompt: "# Final Audit Report\n\nAutomated test report."
+
+                final_batch_report_bundle = run_final_batch_report(
+                    final_state=final_canonical_state,
+                    partition_name=partition_name,
+                    llm_callable=report_llm_callable,
+                    model_name=report_model,
+                    temperature=temperature,
+                    log_dir=log_dir,
+                    dataset_config=dataset_cfg,
+                )
+                report_path = (
+                    final_batch_report_bundle.get("artifact_paths", {}).get(
+                        "report_path"
+                    )
+                )
+                if report_path:
+                    persisted_paths["final_report_path"] = str(report_path)
+                    persisted_paths["final_batch_report_run_dir"] = str(
+                        final_batch_report_bundle.get("artifact_paths", {}).get(
+                            "run_dir", ""
+                        )
+                    )
+                    component_run_file = Path(persisted_paths["component_run_path"])
+                    if component_run_file.is_file():
+                        comp_data = load_json(component_run_file)
+                        comp_data.setdefault("artifact_paths", {})[
+                            "final_report_path"
+                        ] = str(report_path)
+                        write_json(component_run_file, comp_data)
+                    run_manifest_file = Path(persisted_paths["run_manifest_path"])
+                    if run_manifest_file.is_file():
+                        man_data = load_json(run_manifest_file)
+                        man_data.setdefault("artifact_paths", {})[
+                            "final_report_path"
+                        ] = str(report_path)
+                        write_json(run_manifest_file, man_data)
+                completed_components.append("final_batch_report")
+            except Exception as report_exc:
+                # Report failure must not abort a successful batch
+                warnings.append({
+                    "component": "final_batch_report",
+                    "error": str(report_exc),
+                })
+
         _emit_event(
             "BATCH_COMPLETE",
             status=ledger.status,
@@ -574,6 +644,7 @@ def run_phase3a_batch(
             "initial_investigation_analysis_bundle": initial_hypothesis_bundle,
             "round_results": round_results,
             "final_batch_auditor_bundle": final_batch_auditor_bundle,
+            "final_batch_report_bundle": final_batch_report_bundle,
             "finalization_summary": finalization_summary,
             "runtime_metrics": runtime_metrics,
             "runtime_summary": runtime_summary,

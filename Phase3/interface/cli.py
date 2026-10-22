@@ -71,6 +71,7 @@ from interface.terminal_ui import (
     render_final_batch_report_menu,
     render_final_batch_report_run_review,
     render_final_batch_report_post_run,
+    render_full_batch_post_run,
     render_recent_final_batch_report_runs,
     render_phase3a_runtime_event_review,
     render_phase3a_runtime_event_stream_index,
@@ -857,12 +858,15 @@ class NidsAgentCli:
         return "tools"
 
     def _phase3a_runtime_menu(self) -> str:
-        latest_run_context = self._last_phase3a_runtime_run or self._get_latest_phase3a_runtime_run_context()
         latest_run_name = None
-        if latest_run_context is not None:
+        if self._last_phase3a_runtime_run is not None:
             latest_run_name = Path(
-                latest_run_context.artifact_paths.get("component_run_path", "")
+                self._last_phase3a_runtime_run.artifact_paths.get("component_run_path", "")
             ).parent.name or None
+        else:
+            latest_runs = list_phase3a_runtime_run_dirs(limit=1)
+            if latest_runs:
+                latest_run_name = latest_runs[0].name
 
         self._render(
             render_phase3a_runtime_menu(
@@ -3333,6 +3337,9 @@ class NidsAgentCli:
         self._last_phase3a_runtime_run = run_context
         self._selected_phase3a_runtime_run = self._last_phase3a_runtime_run
 
+        if execution_mode == "full_batch":
+            return self._full_batch_post_run_flow(run_context, bundle)
+
         while True:
             self._render_phase3a_runtime_run_review(
                 run_context)
@@ -3346,6 +3353,110 @@ class NidsAgentCli:
             self._handle_phase3a_runtime_review_choice(
                 choice, run_context)
             if not self._running:
+                return "phase3a_runtime"
+
+    def _full_batch_post_run_flow(
+        self,
+        run_context: Phase3ARuntimeRunContext,
+        bundle: dict[str, Any],
+    ) -> str:
+        artifact_paths = dict(bundle.get("artifact_paths", {}) or run_context.artifact_paths or {})
+        final_report_path = (
+            artifact_paths.get("final_report_path")
+            or bundle.get("final_batch_report_bundle", {}).get("artifact_paths", {}).get("report_path")
+        )
+        if final_report_path:
+            final_report_path = str(final_report_path).strip() or None
+
+        report_error: str | None = None
+        for warning in list(
+            bundle.get("runtime_summary", {}).get("warnings", [])
+            or run_context.runtime_summary.get("warnings", [])
+            or []
+        ):
+            if isinstance(warning, dict) and warning.get("component") == "final_batch_report":
+                report_error = str(warning.get("error") or "Unknown error")
+                break
+
+        batch_id = str(run_context.component_run.get("batch_id", "unknown"))
+        status = str(run_context.component_run.get("status", "completed"))
+        run_name = Path(
+            run_context.artifact_paths.get("component_run_path", "")
+        ).parent.name or "full_batch_run"
+
+        summary_pairs = [
+            ("batch_id", batch_id),
+            ("status", status),
+            ("final_status", str(run_context.component_run.get("final_status", "unknown"))),
+            ("rounds", str(run_context.component_run.get("round_count", 0))),
+        ]
+
+        while True:
+            options: list[tuple[str, str]] = []
+            valid_choices: set[str] = {"2", "0", "B", "Q"}
+
+            report_file_ok = bool(final_report_path and Path(final_report_path).is_file())
+            if report_file_ok:
+                options.append(("1", "See full report"))
+                valid_choices.add("1")
+
+            options.append(("2", "View run summary"))
+            options.append(("0", "Return to main menu"))
+            options.append(("B", "Back to runtime menu"))
+            options.append(("Q", "Quit"))
+
+            self._render(
+                render_full_batch_post_run(
+                    run_name=run_name,
+                    batch_id=batch_id,
+                    status=status,
+                    report_path=final_report_path if report_file_ok else None,
+                    options=options,
+                    summary_pairs=summary_pairs,
+                    report_error=report_error if not report_file_ok else None,
+                )
+            )
+
+            choice = self._read_menu_choice(valid_choices)
+            if choice == "1" and report_file_ok and final_report_path:
+                try:
+                    content = Path(final_report_path).read_text(encoding="utf-8")
+                except Exception as exc:
+                    self._show_error(f"Cannot read report file: {exc}")
+                    continue
+                self._render(
+                    render_text_view(
+                        title="Final Batch Report",
+                        path_label="ATLAS / Batch Runtime / Full Batch / Final Report",
+                        content=content or "Report file is empty.",
+                        hint="Press Enter to return to post-run menu.",
+                    )
+                )
+                self._wait_for_enter()
+                continue
+
+            if choice == "2":
+                while True:
+                    self._render_phase3a_runtime_run_review(run_context)
+                    sub_choice = self._read_menu_choice(
+                        {"1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "B", "Q"}
+                    )
+                    if sub_choice == "Q":
+                        self._quit()
+                        return "phase3a_runtime"
+                    if sub_choice == "B":
+                        break
+                    self._handle_phase3a_runtime_review_choice(sub_choice, run_context)
+                    if not self._running:
+                        return "phase3a_runtime"
+                continue
+
+            if choice in {"0", "main"}:
+                return "main"
+            if choice == "B":
+                return "phase3a_runtime"
+            if choice == "Q":
+                self._quit()
                 return "phase3a_runtime"
 
     def _execute_run(self, *, basename: str | None = None) -> RunContext:
@@ -3433,6 +3544,7 @@ class NidsAgentCli:
             "state_manager": self._resolve_phase3a_model_name("state_manager"),
             "critic": self._resolve_phase3a_model_name("critic"),
             "final_batch_auditor": self._resolve_phase3a_model_name("final_batch_auditor"),
+            "final_batch_report": self._resolve_phase3a_model_name("final_batch_report"),
         }
 
     def _get_selected_dataset_label(self) -> str:
@@ -7804,10 +7916,16 @@ class NidsAgentCli:
                 payload = dict(event.get("payload", {}) or {})
                 ids = dict(payload.get("ids", {}) or {})
                 normalized_round_id = str(
-                    payload.get("round_id") or ids.get("round_id") or ""
+                    event.get("round_id")
+                    or payload.get("round_id")
+                    or ids.get("round_id")
+                    or ""
                 ).strip()
                 if normalized_round_id:
                     round_ids.add(normalized_round_id)
+
+        if round_ids:
+            return sorted(round_ids)
 
         component_scans = [
             (list_router_run_dirs, load_router_bundle),

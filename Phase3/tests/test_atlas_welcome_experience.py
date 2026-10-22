@@ -440,3 +440,69 @@ def test_direct_main_phase3a_batch_unaffected():
     assert hasattr(main_module, "main")
     assert callable(main_module.main)
 
+
+
+def test_main_menu_presents_batch_runtime_option():
+    from interface.terminal_ui import render_main_menu
+    output = render_main_menu(
+        model_name="gpt-4.1-mini",
+        dataset_name="test_data.csv",
+        trace_enabled=False,
+        max_steps=10,
+        evaluation_window=5,
+        stored_runs_count=0,
+        has_cli_run=False,
+    )
+    assert "[1] Batch Runtime" in output
+    assert "Execute and inspect complete batches" in output
+
+
+def test_main_menu_selection_routes_to_phase3a_runtime(monkeypatch):
+    cli = NidsAgentCli(initial_screen="main")
+    cli._render = lambda content: None
+    monkeypatch.setattr(cli, "_read_menu_choice", lambda valid_choices: "1")
+    next_screen = cli._main_menu()
+    assert next_screen == "phase3a_runtime"
+
+
+def test_main_menu_batch_runtime_navigation_end_to_end(monkeypatch):
+    cli = NidsAgentCli(initial_screen="main")
+    rendered_screens = []
+    cli._render = lambda content: rendered_screens.append(content)
+
+    # Sequence:
+    # 1. Main menu -> enter '1' (Batch Runtime)
+    # 2. Batch runtime menu -> enter 'Q' (Quit)
+    choices = iter(["1", "Q"])
+    monkeypatch.setattr(cli, "_read_menu_choice", lambda valid_choices: next(choices))
+
+    cli.run()
+
+    # Verify both screens were rendered in order
+    assert len(rendered_screens) >= 2
+    # Screen 1 is Main Menu with Batch Runtime option
+    assert "[1] Batch Runtime" in rendered_screens[0]
+    # Screen 2 is ATLAS Batch Runtime submenu
+    assert "ATLAS Batch Runtime" in rendered_screens[1]
+    assert "[4] Run Full Batch" in rendered_screens[1]
+    assert "[1] Run Cognitive Chain" in rendered_screens[1]
+    # Verify screen state ended after entering batch runtime
+    assert cli._current_screen == "phase3a_runtime"
+
+
+def test_phase3a_runtime_menu_fast_render_without_heavy_loading(monkeypatch):
+    cli = NidsAgentCli(initial_screen="main")
+    rendered_screens = []
+    cli._render = lambda content: rendered_screens.append(content)
+    cli._last_phase3a_runtime_run = None
+
+    # Verify _get_latest_phase3a_runtime_run_context is NOT called during menu display
+    def _explode():
+        raise AssertionError("Heavy run context loader should not be called to render the menu!")
+    monkeypatch.setattr(cli, "_get_latest_phase3a_runtime_run_context", _explode)
+
+    monkeypatch.setattr(cli, "_read_menu_choice", lambda valid_choices: "B")
+    ret = cli._phase3a_runtime_menu()
+    assert ret == "main"
+    assert len(rendered_screens) == 1
+    assert "ATLAS Batch Runtime" in rendered_screens[0]

@@ -1856,6 +1856,41 @@ def render_final_batch_report_post_run(
     return _block("Final Batch Report Run Complete", lines)
 
 
+def render_full_batch_post_run(
+    *,
+    run_name: str,
+    batch_id: str,
+    status: str,
+    report_path: str | None,
+    options: list[tuple[str, str]],
+    summary_pairs: list[tuple[str, str]] | None = None,
+    report_error: str | None = None,
+) -> str:
+    report_display = (
+        report_path
+        if report_path
+        else (f"Generation failed: {report_error}" if report_error else "Not generated")
+    )
+    status_pairs = [
+        ("batch_id", batch_id),
+        ("status", status),
+        ("final_report", report_display),
+    ]
+    lines = [
+        *_meta_lines(
+            "ATLAS Components / Batch Runtime / Full Batch Complete",
+            "The full batch audit has completed. Choose an action below.",
+        ),
+        run_name,
+        "",
+        *(_section("Batch Status", _kv_lines(status_pairs))),
+    ]
+    if summary_pairs:
+        lines.extend(_section("Summary", _kv_lines(summary_pairs)))
+    lines.extend(_section("Actions", _menu_lines(options)))
+    return _block("FULL BATCH COMPLETED", lines)
+
+
 def _group_runtime_run_review_options(options: list[tuple[str, str]]) -> list[str]:
     chain_keys = {"1", "2", "3", "4", "5"}
     audit_keys = {"6", "7"}
