@@ -28,7 +28,7 @@ from typing import Any, Dict, List, Optional, Set, Tuple
 # --- Configuration -----------------------------------------------------------
 
 REPO_ROOT = Path(__file__).resolve().parent.parent.parent
-PHASE3_LOGS = REPO_ROOT / "nids-smell-audit" / "Phase3" / "logs"
+PHASE3_LOGS = (REPO_ROOT / "Phase3" / "logs") if (REPO_ROOT / "Phase3").exists() else (REPO_ROOT / "nids-smell-audit" / "Phase3" / "logs")
 RUNTIME_RUNS = PHASE3_LOGS / "phase3a_runtime_runs"
 OUTPUT_DIR = Path(__file__).resolve().parent.parent / "outputs"
 BATCH_REPORTS_DIR = REPO_ROOT / "docs" / "batch_reports"

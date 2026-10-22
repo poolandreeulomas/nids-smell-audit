@@ -136,6 +136,7 @@ def build_final_batch_auditor_prompt(
         "Return exactly one JSON object.",
         "trajectory_summary, hypothesis_summary, and failure_summary must stay compact and debugging-oriented.",
         "surviving_contradictions and open_pressures must preserve unresolved pressure instead of collapsing it.",
+        "Each item in surviving_contradictions and open_pressures must be concise (at most 220 characters).",
         "traceability_refs must use only evidence refs or artifact refs visible in the supplied context.",
         "Do not present canonical truth, polished conclusions, or future-round recommendations.",
         _json_block(

@@ -534,10 +534,10 @@ def validate_debugging_audit_report(
             )
         for index, item in enumerate(values):
             if len(item) > MAX_LIST_ITEM_CHARS:
-                errors.append(
+                warnings.append(
                     _error(
                         f"debugging_audit_report.{list_field}[{index}]",
-                        f"items must be at most {MAX_LIST_ITEM_CHARS} characters.",
+                        f"items should be at most {MAX_LIST_ITEM_CHARS} characters (got {len(item)}).",
                     )
                 )
             forbidden_language_hits.extend(

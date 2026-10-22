@@ -1,2 +1,0 @@
-This partition includes high-volume traffic patterns with possible spikes and strong asymmetries.
-Flow characteristics may be heavily skewed or concentrated.

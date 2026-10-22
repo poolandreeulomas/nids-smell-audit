@@ -12,9 +12,6 @@ from pathlib import Path
 import re
 from typing import Any
 
-from state.schema import AgentState
-from state.store import state_to_dict
-
 
 DEFAULT_RUNS_DIR = Path(__file__).resolve().parent.parent / "logs" / "runs"
 _RUN_INDEX_PATTERN = re.compile(r"^run_(?P<index>\d{3})_")
@@ -78,8 +75,9 @@ def get_next_run_index(log_dir: str | Path | None = None) -> int:
     return max_index + 1
 
 
-def _extract_reproducibility_naming_parts(state: AgentState) -> tuple[str | None, str | None]:
-    reproducibility = state.metadata.get("reproducibility") or {}
+def _extract_reproducibility_naming_parts(state: Any) -> tuple[str | None, str | None]:
+    metadata = getattr(state, "metadata", {}) if hasattr(state, "metadata") else (state.get("metadata", {}) if isinstance(state, dict) else {})
+    reproducibility = metadata.get("reproducibility") or {}
     if not isinstance(reproducibility, dict):
         return None, None
 
@@ -136,16 +134,20 @@ def build_session_run_basename(
 
 
 def build_run_log_payload(
-    state: AgentState,
+    state: Any,
     metrics: dict[str, Any] | None = None,
 ) -> dict[str, Any]:
     """Build full JSON payload for one run log."""
-    payload = state_to_dict(state)
+    payload = state.to_dict() if hasattr(state, "to_dict") else dict(state)
+    history = getattr(state, "history", payload.get("history", []))
+    errors = getattr(state, "errors", payload.get("errors", []))
+    analyzed_features = getattr(state, "analyzed_features", payload.get("analyzed_features", {}))
+    promising_features = getattr(state, "promising_features", payload.get("promising_features", []))
     payload["summary"] = {
-        "history_len": len(state.history),
-        "errors_len": len(state.errors),
-        "analyzed_feature_count": len(state.analyzed_features),
-        "promising_feature_count": len(state.promising_features),
+        "history_len": len(history),
+        "errors_len": len(errors),
+        "analyzed_feature_count": len(analyzed_features),
+        "promising_feature_count": len(promising_features),
     }
     if metrics is not None:
         payload["metrics"] = metrics
@@ -221,16 +223,18 @@ def _format_prompt_section_lengths(prompt_text: object) -> str:
     )
 
 
-def build_debug_log_text(state: AgentState) -> str:
+def build_debug_log_text(state: Any) -> str:
     """Build a compact markdown debug log for prompt/response inspection."""
     partition_name, model_name = _extract_reproducibility_naming_parts(state)
+    run_id = getattr(state, "run_id", "") if hasattr(state, "run_id") else state.get("run_id", "")
+    history = getattr(state, "history", []) if hasattr(state, "history") else state.get("history", [])
     lines = [
         f"Partition: {partition_name or 'unknown'}",
         f"Model: {model_name or 'unknown'}",
-        f"Run ID: {state.run_id}",
+        f"Run ID: {run_id}",
     ]
 
-    for step in state.history or []:
+    for step in history or []:
         step_id = step.get("step_id", "NA")
         status = step.get("execution_status", "UNKNOWN")
         action = step.get("action") or "NONE"
@@ -276,7 +280,7 @@ def write_text(file_path: str | Path, text: str) -> Path:
 
 
 def save_run_artifacts(
-    state: AgentState,
+    state: Any,
     metrics: dict[str, Any],
     log_dir: str | Path | None = None,
     basename: str | None = None,
@@ -295,10 +299,13 @@ def save_run_artifacts(
     debug_log_path = runs_dir / f"{run_basename}_debug.md"
 
     run_payload = build_run_log_payload(state, metrics=metrics)
+    run_id = getattr(state, "run_id", "") if hasattr(state, "run_id") else state.get("run_id", "")
+    objective = getattr(state, "objective", "") if hasattr(state, "objective") else state.get("objective", "")
+    metadata = getattr(state, "metadata", {}) if hasattr(state, "metadata") else state.get("metadata", {})
     metrics_payload = {
-        "run_id": state.run_id,
-        "objective": state.objective,
-        "metadata": state.metadata,
+        "run_id": run_id,
+        "objective": objective,
+        "metadata": metadata,
         "metrics": metrics,
     }
 

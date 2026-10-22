@@ -1,8 +1,10 @@
-"""State schema scaffold for MVP run state with Phase 2 extensions.
+"""State schema for Phase 3 canonical batch state and evidence structures.
 
-This module adds a lightweight `EvidenceBlock` dataclass and extends
-`AgentState` additively to store evidence and contradiction memory.
-Only the schema is changed here; runtime behavior remains unchanged.
+This module defines the authoritative state representations for the Phase 3A runtime:
+- `EvidenceBlock`: Structured evidence unit.
+- `InterpretiveHypothesis`: Canonical planner-facing hypothesis state.
+- `StateRevisionRecord`: Append-only revision metadata for state commits.
+- `CanonicalBatchState`: Two-layer canonical batch state for Phase 3A.
 """
 
 from __future__ import annotations
@@ -91,7 +93,7 @@ def _int_value(value: Any, default: int = 0) -> int:
 
 @dataclass
 class EvidenceBlock:
-    """Structured evidence unit for Phase 2.
+    """Structured evidence unit for Phase 2 and Phase 3.
 
     Fields are intentionally permissive and defaulted so that older run
     payloads can be loaded without breaking.
@@ -258,100 +260,4 @@ class CanonicalBatchState:
             structural_substrate=dict(payload.get("structural_substrate", {}) or {}),
             interpretive_hypotheses=hypotheses,
             revision_log=revisions,
-        )
-
-
-@dataclass
-class AgentState:
-    """Minimal state container for the MVP loop, extended for Phase 2.
-
-    New fields are additive and defaulted to preserve compatibility with
-    existing persisted run payloads. Other modules should not require
-    any changes to continue functioning.
-    """
-
-    run_id: str
-    objective: str
-    current_step: int = 0
-    max_steps: int = 5
-    available_features: List[str] = field(default_factory=list)
-    analyzed_features: Dict[str, Any] = field(default_factory=dict)
-    history: List[Dict[str, Any]] = field(default_factory=list)
-    promising_features: List[str] = field(default_factory=list)
-    errors: List[Dict[str, Any]] = field(default_factory=list)
-    metadata: Dict[str, Any] = field(default_factory=dict)
-
-    # Phase 2 additions (additive; do not remove existing fields)
-    evidence_by_feature: Dict[str, List[EvidenceBlock]] = field(
-        default_factory=dict)
-    contradiction_memory: List[Dict[str, Any]] = field(default_factory=list)
-
-    def to_dict(self) -> Dict[str, Any]:
-        """Return a JSON-serializable dictionary representation."""
-
-        # `dataclasses.asdict` will recursively convert dataclass instances
-        # (including `EvidenceBlock`) into plain dicts. This keeps the
-        # serialized structure compatible with existing saved runs while
-        # adding the new fields as plain JSON objects.
-        return _ensure_json_primitive(asdict(self))
-
-    @classmethod
-    def from_dict(cls, payload: Dict[str, Any] | None) -> "AgentState":
-        """Reconstruct an AgentState from a persisted run payload.
-
-        This factory is tolerant of older payloads that do not include the
-        Phase 2 fields and will default them sensibly.
-        """
-        if not payload:
-            raise ValueError(
-                "payload must be a non-empty dict to build AgentState")
-
-        run_id = payload.get("run_id", "run_from_payload")
-        objective = payload.get("objective", "")
-        current_step = int(payload.get("current_step", 0) or 0)
-        max_steps = int(payload.get("max_steps", 5) or 5)
-        available_features = list(payload.get("available_features", []) or [])
-        analyzed_features = dict(payload.get("analyzed_features", {}) or {})
-        history = list(payload.get("history", []) or [])
-        promising_features = list(payload.get("promising_features", []) or [])
-        errors = list(payload.get("errors", []) or [])
-        metadata = dict(payload.get("metadata", {}) or {})
-
-        # Reconstruct evidence_by_feature if present; tolerate older payloads
-        evidence_map = payload.get("evidence_by_feature", {}) or {}
-        reconstructed: Dict[str, List[EvidenceBlock]] = {}
-        for feat, blocks in evidence_map.items():
-            if not blocks:
-                reconstructed[str(feat)] = []
-                continue
-            lst: List[EvidenceBlock] = []
-            for b in blocks:
-                if isinstance(b, EvidenceBlock):
-                    lst.append(b)
-                elif isinstance(b, dict):
-                    lst.append(EvidenceBlock.from_dict(b))
-                else:
-                    # Unknown block representation; attempt to coerce to dict
-                    try:
-                        lst.append(EvidenceBlock.from_dict(dict(b)))
-                    except Exception:
-                        continue
-            reconstructed[str(feat)] = lst
-
-        contradiction_memory = list(
-            payload.get("contradiction_memory", []) or [])
-
-        return cls(
-            run_id=run_id,
-            objective=objective,
-            current_step=current_step,
-            max_steps=max_steps,
-            available_features=available_features,
-            analyzed_features=analyzed_features,
-            history=history,
-            promising_features=promising_features,
-            errors=errors,
-            metadata=metadata,
-            evidence_by_feature=reconstructed,
-            contradiction_memory=contradiction_memory,
         )

@@ -5,9 +5,6 @@ from __future__ import annotations
 from collections import Counter
 from typing import Any
 
-from state.schema import AgentState
-from state.store import state_to_dict
-
 VALID_ACTION_STATUSES = {"OK"}
 ATTEMPTED_ACTION_STATUSES = {"OK", "TOOL_ERROR", "REPEATED_FEATURE_BLOCKED"}
 JUSTIFICATION_ACTION_STATUSES = {"OK", "TOOL_ERROR"}
@@ -43,13 +40,15 @@ def _normalize_thought(thought: str | None) -> str:
     return " ".join(thought.lower().split())
 
 
-def _iter_history(state_or_dict: AgentState | dict[str, Any]) -> list[dict[str, Any]]:
-    if isinstance(state_or_dict, AgentState):
+def _iter_history(state_or_dict: Any) -> list[dict[str, Any]]:
+    if hasattr(state_or_dict, "history"):
         return state_or_dict.history
-    return list(state_or_dict.get("history", []))
+    if isinstance(state_or_dict, dict):
+        return list(state_or_dict.get("history", []))
+    return []
 
 
-def compute_run_metrics(state_or_dict: AgentState | dict[str, Any]) -> dict[str, Any]:
+def compute_run_metrics(state_or_dict: Any) -> dict[str, Any]:
     """Compute MVP metrics from state or persisted run log payload."""
     history = _iter_history(state_or_dict)
     total_steps = len(history)
@@ -175,6 +174,7 @@ def compute_overlap_score(features_a: list[str], features_b: list[str]) -> float
     return len(set_a & set_b) / len(union)
 
 
-def state_metrics_payload(state: AgentState) -> dict[str, Any]:
-    """Convenience wrapper to compute metrics from AgentState."""
-    return compute_run_metrics(state_to_dict(state))
+def state_metrics_payload(state: Any) -> dict[str, Any]:
+    """Convenience wrapper to compute metrics from a state object or dict."""
+    payload = state.to_dict() if hasattr(state, "to_dict") else state
+    return compute_run_metrics(payload)

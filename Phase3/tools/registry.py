@@ -20,6 +20,7 @@ from tools.feature_relation import feature_relation
 from tools.feature_summary import feature_summary
 from tools.neighborhood_consistency_analysis import neighborhood_consistency_analysis
 from tools.shortcut_analysis import shortcut_analysis
+from tools.wasserstein import wasserstein
 
 ToolFn = Callable[..., dict[str, Any]]
 
@@ -91,6 +92,14 @@ def get_tool_capability_records() -> dict[str, dict[str, Any]]:
             result_shape="dataset_observation",
             boundedness_notes="Checks exact duplication at dataset scope without semantic interpretation.",
         ),
+        "wasserstein": build_tool_capability_record(
+            tool_name="wasserstein",
+            epistemic_role="distribution_distance_verification",
+            supported_scopes=["feature"],
+            required_inputs=["feature_name"],
+            result_shape="feature_observation",
+            boundedness_notes="Measures class-conditioned distribution distance using normalized 1D Wasserstein metric.",
+        ),
     }
 
 
@@ -110,6 +119,7 @@ def get_tool_registry() -> dict[str, ToolFn]:
         "neighborhood_consistency_analysis": neighborhood_consistency_analysis,
         "dependency_concentration_analysis": dependency_concentration_analysis,
         "duplication_analysis": duplication_analysis,
+        "wasserstein": wasserstein,
     }
 
 

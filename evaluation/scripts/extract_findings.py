@@ -31,8 +31,8 @@ from typing import Any, Dict, List, Optional, Tuple
 
 # --- Configuration -----------------------------------------------------------
 
-BASE_DIR = Path(__file__).resolve().parent.parent.parent  # TFG root
-NIDS_DIR = BASE_DIR / "nids-smell-audit" / "Phase3"
+BASE_DIR = Path(__file__).resolve().parent.parent.parent
+NIDS_DIR = (BASE_DIR / "Phase3") if (BASE_DIR / "Phase3").exists() else (BASE_DIR / "nids-smell-audit" / "Phase3")
 LOGS_DIR = NIDS_DIR / "logs"
 FINAL_BATCH_REPORT_RUNS = LOGS_DIR / "final_batch_report_runs"
 OUTPUT_DIR = BASE_DIR / "evaluation" / "findings"

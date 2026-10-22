@@ -17,17 +17,9 @@ if __package__ in {None, ""}:
     if repo_root_str not in sys.path:
         sys.path.insert(0, repo_root_str)
 
-from analysis.interpreter import extract_run_insights
 from config import DATA_DIR, LOG_DIR, MAX_STEPS
 from data.dataset_config import get_default_dataset_config
 from data.loader import load_dataset
-from experiments.compare_runs import compare_runs
-from experiments.evaluate_runs import (
-    evaluate_runs,
-    render_evaluation_report,
-    save_evaluation_artifacts,
-)
-from experiments.export_jif import export_jif
 from aggregation.input_resolver import load_worker_result_set
 from aggregation.runner import run_aggregation
 from aggregation.runtime_artifacts import list_aggregation_run_dirs, load_aggregation_bundle
@@ -185,7 +177,6 @@ from planner.context_resolver import (
 )
 from planner.runner import run_planner
 from planner.runtime_artifacts import list_planner_run_dirs, load_planner_bundle
-from judge.judge_runner import load_jif_payloads, merge_jif_payloads, run_judge
 from main import build_phase3a_llm_callables, main as run_main
 from router.context_reducer import build_router_context_min
 from router.runner import run_router
@@ -660,21 +651,6 @@ class NidsAgentCli:
         self._view_dataset_merger_runs_limit = 5
         self._view_dataset_runtime_runs_limit = 5
         self._selected_tool_name: str | None = None
-        self._last_phase3a_runtime_run: Phase3ARuntimeRunContext | None = None
-        self._selected_phase3a_runtime_run: Phase3ARuntimeRunContext | None = None
-        self._last_partition_memory_run: DatasetRunContext | None = None
-        self._selected_partition_memory_run: DatasetRunContext | None = None
-        self._last_coverage_builder_run: DatasetRunContext | None = None
-        self._selected_coverage_builder_run: DatasetRunContext | None = None
-        self._last_dataset_merger_run: DatasetRunContext | None = None
-        self._selected_dataset_merger_run: DatasetRunContext | None = None
-        self._last_dataset_runtime_run: DatasetRunContext | None = None
-        self._selected_dataset_runtime_run: DatasetRunContext | None = None
-        self._view_partition_memory_runs_limit = 5
-        self._view_coverage_builder_runs_limit = 5
-        self._view_dataset_merger_runs_limit = 5
-        self._view_dataset_runtime_runs_limit = 5
-        self._selected_tool_name: str | None = None
         self._session_run_counter = get_next_run_index(LOG_DIR) - 1
         self._running = True
         self._concept_chapter_idx = 0
@@ -703,11 +679,11 @@ class NidsAgentCli:
             "dataset_merger": self._dataset_merger_menu,
             "dataset_runtime": self._dataset_runtime_menu,
             "tools": self._tools_menu,
-            "run": self._run_agent_menu,
-            "judge": self._judge_menu,
-            "latest": self._latest_run_menu,
-            "view": self._view_runs_menu,
-            "evaluate": self._evaluate_runs_menu,
+            
+            
+            
+            
+            
             "session": self._session_config_menu,
         }
 
@@ -877,7 +853,7 @@ class NidsAgentCli:
         if choice == "16":
             return "dataset_merger"
         if choice == "17":
-            return "dataset_merger"
+            return "dataset_runtime"
         return "tools"
 
     def _phase3a_runtime_menu(self) -> str:
@@ -2572,36 +2548,6 @@ class NidsAgentCli:
             return self._view_runs_list_menu()
         return self._view_selected_run_menu()
 
-    def _evaluate_runs_menu(self) -> str:
-        try:
-            evaluation_context = self._get_evaluation_context()
-        except Exception as exc:  # noqa: BLE001
-            self._show_error(f"failed to evaluate runs: {exc}")
-            return "main"
-
-        self._print_evaluation_overview(
-            evaluation_context.result, evaluation_context.latest)
-
-        choice = self._read_menu_choice({"1", "2", "3", "4", "B", "Q"})
-        if choice == "1":
-            self._print_evaluation_ranking(evaluation_context.result)
-            return "evaluate"
-        if choice == "2":
-            self._print_evaluation_aggregate_findings(
-                evaluation_context.result)
-            return "evaluate"
-        if choice == "3":
-            self._change_evaluation_window()
-            self._evaluation_context = None
-            return "evaluate"
-        if choice == "4":
-            self._save_evaluation_report(evaluation_context)
-            return "evaluate"
-        if choice == "B":
-            return "main"
-        self._quit()
-        return "evaluate"
-
     def _session_config_menu(self) -> str:
         result = self._edit_session_config_flow()
         if result == "quit":
@@ -3434,7 +3380,7 @@ class NidsAgentCli:
         artifact_paths = save_run_artifacts(
             final_state, metrics, log_dir=LOG_DIR, basename=basename)
         run_payload = load_json(artifact_paths["run_log_path"])
-        insights = extract_run_insights(run_payload)
+        insights = dict(run_payload.get("insights", {}) or {})
         return RunContext(
             artifact_paths=artifact_paths,
             run_payload=run_payload,
@@ -10235,90 +10181,6 @@ class NidsAgentCli:
             for error in errors
         ]
 
-    def _build_multi_run_summary_payload(self, run_contexts: list[RunContext]) -> dict[str, Any]:
-        run_paths = [context.artifact_paths["run_log_path"]
-                     for context in run_contexts]
-        evaluation_result = evaluate_runs(
-            run_paths=run_paths, latest=len(run_paths))
-        comparison_result = compare_runs(run_paths)
-        aggregate = dict(evaluation_result.get("aggregate", {}))
-        run_metrics_summary = dict(aggregate.get("run_metrics_summary", {}))
-
-        tool_calls = Counter()
-        tool_run_presence = Counter()
-        feature_counter = Counter()
-
-        for context in run_contexts:
-            tools_in_run: set[str] = set()
-            for step in list(context.run_payload.get("history", [])):
-                action = step.get("action")
-                if isinstance(action, str) and action:
-                    tool_calls[action] += 1
-                    tools_in_run.add(action)
-                feature_name = (step.get("action_input")
-                                or {}).get("feature_name")
-                if isinstance(feature_name, str) and feature_name:
-                    feature_counter[feature_name] += 1
-            for tool_name in tools_in_run:
-                tool_run_presence[tool_name] += 1
-
-        metrics = [
-            ("runs", str(len(run_contexts))),
-            ("avg_steps", str(dict(run_metrics_summary.get(
-                "steps", {})).get("average", 0.0))),
-            ("avg_features_attempted", str(dict(run_metrics_summary.get(
-                "features_attempted", {})).get("average", 0.0))),
-            ("avg_features_successful", str(dict(run_metrics_summary.get(
-                "features_successful", {})).get("average", 0.0))),
-            ("avg_overlap",
-             f"{comparison_result.get('average_overlap_score', 1.0):.2f}"),
-        ]
-
-        tool_usage = [
-            f"- {tool}: {count} call(s) | {tool_run_presence[tool]}/{len(run_contexts)} run(s)"
-            for tool, count in sorted(tool_calls.items())
-        ]
-
-        feature_summary = [
-            f"- unique features explored: {len(feature_counter)}"
-        ]
-        feature_summary.extend(
-            f"- {feature}: {count} hit(s)"
-            for feature, count in feature_counter.most_common(10)
-        )
-
-        best_run = None
-        ranked_runs = list(evaluation_result.get("runs", []))
-        if ranked_runs:
-            best_run = Path(ranked_runs[0].get("path", "")).name or None
-
-        consistency = [
-            f"- average overlap between runs: {comparison_result.get('average_overlap_score', 1.0):.2f}",
-            f"- best run by deterministic score: {best_run or 'n/a'}",
-        ]
-
-        return {
-            "metrics": metrics,
-            "tool_usage": tool_usage,
-            "feature_summary": feature_summary,
-            "consistency": consistency,
-        }
-
-    def _render_multi_run_summary(self, run_contexts: list[RunContext]) -> None:
-        summary = self._build_multi_run_summary_payload(run_contexts)
-        self._render(
-            render_multi_run_summary(
-                title="Multi-Run Summary",
-                intro_line=f"Executed {len(run_contexts)} run(s) sequentially with the current session configuration.",
-                metrics=summary["metrics"],
-                tool_usage=summary["tool_usage"],
-                feature_summary=summary["feature_summary"],
-                consistency=summary["consistency"],
-                path_label="Home / Run Agent / Multi-Run Summary",
-                hint="Aggregated view built from the completed run logs.",
-            )
-        )
-
     def _change_model_name(self) -> None:
         selected_model = self._select_model_name(
             current_name=self.session_config.model_name,
@@ -10491,7 +10353,7 @@ class NidsAgentCli:
             "run_log_path": str(run_log_path),
             "metrics_log_path": str(metrics_path),
         }
-        insights = extract_run_insights(run_payload)
+        insights = dict(run_payload.get("insights", {}) or {})
         return RunContext(
             artifact_paths=artifact_paths,
             run_payload=run_payload,
@@ -10708,64 +10570,6 @@ class NidsAgentCli:
              f"{metrics.get('valid_action_rate', 0.0):.2f}"),
             ("tool_error_rate", f"{metrics.get('tool_error_rate', 0.0):.2f}"),
         ]
-
-    def _get_evaluation_context(self) -> EvaluationContext:
-        latest = self.session_config.evaluation_window
-        if self._evaluation_context and self._evaluation_context.latest == latest:
-            return self._evaluation_context
-
-        result = evaluate_runs(latest=latest)
-        self._evaluation_context = EvaluationContext(
-            latest=latest, result=result)
-        return self._evaluation_context
-
-    def _print_evaluation_overview_for_current_window(self) -> None:
-        try:
-            evaluation_context = self._get_evaluation_context()
-        except Exception as exc:  # noqa: BLE001
-            self._show_error(f"failed to evaluate runs: {exc}")
-            return
-        self._print_evaluation_overview(
-            evaluation_context.result, evaluation_context.latest)
-
-    def _print_evaluation_overview(self, result: dict[str, Any], latest: int) -> None:
-        self._render(
-            render_evaluation_overview(
-                result,
-                latest,
-                [
-                    ("1", "View full ranking"),
-                    ("2", "View aggregate findings"),
-                    ("3", "Change number of runs"),
-                    ("4", "Save evaluation report"),
-                    ("B", "Back"),
-                    ("Q", "Quit"),
-                ],
-            )
-        )
-
-    def _print_evaluation_ranking(self, result: dict[str, Any]) -> None:
-        self._render(render_evaluation_ranking(result))
-        self._wait_for_enter()
-
-    def _print_evaluation_aggregate_findings(self, result: dict[str, Any]) -> None:
-        self._render(render_evaluation_aggregate(result))
-        self._wait_for_enter()
-
-    def _save_evaluation_report(self, evaluation_context: EvaluationContext) -> None:
-        report_text = render_evaluation_report(evaluation_context.result)
-        try:
-            artifact_paths = save_evaluation_artifacts(
-                evaluation_context.result,
-                report_text,
-                prefix="cli_evaluation",
-            )
-        except Exception as exc:  # noqa: BLE001
-            self._show_error(f"failed to save evaluation report: {exc}")
-            return
-
-        self._render(render_saved_report(artifact_paths))
-        self._wait_for_enter()
 
     def _show_info(self, message: str) -> None:
         self._render(render_info(message))

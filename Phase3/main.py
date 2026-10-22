@@ -1,4 +1,4 @@
-"""Main entrypoint for one MVP agent run."""
+"""Main entrypoint for ATLAS batch runtime."""
 
 from __future__ import annotations
 
@@ -6,15 +6,8 @@ import os
 from pathlib import Path
 from typing import Callable
 
-from agent.loop import run_agent
-from config import DATA_DIR, MAX_STEPS
-from data.dataset_config import get_default_dataset_config, infer_dataset_config
-from data.loader import load_dataset
+from config import DATA_DIR
 from phase3_runtime.orchestrator import run_phase3a_batch
-from src.feature_index import build_compact_feature_index
-from state.schema import AgentState
-from state.store import init_state
-from tools.registry import get_tool_registry
 from utils.openai_response import build_responses_create_kwargs, extract_response_text
 
 DEFAULT_OBJECTIVE = (
@@ -114,53 +107,9 @@ def build_phase3a_llm_callables(
     )
 
 
-def main() -> AgentState:
-    """Wire dependencies and execute one bounded MVP run."""
-    dataset_path = _select_dataset_path(DATA_DIR)
-    dataset_config = infer_dataset_config(dataset_path)
-    dataset_frame, available_features = load_dataset(
-        dataset_path, dataset_config)
-    tool_names = list(get_tool_registry().keys())
-
-    model_name = os.environ.get("OPENAI_MODEL", "gpt-4.1-mini")
-    model_version = os.environ.get("OPENAI_MODEL_VERSION")
-    temperature = float(os.environ.get("OPENAI_TEMPERATURE", "0.0"))
-    trace = os.environ.get("REACT_TRACE", "1") != "0"
-    seed_value = os.environ.get("OPENAI_SEED")
-    seed = int(seed_value) if seed_value else None
-    max_steps_value = os.environ.get("NIDS_MAX_STEPS")
-    max_steps = int(max_steps_value) if max_steps_value else MAX_STEPS
-
-    state = init_state(
-        run_id="run_local",
-        objective=os.environ.get("NIDS_OBJECTIVE", DEFAULT_OBJECTIVE),
-        max_steps=max_steps,
-        available_features=available_features,
-        metadata={
-            "compact_feature_index": build_compact_feature_index(
-                dataset_frame,
-                label_col=dataset_config.label_column,
-            )
-        },
-    )
-
-    llm_callable = _build_openai_llm_callable(model_name, temperature)
-    return run_agent(
-        state=state,
-        llm_callable=llm_callable,
-        dataset_path=dataset_path,
-        dataset_config=dataset_config,
-        tool_names=tool_names,
-        model_name=model_name,
-        model_version=model_version,
-        temperature=temperature,
-        seed=seed,
-        top_p=None,
-        repo_path=Path(__file__).resolve().parent,
-        dataset_frame=dataset_frame,
-        valid_numeric_features=available_features,
-        trace=trace,
-    )
+def main() -> dict[str, object]:
+    """Execute authoritative Phase 3A batch runtime as default entrypoint."""
+    return main_phase3a_batch()
 
 
 def main_phase3a_batch() -> dict[str, object]:

@@ -56,6 +56,7 @@ def test_capability_inventory_exposes_phase3a_contract_metadata():
         "neighborhood_consistency_analysis",
         "dependency_concentration_analysis",
         "duplication_analysis",
+        "wasserstein",
     }
     assert get_tool_capability_record(
         "feature_relation") == records["feature_relation"]
@@ -98,10 +99,29 @@ def test_execute_tool_call_supports_new_phase3a_verification_tools(tmp_path: Pat
         log_dir=tmp_path,
     )
 
+    wasserstein_bundle = execute_tool_call(
+        build_tool_call_request(
+            call_id="tool-call-007",
+            tool_name="wasserstein",
+            target_scope="feature",
+            input_refs={"feature_name": "shortcut_feature"},
+            preprocessing_profile_ref="default",
+            execution_constraints={
+                "cache_policy": "reuse", "validation_mode": "strict"},
+        ),
+        dataset_path="synthetic.csv",
+        config=get_default_dataset_config(),
+        dataset_frame=df,
+        valid_numeric_features=valid_numeric_features,
+        log_dir=tmp_path,
+    )
+
     assert shortcut_bundle["tool_result"]["status"] == "ok"
     assert "strong_shortcut_signal" in shortcut_bundle["tool_result"]["observations"]["signals"]
     assert dependency_bundle["tool_result"]["status"] == "ok"
     assert dependency_bundle["tool_result"]["observations"]["metrics"]["top_partner"] == "dep_partner"
+    assert wasserstein_bundle["tool_result"]["status"] == "ok"
+    assert "wasserstein_distance" in wasserstein_bundle["tool_result"]["observations"]["signals"]
 
 
 def test_neighborhood_consistency_analysis_can_be_disabled(monkeypatch):

@@ -1,2 +1,0 @@
-This partition reflects multi-stage activity where behavior may depend on previous actions.
-Patterns may emerge across sequences rather than individual observations.
