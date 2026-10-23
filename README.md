@@ -7,13 +7,28 @@ ATLAS is an autonomous multi-agent research framework designed to systematically
 
 Developed as a Bachelor's Thesis at the *Universitat Politècnica de Catalunya (UPC)*, ATLAS provides an interactive terminal research console and batch execution engine that explores tabular network traffic data, formulates testable hypotheses, executes targeted statistical investigations via ReAct worker agents, and synthesizes multi-round audit reports with complete evidential provenance.
 
+> [!NOTE]
+> **Primary Interface & Orchestration:** ATLAS is designed to be used through its interactive terminal interface ([`Phase3/interface/cli.py`](Phase3/interface/cli.py)). The interface orchestrates the underlying modules and provides the primary workflow for dataset selection, pre-flight schema validation, multi-round investigation execution, run inspection, and report navigation. Individual underlying modules can also be invoked programmatically for development, testing, or specialized headless batch workflows.
+
 ---
 
 ## Table of Contents
 
 - [1. Project Overview](#1-project-overview)
-- [2. Main Interface and Quick Start](#2-main-interface-and-quick-start)
-- [3. Typical User Workflow](#3-typical-user-workflow)
+- [2. Primary Interface and Supported Entry Points](#2-primary-interface-and-supported-entry-points)
+  - [2.1 The Interactive CLI as Orchestrator](#21-the-interactive-cli-as-orchestrator)
+  - [2.2 Comparison of Supported Entry Points](#22-comparison-of-supported-entry-points)
+  - [2.3 Prerequisites & Installation](#23-prerequisites--installation)
+  - [2.4 Environment Configuration](#24-environment-configuration)
+  - [2.5 Launching the Interface](#25-launching-the-interface)
+- [3. First Investigation: Step-by-Step Tutorial](#3-first-investigation-step-by-step-tutorial)
+  - [Step 1 — Understand What You Need](#step-1--understand-what-you-need)
+  - [Step 2 — Install and Configure](#step-2--install-and-configure)
+  - [Step 3 — Launch the CLI and Select a Dataset](#step-3--launch-the-cli-and-select-a-dataset)
+  - [Step 4 — Run Your First Investigation](#step-4--run-your-first-investigation)
+  - [Step 5 — Locate the Generated Results](#step-5--locate-the-generated-results)
+  - [Step 6 — Interpret a Real Dataset-Quality Finding](#step-6--interpret-a-real-dataset-quality-finding)
+  - [Step 7 — What to Do Next](#step-7--what-to-do-next)
 - [4. Interactive Guide ("How to Use ATLAS")](#4-interactive-guide-how-to-use-atlas)
 - [5. How ATLAS Works: Architecture & Internal Mechanisms](#5-how-atlas-works-architecture--internal-mechanisms)
   - [5.1 High-Level Architecture](#51-high-level-architecture)
@@ -64,9 +79,11 @@ ATLAS systematically interrogates a tabular dataset partition through an iterati
 
 ---
 
-## 2. Main Interface and Quick Start
+## 2. Primary Interface and Supported Entry Points
 
-The **primary entry point** to ATLAS is the interactive terminal research console located at [`Phase3/interface/cli.py`](Phase3/interface/cli.py).
+### 2.1 The Interactive CLI as Orchestrator
+
+The interactive terminal research console located at [`Phase3/interface/cli.py`](Phase3/interface/cli.py) is the **primary user interface and orchestration layer** for ATLAS.
 
 ```
 ====================================================================
@@ -84,15 +101,30 @@ The **primary entry point** to ATLAS is the interactive terminal research consol
 ====================================================================
 ```
 
-### Prerequisites
+While underlying Python modules implement specific data processing, statistical analysis, and agent execution tasks, researchers interact with ATLAS primarily through the terminal interface. The CLI coordinates:
+- **Session State & Target Configuration**: Selecting predefined benchmark partitions or custom CSV/TSV datasets, configuring LLM models, and adjusting worker step budgets.
+- **Bounded Pre-Flight Schema Validation**: Inspecting files non-destructively, inferring column structures, and interactively resolving ambiguous labels or baseline benign classes before launching expensive LLM runs.
+- **Execution Mode Orchestration**: Launching full multi-round batch investigations, single-round exploratory audits, or lightweight cognitive dry-runs.
+- **Interactive Observability & Run Review**: Inspecting live terminal event streams, browsing historical runs, reviewing worker ReAct reasoning chains, and reading generated Markdown audit reports directly inside the terminal.
+
+### 2.2 Comparison of Supported Entry Points
+
+ATLAS provides distinct entry points tailored to different workflows:
+
+| Entry Point | Command / Module | Primary Purpose & Intended User Experience |
+| :--- | :--- | :--- |
+| **Interactive Terminal Console** *(Recommended)* | `python Phase3/interface/cli.py` | **Primary user interface.** Complete interactive workflow: dataset selection, schema disambiguation, pre-flight checks, batch orchestration, run review, and report navigation. |
+| **Direct Batch Runtime** *(Headless Execution)* | `python Phase3/main.py`<br>or `run_phase3a_batch()` | **Headless / Programmatic execution.** Directly executes multi-round batch investigations using environment variables (`NIDS_DATASET_PATH`, `OPENAI_MODEL`). Designed for cluster scripts, unattended batch jobs, and automated pipelines. *(Note: Runs the full pipeline but bypasses interactive menus and terminal report browsing).* |
+| **Scientific Reproduction Scripts** | `python evaluation/scripts/...` | **Historical analysis & reproducibility.** Read-only scripts (`validate_corpus.py`, `extract_metrics.py`, `aggregate_metrics.py`, `extract_findings.py`) that parse archived run artifacts in `Phase3/logs/` to reproduce thesis evaluation tables and metrics without LLM API calls. |
+| **Automated Software Test Suite** | `pytest tests/`<br>`pytest Phase3/tests/` | **Software quality assurance.** 240+ unit and integration tests verifying component contracts, state transitions, custom dataset schema inference, and orchestration logic using local mocks. Zero LLM API calls. |
+
+### 2.3 Prerequisites & Installation
 
 - **Python**: Version 3.10 or higher (tested with Python 3.11 and 3.13).
 - **LLM Access**: An OpenAI API key with access to `gpt-4.1-mini` (or equivalent model).
 - **Operating System**: Linux, macOS, or Windows.
 
-### Installation
-
-Clone the repository, create a virtual environment, and install pinned dependencies:
+Clone the repository, create a virtual environment, and install dependencies:
 
 ```bash
 # Clone the repository
@@ -112,7 +144,7 @@ python -m venv .venv
 pip install -r Phase3/requirements.txt
 ```
 
-### Environment Configuration
+### 2.4 Environment Configuration
 
 Configure your OpenAI API credentials:
 
@@ -129,18 +161,18 @@ OPENAI_MODEL=gpt-4.1-mini
 OPENAI_TEMPERATURE=0.0
 ```
 
-### Launching the Interface
+### 2.5 Launching the Interface
 
 Launch the interactive console directly from the repository root:
 
 ```bash
-# Launch interactive welcome screen (from repository root)
+# Launch interactive welcome screen (recommended for first-time users)
 python Phase3/interface/cli.py
 
 # Or launch directly into the Research Console (skipping welcome)
 python Phase3/interface/cli.py --skip-welcome
 
-# Non-interactive CLI flags
+# Non-interactive CLI presentation flags
 python Phase3/interface/cli.py --version   # Display version and descriptor
 python Phase3/interface/cli.py --usage     # Display operational usage summary
 python Phase3/interface/cli.py --concept   # Read the conceptual explorer analogy
@@ -148,89 +180,151 @@ python Phase3/interface/cli.py --concept   # Read the conceptual explorer analog
 
 ---
 
-## 3. Typical User Workflow
+## 3. First Investigation: Step-by-Step Tutorial
 
-The interactive console guides the researcher through dataset selection, pre-flight validation, multi-round investigation execution, and report review.
+This step-by-step tutorial guides a first-time user through running their first ATLAS audit, locating generated artifacts, and interpreting a concrete, evidence-backed dataset-quality defect.
 
 ```mermaid
 flowchart TD
-    A["Welcome Screen<br><code>python Phase3/interface/cli.py</code>"] --> B["[1] Research Console (Main Menu)"]
-    B --> C["[3] Session Configuration"]
-    C --> D{"Dataset Source"}
-    D -->|Option 1| E["Predefined Benchmark Partition<br>(CICIDS2017 / UNSW-NB15)"]
-    D -->|Option 2| F["Discovered File in data/"]
-    D -->|Option 3| G["Enter Custom Filesystem Path<br>(Absolute or Relative CSV/TSV)"]
-    F --> H["Bounded Pre-Flight Validation"]
-    G --> H
-    H -->|Ambiguous Target| I["Select Label Column & Benign Value"]
-    H -->|Verified| J["Review Pre-Flight Summary & Confirm"]
-    I --> J
-    J --> B
-    E --> B
-    B --> K["[1] ATLAS Batch Runtime"]
-    K --> L{"Execution Mode"}
-    L -->|Full Batch| M["3-Round Iterative Investigation<br>(Plan -> Route -> Worker -> Aggregate -> Critique)"]
-    L -->|Full Round| N["Single-Round Investigation"]
-    L -->|Cognitive Only| O["Dry-Run (Extraction & Ranking only)"]
-    M --> P["Consolidated Audit Report<br>(View in terminal or open Markdown)"]
-    N --> P
-    O --> P
+    S1["Step 1: Understand What You Need<br>(Tabular flow CSV, numeric features, label column)"] --> S2["Step 2: Install & Configure<br>(venv, pip, Phase3/.env with API key)"]
+    S2 --> S3["Step 3: Launch CLI & Select Dataset<br>(cli.py -> Session Config -> Pre-Flight Validation)"]
+    S3 --> S4["Step 4: Launch Investigation<br>(Batch Runtime -> Full Batch / Full Round / Dry-Run)"]
+    S4 --> S5["Step 5: Locate Generated Results<br>(report.md, batch_ledger.json, worker traces)"]
+    S5 --> S6["Step 6: Interpret a Real Flaw<br>(Collinear redundancy: Fwd Header Length r=1.000)"]
+    S6 --> S7["Step 7: What to Do Next<br>(Review past runs, read CLI guide, thesis experiments)"]
 ```
 
-### Step 1: Starting the Console
+### Step 1 — Understand What You Need
 
-Run `python Phase3/interface/cli.py` and press `[1]` to enter the **Research Console**. The console displays active session parameters, including LLM model, active dataset, max worker steps, and stored run counts.
+Before launching an audit, ensure you understand the target problem and data prerequisites:
 
-### Step 2: Selecting a Dataset Partition
+1. **What ATLAS Discovers**: ATLAS does not simply calculate top-level model accuracy. It systematically detects **design artefacts**—such as **shortcut learning opportunities** (features that unnaturally correlate with labels due to collection setup), **collinear redundancy** (duplicated or algebraically equivalent features), **data duplication** (identical flow rows across attack classes), and **distributional anomalies** (extreme skewness or near-constant features) that allow machine learning classifiers to score high on test benchmarks while failing on live networks.
+2. **Accepted Dataset Format**: ATLAS accepts supervised tabular network flow captures in `.csv`, `.tsv`, or `.tab` formats with a header row.
+3. **Why Numeric Features Are Required**: ATLAS analytical tools (such as Pearson/Spearman correlation, Kolmogorov-Smirnov distance, Wasserstein metric, Gini impurity, and variance profiling) compute statistical moments and distributions over numeric feature vectors. Categorical features can be pre-encoded or evaluated via cardinality tools.
+4. **Why a Ground-Truth Label Column Is Required**: To evaluate class separation, feature leakage, and class-conditioned distributional divergence, ATLAS needs to know which flows belong to benign baseline traffic versus attack traffic.
+5. **What the Benign Baseline Represents**: The benign class (e.g., `BENIGN`, `0`, or `normal`) serves as the operational baseline. ATLAS contrasts attack traffic against this baseline to evaluate whether observed feature behaviors represent genuine attack signatures or synthetic testbed artifacts (such as fixed source IP subnets or rigid destination port allocations).
 
-Navigate to **Session Configuration** (`[3]`) -> **Change Active Dataset/Partition** (`[1]`). Choose from three sources:
+### Step 2 — Install and Configure
 
-1. **Predefined Benchmark Partitions**: Choose from standard benchmark files across CICIDS2017 (e.g., `Friday-WorkingHours-Afternoon-DDos.pcap_ISCX.csv`) and UNSW-NB15.
-2. **Discovered Files in Project Data Directory**: Automatically detects compatible CSV/TSV files residing in `Phase3/data/`.
-3. **Custom Filesystem Path**: Enter an absolute or relative path to any CSV/TSV file on your system (e.g., `/data/custom_traffic.csv` or `C:\captures\external_sample.csv`). Relative paths resolve against your current working directory. Paths with spaces or surrounding quotes (`"..."`) are handled automatically.
+Ensure your environment is set up and your OpenAI API key is configured as described in [Section 2.3](#23-prerequisites--installation) and [Section 2.4](#24-environment-configuration):
 
-### Step 3: Bounded Pre-Flight Validation & Disambiguation
+```bash
+# Verify Python version (3.10+)
+python --version
 
-When a custom file is selected, ATLAS runs a bounded schema check (`inspect_custom_dataset_preflight`) that examines delimiter, column structure, and numeric features without reading entire gigabyte files into memory:
+# Verify dependencies are installed
+python -c "import pandas, openai, pydantic; print('Dependencies verified.')"
 
-- **Label Column Inference**: Standard column names (`Label`, `class`, `attack`, `target`) are detected automatically. If absent or ambiguous, an interactive selection menu lists all available columns for the user to designate the ground truth.
-- **Benign Class Value**: Standard benign representations (`BENIGN`, `0`, `normal`, `clean`) are inferred. If ambiguous, the user selects the normal baseline from the unique values present in the label column.
-- **Confirmation Summary**: Displays resolved absolute path, byte size, sampled rows, numeric feature count, selected label column, and benign value. Press `[1]` to confirm and set as the active dataset, or `[B]` to cancel and preserve your previous session state.
+# Verify Phase3/.env exists with your OpenAI key
+# OPENAI_API_KEY=sk-...
+```
 
-### Step 4: Configuring and Launching an Investigation
+### Step 3 — Launch the CLI and Select a Dataset
 
-Return to the Main Menu and enter **ATLAS Batch Runtime** (`[1]`). Select your execution scope:
+Launch the interactive console from the repository root:
 
-- **[1] Full Batch Investigation (Recommended)**: Executes an end-to-end multi-round audit (default 3 rounds). For each round:
-  - Generates and ranks hypotheses.
-  - Decomposes hypotheses into concrete investigation tasks.
-  - Dispatches ReAct workers equipped with analytical tools.
-  - Aggregates findings and updates canonical state.
-  - Executes critic review and synthesizes a final partition audit report.
-- **[2] Full Round Investigation**: Runs a single round with aggregation and round reporting.
-- **[3] Cognitive-Only Pipeline**: Fast dry-run executing semantic extraction and initial hypothesis analysis without launching worker tools or invoking LLM worker loops.
-- **[4] Review Past Runs**: Interactively browse historical and completed runs, examine worker traces, round snapshots, and persisted findings.
+```bash
+python Phase3/interface/cli.py
+```
 
-### Step 5: Reviewing Audit Reports & Outputs
+1. **Enter the Research Console**: On the Welcome Screen, press `[1]` to enter the main menu.
+2. **Open Session Configuration**: From the main menu, press `[3]` for **Session Configuration**.
+3. **Select Dataset Source**: Press `[1]` to **Change Active Dataset/Partition**. You can select from three options:
+   - **[1] Predefined Benchmark Partitions**: Standard partitions from CICIDS2017 (e.g., `Friday-WorkingHours-Morning.pcap_ISCX.csv`) and UNSW-NB15.
+   - **[2] Discovered Files in Project Data Directory**: Any CSV/TSV file residing in `Phase3/data/`.
+   - **[3] Custom Filesystem Path**: Enter an absolute or relative path to any external CSV/TSV file (handles surrounding quotes and spaces automatically).
+4. **Review Pre-Flight Schema Validation**:
+   When a partition is selected, ATLAS runs a bounded, non-destructive schema inspection (`inspect_custom_dataset_preflight`). It samples rows and checks headers without reading multi-gigabyte files into memory:
+   - **Label Column**: Automatically detected if named `Label`, `class`, or `attack`. If ambiguous, an interactive selection menu lists candidate columns for you to choose.
+   - **Benign Baseline**: Inferred automatically (`BENIGN`, `0`, `normal`). If ambiguous, an interactive menu allows you to select the benign class.
+   - **Confirmation Screen**: Displays the resolved path, file size, sampled rows, numeric feature count, confirmed label column, and confirmed benign value. Press `[1]` to confirm and set as active dataset.
+5. Press `[B]` to return to the Main Menu.
 
-Upon batch completion, ATLAS displays a post-run summary:
+### Step 4 — Run Your First Investigation
 
-- **Full Batch Report**: Press `[1]` to view the final audit report directly in the console. Complete Markdown dossiers are persisted to:
-  ```
-  Phase3/logs/final_batch_report_runs/<run_id>/final_report.md
-  ```
-- **Round Reports**: Scoped single-round reports are saved to:
-  ```
-  Phase3/logs/round_report_runs/<run_id>/round_report.md
-  ```
-- **Master Batch Ledgers**: Complete execution state, round manifests, and dataset provenance are recorded in:
-  ```
-  Phase3/logs/phase3a_runtime_runs/<run_id>/batch_ledger.json
-  ```
-- **Worker Execution Traces**: Step-by-step ReAct thought chains, tool inputs, and quantitative outputs are recorded in:
-  ```
-  Phase3/logs/worker_runs/<run_id>/
-  ```
+From the Research Console Main Menu, press `[1]` to enter **ATLAS Batch Runtime**. Choose an execution scope:
+
+- **[1] Full Batch Investigation (Recommended)**:
+  - Executes a complete 3-round autonomous investigation.
+  - Across 3 rounds, ATLAS plans 9 hypotheses, decomposes them into 27–30 worker tasks, dispatches ReAct worker agents with analytical tools, reconciles findings in the state store, performs Critic agent reviews, and synthesizes a final partition audit report.
+  - **Runtime & Cost**: Typically takes ~15 minutes and invokes LLM API calls across worker reasoning steps.
+- **[2] Full Round Investigation**:
+  - Executes a single complete round (3 hypotheses, 9 worker tasks, aggregation, and a single-round report). Takes ~5 minutes.
+- **[3] Cognitive-Only Pipeline (Fast Dry-Run)**:
+  - Executes semantic metadata extraction, defect framing, and initial hypothesis priority ranking **without** dispatching worker tool loops or invoking worker LLMs.
+  - **Runtime & Cost**: Takes ~30–60 seconds and incurs minimal LLM API usage. Excellent for testing API credentials and verifying dataset schema compatibility.
+
+#### What Happens During Execution
+While running, ATLAS streams real-time console messages:
+1. **Planning**: Decomposes qualitative hypotheses into concrete analytical task DAGs.
+2. **Worker Execution (ReAct Loop)**: Worker agents formulate thoughts, invoke deterministic statistical tools on the dataset partition (e.g., computing Kolmogorov-Smirnov statistics, correlations, or Gini impurity), observe quantitative outputs, and synthesize structured findings.
+3. **Aggregation & State Commits**: Merges worker findings, highlights contradictions, and advances canonical batch state ($v_1 \to v_4 \to v_7 \to v_{10}$).
+4. **Critic Review & Final Synthesis**: Audits the trajectory for analytical gaps and generates the final audit dossier.
+
+### Step 5 — Locate the Generated Results
+
+When the investigation completes, ATLAS presents a post-run summary menu. You can inspect results immediately in the terminal or navigate to persisted disk artifacts:
+
+| Output Artifact | Location on Disk | Description |
+| :--- | :--- | :--- |
+| **In-Terminal Report Viewer** | CLI post-run prompt (press `[1]`) | Renders formatted markdown audit dossier directly in the terminal console. |
+| **Consolidated Final Report** | `Phase3/logs/final_batch_report_runs/<run_id>/report.md` | Complete narrative audit dossier with executive summary, finding breakdown, modelling implications, and open uncertainties. |
+| **Round Audit Report** | `Phase3/logs/round_report_runs/<run_id>/report.md` | Scoped single-round report detailing worker findings from that round. |
+| **Master Batch Ledger** | `Phase3/logs/phase3a_runtime_runs/<run_id>/batch_ledger.json` | Comprehensive JSON record containing canonical state snapshots ($v_1 \dots v_{10}$), hypothesis trajectories, worker task manifests, and complete provenance. |
+| **Worker Execution Traces** | `Phase3/logs/worker_runs/<run_id>/` | Per-worker execution logs containing `tool_events.json` (exact tool inputs/outputs), `worker_result.json`, `prompt.txt`, and `raw_response.txt`. |
+
+### Step 6 — Interpret a Real Dataset-Quality Finding
+
+To understand what ATLAS reports look like in practice, consider this actual finding discovered during historical evaluation of the benchmark file **`CICIDS2017 / Friday-WorkingHours-Morning.pcap_ISCX.csv`** (Run 050 / Run 064):
+
+#### Finding Overview: Collinear Redundancy in Flow Headers
+- **Canonical Flaw Family**: *Strong Feature Dependency Pair (Collinear Redundancy)*
+- **Affected Features**: `Fwd Header Length` and `Fwd Header Length.1` (also confirmed between `Total Length of Fwd Packets` and `Subflow Fwd Bytes`).
+- **Severity & Confidence**: Impact 60/100 (Moderate), Confidence 70/100 (Strong).
+
+#### Quantitative Evidence Extracted by ATLAS Workers
+During Round 1, a ReAct worker assigned hypothesis `HYP-002` invoked the `feature_relation` tool:
+```json
+{
+  "tool": "feature_relation",
+  "feature_a": "Fwd Header Length",
+  "feature_b": "Fwd Header Length.1",
+  "metrics": {
+    "pearson_correlation": 1.0000,
+    "spearman_correlation": 1.0000,
+    "residual_variance": 0.0,
+    "identical_value_ratio": 1.0000
+  }
+}
+```
+The quantitative evidence confirmed that across all 191,033 flows in the partition, the values of `Fwd Header Length` and `Fwd Header Length.1` are 100% identical with zero residual variance.
+
+#### Why This is a Dataset Flaw (Literature Provenance)
+This finding is an autonomous recovery of a known defect in the **CICFlowMeter** feature extraction software (catalogued as defect **CIC-03** in published literature by Santos et al., 2021 and Panigrahi & Borah, 2018). Due to an extraction loop bug, CICFlowMeter computed the forward header length twice and appended it as a distinct column.
+
+#### Downstream Modelling Implications
+1. **Distorted Feature Importance**: Machine learning algorithms (such as Random Forests or XGBoost) split importance weights across duplicated features, artificially diluting genuine predictive signals.
+2. **Collinearity Instability**: Linear classifiers and regularized logistic regression become unstable when encountering exact collinearity ($r = 1.000$).
+3. **Shortcut Vulnerability**: Models can inadvertently learn extraction quirks or header padding specific to the capture tool rather than authentic packet dynamics.
+
+#### How a Researcher Should Remediate This
+In your data preprocessing pipeline prior to model training:
+```python
+# Drop redundant duplicate feature discovered by ATLAS
+df = df.drop(columns=["Fwd Header Length.1", "Subflow Fwd Bytes"])
+```
+
+#### Where to Verify in Historical Logs
+You can inspect the exact evidence for this finding in:
+- `Phase3/logs/final_batch_report_runs/final_batch_report_run_012_12-06_phase3a_batch_1206183423_friday_workingh/report.md` (Finding 2).
+- `Phase3/logs/phase3a_runtime_runs/phase3a_runtime_run_050_11-06_phase3a_batch_1106133035_friday_workingh/batch_ledger.json`.
+
+### Step 7 — What to Do Next
+
+Now that your first investigation is complete:
+1. **Browse Past Runs Interactively**: In the CLI Research Console, navigate to **ATLAS Batch Runtime** (`[1]`) -> **Review Past Runs** (`[4]`) to inspect round manifests, worker thoughts, tool calls, and state transitions.
+2. **Consult the Built-in Terminal Guide**: Run `python Phase3/interface/cli.py --usage` or choose `[3] How to Use ATLAS` to review component contracts, tool references, and diagnostic recipes.
+3. **Explore Thesis Experiments**: Select `[4] Thesis Experiments` on the CLI welcome screen to browse historical benchmark runs, canonical flaw families, and cross-model evaluation findings.
 
 ---
 
@@ -337,10 +431,10 @@ The framework supports two primary operational execution modes:
   <img src="docs/images/run_modalities.png" alt="Run Modalities" width="550"/>
 </p>
 
-*Figure 2: Execution modalities supported by the framework (Single-Run vs Multi-Round Batch Mode).*
+*Figure 2: Execution modalities supported by the framework (Single-Round vs Multi-Round Batch Mode).*
 
-- **Single Run (`main.py`)**: A self-contained, single-round pass designed for fast exploratory checks or component testing over a single partition.
-- **Batch Run (`main_phase3a_batch`)**: The authoritative multi-round auditing pipeline. Executes multiple coordinated investigation rounds with state persistence, hypothesis re-ranking, and consolidated trajectory auditing.
+- **Single Round Mode (`[2] Full Round` in CLI or programmatic single-round invocation)**: A self-contained, single-round pass designed for fast exploratory checks, baseline verification, or component testing over a single partition.
+- **Multi-Round Batch Mode (`[1] Full Batch` in CLI or `main_phase3a_batch` in `Phase3/main.py`)**: The authoritative multi-round auditing pipeline. Executes multiple coordinated investigation rounds with state persistence, hypothesis re-ranking, cross-finding aggregation, critic review, and consolidated trajectory auditing.
 
 ### 5.4 Batch Investigation Lifecycle
 
