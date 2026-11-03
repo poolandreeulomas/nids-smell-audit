@@ -10,6 +10,13 @@ from __future__ import annotations
 import json
 import os
 from pathlib import Path
+import sys
+
+if __package__ in {None, ""}:
+    phase3_root = Path(__file__).resolve().parent.parent
+    phase3_root_str = str(phase3_root)
+    if phase3_root_str not in sys.path:
+        sys.path.insert(0, phase3_root_str)
 
 import pandas as pd
 from scipy.spatial.distance import jensenshannon
@@ -281,15 +288,24 @@ def main():
 
         update_global_stats(global_dataset_stats, results)
 
+    def _sanitize_for_json(obj):
+        if isinstance(obj, dict):
+            return {str(k): _sanitize_for_json(v) for k, v in obj.items()}
+        if isinstance(obj, (list, tuple)):
+            return [_sanitize_for_json(v) for v in obj]
+        if hasattr(obj, "item"):
+            return obj.item()
+        return obj
+
     # Save JSON summary
-    with open("analysis_summary.json", "w") as f:
+    with open("analysis_summary.json", "w", encoding="utf-8") as f:
         final_results = {
             "segments": segment_results,
             "cross_segment_analysis": cross_segment_stats,
             "dataset_summary": global_dataset_stats
         }
 
-        json.dump(final_results, f, indent=4)
+        json.dump(_sanitize_for_json(final_results), f, indent=4)
 
     print("\nAnalysis saved to analysis_summary.json")
     print("\n=== PARTITION SUMMARY TABLE ===")
