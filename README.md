@@ -134,7 +134,7 @@ ATLAS provides distinct entry points tailored to different workflows:
 | **Interactive Terminal Console** *(Recommended)* | `python Phase3/interface/cli.py` | **Primary user interface.** Complete interactive workflow: dataset selection, schema disambiguation, pre-flight checks, batch orchestration, run review, and report navigation. |
 | **Direct Batch Runtime** *(Headless Execution)* | `python Phase3/main.py`<br>or `run_phase3a_batch()` | **Headless / Programmatic execution.** Directly executes multi-round batch investigations using environment variables (`NIDS_DATASET_PATH`, `OPENAI_MODEL`). Designed for cluster scripts, unattended batch jobs, and automated pipelines. *(Note: Runs the full pipeline but bypasses interactive menus and terminal report browsing).* |
 | **Scientific Reproduction Scripts** | `python evaluation/scripts/...` | **Historical analysis & reproducibility.** Read-only scripts (`validate_corpus.py`, `extract_metrics.py`, `aggregate_metrics.py`, `extract_findings.py`) that parse archived run artifacts in `Phase3/logs/` to reproduce thesis evaluation tables and metrics without LLM API calls. |
-| **Automated Software Test Suite** | `pytest tests/`<br>`pytest Phase3/tests/` | **Software quality assurance.** 240+ unit and integration tests verifying component contracts, state transitions, custom dataset schema inference, and orchestration logic using local mocks. Zero LLM API calls. |
+| **Automated Software Test Suite** | `pytest Phase3/tests/` | **Software quality assurance.** 240+ unit and integration tests verifying component contracts, state transitions, custom dataset schema inference, and orchestration logic using local mocks. Zero LLM API calls. |
 
 ### 2.3 Prerequisites & Installation
 
@@ -629,50 +629,65 @@ ATLAS supports auditing arbitrary network flow datasets. The framework automatic
 
 ```
 nids-smell-audit/
-├── Phase3/                                 # Primary runtime & application source
+├── Phase3/                                 # Primary runtime system & application source
 │   ├── interface/                         # Interactive CLI, terminal UI & guides
 │   │   ├── cli.py                         # Main interactive CLI entry point
 │   │   ├── terminal_ui.py                 # Terminal screen rendering & styling
 │   │   ├── welcome.py                     # Welcome screen & concept narratives
+│   │   ├── how_to_use.py                  # Interactive reference & diagnostic guide
+│   │   ├── phase3a_observability.py       # Live event stream & step observability
 │   │   └── thesis_experiments.py          # Thesis evaluation browser & catalogues
-│   ├── data/                              # Dataset loading, config & validation
+│   ├── data/                              # Dataset loading, config & validation layer
+│   │   ├── __init__.py                    # Data package initialization
 │   │   ├── dataset_config.py              # Benchmark & custom DatasetConfig contracts
-│   │   ├── loader.py                      # Tabular CSV/TSV loader & cleaner
-│   │   └── validation.py                  # Pre-flight schema validation & attack masks
+│   │   ├── loader.py                      # Tabular CSV/TSV loader & feature cleaner
+│   │   ├── validation.py                  # Pre-flight schema validation & attack masks
+│   │   ├── cic_ids_2017/                  # Benchmark partition directory (.gitkeep)
+│   │   └── UNSW_NB15/                     # Benchmark partition directory (.gitkeep)
 │   ├── phase3_runtime/                    # Multi-round batch orchestrator & ledger
 │   │   ├── orchestrator.py                # Core run_phase3a_batch engine
 │   │   ├── round_executor.py              # Single round orchestration
-│   │   └── ledger.py                      # BatchLedger & provenance tracking
-│   ├── semantic_extraction/               # Metadata extraction agent
-│   ├── investigation_analysis/            # Defect hypothesis formulation
-│   ├── hypothesis_ranking/                # Priority ranking
-│   ├── planner/                           # DAG task decomposition
-│   ├── router/                            # Task routing
+│   │   ├── ledger.py                      # BatchLedger & provenance tracking
+│   │   ├── context_builder.py             # Partition context and prompt assembly
+│   │   └── inter_hypothesis_aggregation.py # Cross-hypothesis synthesis & verification
+│   ├── semantic_extraction/               # Defect metadata extraction agent
+│   ├── investigation_analysis/            # Defect hypothesis formulation agent
+│   ├── hypothesis_ranking/                # Priority ranking agent
+│   ├── planner/                           # DAG task decomposition agent
+│   ├── router/                            # Task routing & tool assignment agent
 │   ├── worker/                            # ReAct worker execution engine
 │   ├── tools/                             # 9 analytical statistical tools
-│   ├── aggregation/                       # Finding aggregation & contradictions
+│   ├── aggregation/                       # Finding aggregation & contradiction detection
 │   ├── state_manager/                     # Authoritative canonical state management
-│   ├── critic/                            # Critic evaluation agent
+│   ├── critic/                            # Critic evaluation & dossier audit agent
 │   ├── final_batch_auditor/               # Trajectory synthesis auditor
 │   ├── final_batch_report/                # Markdown audit dossier generator
+│   ├── coverage_builder/                  # Investigation coverage tracking
+│   ├── dataset_runtime/                   # Multi-partition batch runtime
+│   ├── judge/                             # LLM-as-a-judge evaluation agent
+│   ├── validation_repair_engine/          # JSON repair and contract validation
+│   ├── src/                               # Exploration & data profiling utilities
+│   ├── utils/                             # Metrics, logging & OpenAI response handlers
+│   ├── tests/                             # Automated test suite (contracts, CLI & integration)
 │   ├── main.py                            # Batch runtime entry point
 │   ├── config.py                          # Global runtime paths and defaults
+│   ├── instrumentation.py                 # Execution metrics & step instrumentation
 │   ├── requirements.txt                   # Pinned Python dependencies
 │   ├── .env.example                       # Environment configuration template
-│   └── tests/                             # Phase 3 component test suite
+│   └── pytest.ini                         # Pytest configuration
 ├── evaluation/                            # Thesis evaluation pipeline & reproduction
-│   ├── scripts/                           # Reproducibility scripts (validate, extract, aggregate)
-│   ├── outputs/                           # Extracted metrics and validation reports
-│   ├── findings/                          # Canonical defect families and taxonomy
-│   └── README.md                          # Evaluation pipeline documentation
+│   ├── scripts/                           # Reproducibility scripts (validate, extract, aggregate, findings)
+│   ├── README.md                          # Evaluation pipeline & replication documentation
+│   └── .gitignore                         # Ignores generated evaluation artifacts
+├── archive/                               # Historical baseline evaluation runs
+│   └── reports/                           # Historical JIF & Judge benchmark logs
 ├── docs/                                  # Reference documentation & figures
 │   └── images/                            # Architecture and workflow figures
-├── tests/                                 # Root test suite (integration & custom dataset tests)
-│   ├── test_custom_dataset_selection.py   # Custom dataset selection & validation suite
-│   ├── test_dataset_runtime.py            # Dataset runtime contracts
-│   └── ...                                # Observability, state, and CLI test suites
-├── pytest.ini                             # Pytest configuration
-├── conftest.py                            # Shared test fixtures
+├── notes/                                 # Research notes & agent specifications
+│   ├── agents.md                          # Multi-agent role descriptions & constraints
+│   └── log.md                             # Experimental progress & development log
+├── .gitignore                             # Root Git ignore configuration
+├── README.md                              # Main system documentation & user guide
 └── TFG.pdf                                # Completed Bachelor's Thesis document
 ```
 
@@ -683,14 +698,15 @@ nids-smell-audit/
 ATLAS maintains comprehensive automated test suites covering component contracts, state transitions, custom dataset parsing, and end-to-end orchestration without invoking live LLM API calls:
 
 ```bash
-# Run root test suite (248 tests passing, verified)
-pytest tests/
+# Run complete test suite (from Phase3 directory or repository root)
+pytest Phase3/tests/
 
 # Run the custom dataset selection test suite (16 tests passing, verified)
-pytest tests/test_custom_dataset_selection.py -v
+pytest Phase3/tests/test_custom_dataset_selection.py -v
 
-# Run Phase 3 component tests
-pytest Phase3/tests/
+# Run specific component tests (e.g. tools, CLI, state manager)
+pytest Phase3/tests/test_tools_phase3a_runtime.py -v
+pytest Phase3/tests/test_cli_review_logic.py -v
 ```
 
 *Note: Software regression tests (`pytest`) verify code execution integrity, whereas the scripts in `evaluation/scripts/` reproduce scientific research metrics over historical dataset audit logs.*

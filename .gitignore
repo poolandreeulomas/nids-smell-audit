@@ -1,4 +1,8 @@
+# Bytecode cache
+__pycache__/
+*.py[cod]
 
+# Archives and testing scratch
 Phase3/data.zip
 *.zip
 prueba
